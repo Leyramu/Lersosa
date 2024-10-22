@@ -1,0 +1,73 @@
+# =========================== 服务器配置 ===========================
+server:
+  port: ${SERVER_PORT:8080}
+  compression:
+    enabled: true
+  ssl:
+    enabled: @SSL-ENABLED@
+    key-store: classpath:scg-keystore.p12
+    key-alias: ${spring.application.name}
+    key-store-type: PKCS12
+    key-store-password: Zcx@223852//
+    key-password: Zcx@223852//
+  http2:
+    enabled: @SSL-ENABLED@
+  forward-headers-strategy: native
+  shutdown: graceful
+  netty:
+    max-initial-line-length: 4096
+#  servlet:
+#    context-path: /api
+
+# =========================== spring 配置 ===========================
+spring:
+  threads:
+    virtual:
+      enabled: true
+  application:
+    name: @pom.artifactId@
+  profiles:
+    active: @PROFILE-ACTIVE@
+  webflux:
+    multipart:
+      max-parts: -1
+      max-disk-usage-per-part: -1
+      max-in-memory-size: 4096
+  cloud:
+    sentinel:
+      filter:
+        enabled: true
+      eager: true
+      transport:
+        dashboard: ${SENTINEL-SERVER-ADDRESS}
+      datasource:
+        ds1:
+          nacos:
+            server-addr: @NACOS-SERVER-ADDRESS@
+            username: @NACOS-USERNAME@
+            password: @NACOS-PASSWORD@
+            dataId: sentinel-${pom.artifactId}
+            groupId: ${NACOS-GATEWAY-GROUP}
+            data-type: json
+            rule-type: gw-flow
+    loadbalancer:
+      cache:
+        caffeine:
+          spec: initialCapacity=30,expireAfterWrite=30s,maximumSize=4096
+        enabled: true
+      nacos:
+        enabled: true
+    gateway:
+      httpclient:
+        ssl:
+          use-insecure-trust-manager: true
+        wiretap: false
+        pool:
+          max-idle-time: 10m
+          max-connections: 10000
+          max-life-time: 5m
+          type: fixed
+          acquire-timeout: 60000
+        connect-timeout: 60000
+      httpserver:
+        wiretap: false

@@ -1,0 +1,85 @@
+package leyramu.framework.lersosa.common.swagger.config;
+
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
+import leyramu.framework.lersosa.common.swagger.config.properties.SpringDocProperties;
+import org.springdoc.core.configuration.SpringDocConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Swagger 文档配置
+ *
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 1.0.0
+ * @since 2024/10/22
+ */
+@AutoConfiguration(before = SpringDocConfiguration.class)
+@EnableConfigurationProperties(SpringDocProperties.class)
+@ConditionalOnProperty(name = "springdoc.api-docs.enabled", havingValue = "true", matchIfMissing = true)
+public class SpringDocAutoConfiguration {
+
+    /**
+     * OpenAPI
+     *
+     * @param properties 属性
+     * @return OpenAPI
+     */
+    @Bean
+    @ConditionalOnMissingBean(OpenAPI.class)
+    public OpenAPI openApi(SpringDocProperties properties) {
+        return new OpenAPI().components(new Components()
+                        .addSecuritySchemes("apikey", securityScheme()))
+                .addSecurityItem(new SecurityRequirement().addList("apikey"))
+                .info(convertInfo(properties.getInfo()))
+                .servers(servers(properties.getGatewayUrl()));
+    }
+
+    /**
+     * 安全方案
+     */
+    public SecurityScheme securityScheme() {
+        return new SecurityScheme().type(SecurityScheme.Type.APIKEY)
+                .name("Authorization")
+                .in(SecurityScheme.In.HEADER)
+                .scheme("Bearer");
+    }
+
+    /**
+     * 配置信息
+     *
+     * @param infoProperties 属性
+     * @return Info
+     */
+    private Info convertInfo(SpringDocProperties.InfoProperties infoProperties) {
+        Info info = new Info();
+        info.setTitle(infoProperties.getTitle());
+        info.setDescription(infoProperties.getDescription());
+        info.setContact(infoProperties.getContact());
+        info.setLicense(infoProperties.getLicense());
+        info.setVersion(infoProperties.getVersion());
+        return info;
+    }
+
+    /**
+     * 网关地址
+     *
+     * @param gatewayUrl 网关地址
+     * @return List
+     */
+    public List<Server> servers(String gatewayUrl) {
+        List<Server> serverList = new ArrayList<>();
+        serverList.add(new Server().url(gatewayUrl));
+        return serverList;
+    }
+}

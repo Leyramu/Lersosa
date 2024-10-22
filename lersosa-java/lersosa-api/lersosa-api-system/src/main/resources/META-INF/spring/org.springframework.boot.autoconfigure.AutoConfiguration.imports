@@ -1,0 +1,3 @@
+leyramu.framework.lersosa.system.api.factory.RemoteUserFallbackFactory
+leyramu.framework.lersosa.system.api.factory.RemoteLogFallbackFactory
+leyramu.framework.lersosa.system.api.factory.RemoteFileFallbackFactory

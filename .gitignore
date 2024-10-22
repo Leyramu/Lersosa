@@ -1,0 +1,68 @@
+# 环境文件
+/.jdks/
+/.idea/shelf/
+/.idea/workspace.xml
+
+# 基于编辑器的 HTTP 客户端请求
+/.idea/httpRequests/
+
+# 数据源本地存储忽略的文件
+/.idea/dataSources/
+/.idea/dataSources.local.xml
+
+# gateway 模块 target 目标文件
+/lersosa-java/lersosa-gateway/lersosa-gateway-api/target/
+
+# service 模块 target 目标文件
+/lersosa-java/lersosa-service/lersosa-service-auth/target/
+/lersosa-java/lersosa-service/lersosa-service-file/target/
+/lersosa-java/lersosa-service/lersosa-service-gen/target/
+/lersosa-java/lersosa-service/lersosa-service-job/target/
+/lersosa-java/lersosa-service/lersosa-service-openai/target/
+/lersosa-java/lersosa-service/lersosa-service-permission/target/
+/lersosa-java/lersosa-service/lersosa-service-student/target/
+/lersosa-java/lersosa-service/lersosa-service-system/target/
+/lersosa-java/lersosa-service/lersosa-service-teacher/target/
+/lersosa-java/lersosa-service/lersosa-service-user/target/
+
+# api 模块 target 目标文件
+/lersosa-java/lersosa-api/lersosa-api-permission/target/
+/lersosa-java/lersosa-api/lersosa-api-user/target/
+/lersosa-java/lersosa-api/lersosa-api-student/target/
+/lersosa-java/lersosa-api/lersosa-api-system/target/
+/lersosa-java/lersosa-api/lersosa-api-teacher/target/
+
+# common 模块 target 目标文件
+/lersosa-java/lersosa-common/lersosa-common-algorithm/target/
+/lersosa-java/lersosa-common/lersosa-common-base/target/
+/lersosa-java/lersosa-common/lersosa-common-core/target/
+/lersosa-java/lersosa-common/lersosa-common-datascope/target/
+/lersosa-java/lersosa-common/lersosa-common-datasource/target/
+/lersosa-java/lersosa-common/lersosa-common-i18n/target/
+/lersosa-java/lersosa-common/lersosa-common-log/target/
+/lersosa-java/lersosa-common/lersosa-common-redis/target/
+/lersosa-java/lersosa-common/lersosa-common-security/target/
+/lersosa-java/lersosa-common/lersosa-common-sensitive/target/
+/lersosa-java/lersosa-common/lersosa-common-swagger/target/
+
+# cloud 模块 target 目标文件
+/lersosa-java/lersosa-cloud/lersosa-cloud-nacos/target/
+/lersosa-java/lersosa-cloud/lersosa-cloud-seata/target/
+/lersosa-java/lersosa-cloud/lersosa-cloud-sentinel/target/
+
+# swagger 模块 target 目标文件
+/lersosa-java/swagger-json/target/
+
+# monitor 模块 target 目标文件
+/lersosa-java/lersosa-visual/lersosa-visual-monitor/target/
+
+# 临时文件
+/work/
+
+# 日志文件
+/logs/
+/derby.log
+
+# docker 环境文件
+/docker/mysql/
+/docker/redis/

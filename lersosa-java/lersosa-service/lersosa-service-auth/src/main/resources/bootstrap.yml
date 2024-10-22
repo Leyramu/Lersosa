@@ -1,0 +1,18 @@
+# =========================== spring 配置 ===========================
+spring:
+  cloud:
+    nacos:
+      server-addr: ${NACOS-SERVER-ADDRESS}
+      username: ${NACOS-USERNAME}
+      password: ${NACOS-PASSWORD}
+      config:
+        group: ${NACOS-SERVICE-GROUP}
+        namespace: ${NACOS-NAMESPACE}
+        refresh-enabled: true
+        file-extension: yml
+        shared-configs:
+          - application-${PROFILE-ACTIVE}.${spring.cloud.nacos.config.file-extension}
+      discovery:
+        group: ${NACOS-SERVICE-GROUP}
+        namespace: ${NACOS-NAMESPACE}
+        cluster-name: ${pom.artifactId}
