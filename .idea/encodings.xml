@@ -39,6 +39,10 @@
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-gateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-auth/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-auth/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-job/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-job/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-openai/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-openai/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-system/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-system/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-systemuntitled/src/main/java" charset="UTF-8" />

@@ -10,12 +10,14 @@
         <module name="lersosa-cloud-nacos" />
         <module name="lersosa-cloud-seata" />
         <module name="lersosa-common-swagger" />
+        <module name="lersosa-service-job" />
         <module name="lersosa-common-i18n" />
         <module name="lersosa-common-core" />
         <module name="lersosa-common-datascope" />
         <module name="lersosa-common-datasource" />
         <module name="lersosa-common-log" />
         <module name="lersosa-service-system" />
+        <module name="lersosa-service-openai" />
         <module name="lersosa-common-security" />
         <module name="lersosa-common-sensitive" />
         <module name="lersosa-common-redis" />
@@ -58,6 +60,8 @@
       <module name="lersosa-java" options="-parameters" />
       <module name="lersosa-service" options="-parameters" />
       <module name="lersosa-service-auth" options="-parameters" />
+      <module name="lersosa-service-job" options="-parameters" />
+      <module name="lersosa-service-openai" options="-parameters" />
       <module name="lersosa-service-system" options="-parameters" />
     </option>
   </component>
