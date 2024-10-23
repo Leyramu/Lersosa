@@ -16,6 +16,7 @@ import leyramu.framework.lersosa.common.core.annotation.Excel.ColumnType;
 import leyramu.framework.lersosa.common.core.web.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -30,6 +31,7 @@ import java.util.Set;
  * @since 2024/10/22
  */
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class SysRole extends BaseEntity {
 
@@ -110,39 +112,71 @@ public class SysRole extends BaseEntity {
      */
     private Set<String> permissions;
 
-    public SysRole() {
-
-    }
-
+    /**
+     * 构造函数
+     *
+     * @param roleId 角色 ID
+     */
     public SysRole(Long roleId) {
         this.roleId = roleId;
     }
 
+    /**
+     * 是否为超级管理员
+     *
+     * @return 结果
+     */
     public boolean isAdmin() {
         return isAdmin(this.roleId);
     }
 
+    /**
+     * 是否为超级管理员
+     *
+     * @param roleId 角色 ID
+     * @return 结果
+     */
     public static boolean isAdmin(Long roleId) {
         return roleId != null && 1L == roleId;
     }
 
+    /**
+     * 获取角色名称
+     *
+     * @return 角色名称
+     */
     @NotBlank(message = "角色名称不能为空")
     @Size(max = 30, message = "角色名称长度不能超过30个字符")
     public String getRoleName() {
         return roleName;
     }
 
+    /**
+     * 获取权限字符
+     *
+     * @return 权限字符
+     */
     @NotBlank(message = "权限字符不能为空")
     @Size(max = 100, message = "权限字符长度不能超过100个字符")
     public String getRoleKey() {
         return roleKey;
     }
 
+    /**
+     * 获取角色顺序
+     *
+     * @return 角色顺序
+     */
     @NotNull(message = "显示顺序不能为空")
     public Integer getRoleSort() {
         return roleSort;
     }
 
+    /**
+     * 格式化输出
+     *
+     * @return 字符串
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)

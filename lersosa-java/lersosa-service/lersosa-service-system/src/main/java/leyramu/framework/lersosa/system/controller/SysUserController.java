@@ -8,6 +8,7 @@
 
 package leyramu.framework.lersosa.system.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import leyramu.framework.lersosa.common.core.domain.R;
 import leyramu.framework.lersosa.common.core.utils.StringUtils;
 import leyramu.framework.lersosa.common.core.utils.poi.ExcelUtil;
@@ -23,8 +24,6 @@ import leyramu.framework.lersosa.system.api.domain.SysDept;
 import leyramu.framework.lersosa.system.api.domain.SysRole;
 import leyramu.framework.lersosa.system.api.domain.SysUser;
 import leyramu.framework.lersosa.system.api.model.LoginUser;
-import leyramu.framework.lersosa.system.service.*;
-import jakarta.servlet.http.HttpServletResponse;
 import leyramu.framework.lersosa.system.service.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ArrayUtils;
@@ -48,20 +47,42 @@ import java.util.stream.Collectors;
 @RequestMapping("/user")
 public class SysUserController extends BaseController {
 
+    /**
+     * 用户管理服务
+     */
     private final ISysUserService userService;
 
+    /**
+     * 角色管理服务
+     */
     private final ISysRoleService roleService;
 
+    /**
+     * 部门管理服务
+     */
     private final ISysDeptService deptService;
 
+    /**
+     * 岗位管理服务
+     */
     private final ISysPostService postService;
 
+    /**
+     * 权限管理服务
+     */
     private final ISysPermissionService permissionService;
 
+    /**
+     * 参数管理服务
+     */
     private final ISysConfigService configService;
 
     /**
      * 获取用户列表
+     *
+     * @param user 用户信息
+     * @return 用户列表
+     * @apiNote 获取用户列表
      */
     @RequiresPermissions("system:user:list")
     @GetMapping("/list")
@@ -71,6 +92,13 @@ public class SysUserController extends BaseController {
         return getDataTable(list);
     }
 
+    /**
+     * 导出用户列表
+     *
+     * @param response 响应对象
+     * @param user     用户信息
+     * @apiNote 导出用户列表
+     */
     @Log(title = "用户管理", businessType = BusinessType.EXPORT)
     @RequiresPermissions("system:user:export")
     @PostMapping("/export")
@@ -80,6 +108,14 @@ public class SysUserController extends BaseController {
         util.exportExcel(response, list, "用户数据");
     }
 
+    /**
+     * 导入用户数据
+     *
+     * @param file          导入的用户数据
+     * @param updateSupport 是否更新已经存在的用户数据
+     * @return 结果
+     * @apiNote 导入用户数据
+     */
     @Log(title = "用户管理", businessType = BusinessType.IMPORT)
     @RequiresPermissions("system:user:import")
     @PostMapping("/importData")
@@ -91,6 +127,12 @@ public class SysUserController extends BaseController {
         return success(message);
     }
 
+    /**
+     * 导入用户数据模板
+     *
+     * @param response 响应对象
+     * @apiNote 导入用户数据模板
+     */
     @PostMapping("/importTemplate")
     public void importTemplate(HttpServletResponse response) {
         ExcelUtil<SysUser> util = new ExcelUtil<>(SysUser.class);
@@ -99,6 +141,10 @@ public class SysUserController extends BaseController {
 
     /**
      * 获取当前用户信息
+     *
+     * @param username 用户名
+     * @return 用户信息
+     * @apiNote 获取当前用户信息
      */
     @InnerAuth
     @GetMapping("/info/{username}")
@@ -107,9 +153,7 @@ public class SysUserController extends BaseController {
         if (StringUtils.isNull(sysUser)) {
             return R.fail("用户名或密码错误");
         }
-        // 角色集合
         Set<String> roles = permissionService.getRolePermission(sysUser);
-        // 权限集合
         Set<String> permissions = permissionService.getMenuPermission(sysUser);
         LoginUser sysUserVo = new LoginUser();
         sysUserVo.setSysUser(sysUser);
@@ -120,6 +164,10 @@ public class SysUserController extends BaseController {
 
     /**
      * 注册用户信息
+     *
+     * @param sysUser 用户信息
+     * @return 结果
+     * @apiNote 注册用户信息
      */
     @InnerAuth
     @PostMapping("/register")
@@ -128,7 +176,7 @@ public class SysUserController extends BaseController {
         if (!("true".equals(configService.selectConfigByKey("sys.account.registerUser")))) {
             return R.fail("当前系统没有开启注册功能！");
         }
-        if (!userService.checkUserNameUnique(sysUser)) {
+        if (userService.checkUserNameUnique(sysUser)) {
             return R.fail("保存用户'" + username + "'失败，注册账号已存在");
         }
         return R.ok(userService.registerUser(sysUser));
@@ -136,6 +184,10 @@ public class SysUserController extends BaseController {
 
     /**
      * 记录用户登录IP地址和登录时间
+     *
+     * @param sysUser 用户信息
+     * @return 结果
+     * @apiNote 记录用户登录IP地址和登录时间
      */
     @InnerAuth
     @PutMapping("/recordlogin")
@@ -147,13 +199,12 @@ public class SysUserController extends BaseController {
      * 获取用户信息
      *
      * @return 用户信息
+     * @apiNote 获取用户信息
      */
     @GetMapping("getInfo")
     public AjaxResult getInfo() {
         SysUser user = userService.selectUserById(SecurityUtils.getUserId());
-        // 角色集合
         Set<String> roles = permissionService.getRolePermission(user);
-        // 权限集合
         Set<String> permissions = permissionService.getMenuPermission(user);
         AjaxResult ajax = AjaxResult.success();
         ajax.put("user", user);
@@ -164,6 +215,10 @@ public class SysUserController extends BaseController {
 
     /**
      * 根据用户编号获取详细信息
+     *
+     * @param userId 用户 ID
+     * @return 用户详细信息
+     * @apiNote 根据用户编号获取详细信息
      */
     @RequiresPermissions("system:user:query")
     @GetMapping(value = {"/", "/{userId}"})
@@ -184,6 +239,10 @@ public class SysUserController extends BaseController {
 
     /**
      * 新增用户
+     *
+     * @param user 用户信息
+     * @return 结果
+     * @apiNote 新增用户
      */
     @RequiresPermissions("system:user:add")
     @Log(title = "用户管理", businessType = BusinessType.INSERT)
@@ -191,11 +250,11 @@ public class SysUserController extends BaseController {
     public AjaxResult add(@Validated @RequestBody SysUser user) {
         deptService.checkDeptDataScope(user.getDeptId());
         roleService.checkRoleDataScope(user.getRoleIds());
-        if (!userService.checkUserNameUnique(user)) {
+        if (userService.checkUserNameUnique(user)) {
             return error("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
-        } else if (StringUtils.isNotEmpty(user.getPhonenumber()) && !userService.checkPhoneUnique(user)) {
+        } else if (StringUtils.isNotEmpty(user.getPhonenumber()) && userService.checkPhoneUnique(user)) {
             return error("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
-        } else if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(user)) {
+        } else if (StringUtils.isNotEmpty(user.getEmail()) && userService.checkEmailUnique(user)) {
             return error("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
         user.setCreateBy(SecurityUtils.getUsername());
@@ -205,6 +264,10 @@ public class SysUserController extends BaseController {
 
     /**
      * 修改用户
+     *
+     * @param user 用户信息
+     * @return 结果
+     * @apiNote 修改用户
      */
     @RequiresPermissions("system:user:edit")
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
@@ -214,11 +277,11 @@ public class SysUserController extends BaseController {
         userService.checkUserDataScope(user.getUserId());
         deptService.checkDeptDataScope(user.getDeptId());
         roleService.checkRoleDataScope(user.getRoleIds());
-        if (!userService.checkUserNameUnique(user)) {
+        if (userService.checkUserNameUnique(user)) {
             return error("修改用户'" + user.getUserName() + "'失败，登录账号已存在");
-        } else if (StringUtils.isNotEmpty(user.getPhonenumber()) && !userService.checkPhoneUnique(user)) {
+        } else if (StringUtils.isNotEmpty(user.getPhonenumber()) && userService.checkPhoneUnique(user)) {
             return error("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
-        } else if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(user)) {
+        } else if (StringUtils.isNotEmpty(user.getEmail()) && userService.checkEmailUnique(user)) {
             return error("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
         user.setUpdateBy(SecurityUtils.getUsername());
@@ -227,6 +290,10 @@ public class SysUserController extends BaseController {
 
     /**
      * 删除用户
+     *
+     * @param userIds 用户ID串
+     * @return 结果
+     * @apiNote 删除用户
      */
     @RequiresPermissions("system:user:remove")
     @Log(title = "用户管理", businessType = BusinessType.DELETE)
@@ -240,6 +307,10 @@ public class SysUserController extends BaseController {
 
     /**
      * 重置密码
+     *
+     * @param user 用户信息
+     * @return 结果
+     * @apiNote 重置密码
      */
     @RequiresPermissions("system:user:edit")
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
@@ -254,6 +325,10 @@ public class SysUserController extends BaseController {
 
     /**
      * 状态修改
+     *
+     * @param user 用户信息
+     * @return 结果
+     * @apiNote 状态修改
      */
     @RequiresPermissions("system:user:edit")
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
@@ -267,6 +342,10 @@ public class SysUserController extends BaseController {
 
     /**
      * 根据用户编号获取授权角色
+     *
+     * @param userId 用户ID
+     * @return 授权角色信息
+     * @apiNote 根据用户编号获取授权角色
      */
     @RequiresPermissions("system:user:query")
     @GetMapping("/authRole/{userId}")
@@ -281,6 +360,10 @@ public class SysUserController extends BaseController {
 
     /**
      * 用户授权角色
+     *
+     * @param userId 用户ID
+     * @return 结果
+     * @apiNote 用户授权角色
      */
     @RequiresPermissions("system:user:edit")
     @Log(title = "用户管理", businessType = BusinessType.GRANT)
@@ -294,6 +377,10 @@ public class SysUserController extends BaseController {
 
     /**
      * 获取部门树列表
+     *
+     * @param dept 部门信息
+     * @return 部门树信息
+     * @apiNote 获取部门树列表
      */
     @RequiresPermissions("system:user:list")
     @GetMapping("/deptTree")

@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,7 +77,7 @@ public class AuthController {
         }
 
         if (StringUtils.isNotBlank(authUsername) && !authUsername.equals(username)
-            || StringUtils.isNotBlank(authPassword) && !authPassword.equals(password)) {
+                || StringUtils.isNotBlank(authPassword) && !authPassword.equals(password)) {
             LOGGER.error("Login failed: Invalid username or password, username={}", username);
             return Result.ofFail(-1, "Invalid username or password");
         }

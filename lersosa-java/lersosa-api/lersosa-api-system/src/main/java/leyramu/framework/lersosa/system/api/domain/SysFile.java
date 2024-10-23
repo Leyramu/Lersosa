@@ -32,6 +32,11 @@ public class SysFile {
      */
     private String url;
 
+    /**
+     * 格式化输出
+     *
+     * @return 字符串
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)

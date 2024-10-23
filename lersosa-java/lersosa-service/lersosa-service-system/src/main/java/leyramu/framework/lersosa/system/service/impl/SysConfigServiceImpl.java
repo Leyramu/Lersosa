@@ -35,8 +35,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SysConfigServiceImpl implements ISysConfigService {
 
+    /**
+     * 参数配置信息
+     */
     private final SysConfigMapper configMapper;
 
+    /**
+     * 缓存服务
+     */
     private final RedisService redisService;
 
     /**
@@ -185,9 +191,9 @@ public class SysConfigServiceImpl implements ISysConfigService {
         long configId = StringUtils.isNull(config.getConfigId()) ? -1L : config.getConfigId();
         SysConfig info = configMapper.checkConfigKeyUnique(config.getConfigKey());
         if (StringUtils.isNotNull(info) && info.getConfigId() != configId) {
-            return UserConstants.NOT_UNIQUE;
+            return !UserConstants.NOT_UNIQUE;
         }
-        return UserConstants.UNIQUE;
+        return !UserConstants.UNIQUE;
     }
 
     /**

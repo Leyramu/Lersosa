@@ -8,6 +8,7 @@
 
 package leyramu.framework.lersosa.system.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import leyramu.framework.lersosa.common.core.constant.CacheConstants;
 import leyramu.framework.lersosa.common.core.utils.poi.ExcelUtil;
 import leyramu.framework.lersosa.common.core.web.controller.BaseController;
@@ -20,7 +21,6 @@ import leyramu.framework.lersosa.common.security.annotation.InnerAuth;
 import leyramu.framework.lersosa.common.security.annotation.RequiresPermissions;
 import leyramu.framework.lersosa.system.api.domain.SysLogininfor;
 import leyramu.framework.lersosa.system.service.ISysLogininforService;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,10 +38,23 @@ import java.util.List;
 @RequestMapping("/logininfor")
 public class SysLogininforController extends BaseController {
 
+    /**
+     * 登录日志服务
+     */
     private final ISysLogininforService logininforService;
 
+    /**
+     * Redis 缓存服务
+     */
     private final RedisService redisService;
 
+    /**
+     * 获取登录日志列表
+     *
+     * @param logininfor 访问日志对象
+     * @return 登录日志集合
+     * @apiNote 获取登录日志列表
+     */
     @RequiresPermissions("system:logininfor:list")
     @GetMapping("/list")
     public TableDataInfo list(SysLogininfor logininfor) {
@@ -50,6 +63,13 @@ public class SysLogininforController extends BaseController {
         return getDataTable(list);
     }
 
+    /**
+     * 导出登录日志列表
+     *
+     * @param response   响应
+     * @param logininfor 访问日志对象
+     * @apiNote 导出登录日志列表
+     */
     @Log(title = "登录日志", businessType = BusinessType.EXPORT)
     @RequiresPermissions("system:logininfor:export")
     @PostMapping("/export")
@@ -59,6 +79,13 @@ public class SysLogininforController extends BaseController {
         util.exportExcel(response, list, "登录日志");
     }
 
+    /**
+     * 批量删除登录日志
+     *
+     * @param infoIds 登录日志 ID
+     * @return 删除结果
+     * @apiNote 批量删除登录日志
+     */
     @RequiresPermissions("system:logininfor:remove")
     @Log(title = "登录日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{infoIds}")
@@ -66,6 +93,12 @@ public class SysLogininforController extends BaseController {
         return toAjax(logininforService.deleteLogininforByIds(infoIds));
     }
 
+    /**
+     * 清空登录日志
+     *
+     * @return 清空结果
+     * @apiNote 清空登录日志
+     */
     @RequiresPermissions("system:logininfor:remove")
     @Log(title = "登录日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/clean")
@@ -74,6 +107,13 @@ public class SysLogininforController extends BaseController {
         return success();
     }
 
+    /**
+     * 解锁用户账户
+     *
+     * @param userName 用户名
+     * @return 结果
+     * @apiNote 解锁用户账户
+     */
     @RequiresPermissions("system:logininfor:unlock")
     @Log(title = "账户解锁", businessType = BusinessType.OTHER)
     @GetMapping("/unlock/{userName}")
@@ -82,6 +122,13 @@ public class SysLogininforController extends BaseController {
         return success();
     }
 
+    /**
+     * 新增系统登录日志
+     *
+     * @param logininfor 访问日志对象
+     * @return 结果
+     * @apiNote 新增系统登录日志
+     */
     @InnerAuth
     @PostMapping
     public AjaxResult add(@RequestBody SysLogininfor logininfor) {

@@ -32,6 +32,11 @@ public class SysRoleMenu {
      */
     private Long menuId;
 
+    /**
+     * 输出格式化
+     *
+     * @return 输出格式化
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)

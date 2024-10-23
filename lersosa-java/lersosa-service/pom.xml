@@ -25,11 +25,8 @@
         <module>lersosa-service-auth</module>
         <!--        <module>lersosa-service-file</module>-->
         <!--        <module>lersosa-service-gen</module>-->
-        <module>lersosa-service-job</module>
-        <!--        <module>lersosa-service-student</module>-->
-        <!--        <module>lersosa-service-permission</module>-->
+<!--        <module>lersosa-service-job</module>-->
         <module>lersosa-service-openai</module>
-        <!--        <module>lersosa-service-teacher</module>-->
         <module>lersosa-service-system</module>
     </modules>
 

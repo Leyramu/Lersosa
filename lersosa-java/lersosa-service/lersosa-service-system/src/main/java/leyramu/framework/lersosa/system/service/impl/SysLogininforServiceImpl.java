@@ -27,6 +27,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SysLogininforServiceImpl implements ISysLogininforService {
 
+    /**
+     * 登录日志数据层
+     */
     private final SysLogininforMapper logininforMapper;
 
     /**

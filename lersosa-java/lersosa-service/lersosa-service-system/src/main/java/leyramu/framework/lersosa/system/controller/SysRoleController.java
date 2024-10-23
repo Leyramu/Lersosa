@@ -8,6 +8,7 @@
 
 package leyramu.framework.lersosa.system.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import leyramu.framework.lersosa.common.core.utils.poi.ExcelUtil;
 import leyramu.framework.lersosa.common.core.web.controller.BaseController;
 import leyramu.framework.lersosa.common.core.web.domain.AjaxResult;
@@ -23,7 +24,6 @@ import leyramu.framework.lersosa.system.domain.SysUserRole;
 import leyramu.framework.lersosa.system.service.ISysDeptService;
 import leyramu.framework.lersosa.system.service.ISysRoleService;
 import leyramu.framework.lersosa.system.service.ISysUserService;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -42,12 +42,28 @@ import java.util.List;
 @RequestMapping("/role")
 public class SysRoleController extends BaseController {
 
+    /**
+     * 角色管理服务
+     */
     private final ISysRoleService roleService;
 
+    /**
+     * 用户管理服务
+     */
     private final ISysUserService userService;
 
+    /**
+     * 部门管理服务
+     */
     private final ISysDeptService deptService;
 
+    /**
+     * 获取角色列表
+     *
+     * @param role 角色信息
+     * @return 角色列表
+     * @apiNote 获取角色列表
+     */
     @RequiresPermissions("system:role:list")
     @GetMapping("/list")
     public TableDataInfo list(SysRole role) {
@@ -56,6 +72,13 @@ public class SysRoleController extends BaseController {
         return getDataTable(list);
     }
 
+    /**
+     * 导出角色列表
+     *
+     * @param response 响应
+     * @param role     角色信息
+     * @apiNote 导出角色列表
+     */
     @Log(title = "角色管理", businessType = BusinessType.EXPORT)
     @RequiresPermissions("system:role:export")
     @PostMapping("/export")
@@ -67,6 +90,9 @@ public class SysRoleController extends BaseController {
 
     /**
      * 根据角色编号获取详细信息
+     *
+     * @param roleId 角色 ID
+     * @apiNote 获取角色详情
      */
     @RequiresPermissions("system:role:query")
     @GetMapping(value = "/{roleId}")
@@ -77,14 +103,18 @@ public class SysRoleController extends BaseController {
 
     /**
      * 新增角色
+     *
+     * @param role 角色信息
+     * @return 结果
+     * @apiNote 新增角色
      */
     @RequiresPermissions("system:role:add")
     @Log(title = "角色管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysRole role) {
-        if (!roleService.checkRoleNameUnique(role)) {
+        if (roleService.checkRoleNameUnique(role)) {
             return error("新增角色'" + role.getRoleName() + "'失败，角色名称已存在");
-        } else if (!roleService.checkRoleKeyUnique(role)) {
+        } else if (roleService.checkRoleKeyUnique(role)) {
             return error("新增角色'" + role.getRoleName() + "'失败，角色权限已存在");
         }
         role.setCreateBy(SecurityUtils.getUsername());
@@ -94,6 +124,10 @@ public class SysRoleController extends BaseController {
 
     /**
      * 修改保存角色
+     *
+     * @param role 角色信息
+     * @return 结果
+     * @apiNote 修改保存角色
      */
     @RequiresPermissions("system:role:edit")
     @Log(title = "角色管理", businessType = BusinessType.UPDATE)
@@ -101,9 +135,9 @@ public class SysRoleController extends BaseController {
     public AjaxResult edit(@Validated @RequestBody SysRole role) {
         roleService.checkRoleAllowed(role);
         roleService.checkRoleDataScope(role.getRoleId());
-        if (!roleService.checkRoleNameUnique(role)) {
+        if (roleService.checkRoleNameUnique(role)) {
             return error("修改角色'" + role.getRoleName() + "'失败，角色名称已存在");
-        } else if (!roleService.checkRoleKeyUnique(role)) {
+        } else if (roleService.checkRoleKeyUnique(role)) {
             return error("修改角色'" + role.getRoleName() + "'失败，角色权限已存在");
         }
         role.setUpdateBy(SecurityUtils.getUsername());
@@ -112,6 +146,10 @@ public class SysRoleController extends BaseController {
 
     /**
      * 修改保存数据权限
+     *
+     * @param role 角色信息
+     * @return 结果
+     * @apiNote 修改保存数据权限
      */
     @RequiresPermissions("system:role:edit")
     @Log(title = "角色管理", businessType = BusinessType.UPDATE)
@@ -124,6 +162,10 @@ public class SysRoleController extends BaseController {
 
     /**
      * 状态修改
+     *
+     * @param role 角色信息
+     * @return 结果
+     * @apiNote 状态修改
      */
     @RequiresPermissions("system:role:edit")
     @Log(title = "角色管理", businessType = BusinessType.UPDATE)
@@ -137,6 +179,10 @@ public class SysRoleController extends BaseController {
 
     /**
      * 删除角色
+     *
+     * @param roleIds 角色 ID
+     * @return 结果
+     * @apiNote 删除角色
      */
     @RequiresPermissions("system:role:remove")
     @Log(title = "角色管理", businessType = BusinessType.DELETE)
@@ -147,6 +193,9 @@ public class SysRoleController extends BaseController {
 
     /**
      * 获取角色选择框列表
+     *
+     * @return 角色列表
+     * @apiNote 获取角色选择框列表
      */
     @RequiresPermissions("system:role:query")
     @GetMapping("/optionselect")
@@ -156,6 +205,10 @@ public class SysRoleController extends BaseController {
 
     /**
      * 查询已分配用户角色列表
+     *
+     * @param user 用户信息
+     * @return 用户列表
+     * @apiNote 查询已分配用户角色列表
      */
     @RequiresPermissions("system:role:list")
     @GetMapping("/authUser/allocatedList")
@@ -167,6 +220,10 @@ public class SysRoleController extends BaseController {
 
     /**
      * 查询未分配用户角色列表
+     *
+     * @param user 用户信息
+     * @return 用户列表
+     * @apiNote 查询未分配用户角色列表
      */
     @RequiresPermissions("system:role:list")
     @GetMapping("/authUser/unallocatedList")
@@ -178,6 +235,10 @@ public class SysRoleController extends BaseController {
 
     /**
      * 取消授权用户
+     *
+     * @param userRole 用户和角色关联信息
+     * @return 结果
+     * @apiNote 取消授权用户
      */
     @RequiresPermissions("system:role:edit")
     @Log(title = "角色管理", businessType = BusinessType.GRANT)
@@ -188,6 +249,10 @@ public class SysRoleController extends BaseController {
 
     /**
      * 批量取消授权用户
+     *
+     * @param roleId 角色 ID
+     * @return 结果
+     * @apiNote 批量取消授权用户
      */
     @RequiresPermissions("system:role:edit")
     @Log(title = "角色管理", businessType = BusinessType.GRANT)
@@ -198,6 +263,11 @@ public class SysRoleController extends BaseController {
 
     /**
      * 批量选择用户授权
+     *
+     * @param roleId  角色 ID
+     * @param userIds 用户 ID
+     * @return 结果
+     * @apiNote 批量选择用户授权
      */
     @RequiresPermissions("system:role:edit")
     @Log(title = "角色管理", businessType = BusinessType.GRANT)
@@ -209,6 +279,10 @@ public class SysRoleController extends BaseController {
 
     /**
      * 获取对应角色部门树列表
+     *
+     * @param roleId 角色 ID
+     * @return 角色部门树
+     * @apiNote 获取对应角色部门树列表
      */
     @RequiresPermissions("system:role:query")
     @GetMapping(value = "/deptTree/{roleId}")

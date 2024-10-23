@@ -32,6 +32,9 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 public class SysPost extends BaseEntity {
 
+    /**
+     * 序列化版本号
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -70,23 +73,43 @@ public class SysPost extends BaseEntity {
      */
     private boolean flag = false;
 
+    /**
+     * 获取岗位编码
+     *
+     * @return 岗位编码
+     */
     @NotBlank(message = "岗位编码不能为空")
     @Size(max = 64, message = "岗位编码长度不能超过64个字符")
     public String getPostCode() {
         return postCode;
     }
 
+    /**
+     * 获取岗位名称
+     *
+     * @return 岗位名称
+     */
     @NotBlank(message = "岗位名称不能为空")
     @Size(max = 50, message = "岗位名称长度不能超过50个字符")
     public String getPostName() {
         return postName;
     }
 
+    /**
+     * 获取岗位排序
+     *
+     * @return 岗位排序
+     */
     @NotNull(message = "显示顺序不能为空")
     public Integer getPostSort() {
         return postSort;
     }
 
+    /**
+     * 设置岗位编码
+     *
+     * @return 岗位编码
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)

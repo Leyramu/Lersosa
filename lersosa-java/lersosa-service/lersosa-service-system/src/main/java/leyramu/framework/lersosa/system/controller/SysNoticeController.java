@@ -35,11 +35,17 @@ import java.util.List;
 @RequestMapping("/notice")
 public class SysNoticeController extends BaseController {
 
-
+    /**
+     * 通知公告服务
+     */
     private final ISysNoticeService noticeService;
 
     /**
      * 获取通知公告列表
+     *
+     * @param notice 通知公告信息
+     * @return 列表信息
+     * @apiNote 获取通知公告列表
      */
     @RequiresPermissions("system:notice:list")
     @GetMapping("/list")
@@ -51,6 +57,10 @@ public class SysNoticeController extends BaseController {
 
     /**
      * 根据通知公告编号获取详细信息
+     *
+     * @param noticeId 通知公告 ID
+     * @return 详细信息
+     * @apiNote 根据通知公告编号获取详细信息
      */
     @RequiresPermissions("system:notice:query")
     @GetMapping(value = "/{noticeId}")
@@ -60,6 +70,10 @@ public class SysNoticeController extends BaseController {
 
     /**
      * 新增通知公告
+     *
+     * @param notice 通知公告信息
+     * @return 结果
+     * @apiNote 新增通知公告
      */
     @RequiresPermissions("system:notice:add")
     @Log(title = "通知公告", businessType = BusinessType.INSERT)
@@ -71,6 +85,10 @@ public class SysNoticeController extends BaseController {
 
     /**
      * 修改通知公告
+     *
+     * @param notice 通知公告信息
+     * @return 结果
+     * @apiNote 修改通知公告
      */
     @RequiresPermissions("system:notice:edit")
     @Log(title = "通知公告", businessType = BusinessType.UPDATE)
@@ -82,6 +100,10 @@ public class SysNoticeController extends BaseController {
 
     /**
      * 删除通知公告
+     *
+     * @param noticeIds 通知公告 ID
+     * @return 结果
+     * @apiNote 删除通知公告
      */
     @RequiresPermissions("system:notice:remove")
     @Log(title = "通知公告", businessType = BusinessType.DELETE)

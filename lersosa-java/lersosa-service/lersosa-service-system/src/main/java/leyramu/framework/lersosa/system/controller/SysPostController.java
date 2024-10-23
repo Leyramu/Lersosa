@@ -37,10 +37,17 @@ import java.util.List;
 @RequestMapping("/post")
 public class SysPostController extends BaseController {
 
+    /**
+     * 岗位管理服务
+     */
     private final ISysPostService postService;
 
     /**
      * 获取岗位列表
+     *
+     * @param post 岗位信息
+     * @return 岗位列表
+     * @apiNote 获取岗位列表
      */
     @RequiresPermissions("system:post:list")
     @GetMapping("/list")
@@ -50,6 +57,13 @@ public class SysPostController extends BaseController {
         return getDataTable(list);
     }
 
+    /**
+     * 导出岗位列表
+     *
+     * @param response 响应对象
+     * @param post     岗位信息
+     * @apiNote 导出岗位列表
+     */
     @Log(title = "岗位管理", businessType = BusinessType.EXPORT)
     @RequiresPermissions("system:post:export")
     @PostMapping("/export")
@@ -61,6 +75,10 @@ public class SysPostController extends BaseController {
 
     /**
      * 根据岗位编号获取详细信息
+     *
+     * @param postId 岗位 ID
+     * @return 岗位详细信息
+     * @apiNote 根据岗位编号获取详细信息
      */
     @RequiresPermissions("system:post:query")
     @GetMapping(value = "/{postId}")
@@ -70,6 +88,10 @@ public class SysPostController extends BaseController {
 
     /**
      * 新增岗位
+     *
+     * @param post 岗位信息
+     * @return 结果
+     * @apiNote 新增岗位
      */
     @RequiresPermissions("system:post:add")
     @Log(title = "岗位管理", businessType = BusinessType.INSERT)
@@ -86,6 +108,10 @@ public class SysPostController extends BaseController {
 
     /**
      * 修改岗位
+     *
+     * @param post 岗位信息
+     * @return 结果
+     * @apiNote 修改岗位
      */
     @RequiresPermissions("system:post:edit")
     @Log(title = "岗位管理", businessType = BusinessType.UPDATE)
@@ -102,6 +128,10 @@ public class SysPostController extends BaseController {
 
     /**
      * 删除岗位
+     *
+     * @param postIds 岗位 ID
+     * @return 结果
+     * @apiNote 删除岗位
      */
     @RequiresPermissions("system:post:remove")
     @Log(title = "岗位管理", businessType = BusinessType.DELETE)
@@ -110,8 +140,12 @@ public class SysPostController extends BaseController {
         return toAjax(postService.deletePostByIds(postIds));
     }
 
+
     /**
      * 获取岗位选择框列表
+     *
+     * @return 选中
+     * @apiNote 获取岗位选择框列表
      */
     @GetMapping("/optionselect")
     public AjaxResult optionselect() {

@@ -43,23 +43,51 @@ public class MetaVo {
      */
     private String link;
 
+    /**
+     * 构造方法
+     *
+     * @param title 标题
+     * @param icon  图标
+     */
     public MetaVo(String title, String icon) {
         this.title = title;
         this.icon = icon;
     }
 
+    /**
+     * 构造方法
+     *
+     * @param title   标题
+     * @param icon    图标
+     * @param noCache 是否缓存
+     */
     public MetaVo(String title, String icon, boolean noCache) {
         this.title = title;
         this.icon = icon;
         this.noCache = noCache;
     }
 
+    /**
+     * 构造方法
+     *
+     * @param title 标题
+     * @param icon  图标
+     * @param link  内链地址
+     */
     public MetaVo(String title, String icon, String link) {
         this.title = title;
         this.icon = icon;
         this.link = link;
     }
 
+    /**
+     * 构造方法
+     *
+     * @param title   标题
+     * @param icon    图标
+     * @param noCache 是否缓存
+     * @param link    内链地址
+     */
     public MetaVo(String title, String icon, boolean noCache, String link) {
         this.title = title;
         this.icon = icon;

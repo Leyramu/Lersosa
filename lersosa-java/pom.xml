@@ -88,7 +88,7 @@
 
     <!--      属性      -->
     <properties>
-        <java.version>23</java.version>
+        <java.version>22</java.version>
         <spring-ai.version>0.8.1</spring-ai.version>
         <spring-boot.version>3.3.4</spring-boot.version>
         <spring-cloud.version>2023.0.3</spring-cloud.version>

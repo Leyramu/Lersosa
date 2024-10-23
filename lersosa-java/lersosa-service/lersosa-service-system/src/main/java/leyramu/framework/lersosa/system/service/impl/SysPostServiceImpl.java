@@ -31,8 +31,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SysPostServiceImpl implements ISysPostService {
 
+    /**
+     * 岗位信息数据层
+     */
     private final SysPostMapper postMapper;
 
+    /**
+     * 用户与岗位关联数据层
+     */
     private final SysUserPostMapper userPostMapper;
 
     /**

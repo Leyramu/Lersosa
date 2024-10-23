@@ -34,8 +34,14 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class SysPermissionServiceImpl implements ISysPermissionService {
 
+    /**
+     * 角色权限数据层
+     */
     private final ISysRoleService roleService;
 
+    /**
+     * 菜单服务数据层
+     */
     private final ISysMenuService menuService;
 
     /**

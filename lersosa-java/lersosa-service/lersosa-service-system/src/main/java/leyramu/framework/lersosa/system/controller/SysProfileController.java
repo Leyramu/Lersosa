@@ -41,14 +41,26 @@ import java.util.Arrays;
 @RequestMapping("/user/profile")
 public class SysProfileController extends BaseController {
 
+    /**
+     * 用户信息服务
+     */
     private final ISysUserService userService;
 
+    /**
+     * 令牌服务
+     */
     private final TokenService tokenService;
 
+    /**
+     * 远程文件服务
+     */
     private final RemoteFileService remoteFileService;
 
     /**
-     * 个人信息
+     * 获取当前登录用户信息
+     *
+     * @return 个人信息
+     * @apiNote 获取当前登录用户信息
      */
     @GetMapping
     public AjaxResult profile() {
@@ -62,6 +74,10 @@ public class SysProfileController extends BaseController {
 
     /**
      * 修改用户
+     *
+     * @param user 用户信息
+     * @return 结果
+     * @apiNote 修改用户
      */
     @Log(title = "个人信息", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -72,14 +88,13 @@ public class SysProfileController extends BaseController {
         currentUser.setEmail(user.getEmail());
         currentUser.setPhonenumber(user.getPhonenumber());
         currentUser.setSex(user.getSex());
-        if (StringUtils.isNotEmpty(user.getPhonenumber()) && !userService.checkPhoneUnique(currentUser)) {
+        if (StringUtils.isNotEmpty(user.getPhonenumber()) && userService.checkPhoneUnique(currentUser)) {
             return error("修改用户'" + loginUser.getUsername() + "'失败，手机号码已存在");
         }
-        if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(currentUser)) {
+        if (StringUtils.isNotEmpty(user.getEmail()) && userService.checkEmailUnique(currentUser)) {
             return error("修改用户'" + loginUser.getUsername() + "'失败，邮箱账号已存在");
         }
         if (userService.updateUserProfile(currentUser)) {
-            // 更新缓存用户信息
             tokenService.setLoginUser(loginUser);
             return success();
         }
@@ -88,6 +103,11 @@ public class SysProfileController extends BaseController {
 
     /**
      * 重置密码
+     *
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     * @return 结果
+     * @apiNote 重置密码
      */
     @Log(title = "个人信息", businessType = BusinessType.UPDATE)
     @PutMapping("/updatePwd")
@@ -103,7 +123,6 @@ public class SysProfileController extends BaseController {
         }
         newPassword = SecurityUtils.encryptPassword(newPassword);
         if (userService.resetUserPwd(username, newPassword) > 0) {
-            // 更新缓存用户密码
             LoginUser loginUser = SecurityUtils.getLoginUser();
             loginUser.getSysUser().setPassword(newPassword);
             tokenService.setLoginUser(loginUser);
@@ -114,6 +133,10 @@ public class SysProfileController extends BaseController {
 
     /**
      * 头像上传
+     *
+     * @param file 文件
+     * @return 结果
+     * @apiNote 头像上传
      */
     @Log(title = "用户头像", businessType = BusinessType.UPDATE)
     @PostMapping("/avatar")
@@ -132,7 +155,6 @@ public class SysProfileController extends BaseController {
             if (userService.updateUserAvatar(loginUser.getUsername(), url)) {
                 AjaxResult ajax = AjaxResult.success();
                 ajax.put("imgUrl", url);
-                // 更新缓存用户头像
                 loginUser.getSysUser().setAvatar(url);
                 tokenService.setLoginUser(loginUser);
                 return ajax;

@@ -37,8 +37,18 @@ import java.util.List;
 @RequestMapping("/dict/type")
 public class SysDictTypeController extends BaseController {
 
+    /**
+     * 字典类型信息
+     */
     private final ISysDictTypeService dictTypeService;
 
+    /**
+     * 查询字典类型列表
+     *
+     * @param dictType 字典类型信息
+     * @return 列表
+     * @apiNote 查询字典类型列表
+     */
     @RequiresPermissions("system:dict:list")
     @GetMapping("/list")
     public TableDataInfo list(SysDictType dictType) {
@@ -47,6 +57,13 @@ public class SysDictTypeController extends BaseController {
         return getDataTable(list);
     }
 
+    /**
+     * 导出字典类型列表
+     *
+     * @param response 响应
+     * @param dictType 字典类型信息
+     * @apiNote 导出字典类型列表
+     */
     @Log(title = "字典类型", businessType = BusinessType.EXPORT)
     @RequiresPermissions("system:dict:export")
     @PostMapping("/export")
@@ -58,6 +75,10 @@ public class SysDictTypeController extends BaseController {
 
     /**
      * 查询字典类型详细
+     *
+     * @param dictId 字典类型 ID
+     * @return 详细信息
+     * @apiNote 查询字典类型详细
      */
     @RequiresPermissions("system:dict:query")
     @GetMapping(value = "/{dictId}")
@@ -67,12 +88,16 @@ public class SysDictTypeController extends BaseController {
 
     /**
      * 新增字典类型
+     *
+     * @param dict 字典类型信息
+     * @return 结果
+     * @apiNote 新增字典类型
      */
     @RequiresPermissions("system:dict:add")
     @Log(title = "字典类型", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysDictType dict) {
-        if (!dictTypeService.checkDictTypeUnique(dict)) {
+        if (dictTypeService.checkDictTypeUnique(dict)) {
             return error("新增字典'" + dict.getDictName() + "'失败，字典类型已存在");
         }
         dict.setCreateBy(SecurityUtils.getUsername());
@@ -81,12 +106,16 @@ public class SysDictTypeController extends BaseController {
 
     /**
      * 修改字典类型
+     *
+     * @param dict 字典类型信息
+     * @return 结果
+     * @apiNote 修改字典类型
      */
     @RequiresPermissions("system:dict:edit")
     @Log(title = "字典类型", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysDictType dict) {
-        if (!dictTypeService.checkDictTypeUnique(dict)) {
+        if (dictTypeService.checkDictTypeUnique(dict)) {
             return error("修改字典'" + dict.getDictName() + "'失败，字典类型已存在");
         }
         dict.setUpdateBy(SecurityUtils.getUsername());
@@ -95,6 +124,10 @@ public class SysDictTypeController extends BaseController {
 
     /**
      * 删除字典类型
+     *
+     * @param dictIds 字典类型 ID
+     * @return 结果
+     * @apiNote 删除字典类型
      */
     @RequiresPermissions("system:dict:remove")
     @Log(title = "字典类型", businessType = BusinessType.DELETE)
@@ -106,6 +139,9 @@ public class SysDictTypeController extends BaseController {
 
     /**
      * 刷新字典缓存
+     *
+     * @return 结果
+     * @apiNote 刷新字典缓存
      */
     @RequiresPermissions("system:dict:remove")
     @Log(title = "字典类型", businessType = BusinessType.CLEAN)

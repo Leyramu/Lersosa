@@ -8,10 +8,10 @@
 
 package leyramu.framework.lersosa.system.domain;
 
-import leyramu.framework.lersosa.common.core.web.domain.BaseEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import leyramu.framework.lersosa.common.core.web.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -32,6 +32,9 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class SysMenu extends BaseEntity {
 
+    /**
+     * 序列化版本号
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 

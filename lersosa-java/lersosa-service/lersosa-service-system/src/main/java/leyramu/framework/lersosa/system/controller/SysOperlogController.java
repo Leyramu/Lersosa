@@ -8,6 +8,7 @@
 
 package leyramu.framework.lersosa.system.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import leyramu.framework.lersosa.common.core.utils.poi.ExcelUtil;
 import leyramu.framework.lersosa.common.core.web.controller.BaseController;
 import leyramu.framework.lersosa.common.core.web.domain.AjaxResult;
@@ -18,7 +19,6 @@ import leyramu.framework.lersosa.common.security.annotation.InnerAuth;
 import leyramu.framework.lersosa.common.security.annotation.RequiresPermissions;
 import leyramu.framework.lersosa.system.api.domain.SysOperLog;
 import leyramu.framework.lersosa.system.service.ISysOperLogService;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +36,18 @@ import java.util.List;
 @RequestMapping("/operlog")
 public class SysOperlogController extends BaseController {
 
+    /**
+     * 操作日志记录
+     */
     private final ISysOperLogService operLogService;
 
+    /**
+     * 查询操作日志记录列表
+     *
+     * @param operLog 操作日志记录
+     * @return 列表
+     * @apiNote 查询操作日志记录列表
+     */
     @RequiresPermissions("system:operlog:list")
     @GetMapping("/list")
     public TableDataInfo list(SysOperLog operLog) {
@@ -46,6 +56,13 @@ public class SysOperlogController extends BaseController {
         return getDataTable(list);
     }
 
+    /**
+     * 导出操作日志记录列表
+     *
+     * @param response 响应
+     * @param operLog  操作日志记录
+     * @apiNote 导出操作日志记录列表
+     */
     @Log(title = "操作日志", businessType = BusinessType.EXPORT)
     @RequiresPermissions("system:operlog:export")
     @PostMapping("/export")
@@ -55,6 +72,13 @@ public class SysOperlogController extends BaseController {
         util.exportExcel(response, list, "操作日志");
     }
 
+    /**
+     * 删除操作日志记录
+     *
+     * @param operIds 操作日志记录ID
+     * @return 结果
+     * @apiNote 删除操作日志记录
+     */
     @Log(title = "操作日志", businessType = BusinessType.DELETE)
     @RequiresPermissions("system:operlog:remove")
     @DeleteMapping("/{operIds}")
@@ -62,6 +86,12 @@ public class SysOperlogController extends BaseController {
         return toAjax(operLogService.deleteOperLogByIds(operIds));
     }
 
+    /**
+     * 清空操作日志记录
+     *
+     * @return 结果
+     * @apiNote 清空操作日志记录
+     */
     @RequiresPermissions("system:operlog:remove")
     @Log(title = "操作日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
@@ -70,6 +100,13 @@ public class SysOperlogController extends BaseController {
         return success();
     }
 
+    /**
+     * 查询操作日志详细
+     *
+     * @param operLog 操作日志记录
+     * @return 操作日志记录
+     * @apiNote 查询操作日志详细
+     */
     @InnerAuth
     @PostMapping
     public AjaxResult add(@RequestBody SysOperLog operLog) {

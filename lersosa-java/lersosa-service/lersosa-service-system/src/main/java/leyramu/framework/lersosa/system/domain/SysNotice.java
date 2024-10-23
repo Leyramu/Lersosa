@@ -30,6 +30,9 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 public class SysNotice extends BaseEntity {
 
+    /**
+     * 序列化版本号
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -58,6 +61,11 @@ public class SysNotice extends BaseEntity {
      */
     private String status;
 
+    /**
+     * 获取公告标题
+     *
+     * @return 公告标题
+     */
     @Xss(message = "公告标题不能包含脚本字符")
     @NotBlank(message = "公告标题不能为空")
     @Size(max = 50, message = "公告标题不能超过50个字符")
@@ -65,6 +73,11 @@ public class SysNotice extends BaseEntity {
         return noticeTitle;
     }
 
+    /**
+     * 获取公告类型
+     *
+     * @return 公告类型
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)

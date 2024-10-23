@@ -27,6 +27,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SysNoticeServiceImpl implements ISysNoticeService {
 
+    /**
+     * 公告表数据层
+     */
     private final SysNoticeMapper noticeMapper;
 
     /**

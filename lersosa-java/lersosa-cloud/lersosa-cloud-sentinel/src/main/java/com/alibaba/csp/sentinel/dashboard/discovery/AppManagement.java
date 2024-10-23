@@ -10,7 +10,6 @@ package com.alibaba.csp.sentinel.dashboard.discovery;
 
 import com.alibaba.csp.sentinel.util.StringUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 

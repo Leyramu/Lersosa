@@ -8,6 +8,7 @@
 
 package leyramu.framework.lersosa.system.service.impl;
 
+import jakarta.annotation.PostConstruct;
 import leyramu.framework.lersosa.common.core.constant.UserConstants;
 import leyramu.framework.lersosa.common.core.exception.ServiceException;
 import leyramu.framework.lersosa.common.core.utils.StringUtils;
@@ -17,7 +18,6 @@ import leyramu.framework.lersosa.system.api.domain.SysDictType;
 import leyramu.framework.lersosa.system.mapper.SysDictDataMapper;
 import leyramu.framework.lersosa.system.mapper.SysDictTypeMapper;
 import leyramu.framework.lersosa.system.service.ISysDictTypeService;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,8 +38,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SysDictTypeServiceImpl implements ISysDictTypeService {
 
+    /**
+     * 字典类型数据层
+     */
     private final SysDictTypeMapper dictTypeMapper;
 
+    /**
+     * 字典数据信息
+     */
     private final SysDictDataMapper dictDataMapper;
 
     /**
@@ -205,8 +211,8 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
         long dictId = StringUtils.isNull(dict.getDictId()) ? -1L : dict.getDictId();
         SysDictType dictType = dictTypeMapper.checkDictTypeUnique(dict.getDictType());
         if (StringUtils.isNotNull(dictType) && dictType.getDictId() != dictId) {
-            return UserConstants.NOT_UNIQUE;
+            return !UserConstants.NOT_UNIQUE;
         }
-        return UserConstants.UNIQUE;
+        return !UserConstants.UNIQUE;
     }
 }

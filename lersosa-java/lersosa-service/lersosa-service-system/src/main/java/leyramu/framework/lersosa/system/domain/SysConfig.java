@@ -8,11 +8,11 @@
 
 package leyramu.framework.lersosa.system.domain;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import leyramu.framework.lersosa.common.core.annotation.Excel;
 import leyramu.framework.lersosa.common.core.annotation.Excel.ColumnType;
 import leyramu.framework.lersosa.common.core.web.domain.BaseEntity;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -31,6 +31,9 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 public class SysConfig extends BaseEntity {
 
+    /**
+     * 序列化版本号
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -64,24 +67,44 @@ public class SysConfig extends BaseEntity {
     @Excel(name = "系统内置", readConverterExp = "Y=是,N=否")
     private String configType;
 
+    /**
+     * 获取配置键名称
+     *
+     * @return 配置键名称
+     */
     @NotBlank(message = "参数名称不能为空")
     @Size(max = 100, message = "参数名称不能超过100个字符")
     public String getConfigName() {
         return configName;
     }
 
+    /**
+     * 获取配置键
+     *
+     * @return 配置键
+     */
     @NotBlank(message = "参数键名长度不能为空")
     @Size(max = 100, message = "参数键名长度不能超过100个字符")
     public String getConfigKey() {
         return configKey;
     }
 
+    /**
+     * 获取配置值
+     *
+     * @return 配置值
+     */
     @NotBlank(message = "参数键值不能为空")
     @Size(max = 500, message = "参数键值长度不能超过500个字符")
     public String getConfigValue() {
         return configValue;
     }
 
+    /**
+     * 获取系统内置（Y是 N否）
+     *
+     * @return 系统内置（Y是 N否）
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)

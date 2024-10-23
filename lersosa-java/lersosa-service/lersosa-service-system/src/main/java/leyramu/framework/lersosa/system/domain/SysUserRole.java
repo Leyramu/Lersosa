@@ -32,6 +32,11 @@ public class SysUserRole {
      */
     private Long roleId;
 
+    /**
+     * 输出格式化
+     *
+     * @return 输出格式化
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)

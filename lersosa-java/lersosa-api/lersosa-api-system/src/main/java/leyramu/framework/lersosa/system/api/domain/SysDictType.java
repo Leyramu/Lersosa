@@ -62,12 +62,22 @@ public class SysDictType extends BaseEntity {
     @Excel(name = "状态", readConverterExp = "0=正常,1=停用")
     private String status;
 
+    /**
+     * 获取字典名称
+     *
+     * @return 字典名称
+     */
     @NotBlank(message = "字典名称不能为空")
     @Size(min = 0, max = 100, message = "字典类型名称长度不能超过100个字符")
     public String getDictName() {
         return dictName;
     }
 
+    /**
+     * 获取字典类型
+     *
+     * @return 字典类型
+     */
     @NotBlank(message = "字典类型不能为空")
     @Size(min = 0, max = 100, message = "字典类型类型长度不能超过100个字符")
     @Pattern(regexp = "^[a-z][a-z0-9_]*$", message = "字典类型必须以字母开头，且只能为（小写字母，数字，下滑线）")
@@ -75,6 +85,11 @@ public class SysDictType extends BaseEntity {
         return dictType;
     }
 
+    /**
+     * 格式化输出
+     *
+     * @return 字符串
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)

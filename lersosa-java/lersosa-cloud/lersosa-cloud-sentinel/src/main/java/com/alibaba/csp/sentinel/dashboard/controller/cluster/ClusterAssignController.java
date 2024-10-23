@@ -17,7 +17,6 @@ import com.alibaba.csp.sentinel.util.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -61,7 +60,7 @@ public class ClusterAssignController {
             return Result.ofFail(-1, "app cannot be null or empty");
         }
         if (assignRequest == null || assignRequest.getClusterMap() == null
-            || assignRequest.getRemainingList() == null) {
+                || assignRequest.getRemainingList() == null) {
             return Result.ofFail(-1, "bad request body");
         }
         try {

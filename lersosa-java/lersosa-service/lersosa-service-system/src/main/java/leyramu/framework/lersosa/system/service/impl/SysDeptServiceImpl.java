@@ -40,8 +40,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SysDeptServiceImpl implements ISysDeptService {
 
+    /**
+     * 部门管理数据层
+     */
     private final SysDeptMapper deptMapper;
 
+    /**
+     * 角色管理数据层
+     */
     private final SysRoleMapper roleMapper;
 
     /**
@@ -172,9 +178,9 @@ public class SysDeptServiceImpl implements ISysDeptService {
         long deptId = StringUtils.isNull(dept.getDeptId()) ? -1L : dept.getDeptId();
         SysDept info = deptMapper.checkDeptNameUnique(dept.getDeptName(), dept.getParentId());
         if (StringUtils.isNotNull(info) && info.getDeptId() != deptId) {
-            return UserConstants.NOT_UNIQUE;
+            return !UserConstants.NOT_UNIQUE;
         }
-        return UserConstants.UNIQUE;
+        return !UserConstants.UNIQUE;
     }
 
     /**
@@ -230,7 +236,6 @@ public class SysDeptServiceImpl implements ISysDeptService {
         int result = deptMapper.updateDept(dept);
         if (UserConstants.DEPT_NORMAL.equals(dept.getStatus()) && StringUtils.isNotEmpty(dept.getAncestors())
                 && !StringUtils.equals("0", dept.getAncestors())) {
-            // 如果该部门是启用状态，则启用该部门的所有上级部门
             updateParentDeptStatusNormal(dept);
         }
         return result;

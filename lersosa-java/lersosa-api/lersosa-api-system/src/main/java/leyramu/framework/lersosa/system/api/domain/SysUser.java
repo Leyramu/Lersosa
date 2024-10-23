@@ -19,6 +19,7 @@ import leyramu.framework.lersosa.common.core.web.domain.BaseEntity;
 import leyramu.framework.lersosa.common.core.xss.Xss;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -34,6 +35,7 @@ import java.util.List;
  * @since 2024/10/22
  */
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class SysUser extends BaseEntity {
 
@@ -147,46 +149,83 @@ public class SysUser extends BaseEntity {
      */
     private Long roleId;
 
-    public SysUser() {
-
-    }
-
+    /**
+     * 构造方法
+     *
+     * @param userId 用户ID
+     */
     public SysUser(Long userId) {
         this.userId = userId;
     }
 
+    /**
+     * 判断是否为管理员
+     *
+     * @return 结果
+     */
     public boolean isAdmin() {
         return isAdmin(this.userId);
     }
 
+    /**
+     * 判断是否为管理员
+     *
+     * @param userId 用户ID
+     * @return 结果
+     */
     public static boolean isAdmin(Long userId) {
         return userId != null && 1L == userId;
     }
 
+    /**
+     * 获取用户昵称
+     *
+     * @return 用户昵称
+     */
     @Xss(message = "用户昵称不能包含脚本字符")
-    @Size(min = 0, max = 30, message = "用户昵称长度不能超过30个字符")
+    @Size(max = 30, message = "用户昵称长度不能超过30个字符")
     public String getNickName() {
         return nickName;
     }
 
+    /**
+     * 获取用户账号
+     *
+     * @return 用户账号
+     */
     @Xss(message = "用户账号不能包含脚本字符")
     @NotBlank(message = "用户账号不能为空")
-    @Size(min = 0, max = 30, message = "用户账号长度不能超过30个字符")
+    @Size(max = 30, message = "用户账号长度不能超过30个字符")
     public String getUserName() {
         return userName;
     }
 
+    /**
+     * 获取邮箱
+     *
+     * @return 邮箱
+     */
     @Email(message = "邮箱格式不正确")
-    @Size(min = 0, max = 50, message = "邮箱长度不能超过50个字符")
+    @Size(max = 50, message = "邮箱长度不能超过50个字符")
     public String getEmail() {
         return email;
     }
 
-    @Size(min = 0, max = 11, message = "手机号码长度不能超过11个字符")
+    /**
+     * 获取手机号码
+     *
+     * @return 手机号码
+     */
+    @Size(max = 11, message = "手机号码长度不能超过11个字符")
     public String getPhonenumber() {
         return phonenumber;
     }
 
+    /**
+     * 获取密码
+     *
+     * @return 密码
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)

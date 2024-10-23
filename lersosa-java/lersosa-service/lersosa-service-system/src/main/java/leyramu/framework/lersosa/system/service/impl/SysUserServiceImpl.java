@@ -8,6 +8,7 @@
 
 package leyramu.framework.lersosa.system.service.impl;
 
+import jakarta.validation.Validator;
 import leyramu.framework.lersosa.common.core.constant.UserConstants;
 import leyramu.framework.lersosa.common.core.exception.ServiceException;
 import leyramu.framework.lersosa.common.core.utils.SpringUtils;
@@ -21,11 +22,9 @@ import leyramu.framework.lersosa.system.domain.SysPost;
 import leyramu.framework.lersosa.system.domain.SysUserPost;
 import leyramu.framework.lersosa.system.domain.SysUserRole;
 import leyramu.framework.lersosa.system.mapper.*;
-import leyramu.framework.lersosa.system.mapper.*;
 import leyramu.framework.lersosa.system.service.ISysConfigService;
 import leyramu.framework.lersosa.system.service.ISysDeptService;
 import leyramu.framework.lersosa.system.service.ISysUserService;
-import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -48,20 +47,45 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SysUserServiceImpl implements ISysUserService {
 
+    /**
+     * 用户持久层
+     */
     private final SysUserMapper userMapper;
 
+    /**
+     * 角色持久层
+     */
     private final SysRoleMapper roleMapper;
 
+    /**
+     * 岗位持久层
+     */
     private final SysPostMapper postMapper;
 
+    /**
+     * 用户与角色关联持久层
+     */
     private final SysUserRoleMapper userRoleMapper;
 
+    /**
+     * 用户与岗位关联持久层
+     */
     private final SysUserPostMapper userPostMapper;
 
+    /**
+     * 配置服务
+     */
     private final ISysConfigService configService;
 
+
+    /**
+     * 部门服务
+     */
     private final ISysDeptService deptService;
 
+    /**
+     * 注入验证器
+     */
     protected final Validator validator;
 
     /**
@@ -160,44 +184,44 @@ public class SysUserServiceImpl implements ISysUserService {
      */
     @Override
     public boolean checkUserNameUnique(SysUser user) {
-        Long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
+        long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
         SysUser info = userMapper.checkUserNameUnique(user.getUserName());
-        if (StringUtils.isNotNull(info) && info.getUserId().longValue() != userId.longValue()) {
-            return UserConstants.NOT_UNIQUE;
+        if (StringUtils.isNotNull(info) && info.getUserId() != userId) {
+            return !UserConstants.NOT_UNIQUE;
         }
-        return UserConstants.UNIQUE;
+        return !UserConstants.UNIQUE;
     }
 
     /**
      * 校验手机号码是否唯一
      *
      * @param user 用户信息
-     * @return
+     * @return 结果
      */
     @Override
     public boolean checkPhoneUnique(SysUser user) {
-        Long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
+        long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
         SysUser info = userMapper.checkPhoneUnique(user.getPhonenumber());
-        if (StringUtils.isNotNull(info) && info.getUserId().longValue() != userId.longValue()) {
-            return UserConstants.NOT_UNIQUE;
+        if (StringUtils.isNotNull(info) && info.getUserId() != userId) {
+            return !UserConstants.NOT_UNIQUE;
         }
-        return UserConstants.UNIQUE;
+        return !UserConstants.UNIQUE;
     }
 
     /**
      * 校验email是否唯一
      *
      * @param user 用户信息
-     * @return
+     * @return 结果
      */
     @Override
     public boolean checkEmailUnique(SysUser user) {
-        Long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
+        long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
         SysUser info = userMapper.checkEmailUnique(user.getEmail());
-        if (StringUtils.isNotNull(info) && info.getUserId().longValue() != userId.longValue()) {
-            return UserConstants.NOT_UNIQUE;
+        if (StringUtils.isNotNull(info) && info.getUserId() != userId) {
+            return !UserConstants.NOT_UNIQUE;
         }
-        return UserConstants.UNIQUE;
+        return !UserConstants.UNIQUE;
     }
 
     /**
@@ -367,7 +391,7 @@ public class SysUserServiceImpl implements ISysUserService {
         Long[] posts = user.getPostIds();
         if (StringUtils.isNotEmpty(posts)) {
             // 新增用户与岗位管理
-            List<SysUserPost> list = new ArrayList<SysUserPost>();
+            List<SysUserPost> list = new ArrayList<>();
             for (Long postId : posts) {
                 SysUserPost up = new SysUserPost();
                 up.setUserId(user.getUserId());
@@ -387,7 +411,7 @@ public class SysUserServiceImpl implements ISysUserService {
     public void insertUserRole(Long userId, Long[] roleIds) {
         if (StringUtils.isNotEmpty(roleIds)) {
             // 新增用户与角色管理
-            List<SysUserRole> list = new ArrayList<SysUserRole>();
+            List<SysUserRole> list = new ArrayList<>();
             for (Long roleId : roleIds) {
                 SysUserRole ur = new SysUserRole();
                 ur.setUserId(userId);
@@ -444,7 +468,7 @@ public class SysUserServiceImpl implements ISysUserService {
      */
     @Override
     public String importUser(List<SysUser> userList, Boolean isUpdateSupport, String operName) {
-        if (StringUtils.isNull(userList) || userList.size() == 0) {
+        if (StringUtils.isNull(userList) || userList.isEmpty()) {
             throw new ServiceException("导入用户数据不能为空！");
         }
         int successNum = 0;
@@ -456,14 +480,21 @@ public class SysUserServiceImpl implements ISysUserService {
                 // 验证是否存在这个用户
                 SysUser u = userMapper.selectUserByUserName(user.getUserName());
                 if (StringUtils.isNull(u)) {
-                    BeanValidators.validateWithException(validator, user);
-                    deptService.checkDeptDataScope(user.getDeptId());
-                    String password = configService.selectConfigByKey("sys.user.initPassword");
+                    if (validator != null) {
+                        BeanValidators.validateWithException(validator, user);
+                    }
+                    if (deptService != null) {
+                        deptService.checkDeptDataScope(user.getDeptId());
+                    }
+                    String password = null;
+                    if (configService != null) {
+                        password = configService.selectConfigByKey("sys.user.initPassword");
+                    }
                     user.setPassword(SecurityUtils.encryptPassword(password));
                     user.setCreateBy(operName);
                     userMapper.insertUser(user);
                     successNum++;
-                    successMsg.append("<br/>" + successNum + "、账号 " + user.getUserName() + " 导入成功");
+                    successMsg.append("<br/>").append(successNum).append("、账号 ").append(user.getUserName()).append(" 导入成功");
                 } else if (isUpdateSupport) {
                     BeanValidators.validateWithException(validator, user);
                     checkUserAllowed(u);
@@ -473,15 +504,15 @@ public class SysUserServiceImpl implements ISysUserService {
                     user.setUpdateBy(operName);
                     userMapper.updateUser(user);
                     successNum++;
-                    successMsg.append("<br/>" + successNum + "、账号 " + user.getUserName() + " 更新成功");
+                    successMsg.append("<br/>").append(successNum).append("、账号 ").append(user.getUserName()).append(" 更新成功");
                 } else {
                     failureNum++;
-                    failureMsg.append("<br/>" + failureNum + "、账号 " + user.getUserName() + " 已存在");
+                    failureMsg.append("<br/>").append(failureNum).append("、账号 ").append(user.getUserName()).append(" 已存在");
                 }
             } catch (Exception e) {
                 failureNum++;
                 String msg = "<br/>" + failureNum + "、账号 " + user.getUserName() + " 导入失败：";
-                failureMsg.append(msg + e.getMessage());
+                failureMsg.append(msg).append(e.getMessage());
                 log.error(msg, e);
             }
         }

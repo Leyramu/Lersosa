@@ -41,12 +41,24 @@ import java.util.*;
 @RequiredArgsConstructor
 public class SysRoleServiceImpl implements ISysRoleService {
 
+    /**
+     * 角色表数据层
+     */
     private final SysRoleMapper roleMapper;
 
+    /**
+     * 菜单表数据层
+     */
     private final SysRoleMenuMapper roleMenuMapper;
 
+    /**
+     * 用户表数据层
+     */
     private final SysUserRoleMapper userRoleMapper;
 
+    /**
+     * 菜单表数据层
+     */
     private final SysRoleDeptMapper roleDeptMapper;
 
     /**
@@ -143,9 +155,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
         long roleId = StringUtils.isNull(role.getRoleId()) ? -1L : role.getRoleId();
         SysRole info = roleMapper.checkRoleNameUnique(role.getRoleName());
         if (StringUtils.isNotNull(info) && info.getRoleId() != roleId) {
-            return UserConstants.NOT_UNIQUE;
+            return !UserConstants.NOT_UNIQUE;
         }
-        return UserConstants.UNIQUE;
+        return !UserConstants.UNIQUE;
     }
 
     /**
@@ -159,9 +171,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
         long roleId = StringUtils.isNull(role.getRoleId()) ? -1L : role.getRoleId();
         SysRole info = roleMapper.checkRoleKeyUnique(role.getRoleKey());
         if (StringUtils.isNotNull(info) && info.getRoleId() != roleId) {
-            return UserConstants.NOT_UNIQUE;
+            return !UserConstants.NOT_UNIQUE;
         }
-        return UserConstants.UNIQUE;
+        return !UserConstants.UNIQUE;
     }
 
     /**

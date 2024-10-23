@@ -36,10 +36,17 @@ import java.util.List;
 @RequestMapping("/menu")
 public class SysMenuController extends BaseController {
 
+    /**
+     * 菜单管理服务
+     */
     private final ISysMenuService menuService;
 
     /**
      * 获取菜单列表
+     *
+     * @param menu 菜单信息
+     * @return 菜单列表
+     * @apiNote 菜单管理列表
      */
     @RequiresPermissions("system:menu:list")
     @GetMapping("/list")
@@ -51,6 +58,10 @@ public class SysMenuController extends BaseController {
 
     /**
      * 根据菜单编号获取详细信息
+     *
+     * @param menuId 菜单 ID
+     * @return 菜单详细信息
+     * @apiNote 菜单管理详情
      */
     @RequiresPermissions("system:menu:query")
     @GetMapping(value = "/{menuId}")
@@ -60,6 +71,10 @@ public class SysMenuController extends BaseController {
 
     /**
      * 获取菜单下拉树列表
+     *
+     * @param menu 菜单信息
+     * @return 菜单下拉树结构
+     * @apiNote 菜单管理下拉树
      */
     @GetMapping("/treeselect")
     public AjaxResult treeselect(SysMenu menu) {
@@ -70,6 +85,10 @@ public class SysMenuController extends BaseController {
 
     /**
      * 加载对应角色菜单列表树
+     *
+     * @param roleId 角色 ID
+     * @return 角色菜单列表树结构
+     * @apiNote 加载角色菜单下拉树结构
      */
     @GetMapping(value = "/roleMenuTreeselect/{roleId}")
     public AjaxResult roleMenuTreeselect(@PathVariable("roleId") Long roleId) {
@@ -83,12 +102,16 @@ public class SysMenuController extends BaseController {
 
     /**
      * 新增菜单
+     *
+     * @param menu 菜单信息
+     * @return 结果
+     * @apiNote 新增菜单
      */
     @RequiresPermissions("system:menu:add")
     @Log(title = "菜单管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysMenu menu) {
-        if (!menuService.checkMenuNameUnique(menu)) {
+        if (menuService.checkMenuNameUnique(menu)) {
             return error("新增菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
         } else if (UserConstants.YES_FRAME.equals(menu.getIsFrame()) && !StringUtils.ishttp(menu.getPath())) {
             return error("新增菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
@@ -99,12 +122,16 @@ public class SysMenuController extends BaseController {
 
     /**
      * 修改菜单
+     *
+     * @param menu 菜单信息
+     * @return 结果
+     * @apiNote 修改菜单
      */
     @RequiresPermissions("system:menu:edit")
     @Log(title = "菜单管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysMenu menu) {
-        if (!menuService.checkMenuNameUnique(menu)) {
+        if (menuService.checkMenuNameUnique(menu)) {
             return error("修改菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
         } else if (UserConstants.YES_FRAME.equals(menu.getIsFrame()) && !StringUtils.ishttp(menu.getPath())) {
             return error("修改菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
@@ -117,6 +144,10 @@ public class SysMenuController extends BaseController {
 
     /**
      * 删除菜单
+     *
+     * @param menuId 菜单 ID
+     * @return 结果
+     * @apiNote 删除菜单
      */
     @RequiresPermissions("system:menu:remove")
     @Log(title = "菜单管理", businessType = BusinessType.DELETE)
@@ -135,6 +166,7 @@ public class SysMenuController extends BaseController {
      * 获取路由信息
      *
      * @return 路由信息
+     * @apiNote 获取路由信息
      */
     @GetMapping("getRouters")
     public AjaxResult getRouters() {

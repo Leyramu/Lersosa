@@ -28,6 +28,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SysDictDataServiceImpl implements ISysDictDataService {
 
+    /**
+     * 字典数据持久层
+     */
     private final SysDictDataMapper dictDataMapper;
 
     /**

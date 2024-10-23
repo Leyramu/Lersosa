@@ -8,6 +8,7 @@
 
 package leyramu.framework.lersosa.system.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import leyramu.framework.lersosa.common.core.utils.poi.ExcelUtil;
 import leyramu.framework.lersosa.common.core.web.controller.BaseController;
 import leyramu.framework.lersosa.common.core.web.domain.AjaxResult;
@@ -18,7 +19,6 @@ import leyramu.framework.lersosa.common.security.annotation.RequiresPermissions;
 import leyramu.framework.lersosa.common.security.utils.SecurityUtils;
 import leyramu.framework.lersosa.system.domain.SysConfig;
 import leyramu.framework.lersosa.system.service.ISysConfigService;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +33,8 @@ import java.util.List;
  * @since 2024/10/19
  */
 @RestController
-@RequestMapping("/config")
 @RequiredArgsConstructor
+@RequestMapping("/config")
 public class SysConfigController extends BaseController {
 
     /**
@@ -46,7 +46,8 @@ public class SysConfigController extends BaseController {
      * 获取参数配置列表
      *
      * @param config 参数配置信息
-     * @return 参数配置集合
+     * @return 列表信息
+     * @apiNote 获取参数配置列表
      */
     @RequiresPermissions("system:config:list")
     @GetMapping("/list")
@@ -56,9 +57,16 @@ public class SysConfigController extends BaseController {
         return getDataTable(list);
     }
 
-    @Log(title = "参数管理", businessType = BusinessType.EXPORT)
-    @RequiresPermissions("system:config:export")
+    /**
+     * 导出参数配置列表
+     *
+     * @param response 响应对象
+     * @param config   参数配置信息
+     * @apiNote 导出参数配置列表
+     */
     @PostMapping("/export")
+    @RequiresPermissions("system:config:export")
+    @Log(title = "参数管理", businessType = BusinessType.EXPORT)
     public void export(HttpServletResponse response, SysConfig config) {
         List<SysConfig> list = configService.selectConfigList(config);
         ExcelUtil<SysConfig> util = new ExcelUtil<>(SysConfig.class);
@@ -67,6 +75,10 @@ public class SysConfigController extends BaseController {
 
     /**
      * 根据参数编号获取详细信息
+     *
+     * @param configId 参数 ID
+     * @return 参数信息
+     * @apiNote 根据参数编号获取详细信息
      */
     @GetMapping(value = "/{configId}")
     public AjaxResult getInfo(@PathVariable Long configId) {
@@ -75,6 +87,10 @@ public class SysConfigController extends BaseController {
 
     /**
      * 根据参数键名查询参数值
+     *
+     * @param configKey 参数键名
+     * @return 参数键值
+     * @apiNote 根据参数键名查询参数值
      */
     @GetMapping(value = "/configKey/{configKey}")
     public AjaxResult getConfigKey(@PathVariable String configKey) {
@@ -83,12 +99,16 @@ public class SysConfigController extends BaseController {
 
     /**
      * 新增参数配置
+     *
+     * @param config 参数信息
+     * @return 结果
+     * @apiNote 新增参数配置
      */
+    @PostMapping
     @RequiresPermissions("system:config:add")
     @Log(title = "参数管理", businessType = BusinessType.INSERT)
-    @PostMapping
     public AjaxResult add(@Validated @RequestBody SysConfig config) {
-        if (!configService.checkConfigKeyUnique(config)) {
+        if (configService.checkConfigKeyUnique(config)) {
             return error("新增参数'" + config.getConfigName() + "'失败，参数键名已存在");
         }
         config.setCreateBy(SecurityUtils.getUsername());
@@ -97,12 +117,16 @@ public class SysConfigController extends BaseController {
 
     /**
      * 修改参数配置
+     *
+     * @param config 参数信息
+     * @return 结果
+     * @apiNote 修改参数配置
      */
+    @PutMapping
     @RequiresPermissions("system:config:edit")
     @Log(title = "参数管理", businessType = BusinessType.UPDATE)
-    @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysConfig config) {
-        if (!configService.checkConfigKeyUnique(config)) {
+        if (configService.checkConfigKeyUnique(config)) {
             return error("修改参数'" + config.getConfigName() + "'失败，参数键名已存在");
         }
         config.setUpdateBy(SecurityUtils.getUsername());
@@ -111,10 +135,14 @@ public class SysConfigController extends BaseController {
 
     /**
      * 删除参数配置
+     *
+     * @param configIds 参数 ID
+     * @return 结果
+     * @apiNote 删除参数配置
      */
+    @DeleteMapping("/{configIds}")
     @RequiresPermissions("system:config:remove")
     @Log(title = "参数管理", businessType = BusinessType.DELETE)
-    @DeleteMapping("/{configIds}")
     public AjaxResult remove(@PathVariable Long[] configIds) {
         configService.deleteConfigByIds(configIds);
         return success();
@@ -122,10 +150,13 @@ public class SysConfigController extends BaseController {
 
     /**
      * 刷新参数缓存
+     *
+     * @return 结果
+     * @apiNote 刷新参数缓存
      */
+    @DeleteMapping("/refreshCache")
     @RequiresPermissions("system:config:remove")
     @Log(title = "参数管理", businessType = BusinessType.CLEAN)
-    @DeleteMapping("/refreshCache")
     public AjaxResult refreshCache() {
         configService.resetConfigCache();
         return success();

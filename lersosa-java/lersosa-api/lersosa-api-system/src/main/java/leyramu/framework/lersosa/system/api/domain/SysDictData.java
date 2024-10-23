@@ -91,7 +91,9 @@ public class SysDictData extends BaseEntity {
     private String status;
 
     /**
-     * 设置字典标签
+     * 获取字典标签
+     *
+     * @return 字典标签
      */
     @NotBlank(message = "字典标签不能为空")
     @Size(max = 100, message = "字典标签长度不能超过100个字符")
@@ -100,27 +102,52 @@ public class SysDictData extends BaseEntity {
     }
 
 
+    /**
+     * 获取字典键值
+     *
+     * @return 字典键值
+     */
     @NotBlank(message = "字典键值不能为空")
     @Size(max = 100, message = "字典键值长度不能超过100个字符")
     public String getDictValue() {
         return dictValue;
     }
 
+    /**
+     * 获取字典类型
+     *
+     * @return 字典类型
+     */
     @NotBlank(message = "字典类型不能为空")
     @Size(max = 100, message = "字典类型长度不能超过100个字符")
     public String getDictType() {
         return dictType;
     }
 
+    /**
+     * 获取样式属性
+     *
+     * @return 样式属性
+     */
     @Size(max = 100, message = "样式属性长度不能超过100个字符")
     public String getCssClass() {
         return cssClass;
     }
 
+    /**
+     * 获取默认样式
+     *
+     * @return 默认样式
+     */
     public boolean getDefault() {
         return UserConstants.YES.equals(this.isDefault);
     }
 
+    /**
+     * 格式化输出
+     *
+     * @return 字符串
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)

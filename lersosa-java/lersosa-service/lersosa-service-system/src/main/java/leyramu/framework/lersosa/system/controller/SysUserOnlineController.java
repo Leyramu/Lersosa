@@ -40,11 +40,24 @@ import java.util.List;
 @RequestMapping("/online")
 public class SysUserOnlineController extends BaseController {
 
+    /**
+     * 在线用户服务
+     */
     private final ISysUserOnlineService userOnlineService;
 
-
+    /**
+     * 获取在线用户列表
+     */
     private final RedisService redisService;
 
+    /**
+     * 获取在线用户列表
+     *
+     * @param ipaddr   IP地址
+     * @param userName 用户名称
+     * @return 列表
+     * @apiNote 获取在线用户列表
+     */
     @RequiresPermissions("monitor:online:list")
     @GetMapping("/list")
     public TableDataInfo list(String ipaddr, String userName) {
@@ -69,6 +82,10 @@ public class SysUserOnlineController extends BaseController {
 
     /**
      * 强退用户
+     *
+     * @param tokenId 用户 ID
+     * @return 响应结果
+     * @apiNote 强退用户
      */
     @RequiresPermissions("monitor:online:forceLogout")
     @Log(title = "在线用户", businessType = BusinessType.FORCE)

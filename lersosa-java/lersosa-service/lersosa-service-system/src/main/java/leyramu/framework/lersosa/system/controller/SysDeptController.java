@@ -37,13 +37,20 @@ import java.util.List;
 @RequestMapping("/dept")
 public class SysDeptController extends BaseController {
 
+    /**
+     * 部门管理 服务对象
+     */
     private final ISysDeptService deptService;
 
     /**
      * 获取部门列表
+     *
+     * @param dept 部门信息
+     * @return 部门列表
+     * @apiNote 获取部门列表
      */
-    @RequiresPermissions("system:dept:list")
     @GetMapping("/list")
+    @RequiresPermissions("system:dept:list")
     public AjaxResult list(SysDept dept) {
         List<SysDept> depts = deptService.selectDeptList(dept);
         return success(depts);
@@ -51,6 +58,10 @@ public class SysDeptController extends BaseController {
 
     /**
      * 查询部门列表（排除节点）
+     *
+     * @param deptId 部门 ID
+     * @return 部门列表
+     * @apiNote 查询部门列表（排除节点）
      */
     @RequiresPermissions("system:dept:list")
     @GetMapping("/list/exclude/{deptId}")
@@ -62,9 +73,13 @@ public class SysDeptController extends BaseController {
 
     /**
      * 根据部门编号获取详细信息
+     *
+     * @param deptId 部门 ID
+     * @return 部门信息
+     * @apiNote 根据部门编号获取详细信息
      */
-    @RequiresPermissions("system:dept:query")
     @GetMapping(value = "/{deptId}")
+    @RequiresPermissions("system:dept:query")
     public AjaxResult getInfo(@PathVariable Long deptId) {
         deptService.checkDeptDataScope(deptId);
         return success(deptService.selectDeptById(deptId));
@@ -72,12 +87,16 @@ public class SysDeptController extends BaseController {
 
     /**
      * 新增部门
+     *
+     * @param dept 部门信息
+     * @return 结果
+     * @apiNote 新增部门
      */
+    @PostMapping
     @RequiresPermissions("system:dept:add")
     @Log(title = "部门管理", businessType = BusinessType.INSERT)
-    @PostMapping
     public AjaxResult add(@Validated @RequestBody SysDept dept) {
-        if (!deptService.checkDeptNameUnique(dept)) {
+        if (deptService.checkDeptNameUnique(dept)) {
             return error("新增部门'" + dept.getDeptName() + "'失败，部门名称已存在");
         }
         dept.setCreateBy(SecurityUtils.getUsername());
@@ -86,14 +105,18 @@ public class SysDeptController extends BaseController {
 
     /**
      * 修改部门
+     *
+     * @param dept 部门信息
+     * @return 结果
+     * @apiNote 修改部门
      */
+    @PutMapping
     @RequiresPermissions("system:dept:edit")
     @Log(title = "部门管理", businessType = BusinessType.UPDATE)
-    @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysDept dept) {
         Long deptId = dept.getDeptId();
         deptService.checkDeptDataScope(deptId);
-        if (!deptService.checkDeptNameUnique(dept)) {
+        if (deptService.checkDeptNameUnique(dept)) {
             return error("修改部门'" + dept.getDeptName() + "'失败，部门名称已存在");
         } else if (dept.getParentId().equals(deptId)) {
             return error("修改部门'" + dept.getDeptName() + "'失败，上级部门不能是自己");
@@ -106,10 +129,14 @@ public class SysDeptController extends BaseController {
 
     /**
      * 删除部门
+     *
+     * @param deptId 部门 ID
+     * @return 结果
+     * @apiNote 删除部门
      */
+    @DeleteMapping("/{deptId}")
     @RequiresPermissions("system:dept:remove")
     @Log(title = "部门管理", businessType = BusinessType.DELETE)
-    @DeleteMapping("/{deptId}")
     public AjaxResult remove(@PathVariable Long deptId) {
         if (deptService.hasChildByDeptId(deptId)) {
             return warn("存在下级部门,不允许删除");

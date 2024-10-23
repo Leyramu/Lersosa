@@ -27,6 +27,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SysOperLogServiceImpl implements ISysOperLogService {
 
+    /**
+     * 操作日志记录数据层
+     */
     private final SysOperLogMapper operLogMapper;
 
     /**

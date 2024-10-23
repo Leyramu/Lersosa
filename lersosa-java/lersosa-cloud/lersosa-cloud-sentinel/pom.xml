@@ -32,6 +32,7 @@
         <log4j.version>2.23.1</log4j.version>
         <sentinel.version>1.8.8</sentinel.version>
         <curator.version>5.7.0</curator.version>
+        <lombok.version>1.18.34</lombok.version>
         <fastjson.version>2.0.52</fastjson.version>
         <resource.delimiter>@</resource.delimiter>
         <httpcore.version>4.4.16</httpcore.version>
@@ -212,6 +213,14 @@
             <version>${system-rules.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!--    Lombok    -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <!--     Spring Boot 依赖管理     -->
@@ -225,13 +234,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-<!--            &lt;!&ndash;    Lombok    &ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>org.projectlombok</groupId>-->
-<!--                <artifactId>lombok</artifactId>-->
-<!--                <optional>true</optional>-->
-<!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
 

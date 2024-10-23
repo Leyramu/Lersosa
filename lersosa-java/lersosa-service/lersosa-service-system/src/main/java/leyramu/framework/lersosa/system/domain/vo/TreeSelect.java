@@ -30,6 +30,9 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class TreeSelect implements Serializable {
 
+    /**
+     * 序列化版本号
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -49,12 +52,22 @@ public class TreeSelect implements Serializable {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<TreeSelect> children;
 
+    /**
+     * 构造方法
+     *
+     * @param dept 部门信息
+     */
     public TreeSelect(SysDept dept) {
         this.id = dept.getDeptId();
         this.label = dept.getDeptName();
         this.children = dept.getChildren().stream().map(TreeSelect::new).collect(Collectors.toList());
     }
 
+    /**
+     * 构造方法
+     *
+     * @param menu 菜单信息
+     */
     public TreeSelect(SysMenu menu) {
         this.id = menu.getMenuId();
         this.label = menu.getMenuName();

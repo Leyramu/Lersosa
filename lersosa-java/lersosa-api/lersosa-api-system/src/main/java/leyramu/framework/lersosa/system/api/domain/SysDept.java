@@ -100,7 +100,9 @@ public class SysDept extends BaseEntity {
     private List<SysDept> children = new ArrayList<>();
 
     /**
-     * 父部门名称
+     * 获取部门名称
+     *
+     * @return 部门名称
      */
     @NotBlank(message = "部门名称不能为空")
     @Size(max = 30, message = "部门名称长度不能超过30个字符")
@@ -109,7 +111,9 @@ public class SysDept extends BaseEntity {
     }
 
     /**
-     * 显示顺序
+     * 获取显示顺序
+     *
+     * @return 显示顺序
      */
     @NotNull(message = "显示顺序不能为空")
     public Integer getOrderNum() {
@@ -117,15 +121,20 @@ public class SysDept extends BaseEntity {
     }
 
     /**
-     * 联系电话
+     * 获取联系电话
+     *
+     * @return 联系电话
      */
     @Size(max = 11, message = "联系电话长度不能超过11个字符")
     public String getPhone() {
         return phone;
     }
 
+
     /**
-     * 邮箱
+     * 获取邮箱地址
+     *
+     * @return 邮箱地址
      */
     @Email(message = "邮箱格式不正确")
     @Size(max = 50, message = "邮箱长度不能超过50个字符")
@@ -134,7 +143,9 @@ public class SysDept extends BaseEntity {
     }
 
     /**
-     * 获取父部门名称
+     * 格式化输出
+     *
+     * @return 字符串
      */
     @Override
     public String toString() {
