@@ -90,14 +90,14 @@ public class MachineEntity {
     @Override
     public String toString() {
         return "MachineEntity{" +
-               "id=" + id +
-               ", gmtCreate=" + gmtCreate +
-               ", gmtModified=" + gmtModified +
-               ", app='" + app + '\'' +
-               ", ip='" + ip + '\'' +
-               ", hostname='" + hostname + '\'' +
-               ", timestamp=" + timestamp +
-               ", port=" + port +
-               '}';
+                "id=" + id +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModified=" + gmtModified +
+                ", app='" + app + '\'' +
+                ", ip='" + ip + '\'' +
+                ", hostname='" + hostname + '\'' +
+                ", timestamp=" + timestamp +
+                ", port=" + port +
+                '}';
     }
 }

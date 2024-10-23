@@ -205,22 +205,18 @@ public class SentinelApiClient {
      * 规则类型：参数流控规则
      */
     private static final String AUTHORITY_TYPE = "authority";
-
-    /**
-     * 规则类型：热点参数规则
-     */
-    private final CloseableHttpAsyncClient httpClient;
-
     /**
      * Sentinel 版本 1.6.0
      */
     private static final SentinelVersion VERSION160 = new SentinelVersion(1, 6, 0);
-
     /**
      * Sentinel 版本 1.7.1
      */
     private static final SentinelVersion VERSION171 = new SentinelVersion(1, 7, 1);
-
+    /**
+     * 规则类型：热点参数规则
+     */
+    private final CloseableHttpAsyncClient httpClient;
     /**
      * 应用管理器
      */
@@ -243,6 +239,29 @@ public class SentinelApiClient {
             }
         }).setMaxConnTotal(4000).setMaxConnPerRoute(1000).setDefaultIOReactorConfig(ioConfig).build();
         httpClient.start();
+    }
+
+    /**
+     * 以 POST 方式构建 HttpUriRequest
+     *
+     * @param url                        URL
+     * @param params                     参数
+     * @param supportEnhancedContentType 见 {@link #isSupportEnhancedContentType(String, String, int)}
+     * @return HttpUriRequest
+     */
+    protected static HttpUriRequest postRequest(String url, Map<String, String> params, boolean supportEnhancedContentType) {
+        HttpPost httpPost = new HttpPost(url);
+        if (params != null && !params.isEmpty()) {
+            List<NameValuePair> list = new ArrayList<>(params.size());
+            for (Entry<String, String> entry : params.entrySet()) {
+                list.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+            }
+            httpPost.setEntity(new UrlEncodedFormEntity(list, Consts.UTF_8));
+            if (!supportEnhancedContentType) {
+                httpPost.setHeader(HTTP_HEADER_CONTENT_TYPE, HTTP_HEADER_CONTENT_TYPE_URLENCODED);
+            }
+        }
+        return httpPost;
     }
 
     /**
@@ -318,29 +337,6 @@ public class SentinelApiClient {
             }
         }
         return queryStringBuilder;
-    }
-
-    /**
-     * 以 POST 方式构建 HttpUriRequest
-     *
-     * @param url                        URL
-     * @param params                     参数
-     * @param supportEnhancedContentType 见 {@link #isSupportEnhancedContentType(String, String, int)}
-     * @return HttpUriRequest
-     */
-    protected static HttpUriRequest postRequest(String url, Map<String, String> params, boolean supportEnhancedContentType) {
-        HttpPost httpPost = new HttpPost(url);
-        if (params != null && !params.isEmpty()) {
-            List<NameValuePair> list = new ArrayList<>(params.size());
-            for (Entry<String, String> entry : params.entrySet()) {
-                list.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
-            }
-            httpPost.setEntity(new UrlEncodedFormEntity(list, Consts.UTF_8));
-            if (!supportEnhancedContentType) {
-                httpPost.setHeader(HTTP_HEADER_CONTENT_TYPE, HTTP_HEADER_CONTENT_TYPE_URLENCODED);
-            }
-        }
-        return httpPost;
     }
 
     /**

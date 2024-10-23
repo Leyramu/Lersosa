@@ -86,27 +86,30 @@ public class MetricFetcher {
      * 日志记录器
      */
     private static final Logger logger = LoggerFactory.getLogger(MetricFetcher.class);
-
+    /**
+     * 默认过滤掉的资源
+     */
+    private static final Set<String> RES_EXCLUSION_SET = new HashSet<>() {{
+        add(Constants.TOTAL_IN_RESOURCE_NAME);
+        add(Constants.SYSTEM_LOAD_RESOURCE_NAME);
+        add(Constants.CPU_USAGE_RESOURCE_NAME);
+    }};
     /**
      * 最后一次获取时间
      */
     private final Map<String, AtomicLong> appLastFetchTime = new ConcurrentHashMap<>();
-
     /**
      * 存储指标的仓库
      */
     private final MetricsRepository<MetricEntity> metricStore;
-
     /**
      * 应用管理
      */
     private final AppManagement appManagement;
-
     /**
      * HTTP 客户端
      */
     private final CloseableHttpAsyncClient httpclient;
-
     /**
      * 调度服务
      */
@@ -242,7 +245,7 @@ public class MetricFetcher {
                 continue;
             }
             final String url = "http://" + machine.getIp() + ":" + machine.getPort() + "/" + METRIC_URL_PATH
-                               + "?startTime=" + startTime + "&endTime=" + endTime + "&refetch=" + false;
+                    + "?startTime=" + startTime + "&endTime=" + endTime + "&refetch=" + false;
             final HttpGet httpGet = new HttpGet(url);
             httpGet.setHeader(HTTP.CONN_DIRECTIVE, HTTP.CONN_CLOSE);
             httpclient.execute(httpGet, new FutureCallback<>() {
@@ -409,13 +412,4 @@ public class MetricFetcher {
     private boolean shouldFilterOut(String resource) {
         return RES_EXCLUSION_SET.contains(resource);
     }
-
-    /**
-     * 默认过滤掉的资源
-     */
-    private static final Set<String> RES_EXCLUSION_SET = new HashSet<>() {{
-        add(Constants.TOTAL_IN_RESOURCE_NAME);
-        add(Constants.SYSTEM_LOAD_RESOURCE_NAME);
-        add(Constants.CPU_USAGE_RESOURCE_NAME);
-    }};
 }

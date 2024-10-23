@@ -24,8 +24,8 @@
     <modules>
         <module>lersosa-service-auth</module>
         <!--        <module>lersosa-service-file</module>-->
-        <!--        <module>lersosa-service-gen</module>-->
-<!--        <module>lersosa-service-job</module>-->
+        <module>lersosa-service-gen</module>
+        <module>lersosa-service-job</module>
         <module>lersosa-service-openai</module>
         <module>lersosa-service-system</module>
     </modules>

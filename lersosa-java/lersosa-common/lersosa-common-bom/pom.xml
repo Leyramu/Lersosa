@@ -220,27 +220,6 @@
                 <version>${leyramu-lersosa.version}</version>
             </dependency>
 
-            <!--            &lt;!&ndash;    学生接口模块    &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>leyramu.framework</groupId>-->
-            <!--                <artifactId>lersosa-api-student</artifactId>-->
-            <!--                <version>${leyramu-lersosa.version}</version>-->
-            <!--            </dependency>-->
-
-            <!--            &lt;!&ndash;    权限接口    &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>leyramu.framework</groupId>-->
-            <!--                <artifactId>lersosa-api-permission</artifactId>-->
-            <!--                <version>${leyramu-lersosa.version}</version>-->
-            <!--            </dependency>-->
-
-            <!--            &lt;!&ndash;    教师接口    &ndash;&gt;-->
-            <!--            <dependency>-->
-            <!--                <groupId>leyramu.framework</groupId>-->
-            <!--                <artifactId>lersosa-api-teacher</artifactId>-->
-            <!--                <version>${leyramu-lersosa.version}</version>-->
-            <!--            </dependency>-->
-
             <!--    安全模块    -->
             <dependency>
                 <groupId>leyramu.framework</groupId>

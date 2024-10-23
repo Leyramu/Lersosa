@@ -124,20 +124,20 @@ public class SysRole extends BaseEntity {
     /**
      * 是否为超级管理员
      *
-     * @return 结果
-     */
-    public boolean isAdmin() {
-        return isAdmin(this.roleId);
-    }
-
-    /**
-     * 是否为超级管理员
-     *
      * @param roleId 角色 ID
      * @return 结果
      */
     public static boolean isAdmin(Long roleId) {
         return roleId != null && 1L == roleId;
+    }
+
+    /**
+     * 是否为超级管理员
+     *
+     * @return 结果
+     */
+    public boolean isAdmin() {
+        return isAdmin(this.roleId);
     }
 
     /**

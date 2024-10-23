@@ -227,13 +227,13 @@ public class ApiDefinitionEntity implements RuleEntity {
         }
         ApiDefinitionEntity entity = (ApiDefinitionEntity) o;
         return Objects.equals(id, entity.id) &&
-               Objects.equals(app, entity.app) &&
-               Objects.equals(ip, entity.ip) &&
-               Objects.equals(port, entity.port) &&
-               Objects.equals(gmtCreate, entity.gmtCreate) &&
-               Objects.equals(gmtModified, entity.gmtModified) &&
-               Objects.equals(apiName, entity.apiName) &&
-               Objects.equals(predicateItems, entity.predicateItems);
+                Objects.equals(app, entity.app) &&
+                Objects.equals(ip, entity.ip) &&
+                Objects.equals(port, entity.port) &&
+                Objects.equals(gmtCreate, entity.gmtCreate) &&
+                Objects.equals(gmtModified, entity.gmtModified) &&
+                Objects.equals(apiName, entity.apiName) &&
+                Objects.equals(predicateItems, entity.predicateItems);
     }
 
     /**
@@ -254,14 +254,14 @@ public class ApiDefinitionEntity implements RuleEntity {
     @Override
     public String toString() {
         return "ApiDefinitionEntity{" +
-               "id=" + id +
-               ", app='" + app + '\'' +
-               ", ip='" + ip + '\'' +
-               ", port=" + port +
-               ", gmtCreate=" + gmtCreate +
-               ", gmtModified=" + gmtModified +
-               ", apiName='" + apiName + '\'' +
-               ", predicateItems=" + predicateItems +
-               '}';
+                "id=" + id +
+                ", app='" + app + '\'' +
+                ", ip='" + ip + '\'' +
+                ", port=" + port +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModified=" + gmtModified +
+                ", apiName='" + apiName + '\'' +
+                ", predicateItems=" + predicateItems +
+                '}';
     }
 }

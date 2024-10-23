@@ -65,8 +65,8 @@ public class ClusterAppFullAssignRequest {
     @Override
     public String toString() {
         return "ClusterAppFullAssignRequest{" +
-               "clusterMap=" + clusterMap +
-               ", remainingList=" + remainingList +
-               '}';
+                "clusterMap=" + clusterMap +
+                ", remainingList=" + remainingList +
+                '}';
     }
 }

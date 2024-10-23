@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!--
+<?xml version="1.0" encoding="UTF-8" ?><!--
   ~ Copyright (c) 2024 Leyramu. All rights reserved.
   ~ This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
   ~ For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
@@ -8,52 +7,52 @@
   -->
 
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="leyramu.framework.lersosa.system.mapper.SysLogininforMapper">
 
-	<resultMap type="SysLogininfor" id="SysLogininforResult">
-		<id     property="infoId"        column="info_id"           />
-		<result property="userName"      column="user_name"         />
-		<result property="status"        column="status"            />
-		<result property="ipaddr"        column="ipaddr"            />
-		<result property="msg"           column="msg"               />
-		<result property="accessTime"    column="access_time"       />
-	</resultMap>
+    <resultMap type="SysLogininfor" id="SysLogininforResult">
+        <id property="infoId" column="info_id" />
+        <result property="userName" column="user_name" />
+        <result property="status" column="status" />
+        <result property="ipaddr" column="ipaddr" />
+        <result property="msg" column="msg" />
+        <result property="accessTime" column="access_time" />
+    </resultMap>
 
-	<insert id="insertLogininfor" parameterType="SysLogininfor">
-		insert into sys_logininfor (user_name, status, ipaddr, msg, access_time)
-		values (#{userName}, #{status}, #{ipaddr}, #{msg}, sysdate())
-	</insert>
+    <insert id="insertLogininfor" parameterType="SysLogininfor">
+        insert into sys_logininfor (user_name, status, ipaddr, msg, access_time)
+        values (#{userName}, #{status}, #{ipaddr}, #{msg}, sysdate())
+    </insert>
 
-	<select id="selectLogininforList" parameterType="SysLogininfor" resultMap="SysLogininforResult">
-		select info_id, user_name, ipaddr, status, msg, access_time from sys_logininfor
-		<where>
-			<if test="ipaddr != null and ipaddr != ''">
-				AND ipaddr like concat('%', #{ipaddr}, '%')
-			</if>
-			<if test="status != null and status != ''">
-				AND status = #{status}
-			</if>
-			<if test="userName != null and userName != ''">
-				AND user_name like concat('%', #{userName}, '%')
-			</if>
-			<if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
-				AND access_time &gt;= #{params.beginTime}
-			</if>
-			<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
-				AND access_time &lt;= #{params.endTime}
-			</if>
-		</where>
-		order by info_id desc
-	</select>
+    <select id="selectLogininforList" parameterType="SysLogininfor" resultMap="SysLogininforResult">
+        select info_id, user_name, ipaddr, status, msg, access_time from sys_logininfor
+        <where>
+            <if test="ipaddr != null and ipaddr != ''">
+                AND ipaddr like concat('%', #{ipaddr}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+            <if test="userName != null and userName != ''">
+                AND user_name like concat('%', #{userName}, '%')
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                AND access_time &gt;= #{params.beginTime}
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                AND access_time &lt;= #{params.endTime}
+            </if>
+        </where>
+        order by info_id desc
+    </select>
 
-	<delete id="deleteLogininforByIds" parameterType="Long">
- 		delete from sys_logininfor where info_id in
- 		<foreach collection="array" item="infoId" open="(" separator="," close=")">
- 			#{infoId}
+    <delete id="deleteLogininforByIds" parameterType="Long">
+        delete from sys_logininfor where info_id in
+        <foreach collection="array" item="infoId" open="(" separator="," close=")">
+            #{infoId}
         </foreach>
- 	</delete>
+    </delete>
 
     <update id="cleanLogininfor">
         truncate table sys_logininfor

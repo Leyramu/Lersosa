@@ -28,19 +28,17 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AppInfo {
 
     /**
+     * 应用机器信息
+     */
+    private final Set<MachineInfo> machines = ConcurrentHashMap.newKeySet();
+    /**
      * 应用名称
      */
     private String app = "";
-
     /**
      * 应用类型
      */
     private Integer appType = 0;
-
-    /**
-     * 应用机器信息
-     */
-    private final Set<MachineInfo> machines = ConcurrentHashMap.newKeySet();
 
     /**
      * 构造函数

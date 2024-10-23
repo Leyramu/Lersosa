@@ -93,10 +93,10 @@ public class ClusterStateSimpleEntity {
     @Override
     public String toString() {
         return "ClusterStateSimpleEntity{"
-               + "mode=" + mode
-               + ", lastModified=" + lastModified
-               + ", clientAvailable=" + clientAvailable
-               + ", serverAvailable=" + serverAvailable
-               + '}';
+                + "mode=" + mode
+                + ", lastModified=" + lastModified
+                + ", clientAvailable=" + clientAvailable
+                + ", serverAvailable=" + serverAvailable
+                + '}';
     }
 }

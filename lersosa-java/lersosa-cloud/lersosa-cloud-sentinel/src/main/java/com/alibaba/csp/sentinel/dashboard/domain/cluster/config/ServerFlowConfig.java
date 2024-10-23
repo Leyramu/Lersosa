@@ -153,12 +153,12 @@ public class ServerFlowConfig {
     @Override
     public String toString() {
         return "ServerFlowConfig{" +
-               "namespace='" + namespace + '\'' +
-               ", exceedCount=" + exceedCount +
-               ", maxOccupyRatio=" + maxOccupyRatio +
-               ", intervalMs=" + intervalMs +
-               ", sampleCount=" + sampleCount +
-               ", maxAllowedQps=" + maxAllowedQps +
-               '}';
+                "namespace='" + namespace + '\'' +
+                ", exceedCount=" + exceedCount +
+                ", maxOccupyRatio=" + maxOccupyRatio +
+                ", intervalMs=" + intervalMs +
+                ", sampleCount=" + sampleCount +
+                ", maxAllowedQps=" + maxAllowedQps +
+                '}';
     }
 }

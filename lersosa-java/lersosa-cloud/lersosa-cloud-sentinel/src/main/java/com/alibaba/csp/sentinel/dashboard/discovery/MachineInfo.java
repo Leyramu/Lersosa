@@ -140,16 +140,16 @@ public class MachineInfo implements Comparable<MachineInfo> {
     @Override
     public String toString() {
         return "MachineInfo {" +
-               "app='" + app + '\'' +
-               ",appType='" + appType + '\'' +
-               ", hostname='" + hostname + '\'' +
-               ", ip='" + ip + '\'' +
-               ", port=" + port +
-               ", heartbeatVersion=" + heartbeatVersion +
-               ", lastHeartbeat=" + lastHeartbeat +
-               ", version='" + version + '\'' +
-               ", healthy=" + isHealthy() +
-               '}';
+                "app='" + app + '\'' +
+                ",appType='" + appType + '\'' +
+                ", hostname='" + hostname + '\'' +
+                ", ip='" + ip + '\'' +
+                ", port=" + port +
+                ", heartbeatVersion=" + heartbeatVersion +
+                ", lastHeartbeat=" + lastHeartbeat +
+                ", version='" + version + '\'' +
+                ", healthy=" + isHealthy() +
+                '}';
     }
 
     /**
@@ -167,8 +167,8 @@ public class MachineInfo implements Comparable<MachineInfo> {
             return false;
         }
         return Objects.equals(app, that.app) &&
-               Objects.equals(ip, that.ip) &&
-               Objects.equals(port, that.port);
+                Objects.equals(ip, that.ip) &&
+                Objects.equals(port, that.port);
     }
 
     /**

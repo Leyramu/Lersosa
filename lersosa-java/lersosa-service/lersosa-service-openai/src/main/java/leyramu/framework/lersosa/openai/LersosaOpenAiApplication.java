@@ -32,7 +32,7 @@ public class LersosaOpenAiApplication {
     public static void main(String[] args) {
         SpringApplication.run(LersosaOpenAiApplication.class, args);
         log.info("""
-                系统模块 服务启动成功
+                OpenAI 模块 服务启动成功
                  ___       _______   ________  ________  ________  ________  ________    \s
                 |\\  \\     |\\  ___ \\ |\\   __  \\|\\   ____\\|\\   __  \\|\\   ____\\|\\   __  \\   \s
                 \\ \\  \\    \\ \\   __/|\\ \\  \\|\\  \\ \\  \\___|\\ \\  \\|\\  \\ \\  \\___|\\ \\  \\|\\  \\  \s
