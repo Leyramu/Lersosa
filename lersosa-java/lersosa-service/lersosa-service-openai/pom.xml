@@ -41,6 +41,12 @@
             <artifactId>spring-ai-core</artifactId>
             <version>${spring-ai.version}</version>
         </dependency>
+
+        <!--    Lersosa Common Swagger    -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-swagger</artifactId>
+        </dependency>
     </dependencies>
 
     <!--      构建插件      -->
