@@ -274,16 +274,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!--      检查代码格式      -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${maven-checkstyle-plugin.version}</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
         </plugins>
 
         <!--      资源过滤      -->

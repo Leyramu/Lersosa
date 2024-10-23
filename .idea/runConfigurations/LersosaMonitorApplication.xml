@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="LersosaMonitorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <module name="lersosa-visual-monitor" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="leyramu.framework.lersosa.visual.monitor.LersosaMonitorApplication" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="leyramu.framework.lersosa.visual.monitor.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

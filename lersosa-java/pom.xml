@@ -68,12 +68,12 @@
     </scm>
 
     <!--      父工程      -->
-    <!--    <parent>-->
-    <!--        <groupId>org.springframework.cloud</groupId>-->
-    <!--        <artifactId>spring-cloud-build</artifactId>-->
-    <!--        <version>4.1.3</version>-->
-    <!--        <relativePath />-->
-    <!--    </parent>-->
+<!--    <parent>-->
+<!--        <groupId>org.springframework.cloud</groupId>-->
+<!--        <artifactId>spring-cloud-build</artifactId>-->
+<!--        <version>4.2.0-M2</version>-->
+<!--        <relativePath />-->
+<!--    </parent>-->
 
     <!--      子模块      -->
     <modules>
@@ -81,9 +81,9 @@
         <module>lersosa-gateway</module>
         <module>lersosa-service</module>
         <module>lersosa-common</module>
-        <!--        <module>lersosa-web</module>-->
+        <module>lersosa-web</module>
         <module>lersosa-cloud</module>
-        <!--        <module>lersosa-visual</module>-->
+        <module>lersosa-visual</module>
     </modules>
 
     <!--      属性      -->
@@ -93,8 +93,9 @@
         <spring-boot.version>3.3.4</spring-boot.version>
         <spring-cloud.version>2023.0.3</spring-cloud.version>
         <leyramu-lersosa.version>1.0.0</leyramu-lersosa.version>
-        <spring-boot-admin.version>3.3.3</spring-boot-admin.version>
+        <spring-boot-admin.version>3.3.4</spring-boot-admin.version>
         <spring-framework.version>6.1.13</spring-framework.version>
+        <spring-cloud-build.version>4.2.0-M2</spring-cloud-build.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-cloud-alibaba.version>2023.0.1.2</spring-cloud-alibaba.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>

@@ -23,7 +23,7 @@
     <!--      子模块      -->
     <modules>
         <module>lersosa-service-auth</module>
-        <!--        <module>lersosa-service-file</module>-->
+        <module>lersosa-service-file</module>
         <module>lersosa-service-gen</module>
         <module>lersosa-service-job</module>
         <module>lersosa-service-openai</module>
@@ -75,7 +75,6 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
-            <version>${spring-boot-admin.version}</version>
         </dependency>
 
         <!--    Mysql Connector    -->

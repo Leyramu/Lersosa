@@ -26,6 +26,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableLersosaFeignClients
 @SpringBootApplication
 public class LersosaGenApplication {
+
+    /**
+     * 启动 代码生成 模块
+     *
+     * @param args 命令行参数
+     */
     public static void main(String[] args) {
         SpringApplication.run(LersosaGenApplication.class, args);
         log.info("""

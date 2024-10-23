@@ -16,6 +16,7 @@
         <module name="lersosa-common-datascope" />
         <module name="lersosa-common-datasource" />
         <module name="lersosa-common-log" />
+        <module name="lersosa-service-file" />
         <module name="lersosa-service-system" />
         <module name="lersosa-service-gen" />
         <module name="lersosa-service-openai" />
@@ -25,6 +26,7 @@
         <module name="lersosa-service-auth" />
         <module name="lersosa-cloud-sentinel" />
         <module name="lersosa-gateway-api" />
+        <module name="lersosa-visual-monitor" />
         <module name="lersosa-api-system" />
       </profile>
     </annotationProcessing>
@@ -43,7 +45,7 @@
       <module name="lersosa-api" options="-parameters" />
       <module name="lersosa-api-system" options="-parameters" />
       <module name="lersosa-cloud" options="-parameters" />
-      <module name="lersosa-cloud-nacos" options="-parameters" />
+      <module name="lersosa-cloud-nacos" options="-Xlint:-options" />
       <module name="lersosa-cloud-seata" options="-parameters" />
       <module name="lersosa-cloud-sentinel" options="-Xlint:deprecation -parameters" />
       <module name="lersosa-common" options="-parameters" />
@@ -61,10 +63,14 @@
       <module name="lersosa-java" options="-parameters" />
       <module name="lersosa-service" options="-parameters" />
       <module name="lersosa-service-auth" options="-parameters" />
+      <module name="lersosa-service-file" options="-parameters" />
       <module name="lersosa-service-gen" options="-parameters" />
       <module name="lersosa-service-job" options="-parameters" />
       <module name="lersosa-service-openai" options="-parameters" />
       <module name="lersosa-service-system" options="-parameters" />
+      <module name="lersosa-visual" options="-parameters" />
+      <module name="lersosa-visual-monitor" options="-parameters" />
+      <module name="lersosa-web" options="-parameters" />
     </option>
   </component>
 </project>

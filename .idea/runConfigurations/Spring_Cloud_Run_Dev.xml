@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Spring Cloud Run Dev" type="CompoundRunConfigurationType">
+    <toRun name="LersosaAuthApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="LersosaFileApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="LersosaGatewayApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="LersosaGenApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="LersosaJobApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="LersosaNacosApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="LersosaOpenAiApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="LersosaSentinelApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="LersosaSystemApplication" type="SpringBootApplicationConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
