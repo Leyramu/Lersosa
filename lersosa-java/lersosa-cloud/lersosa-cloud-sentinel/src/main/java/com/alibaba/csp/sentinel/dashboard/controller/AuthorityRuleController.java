@@ -21,6 +21,7 @@ import com.alibaba.csp.sentinel.util.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -36,7 +37,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/authority")
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthorityRuleController {
 
     /**
@@ -123,7 +124,7 @@ public class AuthorityRuleController {
             return Result.ofFail(-1, "limitApp should be valid");
         }
         if (entity.getStrategy() != RuleConstant.AUTHORITY_WHITE
-                && entity.getStrategy() != RuleConstant.AUTHORITY_BLACK) {
+            && entity.getStrategy() != RuleConstant.AUTHORITY_BLACK) {
             return Result.ofFail(-1, "Unknown strategy (must be blacklist or whitelist)");
         }
         return null;

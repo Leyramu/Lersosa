@@ -12,6 +12,7 @@ import com.alibaba.csp.sentinel.dashboard.domain.Result;
 import com.alibaba.fastjson.JSON;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +29,7 @@ import java.lang.reflect.Method;
  * @version 1.7.1
  * @since 2024/9/3
  */
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
 public class DefaultAuthorizationInterceptor implements AuthorizationInterceptor {
 
     /**

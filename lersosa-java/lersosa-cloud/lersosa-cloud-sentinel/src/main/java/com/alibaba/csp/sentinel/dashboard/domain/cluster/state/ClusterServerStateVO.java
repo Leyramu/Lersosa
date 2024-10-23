@@ -163,14 +163,14 @@ public class ClusterServerStateVO {
     @Override
     public String toString() {
         return "ClusterServerStateVO{" +
-                "appName='" + appName + '\'' +
-                ", transport=" + transport +
-                ", flow=" + flow +
-                ", namespaceSet=" + namespaceSet +
-                ", port=" + port +
-                ", connection=" + connection +
-                ", requestLimitData=" + requestLimitData +
-                ", embedded=" + embedded +
-                '}';
+               "appName='" + appName + '\'' +
+               ", transport=" + transport +
+               ", flow=" + flow +
+               ", namespaceSet=" + namespaceSet +
+               ", port=" + port +
+               ", connection=" + connection +
+               ", requestLimitData=" + requestLimitData +
+               ", embedded=" + embedded +
+               '}';
     }
 }

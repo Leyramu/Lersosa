@@ -78,9 +78,9 @@ public class ClusterUniversalStateVO {
     @Override
     public String toString() {
         return "ClusterUniversalStateVO{" +
-                "stateInfo=" + stateInfo +
-                ", client=" + client +
-                ", server=" + server +
-                '}';
+               "stateInfo=" + stateInfo +
+               ", client=" + client +
+               ", server=" + server +
+               '}';
     }
 }

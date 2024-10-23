@@ -174,7 +174,7 @@ public class ResourceTreeNode {
      */
     private boolean search(ResourceTreeNode node, String searchKey) {
         node.visible = searchKey == null || searchKey.isEmpty() ||
-                node.resource.toLowerCase().contains(searchKey.toLowerCase());
+                       node.resource.toLowerCase().contains(searchKey.toLowerCase());
 
         boolean found = false;
         for (ResourceTreeNode c : node.children) {

@@ -39,7 +39,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/degrade")
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DegradeController {
 
     /**
@@ -248,7 +248,7 @@ public class DegradeController {
             return Result.ofFail(-1, "circuit breaker strategy cannot be null");
         }
         if (strategy < CircuitBreakerStrategy.SLOW_REQUEST_RATIO.getType()
-                || strategy > RuleConstant.DEGRADE_GRADE_EXCEPTION_COUNT) {
+            || strategy > RuleConstant.DEGRADE_GRADE_EXCEPTION_COUNT) {
             return Result.ofFail(-1, "Invalid circuit breaker strategy: " + strategy);
         }
         if (entity.getMinRequestAmount() == null || entity.getMinRequestAmount() <= 0) {

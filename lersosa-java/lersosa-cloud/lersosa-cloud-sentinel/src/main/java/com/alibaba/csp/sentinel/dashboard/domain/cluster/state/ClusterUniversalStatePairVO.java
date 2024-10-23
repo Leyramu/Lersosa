@@ -81,9 +81,9 @@ public class ClusterUniversalStatePairVO {
     @Override
     public String toString() {
         return "ClusterUniversalStatePairVO{"
-                + "ip='" + ip + '\''
-                + ", commandPort=" + commandPort
-                + ", state=" + state
-                + '}';
+               + "ip='" + ip + '\''
+               + ", commandPort=" + commandPort
+               + ", state=" + state
+               + '}';
     }
 }

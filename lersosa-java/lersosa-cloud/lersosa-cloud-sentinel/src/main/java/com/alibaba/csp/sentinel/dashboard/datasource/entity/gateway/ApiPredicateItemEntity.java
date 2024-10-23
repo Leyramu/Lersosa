@@ -51,7 +51,7 @@ public class ApiPredicateItemEntity {
         }
         ApiPredicateItemEntity that = (ApiPredicateItemEntity) o;
         return Objects.equals(pattern, that.pattern) &&
-                Objects.equals(matchStrategy, that.matchStrategy);
+               Objects.equals(matchStrategy, that.matchStrategy);
     }
 
     /**
@@ -72,8 +72,8 @@ public class ApiPredicateItemEntity {
     @Override
     public String toString() {
         return "ApiPredicateItemEntity{" +
-                "pattern='" + pattern + '\'' +
-                ", matchStrategy=" + matchStrategy +
-                '}';
+               "pattern='" + pattern + '\'' +
+               ", matchStrategy=" + matchStrategy +
+               '}';
     }
 }

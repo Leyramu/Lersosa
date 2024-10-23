@@ -23,6 +23,7 @@ import com.alibaba.csp.sentinel.util.function.Tuple2;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -40,7 +41,7 @@ import java.util.stream.Collectors;
  * @since 2024/9/3
  */
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
 public class ClusterAssignServiceImpl implements ClusterAssignService {
 
     /**
@@ -82,7 +83,7 @@ public class ClusterAssignServiceImpl implements ClusterAssignService {
             Set<String> toModifySet = list.stream()
                     .filter(e -> e.getState().getStateInfo().getMode() == ClusterStateManager.CLUSTER_CLIENT)
                     .filter(e -> machineId.equals(e.getState().getClient().getClientConfig().getServerHost() + ':' +
-                            e.getState().getClient().getClientConfig().getServerPort()))
+                                                  e.getState().getClient().getClientConfig().getServerPort()))
                     .map(e -> e.getIp() + '@' + e.getCommandPort())
                     .collect(Collectors.toSet());
             modifyToNonStarted(toModifySet, failedSet);

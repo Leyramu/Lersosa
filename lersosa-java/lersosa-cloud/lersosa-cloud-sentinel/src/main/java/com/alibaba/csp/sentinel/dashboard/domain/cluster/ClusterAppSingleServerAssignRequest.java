@@ -64,8 +64,8 @@ public class ClusterAppSingleServerAssignRequest {
     @Override
     public String toString() {
         return "ClusterAppSingleServerAssignRequest{" +
-                "clusterMap=" + clusterMap +
-                ", remainingList=" + remainingList +
-                '}';
+               "clusterMap=" + clusterMap +
+               ", remainingList=" + remainingList +
+               '}';
     }
 }

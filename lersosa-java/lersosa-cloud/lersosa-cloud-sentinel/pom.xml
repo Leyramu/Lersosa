@@ -31,9 +31,8 @@
         <java.version>17</java.version>
         <log4j.version>2.23.1</log4j.version>
         <sentinel.version>1.8.8</sentinel.version>
-        <curator.version>5.7.0</curator.version>
-        <lombok.version>1.18.34</lombok.version>
-        <fastjson.version>2.0.52</fastjson.version>
+        <curator.version>5.7.1</curator.version>
+        <fastjson.version>2.0.53</fastjson.version>
         <resource.delimiter>@</resource.delimiter>
         <httpcore.version>4.4.16</httpcore.version>
         <httpclient.version>4.5.14</httpclient.version>
@@ -89,6 +88,14 @@
             <artifactId>sentinel-datasource-nacos</artifactId>
             <version>${sentinel.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!--    Lombok    -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.34</version>
+            <optional>true</optional>
         </dependency>
 
         <!--    Fastjson    -->
@@ -212,14 +219,6 @@
             <artifactId>system-rules</artifactId>
             <version>${system-rules.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <!--    Lombok    -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <optional>true</optional>
         </dependency>
     </dependencies>
 

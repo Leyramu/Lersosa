@@ -333,21 +333,21 @@ public class GatewayFlowRuleEntity implements RuleEntity {
         }
         GatewayFlowRuleEntity that = (GatewayFlowRuleEntity) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(app, that.app) &&
-                Objects.equals(ip, that.ip) &&
-                Objects.equals(port, that.port) &&
-                Objects.equals(gmtCreate, that.gmtCreate) &&
-                Objects.equals(gmtModified, that.gmtModified) &&
-                Objects.equals(resource, that.resource) &&
-                Objects.equals(resourceMode, that.resourceMode) &&
-                Objects.equals(grade, that.grade) &&
-                Objects.equals(count, that.count) &&
-                Objects.equals(interval, that.interval) &&
-                Objects.equals(intervalUnit, that.intervalUnit) &&
-                Objects.equals(controlBehavior, that.controlBehavior) &&
-                Objects.equals(burst, that.burst) &&
-                Objects.equals(maxQueueingTimeoutMs, that.maxQueueingTimeoutMs) &&
-                Objects.equals(paramItem, that.paramItem);
+               Objects.equals(app, that.app) &&
+               Objects.equals(ip, that.ip) &&
+               Objects.equals(port, that.port) &&
+               Objects.equals(gmtCreate, that.gmtCreate) &&
+               Objects.equals(gmtModified, that.gmtModified) &&
+               Objects.equals(resource, that.resource) &&
+               Objects.equals(resourceMode, that.resourceMode) &&
+               Objects.equals(grade, that.grade) &&
+               Objects.equals(count, that.count) &&
+               Objects.equals(interval, that.interval) &&
+               Objects.equals(intervalUnit, that.intervalUnit) &&
+               Objects.equals(controlBehavior, that.controlBehavior) &&
+               Objects.equals(burst, that.burst) &&
+               Objects.equals(maxQueueingTimeoutMs, that.maxQueueingTimeoutMs) &&
+               Objects.equals(paramItem, that.paramItem);
     }
 
     /**
@@ -368,22 +368,22 @@ public class GatewayFlowRuleEntity implements RuleEntity {
     @Override
     public String toString() {
         return "GatewayFlowRuleEntity{" +
-                "id=" + id +
-                ", app='" + app + '\'' +
-                ", ip='" + ip + '\'' +
-                ", port=" + port +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModified=" + gmtModified +
-                ", resource='" + resource + '\'' +
-                ", resourceMode=" + resourceMode +
-                ", grade=" + grade +
-                ", count=" + count +
-                ", interval=" + interval +
-                ", intervalUnit=" + intervalUnit +
-                ", controlBehavior=" + controlBehavior +
-                ", burst=" + burst +
-                ", maxQueueingTimeoutMs=" + maxQueueingTimeoutMs +
-                ", paramItem=" + paramItem +
-                '}';
+               "id=" + id +
+               ", app='" + app + '\'' +
+               ", ip='" + ip + '\'' +
+               ", port=" + port +
+               ", gmtCreate=" + gmtCreate +
+               ", gmtModified=" + gmtModified +
+               ", resource='" + resource + '\'' +
+               ", resourceMode=" + resourceMode +
+               ", grade=" + grade +
+               ", count=" + count +
+               ", interval=" + interval +
+               ", intervalUnit=" + intervalUnit +
+               ", controlBehavior=" + controlBehavior +
+               ", burst=" + burst +
+               ", maxQueueingTimeoutMs=" + maxQueueingTimeoutMs +
+               ", paramItem=" + paramItem +
+               '}';
     }
 }

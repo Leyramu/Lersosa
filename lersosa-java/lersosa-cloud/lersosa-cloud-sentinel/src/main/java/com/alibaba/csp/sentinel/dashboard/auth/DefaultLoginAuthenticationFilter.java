@@ -10,6 +10,7 @@ package com.alibaba.csp.sentinel.dashboard.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.AntPathMatcher;
@@ -28,7 +29,7 @@ import java.util.List;
  * @version 1.6.0
  * @since 2024/9/3
  */
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DefaultLoginAuthenticationFilter implements LoginAuthenticationFilter {
 
     /**
@@ -40,20 +41,23 @@ public class DefaultLoginAuthenticationFilter implements LoginAuthenticationFilt
      * url 的后缀
      */
     private static final String URL_SUFFIX_DOT = ".";
-    /**
-     * 使用 AuthService 接口进行身份验证
-     */
-    private final AuthService<HttpServletRequest> authService;
+
     /**
      * 一些不需要身份验证的 URL，例如 /auth/login、/registry/machine 等
      */
     @Value("#{'${auth.filter.exclude-urls}'.split(',')}")
     private List<String> authFilterExcludeUrls;
+
     /**
      * 一些带有不需要身份验证的后缀的 url，例如 htm、html、js 等
      */
     @Value("#{'${auth.filter.exclude-url-suffixes}'.split(',')}")
     private List<String> authFilterExcludeUrlSuffixes;
+
+    /**
+     * 使用 AuthService 接口进行身份验证
+     */
+    private final AuthService<HttpServletRequest> authService;
 
     /**
      * 初始化过滤器

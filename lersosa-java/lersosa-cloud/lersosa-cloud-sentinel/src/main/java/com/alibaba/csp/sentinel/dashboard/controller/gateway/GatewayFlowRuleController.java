@@ -24,6 +24,7 @@ import com.alibaba.csp.sentinel.util.StringUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -44,7 +45,7 @@ import static com.alibaba.csp.sentinel.slots.block.RuleConstant.*;
  */
 @RestController
 @RequestMapping(value = "/gateway/flow")
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class GatewayFlowRuleController {
 
     /**

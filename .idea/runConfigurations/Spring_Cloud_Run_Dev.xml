@@ -5,6 +5,7 @@
     <toRun name="LersosaGatewayApplication" type="SpringBootApplicationConfigurationType" />
     <toRun name="LersosaGenApplication" type="SpringBootApplicationConfigurationType" />
     <toRun name="LersosaJobApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="LersosaMonitorApplication" type="SpringBootApplicationConfigurationType" />
     <toRun name="LersosaNacosApplication" type="SpringBootApplicationConfigurationType" />
     <toRun name="LersosaOpenAiApplication" type="SpringBootApplicationConfigurationType" />
     <toRun name="LersosaSentinelApplication" type="SpringBootApplicationConfigurationType" />

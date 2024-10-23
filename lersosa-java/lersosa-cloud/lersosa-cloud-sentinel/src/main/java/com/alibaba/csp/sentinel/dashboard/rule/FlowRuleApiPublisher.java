@@ -14,6 +14,7 @@ import com.alibaba.csp.sentinel.dashboard.discovery.AppManagement;
 import com.alibaba.csp.sentinel.dashboard.discovery.MachineInfo;
 import com.alibaba.csp.sentinel.util.StringUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,7 +27,7 @@ import java.util.Set;
  * @since 2024/9/3
  */
 @Component("flowRuleDefaultPublisher")
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
 public class FlowRuleApiPublisher implements DynamicRulePublisher<List<FlowRuleEntity>> {
 
     /**
@@ -44,9 +45,10 @@ public class FlowRuleApiPublisher implements DynamicRulePublisher<List<FlowRuleE
      *
      * @param app   应用名称
      * @param rules 规则列表
+     * @throws Exception 异常
      */
     @Override
-    public void publish(String app, List<FlowRuleEntity> rules) {
+    public void publish(String app, List<FlowRuleEntity> rules) throws Exception {
         if (StringUtil.isBlank(app)) {
             return;
         }

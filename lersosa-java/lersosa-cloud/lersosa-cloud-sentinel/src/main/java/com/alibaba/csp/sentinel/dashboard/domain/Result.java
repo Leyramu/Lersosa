@@ -153,11 +153,11 @@ public class Result<R> {
     @Override
     public String toString() {
         return "Result{" +
-                "success=" + success +
-                ", code=" + code +
-                ", msg='" + msg + '\'' +
-                ", data=" + data +
-                '}';
+               "success=" + success +
+               ", code=" + code +
+               ", msg='" + msg + '\'' +
+               ", data=" + data +
+               '}';
     }
 
 }

@@ -26,6 +26,7 @@ import com.alibaba.csp.sentinel.dashboard.util.AsyncUtils;
 import com.alibaba.csp.sentinel.dashboard.util.ClusterEntityUtils;
 import com.alibaba.csp.sentinel.util.StringUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ import java.util.stream.Collectors;
  * @since 2024/9/3
  */
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor_ = @__(@Autowired))
 public class ClusterConfigService {
 
     /**
@@ -82,8 +83,8 @@ public class ClusterConfigService {
     private boolean notClientRequestValid(ClusterClientModifyRequest request) {
         ClusterClientConfig config = request.getClientConfig();
         return config == null || StringUtil.isEmpty(config.getServerHost())
-                || config.getServerPort() == null || config.getServerPort() <= 0
-                || config.getRequestTimeout() == null || config.getRequestTimeout() <= 0;
+               || config.getServerPort() == null || config.getServerPort() <= 0
+               || config.getRequestTimeout() == null || config.getRequestTimeout() <= 0;
     }
 
     /**
@@ -207,7 +208,7 @@ public class ClusterConfigService {
      */
     private boolean invalidTransportConfig(ServerTransportConfig transportConfig) {
         return transportConfig == null || transportConfig.getPort() == null || transportConfig.getPort() <= 0
-                || transportConfig.getIdleSeconds() == null || transportConfig.getIdleSeconds() <= 0;
+               || transportConfig.getIdleSeconds() == null || transportConfig.getIdleSeconds() <= 0;
     }
 
     /**
@@ -218,8 +219,8 @@ public class ClusterConfigService {
      */
     private boolean invalidFlowConfig(ServerFlowConfig flowConfig) {
         return flowConfig == null || flowConfig.getSampleCount() == null || flowConfig.getSampleCount() <= 0
-                || flowConfig.getIntervalMs() == null || flowConfig.getIntervalMs() <= 0
-                || flowConfig.getIntervalMs() % flowConfig.getSampleCount() != 0
-                || flowConfig.getMaxAllowedQps() == null || flowConfig.getMaxAllowedQps() < 0;
+               || flowConfig.getIntervalMs() == null || flowConfig.getIntervalMs() <= 0
+               || flowConfig.getIntervalMs() % flowConfig.getSampleCount() != 0
+               || flowConfig.getMaxAllowedQps() == null || flowConfig.getMaxAllowedQps() < 0;
     }
 }
