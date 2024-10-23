@@ -61,9 +61,9 @@
 
     <!--      SCM 信息      -->
     <scm>
-        <url>https://github.com/Leyramu/Digitalization_Education</url>
-        <connection>https://github.com/leyramu/digitalizationEducation.git</connection>
-        <developerConnection>https://github.com/leyramu</developerConnection>
+        <url>https://github.com/Leyramu/Lersosa</url>
+        <connection>git@github.com:Leyramu/Lersosa.git</connection>
+        <developerConnection>https://github.com/Leyramu</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
