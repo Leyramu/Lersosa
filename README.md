@@ -108,7 +108,7 @@ LeyramuLersosa    多语言混合开发框架
 ## 10. 版权声明
 
 * Copyright (c) 2024 Leyramu. All rights reserved.
-* This project (Digitalization Education), including its source code, documentation, and any associated materials, is
+* This project (Lersosa), including its source code, documentation, and any associated materials, is
   the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any
   form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior
   written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical
