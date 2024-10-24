@@ -1,18 +1,26 @@
+<!--
+  - Copyright (c) 2024 Leyramu. All rights reserved.
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
 <template>
   <div class="icon-body">
     <el-input
-      v-model="iconName"
-      class="icon-search"
-      clearable
-      placeholder="请输入图标名称"
-      @clear="filterIcons"
-      @input="filterIcons"
+        v-model="iconName"
+        class="icon-search"
+        clearable
+        placeholder="请输入图标名称"
+        @clear="filterIcons"
+        @input="filterIcons"
     >
-      <template #suffix><i class="el-icon-search el-input__icon" /></template>
+      <template #suffix><i class="el-icon-search el-input__icon"/></template>
     </el-input>
     <div class="icon-list">
       <div class="list-container">
-        <div v-for="(item, index) in iconList" class="icon-item-wrapper" :key="index" @click="selectedIcon(item)">
+        <div v-for="(item, index) in iconList" :key="index" class="icon-item-wrapper" @click="selectedIcon(item)">
           <div :class="['icon-item', { active: activeIcon === item }]">
             <svg-icon :icon-class="item" class-name="icon" style="height: 25px;width: 16px;"/>
             <span>{{ item }}</span>
@@ -59,53 +67,62 @@ defineExpose({
 </script>
 
 <style lang='scss' scoped>
-   .icon-body {
-    width: 100%;
-    padding: 10px;
-    .icon-search {
-      position: relative;
-      margin-bottom: 5px;
-    }
-    .icon-list {
-      height: 200px;
-      overflow: auto;
-      .list-container {
+.icon-body {
+  width: 100%;
+  padding: 10px;
+
+  .icon-search {
+    position: relative;
+    margin-bottom: 5px;
+  }
+
+  .icon-list {
+    height: 200px;
+    overflow: auto;
+
+    .list-container {
+      display: flex;
+      flex-wrap: wrap;
+
+      .icon-item-wrapper {
+        width: calc(100% / 3);
+        height: 25px;
+        line-height: 25px;
+        cursor: pointer;
         display: flex;
-        flex-wrap: wrap;
-        .icon-item-wrapper {
-          width: calc(100% / 3);
-          height: 25px;
-          line-height: 25px;
-          cursor: pointer;
+
+        .icon-item {
           display: flex;
-          .icon-item {
-            display: flex;
-            max-width: 100%;
-            height: 100%;
-            padding: 0 5px;
-            &:hover {
-              background: #ececec;
-              border-radius: 5px;
-            }
-            .icon {
-              flex-shrink: 0;
-            }
-            span {
-              display: inline-block;
-              vertical-align: -0.15em;
-              fill: currentColor;
-              padding-left: 2px;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
-          }
-          .icon-item.active {
+          max-width: 100%;
+          height: 100%;
+          padding: 0 5px;
+
+          &:hover {
             background: #ececec;
             border-radius: 5px;
           }
+
+          .icon {
+            flex-shrink: 0;
+          }
+
+          span {
+            display: inline-block;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            padding-left: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+
+        .icon-item.active {
+          background: #ececec;
+          border-radius: 5px;
         }
       }
     }
   }
+}
 </style>

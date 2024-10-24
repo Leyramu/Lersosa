@@ -1,44 +1,57 @@
+<!--
+  - Copyright (c) 2024 Leyramu. All rights reserved.
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
 <template>
   <div class="app-container home">
     <el-row :gutter="20">
-      <el-col :sm="24" :lg="24">
+      <el-col :lg="24" :sm="24">
         <blockquote class="text-warning" style="font-size: 14px">
           领取阿里云通用云产品1888优惠券
-          <br />
+          <br/>
           <el-link
-            href="https://www.aliyun.com/minisite/goods?userCode=brki8iof"
-            type="primary"
-            target="_blank"
-            >https://www.aliyun.com/minisite/goods?userCode=brki8iof</el-link
+              href="https://www.aliyun.com/minisite/goods?userCode=brki8iof"
+              target="_blank"
+              type="primary"
+          >https://www.aliyun.com/minisite/goods?userCode=brki8iof
+          </el-link
           >
-          <br />
+          <br/>
           领取腾讯云通用云产品2860优惠券
-          <br />
+          <br/>
           <el-link
-            href="https://cloud.tencent.com/redirect.php?redirect=1025&cps_key=198c8df2ed259157187173bc7f4f32fd&from=console"
-            type="primary"
-            target="_blank"
-            >https://cloud.tencent.com/redirect.php?redirect=1025&cps_key=198c8df2ed259157187173bc7f4f32fd&from=console</el-link
+              href="https://cloud.tencent.com/redirect.php?redirect=1025&cps_key=198c8df2ed259157187173bc7f4f32fd&from=console"
+              target="_blank"
+              type="primary"
+          >https://cloud.tencent.com/redirect.php?redirect=1025&cps_key=198c8df2ed259157187173bc7f4f32fd&from=console
+          </el-link
           >
-          <br />
+          <br/>
           阿里云服务器折扣区
-          <el-link href="http://aly.ruoyi.vip" type="primary" target="_blank"
-            >>☛☛点我进入☚☚</el-link
+          <el-link href="http://aly.leyramu.vip" target="_blank" type="primary"
+          >>☛☛点我进入☚☚
+          </el-link
           >
           &nbsp;&nbsp;&nbsp; 腾讯云服务器秒杀区
-          <el-link href="http://txy.ruoyi.vip" type="primary" target="_blank"
-            >>☛☛点我进入☚☚</el-link
-          ><br />
+          <el-link href="http://txy.leyramu.vip" target="_blank" type="primary"
+          >>☛☛点我进入☚☚
+          </el-link
+          >
+          <br/>
           <h4 class="text-danger">
             云产品通用红包，可叠加官网常规优惠使用。(仅限新用户)
           </h4>
         </blockquote>
 
-        <hr />
+        <hr/>
       </el-col>
     </el-row>
     <el-row :gutter="20">
-      <el-col :sm="24" :lg="12" style="padding-left: 20px">
+      <el-col :lg="12" :sm="24" style="padding-left: 20px">
         <h2>若依后台管理框架</h2>
         <p>
           一直想做一款后台管理系统，看了很多优秀的开源项目但是发现没有合适自己的。于是利用空闲休息时间开始自己写一套后台系统。如此有了若依管理系统，她可以用于所有的Web应用程序，如网站管理后台，网站会员中心，CMS，CRM，OA等等，当然，您也可以对她进行深度定制，以做出更强系统。所有前端后台代码封装过后十分精简易上手，出错概率低。同时支持移动客户端访问。系统会陆续更新一些实用功能。
@@ -51,22 +64,24 @@
         </p>
         <p>
           <el-button
-            type="primary"
-            icon="Cloudy"
-            plain
-            @click="goTarget('https://gitee.com/y_project/RuoYi-Cloud')"
-            >访问码云</el-button
+              icon="Cloudy"
+              plain
+              type="primary"
+              @click="goTarget('https://github.com/Leyramu/Lersosa')"
+          >访问码云
+          </el-button
           >
           <el-button
-            icon="HomeFilled"
-            plain
-            @click="goTarget('http://ruoyi.vip')"
-            >访问主页</el-button
+              icon="HomeFilled"
+              plain
+              @click="goTarget('http://www.leyramu.top')"
+          >访问主页
+          </el-button
           >
         </p>
       </el-col>
 
-      <el-col :sm="24" :lg="12" style="padding-left: 50px">
+      <el-col :lg="12" :sm="24" style="padding-left: 50px">
         <el-row>
           <el-col :span="12">
             <h2>技术选型</h2>
@@ -100,9 +115,9 @@
         </el-row>
       </el-col>
     </el-row>
-    <el-divider />
+    <el-divider/>
     <el-row :gutter="20">
-      <el-col :xs="24" :sm="24" :md="12" :lg="8">
+      <el-col :lg="8" :md="12" :sm="24" :xs="24">
         <el-card class="update-log">
           <template v-slot:header>
             <div class="clearfix">
@@ -111,35 +126,39 @@
           </template>
           <div class="body">
             <p>
-              <i class="el-icon-s-promotion"></i> 官网：<el-link
-                href="http://www.ruoyi.vip"
-                target="_blank"
-                >http://www.ruoyi.vip</el-link
+              <i class="el-icon-s-promotion"></i> 官网：
+              <el-link
+                  href="http://www.leyramu.top"
+                  target="_blank"
+              >http://www.leyramu.top
+              </el-link
               >
             </p>
             <p>
-              <i class="el-icon-user-solid"></i> QQ群： <s> 满42799195 </s>  <s> 满170157040 </s>
+              <i class="el-icon-user-solid"></i> QQ群： <s> 满42799195 </s> <s> 满170157040 </s>
               <s> 满130643120 </s> <s> 满225920371 </s> <s> 满201705537 </s> <s> 满236543183 </s>
               <s> 满213618602 </s> <s> 满148794840 </s> <s> 满118752664 </s> <s> 满101038945 </s>
-              <s> 满128355254 </s> <a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=irnwcXhbLOQEv1g-TwGifjNTA_f4wZiA&authKey=4bpzEwhcUY%2FvsPDHvzYn6xfoS%2FtOArvZ%2BGXzfr7O0%2FEqLfkKA%2BuCDXlzHIFg8t93&noverify=0&group_code=179219821" target="_blank">179219821</a>
+              <s> 满128355254 </s> <a
+                href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=irnwcXhbLOQEv1g-TwGifjNTA_f4wZiA&authKey=4bpzEwhcUY%2FvsPDHvzYn6xfoS%2FtOArvZ%2BGXzfr7O0%2FEqLfkKA%2BuCDXlzHIFg8t93&noverify=0&group_code=179219821"
+                target="_blank">179219821</a>
             </p>
             <p>
               <i class="el-icon-chat-dot-round"></i> 微信：<a
                 href="javascript:;"
-                >/ *若依</a
-              >
+            >/ *若依</a
+            >
             </p>
             <p>
               <i class="el-icon-money"></i> 支付宝：<a
-                href="javascript:;"
                 class="支付宝信息"
-                >/ *若依</a
-              >
+                href="javascript:;"
+            >/ *若依</a
+            >
             </p>
           </div>
         </el-card>
       </el-col>
-      <el-col :xs="24" :sm="24" :md="12" :lg="8">
+      <el-col :lg="8" :md="12" :sm="24" :xs="24">
         <el-card class="update-log">
           <template v-slot:header>
             <div class="clearfix">
@@ -889,7 +908,7 @@
           </el-collapse>
         </el-card>
       </el-col>
-      <el-col :xs="24" :sm="24" :md="12" :lg="8">
+      <el-col :lg="8" :md="12" :sm="24" :xs="24">
         <el-card class="update-log">
           <template v-slot:header>
             <div class="clearfix">
@@ -898,12 +917,12 @@
           </template>
           <div class="body">
             <img
-              src="@/assets/images/pay.png"
-              alt="donate"
-              style="width:100%"
+                alt="donate"
+                src="@/assets/images/pay.png"
+                style="width:100%"
             />
             <span style="display: inline-block; height: 30px; line-height: 30px"
-              >你可以请作者喝杯咖啡表示鼓励</span
+            >你可以请作者喝杯咖啡表示鼓励</span
             >
           </div>
         </el-card>
@@ -912,7 +931,7 @@
   </div>
 </template>
 
-<script setup name="Index">
+<script name="Index" setup>
 const version = ref('3.6.4')
 
 function goTarget(url) {
@@ -920,7 +939,7 @@ function goTarget(url) {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .home {
   blockquote {
     padding: 10px 20px;
@@ -928,12 +947,14 @@ function goTarget(url) {
     font-size: 17.5px;
     border-left: 5px solid #eee;
   }
+
   hr {
     margin-top: 20px;
     margin-bottom: 20px;
     border: 0;
     border-top: 1px solid #eee;
   }
+
   .col-item {
     margin-bottom: 20px;
   }

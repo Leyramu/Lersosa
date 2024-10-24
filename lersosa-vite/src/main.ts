@@ -1,4 +1,12 @@
-import { createApp } from 'vue'
+/*
+ * Copyright (c) 2024 Leyramu. All rights reserved.
+ * This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+ * For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+ * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+ * By using this project, users acknowledge and agree to abide by these terms and conditions.
+ */
+
+import {createApp} from 'vue'
 
 import Cookies from 'js-cookie'
 
@@ -7,15 +15,13 @@ import 'element-plus/dist/index.css'
 import locale from 'element-plus/es/locale/lang/zh-cn'
 
 import '@/assets/styles/index.scss' // global css
-
 import App from './App'
 import store from './store'
 import router from './router'
 import directive from './directive' // directive
-
 // 注册指令
 import plugins from './plugins' // plugins
-import { download } from '@/utils/request'
+import {download} from '@/utils/request'
 
 // svg图标
 import 'virtual:svg-icons-register'
@@ -23,9 +29,8 @@ import SvgIcon from '@/components/SvgIcon'
 import elementIcons from '@/components/SvgIcon/svgicon'
 
 import './permission' // permission control
-
-import { useDict } from '@/utils/dict'
-import { parseTime, resetForm, addDateRange, handleTree, selectDictLabel, selectDictLabels } from '@/utils/ruoyi'
+import {useDict} from '@/utils/dict'
+import {addDateRange, handleTree, parseTime, resetForm, selectDictLabel, selectDictLabels} from '@/utils/lersosa'
 
 // 分页组件
 import Pagination from '@/components/Pagination'
@@ -76,9 +81,9 @@ directive(app)
 
 // 使用element-plus 并且设置全局的大小
 app.use(ElementPlus, {
-  locale: locale,
-  // 支持 large、default、small
-  size: Cookies.get('size') || 'default'
+    locale: locale,
+    // 支持 large、default、small
+    size: Cookies.get('size') || 'default'
 })
 
 app.mount('#app')

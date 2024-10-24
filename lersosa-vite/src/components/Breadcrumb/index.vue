@@ -1,8 +1,17 @@
+<!--
+  - Copyright (c) 2024 Leyramu. All rights reserved.
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
 <template>
   <el-breadcrumb class="app-breadcrumb" separator="/">
     <transition-group name="breadcrumb">
       <el-breadcrumb-item v-for="(item,index) in levelList" :key="item.path">
-        <span v-if="item.redirect === 'noRedirect' || index == levelList.length - 1" class="no-redirect">{{ item.meta.title }}</span>
+        <span v-if="item.redirect === 'noRedirect' || index == levelList.length - 1"
+              class="no-redirect">{{ item.meta.title }}</span>
         <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
       </el-breadcrumb-item>
     </transition-group>
@@ -20,11 +29,12 @@ function getBreadcrumb() {
   const first = matched[0]
   // 判断是否为首页
   if (!isDashboard(first)) {
-    matched = [{ path: '/index', meta: { title: '首页' } }].concat(matched)
+    matched = [{path: '/index', meta: {title: '首页'}}].concat(matched)
   }
 
   levelList.value = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
 }
+
 function isDashboard(route) {
   const name = route && route.name
   if (!name) {
@@ -32,8 +42,9 @@ function isDashboard(route) {
   }
   return name.trim() === 'Index'
 }
+
 function handleLink(item) {
-  const { redirect, path } = item
+  const {redirect, path} = item
   if (redirect) {
     router.push(redirect)
     return

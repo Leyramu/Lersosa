@@ -1,40 +1,50 @@
+<!--
+  - Copyright (c) 2024 Leyramu. All rights reserved.
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
 <template>
   <div class="user-info-head" @click="editCropper()">
-    <img :src="options.img" title="点击上传头像" class="img-circle img-lg" />
-    <el-dialog :title="title" v-model="open" width="800px" append-to-body @opened="modalOpened" @close="closeDialog">
+    <img :src="options.img" class="img-circle img-lg" title="点击上传头像"/>
+    <el-dialog v-model="open" :title="title" append-to-body width="800px" @close="closeDialog" @opened="modalOpened">
       <el-row>
-        <el-col :xs="24" :md="12" :style="{ height: '350px' }">
+        <el-col :md="12" :style="{ height: '350px' }" :xs="24">
           <vue-cropper
-            ref="cropper"
-            :img="options.img"
-            :info="true"
-            :autoCrop="options.autoCrop"
-            :autoCropWidth="options.autoCropWidth"
-            :autoCropHeight="options.autoCropHeight"
-            :fixedBox="options.fixedBox"
-            :outputType="options.outputType"
-            @realTime="realTime"
-            v-if="visible"
+              v-if="visible"
+              ref="cropper"
+              :autoCrop="options.autoCrop"
+              :autoCropHeight="options.autoCropHeight"
+              :autoCropWidth="options.autoCropWidth"
+              :fixedBox="options.fixedBox"
+              :img="options.img"
+              :info="true"
+              :outputType="options.outputType"
+              @realTime="realTime"
           />
         </el-col>
-        <el-col :xs="24" :md="12" :style="{ height: '350px' }">
+        <el-col :md="12" :style="{ height: '350px' }" :xs="24">
           <div class="avatar-upload-preview">
-            <img :src="options.previews.url" :style="options.previews.img" />
+            <img :src="options.previews.url" :style="options.previews.img"/>
           </div>
         </el-col>
       </el-row>
-      <br />
+      <br/>
       <el-row>
         <el-col :lg="2" :md="2">
           <el-upload
-            action="#"
-            :http-request="requestUpload"
-            :show-file-list="false"
-            :before-upload="beforeUpload"
+              :before-upload="beforeUpload"
+              :http-request="requestUpload"
+              :show-file-list="false"
+              action="#"
           >
             <el-button>
               选择
-              <el-icon class="el-icon--right"><Upload /></el-icon>
+              <el-icon class="el-icon--right">
+                <Upload/>
+              </el-icon>
             </el-button>
           </el-upload>
         </el-col>
@@ -60,12 +70,12 @@
 
 <script setup>
 import "vue-cropper/dist/index.css";
-import { VueCropper } from "vue-cropper";
-import { uploadAvatar } from "@/api/system/user";
+import {VueCropper} from "vue-cropper";
+import {uploadAvatar} from "@/api/system/user";
 import useUserStore from "@/store/modules/user";
 
 const userStore = useUserStore();
-const { proxy } = getCurrentInstance();
+const {proxy} = getCurrentInstance();
 
 const open = ref(false);
 const visible = ref(false);
@@ -87,25 +97,32 @@ const options = reactive({
 function editCropper() {
   open.value = true;
 }
+
 /** 打开弹出层结束时的回调 */
 function modalOpened() {
   visible.value = true;
 }
+
 /** 覆盖默认上传行为 */
-function requestUpload() {}
+function requestUpload() {
+}
+
 /** 向左旋转 */
 function rotateLeft() {
   proxy.$refs.cropper.rotateLeft();
 }
+
 /** 向右旋转 */
 function rotateRight() {
   proxy.$refs.cropper.rotateRight();
 }
+
 /** 图片缩放 */
 function changeScale(num) {
   num = num || 1;
   proxy.$refs.cropper.changeScale(num);
 }
+
 /** 上传预处理 */
 function beforeUpload(file) {
   if (file.type.indexOf("image/") == -1) {
@@ -119,6 +136,7 @@ function beforeUpload(file) {
     };
   }
 }
+
 /** 上传图片 */
 function uploadImg() {
   proxy.$refs.cropper.getCropBlob(data => {
@@ -133,10 +151,12 @@ function uploadImg() {
     });
   });
 }
+
 /** 实时预览 */
 function realTime(data) {
   options.previews = data;
 }
+
 /** 关闭窗口 */
 function closeDialog() {
   options.img = userStore.avatar;

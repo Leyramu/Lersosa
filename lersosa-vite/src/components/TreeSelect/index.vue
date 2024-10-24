@@ -1,27 +1,35 @@
+<!--
+  - Copyright (c) 2024 Leyramu. All rights reserved.
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
 <template>
   <div class="el-tree-select">
     <el-select
-      style="width: 100%"
-      v-model="valueId"
-      ref="treeSelect"
-      :filterable="true"
-      :clearable="true"
-      @clear="clearHandle"
-      :filter-method="selectFilterData"
-      :placeholder="placeholder"
+        ref="treeSelect"
+        v-model="valueId"
+        :clearable="true"
+        :filter-method="selectFilterData"
+        :filterable="true"
+        :placeholder="placeholder"
+        style="width: 100%"
+        @clear="clearHandle"
     >
-      <el-option :value="valueId" :label="valueTitle">
+      <el-option :label="valueTitle" :value="valueId">
         <el-tree
-          id="tree-option"
-          ref="selectTree"
-          :accordion="accordion"
-          :data="options"
-          :props="objMap"
-          :node-key="objMap.value"
-          :expand-on-click-node="false"
-          :default-expanded-keys="defaultExpandedKey"
-          :filter-node-method="filterNode"
-          @node-click="handleNodeClick"
+            id="tree-option"
+            ref="selectTree"
+            :accordion="accordion"
+            :data="options"
+            :default-expanded-keys="defaultExpandedKey"
+            :expand-on-click-node="false"
+            :filter-node-method="filterNode"
+            :node-key="objMap.value"
+            :props="objMap"
+            @node-click="handleNodeClick"
         ></el-tree>
       </el-option>
     </el-select>
@@ -30,7 +38,7 @@
 
 <script setup>
 
-const { proxy } = getCurrentInstance();
+const {proxy} = getCurrentInstance();
 
 const props = defineProps({
   /* 配置项 */
@@ -82,7 +90,7 @@ const defaultExpandedKey = ref([]);
 function initHandle() {
   nextTick(() => {
     const selectedValue = valueId.value;
-    if(selectedValue !== null && typeof (selectedValue) !== 'undefined') {
+    if (selectedValue !== null && typeof (selectedValue) !== 'undefined') {
       const node = proxy.$refs.selectTree.getNode(selectedValue)
       if (node) {
         valueTitle.value = node.data[props.objMap.label]
@@ -94,6 +102,7 @@ function initHandle() {
     }
   })
 }
+
 function handleNodeClick(node) {
   valueTitle.value = node[props.objMap.label]
   valueId.value = node[props.objMap.value];
@@ -101,19 +110,23 @@ function handleNodeClick(node) {
   proxy.$refs.treeSelect.blur()
   selectFilterData('')
 }
+
 function selectFilterData(val) {
   proxy.$refs.selectTree.filter(val)
 }
+
 function filterNode(value, data) {
   if (!value) return true
   return data[props.objMap['label']].indexOf(value) !== -1
 }
+
 function clearHandle() {
   valueTitle.value = ''
   valueId.value = ''
   defaultExpandedKey.value = [];
   clearSelected()
 }
+
 function clearSelected() {
   const allNode = document.querySelectorAll('#tree-option .el-tree-node')
   allNode.forEach((element) => element.classList.remove('is-current'))
@@ -130,6 +143,7 @@ watch(valueId, () => {
 
 <style lang='scss' scoped>
 @import "@/assets/styles/variables.module.scss";
+
 .el-scrollbar .el-scrollbar__view .el-select-dropdown__item {
   padding: 0;
   background-color: #fff;

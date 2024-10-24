@@ -1,31 +1,39 @@
+<!--
+  - Copyright (c) 2024 Leyramu. All rights reserved.
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
 <template>
   <el-menu
-    :default-active="activeMenu"
-    mode="horizontal"
-    @select="handleSelect"
-    :ellipsis="false"
+      :default-active="activeMenu"
+      :ellipsis="false"
+      mode="horizontal"
+      @select="handleSelect"
   >
     <template v-for="(item, index) in topMenus">
-      <el-menu-item :style="{'--theme': theme}" :index="item.path" :key="index" v-if="index < visibleNumber">
+      <el-menu-item v-if="index < visibleNumber" :key="index" :index="item.path" :style="{'--theme': theme}">
         <svg-icon
-        v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
-        :icon-class="item.meta.icon"/>
+            v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
+            :icon-class="item.meta.icon"/>
         {{ item.meta.title }}
       </el-menu-item>
     </template>
 
     <!-- 顶部菜单超出数量折叠 -->
-    <el-sub-menu :style="{'--theme': theme}" index="more" v-if="topMenus.length > visibleNumber">
+    <el-sub-menu v-if="topMenus.length > visibleNumber" :style="{'--theme': theme}" index="more">
       <template #title>更多菜单</template>
       <template v-for="(item, index) in topMenus">
         <el-menu-item
-          :index="item.path"
-          :key="index"
-          v-if="index >= visibleNumber">
-        <svg-icon
-          v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
-          :icon-class="item.meta.icon"/>
-        {{ item.meta.title }}
+            v-if="index >= visibleNumber"
+            :key="index"
+            :index="item.path">
+          <svg-icon
+              v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
+              :icon-class="item.meta.icon"/>
+          {{ item.meta.title }}
         </el-menu-item>
       </template>
     </el-sub-menu>
@@ -33,8 +41,8 @@
 </template>
 
 <script setup>
-import { constantRoutes } from "@/router"
-import { isHttp } from '@/utils/validate'
+import {constantRoutes} from "@/router"
+import {isHttp} from '@/utils/validate'
 import useAppStore from '@/store/modules/app'
 import useSettingsStore from '@/store/modules/settings'
 import usePermissionStore from '@/store/modules/permission'
@@ -64,9 +72,9 @@ const topMenus = computed(() => {
     if (menu.hidden !== true) {
       // 兼容顶部栏一级菜单内部跳转
       if (menu.path === "/") {
-          topMenus.push(menu.children[0]);
+        topMenus.push(menu.children[0]);
       } else {
-          topMenus.push(menu);
+        topMenus.push(menu);
       }
     }
   })
@@ -79,10 +87,10 @@ const childrenMenus = computed(() => {
   routers.value.map((router) => {
     for (let item in router.children) {
       if (router.children[item].parentPath === undefined) {
-        if(router.path === "/") {
+        if (router.path === "/") {
           router.children[item].path = "/" + router.children[item].path;
         } else {
-          if(!isHttp(router.children[item].path)) {
+          if (!isHttp(router.children[item].path)) {
             router.children[item].path = router.path + "/" + router.children[item].path;
           }
         }
@@ -102,9 +110,9 @@ const activeMenu = computed(() => {
     const tmpPath = path.substring(1, path.length);
     activePath = "/" + tmpPath.substring(0, tmpPath.indexOf("/"));
     if (!route.meta.link) {
-        appStore.toggleSideBarHide(false);
+      appStore.toggleSideBarHide(false);
     }
-  } else if(!route.children) {
+  } else if (!route.children) {
     activePath = path;
     appStore.toggleSideBarHide(true);
   }
@@ -128,9 +136,9 @@ function handleSelect(key, keyPath) {
     const routeMenu = childrenMenus.value.find(item => item.path === key);
     if (routeMenu && routeMenu.query) {
       let query = JSON.parse(routeMenu.query);
-      router.push({ path: key, query: query });
+      router.push({path: key, query: query});
     } else {
-      router.push({ path: key });
+      router.push({path: key});
     }
     appStore.toggleSideBarHide(true);
   } else {
@@ -149,7 +157,7 @@ function activeRoutes(key) {
       }
     });
   }
-  if(routes.length > 0) {
+  if (routes.length > 0) {
     permissionStore.setSidebarRouters(routes);
   } else {
     appStore.toggleSideBarHide(true);
@@ -195,7 +203,7 @@ onMounted(() => {
 }
 
 /* 背景色隐藏 */
-.topmenu-container.el-menu--horizontal>.el-menu-item:not(.is-disabled):focus, .topmenu-container.el-menu--horizontal>.el-menu-item:not(.is-disabled):hover, .topmenu-container.el-menu--horizontal>.el-submenu .el-submenu__title:hover {
+.topmenu-container.el-menu--horizontal > .el-menu-item:not(.is-disabled):focus, .topmenu-container.el-menu--horizontal > .el-menu-item:not(.is-disabled):hover, .topmenu-container.el-menu--horizontal > .el-submenu .el-submenu__title:hover {
   background-color: #ffffff !important;
 }
 

@@ -1,21 +1,29 @@
+<!--
+  - Copyright (c) 2024 Leyramu. All rights reserved.
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
 <template>
   <div :class="{ 'hidden': hidden }" class="pagination-container">
     <el-pagination
-      :background="background"
-      v-model:current-page="currentPage"
-      v-model:page-size="pageSize"
-      :layout="layout"
-      :page-sizes="pageSizes"
-      :pager-count="pagerCount"
-      :total="total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        :background="background"
+        :layout="layout"
+        :page-sizes="pageSizes"
+        :pager-count="pagerCount"
+        :total="total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
     />
   </div>
 </template>
 
 <script setup>
-import { scrollTo } from '@/utils/scroll-to'
+import {scrollTo} from '@/utils/scroll-to'
 
 const props = defineProps({
   total: {
@@ -72,21 +80,23 @@ const pageSize = computed({
   get() {
     return props.limit
   },
-  set(val){
+  set(val) {
     emit('update:limit', val)
   }
 })
+
 function handleSizeChange(val) {
   if (currentPage.value * val > props.total) {
     currentPage.value = 1
   }
-  emit('pagination', { page: currentPage.value, limit: val })
+  emit('pagination', {page: currentPage.value, limit: val})
   if (props.autoScroll) {
     scrollTo(0, 800)
   }
 }
+
 function handleCurrentChange(val) {
-  emit('pagination', { page: val, limit: pageSize.value })
+  emit('pagination', {page: val, limit: pageSize.value})
   if (props.autoScroll) {
     scrollTo(0, 800)
   }
@@ -99,6 +109,7 @@ function handleCurrentChange(val) {
   background: #fff;
   padding: 32px 16px;
 }
+
 .pagination-container.hidden {
   display: none;
 }

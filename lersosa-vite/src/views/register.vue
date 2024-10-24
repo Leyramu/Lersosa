@@ -1,86 +1,102 @@
+<!--
+  - Copyright (c) 2024 Leyramu. All rights reserved.
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
 <template>
   <div class="register">
     <el-form ref="registerRef" :model="registerForm" :rules="registerRules" class="register-form">
       <h3 class="title">若依后台管理系统</h3>
       <el-form-item prop="username">
-        <el-input 
-          v-model="registerForm.username" 
-          type="text" 
-          size="large" 
-          auto-complete="off" 
-          placeholder="账号"
+        <el-input
+            v-model="registerForm.username"
+            auto-complete="off"
+            placeholder="账号"
+            size="large"
+            type="text"
         >
-          <template #prefix><svg-icon icon-class="user" class="el-input__icon input-icon" /></template>
+          <template #prefix>
+            <svg-icon class="el-input__icon input-icon" icon-class="user"/>
+          </template>
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input
-          v-model="registerForm.password"
-          type="password"
-          size="large" 
-          auto-complete="off"
-          placeholder="密码"
-          @keyup.enter="handleRegister"
+            v-model="registerForm.password"
+            auto-complete="off"
+            placeholder="密码"
+            size="large"
+            type="password"
+            @keyup.enter="handleRegister"
         >
-          <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
+          <template #prefix>
+            <svg-icon class="el-input__icon input-icon" icon-class="password"/>
+          </template>
         </el-input>
       </el-form-item>
       <el-form-item prop="confirmPassword">
         <el-input
-          v-model="registerForm.confirmPassword"
-          type="password"
-          size="large" 
-          auto-complete="off"
-          placeholder="确认密码"
-          @keyup.enter="handleRegister"
+            v-model="registerForm.confirmPassword"
+            auto-complete="off"
+            placeholder="确认密码"
+            size="large"
+            type="password"
+            @keyup.enter="handleRegister"
         >
-          <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
+          <template #prefix>
+            <svg-icon class="el-input__icon input-icon" icon-class="password"/>
+          </template>
         </el-input>
       </el-form-item>
-      <el-form-item prop="code" v-if="captchaEnabled">
+      <el-form-item v-if="captchaEnabled" prop="code">
         <el-input
-          size="large" 
-          v-model="registerForm.code"
-          auto-complete="off"
-          placeholder="验证码"
-          style="width: 63%"
-          @keyup.enter="handleRegister"
+            v-model="registerForm.code"
+            auto-complete="off"
+            placeholder="验证码"
+            size="large"
+            style="width: 63%"
+            @keyup.enter="handleRegister"
         >
-          <template #prefix><svg-icon icon-class="validCode" class="el-input__icon input-icon" /></template>
+          <template #prefix>
+            <svg-icon class="el-input__icon input-icon" icon-class="validCode"/>
+          </template>
         </el-input>
         <div class="register-code">
-          <img :src="codeUrl" @click="getCode" class="register-code-img"/>
+          <img :src="codeUrl" class="register-code-img" @click="getCode"/>
         </div>
       </el-form-item>
       <el-form-item style="width:100%;">
         <el-button
-          :loading="loading"
-          size="large" 
-          type="primary"
-          style="width:100%;"
-          @click.prevent="handleRegister"
+            :loading="loading"
+            size="large"
+            style="width:100%;"
+            type="primary"
+            @click.prevent="handleRegister"
         >
           <span v-if="!loading">注 册</span>
           <span v-else>注 册 中...</span>
         </el-button>
         <div style="float: right;">
-          <router-link class="link-type" :to="'/login'">使用已有账户登录</router-link>
+          <router-link :to="'/login'" class="link-type">使用已有账户登录</router-link>
         </div>
       </el-form-item>
     </el-form>
     <!--  底部  -->
     <div class="el-register-footer">
-      <span>Copyright © 2018-2024 ruoyi.vip All Rights Reserved.</span>
+      <span>Copyright © 2024 Leyramu. All Rights Reserved.</span>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ElMessageBox } from "element-plus";
-import { getCodeImg, register } from "@/api/login";
+import {ElMessageBox} from "element-plus";
+import {getCodeImg, register} from "@/api/login";
 
 const router = useRouter();
-const { proxy } = getCurrentInstance();
+const {proxy} = getCurrentInstance();
 
 const registerForm = ref({
   username: "",
@@ -100,19 +116,19 @@ const equalToPassword = (rule, value, callback) => {
 
 const registerRules = {
   username: [
-    { required: true, trigger: "blur", message: "请输入您的账号" },
-    { min: 2, max: 20, message: "用户账号长度必须介于 2 和 20 之间", trigger: "blur" }
+    {required: true, trigger: "blur", message: "请输入您的账号"},
+    {min: 2, max: 20, message: "用户账号长度必须介于 2 和 20 之间", trigger: "blur"}
   ],
   password: [
-    { required: true, trigger: "blur", message: "请输入您的密码" },
-    { min: 5, max: 20, message: "用户密码长度必须介于 5 和 20 之间", trigger: "blur" },
-    { pattern: /^[^<>"'|\\]+$/, message: "不能包含非法字符：< > \" ' \\\ |", trigger: "blur" }
+    {required: true, trigger: "blur", message: "请输入您的密码"},
+    {min: 5, max: 20, message: "用户密码长度必须介于 5 和 20 之间", trigger: "blur"},
+    {pattern: /^[^<>"'|\\]+$/, message: "不能包含非法字符：< > \" ' \\\ |", trigger: "blur"}
   ],
   confirmPassword: [
-    { required: true, trigger: "blur", message: "请再次输入您的密码" },
-    { required: true, validator: equalToPassword, trigger: "blur" }
+    {required: true, trigger: "blur", message: "请再次输入您的密码"},
+    {required: true, validator: equalToPassword, trigger: "blur"}
   ],
-  code: [{ required: true, trigger: "change", message: "请输入验证码" }]
+  code: [{required: true, trigger: "change", message: "请输入验证码"}]
 };
 
 const codeUrl = ref("");
@@ -130,7 +146,8 @@ function handleRegister() {
           type: "success",
         }).then(() => {
           router.push("/login");
-        }).catch(() => {});
+        }).catch(() => {
+        });
       }).catch(() => {
         loading.value = false;
         if (captchaEnabled) {
@@ -163,6 +180,7 @@ getCode();
   background-image: url("../assets/images/login-background.jpg");
   background-size: cover;
 }
+
 .title {
   margin: 0px auto 30px auto;
   text-align: center;
@@ -174,32 +192,39 @@ getCode();
   background: #ffffff;
   width: 400px;
   padding: 25px 25px 5px 25px;
+
   .el-input {
     height: 40px;
+
     input {
       height: 40px;
     }
   }
+
   .input-icon {
     height: 39px;
     width: 14px;
     margin-left: 0px;
   }
 }
+
 .register-tip {
   font-size: 13px;
   text-align: center;
   color: #bfbfbf;
 }
+
 .register-code {
   width: 33%;
   height: 40px;
   float: right;
+
   img {
     cursor: pointer;
     vertical-align: middle;
   }
 }
+
 .el-register-footer {
   height: 40px;
   line-height: 40px;
@@ -212,6 +237,7 @@ getCode();
   font-size: 12px;
   letter-spacing: 1px;
 }
+
 .register-code-img {
   height: 40px;
   padding-left: 12px;

@@ -1,26 +1,36 @@
+<!--
+  - Copyright (c) 2024 Leyramu. All rights reserved.
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
 <template>
   <div class="component-upload-image">
     <el-upload
-      multiple
-      :action="uploadImgUrl"
-      list-type="picture-card"
-      :on-success="handleUploadSuccess"
-      :before-upload="handleBeforeUpload"
-      :limit="limit"
-      :on-error="handleUploadError"
-      :on-exceed="handleExceed"
-      ref="imageUpload"
-      :before-remove="handleDelete"
-      :show-file-list="true"
-      :headers="headers"
-      :file-list="fileList"
-      :on-preview="handlePictureCardPreview"
-      :class="{ hide: fileList.length >= limit }"
+        ref="imageUpload"
+        :action="uploadImgUrl"
+        :before-remove="handleDelete"
+        :before-upload="handleBeforeUpload"
+        :class="{ hide: fileList.length >= limit }"
+        :file-list="fileList"
+        :headers="headers"
+        :limit="limit"
+        :on-error="handleUploadError"
+        :on-exceed="handleExceed"
+        :on-preview="handlePictureCardPreview"
+        :on-success="handleUploadSuccess"
+        :show-file-list="true"
+        list-type="picture-card"
+        multiple
     >
-      <el-icon class="avatar-uploader-icon"><plus /></el-icon>
+      <el-icon class="avatar-uploader-icon">
+        <plus/>
+      </el-icon>
     </el-upload>
     <!-- 上传提示 -->
-    <div class="el-upload__tip" v-if="showTip">
+    <div v-if="showTip" class="el-upload__tip">
       请上传
       <template v-if="fileSize">
         大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b>
@@ -32,21 +42,21 @@
     </div>
 
     <el-dialog
-      v-model="dialogVisible"
-      title="预览"
-      width="800px"
-      append-to-body
+        v-model="dialogVisible"
+        append-to-body
+        title="预览"
+        width="800px"
     >
       <img
-        :src="dialogImageUrl"
-        style="display: block; max-width: 100%; margin: 0 auto"
+          :src="dialogImageUrl"
+          style="display: block; max-width: 100%; margin: 0 auto"
       />
     </el-dialog>
   </div>
 </template>
 
 <script setup>
-import { getToken } from "@/utils/auth";
+import {getToken} from "@/utils/auth";
 
 const props = defineProps({
   modelValue: [String, Object, Array],
@@ -72,7 +82,7 @@ const props = defineProps({
   },
 });
 
-const { proxy } = getCurrentInstance();
+const {proxy} = getCurrentInstance();
 const emit = defineEmits();
 const number = ref(0);
 const uploadList = ref([]);
@@ -80,10 +90,10 @@ const dialogImageUrl = ref("");
 const dialogVisible = ref(false);
 const baseUrl = import.meta.env.VITE_APP_BASE_API;
 const uploadImgUrl = ref(import.meta.env.VITE_APP_BASE_API + "/file/upload"); // 上传的图片服务器地址
-const headers = ref({ Authorization: "Bearer " + getToken() });
+const headers = ref({Authorization: "Bearer " + getToken()});
 const fileList = ref([]);
 const showTip = computed(
-  () => props.isShowTip && (props.fileType || props.fileSize)
+    () => props.isShowTip && (props.fileType || props.fileSize)
 );
 
 watch(() => props.modelValue, val => {
@@ -93,7 +103,7 @@ watch(() => props.modelValue, val => {
     // 然后将数组转为对象数组
     fileList.value = list.map(item => {
       if (typeof item === "string") {
-        item = { name: item, url: item };
+        item = {name: item, url: item};
       }
       return item;
     });
@@ -101,7 +111,7 @@ watch(() => props.modelValue, val => {
     fileList.value = [];
     return [];
   }
-},{ deep: true, immediate: true });
+}, {deep: true, immediate: true});
 
 // 上传前loading加载
 function handleBeforeUpload(file) {
@@ -121,7 +131,7 @@ function handleBeforeUpload(file) {
   }
   if (!isImg) {
     proxy.$modal.msgError(
-      `文件格式不正确, 请上传${props.fileType.join("/")}图片格式文件!`
+        `文件格式不正确, 请上传${props.fileType.join("/")}图片格式文件!`
     );
     return false;
   }
@@ -144,7 +154,7 @@ function handleExceed() {
 // 上传成功回调
 function handleUploadSuccess(res, file) {
   if (res.code === 200) {
-    uploadList.value.push({ name: res.data.url, url: res.data.url });
+    uploadList.value.push({name: res.data.url, url: res.data.url});
     uploadedSuccessfully();
   } else {
     number.value--;
@@ -175,6 +185,7 @@ function uploadedSuccessfully() {
     proxy.$modal.closeLoading();
   }
 }
+
 // 上传失败
 function handleUploadError() {
   proxy.$modal.msgError("上传图片失败");
@@ -200,9 +211,9 @@ function listToString(list, separator) {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 // .el-upload--picture-card 控制加号部分
 :deep(.hide .el-upload--picture-card) {
-    display: none;
+  display: none;
 }
 </style>

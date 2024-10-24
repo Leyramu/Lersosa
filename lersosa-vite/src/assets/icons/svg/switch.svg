@@ -1,1 +1,19 @@
-<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1576042673958" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1110" xmlns:xlink="http://www.w3.org/1999/xlink" width="81" height="81"><defs><style type="text/css"></style></defs><path d="M692 792H332c-150 0-270-120-270-270s120-270 270-270h360c150 0 270 120 270 270 0 147-120 270-270 270zM332 312c-117 0-210 93-210 210s93 210 210 210h360c117 0 210-93 210-210s-93-210-210-210H332z" p-id="1111"></path><path d="M341 522m-150 0a150 150 0 1 0 300 0 150 150 0 1 0-300 0Z" p-id="1112"></path></svg>
+<?xml version="1.0" standalone="no"?><!--
+  - Copyright (c) 2024 Leyramu. All rights reserved.
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg class="icon" height="81" p-id="1110" t="1576042673958" version="1.1" viewBox="0 0 1024 1024"
+    width="81" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style type="text/css"></style>
+    </defs>
+    <path
+        d="M692 792H332c-150 0-270-120-270-270s120-270 270-270h360c150 0 270 120 270 270 0 147-120 270-270 270zM332 312c-117 0-210 93-210 210s93 210 210 210h360c117 0 210-93 210-210s-93-210-210-210H332z"
+        p-id="1111"></path>
+    <path d="M341 522m-150 0a150 150 0 1 0 300 0 150 150 0 1 0-300 0Z" p-id="1112"></path>
+</svg>

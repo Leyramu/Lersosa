@@ -1,3 +1,11 @@
+<!--
+  - Copyright (c) 2024 Leyramu. All rights reserved.
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
 <template>
   <el-drawer v-model="showSettings" :withHeader="false" direction="rtl" size="300px">
     <div class="setting-drawer-title">
@@ -5,21 +13,25 @@
     </div>
     <div class="setting-drawer-block-checbox">
       <div class="setting-drawer-block-checbox-item" @click="handleTheme('theme-dark')">
-        <img src="@/assets/images/dark.svg" alt="dark" />
+        <img alt="dark" src="@/assets/images/dark.svg"/>
         <div v-if="sideTheme === 'theme-dark'" class="setting-drawer-block-checbox-selectIcon" style="display: block;">
           <i aria-label="图标: check" class="anticon anticon-check">
-            <svg viewBox="64 64 896 896" data-icon="check" width="1em" height="1em" :fill="theme" aria-hidden="true" focusable="false" class>
-              <path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z" />
+            <svg :fill="theme" aria-hidden="true" class data-icon="check" focusable="false" height="1em"
+                 viewBox="64 64 896 896" width="1em">
+              <path
+                  d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"/>
             </svg>
           </i>
         </div>
       </div>
       <div class="setting-drawer-block-checbox-item" @click="handleTheme('theme-light')">
-        <img src="@/assets/images/light.svg" alt="light" />
+        <img alt="light" src="@/assets/images/light.svg"/>
         <div v-if="sideTheme === 'theme-light'" class="setting-drawer-block-checbox-selectIcon" style="display: block;">
           <i aria-label="图标: check" class="anticon anticon-check">
-            <svg viewBox="64 64 896 896" data-icon="check" width="1em" height="1em" :fill="theme" aria-hidden="true" focusable="false" class>
-              <path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z" />
+            <svg :fill="theme" aria-hidden="true" class data-icon="check" focusable="false" height="1em"
+                 viewBox="64 64 896 896" width="1em">
+              <path
+                  d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"/>
             </svg>
           </i>
         </div>
@@ -31,64 +43,60 @@
         <el-color-picker v-model="theme" :predefine="predefineColors" @change="themeChange"/>
       </span>
     </div>
-    <el-divider />
+    <el-divider/>
 
     <h3 class="drawer-title">系统布局配置</h3>
 
     <div class="drawer-item">
       <span>开启 TopNav</span>
       <span class="comp-style">
-        <el-switch v-model="settingsStore.topNav" @change="topNavChange" class="drawer-switch" />
+        <el-switch v-model="settingsStore.topNav" class="drawer-switch" @change="topNavChange"/>
       </span>
     </div>
 
     <div class="drawer-item">
       <span>开启 Tags-Views</span>
       <span class="comp-style">
-        <el-switch v-model="settingsStore.tagsView" class="drawer-switch" />
+        <el-switch v-model="settingsStore.tagsView" class="drawer-switch"/>
       </span>
     </div>
 
     <div class="drawer-item">
       <span>固定 Header</span>
       <span class="comp-style">
-        <el-switch v-model="settingsStore.fixedHeader" class="drawer-switch" />
+        <el-switch v-model="settingsStore.fixedHeader" class="drawer-switch"/>
       </span>
     </div>
 
     <div class="drawer-item">
       <span>显示 Logo</span>
       <span class="comp-style">
-        <el-switch v-model="settingsStore.sidebarLogo" class="drawer-switch" />
+        <el-switch v-model="settingsStore.sidebarLogo" class="drawer-switch"/>
       </span>
     </div>
 
     <div class="drawer-item">
       <span>动态标题</span>
       <span class="comp-style">
-        <el-switch v-model="settingsStore.dynamicTitle" class="drawer-switch" />
+        <el-switch v-model="settingsStore.dynamicTitle" class="drawer-switch"/>
       </span>
     </div>
 
-    <el-divider />
+    <el-divider/>
 
-    <el-button type="primary" plain icon="DocumentAdd" @click="saveSetting">保存配置</el-button>
-    <el-button plain icon="Refresh" @click="resetSetting">重置配置</el-button>
+    <el-button icon="DocumentAdd" plain type="primary" @click="saveSetting">保存配置</el-button>
+    <el-button icon="Refresh" plain @click="resetSetting">重置配置</el-button>
   </el-drawer>
 
 </template>
 
 <script setup>
-import variables from '@/assets/styles/variables.module.scss'
-import axios from 'axios'
-import { ElLoading, ElMessage } from 'element-plus'
-import { useDynamicTitle } from '@/utils/dynamicTitle'
 import useAppStore from '@/store/modules/app'
 import useSettingsStore from '@/store/modules/settings'
 import usePermissionStore from '@/store/modules/permission'
-import { handleThemeStyle } from '@/utils/theme'
+import {handleThemeStyle} from '@/utils/theme'
 
-const { proxy } = getCurrentInstance();
+const {proxy} = getCurrentInstance();
 const appStore = useAppStore()
 const settingsStore = useSettingsStore()
 const permissionStore = usePermissionStore()
@@ -110,10 +118,12 @@ function themeChange(val) {
   settingsStore.theme = val;
   handleThemeStyle(val);
 }
+
 function handleTheme(val) {
   settingsStore.sideTheme = val;
   sideTheme.value = val;
 }
+
 function saveSetting() {
   proxy.$modal.loading("正在保存到本地，请稍候...");
   let layoutSetting = {
@@ -128,11 +138,13 @@ function saveSetting() {
   localStorage.setItem("layout-setting", JSON.stringify(layoutSetting));
   setTimeout(proxy.$modal.closeLoading(), 1000)
 }
+
 function resetSetting() {
   proxy.$modal.loading("正在清除设置缓存并刷新，请稍候...");
   localStorage.removeItem("layout-setting")
   setTimeout("window.location.reload()", 1000)
 }
+
 function openSetting() {
   showSettings.value = true;
 }
@@ -148,10 +160,12 @@ defineExpose({
   color: rgba(0, 0, 0, 0.85);
   line-height: 22px;
   font-weight: bold;
+
   .drawer-title {
     font-size: 14px;
   }
 }
+
 .setting-drawer-block-checbox {
   display: flex;
   justify-content: flex-start;

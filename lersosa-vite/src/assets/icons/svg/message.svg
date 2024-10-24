@@ -1,1 +1,12 @@
-<svg width="128" height="128" xmlns="http://www.w3.org/2000/svg"><path d="M0 20.967v59.59c0 11.59 8.537 20.966 19.075 20.966h28.613l1 26.477L76.8 101.523h32.125c10.538 0 19.075-9.377 19.075-20.966v-59.59C128 9.377 119.463 0 108.925 0h-89.85C8.538 0 0 9.377 0 20.967zm82.325 33.1c0-5.524 4.013-9.935 9.037-9.935 5.026 0 9.038 4.41 9.038 9.934 0 5.524-4.025 9.934-9.038 9.934-5.024 0-9.037-4.41-9.037-9.934zm-27.613 0c0-5.524 4.013-9.935 9.038-9.935s9.037 4.41 9.037 9.934c0 5.524-4.025 9.934-9.037 9.934-5.025 0-9.038-4.41-9.038-9.934zm-27.1 0c0-5.524 4.013-9.935 9.038-9.935s9.038 4.41 9.038 9.934c0 5.524-4.026 9.934-9.05 9.934-5.013 0-9.025-4.41-9.025-9.934z"/></svg>
+<!--
+  - Copyright (c) 2024 Leyramu. All rights reserved.
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
+<svg height="128" width="128" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M0 20.967v59.59c0 11.59 8.537 20.966 19.075 20.966h28.613l1 26.477L76.8 101.523h32.125c10.538 0 19.075-9.377 19.075-20.966v-59.59C128 9.377 119.463 0 108.925 0h-89.85C8.538 0 0 9.377 0 20.967zm82.325 33.1c0-5.524 4.013-9.935 9.037-9.935 5.026 0 9.038 4.41 9.038 9.934 0 5.524-4.025 9.934-9.038 9.934-5.024 0-9.037-4.41-9.037-9.934zm-27.613 0c0-5.524 4.013-9.935 9.038-9.935s9.037 4.41 9.037 9.934c0 5.524-4.025 9.934-9.037 9.934-5.025 0-9.038-4.41-9.038-9.934zm-27.1 0c0-5.524 4.013-9.935 9.038-9.935s9.038 4.41 9.038 9.934c0 5.524-4.026 9.934-9.05 9.934-5.013 0-9.025-4.41-9.025-9.934z" />
+</svg>

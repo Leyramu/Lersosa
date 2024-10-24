@@ -1,36 +1,47 @@
+<!--
+  - Copyright (c) 2024 Leyramu. All rights reserved.
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
 <template>
   <div v-if="!item.hidden">
-    <template v-if="hasOneShowingChild(item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && !item.alwaysShow">
+    <template
+        v-if="hasOneShowingChild(item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && !item.alwaysShow">
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path, onlyOneChild.query)">
-        <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{ 'submenu-title-noDropdown': !isNest }">
+        <el-menu-item :class="{ 'submenu-title-noDropdown': !isNest }" :index="resolvePath(onlyOneChild.path)">
           <svg-icon :icon-class="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"/>
-          <template #title><span class="menu-title" :title="hasTitle(onlyOneChild.meta.title)">{{ onlyOneChild.meta.title }}</span></template>
+          <template #title><span :title="hasTitle(onlyOneChild.meta.title)"
+                                 class="menu-title">{{ onlyOneChild.meta.title }}</span>
+          </template>
         </el-menu-item>
       </app-link>
     </template>
 
     <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)" teleported>
       <template v-if="item.meta" #title>
-        <svg-icon :icon-class="item.meta && item.meta.icon" />
-        <span class="menu-title" :title="hasTitle(item.meta.title)">{{ item.meta.title }}</span>
+        <svg-icon :icon-class="item.meta && item.meta.icon"/>
+        <span :title="hasTitle(item.meta.title)" class="menu-title">{{ item.meta.title }}</span>
       </template>
 
       <sidebar-item
-        v-for="(child, index) in item.children"
-        :key="child.path + index"
-        :is-nest="true"
-        :item="child"
-        :base-path="resolvePath(child.path)"
-        class="nest-menu"
+          v-for="(child, index) in item.children"
+          :key="child.path + index"
+          :base-path="resolvePath(child.path)"
+          :is-nest="true"
+          :item="child"
+          class="nest-menu"
       />
     </el-sub-menu>
   </div>
 </template>
 
 <script setup>
-import { isExternal } from '@/utils/validate'
+import {isExternal} from '@/utils/validate'
 import AppLink from './Link'
-import { getNormalPath } from '@/utils/ruoyi'
+import {getNormalPath} from '@/utils/lersosa'
 
 const props = defineProps({
   // route object
@@ -71,7 +82,7 @@ function hasOneShowingChild(children = [], parent) {
 
   // Show parent if there are no child router to display
   if (showingChildren.length === 0) {
-    onlyOneChild.value = { ...parent, path: '', noShowingChildren: true }
+    onlyOneChild.value = {...parent, path: '', noShowingChildren: true}
     return true
   }
 
@@ -87,12 +98,12 @@ function resolvePath(routePath, routeQuery) {
   }
   if (routeQuery) {
     let query = JSON.parse(routeQuery);
-    return { path: getNormalPath(props.basePath + '/' + routePath), query: query }
+    return {path: getNormalPath(props.basePath + '/' + routePath), query: query}
   }
   return getNormalPath(props.basePath + '/' + routePath)
 }
 
-function hasTitle(title){
+function hasTitle(title) {
   if (title.length > 5) {
     return title;
   } else {

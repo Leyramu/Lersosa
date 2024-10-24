@@ -1,1 +1,18 @@
-<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1546567861908" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2422" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path d="M318.577778 819.2L17.066667 512l301.511111-307.2 45.511111 45.511111L96.711111 512l267.377778 261.688889zM705.422222 819.2l-45.511111-45.511111L927.288889 512l-267.377778-261.688889 45.511111-45.511111L1006.933333 512zM540.785778 221.866667l55.751111 11.150222L483.157333 802.133333l-55.751111-11.093333z" p-id="2423"></path></svg>
+<?xml version="1.0" standalone="no"?><!--
+  - Copyright (c) 2024 Leyramu. All rights reserved.
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg style="" class="icon" height="200" p-id="2422" t="1546567861908" version="1.1"
+    viewBox="0 0 1024 1024" width="200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style type="text/css"></style>
+    </defs>
+    <path
+        d="M318.577778 819.2L17.066667 512l301.511111-307.2 45.511111 45.511111L96.711111 512l267.377778 261.688889zM705.422222 819.2l-45.511111-45.511111L927.288889 512l-267.377778-261.688889 45.511111-45.511111L1006.933333 512zM540.785778 221.866667l55.751111 11.150222L483.157333 802.133333l-55.751111-11.093333z"
+        p-id="2423"></path>
+</svg>
