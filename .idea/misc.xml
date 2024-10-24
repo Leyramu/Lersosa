@@ -4,14 +4,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/leyramu-java/pom.xml" />
-        <option value="$PROJECT_DIR$/aersosa-java/pom.xml" />
         <option value="$PROJECT_DIR$/lersosa-java/pom.xml" />
       </list>
-    </option>
-    <option name="ignoredFiles">
-      <set>
-        <option value="$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-systemuntitled/pom.xml" />
-      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_22" default="true" project-jdk-name="LeyramuLersosa-22" project-jdk-type="JavaSDK">

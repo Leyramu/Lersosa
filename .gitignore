@@ -19,18 +19,10 @@
 /lersosa-java/lersosa-service/lersosa-service-gen/target/
 /lersosa-java/lersosa-service/lersosa-service-job/target/
 /lersosa-java/lersosa-service/lersosa-service-openai/target/
-/lersosa-java/lersosa-service/lersosa-service-permission/target/
-/lersosa-java/lersosa-service/lersosa-service-student/target/
 /lersosa-java/lersosa-service/lersosa-service-system/target/
-/lersosa-java/lersosa-service/lersosa-service-teacher/target/
-/lersosa-java/lersosa-service/lersosa-service-user/target/
 
 # api 模块 target 目标文件
-/lersosa-java/lersosa-api/lersosa-api-permission/target/
-/lersosa-java/lersosa-api/lersosa-api-user/target/
-/lersosa-java/lersosa-api/lersosa-api-student/target/
 /lersosa-java/lersosa-api/lersosa-api-system/target/
-/lersosa-java/lersosa-api/lersosa-api-teacher/target/
 
 # common 模块 target 目标文件
 /lersosa-java/lersosa-common/lersosa-common-algorithm/target/
@@ -50,11 +42,13 @@
 /lersosa-java/lersosa-cloud/lersosa-cloud-seata/target/
 /lersosa-java/lersosa-cloud/lersosa-cloud-sentinel/target/
 
-# swagger 模块 target 目标文件
-/lersosa-java/swagger-json/target/
-
 # monitor 模块 target 目标文件
 /lersosa-java/lersosa-visual/lersosa-visual-monitor/target/
+
+# vite 模块环境文件
+/lersosa-vite/node_modules/
+/lersosa-vite/dist/
+/lersosa-vite/pnpm-lock.yaml
 
 # 临时文件
 /work/

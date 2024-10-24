@@ -32,11 +32,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="aersosa-cloud-nacos" target="1.8" />
-      <module name="aersosa-cloud-seata" target="22" />
       <module name="aersosa-cloud-sentinel" target="17" />
-      <module name="aersosa-common-security" target="22" />
-      <module name="aersosa-gateway-api" target="22" />
-      <module name="lersosa-service-systemuntitled" target="22" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
