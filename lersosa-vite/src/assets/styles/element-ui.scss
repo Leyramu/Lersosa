@@ -84,13 +84,13 @@
 }
 
 .el-menu--collapse
-> div
-> .el-submenu
-> .el-submenu__title
-.el-submenu__icon-arrow {
+  > div
+  > .el-submenu
+  > .el-submenu__title
+  .el-submenu__icon-arrow {
   display: none;
 }
 
-.el-dropdown .el-dropdown-link {
+.el-dropdown .el-dropdown-link{
   color: var(--el-color-primary) !important;
 }

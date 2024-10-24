@@ -1,10 +1,10 @@
-import {defineConfig, loadEnv, UserConfigExport} from 'vite';
-import path from 'path';
-import createVitePlugins from './vite/plugins';
+import {defineConfig, loadEnv} from 'vite'
+import path from 'path'
+import createVitePlugins from './vite/plugins'
 
-export default defineConfig(({mode, command}: { mode: string; command: string }): UserConfigExport => {
-    const env = loadEnv(mode, process.cwd());
-    const {VITE_APP_ENV} = env;
+export default defineConfig(({mode, command}) => {
+    const env = loadEnv(mode, process.cwd())
+    const {VITE_APP_ENV} = env
     return {
         base: VITE_APP_ENV === 'production' ? '/' : '/',
         plugins: createVitePlugins(env, command === 'build'),
@@ -23,7 +23,7 @@ export default defineConfig(({mode, command}: { mode: string; command: string })
                 '/dev-api': {
                     target: 'http://localhost:8080',
                     changeOrigin: true,
-                    rewrite: (p: string) => p.replace(/^\/dev-api/, '')
+                    rewrite: (p) => p.replace(/^\/dev-api/, '')
                 }
             }
         },
@@ -33,7 +33,7 @@ export default defineConfig(({mode, command}: { mode: string; command: string })
                     {
                         postcssPlugin: 'internal:charset-removal',
                         AtRule: {
-                            charset: (atRule: any) => {
+                            charset: (atRule) => {
                                 if (atRule.name === 'charset') {
                                     atRule.remove();
                                 }
@@ -43,5 +43,5 @@ export default defineConfig(({mode, command}: { mode: string; command: string })
                 ]
             }
         }
-    };
-});
+    }
+})

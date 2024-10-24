@@ -3,8 +3,8 @@
 </template>
 
 <script setup>
-import useSettingsStore from '@/store/modules/settings.js'
-import {handleThemeStyle} from '@/utils/theme.js'
+import useSettingsStore from '@/store/modules/settings'
+import {handleThemeStyle} from '@/utils/theme'
 
 onMounted(() => {
   nextTick(() => {

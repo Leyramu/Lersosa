@@ -4,42 +4,37 @@
       <el-col :sm="24" :lg="24">
         <blockquote class="text-warning" style="font-size: 14px">
           领取阿里云通用云产品1888优惠券
-          <br/>
+          <br />
           <el-link
-              href="https://www.aliyun.com/minisite/goods?userCode=brki8iof"
-              type="primary"
-              target="_blank"
-          >https://www.aliyun.com/minisite/goods?userCode=brki8iof
-          </el-link
+            href="https://www.aliyun.com/minisite/goods?userCode=brki8iof"
+            type="primary"
+            target="_blank"
+            >https://www.aliyun.com/minisite/goods?userCode=brki8iof</el-link
           >
-          <br/>
+          <br />
           领取腾讯云通用云产品2860优惠券
-          <br/>
+          <br />
           <el-link
-              href="https://cloud.tencent.com/redirect.php?redirect=1025&cps_key=198c8df2ed259157187173bc7f4f32fd&from=console"
-              type="primary"
-              target="_blank"
-          >https://cloud.tencent.com/redirect.php?redirect=1025&cps_key=198c8df2ed259157187173bc7f4f32fd&from=console
-          </el-link
+            href="https://cloud.tencent.com/redirect.php?redirect=1025&cps_key=198c8df2ed259157187173bc7f4f32fd&from=console"
+            type="primary"
+            target="_blank"
+            >https://cloud.tencent.com/redirect.php?redirect=1025&cps_key=198c8df2ed259157187173bc7f4f32fd&from=console</el-link
           >
-          <br/>
+          <br />
           阿里云服务器折扣区
           <el-link href="http://aly.ruoyi.vip" type="primary" target="_blank"
-          >>☛☛点我进入☚☚
-          </el-link
+            >>☛☛点我进入☚☚</el-link
           >
           &nbsp;&nbsp;&nbsp; 腾讯云服务器秒杀区
           <el-link href="http://txy.ruoyi.vip" type="primary" target="_blank"
-          >>☛☛点我进入☚☚
-          </el-link
-          >
-          <br/>
+            >>☛☛点我进入☚☚</el-link
+          ><br />
           <h4 class="text-danger">
             云产品通用红包，可叠加官网常规优惠使用。(仅限新用户)
           </h4>
         </blockquote>
 
-        <hr/>
+        <hr />
       </el-col>
     </el-row>
     <el-row :gutter="20">
@@ -56,19 +51,17 @@
         </p>
         <p>
           <el-button
-              type="primary"
-              icon="Cloudy"
-              plain
-              @click="goTarget('https://gitee.com/y_project/RuoYi-Cloud')"
-          >访问码云
-          </el-button
+            type="primary"
+            icon="Cloudy"
+            plain
+            @click="goTarget('https://gitee.com/y_project/RuoYi-Cloud')"
+            >访问码云</el-button
           >
           <el-button
-              icon="HomeFilled"
-              plain
-              @click="goTarget('http://ruoyi.vip')"
-          >访问主页
-          </el-button
+            icon="HomeFilled"
+            plain
+            @click="goTarget('http://ruoyi.vip')"
+            >访问主页</el-button
           >
         </p>
       </el-col>
@@ -107,7 +100,7 @@
         </el-row>
       </el-col>
     </el-row>
-    <el-divider/>
+    <el-divider />
     <el-row :gutter="20">
       <el-col :xs="24" :sm="24" :md="12" :lg="8">
         <el-card class="update-log">
@@ -118,34 +111,30 @@
           </template>
           <div class="body">
             <p>
-              <i class="el-icon-s-promotion"></i> 官网：
-              <el-link
-                  href="http://www.ruoyi.vip"
-                  target="_blank"
-              >http://www.ruoyi.vip
-              </el-link
+              <i class="el-icon-s-promotion"></i> 官网：<el-link
+                href="http://www.ruoyi.vip"
+                target="_blank"
+                >http://www.ruoyi.vip</el-link
               >
             </p>
             <p>
-              <i class="el-icon-user-solid"></i> QQ群： <s> 满42799195 </s> <s> 满170157040 </s>
+              <i class="el-icon-user-solid"></i> QQ群： <s> 满42799195 </s>  <s> 满170157040 </s>
               <s> 满130643120 </s> <s> 满225920371 </s> <s> 满201705537 </s> <s> 满236543183 </s>
               <s> 满213618602 </s> <s> 满148794840 </s> <s> 满118752664 </s> <s> 满101038945 </s>
-              <s> 满128355254 </s> <a
-                href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=irnwcXhbLOQEv1g-TwGifjNTA_f4wZiA&authKey=4bpzEwhcUY%2FvsPDHvzYn6xfoS%2FtOArvZ%2BGXzfr7O0%2FEqLfkKA%2BuCDXlzHIFg8t93&noverify=0&group_code=179219821"
-                target="_blank">179219821</a>
+              <s> 满128355254 </s> <a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=irnwcXhbLOQEv1g-TwGifjNTA_f4wZiA&authKey=4bpzEwhcUY%2FvsPDHvzYn6xfoS%2FtOArvZ%2BGXzfr7O0%2FEqLfkKA%2BuCDXlzHIFg8t93&noverify=0&group_code=179219821" target="_blank">179219821</a>
             </p>
             <p>
               <i class="el-icon-chat-dot-round"></i> 微信：<a
-                href="javascript:"
-            >/ *若依</a
-            >
+                href="javascript:;"
+                >/ *若依</a
+              >
             </p>
             <p>
               <i class="el-icon-money"></i> 支付宝：<a
-                href="javascript:"
+                href="javascript:;"
                 class="支付宝信息"
-            >/ *若依</a
-            >
+                >/ *若依</a
+              >
             </p>
           </div>
         </el-card>
@@ -909,12 +898,12 @@
           </template>
           <div class="body">
             <img
-                src="@/assets/images/pay.png"
-                alt="donate"
-                style="width:100%"
+              src="@/assets/images/pay.png"
+              alt="donate"
+              style="width:100%"
             />
             <span style="display: inline-block; height: 30px; line-height: 30px"
-            >你可以请作者喝杯咖啡表示鼓励</span
+              >你可以请作者喝杯咖啡表示鼓励</span
             >
           </div>
         </el-card>
@@ -939,14 +928,12 @@ function goTarget(url) {
     font-size: 17.5px;
     border-left: 5px solid #eee;
   }
-
   hr {
     margin-top: 20px;
     margin-bottom: 20px;
     border: 0;
     border-top: 1px solid #eee;
   }
-
   .col-item {
     margin-bottom: 20px;
   }
