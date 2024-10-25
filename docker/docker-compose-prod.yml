@@ -1,0 +1,146 @@
+#  Copyright (c) 2024 Leyramu. All rights reserved.
+#  This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+#  For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+#  The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+#  By using this project, users acknowledge and agree to abide by these terms and conditions.
+
+
+version: '3'
+services:
+  lersosa-nacos:
+    container_name: lersosa-nacos
+    build:
+      context: ./lersosa/cloud/nacos
+      dockerfile: Dockerfile
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "9849:9849"
+    depends_on:
+      - lersosa-mysql
+    network_mode: bridge
+  lersosa-sentinel:
+    container_name: lersosa-sentinel
+    build:
+      context: ./lersosa/cloud/sentinel
+      dockerfile: Dockerfile
+    ports:
+      - "8972:8972"
+    network_mode: bridge
+  lersosa-mysql:
+    container_name: lersosa-mysql
+    image: mysql:latest
+    build:
+      context: ./mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=Zcx@223852//
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./mysql/conf:/etc/mysql/conf.d
+      - ./mysql/logs:/logs
+      - ./mysql/data:/var/lib/mysql
+    command: [
+      'mysqld',
+      '--innodb-buffer-pool-size=80M',
+      '--character-set-server=utf8mb4',
+      '--collation-server=utf8mb4_unicode_ci',
+      '--default-time-zone=+8:00',
+      '--lower-case-table-names=1'
+    ]
+    network_mode: bridge
+  lersosa-redis:
+    image: redis:latest
+    container_name: lersosa-redis
+    build:
+      context: ./redis
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/conf:/home/redis/redis.conf
+      - ./redis/data:/data
+    command: redis-server /home/redis/redis.conf --appendonly yes --requirepass 'Zcx@223852//'
+    network_mode: bridge
+  lersosa-gateway-api:
+    container_name: lersosa-Gateway
+    build:
+      context: ./lersosa/gateway/api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+  lersosa-visual-monitor:
+    container_name: lersosa-visual-monitor
+    build:
+      context: ./lersosa//visual/monitor
+      dockerfile: Dockerfile
+    ports:
+      - "9201:9201"
+    network_mode: bridge
+  lersosa-nginx:
+    image: nginx:latest
+    container_name: lersosa-nginx
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/logs:/var/log/nginx
+      - ./nginx/cert:/etc/nginx/cert
+      - ./nginx/html/dist:/home/leyramu/lersosa/lersosa-vite
+    depends_on:
+      - lersosa-gateway-api
+    links:
+      - lersosa-gateway-api
+    network_mode: bridge
+  lersosa-service-auth:
+    container_name: lersosa-service-auth
+    build:
+      context: ./lersosa/service/auth
+      dockerfile: Dockerfile
+    ports:
+      - "9200:9200"
+    network_mode: bridge
+  lersosa-service-system:
+    container_name: lersosa-service-system
+    build:
+      context: ./lersosa/service/system
+      dockerfile: Dockerfile
+    ports:
+      - "9201:9201"
+    network_mode: bridge
+  lersosa-service-gen:
+    container_name: lersosa-service-gen
+    build:
+      context: ./lersosa/service/gen
+      dockerfile: Dockerfile
+    ports:
+      - "9202:9202"
+    network_mode: bridge
+  lersosa-service-job:
+    container_name: lersosa-service-job
+    build:
+      context: ./lersosa/service/job
+      dockerfile: Dockerfile
+    ports:
+      - "9203:9203"
+    network_mode: bridge
+  lersosa-service-file:
+    container_name: lersosa-service-file
+    build:
+      context: ./lersosa/service/file
+      dockerfile: Dockerfile
+    ports:
+      - "9204:9204"
+    network_mode: bridge
+  lersosa-service-openai:
+    container_name: lersosa-service-openai
+    build:
+      context: ./lersosa/service/openai
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8085"
+    network_mode: bridge

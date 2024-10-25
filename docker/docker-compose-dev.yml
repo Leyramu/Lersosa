@@ -7,8 +7,8 @@
 
 version: '3'
 services:
-  mysql:
-    container_name: lersosa-Mysql
+  lersosa-mysql:
+    container_name: lersosa-mysql
     image: mysql:latest
     build:
       context: ./mysql
@@ -29,9 +29,9 @@ services:
       '--lower-case-table-names=1'
     ]
     network_mode: bridge
-  redis:
+  lersosa-redis:
     image: redis:latest
-    container_name: lersosa-Redis
+    container_name: lersosa-redis
     build:
       context: ./redis
     environment:
