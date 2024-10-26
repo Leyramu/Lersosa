@@ -15,8 +15,8 @@ set rootDir=%cd%
 set "destDir1=!rootDir!\docker\lersosa"
 set "destDir2=!rootDir!\docker\nginx"
 
-del  "!destDir1!"
-del "!destDir2!"
+rmdir /s /q "!destDir1!"
+rmdir /s /q "!destDir2!"
 
 echo Done
 pause

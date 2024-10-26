@@ -1,5 +1,6 @@
 # 环境文件
 /.jdks/
+/.venv/
 /.idea/shelf/
 /.idea/workspace.xml
 
