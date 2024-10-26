@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="lersosa-web-search" />
         <module name="lersosa-cloud-nacos" />
         <module name="lersosa-cloud-seata" />
         <module name="lersosa-common-swagger" />
@@ -18,6 +19,7 @@
         <module name="lersosa-common-log" />
         <module name="lersosa-service-file" />
         <module name="lersosa-service-system" />
+        <module name="lersosa-web-page" />
         <module name="lersosa-service-gen" />
         <module name="lersosa-service-openai" />
         <module name="lersosa-common-security" />
@@ -67,6 +69,8 @@
       <module name="lersosa-visual" options="-parameters" />
       <module name="lersosa-visual-monitor" options="-parameters" />
       <module name="lersosa-web" options="-parameters" />
+      <module name="lersosa-web-page" options="-parameters" />
+      <module name="lersosa-web-search" options="-parameters" />
     </option>
   </component>
 </project>

@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="LsrsosaViteApplicationProd" type="js.build_tools.npm">
-    <package-json value="$PROJECT_DIR$/lersosa-vite/package.json" />
+  <configuration default="false" name="LsrsosaViteAdminDev" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/lersosa-vite/lersosa-vite-admin/package.json" />
     <command value="run" />
     <scripts>
-      <script value="build:prod" />
+      <script value="dev" />
     </scripts>
     <node-interpreter value="project" />
     <envs />

@@ -33,9 +33,9 @@ Java, Python, Go 等不同语言的优势，提供了一种高效且灵活的开
 ## 6. 运行
 
 1. 运行前请先安装好多语言开发框架的依赖库。
-2. Python 算法端 Demo 运行使用 Python-3.12.3 测试通过
-3. Java 后端 Demo 运行使用 Java-23.0.1 测试通过
-4. Vue 前端 Demo 运行使用 Vite-5.2.12 测试通过
+2. Python 算法端 Demo 运行使用 Python-3.13.0 测试通过
+3. Java 后端 Demo 运行使用 Java-22.0.2 测试通过
+4. Vue 前端 Demo 运行使用 Vite-5.4.10 测试通过
 
 ## 7. 框架结构树
 
@@ -43,13 +43,10 @@ Java, Python, Go 等不同语言的优势，提供了一种高效且灵活的开
 LeyramuLersosa    多语言混合开发框架
 ├─lersosa-java    Java 后端
 │  ├─lersosa-api    微服务 API 模块
-│  │  ├─lersosa-api-system    系统模块
-│  │  ├─lersosa-api-permission-api    权限模块
-│  │  ├─lersosa-api-student    学生模块
-│  │  └─lersosa-api-user    用户模块
+│  │  └─lersosa-api-system    系统模块
 │  ├─lersosa-cloud    微服务核心模块
 │  │  ├─lersosa-cloud-resgistry    注册中心模块
-│  │  └─lersosa-cloud-seata    Seata 分布式事务模块
+│  │  └─lersosa-cloud-sentinel    限流熔断模块
 │  ├─lersosa-gateway    微服务网关模块
 │  │  └─lersosa-gateway-api    API 网关模块
 │  ├─lersosa-common    微服务公共模块
@@ -71,26 +68,21 @@ LeyramuLersosa    多语言混合开发框架
 │  │  ├─lersosa-service-gen    代码生成模块
 │  │  ├─lersosa-service-job    定时任务业务模块
 │  │  ├─lersosa-service-system    系统业务模块
-│  │  ├─lersosa-service-openai    OpenAI 业务模块
-│  │  ├─lersosa-service-permission    权限业务模块
-│  │  ├─lersosa-service-student    学生业务模块
-│  │  ├─lersosa-service-teacher    教师业务模块
-│  │  └─lersosa-service-user    用户业务模块
+│  │  └─lersosa-service-openai    OpenAI 业务模块
 │  ├─lersosa-visual    微服务可视化模块
 │  │  └─lersosa-visual-monitor    微服务监控模块
-│  ├─lersosa-web    微服务页面渲染模块
-│  │  ├─lersosa-web-search    搜索渲染模块
-│  │  └─lersosa-web-page    页面渲染模块
-│  └─swagger-json    API 工程规范生成器
+│  └─lersosa-web    微服务页面渲染模块
+│      ├─lersosa-web-search    搜索渲染模块
+│      └─lersosa-web-page    页面渲染模块
 ├─lersosa-python    Python 算法端
 │  └─src    源代码目录
 │       ├─app    应用模块
 │       │  ├─routes    路由模块
 │       │  └─utils    工具模块
 │       └─center    注册中心模块
-└─lersosa-vue    Vue 前端
-    ├─vue-admin    前端管理层模块
-    └─vue-user    前端用户层模块
+└─lersosa-vite    Vite 前端
+    ├─lersosa-vite-admin    前端管理层模块
+    └─lersosa-vite-user    前端用户层模块
 ```
 
 ## 8. 技术栈

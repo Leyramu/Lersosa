@@ -47,9 +47,12 @@
 /lersosa-java/lersosa-visual/lersosa-visual-monitor/target/
 
 # vite 模块环境文件
-/lersosa-vite/node_modules/
-/lersosa-vite/dist/
-/lersosa-vite/pnpm-lock.yaml
+/lersosa-vite/lersosa-vite-admin/node_modules/
+/lersosa-vite/lersosa-vite-admin/dist/
+/lersosa-vite/lersosa-vite-admin/package-lock.json
+/lersosa-vite/lersosa-vite-user/node_modules/
+/lersosa-vite/lersosa-vite-user/dist/
+/lersosa-vite/lersosa-vite-user/package-lock.json
 
 # 临时文件
 /work/

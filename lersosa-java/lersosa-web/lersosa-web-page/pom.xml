@@ -15,23 +15,13 @@
     <!--      父工程      -->
     <parent>
         <groupId>leyramu.framework</groupId>
-        <artifactId>lersosa-java</artifactId>
-        <relativePath>../pom.xml</relativePath>
+        <artifactId>lersosa-web</artifactId>
         <version>1.0.0</version>
     </parent>
 
-    <!--      子模块      -->
-    <modules>
-        <module>lersosa-web-search</module>
-        <module>lersosa-web-page</module>
-    </modules>
-
-    <!--      打包方式      -->
-    <packaging>pom</packaging>
-
-    <!--      模块描述      -->
-    <description>管理所有页面渲染工程</description>
+    <!--      项目描述      -->
+    <description>页面搜索渲染工程</description>
 
     <!--      工件 ID      -->
-    <artifactId>lersosa-web</artifactId>
+    <artifactId>lersosa-web-page</artifactId>
 </project>
