@@ -433,7 +433,7 @@ export const layoutComponents = [
 ]
 
 // 组件rule的触发方式，无触发方式的组件不生成rule
-export const trigger = {
+export const trigger: any = {
     'el-input': 'blur',
     'el-input-number': 'blur',
     'el-select': 'change',

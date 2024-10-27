@@ -194,7 +194,7 @@
             </el-form-item>
           </el-col>
           <el-col
-              v-if="form.menuType != 'F'"
+              v-if="form.menuType !== 'F'"
               :span="24">
             <el-form-item
                 label="菜单图标"
@@ -250,7 +250,7 @@
             </el-form-item>
           </el-col>
           <el-col
-              v-if="form.menuType != 'F'"
+              v-if="form.menuType !== 'F'"
               :span="12">
             <el-form-item>
               <template #label>
@@ -272,7 +272,7 @@
             </el-form-item>
           </el-col>
           <el-col
-              v-if="form.menuType != 'F'"
+              v-if="form.menuType !== 'F'"
               :span="12">
             <el-form-item prop="path">
               <template #label>
@@ -293,7 +293,7 @@
             </el-form-item>
           </el-col>
           <el-col
-              v-if="form.menuType == 'C'"
+              v-if="form.menuType === 'C'"
               :span="12">
             <el-form-item prop="component">
               <template #label>
@@ -314,7 +314,7 @@
             </el-form-item>
           </el-col>
           <el-col
-              v-if="form.menuType != 'M'"
+              v-if="form.menuType !== 'M'"
               :span="12">
             <el-form-item>
               <el-input
@@ -336,7 +336,7 @@
             </el-form-item>
           </el-col>
           <el-col
-              v-if="form.menuType == 'C'"
+              v-if="form.menuType === 'C'"
               :span="12">
             <el-form-item>
               <el-input
@@ -358,7 +358,7 @@
             </el-form-item>
           </el-col>
           <el-col
-              v-if="form.menuType == 'C'"
+              v-if="form.menuType === 'C'"
               :span="12">
             <el-form-item>
               <template #label>
@@ -380,7 +380,7 @@
             </el-form-item>
           </el-col>
           <el-col
-              v-if="form.menuType != 'F'"
+              v-if="form.menuType !== 'F'"
               :span="12">
             <el-form-item>
               <template #label>
@@ -489,7 +489,7 @@
   /** 查询菜单下拉树结构 */
   function getTreeselect() {
     menuOptions.value = [];
-    listMenu().then(response => {
+    listMenu(undefined).then(response => {
       const menu = {menuId: 0, menuName: "主类目", children: []};
       menu.children = proxy.handleTree(response.data, "menuId");
       menuOptions.value.push(menu);
@@ -577,14 +577,14 @@
   function submitForm() {
     proxy.$refs["menuRef"].validate(valid => {
       if (valid) {
-        if (form.value.menuId != undefined) {
-          updateMenu(form.value).then(response => {
+        if (form.value.menuId !== undefined) {
+          updateMenu(form.value).then(_response => {
             proxy.$modal.msgSuccess("修改成功");
             open.value = false;
             getList();
           });
         } else {
-          addMenu(form.value).then(response => {
+          addMenu(form.value).then(_response => {
             proxy.$modal.msgSuccess("新增成功");
             open.value = false;
             getList();

@@ -105,11 +105,11 @@
       <el-table-column align="center" label="字典标签" prop="dictLabel">
         <template #default="scope">
           <span
-              v-if="(scope.row.listClass == '' || scope.row.listClass == 'default') && (scope.row.cssClass == '' || scope.row.cssClass == null)">{{
+              v-if="(scope.row.listClass === '' || scope.row.listClass === 'default') && (scope.row.cssClass === '' || scope.row.cssClass == null)">{{
               scope.row.dictLabel
             }}</span>
           <el-tag v-else :class="scope.row.cssClass"
-                  :type="scope.row.listClass == 'primary' ? '' : scope.row.listClass">{{ scope.row.dictLabel }}
+                  :type="scope.row.listClass === 'primary' ? '' : scope.row.listClass">{{ scope.row.dictLabel }}
           </el-tag>
         </template>
       </el-table-column>
@@ -323,7 +323,7 @@ function handleAdd() {
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.dictCode);
-  single.value = selection.length != 1;
+  single.value = selection.length !== 1;
   multiple.value = !selection.length;
 }
 
@@ -342,15 +342,15 @@ function handleUpdate(row) {
 function submitForm() {
   proxy.$refs["dataRef"].validate(valid => {
     if (valid) {
-      if (form.value.dictCode != undefined) {
-        updateData(form.value).then(response => {
+      if (form.value.dictCode !== undefined) {
+        updateData(form.value).then(_response => {
           useDictStore().removeDict(queryParams.value.dictType);
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
           getList();
         });
       } else {
-        addData(form.value).then(response => {
+        addData(form.value).then(_response => {
           useDictStore().removeDict(queryParams.value.dictType);
           proxy.$modal.msgSuccess("新增成功");
           open.value = false;

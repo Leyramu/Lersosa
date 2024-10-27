@@ -234,7 +234,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item v-show="form.dataScope == 2" label="数据权限">
+        <el-form-item v-show="form.dataScope === 2" label="数据权限">
           <el-checkbox v-model="deptExpand" @change="handleCheckedTreeExpand($event, 'dept')">展开/折叠</el-checkbox>
           <el-checkbox v-model="deptNodeAll" @change="handleCheckedTreeNodeAll($event, 'dept')">全选/全不选
           </el-checkbox>
@@ -372,7 +372,7 @@ function handleExport() {
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.roleId);
-  single.value = selection.length != 1;
+  single.value = selection.length !== 1;
   multiple.value = !selection.length;
 }
 
@@ -426,7 +426,7 @@ function getDeptAllCheckedKeys() {
 
 /** 重置新增的表单以及其他数据  */
 function reset() {
-  if (menuRef.value != undefined) {
+  if (menuRef.value !== undefined) {
     menuRef.value.setCheckedKeys([]);
   }
   menuExpand.value = false;
@@ -497,12 +497,12 @@ function getDeptTree(roleId) {
 
 /** 树权限（展开/折叠）*/
 function handleCheckedTreeExpand(value, type) {
-  if (type == "menu") {
+  if (type === "menu") {
     let treeList = menuOptions.value;
     for (let i = 0; i < treeList.length; i++) {
       menuRef.value.store.nodesMap[treeList[i].id].expanded = value;
     }
-  } else if (type == "dept") {
+  } else if (type === "dept") {
     let treeList = deptOptions.value;
     for (let i = 0; i < treeList.length; i++) {
       deptRef.value.store.nodesMap[treeList[i].id].expanded = value;
@@ -512,19 +512,19 @@ function handleCheckedTreeExpand(value, type) {
 
 /** 树权限（全选/全不选） */
 function handleCheckedTreeNodeAll(value, type) {
-  if (type == "menu") {
+  if (type === "menu") {
     menuRef.value.setCheckedNodes(value ? menuOptions.value : []);
-  } else if (type == "dept") {
+  } else if (type === "dept") {
     deptRef.value.setCheckedNodes(value ? deptOptions.value : []);
   }
 }
 
 /** 树权限（父子联动） */
 function handleCheckedTreeConnect(value, type) {
-  if (type == "menu") {
-    form.value.menuCheckStrictly = value ? true : false;
-  } else if (type == "dept") {
-    form.value.deptCheckStrictly = value ? true : false;
+  if (type === "menu") {
+    form.value.menuCheckStrictly = !!value;
+  } else if (type === "dept") {
+    form.value.deptCheckStrictly = !!value;
   }
 }
 
@@ -542,16 +542,16 @@ function getMenuAllCheckedKeys() {
 function submitForm() {
   proxy.$refs["roleRef"].validate(valid => {
     if (valid) {
-      if (form.value.roleId != undefined) {
+      if (form.value.roleId !== undefined) {
         form.value.menuIds = getMenuAllCheckedKeys();
-        updateRole(form.value).then(response => {
+        updateRole(form.value).then(_response => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
           getList();
         });
       } else {
         form.value.menuIds = getMenuAllCheckedKeys();
-        addRole(form.value).then(response => {
+        addRole(form.value).then(_response => {
           proxy.$modal.msgSuccess("新增成功");
           open.value = false;
           getList();
@@ -596,9 +596,9 @@ function handleDataScope(row) {
 
 /** 提交按钮（数据权限） */
 function submitDataScope() {
-  if (form.value.roleId != undefined) {
+  if (form.value.roleId !== undefined) {
     form.value.deptIds = getDeptAllCheckedKeys();
-    dataScope(form.value).then(response => {
+    dataScope(form.value).then(_response => {
       proxy.$modal.msgSuccess("修改成功");
       openDataScope.value = false;
       getList();

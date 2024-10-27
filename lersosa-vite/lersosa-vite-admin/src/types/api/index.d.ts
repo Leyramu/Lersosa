@@ -19,6 +19,8 @@ declare module '@/api/login' {
     export {login} from '.@/api/login'
 
     export {logout} from '.@/api/login'
+
+    export {getCodeImg} from '.@/api/login'
 }
 
 // @/api/menu

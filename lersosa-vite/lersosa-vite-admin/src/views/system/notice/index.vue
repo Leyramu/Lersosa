@@ -250,7 +250,7 @@ function resetQuery() {
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.noticeId);
-  single.value = selection.length != 1;
+  single.value = selection.length !== 1;
   multiple.value = !selection.length;
 }
 
@@ -276,14 +276,14 @@ function handleUpdate(row) {
 function submitForm() {
   proxy.$refs["noticeRef"].validate(valid => {
     if (valid) {
-      if (form.value.noticeId != undefined) {
-        updateNotice(form.value).then(response => {
+      if (form.value.noticeId !== undefined) {
+        updateNotice(form.value).then(_response => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
           getList();
         });
       } else {
-        addNotice(form.value).then(response => {
+        addNotice(form.value).then(_response => {
           proxy.$modal.msgSuccess("新增成功");
           open.value = false;
           getList();

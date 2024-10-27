@@ -144,14 +144,14 @@
             </p>
             <p>
               <i class="el-icon-chat-dot-round"></i> 微信：<a
-                href="javascript:;"
+                href="javascript:"
             >/ *若依</a
             >
             </p>
             <p>
               <i class="el-icon-money"></i> 支付宝：<a
                 class="支付宝信息"
-                href="javascript:;"
+                href="javascript:"
             >/ *若依</a
             >
             </p>
@@ -974,7 +974,7 @@ function goTarget(url) {
   }
 
   h4 {
-    margin-top: 0px;
+    margin-top: 0;
   }
 
   h2 {

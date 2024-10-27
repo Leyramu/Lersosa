@@ -145,11 +145,14 @@
         <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
           <el-table-column align="center" type="selection" width="50"/>
           <el-table-column v-if="columns[0].visible" key="userId" align="center" label="用户编号" prop="userId"/>
-          <el-table-column v-if="columns[1].visible" key="userName" :show-overflow-tooltip="true" align="center" label="用户名称"
+          <el-table-column v-if="columns[1].visible" key="userName" :show-overflow-tooltip="true" align="center"
+                           label="用户名称"
                            prop="userName"/>
-          <el-table-column v-if="columns[2].visible" key="nickName" :show-overflow-tooltip="true" align="center" label="用户昵称"
+          <el-table-column v-if="columns[2].visible" key="nickName" :show-overflow-tooltip="true" align="center"
+                           label="用户昵称"
                            prop="nickName"/>
-          <el-table-column v-if="columns[3].visible" key="deptName" :show-overflow-tooltip="true" align="center" label="部门"
+          <el-table-column v-if="columns[3].visible" key="deptName" :show-overflow-tooltip="true" align="center"
+                           label="部门"
                            prop="dept.deptName"/>
           <el-table-column v-if="columns[4].visible" key="phonenumber" align="center" label="手机号码"
                            prop="phonenumber" width="120"/>
@@ -235,12 +238,12 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item v-if="form.userId == undefined" label="用户名称" prop="userName">
+            <el-form-item v-if="form.userId === undefined" label="用户名称" prop="userName">
               <el-input v-model="form.userName" maxlength="30" placeholder="请输入用户名称"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item v-if="form.userId == undefined" label="用户密码" prop="password">
+            <el-form-item v-if="form.userId === undefined" label="用户密码" prop="password">
               <el-input v-model="form.password" maxlength="20" placeholder="请输入用户密码" show-password
                         type="password"/>
             </el-form-item>
@@ -279,7 +282,7 @@
                 <el-option
                     v-for="item in postOptions"
                     :key="item.postId"
-                    :disabled="item.status == 1"
+                    :disabled="item.status === 1"
                     :label="item.postName"
                     :value="item.postId"
                 ></el-option>
@@ -292,7 +295,7 @@
                 <el-option
                     v-for="item in roleOptions"
                     :key="item.roleId"
-                    :disabled="item.status == 1"
+                    :disabled="item.status === 1"
                     :label="item.roleName"
                     :value="item.roleId"
                 ></el-option>
@@ -440,7 +443,7 @@ const data = reactive({
       trigger: "blur"
     }, {pattern: /^[^<>"'|\\]+$/, message: "不能包含非法字符：< > \" ' \\\ |", trigger: "blur"}],
     email: [{type: "email", message: "请输入正确的邮箱地址", trigger: ["blur", "change"]}],
-    phonenumber: [{pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur"}]
+    phonenumber: [{pattern: /^1[3|456789][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur"}]
   }
 });
 
@@ -461,7 +464,7 @@ function getDeptTree() {
   deptTreeSelect().then(response => {
     deptOptions.value = response.data;
   });
-};
+}
 
 /** 查询用户列表 */
 function getList() {
@@ -471,19 +474,19 @@ function getList() {
     userList.value = res.rows;
     total.value = res.total;
   });
-};
+}
 
 /** 节点单击事件 */
 function handleNodeClick(data) {
   queryParams.value.deptId = data.id;
   handleQuery();
-};
+}
 
 /** 搜索按钮操作 */
 function handleQuery() {
   queryParams.value.pageNum = 1;
   getList();
-};
+}
 
 /** 重置按钮操作 */
 function resetQuery() {
@@ -492,7 +495,7 @@ function resetQuery() {
   queryParams.value.deptId = undefined;
   proxy.$refs.deptTreeRef.setCurrentKey(null);
   handleQuery();
-};
+}
 
 /** 删除按钮操作 */
 function handleDelete(row) {
@@ -504,14 +507,14 @@ function handleDelete(row) {
     proxy.$modal.msgSuccess("删除成功");
   }).catch(() => {
   });
-};
+}
 
 /** 导出按钮操作 */
 function handleExport() {
   proxy.download("system/user/export", {
     ...queryParams.value,
   }, `user_${new Date().getTime()}.xlsx`);
-};
+}
 
 /** 用户状态修改  */
 function handleStatusChange(row) {
@@ -523,7 +526,7 @@ function handleStatusChange(row) {
   }).catch(function () {
     row.status = row.status === "0" ? "1" : "0";
   });
-};
+}
 
 /** 更多操作 */
 function handleCommand(command, row) {
@@ -537,13 +540,13 @@ function handleCommand(command, row) {
     default:
       break;
   }
-};
+}
 
 /** 跳转角色分配 */
 function handleAuthRole(row) {
   const userId = row.userId;
   router.push("/system/user-auth/role/" + userId);
-};
+}
 
 /** 重置密码按钮操作 */
 function handleResetPwd(row) {
@@ -554,41 +557,42 @@ function handleResetPwd(row) {
     inputPattern: /^.{5,20}$/,
     inputErrorMessage: "用户密码长度必须介于 5 和 20 之间",
     inputValidator: (value) => {
-      if (/<|>|"|'|\||\\/.test(value)) {
+      if (/[<>"'|\\]/.test(value)) {
         return "不能包含非法字符：< > \" ' \\\ |"
       }
     },
   }).then(({value}) => {
-    resetUserPwd(row.userId, value).then(response => {
+    resetUserPwd(row.userId, value).then(_response => {
       proxy.$modal.msgSuccess("修改成功，新密码是：" + value);
     });
   }).catch(() => {
   });
-};
+}
 
 /** 选择条数  */
 function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.userId);
-  single.value = selection.length != 1;
+  single.value = selection.length !== 1;
   multiple.value = !selection.length;
-};
+}
 
 /** 导入按钮操作 */
 function handleImport() {
   upload.title = "用户导入";
   upload.open = true;
-};
+}
 
 /** 下载模板操作 */
 function importTemplate() {
   proxy.download("system/user/importTemplate", {}, `user_template_${new Date().getTime()}.xlsx`);
-};
+}
+
 /**文件上传中处理 */
-const handleFileUploadProgress = (event, file, fileList) => {
+const handleFileUploadProgress = (_event, _file, _fileList) => {
   upload.isUploading = true;
 };
 /** 文件上传成功处理 */
-const handleFileSuccess = (response, file, fileList) => {
+const handleFileSuccess = (response, file, _fileList) => {
   upload.open = false;
   upload.isUploading = false;
   proxy.$refs["uploadRef"].handleRemove(file);
@@ -599,7 +603,7 @@ const handleFileSuccess = (response, file, fileList) => {
 /** 提交上传文件 */
 function submitFileForm() {
   proxy.$refs["uploadRef"].submit();
-};
+}
 
 /** 重置操作表单 */
 function reset() {
@@ -618,25 +622,25 @@ function reset() {
     roleIds: []
   };
   proxy.resetForm("userRef");
-};
+}
 
 /** 取消按钮 */
 function cancel() {
   open.value = false;
   reset();
-};
+}
 
 /** 新增按钮操作 */
 function handleAdd() {
   reset();
-  getUser().then(response => {
+  getUser(undefined).then(response => {
     postOptions.value = response.posts;
     roleOptions.value = response.roles;
     open.value = true;
     title.value = "添加用户";
     form.value.password = initPassword.value;
   });
-};
+}
 
 /** 修改按钮操作 */
 function handleUpdate(row) {
@@ -652,13 +656,13 @@ function handleUpdate(row) {
     title.value = "修改用户";
     form.password = "";
   });
-};
+}
 
 /** 提交按钮 */
 function submitForm() {
   proxy.$refs["userRef"].validate(valid => {
     if (valid) {
-      if (form.value.userId != undefined) {
+      if (form.value.userId !== undefined) {
         updateUser(form.value).then(response => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
@@ -673,7 +677,7 @@ function submitForm() {
       }
     }
   });
-};
+}
 
 getDeptTree();
 getList();

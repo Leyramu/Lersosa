@@ -166,12 +166,12 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="执行状态：">
-              <div v-if="form.status == 0">正常</div>
-              <div v-else-if="form.status == 1">失败</div>
+              <div v-if="form.status === 0">正常</div>
+              <div v-else-if="form.status === 1">失败</div>
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item v-if="form.status == 1" label="异常信息：">{{ form.exceptionInfo }}</el-form-item>
+            <el-form-item v-if="form.status === 1" label="异常信息：">{{ form.exceptionInfo }}</el-form-item>
           </el-col>
         </el-row>
       </el-form>
@@ -256,9 +256,14 @@ function handleView(row) {
 }
 
 /** 删除按钮操作 */
-function handleDelete(row) {
-  proxy.$modal.confirm('是否确认删除调度日志编号为"' + ids.value + '"的数据项?').then(function () {
-    return delJobLog(ids.value);
+function handleDelete(_row) {
+  let idsToDelete = ids.value;
+  if (_row) {
+    idsToDelete = [_row.jobLogId];
+  }
+
+  proxy.$modal.confirm('是否确认删除调度日志编号为"' + idsToDelete.join(", ") + '"的数据项?').then(function () {
+    return delJobLog(idsToDelete.join(","));
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");
@@ -286,7 +291,7 @@ function handleExport() {
 
 (() => {
   const jobId = route.params && route.params.jobId;
-  if (jobId !== undefined && jobId != 0) {
+  if (jobId !== undefined && jobId !== 0) {
     getJob(jobId).then(response => {
       queryParams.value.jobName = response.data.jobName;
       queryParams.value.jobGroup = response.data.jobGroup;

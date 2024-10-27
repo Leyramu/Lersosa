@@ -50,11 +50,6 @@ interface UpdatePwdData {
     newPassword: string;
 }
 
-interface AuthRoleData {
-    userId: string;
-    roleIds: string[];
-}
-
 // 查询用户列表
 export function listUser(query: { [key: string]: any }): Promise<UserListResponse> {
     return request({
@@ -155,7 +150,7 @@ export function updateUserPwd(oldPassword: string, newPassword: string): Promise
 }
 
 // 用户头像上传
-export function uploadAvatar(data: FormData): Promise<{ success: boolean }> {
+export function uploadAvatar(data: any): Promise<{ success: boolean }> {
     return request({
         url: '/system/user/profile/avatar',
         method: 'post',
@@ -172,7 +167,7 @@ export function getAuthRole(userId: string): Promise<{ roleIds: string[] }> {
 }
 
 // 保存授权角色
-export function updateAuthRole(data: AuthRoleData): Promise<{ success: boolean }> {
+export function updateAuthRole(data: any): Promise<{ success: boolean }> {
     return request({
         url: '/system/user/authRole',
         method: 'put',

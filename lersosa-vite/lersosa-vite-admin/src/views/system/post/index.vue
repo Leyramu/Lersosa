@@ -239,7 +239,7 @@ function resetQuery() {
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.postId);
-  single.value = selection.length != 1;
+  single.value = selection.length !== 1;
   multiple.value = !selection.length;
 }
 
@@ -265,14 +265,14 @@ function handleUpdate(row) {
 function submitForm() {
   proxy.$refs["postRef"].validate(valid => {
     if (valid) {
-      if (form.value.postId != undefined) {
-        updatePost(form.value).then(response => {
+      if (form.value.postId !== undefined) {
+        updatePost(form.value).then(_response => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
           getList();
         });
       } else {
-        addPost(form.value).then(response => {
+        addPost(form.value).then(_response => {
           proxy.$modal.msgSuccess("新增成功");
           open.value = false;
           getList();

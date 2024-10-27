@@ -36,7 +36,7 @@ export function listConfig(query: { [key: string]: any }): Promise<ConfigListRes
 }
 
 // 查询参数详细
-export function getConfig(configId: string): Promise<Config> {
+export function getConfig(configId: Array<UnwrapRefSimple<*>>): Promise<Config> {
     return request({
         url: '/system/config/' + configId,
         method: 'get'
@@ -70,7 +70,7 @@ export function updateConfig(data: Config): Promise<{ success: boolean }> {
 }
 
 // 删除参数配置
-export function delConfig(configId: string): Promise<{ success: boolean }> {
+export function delConfig(configId: Array<UnwrapRefSimple<*>>): Promise<{ success: boolean }> {
     return request({
         url: '/system/config/' + configId,
         method: 'delete'

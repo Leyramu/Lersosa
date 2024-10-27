@@ -85,7 +85,8 @@
           <el-button v-hasPermi="['system:dept:add']" icon="Plus" link type="primary" @click="handleAdd(scope.row)">
             新增
           </el-button>
-          <el-button v-if="scope.row.parentId != 0" v-hasPermi="['system:dept:remove']" icon="Delete" link type="primary"
+          <el-button v-if="scope.row.parentId !== 0" v-hasPermi="['system:dept:remove']" icon="Delete" link
+                     type="primary"
                      @click="handleDelete(scope.row)">删除
           </el-button>
         </template>
@@ -183,7 +184,7 @@ const data = reactive({
     deptName: [{required: true, message: "部门名称不能为空", trigger: "blur"}],
     orderNum: [{required: true, message: "显示排序不能为空", trigger: "blur"}],
     email: [{type: "email", message: "请输入正确的邮箱地址", trigger: ["blur", "change"]}],
-    phone: [{pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur"}]
+    phone: [{pattern: /^1[3|456789][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur"}]
   },
 });
 
@@ -233,10 +234,10 @@ function resetQuery() {
 /** 新增按钮操作 */
 function handleAdd(row) {
   reset();
-  listDept().then(response => {
+  listDept(undefined).then(response => {
     deptOptions.value = proxy.handleTree(response.data, "deptId");
   });
-  if (row != undefined) {
+  if (row !== undefined) {
     form.value.parentId = row.deptId;
   }
   open.value = true;
@@ -269,14 +270,14 @@ function handleUpdate(row) {
 function submitForm() {
   proxy.$refs["deptRef"].validate(valid => {
     if (valid) {
-      if (form.value.deptId != undefined) {
-        updateDept(form.value).then(response => {
+      if (form.value.deptId !== undefined) {
+        updateDept(form.value).then(_response => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
           getList();
         });
       } else {
-        addDept(form.value).then(response => {
+        addDept(form.value).then(_response => {
           proxy.$modal.msgSuccess("新增成功");
           open.value = false;
           getList();

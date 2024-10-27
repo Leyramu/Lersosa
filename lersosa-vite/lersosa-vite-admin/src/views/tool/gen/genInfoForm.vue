@@ -120,7 +120,7 @@
         </el-form-item>
       </el-col>
 
-      <el-col v-if="info.genType == '1'" :span="24">
+      <el-col v-if="info.genType === '1'" :span="24">
         <el-form-item prop="genPath">
           <template #label>
             自定义路径
@@ -149,9 +149,9 @@
       </el-col>
     </el-row>
 
-    <template v-if="info.tplCategory == 'tree'">
+    <template v-if="info.tplCategory === 'tree'">
       <h4 class="form-header">其他信息</h4>
-      <el-row v-show="info.tplCategory == 'tree'">
+      <el-row v-show="info.tplCategory === 'tree'">
         <el-col :span="12">
           <el-form-item>
             <template #label>
@@ -215,7 +215,7 @@
       </el-row>
     </template>
 
-    <template v-if="info.tplCategory == 'sub'">
+    <template v-if="info.tplCategory === 'sub'">
       <h4 class="form-header">关联信息</h4>
       <el-row>
         <el-col :span="12">
@@ -291,7 +291,7 @@ const rules = ref({
   functionName: [{required: true, message: "请输入生成功能名", trigger: "blur"}]
 });
 
-function subSelectChange(value) {
+function subSelectChange(_value) {
   props.info.subTableFkName = "";
 }
 
@@ -303,7 +303,7 @@ function tplSelectChange(value) {
 }
 
 function setSubTableColumns(value) {
-  for (var item in props.tables) {
+  for (const item in props.tables) {
     const name = props.tables[item].tableName;
     if (value === name) {
       subColumns.value = props.tables[item].columns;
@@ -314,7 +314,7 @@ function setSubTableColumns(value) {
 
 /** 查询菜单下拉树结构 */
 function getMenuTreeselect() {
-  listMenu().then(response => {
+  listMenu(undefined).then(response => {
     menuOptions.value = proxy.handleTree(response.data, "menuId");
   });
 }

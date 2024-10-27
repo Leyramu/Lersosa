@@ -9,7 +9,7 @@
 <template>
   <div class="register">
     <el-form ref="registerRef" :model="registerForm" :rules="registerRules" class="register-form">
-      <h3 class="title">若依后台管理系统</h3>
+      <h3 class="title">Lersosa 管理系统</h3>
       <el-form-item prop="username">
         <el-input
             v-model="registerForm.username"
@@ -65,7 +65,7 @@
           </template>
         </el-input>
         <div class="register-code">
-          <img :src="codeUrl" class="register-code-img" @click="getCode"/>
+          <img :src="codeUrl" class="register-code-img" @click="getCode" alt=""/>
         </div>
       </el-form-item>
       <el-form-item style="width:100%;">
@@ -139,9 +139,9 @@ function handleRegister() {
   proxy.$refs.registerRef.validate(valid => {
     if (valid) {
       loading.value = true;
-      register(registerForm.value).then(res => {
+      register(registerForm.value).then(_res => {
         const username = registerForm.value.username;
-        ElMessageBox.alert("<font color='red'>恭喜你，您的账号 " + username + " 注册成功！</font>", "系统提示", {
+        ElMessageBox.alert("<span style='color: red; '>恭喜你，您的账号 " + username + " 注册成功！</span>", "系统提示", {
           dangerouslyUseHTMLString: true,
           type: "success",
         }).then(() => {
@@ -182,7 +182,7 @@ getCode();
 }
 
 .title {
-  margin: 0px auto 30px auto;
+  margin: 0 auto 30px auto;
   text-align: center;
   color: #707070;
 }
@@ -204,7 +204,7 @@ getCode();
   .input-icon {
     height: 39px;
     width: 14px;
-    margin-left: 0px;
+    margin-left: 0;
   }
 }
 
@@ -233,7 +233,7 @@ getCode();
   width: 100%;
   text-align: center;
   color: #fff;
-  font-family: Arial;
+  font-family: Arial, serif;
   font-size: 12px;
   letter-spacing: 1px;
 }

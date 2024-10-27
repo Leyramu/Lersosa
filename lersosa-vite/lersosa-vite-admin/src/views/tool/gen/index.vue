@@ -207,7 +207,7 @@ const {queryParams, preview} = toRefs(data);
 
 onActivated(() => {
   const time = route.query.t;
-  if (time != null && time != uniqueId.value) {
+  if (time != null && time !== uniqueId.value) {
     uniqueId.value = time;
     queryParams.value.pageNum = Number(route.query.pageNum);
     dateRange.value = [];
@@ -235,12 +235,12 @@ function handleQuery() {
 /** 生成代码操作 */
 function handleGenTable(row) {
   const tbNames = row.tableName || tableNames.value;
-  if (tbNames == "") {
+  if (tbNames === "") {
     proxy.$modal.msgError("请选择要生成的数据");
     return;
   }
   if (row.genType === "1") {
-    genCode(row.tableName).then(response => {
+    genCode(row.tableName).then(_response => {
       proxy.$modal.msgSuccess("成功生成到自定义路径：" + row.genPath);
     });
   } else {
@@ -289,7 +289,7 @@ function copyTextSuccess() {
 function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.tableId);
   tableNames.value = selection.map(item => item.tableName);
-  single.value = selection.length != 1;
+  single.value = selection.length !== 1;
   multiple.value = !selection.length;
 }
 

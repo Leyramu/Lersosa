@@ -177,7 +177,7 @@ function cancelAuthUser(row) {
 }
 
 /** 批量取消授权按钮操作 */
-function cancelAuthUserAll(row) {
+function cancelAuthUserAll(_row) {
   const roleId = queryParams.roleId;
   const uIds = userIds.value.join(",");
   proxy.$modal.confirm("是否取消选中用户授权数据项?").then(function () {

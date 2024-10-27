@@ -114,7 +114,7 @@ function resetQuery() {
 /** 导入按钮操作 */
 function handleImportTable() {
   const tableNames = tables.value.join(",");
-  if (tableNames == "") {
+  if (tableNames === "") {
     proxy.$modal.msgError("请选择要导入的表");
     return;
   }

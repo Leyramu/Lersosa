@@ -8,7 +8,7 @@
 
 <template>
   <div class="user-info-head" @click="editCropper()">
-    <img :src="options.img" class="img-circle img-lg" title="点击上传头像"/>
+    <img :src="options.img" class="img-circle img-lg" title="点击上传头像" alt=""/>
     <el-dialog v-model="open" :title="title" append-to-body width="800px" @close="closeDialog" @opened="modalOpened">
       <el-row>
         <el-col :md="12" :style="{ height: '350px' }" :xs="24">
@@ -27,7 +27,7 @@
         </el-col>
         <el-col :md="12" :style="{ height: '350px' }" :xs="24">
           <div class="avatar-upload-preview">
-            <img :src="options.previews.url" :style="options.previews.img"/>
+            <img :src="options.previews.url" :style="options.previews.img" alt=""/>
           </div>
         </el-col>
       </el-row>
@@ -125,7 +125,7 @@ function changeScale(num) {
 
 /** 上传预处理 */
 function beforeUpload(file) {
-  if (file.type.indexOf("image/") == -1) {
+  if (file.type.indexOf("image/") === -1) {
     proxy.$modal.msgError("文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。");
   } else {
     const reader = new FileReader();

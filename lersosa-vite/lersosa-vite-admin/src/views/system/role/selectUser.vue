@@ -137,7 +137,7 @@ const emit = defineEmits(["ok"]);
 function handleSelectUser() {
   const roleId = queryParams.roleId;
   const uIds = userIds.value.join(",");
-  if (uIds == "") {
+  if (uIds === "") {
     proxy.$modal.msgError("请选择要分配的用户");
     return;
   }

@@ -7,10 +7,12 @@
  */
 
 import request from '@/utils/request';
+import {UnwrapRef} from "vue";
 
 // 角色接口数据类型
 interface Role {
     roleId: string;
+    userIds: string[];
     roleName: string;
     roleKey: string;
     roleSort: number;
@@ -25,10 +27,6 @@ interface Role {
 interface RoleListResponse {
     total: number;
     list: Role[];
-}
-
-interface AuthUserData {
-    userIds: string[];
 }
 
 interface DeptTree {
@@ -73,7 +71,18 @@ export function updateRole(data: Role): Promise<{ success: boolean }> {
 }
 
 // 角色数据权限
-export function dataScope(data: { roleId: string; menuIds: string[] }): Promise<{ success: boolean }> {
+export function dataScope(data: any | {
+    deptCheckStrictly: boolean,
+    roleId: undefined,
+    menuCheckStrictly: boolean,
+    roleName: undefined,
+    roleKey: undefined,
+    remark: undefined,
+    deptIds: any[],
+    menuIds: any[],
+    roleSort: number,
+    status: string
+}): Promise<{ success: boolean }> {
     return request({
         url: '/system/role/dataScope',
         method: 'put',
@@ -121,7 +130,7 @@ export function unallocatedUserList(query: { [key: string]: any }): Promise<{ to
 }
 
 // 取消用户授权角色
-export function authUserCancel(data: AuthUserData): Promise<{ success: boolean }> {
+export function authUserCancel(data: { roleId: UnwrapRef<any>, userId: any }): Promise<{ success: boolean }> {
     return request({
         url: '/system/role/authUser/cancel',
         method: 'put',
@@ -130,7 +139,7 @@ export function authUserCancel(data: AuthUserData): Promise<{ success: boolean }
 }
 
 // 批量取消用户授权角色
-export function authUserCancelAll(data: AuthUserData): Promise<{ success: boolean }> {
+export function authUserCancelAll(data: { roleId: UnwrapRef<any>, userIds: string }): Promise<{ success: boolean }> {
     return request({
         url: '/system/role/authUser/cancelAll',
         method: 'put',
@@ -139,7 +148,9 @@ export function authUserCancelAll(data: AuthUserData): Promise<{ success: boolea
 }
 
 // 授权用户选择
-export function authUserSelectAll(data: AuthUserData): Promise<{ success: boolean }> {
+export function authUserSelectAll(data: { roleId: UnwrapRef<any>, userIds: string }): Promise<{
+    success: boolean
+}> {
     return request({
         url: '/system/role/authUser/selectAll',
         method: 'put',

@@ -53,26 +53,26 @@ const rules = ref({
     required: true,
     message: "手机号码不能为空",
     trigger: "blur"
-  }, {pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur"}],
+  }, {pattern: /^1[3|456789][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur"}],
 });
 
 /** 提交按钮 */
 function submit() {
   proxy.$refs.userRef.validate(valid => {
     if (valid) {
-      updateUserProfile(form.value).then(response => {
+      updateUserProfile(form.value).then(_response => {
         proxy.$modal.msgSuccess("修改成功");
         props.user.phonenumber = form.value.phonenumber;
         props.user.email = form.value.email;
       });
     }
   });
-};
+}
 
 /** 关闭按钮 */
 function close() {
   proxy.$tab.closePage();
-};
+}
 
 // 回显当前登录用户信息
 watch(() => props.user, user => {

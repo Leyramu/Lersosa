@@ -76,33 +76,33 @@ const form = ref({
 /** 单击选中行数据 */
 function clickRow(row) {
   proxy.$refs["roleRef"].toggleRowSelection(row);
-};
+}
 
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
   roleIds.value = selection.map(item => item.roleId);
-};
+}
 
 /** 保存选中的数据编号 */
 function getRowKey(row) {
   return row.roleId;
-};
+}
 
 /** 关闭按钮 */
 function close() {
   const obj = {path: "/system/user"};
   proxy.$tab.closeOpenPage(obj);
-};
+}
 
 /** 提交按钮 */
 function submitForm() {
   const userId = form.value.userId;
   const rIds = roleIds.value.join(",");
-  updateAuthRole({userId: userId, roleIds: rIds}).then(response => {
+  updateAuthRole({userId: userId, roleIds: rIds}).then(_response => {
     proxy.$modal.msgSuccess("授权成功");
     close();
   });
-};
+}
 
 (() => {
   const userId = route.params && route.params.userId;

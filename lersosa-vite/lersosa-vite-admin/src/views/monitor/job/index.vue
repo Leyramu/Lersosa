@@ -274,22 +274,22 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="任务状态：">
-              <div v-if="form.status == 0">正常</div>
-              <div v-else-if="form.status == 1">暂停</div>
+              <div v-if="form.status === 0">正常</div>
+              <div v-else-if="form.status === 1">暂停</div>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="是否并发：">
-              <div v-if="form.concurrent == 0">允许</div>
-              <div v-else-if="form.concurrent == 1">禁止</div>
+              <div v-if="form.concurrent === 0">允许</div>
+              <div v-else-if="form.concurrent === 1">禁止</div>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="执行策略：">
-              <div v-if="form.misfirePolicy == 0">默认策略</div>
-              <div v-else-if="form.misfirePolicy == 1">立即执行</div>
-              <div v-else-if="form.misfirePolicy == 2">执行一次</div>
-              <div v-else-if="form.misfirePolicy == 3">放弃执行</div>
+              <div v-if="form.misfirePolicy === 0">默认策略</div>
+              <div v-else-if="form.misfirePolicy === 1">立即执行</div>
+              <div v-else-if="form.misfirePolicy === 2">执行一次</div>
+              <div v-else-if="form.misfirePolicy === 3">放弃执行</div>
             </el-form-item>
           </el-col>
         </el-row>
@@ -353,7 +353,7 @@ function getList() {
 }
 
 /** 任务组名字典翻译 */
-function jobGroupFormat(row, column) {
+function jobGroupFormat(row, _column) {
   return proxy.selectDictLabel(sys_job_group.value, row.jobGroup);
 }
 
@@ -393,7 +393,7 @@ function resetQuery() {
 // 多选框选中数据
 function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.jobId);
-  single.value = selection.length != 1;
+  single.value = selection.length !== 1;
   multiple.value = !selection.length;
 }
 
@@ -484,14 +484,14 @@ function handleUpdate(row) {
 function submitForm() {
   proxy.$refs["jobRef"].validate(valid => {
     if (valid) {
-      if (form.value.jobId != undefined) {
-        updateJob(form.value).then(response => {
+      if (form.value.jobId !== undefined) {
+        updateJob(form.value).then(_response => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
           getList();
         });
       } else {
-        addJob(form.value).then(response => {
+        addJob(form.value).then(_response => {
           proxy.$modal.msgSuccess("新增成功");
           open.value = false;
           getList();
