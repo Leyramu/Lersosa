@@ -6,10 +6,14 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import request from '@/utils/request'
+import request from '@/utils/request';
+
+interface RegisterData {
+    [key: string]: any;
+}
 
 // 登录方法
-export function login(username, password, code, uuid) {
+export function login(username: string, password: string, code: string, uuid: string): Promise<any> {
     return request({
         url: '/auth/login',
         headers: {
@@ -18,11 +22,11 @@ export function login(username, password, code, uuid) {
         },
         method: 'post',
         data: {username, password, code, uuid}
-    })
+    });
 }
 
 // 注册方法
-export function register(data) {
+export function register(data: RegisterData): Promise<any> {
     return request({
         url: '/auth/register',
         headers: {
@@ -30,35 +34,35 @@ export function register(data) {
         },
         method: 'post',
         data: data
-    })
+    });
 }
 
 // 刷新方法
-export function refreshToken() {
+export function refreshToken(): Promise<any> {
     return request({
         url: '/auth/refresh',
         method: 'post'
-    })
+    });
 }
 
 // 获取用户详细信息
-export function getInfo() {
+export function getInfo(): Promise<any> {
     return request({
         url: '/system/user/getInfo',
         method: 'get'
-    })
+    });
 }
 
 // 退出方法
-export function logout() {
+export function logout(): Promise<any> {
     return request({
         url: '/auth/logout',
         method: 'delete'
-    })
+    });
 }
 
 // 获取验证码
-export function getCodeImg() {
+export function getCodeImg(): Promise<any> {
     return request({
         url: '/code',
         headers: {
@@ -66,5 +70,5 @@ export function getCodeImg() {
         },
         method: 'get',
         timeout: 20000
-    })
+    });
 }

@@ -46,7 +46,7 @@ function click() {
   if (show.value) {
     headerSearchSelectRef.value && headerSearchSelectRef.value.focus()
   }
-};
+}
 
 function close() {
   headerSearchSelectRef.value && headerSearchSelectRef.value.blur()
@@ -60,7 +60,7 @@ function change(val) {
   if (isHttp(path)) {
     // http(s):// 路径新窗口打开
     const pindex = path.indexOf("http");
-    window.open(path.substr(pindex, path.length), "_blank");
+    window.open(path.substring(pindex, path.length), "_blank");
   } else {
     if (query) {
       router.push({path: path, query: JSON.parse(query)});

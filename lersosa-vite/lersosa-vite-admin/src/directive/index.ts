@@ -9,8 +9,9 @@
 import hasRole from './permission/hasRole.js'
 import hasPermi from './permission/hasPermi.js'
 import copyText from './common/copyText.js'
+import {App} from "vue";
 
-export default function directive(app) {
+export default function directive(app: App) {
     app.directive('hasRole', hasRole)
     app.directive('hasPermi', hasPermi)
     app.directive('copyText', copyText)

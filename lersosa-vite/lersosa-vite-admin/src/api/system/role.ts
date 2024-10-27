@@ -6,122 +6,152 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import request from '@/utils/request'
+import request from '@/utils/request';
+
+// 角色接口数据类型
+interface Role {
+    roleId: string;
+    roleName: string;
+    roleKey: string;
+    roleSort: number;
+    status: string;
+    createBy: string;
+    createTime: string;
+    updateBy: string;
+    updateTime: string;
+    remark: string;
+}
+
+interface RoleListResponse {
+    total: number;
+    list: Role[];
+}
+
+interface AuthUserData {
+    userIds: string[];
+}
+
+interface DeptTree {
+    id: string;
+    label: string;
+    children: DeptTree[];
+}
 
 // 查询角色列表
-export function listRole(query) {
+export function listRole(query: { [key: string]: any }): Promise<RoleListResponse> {
     return request({
         url: '/system/role/list',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 查询角色详细
-export function getRole(roleId) {
+export function getRole(roleId: string): Promise<Role> {
     return request({
         url: '/system/role/' + roleId,
         method: 'get'
-    })
+    });
 }
 
 // 新增角色
-export function addRole(data) {
+export function addRole(data: Role): Promise<{ success: boolean }> {
     return request({
         url: '/system/role',
         method: 'post',
         data: data
-    })
+    });
 }
 
 // 修改角色
-export function updateRole(data) {
+export function updateRole(data: Role): Promise<{ success: boolean }> {
     return request({
         url: '/system/role',
         method: 'put',
         data: data
-    })
+    });
 }
 
 // 角色数据权限
-export function dataScope(data) {
+export function dataScope(data: { roleId: string; menuIds: string[] }): Promise<{ success: boolean }> {
     return request({
         url: '/system/role/dataScope',
         method: 'put',
         data: data
-    })
+    });
 }
 
 // 角色状态修改
-export function changeRoleStatus(roleId, status) {
+export function changeRoleStatus(roleId: string, status: string): Promise<{ success: boolean }> {
     const data = {
         roleId,
         status
-    }
+    };
     return request({
         url: '/system/role/changeStatus',
         method: 'put',
         data: data
-    })
+    });
 }
 
 // 删除角色
-export function delRole(roleId) {
+export function delRole(roleId: string): Promise<{ success: boolean }> {
     return request({
         url: '/system/role/' + roleId,
         method: 'delete'
-    })
+    });
 }
 
 // 查询角色已授权用户列表
-export function allocatedUserList(query) {
+export function allocatedUserList(query: { [key: string]: any }): Promise<{ total: number; list: any[] }> {
     return request({
         url: '/system/role/authUser/allocatedList',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 查询角色未授权用户列表
-export function unallocatedUserList(query) {
+export function unallocatedUserList(query: { [key: string]: any }): Promise<{ total: number; list: any[] }> {
     return request({
         url: '/system/role/authUser/unallocatedList',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 取消用户授权角色
-export function authUserCancel(data) {
+export function authUserCancel(data: AuthUserData): Promise<{ success: boolean }> {
     return request({
         url: '/system/role/authUser/cancel',
         method: 'put',
         data: data
-    })
+    });
 }
 
 // 批量取消用户授权角色
-export function authUserCancelAll(data) {
+export function authUserCancelAll(data: AuthUserData): Promise<{ success: boolean }> {
     return request({
         url: '/system/role/authUser/cancelAll',
         method: 'put',
-        params: data
-    })
+        data: data
+    });
 }
 
 // 授权用户选择
-export function authUserSelectAll(data) {
+export function authUserSelectAll(data: AuthUserData): Promise<{ success: boolean }> {
     return request({
         url: '/system/role/authUser/selectAll',
         method: 'put',
-        params: data
-    })
+        data: data
+    });
 }
 
 // 根据角色ID查询部门树结构
-export function deptTreeSelect(roleId) {
+export function deptTreeSelect(roleId: string): Promise<DeptTree[]> {
     return request({
         url: '/system/role/deptTree/' + roleId,
         method: 'get'
-    })
+    });
 }
+

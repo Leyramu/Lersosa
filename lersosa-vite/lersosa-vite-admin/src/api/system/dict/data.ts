@@ -8,53 +8,75 @@
 
 import request from '@/utils/request'
 
+interface DictData {
+    id: number;
+    dictCode: string;
+    dictLabel: string;
+    dictValue: string;
+    dictType: string;
+    cssClass: string;
+    listClass: string;
+    isDefault: string;
+    status: string;
+    createBy: string;
+    createTime: string;
+    updateBy: string;
+    updateTime: string;
+    remark: string;
+}
+
+interface DictDataListResponse {
+    total: number;
+    list: DictData[];
+}
+
 // 查询字典数据列表
-export function listData(query) {
+export function listData(query: { [key: string]: any }): Promise<DictDataListResponse> {
     return request({
         url: '/system/dict/data/list',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 查询字典数据详细
-export function getData(dictCode) {
+export function getData(dictCode: string): Promise<DictData> {
     return request({
         url: '/system/dict/data/' + dictCode,
         method: 'get'
-    })
+    });
 }
 
 // 根据字典类型查询字典数据信息
-export function getDicts(dictType) {
+export function getDicts(dictType: string): Promise<DictData[]> {
     return request({
         url: '/system/dict/data/type/' + dictType,
         method: 'get'
-    })
+    });
 }
 
 // 新增字典数据
-export function addData(data) {
+export function addData(data: DictData): Promise<{ success: boolean }> {
     return request({
         url: '/system/dict/data',
         method: 'post',
         data: data
-    })
+    });
 }
 
 // 修改字典数据
-export function updateData(data) {
+export function updateData(data: DictData): Promise<{ success: boolean }> {
     return request({
         url: '/system/dict/data',
         method: 'put',
         data: data
-    })
+    });
 }
 
 // 删除字典数据
-export function delData(dictCode) {
+export function delData(dictCode: string): Promise<{ success: boolean }> {
     return request({
         url: '/system/dict/data/' + dictCode,
         method: 'delete'
-    })
+    });
 }

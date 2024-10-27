@@ -6,63 +6,58 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import useUserStore from '@/store/modules/user'
+import useUserStore from '@/store/modules/user';
 
-function authPermission(permission) {
+// 定义类型
+type Permission = string;
+type Role = string;
+
+// 验证用户是否具备某权限
+function authPermission(permission: Permission): boolean {
     const all_permission = "*:*:*";
-    const permissions = useUserStore().permissions
+    const permissions = useUserStore().permissions;
     if (permission && permission.length > 0) {
-        return permissions.some(v => {
-            return all_permission === v || v === permission
-        })
+        return permissions.some((v: string | undefined) => all_permission === v || v === permission);
     } else {
-        return false
+        return false;
     }
 }
 
-function authRole(role) {
+// 验证用户是否具备某角色
+function authRole(role: Role): boolean {
     const super_admin = "admin";
-    const roles = useUserStore().roles
+    const roles = useUserStore().roles;
     if (role && role.length > 0) {
-        return roles.some(v => {
-            return super_admin === v || v === role
-        })
+        return roles.some((v: string | undefined) => super_admin === v || v === role);
     } else {
-        return false
+        return false;
     }
 }
 
 export default {
     // 验证用户是否具备某权限
-    hasPermi(permission) {
+    hasPermi(permission: Permission): boolean {
         return authPermission(permission);
     },
     // 验证用户是否含有指定权限，只需包含其中一个
-    hasPermiOr(permissions) {
-        return permissions.some(item => {
-            return authPermission(item)
-        })
+    hasPermiOr(permissions: Permission[]): boolean {
+        return permissions.some(item => authPermission(item));
     },
     // 验证用户是否含有指定权限，必须全部拥有
-    hasPermiAnd(permissions) {
-        return permissions.every(item => {
-            return authPermission(item)
-        })
+    hasPermiAnd(permissions: Permission[]): boolean {
+        return permissions.every(item => authPermission(item));
     },
     // 验证用户是否具备某角色
-    hasRole(role) {
+    hasRole(role: Role): boolean {
         return authRole(role);
     },
     // 验证用户是否含有指定角色，只需包含其中一个
-    hasRoleOr(roles) {
-        return roles.some(item => {
-            return authRole(item)
-        })
+    hasRoleOr(roles: Role[]): boolean {
+        return roles.some(item => authRole(item));
     },
     // 验证用户是否含有指定角色，必须全部拥有
-    hasRoleAnd(roles) {
-        return roles.every(item => {
-            return authRole(item)
-        })
+    hasRoleAnd(roles: Role[]): boolean {
+        return roles.every(item => authRole(item));
     }
-}
+};
+

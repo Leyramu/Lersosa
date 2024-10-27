@@ -125,7 +125,7 @@ function setVisibleNumber() {
   visibleNumber.value = parseInt(width / 85);
 }
 
-function handleSelect(key, keyPath) {
+function handleSelect(key, _keyPath) {
   currentIndex.value = key;
   const route = routers.value.find(item => item.path === key);
   if (isHttp(key)) {
@@ -152,7 +152,7 @@ function activeRoutes(key) {
   let routes = [];
   if (childrenMenus.value && childrenMenus.value.length > 0) {
     childrenMenus.value.map((item) => {
-      if (key == item.parentPath || (key == "index" && "" == item.path)) {
+      if (key === item.parentPath || (key === "index" && "" === item.path)) {
         routes.push(item);
       }
     });
@@ -217,6 +217,6 @@ onMounted(() => {
   position: static;
   vertical-align: middle;
   margin-left: 8px;
-  margin-top: 0px;
+  margin-top: 0;
 }
 </style>

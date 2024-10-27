@@ -8,27 +8,39 @@
 
 import request from '@/utils/request'
 
+interface JobLog {
+    id: number;
+    jobName: string;
+    logContent: string;
+    createTime: string;
+}
+
+interface JobLogListResponse {
+    total: number;
+    list: JobLog[];
+}
+
 // 查询调度日志列表
-export function listJobLog(query) {
+export function listJobLog(query: { [key: string]: any }): Promise<JobLogListResponse> {
     return request({
         url: '/schedule/job/log/list',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 删除调度日志
-export function delJobLog(jobLogId) {
+export function delJobLog(jobLogId: number | string): Promise<{ success: boolean }> {
     return request({
         url: '/schedule/job/log/' + jobLogId,
         method: 'delete'
-    })
+    });
 }
 
 // 清空调度日志
-export function cleanJobLog() {
+export function cleanJobLog(): Promise<{ success: boolean }> {
     return request({
         url: '/schedule/job/log/clean',
         method: 'delete'
-    })
+    });
 }

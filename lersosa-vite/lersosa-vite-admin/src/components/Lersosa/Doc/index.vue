@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-const url = ref('http://doc.leyramu.top/lersosa');
+const url = ref('https://doc.leyramu.top/lersosa');
 
 function goto() {
   window.open(url.value)

@@ -6,72 +6,87 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-const sessionCache = {
-    set(key, value) {
+interface Cache {
+    set(key: string, value: string): void;
+
+    get(key: string): string | null;
+
+    setJSON(key: string, jsonValue: unknown): void;
+
+    getJSON<T>(key: string): T | null;
+
+    remove(key: string): void;
+}
+
+const sessionCache: Cache = {
+    set(key: string, value: string) {
         if (!sessionStorage) {
-            return
+            return;
         }
         if (key != null && value != null) {
-            sessionStorage.setItem(key, value)
+            sessionStorage.setItem(key, value);
         }
     },
-    get(key) {
+    get(key: string) {
         if (!sessionStorage) {
-            return null
+            return null;
         }
         if (key == null) {
-            return null
+            return null;
         }
-        return sessionStorage.getItem(key)
+        return sessionStorage.getItem(key);
     },
-    setJSON(key, jsonValue) {
+    setJSON(key: string, jsonValue: unknown) {
         if (jsonValue != null) {
-            this.set(key, JSON.stringify(jsonValue))
+            this.set(key, JSON.stringify(jsonValue));
         }
     },
-    getJSON(key) {
-        const value = this.get(key)
+    getJSON<T>(key: string) {
+        const value = this.get(key);
         if (value != null) {
-            return JSON.parse(value)
+            return JSON.parse(value) as T;
         }
+        return null;
     },
-    remove(key) {
+    remove(key: string) {
         sessionStorage.removeItem(key);
     }
-}
-const localCache = {
-    set(key, value) {
+};
+
+const localCache: Cache = {
+    set(key: string, value: string) {
         if (!localStorage) {
-            return
+            return;
         }
         if (key != null && value != null) {
-            localStorage.setItem(key, value)
+            localStorage.setItem(key, value);
         }
     },
-    get(key) {
+    get(key: string) {
         if (!localStorage) {
-            return null
+            return null;
         }
         if (key == null) {
-            return null
+            return null;
         }
-        return localStorage.getItem(key)
+        return localStorage.getItem(key);
     },
-    setJSON(key, jsonValue) {
+    setJSON(key: string, jsonValue: unknown) {
         if (jsonValue != null) {
-            this.set(key, JSON.stringify(jsonValue))
+            this.set(key, JSON.stringify(jsonValue));
         }
     },
-    getJSON(key) {
-        const value = this.get(key)
+    getJSON<T>(key: string) {
+        const value = this.get(key);
         if (value != null) {
-            return JSON.parse(value)
+            return JSON.parse(value) as T;
         }
+        return null;
     },
-    remove(key) {
+    remove(key: string) {
         localStorage.removeItem(key);
     }
-}
+};
 
 export default {
     /**
@@ -82,4 +97,5 @@ export default {
      * 本地缓存
      */
     local: localCache
-}
+};
+

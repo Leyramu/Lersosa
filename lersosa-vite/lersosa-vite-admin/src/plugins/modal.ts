@@ -6,85 +6,87 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import {ElLoading, ElMessage, ElMessageBox, ElNotification} from 'element-plus'
+import {ElLoading, ElMessage, ElMessageBox, ElNotification} from 'element-plus';
 
-let loadingInstance;
+let loadingInstance: any;
 
 export default {
     // 消息提示
-    msg(content) {
-        ElMessage.info(content)
+    msg(content: string) {
+        ElMessage.info(content);
     },
     // 错误消息
-    msgError(content) {
-        ElMessage.error(content)
+    msgError(content: string) {
+        ElMessage.error(content);
     },
     // 成功消息
-    msgSuccess(content) {
-        ElMessage.success(content)
+    msgSuccess(content: string) {
+        ElMessage.success(content);
     },
     // 警告消息
-    msgWarning(content) {
-        ElMessage.warning(content)
+    msgWarning(content: string) {
+        ElMessage.warning(content);
     },
     // 弹出提示
-    alert(content) {
-        ElMessageBox.alert(content, "系统提示")
+    alert(content: string) {
+        ElMessageBox.alert(content, "系统提示").then(_ => {});
     },
     // 错误提示
-    alertError(content) {
-        ElMessageBox.alert(content, "系统提示", {type: 'error'})
+    alertError(content: string) {
+        ElMessageBox.alert(content, "系统提示", {type: 'error'}).then(_ => {});
     },
     // 成功提示
-    alertSuccess(content) {
-        ElMessageBox.alert(content, "系统提示", {type: 'success'})
+    alertSuccess(content: string) {
+        ElMessageBox.alert(content, "系统提示", {type: 'success'}).then(_ => {});
     },
     // 警告提示
-    alertWarning(content) {
-        ElMessageBox.alert(content, "系统提示", {type: 'warning'})
+    alertWarning(content: string) {
+        ElMessageBox.alert(content, "系统提示", {type: 'warning'}).then(_ => {});
     },
     // 通知提示
-    notify(content) {
-        ElNotification.info(content)
+    notify(content: string) {
+        ElNotification.info({message: content});
     },
     // 错误通知
-    notifyError(content) {
-        ElNotification.error(content);
+    notifyError(content: string) {
+        ElNotification.error({message: content});
     },
     // 成功通知
-    notifySuccess(content) {
-        ElNotification.success(content)
+    notifySuccess(content: string) {
+        ElNotification.success({message: content});
     },
     // 警告通知
-    notifyWarning(content) {
-        ElNotification.warning(content)
+    notifyWarning(content: string) {
+        ElNotification.warning({message: content});
     },
     // 确认窗体
-    confirm(content) {
+    confirm(content: string): Promise<any> {
         return ElMessageBox.confirm(content, "系统提示", {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: "warning",
-        })
+        });
     },
     // 提交内容
-    prompt(content) {
+    prompt(content: string): Promise<any> {
         return ElMessageBox.prompt(content, "系统提示", {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: "warning",
-        })
+        });
     },
     // 打开遮罩层
-    loading(content) {
+    loading(content: string) {
         loadingInstance = ElLoading.service({
             lock: true,
             text: content,
             background: "rgba(0, 0, 0, 0.7)",
-        })
+        });
     },
     // 关闭遮罩层
     closeLoading() {
-        loadingInstance.close();
+        if (loadingInstance) {
+            loadingInstance.close();
+        }
     }
-}
+};

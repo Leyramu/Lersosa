@@ -11,7 +11,7 @@
     <template v-for="(item, index) in options">
       <template v-if="values.includes(item.value)">
         <span
-            v-if="(item.elTagType == 'default' || item.elTagType == '') && (item.elTagClass == '' || item.elTagClass == null)"
+            v-if="(item.elTagType === 'default' || item.elTagType === '') && (item.elTagClass === '' || item.elTagClass == null)"
             :key="item.value"
             :class="item.elTagClass"
             :index="index"

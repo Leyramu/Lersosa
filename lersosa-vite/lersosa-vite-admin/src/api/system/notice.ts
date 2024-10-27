@@ -6,47 +6,66 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import request from '@/utils/request'
+import request from '@/utils/request';
+
+interface Notice {
+    noticeId: string;
+    noticeTitle: string;
+    noticeType: string;
+    noticeContent: string;
+    status: string;
+    createBy: string;
+    createTime: string;
+    updateBy: string;
+    updateTime: string;
+    remark: string;
+}
+
+interface NoticeListResponse {
+    total: number;
+    list: Notice[];
+}
 
 // 查询公告列表
-export function listNotice(query) {
+export function listNotice(query: { [key: string]: any }): Promise<NoticeListResponse> {
     return request({
         url: '/system/notice/list',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 查询公告详细
-export function getNotice(noticeId) {
+export function getNotice(noticeId: string): Promise<Notice> {
     return request({
         url: '/system/notice/' + noticeId,
         method: 'get'
-    })
+    });
 }
 
 // 新增公告
-export function addNotice(data) {
+export function addNotice(data: Notice): Promise<{ success: boolean }> {
     return request({
         url: '/system/notice',
         method: 'post',
         data: data
-    })
+    });
 }
 
 // 修改公告
-export function updateNotice(data) {
+export function updateNotice(data: Notice): Promise<{ success: boolean }> {
     return request({
         url: '/system/notice',
         method: 'put',
         data: data
-    })
+    });
 }
 
 // 删除公告
-export function delNotice(noticeId) {
+export function delNotice(noticeId: string): Promise<{ success: boolean }> {
     return request({
         url: '/system/notice/' + noticeId,
         method: 'delete'
-    })
+    });
 }
+

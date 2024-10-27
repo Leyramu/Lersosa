@@ -6,47 +6,67 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import request from '@/utils/request'
+import request from '@/utils/request';
+
+// 岗位接口数据类型
+interface Post {
+    postId: string;
+    postCode: string;
+    postName: string;
+    postSort: number;
+    status: string;
+    createBy: string;
+    createTime: string;
+    updateBy: string;
+    updateTime: string;
+    remark: string;
+}
+
+interface PostListResponse {
+    total: number;
+    list: Post[];
+}
 
 // 查询岗位列表
-export function listPost(query) {
+export function listPost(query: { [key: string]: any }): Promise<PostListResponse> {
     return request({
         url: '/system/post/list',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 查询岗位详细
-export function getPost(postId) {
+export function getPost(postId: string): Promise<Post> {
     return request({
         url: '/system/post/' + postId,
         method: 'get'
-    })
+    });
 }
 
 // 新增岗位
-export function addPost(data) {
+export function addPost(data: Post): Promise<{ success: boolean }> {
     return request({
         url: '/system/post',
         method: 'post',
         data: data
-    })
+    });
 }
 
 // 修改岗位
-export function updatePost(data) {
+export function updatePost(data: Post): Promise<{ success: boolean }> {
     return request({
         url: '/system/post',
         method: 'put',
         data: data
-    })
+    });
 }
 
 // 删除岗位
-export function delPost(postId) {
+export function delPost(postId: string): Promise<{ success: boolean }> {
     return request({
         url: '/system/post/' + postId,
         method: 'delete'
-    })
+    });
 }
+

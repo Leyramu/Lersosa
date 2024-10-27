@@ -6,17 +6,30 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import defaultSettings from '@/settings'
-import {useDynamicTitle} from '@/utils/dynamicTitle'
+import {defineStore} from 'pinia';
+import defaultSettings from '@/settings';
+import {useDynamicTitle} from '@/utils/dynamicTitle';
 
-const {sideTheme, showSettings, topNav, tagsView, fixedHeader, sidebarLogo, dynamicTitle} = defaultSettings
+const {sideTheme, showSettings, topNav, tagsView, fixedHeader, sidebarLogo, dynamicTitle} = defaultSettings;
 
-const storageSetting = JSON.parse(localStorage.getItem('layout-setting')) || ''
+const storageSetting = JSON.parse(localStorage.getItem('layout-setting') || '{}');
+
+interface SettingsState {
+    title: string;
+    theme: string;
+    sideTheme: string;
+    showSettings: boolean;
+    topNav: boolean;
+    tagsView: boolean;
+    fixedHeader: boolean;
+    sidebarLogo: boolean;
+    dynamicTitle: boolean;
+}
 
 const useSettingsStore = defineStore(
     'settings',
     {
-        state: () => ({
+        state: (): SettingsState => ({
             title: '',
             theme: storageSetting.theme || '#409EFF',
             sideTheme: storageSetting.sideTheme || sideTheme,
@@ -29,18 +42,18 @@ const useSettingsStore = defineStore(
         }),
         actions: {
             // 修改布局设置
-            changeSetting(data) {
-                const {key, value} = data
-                if (this.hasOwnProperty(key)) {
-                    this[key] = value
+            changeSetting(data: { key: keyof SettingsState; value: any }) {
+                if (this.hasOwnProperty(data.key)) {
+                    (this as any)[data.key] = data.value;
                 }
             },
             // 设置网页标题
-            setTitle(title) {
-                this.title = title
+            setTitle(title: string) {
+                this.title = title;
                 useDynamicTitle();
             }
         }
-    })
+    }
+);
 
-export default useSettingsStore
+export default useSettingsStore;

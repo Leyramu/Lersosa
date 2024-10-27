@@ -87,13 +87,13 @@ function hasOneShowingChild(children = [], parent) {
   }
 
   return false
-};
+}
 
 function resolvePath(routePath, routeQuery) {
   if (isExternal(routePath)) {
     return routePath
   }
-  if (isExternal(props.basePath)) {
+  if (isExternal(String(props.basePath))) {
     return props.basePath
   }
   if (routeQuery) {

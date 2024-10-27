@@ -42,7 +42,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .sub-el-icon,
 .nav-icon {
   display: inline-block;

@@ -289,7 +289,7 @@ function expressionChange() {
               continue;
             }
             // 循环"秒"数组
-            goSecond: for (let si = sIdx; si <= sDate.length - 1; si++) {
+            for (let si = sIdx; si <= sDate.length - 1; si++) {
               let ss = sDate[si] < 10 ? '0' + sDate[si] : sDate[si];
               // 添加当前时间（时间合法性在日期循环时已经判断）
               if (MM !== '00' && DD !== '00') {
@@ -386,7 +386,7 @@ function getWeekArr(rule) {
       dayRuleSup.value = getCycleArr(rule, 7, false)
     } else if (rule.indexOf('#') >= 0) {
       dayRule.value = 'assWeek';
-      let matchRule = rule.match(/[0-9]{1}/g);
+      let matchRule = rule.match(/[0-9]/g);
       dayRuleSup.value = [Number(matchRule[1]), Number(matchRule[0])];
       dateArr.value[3] = [1];
       if (dayRuleSup.value[1] === 7) {

@@ -6,80 +6,89 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import request from '@/utils/request'
+import request from '@/utils/request';
+
+// 定义一些基本的类型
+interface QueryParams {
+    [key: string]: any;
+}
+
+interface GenTableData {
+    [key: string]: any;
+}
 
 // 查询生成表数据
-export function listTable(query) {
+export function listTable(query: QueryParams): Promise<any> {
     return request({
         url: '/code/gen/list',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 查询db数据库列表
-export function listDbTable(query) {
+export function listDbTable(query: QueryParams): Promise<any> {
     return request({
         url: '/code/gen/db/list',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 查询表详细信息
-export function getGenTable(tableId) {
+export function getGenTable(tableId: string): Promise<any> {
     return request({
         url: '/code/gen/' + tableId,
         method: 'get'
-    })
+    });
 }
 
 // 修改代码生成信息
-export function updateGenTable(data) {
+export function updateGenTable(data: GenTableData): Promise<any> {
     return request({
         url: '/code/gen',
         method: 'put',
         data: data
-    })
+    });
 }
 
 // 导入表
-export function importTable(data) {
+export function importTable(data: QueryParams): Promise<any> {
     return request({
         url: '/code/gen/importTable',
         method: 'post',
         params: data
-    })
+    });
 }
 
 // 预览生成代码
-export function previewTable(tableId) {
+export function previewTable(tableId: string): Promise<any> {
     return request({
         url: '/code/gen/preview/' + tableId,
         method: 'get'
-    })
+    });
 }
 
 // 删除表数据
-export function delTable(tableId) {
+export function delTable(tableId: string): Promise<any> {
     return request({
         url: '/code/gen/' + tableId,
         method: 'delete'
-    })
+    });
 }
 
 // 生成代码（自定义路径）
-export function genCode(tableName) {
+export function genCode(tableName: string): Promise<any> {
     return request({
         url: '/code/gen/genCode/' + tableName,
         method: 'get'
-    })
+    });
 }
 
 // 同步数据库
-export function synchDb(tableName) {
+export function synchDb(tableName: string): Promise<any> {
     return request({
         url: '/code/gen/synchDb/' + tableName,
         method: 'get'
-    })
+    });
 }

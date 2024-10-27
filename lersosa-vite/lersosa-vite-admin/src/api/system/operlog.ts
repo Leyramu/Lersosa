@@ -8,27 +8,51 @@
 
 import request from '@/utils/request'
 
+interface OperLog {
+    operId: string;
+    title: string;
+    businessType: string;
+    method: string;
+    requestMethod: string;
+    operatorType: string;
+    operName: string;
+    deptName: string;
+    operUrl: string;
+    operIp: string;
+    operLocation: string;
+    operParam: string;
+    jsonResult: string;
+    status: string;
+    errorMsg: string;
+    operTime: string;
+}
+
+interface OperLogListResponse {
+    total: number;
+    list: OperLog[];
+}
+
 // 查询操作日志列表
-export function list(query) {
+export function list(query: { [key: string]: any }): Promise<OperLogListResponse> {
     return request({
         url: '/system/operlog/list',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 删除操作日志
-export function delOperlog(operId) {
+export function delOperlog(operId: string): Promise<{ success: boolean }> {
     return request({
         url: '/system/operlog/' + operId,
         method: 'delete'
-    })
+    });
 }
 
 // 清空操作日志
-export function cleanOperlog() {
+export function cleanOperlog(): Promise<{ success: boolean }> {
     return request({
         url: '/system/operlog/clean',
         method: 'delete'
-    })
+    });
 }

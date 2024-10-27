@@ -6,72 +6,93 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import useTagsViewStore from '@/store/modules/tagsView'
-import router from '@/router'
+import useTagsViewStore from '@/store/modules/tagsView';
+import {RouteLocationMatched, RouteLocationNormalizedLoaded, useRouter} from 'vue-router';
+
+const router = useRouter();
+
+interface TabPageObject {
+    name?: string;
+    path: string;
+    query?: Record<string, any>;
+}
 
 export default {
     // 刷新当前tab页签
-    refreshPage(obj) {
+    refreshPage(obj?: TabPageObject) {
         const {path, query, matched} = router.currentRoute.value;
         if (obj === undefined) {
-            matched.forEach((m) => {
+            matched.forEach((m: RouteLocationMatched) => {
                 if (m.components && m.components.default && m.components.default.name) {
                     if (!['Layout', 'ParentView'].includes(m.components.default.name)) {
-                        obj = {name: m.components.default.name, path: path, query: query};
+                        obj = {name: m.components.default.name, path, query};
                     }
                 }
             });
         }
         return useTagsViewStore().delCachedView(obj).then(() => {
-            const {path, query} = obj
+            const {path, query} = obj!;
             router.replace({
                 path: '/redirect' + path,
                 query: query
-            })
-        })
+            }).then(_ => {
+            });
+        });
     },
+
     // 关闭当前tab页签，打开新页签
-    closeOpenPage(obj) {
+    closeOpenPage(obj?: TabPageObject) {
         useTagsViewStore().delView(router.currentRoute.value);
         if (obj !== undefined) {
             return router.push(obj);
         }
     },
+
     // 关闭指定tab页签
-    closePage(obj) {
+    closePage(obj?: TabPageObject) {
         if (obj === undefined) {
-            return useTagsViewStore().delView(router.currentRoute.value).then(({visitedViews}) => {
-                const latestView = visitedViews.slice(-1)[0]
+            return useTagsViewStore().delView(router.currentRoute.value).then(({visitedViews}: {
+                visitedViews: RouteLocationNormalizedLoaded[]
+            }) => {
+                const latestView = visitedViews.slice(-1)[0];
                 if (latestView) {
-                    return router.push(latestView.fullPath)
+                    return router.push(latestView.fullPath);
                 }
                 return router.push('/');
             });
         }
         return useTagsViewStore().delView(obj);
     },
+
     // 关闭所有tab页签
     closeAllPage() {
         return useTagsViewStore().delAllViews();
     },
+
     // 关闭左侧tab页签
-    closeLeftPage(obj) {
+    closeLeftPage(obj?: RouteLocationNormalizedLoaded) {
         return useTagsViewStore().delLeftTags(obj || router.currentRoute.value);
     },
+
     // 关闭右侧tab页签
-    closeRightPage(obj) {
+    closeRightPage(obj?: RouteLocationNormalizedLoaded) {
         return useTagsViewStore().delRightTags(obj || router.currentRoute.value);
     },
+
     // 关闭其他tab页签
-    closeOtherPage(obj) {
+    closeOtherPage(obj?: RouteLocationNormalizedLoaded) {
         return useTagsViewStore().delOthersViews(obj || router.currentRoute.value);
     },
+
     // 打开tab页签
-    openPage(url) {
+    openPage(url: string) {
         return router.push(url);
     },
+
     // 修改tab页签
-    updatePage(obj) {
+    updatePage(obj: TabPageObject) {
         return useTagsViewStore().updateVisitedView(obj);
     }
-}
+};
+
+

@@ -10,7 +10,7 @@ import {createApp} from 'vue'
 
 import Cookies from 'js-cookie'
 
-import ElementPlus from 'element-plus'
+import ElementPlus, {ConfigProviderProps} from 'element-plus'
 import 'element-plus/dist/index.css'
 import locale from 'element-plus/es/locale/lang/zh-cn'
 
@@ -83,7 +83,7 @@ directive(app)
 app.use(ElementPlus, {
     locale: locale,
     // 支持 large、default、small
-    size: Cookies.get('size') || 'default'
-})
+    size: Cookies.get('size') || 'default',
+} as Partial<ConfigProviderProps>)
 
 app.mount('#app')

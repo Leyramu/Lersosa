@@ -8,61 +8,83 @@
 
 import request from '@/utils/request'
 
+interface DictType {
+    id: number;
+    dictName: string;
+    dictType: string;
+    status: string;
+    createBy: string;
+    createTime: string;
+    updateBy: string;
+    updateTime: string;
+    remark: string;
+}
+
+interface DictTypeListResponse {
+    total: number;
+    list: DictType[];
+}
+
+interface OptionSelectItem {
+    dictId: number;
+    dictLabel: string;
+}
+
 // 查询字典类型列表
-export function listType(query) {
+export function listType(query: { [key: string]: any }): Promise<DictTypeListResponse> {
     return request({
         url: '/system/dict/type/list',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 查询字典类型详细
-export function getType(dictId) {
+export function getType(dictId: string): Promise<DictType> {
     return request({
         url: '/system/dict/type/' + dictId,
         method: 'get'
-    })
+    });
 }
 
 // 新增字典类型
-export function addType(data) {
+export function addType(data: DictType): Promise<{ success: boolean }> {
     return request({
         url: '/system/dict/type',
         method: 'post',
         data: data
-    })
+    });
 }
 
 // 修改字典类型
-export function updateType(data) {
+export function updateType(data: DictType): Promise<{ success: boolean }> {
     return request({
         url: '/system/dict/type',
         method: 'put',
         data: data
-    })
+    });
 }
 
 // 删除字典类型
-export function delType(dictId) {
+export function delType(dictId: string): Promise<{ success: boolean }> {
     return request({
         url: '/system/dict/type/' + dictId,
         method: 'delete'
-    })
+    });
 }
 
 // 刷新字典缓存
-export function refreshCache() {
+export function refreshCache(): Promise<{ success: boolean }> {
     return request({
         url: '/system/dict/type/refreshCache',
         method: 'delete'
-    })
+    });
 }
 
 // 获取字典选择框列表
-export function optionselect() {
+export function optionselect(): Promise<OptionSelectItem[]> {
     return request({
         url: '/system/dict/type/optionselect',
         method: 'get'
-    })
+    });
 }

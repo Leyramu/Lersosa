@@ -136,7 +136,7 @@ function saveSetting() {
     "theme": storeSettings.value.theme
   };
   localStorage.setItem("layout-setting", JSON.stringify(layoutSetting));
-  setTimeout(proxy.$modal.closeLoading(), 1000)
+  setTimeout(() => proxy.$modal.closeLoading(), 1000);
 }
 
 function resetSetting() {

@@ -6,6 +6,8 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
+import {createPinia} from 'pinia'
+
 const store = createPinia()
 
 export default store

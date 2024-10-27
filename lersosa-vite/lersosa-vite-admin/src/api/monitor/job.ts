@@ -6,74 +6,73 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import request from '@/utils/request'
+import request from '@/utils/request';
 
 // 查询定时任务调度列表
-export function listJob(query) {
+export function listJob(query: { [key: string]: any }): Promise<any> {
     return request({
         url: '/schedule/job/list',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 查询定时任务调度详细
-export function getJob(jobId) {
+export function getJob(jobId: number | string): Promise<any> {
     return request({
         url: '/schedule/job/' + jobId,
         method: 'get'
-    })
+    });
 }
 
 // 新增定时任务调度
-export function addJob(data) {
+export function addJob(data: { [key: string]: any }): Promise<any> {
     return request({
         url: '/schedule/job',
         method: 'post',
         data: data
-    })
+    });
 }
 
 // 修改定时任务调度
-export function updateJob(data) {
+export function updateJob(data: { [key: string]: any }): Promise<any> {
     return request({
         url: '/schedule/job',
         method: 'put',
         data: data
-    })
+    });
 }
 
 // 删除定时任务调度
-export function delJob(jobId) {
+export function delJob(jobId: number | string): Promise<any> {
     return request({
         url: '/schedule/job/' + jobId,
         method: 'delete'
-    })
+    });
 }
 
 // 任务状态修改
-export function changeJobStatus(jobId, status) {
+export function changeJobStatus(jobId: number | string, status: string): Promise<any> {
     const data = {
         jobId,
         status
-    }
+    };
     return request({
         url: '/schedule/job/changeStatus',
         method: 'put',
         data: data
-    })
+    });
 }
 
-
 // 定时任务立即执行一次
-export function runJob(jobId, jobGroup) {
+export function runJob(jobId: number | string, jobGroup: string): Promise<any> {
     const data = {
         jobId,
         jobGroup
-    }
+    };
     return request({
         url: '/schedule/job/run',
         method: 'put',
         data: data
-    })
+    });
 }

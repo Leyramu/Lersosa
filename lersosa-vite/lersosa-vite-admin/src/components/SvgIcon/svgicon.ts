@@ -6,13 +6,19 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import * as components from '@element-plus/icons-vue'
+import * as components from '@element-plus/icons-vue';
+import {App} from 'vue';
 
 export default {
-    install: (app) => {
-        for (const key in components) {
-            const componentConfig = components[key];
-            app.component(componentConfig.name, componentConfig);
-        }
+    install: (app: App) => {
+        Object.keys(components).forEach((key: string) => {
+            const componentConfig = (components as any)[key];
+            if (componentConfig && componentConfig.name) {
+                app.component(componentConfig.name, componentConfig);
+            }
+        });
     },
 };
+
+
+

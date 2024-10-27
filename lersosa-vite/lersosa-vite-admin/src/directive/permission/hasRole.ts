@@ -6,26 +6,30 @@
 * By using this project, users acknowledge and agree to abide by these terms and conditions.
 */
 
-import useUserStore from '@/store/modules/user'
+import {DirectiveBinding, VNode} from 'vue';
+import useUserStore from '@/store/modules/user';
 
 export default {
-    mounted(el, binding, vnode) {
-        const {value} = binding
-        const super_admin = "admin";
-        const roles = useUserStore().roles
+    mounted(el: HTMLElement, binding: DirectiveBinding<string[]>, _vnode: VNode) {
+        const {value} = binding;
+        const superAdmin = "admin";
+        const roles = useUserStore().roles;
 
-        if (value && value instanceof Array && value.length > 0) {
-            const roleFlag = value
+        if (value && Array.isArray(value) && value.length > 0) {
+            const roleFlag = value;
 
-            const hasRole = roles.some(role => {
-                return super_admin === role || roleFlag.includes(role)
-            })
+            const hasRole = roles.some((role: string) => {
+                return superAdmin === role || roleFlag.includes(role);
+            });
 
             if (!hasRole) {
-                el.parentNode && el.parentNode.removeChild(el)
+                if (el.parentNode) {
+                    el.parentNode.removeChild(el);
+                }
             }
         } else {
-            throw new Error(`请设置角色权限标签值`)
+            throw new Error(`请设置角色权限标签值`);
         }
     }
-}
+};
+

@@ -6,12 +6,25 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import request from '@/utils/request'
+import request from '@/utils/request';
+
+// 定义路由数据的接口
+interface Router {
+    path: string;
+    name: string;
+    component: string;
+    meta: {
+        title: string;
+        icon: string;
+    };
+    children?: Router[];
+}
 
 // 获取路由
-export const getRouters = () => {
-    return request({
+export const getRouters = (): Promise<Router[]> => {
+    return request<Router[]>({
         url: '/system/menu/getRouters',
         method: 'get'
-    })
-}
+    });
+};
+

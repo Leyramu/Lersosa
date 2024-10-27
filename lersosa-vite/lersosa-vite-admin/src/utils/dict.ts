@@ -6,32 +6,43 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
+import {ref} from "vue";
+import {toRefs} from "@vue/reactivity";
 import useDictStore from '@/store/modules/dict'
 import {getDicts} from '@/api/system/dict/data'
+
+interface DictResponse {
+    data: Array<{
+        dictLabel: string;
+        dictValue: string;
+        listClass: string;
+        cssClass: string;
+    }>;
+}
 
 /**
  * 获取字典数据
  */
-export function useDict(...args) {
-    const res = ref({});
+export function useDict(...args: any[]) {
+    const res = ref<Record<string, any>>({});
     return (() => {
-        args.forEach((dictType, index) => {
+        args.forEach((dictType, _index: any) => {
             res.value[dictType] = [];
             const dicts = useDictStore().getDict(dictType);
             if (dicts) {
                 res.value[dictType] = dicts;
             } else {
-                getDicts(dictType).then(resp => {
+                getDicts(dictType).then((resp: DictResponse) => {
                     res.value[dictType] = resp.data.map(p => ({
                         label: p.dictLabel,
                         value: p.dictValue,
                         elTagType: p.listClass,
                         elTagClass: p.cssClass
-                    }))
+                    }));
                     useDictStore().setDict(dictType, res.value[dictType]);
-                })
+                });
             }
-        })
+        });
         return toRefs(res.value);
-    })()
+    })();
 }

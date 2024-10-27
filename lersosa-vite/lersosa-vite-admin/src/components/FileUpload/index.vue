@@ -188,7 +188,7 @@ function listToString(list, separator) {
       strs += list[i].url + separator;
     }
   }
-  return strs != '' ? strs.substr(0, strs.length - 1) : '';
+  return strs !== '' ? strs.substring(0, strs.length - 1) : '';
 }
 </script>
 

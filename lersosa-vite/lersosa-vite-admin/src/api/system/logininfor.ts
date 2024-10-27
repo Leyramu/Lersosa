@@ -6,37 +6,55 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import request from '@/utils/request'
+import request from '@/utils/request';
+
+interface LoginInfo {
+    infoId: string;
+    userName: string;
+    ipaddr: string;
+    loginLocation: string;
+    browser: string;
+    os: string;
+    status: string;
+    msg: string;
+    loginTime: string;
+}
+
+interface LoginInfoListResponse {
+    total: number;
+    list: LoginInfo[];
+}
 
 // 查询登录日志列表
-export function list(query) {
+export function list(query: { [key: string]: any }): Promise<LoginInfoListResponse> {
     return request({
         url: '/system/logininfor/list',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 删除登录日志
-export function delLogininfor(infoId) {
+export function delLogininfor(infoId: string): Promise<{ success: boolean }> {
     return request({
         url: '/system/logininfor/' + infoId,
         method: 'delete'
-    })
+    });
 }
 
 // 解锁用户登录状态
-export function unlockLogininfor(userName) {
+export function unlockLogininfor(userName: string): Promise<{ success: boolean }> {
     return request({
         url: '/system/logininfor/unlock/' + userName,
         method: 'get'
-    })
+    });
 }
 
 // 清空登录日志
-export function cleanLogininfor() {
+export function cleanLogininfor(): Promise<{ success: boolean }> {
     return request({
         url: '/system/logininfor/clean',
         method: 'delete'
-    })
+    });
 }
+

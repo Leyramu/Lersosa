@@ -6,21 +6,21 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import request from '@/utils/request'
+import request from '@/utils/request';
 
 // 查询在线用户列表
-export function list(query) {
+export function list(query: { [key: string]: any }): Promise<any> {
     return request({
         url: '/system/online/list',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 强退用户
-export function forceLogout(tokenId) {
+export function forceLogout(tokenId: string): Promise<any> {
     return request({
         url: '/system/online/' + tokenId,
         method: 'delete'
-    })
+    });
 }

@@ -11,8 +11,7 @@
     <iframe
         :id="iframeId"
         :src="src"
-        frameborder="no"
-        style="width: 100%; height: 100%"
+        style="width: 100%; height: 100%; border: none"
     ></iframe>
   </div>
 </template>

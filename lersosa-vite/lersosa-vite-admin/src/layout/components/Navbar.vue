@@ -34,7 +34,7 @@
       <div class="avatar-container">
         <el-dropdown class="right-menu-item hover-effect" trigger="click" @command="handleCommand">
           <div class="avatar-wrapper">
-            <img :src="userStore.avatar" class="user-avatar"/>
+            <img :src="userStore.avatar" class="user-avatar" alt=""/>
             <el-icon>
               <caret-bottom/>
             </el-icon>

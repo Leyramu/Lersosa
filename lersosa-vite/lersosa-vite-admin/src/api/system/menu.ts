@@ -6,63 +6,95 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import request from '@/utils/request'
+import request from '@/utils/request';
+
+interface Menu {
+    menuId: string;
+    menuName: string;
+    parentId: string;
+    orderNum: number;
+    path: string;
+    component: string;
+    isFrame: string;
+    menuType: string;
+    visible: string;
+    status: string;
+    perms: string;
+    icon: string;
+    createBy: string;
+    createTime: string;
+    updateBy: string;
+    updateTime: string;
+    remark: string;
+}
+
+interface MenuListResponse {
+    total: number;
+    list: Menu[];
+}
+
+interface MenuTree {
+    menuId: string;
+    menuName: string;
+    children: MenuTree[];
+}
 
 // 查询菜单列表
-export function listMenu(query) {
+export function listMenu(query: { [key: string]: any }): Promise<MenuListResponse> {
     return request({
         url: '/system/menu/list',
         method: 'get',
         params: query
-    })
+    });
 }
 
 // 查询菜单详细
-export function getMenu(menuId) {
+export function getMenu(menuId: string): Promise<Menu> {
     return request({
         url: '/system/menu/' + menuId,
         method: 'get'
-    })
+    });
 }
 
 // 查询菜单下拉树结构
-export function treeselect() {
+export function treeselect(): Promise<MenuTree[]> {
     return request({
         url: '/system/menu/treeselect',
         method: 'get'
-    })
+    });
 }
 
 // 根据角色ID查询菜单下拉树结构
-export function roleMenuTreeselect(roleId) {
+export function roleMenuTreeselect(roleId: string): Promise<MenuTree[]> {
     return request({
         url: '/system/menu/roleMenuTreeselect/' + roleId,
         method: 'get'
-    })
+    });
 }
 
 // 新增菜单
-export function addMenu(data) {
+export function addMenu(data: Menu): Promise<{ success: boolean }> {
     return request({
         url: '/system/menu',
         method: 'post',
         data: data
-    })
+    });
 }
 
 // 修改菜单
-export function updateMenu(data) {
+export function updateMenu(data: Menu): Promise<{ success: boolean }> {
     return request({
         url: '/system/menu',
         method: 'put',
         data: data
-    })
+    });
 }
 
 // 删除菜单
-export function delMenu(menuId) {
+export function delMenu(menuId: string): Promise<{ success: boolean }> {
     return request({
         url: '/system/menu/' + menuId,
         method: 'delete'
-    })
+    });
 }
+

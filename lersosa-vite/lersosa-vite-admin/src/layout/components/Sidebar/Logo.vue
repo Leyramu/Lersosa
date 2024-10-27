@@ -11,13 +11,13 @@
        class="sidebar-logo-container">
     <transition name="sidebarLogoFade">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo"/>
+        <img v-if="logo" :src="logo" class="sidebar-logo" alt=""/>
         <h1 v-else :style="{ color: sideTheme === 'theme-dark' ? variables.logoTitleColor : variables.logoLightTitleColor }"
             class="sidebar-title">
           {{ title }}</h1>
       </router-link>
       <router-link v-else key="expand" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo"/>
+        <img v-if="logo" :src="logo" class="sidebar-logo" alt=""/>
         <h1 :style="{ color: sideTheme === 'theme-dark' ? variables.logoTitleColor : variables.logoLightTitleColor }"
             class="sidebar-title">
           {{ title }}</h1>
@@ -87,7 +87,7 @@ const sideTheme = computed(() => settingsStore.sideTheme);
 
   &.collapse {
     .sidebar-logo {
-      margin-right: 0px;
+      margin-right: 0;
     }
   }
 }

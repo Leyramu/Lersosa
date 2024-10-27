@@ -6,62 +6,80 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
+import {DirectiveBinding} from 'vue';
+
+// 扩展 HTMLElement 类型
+interface CustomHTMLElement extends HTMLElement {
+    $copyCallback?: (value: string) => void;
+    $copyValue?: string;
+    $destroyCopy?: () => void;
+}
+
 export default {
-    beforeMount(el, {value, arg}) {
+    beforeMount(el: CustomHTMLElement, binding: DirectiveBinding<string | ((value: string) => void)>) {
+        const {value, arg} = binding;
         if (arg === "callback") {
-            el.$copyCallback = value;
+            el.$copyCallback = value as ((value: string) => void);
         } else {
-            el.$copyValue = value;
+            el.$copyValue = value as string;
             const handler = () => {
-                copyTextToClipboard(el.$copyValue);
+                if (el.$copyValue != null) {
+                    copyTextToClipboard(el.$copyValue).then(_ => {
+                    });
+                }
                 if (el.$copyCallback) {
-                    el.$copyCallback(el.$copyValue);
+                    if (el.$copyValue != null) {
+                        el.$copyCallback(el.$copyValue);
+                    }
                 }
             };
             el.addEventListener("click", handler);
             el.$destroyCopy = () => el.removeEventListener("click", handler);
         }
     }
-}
+};
 
-function copyTextToClipboard(input, {target = document.body} = {}) {
+async function copyTextToClipboard(input: string, options: { target?: HTMLElement } = {}): Promise<boolean> {
+    const {target = document.body} = options;
     const element = document.createElement('textarea');
-    const previouslyFocusedElement = document.activeElement;
+    const previouslyFocusedElement = document.activeElement as HTMLElement | null;
 
     element.value = input;
 
-    // Prevent keyboard from showing on mobile
     element.setAttribute('readonly', '');
 
     element.style.contain = 'strict';
     element.style.position = 'absolute';
     element.style.left = '-9999px';
-    element.style.fontSize = '12pt'; // Prevent zooming on iOS
+    element.style.fontSize = '12pt';
 
     const selection = document.getSelection();
-    const originalRange = selection.rangeCount > 0 && selection.getRangeAt(0);
+    const originalRange = selection && selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
 
     target.append(element);
     element.select();
 
-    // Explicit selection workaround for iOS
     element.selectionStart = 0;
     element.selectionEnd = input.length;
 
     let isSuccess = false;
     try {
-        isSuccess = document.execCommand('copy');
-    } catch {
+        // 使用 Clipboard API 替代 execCommand
+        if (navigator.clipboard) {
+            await navigator.clipboard.writeText(input);
+            isSuccess = true;
+        }
+    } catch (error) {
+        console.error('Failed to copy text to clipboard:', error);
     }
 
     element.remove();
 
     if (originalRange) {
-        selection.removeAllRanges();
-        selection.addRange(originalRange);
+        selection?.removeAllRanges();
+        selection?.addRange(originalRange);
     }
 
-    // Get the focus back on the previously focused element, if any
     if (previouslyFocusedElement) {
         previouslyFocusedElement.focus();
     }

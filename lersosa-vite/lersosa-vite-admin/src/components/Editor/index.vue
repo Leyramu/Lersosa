@@ -9,7 +9,7 @@
 <template>
   <div>
     <el-upload
-        v-if="type == 'url'"
+        v-if="type === 'url'"
         :action="uploadUrl"
         :before-upload="handleBeforeUpload"
         :headers="headers"
@@ -29,7 +29,7 @@
         :options="options"
         :style="styles"
         contentType="html"
-        @textChange="(e) => $emit('update:modelValue', content)"
+        @textChange="(_) => $emit('update:modelValue', content)"
     />
   </div>
 </template>
@@ -122,7 +122,7 @@ watch(() => props.modelValue, (v) => {
 
 // 如果设置了上传地址则自定义图片上传事件
 onMounted(() => {
-  if (props.type == 'url') {
+  if (props.type === 'url') {
     let quill = quillEditorRef.value.getQuill();
     let toolbar = quill.getModule("toolbar");
     toolbar.addHandler("image", (value) => {
@@ -158,7 +158,7 @@ function handleBeforeUpload(file) {
 // 上传成功处理
 function handleUploadSuccess(res, file) {
   // 如果上传成功
-  if (res.code == 200) {
+  if (res.code === 200) {
     // 获取富文本实例
     let quill = toRaw(quillEditorRef.value).getQuill();
     // 获取光标位置
@@ -197,9 +197,9 @@ function handleUploadError() {
 }
 
 .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
-  border-right: 0px;
+  border-right: 0;
   content: "保存";
-  padding-right: 0px;
+  padding-right: 0;
 }
 
 .ql-snow .ql-tooltip[data-mode="video"]::before {
