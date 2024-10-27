@@ -1,4 +1,4 @@
-> 1. 初始化数据库
-> <br/> 运行 mysql-init.sql
-> 2. 导入数据库文件
-> <br/> 运行 lersosa_nacos_config.sql
+> 1. lersosa_nacos_config_*.sql
+     <br/> Nacos 配置中心数据
+> 2. lersosa_data_*.sql
+     <br/> 管理层数据库数据

@@ -1,42 +1,10 @@
 /*
- * Copyright (c) 2024 Leyramu. All rights reserved.
- * This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
- * For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
- * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
- * By using this project, users acknowledge and agree to abide by these terms and conditions.
+    #  Copyright (c) 2024 Leyramu. All rights reserved.
+    #  This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+    #  For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+    #  The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+    #  By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
-
-/*
- * Copyright (c) 2024 Leyramu. All rights reserved.
- * This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
- * For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
- * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
- * By using this project, users acknowledge and agree to abide by these terms and conditions.
- */
-
-/*
- * Copyright (c) 2024 Leyramu. All rights reserved.
- * This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
- * For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
- * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
- * By using this project, users acknowledge and agree to abide by these terms and conditions.
- */
-
-/*
- Navicat Premium Dump SQL
-
- Source Server         : docker-mysql
- Source Server Type    : MySQL
- Source Server Version : 90001 (9.0.1)
- Source Host           : localhost:3307
- Source Schema         : lersosa_data
-
- Target Server Type    : MySQL
- Target Server Version : 90001 (9.0.1)
- File Encoding         : 65001
-
- Date: 23/10/2024 21:23:54
-*/
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
@@ -68,7 +36,7 @@ CREATE TABLE `gen_table`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`table_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成业务表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成业务表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of gen_table
@@ -102,7 +70,7 @@ CREATE TABLE `gen_table_column`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`column_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of gen_table_column
@@ -130,9 +98,9 @@ CREATE TABLE `sys_config`  (
 -- Records of sys_config
 -- ----------------------------
 INSERT INTO `sys_config` VALUES (1, '主框架页-默认皮肤样式名称', 'sys.index.skinName', 'skin-blue', 'Y', 'admin', '2024-10-22 08:43:22', '', NULL, '蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow');
-INSERT INTO `sys_config` VALUES (2, '用户管理-账号初始密码', 'sys.user.initPassword', '123456', 'Y', 'admin', '2024-10-22 08:43:22', '', NULL, '初始化密码 123456');
+INSERT INTO `sys_config` VALUES (2, '用户管理-账号初始密码', 'sys.user.initPassword', '123456', 'Y', 'admin', '2024-10-22 08:43:22', 'admin', '2024-10-24 17:25:14', '初始化密码 123456');
 INSERT INTO `sys_config` VALUES (3, '主框架页-侧边栏主题', 'sys.index.sideTheme', 'theme-dark', 'Y', 'admin', '2024-10-22 08:43:22', '', NULL, '深色主题theme-dark，浅色主题theme-light');
-INSERT INTO `sys_config` VALUES (4, '账号自助-是否开启用户注册功能', 'sys.account.registerUser', 'false', 'Y', 'admin', '2024-10-22 08:43:22', '', NULL, '是否开启注册用户功能（true开启，false关闭）');
+INSERT INTO `sys_config` VALUES (4, '账号自助-是否开启用户注册功能', 'sys.account.registerUser', 'true', 'Y', 'admin', '2024-10-22 08:43:22', 'admin', '2024-10-24 17:26:05', '是否开启注册用户功能（true开启，false关闭）');
 INSERT INTO `sys_config` VALUES (5, '用户登录-黑名单列表', 'sys.login.blackIPList', '', 'Y', 'admin', '2024-10-22 08:43:22', '', NULL, '设置登录IP黑名单限制，多个匹配项以;分隔，支持匹配（*通配、网段）');
 
 -- ----------------------------
@@ -160,16 +128,16 @@ CREATE TABLE `sys_dept`  (
 -- ----------------------------
 -- Records of sys_dept
 -- ----------------------------
-INSERT INTO `sys_dept` VALUES (100, 0, '0', '若依科技', 0, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
-INSERT INTO `sys_dept` VALUES (101, 100, '0,100', '深圳总公司', 1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
-INSERT INTO `sys_dept` VALUES (102, 100, '0,100', '长沙分公司', 2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
-INSERT INTO `sys_dept` VALUES (103, 101, '0,100,101', '研发部门', 1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
-INSERT INTO `sys_dept` VALUES (104, 101, '0,100,101', '市场部门', 2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
-INSERT INTO `sys_dept` VALUES (105, 101, '0,100,101', '测试部门', 3, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
-INSERT INTO `sys_dept` VALUES (106, 101, '0,100,101', '财务部门', 4, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
-INSERT INTO `sys_dept` VALUES (107, 101, '0,100,101', '运维部门', 5, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
-INSERT INTO `sys_dept` VALUES (108, 102, '0,100,102', '市场部门', 1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
-INSERT INTO `sys_dept` VALUES (109, 102, '0,100,102', '财务部门', 2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
+INSERT INTO `sys_dept` VALUES (100, 0, '0', 'Lersosa 科技', 0, 'Lersosa', '15888888888', 'leyramu@miraitowa.eu.org', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
+INSERT INTO `sys_dept` VALUES (101, 100, '0,100', '深圳总公司', 1, 'Lersosa', '15888888888', 'leyramu@miraitowa.eu.org', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
+INSERT INTO `sys_dept` VALUES (102, 100, '0,100', '长沙分公司', 2, 'Lersosa', '15888888888', 'leyramu@miraitowa.eu.org', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
+INSERT INTO `sys_dept` VALUES (103, 101, '0,100,101', '研发部门', 1, 'Lersosa', '15888888888', 'leyramu@miraitowa.eu.org', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
+INSERT INTO `sys_dept` VALUES (104, 101, '0,100,101', '市场部门', 2, 'Lersosa', '15888888888', 'leyramu@miraitowa.eu.org', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
+INSERT INTO `sys_dept` VALUES (105, 101, '0,100,101', '测试部门', 3, 'Lersosa', '15888888888', 'leyramu@miraitowa.eu.org', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
+INSERT INTO `sys_dept` VALUES (106, 101, '0,100,101', '财务部门', 4, 'Lersosa', '15888888888', 'leyramu@miraitowa.eu.org', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
+INSERT INTO `sys_dept` VALUES (107, 101, '0,100,101', '运维部门', 5, 'Lersosa', '15888888888', 'leyramu@miraitowa.eu.org', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
+INSERT INTO `sys_dept` VALUES (108, 102, '0,100,102', '市场部门', 1, 'Lersosa', '15888888888', 'leyramu@miraitowa.eu.org', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
+INSERT INTO `sys_dept` VALUES (109, 102, '0,100,102', '财务部门', 2, 'Lersosa', '15888888888', 'leyramu@miraitowa.eu.org', '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL);
 
 -- ----------------------------
 -- Table structure for sys_dict_data
@@ -247,7 +215,7 @@ CREATE TABLE `sys_dict_type`  (
 -- ----------------------------
 -- Records of sys_dict_type
 -- ----------------------------
-INSERT INTO `sys_dict_type` VALUES (1, '用户性别', 'sys_user_sex', '0', 'admin', '2024-10-22 08:43:22', '', NULL, '用户性别列表');
+INSERT INTO `sys_dict_type` VALUES (1, '用户性别', 'sys_user_sex', '0', 'admin', '2024-10-22 08:43:22', 'admin', '2024-10-27 14:20:54', '用户性别列表');
 INSERT INTO `sys_dict_type` VALUES (2, '菜单状态', 'sys_show_hide', '0', 'admin', '2024-10-22 08:43:22', '', NULL, '菜单状态列表');
 INSERT INTO `sys_dict_type` VALUES (3, '系统开关', 'sys_normal_disable', '0', 'admin', '2024-10-22 08:43:22', '', NULL, '系统开关列表');
 INSERT INTO `sys_dict_type` VALUES (4, '任务状态', 'sys_job_status', '0', 'admin', '2024-10-22 08:43:22', '', NULL, '任务状态列表');
@@ -277,7 +245,7 @@ CREATE TABLE `sys_job`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '备注信息',
   PRIMARY KEY (`job_id`, `job_name`, `job_group`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '定时任务调度表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '定时任务调度表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_job
@@ -300,11 +268,12 @@ CREATE TABLE `sys_job_log`  (
   `exception_info` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '异常信息',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`job_log_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_job_log
 -- ----------------------------
+INSERT INTO `sys_job_log` VALUES (1, '系统默认（无参）', 'DEFAULT', 'lersosaTask.lersosaNoParams', '系统默认（无参） 总共耗时：1毫秒', '0', '', '2024-10-27 17:38:42');
 
 -- ----------------------------
 -- Table structure for sys_logininfor
@@ -320,23 +289,60 @@ CREATE TABLE `sys_logininfor`  (
   PRIMARY KEY (`info_id`) USING BTREE,
   INDEX `idx_sys_logininfor_s`(`status` ASC) USING BTREE,
   INDEX `idx_sys_logininfor_lt`(`access_time` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 112 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_logininfor
 -- ----------------------------
-INSERT INTO `sys_logininfor` VALUES (100, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-22 12:50:27');
-INSERT INTO `sys_logininfor` VALUES (101, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-22 16:01:04');
-INSERT INTO `sys_logininfor` VALUES (102, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-22 16:21:01');
-INSERT INTO `sys_logininfor` VALUES (103, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-22 16:35:28');
-INSERT INTO `sys_logininfor` VALUES (104, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-22 16:52:17');
-INSERT INTO `sys_logininfor` VALUES (105, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-22 17:08:38');
-INSERT INTO `sys_logininfor` VALUES (106, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-22 17:10:11');
-INSERT INTO `sys_logininfor` VALUES (107, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-22 19:10:35');
-INSERT INTO `sys_logininfor` VALUES (108, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-23 16:46:10');
-INSERT INTO `sys_logininfor` VALUES (109, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-23 18:52:48');
-INSERT INTO `sys_logininfor` VALUES (110, 'admin', '127.0.0.1', '0', '退出成功', '2024-10-23 18:54:51');
-INSERT INTO `sys_logininfor` VALUES (111, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-23 18:54:56');
+INSERT INTO `sys_logininfor` VALUES (1, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 16:22:12');
+INSERT INTO `sys_logininfor` VALUES (2, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 16:22:33');
+INSERT INTO `sys_logininfor` VALUES (3, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 16:22:54');
+INSERT INTO `sys_logininfor` VALUES (4, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 16:25:32');
+INSERT INTO `sys_logininfor` VALUES (5, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 16:25:41');
+INSERT INTO `sys_logininfor` VALUES (6, 'admin', '127.0.0.1', '0', '退出成功', '2024-10-27 16:25:49');
+INSERT INTO `sys_logininfor` VALUES (7, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 16:25:51');
+INSERT INTO `sys_logininfor` VALUES (8, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 16:28:20');
+INSERT INTO `sys_logininfor` VALUES (9, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 16:28:29');
+INSERT INTO `sys_logininfor` VALUES (10, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 16:34:20');
+INSERT INTO `sys_logininfor` VALUES (11, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 16:34:46');
+INSERT INTO `sys_logininfor` VALUES (12, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 16:38:47');
+INSERT INTO `sys_logininfor` VALUES (13, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 16:40:41');
+INSERT INTO `sys_logininfor` VALUES (14, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 16:45:04');
+INSERT INTO `sys_logininfor` VALUES (15, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 16:59:49');
+INSERT INTO `sys_logininfor` VALUES (16, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 17:16:05');
+INSERT INTO `sys_logininfor` VALUES (17, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 17:38:22');
+INSERT INTO `sys_logininfor` VALUES (18, 'admin', '127.0.0.1', '0', '退出成功', '2024-10-27 17:41:19');
+INSERT INTO `sys_logininfor` VALUES (19, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 17:41:23');
+INSERT INTO `sys_logininfor` VALUES (20, 'admin', '127.0.0.1', '0', '退出成功', '2024-10-27 17:41:35');
+INSERT INTO `sys_logininfor` VALUES (21, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 17:41:39');
+INSERT INTO `sys_logininfor` VALUES (22, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 17:47:29');
+INSERT INTO `sys_logininfor` VALUES (23, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 17:49:28');
+INSERT INTO `sys_logininfor` VALUES (24, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 17:55:11');
+INSERT INTO `sys_logininfor` VALUES (25, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 18:02:49');
+INSERT INTO `sys_logininfor` VALUES (26, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 18:04:54');
+INSERT INTO `sys_logininfor` VALUES (27, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 18:18:12');
+INSERT INTO `sys_logininfor` VALUES (28, 'admin', '127.0.0.1', '0', '退出成功', '2024-10-27 18:18:19');
+INSERT INTO `sys_logininfor` VALUES (29, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 18:19:51');
+INSERT INTO `sys_logininfor` VALUES (30, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 18:20:08');
+INSERT INTO `sys_logininfor` VALUES (31, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 19:47:38');
+INSERT INTO `sys_logininfor` VALUES (32, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 20:32:46');
+INSERT INTO `sys_logininfor` VALUES (33, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 20:37:36');
+INSERT INTO `sys_logininfor` VALUES (34, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 21:22:41');
+INSERT INTO `sys_logininfor` VALUES (35, 'admin', '127.0.0.1', '0', '退出成功', '2024-10-27 21:46:53');
+INSERT INTO `sys_logininfor` VALUES (36, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 21:46:55');
+INSERT INTO `sys_logininfor` VALUES (37, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 21:47:04');
+INSERT INTO `sys_logininfor` VALUES (38, 'admin', '127.0.0.1', '0', '退出成功', '2024-10-27 21:49:12');
+INSERT INTO `sys_logininfor` VALUES (39, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 21:49:15');
+INSERT INTO `sys_logininfor` VALUES (40, 'admin', '127.0.0.1', '0', '退出成功', '2024-10-27 21:49:17');
+INSERT INTO `sys_logininfor` VALUES (41, 'admin', '127.0.0.1', '1', '密码输入错误1次', '2024-10-27 21:49:26');
+INSERT INTO `sys_logininfor` VALUES (42, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 21:49:30');
+INSERT INTO `sys_logininfor` VALUES (43, 'admin', '127.0.0.1', '0', '退出成功', '2024-10-27 21:49:34');
+INSERT INTO `sys_logininfor` VALUES (44, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 21:50:01');
+INSERT INTO `sys_logininfor` VALUES (45, 'admin', '127.0.0.1', '0', '退出成功', '2024-10-27 21:50:03');
+INSERT INTO `sys_logininfor` VALUES (46, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 21:50:08');
+INSERT INTO `sys_logininfor` VALUES (47, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 21:53:31');
+INSERT INTO `sys_logininfor` VALUES (48, 'admin', '127.0.0.1', '0', '退出成功', '2024-10-27 21:53:35');
+INSERT INTO `sys_logininfor` VALUES (49, 'admin', '127.0.0.1', '0', '登录成功', '2024-10-27 21:54:44');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -369,10 +375,10 @@ CREATE TABLE `sys_menu`  (
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES (1, '系统管理', 0, 1, 'system', NULL, '', '', 1, 0, 'M', '0', '0', '', 'system', 'admin', '2024-10-22 08:43:21', '', NULL, '系统管理目录');
+INSERT INTO `sys_menu` VALUES (1, '系统管理', 0, 1, 'system', NULL, '', '', 1, 0, 'M', '0', '0', '', 'system', 'admin', '2024-10-22 08:43:21', 'admin', '2024-10-27 17:55:43', '系统管理目录');
 INSERT INTO `sys_menu` VALUES (2, '系统监控', 0, 2, 'monitor', NULL, '', '', 1, 0, 'M', '0', '0', '', 'monitor', 'admin', '2024-10-22 08:43:21', '', NULL, '系统监控目录');
 INSERT INTO `sys_menu` VALUES (3, '系统工具', 0, 3, 'tool', NULL, '', '', 1, 0, 'M', '0', '0', '', 'tool', 'admin', '2024-10-22 08:43:21', '', NULL, '系统工具目录');
-INSERT INTO `sys_menu` VALUES (4, 'Lersosa 官网', 0, 4, 'www.leyramu.top', NULL, '', '', 0, 0, 'M', '0', '0', '', 'guide', 'admin', '2024-10-22 08:43:21', '', NULL, '若依官网地址');
+INSERT INTO `sys_menu` VALUES (4, 'Lersosa 官网', 0, 4, 'http://lersosa .leyramu.top', NULL, '', '', 0, 0, 'M', '0', '0', '', 'guide', 'admin', '2024-10-22 08:43:21', '', NULL, '若依官网地址');
 INSERT INTO `sys_menu` VALUES (100, '用户管理', 1, 1, 'user', 'system/user/index', '', '', 1, 0, 'C', '0', '0', 'system:user:list', 'user', 'admin', '2024-10-22 08:43:21', '', NULL, '用户管理菜单');
 INSERT INTO `sys_menu` VALUES (101, '角色管理', 1, 2, 'role', 'system/role/index', '', '', 1, 0, 'C', '0', '0', 'system:role:list', 'peoples', 'admin', '2024-10-22 08:43:21', '', NULL, '角色管理菜单');
 INSERT INTO `sys_menu` VALUES (102, '菜单管理', 1, 3, 'menu', 'system/menu/index', '', '', 1, 0, 'C', '0', '0', 'system:menu:list', 'tree-table', 'admin', '2024-10-22 08:43:21', '', NULL, '菜单管理菜单');
@@ -384,9 +390,9 @@ INSERT INTO `sys_menu` VALUES (107, '通知公告', 1, 8, 'notice', 'system/noti
 INSERT INTO `sys_menu` VALUES (108, '日志管理', 1, 9, 'log', '', '', '', 1, 0, 'M', '0', '0', '', 'log', 'admin', '2024-10-22 08:43:21', '', NULL, '日志管理菜单');
 INSERT INTO `sys_menu` VALUES (109, '在线用户', 2, 1, 'online', 'monitor/online/index', '', '', 1, 0, 'C', '0', '0', 'monitor:online:list', 'online', 'admin', '2024-10-22 08:43:21', '', NULL, '在线用户菜单');
 INSERT INTO `sys_menu` VALUES (110, '定时任务', 2, 2, 'job', 'monitor/job/index', '', '', 1, 0, 'C', '0', '0', 'monitor:job:list', 'job', 'admin', '2024-10-22 08:43:21', '', NULL, '定时任务菜单');
-INSERT INTO `sys_menu` VALUES (111, 'Sentinel控制台', 2, 3, 'http://localhost:8718', '', '', '', 0, 0, 'C', '0', '0', 'monitor:sentinel:list', 'sentinel', 'admin', '2024-10-22 08:43:21', '', NULL, '流量控制菜单');
+INSERT INTO `sys_menu` VALUES (111, 'Sentinel控制台', 2, 3, 'http://localhost:8972', '', '', '', 0, 0, 'C', '0', '0', 'monitor:sentinel:list', 'sentinel', 'admin', '2024-10-22 08:43:21', '', NULL, '流量控制菜单');
 INSERT INTO `sys_menu` VALUES (112, 'Nacos控制台', 2, 4, 'http://localhost:8848/nacos', '', '', '', 0, 0, 'C', '0', '0', 'monitor:nacos:list', 'nacos', 'admin', '2024-10-22 08:43:21', '', NULL, '服务治理菜单');
-INSERT INTO `sys_menu` VALUES (113, 'Admin控制台', 2, 5, 'http://localhost:9100/login', '', '', '', 0, 0, 'C', '0', '0', 'monitor:server:list', 'server', 'admin', '2024-10-22 08:43:21', '', NULL, '服务监控菜单');
+INSERT INTO `sys_menu` VALUES (113, 'Admin控制台', 2, 5, 'http://localhost:9120/login', '', '', '', 0, 0, 'C', '0', '0', 'monitor:server:list', 'server', 'admin', '2024-10-22 08:43:21', '', NULL, '服务监控菜单');
 INSERT INTO `sys_menu` VALUES (114, '表单构建', 3, 1, 'build', 'tool/build/index', '', '', 1, 0, 'C', '0', '0', 'tool:build:list', 'build', 'admin', '2024-10-22 08:43:21', '', NULL, '表单构建菜单');
 INSERT INTO `sys_menu` VALUES (115, '代码生成', 3, 2, 'gen', 'tool/gen/index', '', '', 1, 0, 'C', '0', '0', 'tool:gen:list', 'code', 'admin', '2024-10-22 08:43:21', '', NULL, '代码生成菜单');
 INSERT INTO `sys_menu` VALUES (116, '系统接口', 3, 3, 'http://localhost:8080/swagger-ui/index.html', '', '', '', 0, 0, 'C', '0', '0', 'tool:swagger:list', 'swagger', 'admin', '2024-10-22 08:43:21', '', NULL, '系统接口菜单');
@@ -504,7 +510,7 @@ CREATE TABLE `sys_oper_log`  (
   INDEX `idx_sys_oper_log_bt`(`business_type` ASC) USING BTREE,
   INDEX `idx_sys_oper_log_s`(`status` ASC) USING BTREE,
   INDEX `idx_sys_oper_log_ot`(`oper_time` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 107 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 208 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -516,6 +522,107 @@ INSERT INTO `sys_oper_log` VALUES (103, '在线用户', 7, 'leyramu.framework.le
 INSERT INTO `sys_oper_log` VALUES (104, '代码生成', 6, 'leyramu.framework.lersosa.gen.controller.GenController.importTableSave()', 'POST', 1, 'admin', NULL, '/code/gen/importTable', '127.0.0.1', '', '{\"tables\":\"sys_config\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-23 19:42:27', 97);
 INSERT INTO `sys_oper_log` VALUES (105, '代码生成', 8, 'leyramu.framework.lersosa.gen.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/code/gen/batchGenCode', '127.0.0.1', '', '{\"tables\":\"sys_config\"}', NULL, 0, NULL, '2024-10-23 19:42:31', 301);
 INSERT INTO `sys_oper_log` VALUES (106, '代码生成', 3, 'leyramu.framework.lersosa.gen.controller.GenController.remove()', 'DELETE', 1, 'admin', NULL, '/code/gen/1', '127.0.0.1', '', '[1]', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-23 19:42:53', 14);
+INSERT INTO `sys_oper_log` VALUES (107, '参数管理', 2, 'leyramu.framework.lersosa.system.controller.SysConfigController.edit()', 'PUT', 1, 'admin', NULL, '/system/config', '127.0.0.1', '', '{\"configId\":4,\"configKey\":\"sys.account.registerUser\",\"configName\":\"账号自助-是否开启用户注册功能\",\"configType\":\"Y\",\"configValue\":\"true\",\"createBy\":\"admin\",\"createTime\":\"2024-10-22 08:43:22\",\"params\":{},\"remark\":\"是否开启注册用户功能（true开启，false关闭）\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-24 17:08:05', 25);
+INSERT INTO `sys_oper_log` VALUES (108, '参数管理', 2, 'leyramu.framework.lersosa.system.controller.SysConfigController.edit()', 'PUT', 1, 'admin', NULL, '/system/config', '127.0.0.1', '', '{\"configId\":4,\"configKey\":\"sys.account.registerUser\",\"configName\":\"账号自助-是否开启用户注册功能\",\"configType\":\"N\",\"configValue\":\"true\",\"createBy\":\"admin\",\"createTime\":\"2024-10-22 08:43:22\",\"params\":{},\"remark\":\"是否开启注册用户功能（true开启，false关闭）\",\"updateBy\":\"admin\",\"updateTime\":\"2024-10-24 17:08:05\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-24 17:10:09', 11);
+INSERT INTO `sys_oper_log` VALUES (109, '参数管理', 2, 'leyramu.framework.lersosa.system.controller.SysConfigController.edit()', 'PUT', 1, 'admin', NULL, '/system/config', '127.0.0.1', '', '{\"configId\":4,\"configKey\":\"sys.account.registerUser\",\"configName\":\"账号自助-是否开启用户注册功能\",\"configType\":\"Y\",\"configValue\":\"true\",\"createBy\":\"admin\",\"createTime\":\"2024-10-22 08:43:22\",\"params\":{},\"remark\":\"是否开启注册用户功能（true开启，false关闭）\",\"updateBy\":\"admin\",\"updateTime\":\"2024-10-24 17:10:09\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-24 17:24:24', 11);
+INSERT INTO `sys_oper_log` VALUES (110, '参数管理', 2, 'leyramu.framework.lersosa.system.controller.SysConfigController.edit()', 'PUT', 1, 'admin', NULL, '/system/config', '127.0.0.1', '', '{\"configId\":2,\"configKey\":\"sys.user.initPassword\",\"configName\":\"用户管理-账号初始密码\",\"configType\":\"N\",\"configValue\":\"123456\",\"createBy\":\"admin\",\"createTime\":\"2024-10-22 08:43:22\",\"params\":{},\"remark\":\"初始化密码 123456\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-24 17:24:35', 13);
+INSERT INTO `sys_oper_log` VALUES (111, '参数管理', 9, 'leyramu.framework.lersosa.system.controller.SysConfigController.refreshCache()', 'DELETE', 1, 'admin', NULL, '/system/config/refreshCache', '127.0.0.1', '', '', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-24 17:24:42', 17);
+INSERT INTO `sys_oper_log` VALUES (112, '参数管理', 2, 'leyramu.framework.lersosa.system.controller.SysConfigController.edit()', 'PUT', 1, 'admin', NULL, '/system/config', '127.0.0.1', '', '{\"configId\":4,\"configKey\":\"sys.account.registerUser\",\"configName\":\"账号自助-是否开启用户注册功能\",\"configType\":\"N\",\"configValue\":\"true\",\"createBy\":\"admin\",\"createTime\":\"2024-10-22 08:43:22\",\"params\":{},\"remark\":\"是否开启注册用户功能（true开启，false关闭）\",\"updateBy\":\"admin\",\"updateTime\":\"2024-10-24 17:24:24\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-24 17:25:11', 15);
+INSERT INTO `sys_oper_log` VALUES (113, '参数管理', 2, 'leyramu.framework.lersosa.system.controller.SysConfigController.edit()', 'PUT', 1, 'admin', NULL, '/system/config', '127.0.0.1', '', '{\"configId\":2,\"configKey\":\"sys.user.initPassword\",\"configName\":\"用户管理-账号初始密码\",\"configType\":\"Y\",\"configValue\":\"123456\",\"createBy\":\"admin\",\"createTime\":\"2024-10-22 08:43:22\",\"params\":{},\"remark\":\"初始化密码 123456\",\"updateBy\":\"admin\",\"updateTime\":\"2024-10-24 17:24:34\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-24 17:25:14', 13);
+INSERT INTO `sys_oper_log` VALUES (114, '参数管理', 2, 'leyramu.framework.lersosa.system.controller.SysConfigController.edit()', 'PUT', 1, 'admin', NULL, '/system/config', '127.0.0.1', '', '{\"configId\":4,\"configKey\":\"sys.account.registerUser\",\"configName\":\"账号自助-是否开启用户注册功能\",\"configType\":\"Y\",\"configValue\":\"true\",\"createBy\":\"admin\",\"createTime\":\"2024-10-22 08:43:22\",\"params\":{},\"remark\":\"是否开启注册用户功能（true开启，false关闭）\",\"updateBy\":\"admin\",\"updateTime\":\"2024-10-24 17:25:11\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-24 17:26:05', 7);
+INSERT INTO `sys_oper_log` VALUES (115, '用户管理', 3, 'leyramu.framework.lersosa.system.controller.SysUserController.remove()', 'DELETE', 1, 'admin', NULL, '/system/user/100', '127.0.0.1', '', '[100]', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-26 14:37:52', 46);
+INSERT INTO `sys_oper_log` VALUES (116, '参数管理', 9, 'leyramu.framework.lersosa.system.controller.SysConfigController.refreshCache()', 'DELETE', 1, 'admin', NULL, '/system/config/refreshCache', '127.0.0.1', '', '', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-26 17:11:37', 10);
+INSERT INTO `sys_oper_log` VALUES (117, '字典类型', 2, 'leyramu.framework.lersosa.system.controller.SysDictTypeController.edit()', 'PUT', 1, 'admin', NULL, '/system/dict/type', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2024-10-22 08:43:22\",\"dictId\":1,\"dictName\":\"用户性别\",\"dictType\":\"sys_user_sex\",\"params\":{},\"remark\":\"用户性别列表\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 14:20:54', 40);
+INSERT INTO `sys_oper_log` VALUES (118, '用户管理', 2, 'leyramu.framework.lersosa.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', NULL, '/system/user', '127.0.0.1', '', '{\"admin\":false,\"avatar\":\"\",\"createBy\":\"admin\",\"createTime\":\"2024-10-22 08:43:21\",\"delFlag\":\"0\",\"dept\":{\"ancestors\":\"0,100,101\",\"children\":[],\"deptId\":105,\"deptName\":\"测试部门\",\"leader\":\"若依\",\"orderNum\":3,\"params\":{},\"parentId\":101,\"status\":\"0\"},\"deptId\":105,\"email\":\"ry@qq.com\",\"loginDate\":\"2024-10-22 08:43:21\",\"loginIp\":\"127.0.0.1\",\"nickName\":\"若依\",\"params\":{},\"phonenumber\":\"15666666666\",\"postIds\":[2],\"remark\":\"测试员\",\"roleIds\":[2],\"roles\":[{\"admin\":false,\"dataScope\":\"2\",\"deptCheckStrictly\":false,\"flag\":false,\"menuCheckStrictly\":false,\"params\":{},\"roleId\":2,\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"roleSort\":2,\"status\":\"0\"}],\"sex\":\"1\",\"status\":\"0\",\"updateBy\":\"admin\",\"userId\":2,\"userName\":\"ry\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 15:23:16', 31);
+INSERT INTO `sys_oper_log` VALUES (119, '登录日志', 3, 'leyramu.framework.lersosa.system.controller.SysLogininforController.clean()', 'DELETE', 1, 'admin', NULL, '/system/logininfor/clean', '127.0.0.1', '', '', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 16:21:35', 98);
+INSERT INTO `sys_oper_log` VALUES (120, '参数管理', 5, 'leyramu.framework.lersosa.system.controller.SysConfigController.export()', 'POST', 1, 'admin', NULL, '/system/config/export', '127.0.0.1', '', '{\"pageSize\":\"10\",\"pageNum\":\"1\"}', NULL, 0, NULL, '2024-10-27 17:30:11', 639);
+INSERT INTO `sys_oper_log` VALUES (121, '定时任务', 2, 'leyramu.framework.lersosa.job.controller.SysJobController.run()', 'PUT', 1, 'admin', NULL, '/schedule/job/run', '127.0.0.1', '', '{\"jobGroup\":\"DEFAULT\",\"jobId\":1,\"misfirePolicy\":\"0\",\"params\":{}}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:38:42', 49);
+INSERT INTO `sys_oper_log` VALUES (122, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/bb6243ad-8816-4807-b4b3-544984ab635a', '127.0.0.1', '', '\"bb6243ad-8816-4807-b4b3-544984ab635a\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:39:54', 3);
+INSERT INTO `sys_oper_log` VALUES (123, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/eeef9d3a-3e9b-4080-a0bb-fc1891fcc9c3', '127.0.0.1', '', '\"eeef9d3a-3e9b-4080-a0bb-fc1891fcc9c3\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:39:58', 2);
+INSERT INTO `sys_oper_log` VALUES (124, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/b401bd1e-6c62-496b-a5ca-eed64e558dad', '127.0.0.1', '', '\"b401bd1e-6c62-496b-a5ca-eed64e558dad\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:39:59', 2);
+INSERT INTO `sys_oper_log` VALUES (125, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/0f2207c8-ea9d-4d80-9145-258f37d75437', '127.0.0.1', '', '\"0f2207c8-ea9d-4d80-9145-258f37d75437\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:40:03', 2);
+INSERT INTO `sys_oper_log` VALUES (126, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/4f064fcc-09a1-4810-a469-f422511c9c08', '127.0.0.1', '', '\"4f064fcc-09a1-4810-a469-f422511c9c08\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:40:05', 2);
+INSERT INTO `sys_oper_log` VALUES (127, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/75a2cd7a-4fdc-4d74-8000-206569b92376', '127.0.0.1', '', '\"75a2cd7a-4fdc-4d74-8000-206569b92376\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:40:07', 2);
+INSERT INTO `sys_oper_log` VALUES (128, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/2f7a7f04-16ae-4847-a862-52dfda4edb0b', '127.0.0.1', '', '\"2f7a7f04-16ae-4847-a862-52dfda4edb0b\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:40:10', 2);
+INSERT INTO `sys_oper_log` VALUES (129, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/7dc6ceae-2526-4211-a5f7-c96ca425cfa0', '127.0.0.1', '', '\"7dc6ceae-2526-4211-a5f7-c96ca425cfa0\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:40:13', 2);
+INSERT INTO `sys_oper_log` VALUES (130, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/3d66e70c-b2b1-4a24-927b-f146e6de8a21', '127.0.0.1', '', '\"3d66e70c-b2b1-4a24-927b-f146e6de8a21\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:40:15', 1);
+INSERT INTO `sys_oper_log` VALUES (131, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/7ff68f0a-9e5f-4adf-a423-5e5bda00cde1', '127.0.0.1', '', '\"7ff68f0a-9e5f-4adf-a423-5e5bda00cde1\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:40:17', 1);
+INSERT INTO `sys_oper_log` VALUES (132, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/05a6444b-ce15-4693-919d-46a4ca942908', '127.0.0.1', '', '\"05a6444b-ce15-4693-919d-46a4ca942908\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:40:18', 2);
+INSERT INTO `sys_oper_log` VALUES (133, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/688159f0-4763-425b-b268-9ab0517ea732', '127.0.0.1', '', '\"688159f0-4763-425b-b268-9ab0517ea732\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:40:20', 2);
+INSERT INTO `sys_oper_log` VALUES (134, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/6592d03b-717f-452d-88aa-8027ad6e0715', '127.0.0.1', '', '\"6592d03b-717f-452d-88aa-8027ad6e0715\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:40:21', 2);
+INSERT INTO `sys_oper_log` VALUES (135, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/383c12a9-6a8c-471f-adfa-3638e2fc9eda', '127.0.0.1', '', '\"383c12a9-6a8c-471f-adfa-3638e2fc9eda\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:40:22', 1);
+INSERT INTO `sys_oper_log` VALUES (136, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/7d4bea3a-8d01-4102-811d-0ad286de48ce', '127.0.0.1', '', '\"7d4bea3a-8d01-4102-811d-0ad286de48ce\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:40:22', 2);
+INSERT INTO `sys_oper_log` VALUES (137, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/833149c8-7797-4105-ba7c-58d6b5f09a70', '127.0.0.1', '', '\"833149c8-7797-4105-ba7c-58d6b5f09a70\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:40:23', 2);
+INSERT INTO `sys_oper_log` VALUES (138, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/86a183b2-ca67-40af-9ed1-3c352b966867', '127.0.0.1', '', '\"86a183b2-ca67-40af-9ed1-3c352b966867\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:40:24', 2);
+INSERT INTO `sys_oper_log` VALUES (139, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/335b68ac-6c0b-4192-9a92-cc22f399f522', '127.0.0.1', '', '\"335b68ac-6c0b-4192-9a92-cc22f399f522\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:17', 2);
+INSERT INTO `sys_oper_log` VALUES (140, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/4c1e9bdf-35e2-4889-8005-b8314fe0ac65', '127.0.0.1', '', '\"4c1e9bdf-35e2-4889-8005-b8314fe0ac65\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:17', 1);
+INSERT INTO `sys_oper_log` VALUES (141, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/7fc6af74-0822-483d-a891-313244357f48', '127.0.0.1', '', '\"7fc6af74-0822-483d-a891-313244357f48\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:17', 1);
+INSERT INTO `sys_oper_log` VALUES (142, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/7fc6af74-0822-483d-a891-313244357f48', '127.0.0.1', '', '\"7fc6af74-0822-483d-a891-313244357f48\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:17', 1);
+INSERT INTO `sys_oper_log` VALUES (143, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/0e7114cf-0489-4dea-9a3c-ce442e0d94d0', '127.0.0.1', '', '\"0e7114cf-0489-4dea-9a3c-ce442e0d94d0\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:18', 2);
+INSERT INTO `sys_oper_log` VALUES (144, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/60b091b5-fbb0-4624-b001-cb7c7047d340', '127.0.0.1', '', '\"60b091b5-fbb0-4624-b001-cb7c7047d340\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:18', 2);
+INSERT INTO `sys_oper_log` VALUES (145, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/031b0f31-6b4d-4d3d-b553-48b47083fb72', '127.0.0.1', '', '\"031b0f31-6b4d-4d3d-b553-48b47083fb72\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:18', 2);
+INSERT INTO `sys_oper_log` VALUES (146, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/902a90fb-24dc-4c24-97a7-e833110a50b8', '127.0.0.1', '', '\"902a90fb-24dc-4c24-97a7-e833110a50b8\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:18', 2);
+INSERT INTO `sys_oper_log` VALUES (147, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/bbb56350-0f6f-4743-8407-9fbb49a10b7c', '127.0.0.1', '', '\"bbb56350-0f6f-4743-8407-9fbb49a10b7c\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:19', 2);
+INSERT INTO `sys_oper_log` VALUES (148, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/bbb56350-0f6f-4743-8407-9fbb49a10b7c', '127.0.0.1', '', '\"bbb56350-0f6f-4743-8407-9fbb49a10b7c\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:19', 2);
+INSERT INTO `sys_oper_log` VALUES (149, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/68276bd5-7b92-4644-aa7f-b7767714f36e', '127.0.0.1', '', '\"68276bd5-7b92-4644-aa7f-b7767714f36e\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:19', 1);
+INSERT INTO `sys_oper_log` VALUES (150, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/239d2415-4329-401d-a8c5-8ba455f310b3', '127.0.0.1', '', '\"239d2415-4329-401d-a8c5-8ba455f310b3\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:30', 2);
+INSERT INTO `sys_oper_log` VALUES (151, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/35543ef9-3c7d-4132-a237-a9d70dd13748', '127.0.0.1', '', '\"35543ef9-3c7d-4132-a237-a9d70dd13748\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:31', 2);
+INSERT INTO `sys_oper_log` VALUES (152, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/35543ef9-3c7d-4132-a237-a9d70dd13748', '127.0.0.1', '', '\"35543ef9-3c7d-4132-a237-a9d70dd13748\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:31', 1);
+INSERT INTO `sys_oper_log` VALUES (153, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/f5339c6d-21a2-48ce-b04f-f1d9e4edfe6e', '127.0.0.1', '', '\"f5339c6d-21a2-48ce-b04f-f1d9e4edfe6e\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:31', 2);
+INSERT INTO `sys_oper_log` VALUES (154, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/f5339c6d-21a2-48ce-b04f-f1d9e4edfe6e', '127.0.0.1', '', '\"f5339c6d-21a2-48ce-b04f-f1d9e4edfe6e\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:31', 1);
+INSERT INTO `sys_oper_log` VALUES (155, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/3395b250-ad36-4a4e-9b15-2786c25c5ea3', '127.0.0.1', '', '\"3395b250-ad36-4a4e-9b15-2786c25c5ea3\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:31', 1);
+INSERT INTO `sys_oper_log` VALUES (156, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/c8770ff2-50ae-417d-8de5-18225f2737a0', '127.0.0.1', '', '\"c8770ff2-50ae-417d-8de5-18225f2737a0\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:32', 1);
+INSERT INTO `sys_oper_log` VALUES (157, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/dfc97bd8-8cf3-43e9-8bca-6d32cafdb91d', '127.0.0.1', '', '\"dfc97bd8-8cf3-43e9-8bca-6d32cafdb91d\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:32', 2);
+INSERT INTO `sys_oper_log` VALUES (158, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/736ae951-6c52-4b7a-85c2-b7905976fdf6', '127.0.0.1', '', '\"736ae951-6c52-4b7a-85c2-b7905976fdf6\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:32', 2);
+INSERT INTO `sys_oper_log` VALUES (159, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/e8f10fe4-3e8a-4120-bc27-e1c75b0ce2ee', '127.0.0.1', '', '\"e8f10fe4-3e8a-4120-bc27-e1c75b0ce2ee\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:32', 2);
+INSERT INTO `sys_oper_log` VALUES (160, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/255cff44-1c84-4633-ac97-5590e85f3c8a', '127.0.0.1', '', '\"255cff44-1c84-4633-ac97-5590e85f3c8a\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:32', 2);
+INSERT INTO `sys_oper_log` VALUES (161, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/64aa1c21-1f87-4f55-a2d0-bd24480f5a67', '127.0.0.1', '', '\"64aa1c21-1f87-4f55-a2d0-bd24480f5a67\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:33', 2);
+INSERT INTO `sys_oper_log` VALUES (162, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/d666cb1e-c09d-4440-8284-491267dee306', '127.0.0.1', '', '\"d666cb1e-c09d-4440-8284-491267dee306\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:33', 2);
+INSERT INTO `sys_oper_log` VALUES (163, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/d666cb1e-c09d-4440-8284-491267dee306', '127.0.0.1', '', '\"d666cb1e-c09d-4440-8284-491267dee306\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:33', 2);
+INSERT INTO `sys_oper_log` VALUES (164, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/5b72c482-711f-4623-96ee-a526d1838598', '127.0.0.1', '', '\"5b72c482-711f-4623-96ee-a526d1838598\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:33', 1);
+INSERT INTO `sys_oper_log` VALUES (165, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/5b72c482-711f-4623-96ee-a526d1838598', '127.0.0.1', '', '\"5b72c482-711f-4623-96ee-a526d1838598\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:33', 1);
+INSERT INTO `sys_oper_log` VALUES (166, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/4d54d81e-03f8-4bc9-acc4-87f7323e5cca', '127.0.0.1', '', '\"4d54d81e-03f8-4bc9-acc4-87f7323e5cca\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:33', 1);
+INSERT INTO `sys_oper_log` VALUES (167, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/cb8629c8-73a3-4c65-ba45-0b9c38a43d88', '127.0.0.1', '', '\"cb8629c8-73a3-4c65-ba45-0b9c38a43d88\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:34', 2);
+INSERT INTO `sys_oper_log` VALUES (168, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/06c42dbd-1446-427d-b6d3-8ada0f499e56', '127.0.0.1', '', '\"06c42dbd-1446-427d-b6d3-8ada0f499e56\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:34', 2);
+INSERT INTO `sys_oper_log` VALUES (169, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/06c42dbd-1446-427d-b6d3-8ada0f499e56', '127.0.0.1', '', '\"06c42dbd-1446-427d-b6d3-8ada0f499e56\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:34', 1);
+INSERT INTO `sys_oper_log` VALUES (170, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/660714fc-060b-4797-9af2-2d766318e9aa', '127.0.0.1', '', '\"660714fc-060b-4797-9af2-2d766318e9aa\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:34', 2);
+INSERT INTO `sys_oper_log` VALUES (171, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/660714fc-060b-4797-9af2-2d766318e9aa', '127.0.0.1', '', '\"660714fc-060b-4797-9af2-2d766318e9aa\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:34', 1);
+INSERT INTO `sys_oper_log` VALUES (172, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/668d0788-a426-47f9-91e3-2395a37378a2', '127.0.0.1', '', '\"668d0788-a426-47f9-91e3-2395a37378a2\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:34', 2);
+INSERT INTO `sys_oper_log` VALUES (173, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/668d0788-a426-47f9-91e3-2395a37378a2', '127.0.0.1', '', '\"668d0788-a426-47f9-91e3-2395a37378a2\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:34', 1);
+INSERT INTO `sys_oper_log` VALUES (174, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/059c4996-e68c-4019-a269-8ff6a2e08f89', '127.0.0.1', '', '\"059c4996-e68c-4019-a269-8ff6a2e08f89\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:35', 2);
+INSERT INTO `sys_oper_log` VALUES (175, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/ea86e0fd-f61c-472d-b19c-624ffe647e10', '127.0.0.1', '', '\"ea86e0fd-f61c-472d-b19c-624ffe647e10\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:35', 2);
+INSERT INTO `sys_oper_log` VALUES (176, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/ea86e0fd-f61c-472d-b19c-624ffe647e10', '127.0.0.1', '', '\"ea86e0fd-f61c-472d-b19c-624ffe647e10\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:35', 2);
+INSERT INTO `sys_oper_log` VALUES (177, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/1da65d36-582c-4d68-8144-ff1b2af6561f', '127.0.0.1', '', '\"1da65d36-582c-4d68-8144-ff1b2af6561f\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:35', 2);
+INSERT INTO `sys_oper_log` VALUES (178, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/cf1eda7b-db2b-472f-9404-3e89f8f4e1f9', '127.0.0.1', '', '\"cf1eda7b-db2b-472f-9404-3e89f8f4e1f9\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:42', 1);
+INSERT INTO `sys_oper_log` VALUES (179, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/7b264c6c-3379-4b4b-a982-68bf37f38047', '127.0.0.1', '', '\"7b264c6c-3379-4b4b-a982-68bf37f38047\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:43', 1);
+INSERT INTO `sys_oper_log` VALUES (180, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/bca83dc4-8bff-410d-a65d-e576a0a3d6cd', '127.0.0.1', '', '\"bca83dc4-8bff-410d-a65d-e576a0a3d6cd\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:44', 2);
+INSERT INTO `sys_oper_log` VALUES (181, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/3b8bc1ce-48b5-4b50-8250-d26cb8655358', '127.0.0.1', '', '\"3b8bc1ce-48b5-4b50-8250-d26cb8655358\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:44', 2);
+INSERT INTO `sys_oper_log` VALUES (182, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/26503045-7504-4d5f-a98b-0d8b5a846323', '127.0.0.1', '', '\"26503045-7504-4d5f-a98b-0d8b5a846323\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:45', 2);
+INSERT INTO `sys_oper_log` VALUES (183, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/4cd22d7d-6483-4377-8609-3ee93423098b', '127.0.0.1', '', '\"4cd22d7d-6483-4377-8609-3ee93423098b\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:47', 2);
+INSERT INTO `sys_oper_log` VALUES (184, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/78563aa2-3203-4928-a29e-10ffb32ec97d', '127.0.0.1', '', '\"78563aa2-3203-4928-a29e-10ffb32ec97d\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:48', 1);
+INSERT INTO `sys_oper_log` VALUES (185, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/839937a4-e380-4fb3-934b-0cd9484e9da4', '127.0.0.1', '', '\"839937a4-e380-4fb3-934b-0cd9484e9da4\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:49', 2);
+INSERT INTO `sys_oper_log` VALUES (186, '在线用户', 7, 'leyramu.framework.lersosa.system.controller.SysUserOnlineController.forceLogout()', 'DELETE', 1, 'admin', NULL, '/system/online/5e57b07a-4899-4155-b3a2-92c684e40f51', '127.0.0.1', '', '\"5e57b07a-4899-4155-b3a2-92c684e40f51\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:41:48', 2);
+INSERT INTO `sys_oper_log` VALUES (187, '参数管理', 5, 'leyramu.framework.lersosa.system.controller.SysConfigController.export()', 'POST', 1, 'admin', NULL, '/system/config/export', '127.0.0.1', '', '{\"pageSize\":\"10\",\"pageNum\":\"1\"}', NULL, 0, NULL, '2024-10-27 17:47:42', 73);
+INSERT INTO `sys_oper_log` VALUES (188, '参数管理', 9, 'leyramu.framework.lersosa.system.controller.SysConfigController.refreshCache()', 'DELETE', 1, 'admin', NULL, '/system/config/refreshCache', '127.0.0.1', '', '', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:55:29', 10);
+INSERT INTO `sys_oper_log` VALUES (189, '菜单管理', 2, 'leyramu.framework.lersosa.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', '', '{\"children\":[],\"createTime\":\"2024-10-22 08:43:21\",\"icon\":\"system\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":1,\"menuName\":\"系统管理\",\"menuType\":\"M\",\"orderNum\":1,\"params\":{},\"parentId\":0,\"path\":\"system\",\"perms\":\"\",\"query\":\"\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 17:55:43', 18);
+INSERT INTO `sys_oper_log` VALUES (190, '岗位管理', 2, 'leyramu.framework.lersosa.system.controller.SysPostController.edit()', 'PUT', 1, 'admin', NULL, '/system/post', '127.0.0.1', '', '{\"createBy\":\"admin\",\"createTime\":\"2024-10-22 08:43:21\",\"flag\":false,\"params\":{},\"postCode\":\"ceo\",\"postId\":1,\"postName\":\"董事长\",\"postSort\":1,\"remark\":\"\",\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 18:03:26', 17);
+INSERT INTO `sys_oper_log` VALUES (191, '角色管理', 2, 'leyramu.framework.lersosa.system.controller.SysRoleController.changeStatus()', 'PUT', 1, 'admin', NULL, '/system/role/changeStatus', '127.0.0.1', '', '{\"admin\":false,\"deptCheckStrictly\":false,\"flag\":false,\"menuCheckStrictly\":false,\"params\":{},\"roleId\":2,\"status\":\"1\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 18:05:03', 10);
+INSERT INTO `sys_oper_log` VALUES (192, '角色管理', 2, 'leyramu.framework.lersosa.system.controller.SysRoleController.changeStatus()', 'PUT', 1, 'admin', NULL, '/system/role/changeStatus', '127.0.0.1', '', '{\"admin\":false,\"deptCheckStrictly\":false,\"flag\":false,\"menuCheckStrictly\":false,\"params\":{},\"roleId\":2,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 18:05:04', 6);
+INSERT INTO `sys_oper_log` VALUES (193, '角色管理', 2, 'leyramu.framework.lersosa.system.controller.SysRoleController.edit()', 'PUT', 1, 'admin', NULL, '/system/role', '127.0.0.1', '', '{\"admin\":false,\"createTime\":\"2024-10-22 08:43:21\",\"dataScope\":\"2\",\"delFlag\":\"0\",\"deptCheckStrictly\":false,\"flag\":false,\"menuCheckStrictly\":false,\"menuIds\":[100,1000,1001,1002,1003,1004,1005,1006,101,1007,1008,1009,1010,1011,102,1012,1013,1014,1015,103,1016,1017,1018,1019,104,1020,1021,1022,1023,1024,105,1025,1026,1027,1028,1029,106,1030,1031,1032,1033,1034,107,1035,1036,1037,1038,108,500,1039,1040,1041,501,1042,1043,1044,1045,109,1046,1047,1048,110,1049,1050,1051,1052,1053,1054,111,112,113,114,115,1055,1058,1056,1057,1059,1060,116,4],\"params\":{},\"remark\":\"普通角色\",\"roleId\":2,\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"roleSort\":2,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 18:05:16', 17);
+INSERT INTO `sys_oper_log` VALUES (194, '个人信息', 2, 'leyramu.framework.lersosa.system.controller.SysProfileController.updateProfile()', 'PUT', 1, 'admin', NULL, '/system/user/profile', '127.0.0.1', '', '{\"admin\":false,\"email\":\"ry@163.com\",\"nickName\":\"若依\",\"params\":{},\"phonenumber\":\"15888888888\",\"sex\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 18:07:16', 14);
+INSERT INTO `sys_oper_log` VALUES (195, '个人信息', 2, 'leyramu.framework.lersosa.system.controller.SysProfileController.updateProfile()', 'PUT', 1, 'admin', NULL, '/system/user/profile', '127.0.0.1', '', '{\"admin\":false,\"email\":\"ry@163.com\",\"nickName\":\"若依\",\"params\":{},\"phonenumber\":\"15888888888\",\"sex\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 18:07:18', 8);
+INSERT INTO `sys_oper_log` VALUES (196, '个人信息', 2, 'leyramu.framework.lersosa.system.controller.SysProfileController.updateProfile()', 'PUT', 1, 'admin', NULL, '/system/user/profile', '127.0.0.1', '', '{\"admin\":false,\"email\":\"ry@163.com\",\"nickName\":\"若依\",\"params\":{},\"phonenumber\":\"15888888888\",\"sex\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 18:07:19', 9);
+INSERT INTO `sys_oper_log` VALUES (197, '代码生成', 6, 'leyramu.framework.lersosa.gen.controller.GenController.importTableSave()', 'POST', 1, 'admin', NULL, '/code/gen/importTable', '127.0.0.1', '', '{\"tables\":\"sys_config\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 18:13:42', 80);
+INSERT INTO `sys_oper_log` VALUES (198, '代码生成', 2, 'leyramu.framework.lersosa.gen.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/code/gen', '127.0.0.1', '', '{\"businessName\":\"config\",\"className\":\"SysConfig\",\"columns\":[{\"capJavaField\":\"ConfigId\",\"columnComment\":\"参数主键\",\"columnId\":11,\"columnName\":\"config_id\",\"columnType\":\"int\",\"createBy\":\"admin\",\"createTime\":\"2024-10-27 18:13:42\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":true,\"isIncrement\":\"1\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"configId\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":true,\"tableId\":2,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"ConfigName\",\"columnComment\":\"参数名称\",\"columnId\":12,\"columnName\":\"config_name\",\"columnType\":\"varchar(100)\",\"createBy\":\"admin\",\"createTime\":\"2024-10-27 18:13:42\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"javaField\":\"configName\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"LIKE\",\"required\":false,\"sort\":2,\"superColumn\":true,\"tableId\":2,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"ConfigKey\",\"columnComment\":\"参数键名\",\"columnId\":13,\"columnName\":\"config_key\",\"columnType\":\"varchar(100)\",\"createBy\":\"admin\",\"createTime\":\"2024-10-27 18:13:42\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"javaField\":\"configKey\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":false,\"sort\":3,\"superColumn\":true,\"tableId\":2,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"ConfigValue\",\"columnComment\":\"参数键值\",\"columnId\":14,\"columnName\":\"config_value\",\"columnType\":\"varchar(500)\",\"createBy\":\"admin\",\"createTime\":\"2024-10-27 18:13:42\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"textarea\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"javaField\":\"configValue\",\"javaType\":\"S', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 18:13:53', 38);
+INSERT INTO `sys_oper_log` VALUES (199, '代码生成', 8, 'leyramu.framework.lersosa.gen.controller.GenController.batchGenCode()', 'GET', 1, 'admin', NULL, '/code/gen/batchGenCode', '127.0.0.1', '', '{\"tables\":\"sys_config\"}', NULL, 0, NULL, '2024-10-27 18:15:13', 63);
+INSERT INTO `sys_oper_log` VALUES (200, '代码生成', 3, 'leyramu.framework.lersosa.gen.controller.GenController.remove()', 'DELETE', 1, 'admin', NULL, '/code/gen/2', '127.0.0.1', '', '[2]', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 18:15:27', 13);
+INSERT INTO `sys_oper_log` VALUES (201, '定时任务', 1, 'leyramu.framework.lersosa.job.controller.SysJobController.add()', 'POST', 1, 'admin', NULL, '/schedule/job', '127.0.0.1', '', '', '{\"msg\":\"新增任务\'1\'失败，Cron表达式不正确\",\"code\":500}', 0, NULL, '2024-10-27 21:22:54', 3);
+INSERT INTO `sys_oper_log` VALUES (202, '定时任务', 1, 'leyramu.framework.lersosa.job.controller.SysJobController.add()', 'POST', 1, 'admin', NULL, '/schedule/job', '127.0.0.1', '', '{\"concurrent\":\"1\",\"cronExpression\":\"* * * * * ?\",\"invokeTarget\":\"1\",\"jobGroup\":\"DEFAULT\",\"jobName\":\"1\",\"misfirePolicy\":\"1\",\"nextValidTime\":\"2024-10-27 21:23:01\",\"params\":{},\"status\":\"0\"}', NULL, 1, 'No bean named \'1\' available', '2024-10-27 21:23:00', 6);
+INSERT INTO `sys_oper_log` VALUES (203, '定时任务', 1, 'leyramu.framework.lersosa.job.controller.SysJobController.add()', 'POST', 1, 'admin', NULL, '/schedule/job', '127.0.0.1', '', '{\"concurrent\":\"1\",\"cronExpression\":\"* * * * * ?\",\"invokeTarget\":\"\'\'\",\"jobGroup\":\"DEFAULT\",\"jobName\":\"1\",\"misfirePolicy\":\"1\",\"nextValidTime\":\"2024-10-27 21:23:07\",\"params\":{},\"status\":\"0\"}', NULL, 1, 'No bean named \'\'\'\' available', '2024-10-27 21:23:06', 0);
+INSERT INTO `sys_oper_log` VALUES (204, '定时任务', 1, 'leyramu.framework.lersosa.job.controller.SysJobController.add()', 'POST', 1, 'admin', NULL, '/schedule/job', '127.0.0.1', '', '{\"concurrent\":\"0\",\"createBy\":\"admin\",\"cronExpression\":\"* * * * * ?\",\"invokeTarget\":\"lersosaTask.lersosaNoParams\",\"jobGroup\":\"DEFAULT\",\"jobId\":100,\"jobName\":\"s\",\"misfirePolicy\":\"1\",\"nextValidTime\":\"2024-10-27 21:23:46\",\"params\":{},\"status\":\"1\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 21:23:46', 25);
+INSERT INTO `sys_oper_log` VALUES (205, '定时任务', 3, 'leyramu.framework.lersosa.job.controller.SysJobController.remove()', 'DELETE', 1, 'admin', NULL, '/schedule/job/100', '127.0.0.1', '', '[100]', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 21:23:50', 14);
+INSERT INTO `sys_oper_log` VALUES (206, '岗位管理', 1, 'leyramu.framework.lersosa.system.controller.SysPostController.add()', 'POST', 1, 'admin', NULL, '/system/post', '127.0.0.1', '', '{\"createBy\":\"admin\",\"flag\":false,\"params\":{},\"postCode\":\"d\",\"postId\":5,\"postName\":\"d\",\"postSort\":0,\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 21:38:05', 16);
+INSERT INTO `sys_oper_log` VALUES (207, '岗位管理', 3, 'leyramu.framework.lersosa.system.controller.SysPostController.remove()', 'DELETE', 1, 'admin', NULL, '/system/post/5', '127.0.0.1', '', '[5]', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-10-27 21:38:07', 12);
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -533,12 +640,12 @@ CREATE TABLE `sys_post`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`post_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '岗位信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '岗位信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_post
 -- ----------------------------
-INSERT INTO `sys_post` VALUES (1, 'ceo', '董事长', 1, '0', 'admin', '2024-10-22 08:43:21', '', NULL, '');
+INSERT INTO `sys_post` VALUES (1, 'ceo', '董事长', 1, '0', 'admin', '2024-10-22 08:43:21', 'admin', '2024-10-27 18:03:26', '');
 INSERT INTO `sys_post` VALUES (2, 'se', '项目经理', 2, '0', 'admin', '2024-10-22 08:43:21', '', NULL, '');
 INSERT INTO `sys_post` VALUES (3, 'hr', '人力资源', 3, '0', 'admin', '2024-10-22 08:43:21', '', NULL, '');
 INSERT INTO `sys_post` VALUES (4, 'user', '普通员工', 4, '0', 'admin', '2024-10-22 08:43:21', '', NULL, '');
@@ -569,7 +676,7 @@ CREATE TABLE `sys_role`  (
 -- Records of sys_role
 -- ----------------------------
 INSERT INTO `sys_role` VALUES (1, '超级管理员', 'admin', 1, '1', 1, 1, '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL, '超级管理员');
-INSERT INTO `sys_role` VALUES (2, '普通角色', 'common', 2, '2', 1, 1, '0', '0', 'admin', '2024-10-22 08:43:21', '', NULL, '普通角色');
+INSERT INTO `sys_role` VALUES (2, '普通角色', 'common', 2, '2', 0, 0, '0', '0', 'admin', '2024-10-22 08:43:21', 'admin', '2024-10-27 18:05:15', '普通角色');
 
 -- ----------------------------
 -- Table structure for sys_role_dept
@@ -601,9 +708,6 @@ CREATE TABLE `sys_role_menu`  (
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-INSERT INTO `sys_role_menu` VALUES (2, 1);
-INSERT INTO `sys_role_menu` VALUES (2, 2);
-INSERT INTO `sys_role_menu` VALUES (2, 3);
 INSERT INTO `sys_role_menu` VALUES (2, 4);
 INSERT INTO `sys_role_menu` VALUES (2, 100);
 INSERT INTO `sys_role_menu` VALUES (2, 101);
@@ -711,13 +815,22 @@ CREATE TABLE `sys_user`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 101 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-10-23 18:55:08', 'admin', '2024-10-22 08:43:21', '', '2024-10-23 18:54:56', '管理员');
-INSERT INTO `sys_user` VALUES (2, 105, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-10-22 08:43:21', 'admin', '2024-10-22 08:43:21', '', NULL, '测试员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-10-27 21:54:44', 'admin', '2024-10-22 08:43:21', '', '2024-10-27 21:54:44', '管理员');
+INSERT INTO `sys_user` VALUES (2, 105, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-10-27 15:49:47', 'admin', '2024-10-22 08:43:21', 'admin', '2024-10-27 15:49:47', '测试员');
+INSERT INTO `sys_user` VALUES (100, NULL, 'admin1', 'admin1', '00', '', '', '0', '', '$2a$10$wsJtkMgFkd8VqKVvsVJB1.SGmvZsjUqfwODjrzUyZlRP0AWUZWsze', '0', '2', '127.0.0.1', '2024-10-24 17:08:48', '', '2024-10-24 17:08:28', '', '2024-10-24 17:08:36', NULL);
+
+/*
+ * Copyright (c) 2024 Leyramu. All rights reserved.
+ * This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+ * For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+ * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+ * By using this project, users acknowledge and agree to abide by these terms and conditions.
+ */
 
 -- ----------------------------
 -- Table structure for sys_user_post
