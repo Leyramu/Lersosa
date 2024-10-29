@@ -68,12 +68,12 @@
     </scm>
 
     <!--      父工程      -->
-<!--    <parent>-->
-<!--        <groupId>org.springframework.cloud</groupId>-->
-<!--        <artifactId>spring-cloud-build</artifactId>-->
-<!--        <version>4.2.0-M2</version>-->
-<!--        <relativePath />-->
-<!--    </parent>-->
+    <!--    <parent>-->
+    <!--        <groupId>org.springframework.cloud</groupId>-->
+    <!--        <artifactId>spring-cloud-build</artifactId>-->
+    <!--        <version>4.2.0-M2</version>-->
+    <!--        <relativePath />-->
+    <!--    </parent>-->
 
     <!--      子模块      -->
     <modules>
@@ -82,7 +82,6 @@
         <module>lersosa-service</module>
         <module>lersosa-common</module>
         <module>lersosa-web</module>
-        <module>lersosa-cloud</module>
         <module>lersosa-visual</module>
     </modules>
 

@@ -7,10 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="lersosa-visual-seata" />
         <module name="lersosa-web-search" />
-        <module name="lersosa-cloud-nacos" />
-        <module name="lersosa-cloud-seata" />
+        <module name="lersosa-visual-nacos" />
         <module name="lersosa-common-swagger" />
+        <module name="lersosa-visual-sentinel" />
         <module name="lersosa-service-job" />
         <module name="lersosa-common-i18n" />
         <module name="lersosa-common-core" />
@@ -26,7 +27,6 @@
         <module name="lersosa-common-sensitive" />
         <module name="lersosa-common-redis" />
         <module name="lersosa-service-auth" />
-        <module name="lersosa-cloud-sentinel" />
         <module name="lersosa-gateway-api" />
         <module name="lersosa-visual-monitor" />
         <module name="lersosa-api-system" />
@@ -35,6 +35,10 @@
     <bytecodeTargetLevel>
       <module name="aersosa-cloud-nacos" target="1.8" />
       <module name="aersosa-cloud-sentinel" target="17" />
+      <module name="lersosa-cloud" target="22" />
+      <module name="lersosa-cloud-nacos" target="1.8" />
+      <module name="lersosa-cloud-seata" target="22" />
+      <module name="lersosa-cloud-sentinel" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -68,6 +72,9 @@
       <module name="lersosa-service-system" options="-parameters" />
       <module name="lersosa-visual" options="-parameters" />
       <module name="lersosa-visual-monitor" options="-parameters" />
+      <module name="lersosa-visual-nacos" options="-Xlint:-options" />
+      <module name="lersosa-visual-seata" options="-parameters" />
+      <module name="lersosa-visual-sentinel" options="-Xlint:deprecation -parameters" />
       <module name="lersosa-web" options="-parameters" />
       <module name="lersosa-web-page" options="-parameters" />
       <module name="lersosa-web-search" options="-parameters" />

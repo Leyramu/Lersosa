@@ -8,7 +8,7 @@
 
 // virtual:svg-icons-register
 declare module 'virtual:svg-icons-register' {
-    export {
-        svgIcons as default
-    }
+  export {
+    svgIcons as default
+  };
 }

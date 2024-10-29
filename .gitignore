@@ -38,13 +38,11 @@
 /lersosa-java/lersosa-common/lersosa-common-sensitive/target/
 /lersosa-java/lersosa-common/lersosa-common-swagger/target/
 
-# cloud 模块 target 目标文件
-/lersosa-java/lersosa-cloud/lersosa-cloud-nacos/target/
-/lersosa-java/lersosa-cloud/lersosa-cloud-seata/target/
-/lersosa-java/lersosa-cloud/lersosa-cloud-sentinel/target/
-
-# monitor 模块 target 目标文件
+# visual 模块 target 目标文件
 /lersosa-java/lersosa-visual/lersosa-visual-monitor/target/
+/lersosa-java/lersosa-visual/lersosa-visual-nacos/target/
+/lersosa-java/lersosa-visual/lersosa-visual-seata/target/
+/lersosa-java/lersosa-visual/lersosa-visual-sentinel/target/
 
 # vite 模块环境文件
 /lersosa-vite/lersosa-vite-admin/node_modules/

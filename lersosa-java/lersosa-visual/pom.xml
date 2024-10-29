@@ -23,6 +23,9 @@
     <!--      子模块      -->
     <modules>
         <module>lersosa-visual-monitor</module>
+        <module>lersosa-visual-nacos</module>
+        <module>lersosa-visual-seata</module>
+        <module>lersosa-visual-sentinel</module>
     </modules>
 
     <!--      打包方式      -->
@@ -33,37 +36,4 @@
 
     <!--      工件 ID      -->
     <artifactId>lersosa-visual</artifactId>
-
-    <!--      依赖      -->
-    <dependencies>
-        <!--    Spring Cloud Alibaba Nacos    -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-
-        <!--    Spring Cloud Alibaba Nacos Config    -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
-
-        <!--    Spring Cloud Alibaba Sentinel    -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
-
-        <!--    Spring Boot Web    -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!--    Lersosa Common i18n   -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-i18n</artifactId>
-        </dependency>
-    </dependencies>
 </project>

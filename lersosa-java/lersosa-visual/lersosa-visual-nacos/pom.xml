@@ -15,16 +15,19 @@
     <!--      父工程      -->
     <parent>
         <groupId>leyramu.framework</groupId>
-        <artifactId>lersosa-cloud</artifactId>
+        <artifactId>lersosa-visual</artifactId>
         <relativePath>../pom.xml</relativePath>
         <version>1.0.0</version>
     </parent>
+
+    <!--      打包方式      -->
+    <packaging>jar</packaging>
 
     <!--      项目描述      -->
     <description>Nacos 注册/配置中心</description>
 
     <!--      工件 ID      -->
-    <artifactId>lersosa-cloud-nacos</artifactId>
+    <artifactId>lersosa-visual-nacos</artifactId>
 
     <!--      属性      -->
     <properties>

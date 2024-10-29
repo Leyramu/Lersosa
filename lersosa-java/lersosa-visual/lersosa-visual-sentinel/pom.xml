@@ -15,7 +15,7 @@
     <!--      父工程      -->
     <parent>
         <groupId>leyramu.framework</groupId>
-        <artifactId>lersosa-cloud</artifactId>
+        <artifactId>lersosa-visual</artifactId>
         <relativePath>../pom.xml</relativePath>
         <version>1.0.0</version>
     </parent>
@@ -24,7 +24,7 @@
     <description>Sentinel 流量限流控制器</description>
 
     <!--      工件 ID      -->
-    <artifactId>lersosa-cloud-sentinel</artifactId>
+    <artifactId>lersosa-visual-sentinel</artifactId>
 
     <!--      属性      -->
     <properties>

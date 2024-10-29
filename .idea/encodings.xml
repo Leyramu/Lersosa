@@ -5,14 +5,6 @@
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-api/lersosa-api-system/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-api/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-cloud/lersosa-cloud-nacos/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-cloud/lersosa-cloud-nacos/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-cloud/lersosa-cloud-seata/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-cloud/lersosa-cloud-seata/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-cloud/lersosa-cloud-sentinel/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-cloud/lersosa-cloud-sentinel/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-cloud/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-cloud/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-datascope/src/main/java" charset="UTF-8" />
@@ -53,6 +45,11 @@
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-visual/lersosa-visual-monitor/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-visual/lersosa-visual-monitor/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-visual/lersosa-visual-nacos/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-visual/lersosa-visual-nacos/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-visual/lersosa-visual-seata/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-visual/lersosa-visual-seata/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-visual/lersosa-visual-sentinel/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-visual/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-visual/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-web/lersosa-web-page/src/main/java" charset="UTF-8" />

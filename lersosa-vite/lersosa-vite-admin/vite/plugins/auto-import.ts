@@ -6,15 +6,15 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import autoImport from 'unplugin-auto-import/vite'
+import autoImport from 'unplugin-auto-import/vite';
 
 export default function createAutoImport() {
-    return autoImport({
-        imports: [
-            'vue',
-            'vue-router',
-            'pinia',
-        ],
-        dts: false
-    })
+  return autoImport({
+    imports: [
+      'vue',
+      'vue-router',
+      'pinia'
+    ],
+    dts: false
+  });
 }

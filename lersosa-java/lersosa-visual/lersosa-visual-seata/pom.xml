@@ -15,7 +15,7 @@
     <!--      父工程      -->
     <parent>
         <groupId>leyramu.framework</groupId>
-        <artifactId>lersosa-cloud</artifactId>
+        <artifactId>lersosa-visual</artifactId>
         <relativePath>../pom.xml</relativePath>
         <version>1.0.0</version>
     </parent>
@@ -24,7 +24,7 @@
     <description>微服务分布式事务工程</description>
 
     <!--      工件 ID      -->
-    <artifactId>lersosa-cloud-seata</artifactId>
+    <artifactId>lersosa-visual-seata</artifactId>
 
     <!--      依赖      -->
     <dependencies>

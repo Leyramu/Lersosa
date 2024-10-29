@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="LersosaSentinelApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-    <module name="lersosa-cloud-sentinel" />
+    <module name="lersosa-visual-sentinel" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.alibaba.csp.sentinel.dashboard.LersosaSentinelApplication" />
     <extension name="coverage">
       <pattern>

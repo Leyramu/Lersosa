@@ -6,13 +6,13 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-import {createSvgIconsPlugin} from 'vite-plugin-svg-icons'
-import path from 'path'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+import path from 'path';
 
-export default function createSvgIcon(isBuild) {
-    return createSvgIconsPlugin({
-        iconDirs: [path.resolve(process.cwd(), 'src/assets/icons/svg')],
-        symbolId: 'icon-[dir]-[name]',
-        svgoOptions: isBuild
-    })
+export default function createSvgIcon(isBuild: any) {
+  return createSvgIconsPlugin({
+    iconDirs: [path.resolve(process.cwd(), 'src/assets/icons/svg')],
+    symbolId: 'icon-[dir]-[name]',
+    svgoOptions: isBuild
+  });
 }
