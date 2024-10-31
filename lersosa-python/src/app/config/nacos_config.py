@@ -4,35 +4,17 @@
 #  The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 
-from app import nacos
-from app.controller import controllers
-
-# # 创建FastAPI应用实例
-app = FastAPI(lifespan=nacos.lifespan)
-
-# 注册路由
-app.include_router(controllers)
-
-# CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+import os
 
 
-# 根路由
-@app.get("/")
-async def root():
-    return {"message": "欢迎使用 Leyramu 内部网关！"}
-
-
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app, host="127.0.0.1", port=8001, log_level="info")
+# Nacos 配置类
+class NacosConfig:
+    NACOS_SERVER_ADDR = os.getenv('NACOS_SERVER_ADDR', 'localhost:8848')
+    NACOS_NAMESPACE = os.getenv('NACOS_NAMESPACE', '356d484c-399c-4a23-9419-e200e8edbff9')
+    NACOS_GROUP = os.getenv('NACOS_GROUP', 'SERVICE_GROUP')
+    NACOS_USERNAME = os.getenv('NACOS_USERNAME', 'nacos')
+    NACOS_PASSWORD = os.getenv('NACOS_PASSWORD', 'Zcx@223852//')
+    NACOS_DATA_ID = os.getenv('NACOS_DATA_ID', 'lersosa-service-python.yml')
+    NACOS_SERVICE_NAME = os.getenv('NACOS_SERVICE_NAME', 'lersosa-service-python')
+    HEARTBEAT_INTERVAL = os.getenv('HEARTBEAT_INTERVAL', 10)
