@@ -4,35 +4,26 @@
 #  The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 
-from app import nacos
-from app.controller import controllers
+from typing import Any, Optional
 
-# # 创建FastAPI应用实例
-app = FastAPI(lifespan=nacos.lifespan)
+from pydantic import BaseModel
 
-# 注册路由
-app.include_router(controllers)
-
-# CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+from app.enum import MsgStatus, CodeStatus
 
 
-# 根路由
-@app.get("/")
-async def root():
-    return {"message": "欢迎使用 Leyramu 内部网关！"}
+# 统一返回类
+class RepoResult(BaseModel):
+    code: int
+    msg: str
+    data: Optional[Any] = None
 
+    @staticmethod
+    def success(code: int = CodeStatus.SUCCESS, msg: str = MsgStatus.SUCCESS_MESSAGE,
+                data: Any = None) -> 'RepoResult':
+        return RepoResult(code=code, msg=msg, data=data)
 
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app, host="127.0.0.1", port=8001, log_level="info")
+    @staticmethod
+    def error(code: int = CodeStatus.FAILURE, msg: str = MsgStatus.FAILURE_MESSAGE,
+              data: Any = None) -> 'RepoResult':
+        return RepoResult(code=code, msg=msg, data=data)

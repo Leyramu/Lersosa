@@ -4,35 +4,24 @@
 #  The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+import inspect
+import os
+from importlib import import_module
 
-from app import nacos
-from app.controller import controllers
+from app.base import BaseController
 
-# # 创建FastAPI应用实例
-app = FastAPI(lifespan=nacos.lifespan)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+package_name = __package__
 
-# 注册路由
-app.include_router(controllers)
+controllers = BaseController()
 
-# CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+for file in os.listdir(current_dir):
+    if file.endswith('.py') and not file.startswith("__"):
+        module_name = file[:-3]
+        full_module_name = f"{package_name}.{module_name}" if package_name else module_name
+        imported_module = import_module(full_module_name)
+        for name, obj in inspect.getmembers(imported_module):
+            if inspect.isclass(obj) and issubclass(obj, BaseController):
+                controllers.include_router(obj())
 
-
-# 根路由
-@app.get("/")
-async def root():
-    return {"message": "欢迎使用 Leyramu 内部网关！"}
-
-
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app, host="127.0.0.1", port=8001, log_level="info")
+__all__ = ["controllers"]

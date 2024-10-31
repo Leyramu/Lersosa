@@ -4,35 +4,39 @@
 #  The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 
-from app import nacos
-from app.controller import controllers
-
-# # 创建FastAPI应用实例
-app = FastAPI(lifespan=nacos.lifespan)
-
-# 注册路由
-app.include_router(controllers)
-
-# CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+from app.base import BaseController, Get
+from app.common import RepoResult
+from app.service import TestService
 
 
-# 根路由
-@app.get("/")
-async def root():
-    return {"message": "欢迎使用 Leyramu 内部网关！"}
+class TestController(BaseController):
+    """
+    TestController类继承自BaseController，用于处理与测试相关的API请求。
+    """
 
+    # 初始化路由
+    def __init__(self):
+        """
+        初始化TestController类，设置路由前缀、标签和通用响应。
+        """
+        super().__init__(
+            prefix="/test",
+            tags=["test"],
+            responses={404: {"description": "Not found"}},
+        )
 
-if __name__ == "__main__":
-    import uvicorn
+    # 实例化测试服务
+    testService = TestService()
 
-    uvicorn.run(app, host="127.0.0.1", port=8001, log_level="info")
+    @Get("/")
+    async def read_items(self):
+        """
+        处理GET请求，返回测试项的数据。
+
+        Returns:
+            RepoResult: 包含测试项数据的RepoResult对象。
+        """
+        return RepoResult.success(
+            data=await TestService.read_items()
+        )
