@@ -7,6 +7,7 @@
 
 from app.base import BaseController, Get
 from app.common import RepoResult
+from app.controller.request import TestRequest
 from app.service import TestService
 
 
@@ -30,7 +31,7 @@ class TestController(BaseController):
     testService = TestService()
 
     @Get("/")
-    async def read_items(self):
+    async def read_items(self, data: TestRequest = None):
         """
         处理GET请求，返回测试项的数据。
 
@@ -38,5 +39,5 @@ class TestController(BaseController):
             RepoResult: 包含测试项数据的RepoResult对象。
         """
         return RepoResult.success(
-            data=await TestService.read_items()
+            data=await self.testService.read_items(data)
         )

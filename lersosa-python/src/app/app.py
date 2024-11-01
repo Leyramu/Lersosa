@@ -4,13 +4,14 @@
 #  The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
-from fastapi import FastAPI
+
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.common import RepoResult
+from app.common.nacos import lifespan
 from app.controller import controllers
-from app.enum import CodeStatus
-from app.nacos import lifespan
+from app.model.enum import CodeStatus
 
 
 # 创建FastAPI应用实例
@@ -27,7 +28,7 @@ class App:
 
     def _add_middlewares(self):
         self.app.add_middleware(
-            CORSMiddleware, # type: ignore
+            CORSMiddleware,  # type: ignore
             allow_origins=["*"],
             allow_credentials=True,
             allow_methods=["*"],
@@ -35,9 +36,13 @@ class App:
         )
 
     def _add_exception_handlers(self):
+        @self.app.exception_handler(HTTPException)
+        async def http_exception_handler(_request: Request, exc: HTTPException):
+            return RepoResult.error(code=exc.status_code, msg=exc.detail)
+
         @self.app.exception_handler(Exception)
-        async def global_exception_handler(exc: Exception):
-            return RepoResult.error(code=CodeStatus.FAILURE, msg=str(exc))
+        async def global_exception_handler(_request: Request, exc: Exception):
+            return RepoResult.error(code=CodeStatus.INTERNAL_SERVER_ERROR.value, msg=str(exc))
 
     def _add_root_route(self):
         @self.app.get("/")

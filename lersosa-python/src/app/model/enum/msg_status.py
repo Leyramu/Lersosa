@@ -5,32 +5,20 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
-from typing import Any, Optional
-
-from fastapi.responses import JSONResponse
-from pydantic import BaseModel
-
-from app.model.enum import MsgStatus, CodeStatus
+from enum import Enum
 
 
-# 统一返回类
-class RepoResult(BaseModel):
-    code: Optional[int] = None
-    msg: Optional[str] = None
-    data: Optional[Any] = None
-
-    @staticmethod
-    def success(code: int = CodeStatus.SUCCESS.value, msg: str = MsgStatus.SUCCESS_MESSAGE.value,
-                data: Any = None) -> 'JSONResponse':
-        return JSONResponse(
-            status_code=CodeStatus.SUCCESS.value,
-            content=RepoResult(code=code, msg=msg, data=data).model_dump()
-        )
-
-    @staticmethod
-    def error(code: int = CodeStatus.FAILURE.value, msg: str = MsgStatus.FAILURE_MESSAGE.value,
-              data: Any = None) -> 'JSONResponse':
-        return JSONResponse(
-            status_code=CodeStatus.FAILURE.value,
-            content=RepoResult(code=code, msg=msg, data=data).model_dump()
-        )
+# 状态消息枚举
+class MsgStatus(Enum):
+    INTERNAL_SERVER_ERROR_MESSAGE = "服务器内部错误"
+    NOT_FOUND_MESSAGE = "未找到"
+    UNAUTHORIZED_MESSAGE = "未授权"
+    FORBIDDEN_MESSAGE = "禁止访问"
+    BAD_REQUEST_MESSAGE = "请求无效"
+    NOT_IMPLEMENTED_MESSAGE = "未实现"
+    METHOD_NOT_ALLOWED_MESSAGE = "不允许的方法"
+    CONFLICT_MESSAGE = "冲突"
+    UNPROCESSABLE_ENTITY_MESSAGE = "无法处理的实体"
+    TOO_MANY_REQUESTS_MESSAGE = "请求过多"
+    SUCCESS_MESSAGE = "成功"
+    FAILURE_MESSAGE = "失败"

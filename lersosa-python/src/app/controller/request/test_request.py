@@ -5,17 +5,8 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
-# 状态消息枚举
-class MsgStatus:
-    INTERNAL_SERVER_ERROR_MESSAGE = "服务器内部错误"
-    NOT_FOUND_MESSAGE = "未找到"
-    UNAUTHORIZED_MESSAGE = "未授权"
-    FORBIDDEN_MESSAGE = "禁止访问"
-    BAD_REQUEST_MESSAGE = "请求无效"
-    NOT_IMPLEMENTED_MESSAGE = "未实现"
-    METHOD_NOT_ALLOWED_MESSAGE = "不允许的方法"
-    CONFLICT_MESSAGE = "冲突"
-    UNPROCESSABLE_ENTITY_MESSAGE = "无法处理的实体"
-    TOO_MANY_REQUESTS_MESSAGE = "请求过多"
-    SUCCESS_MESSAGE = "成功"
-    FAILURE_MESSAGE = "失败"
+from pydantic import BaseModel
+
+
+class TestRequest(BaseModel):
+    string: str

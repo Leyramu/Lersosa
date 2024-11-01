@@ -7,7 +7,6 @@
  */
 
 import request from '@/utils/request';
-import {UnwrapRef} from "vue";
 
 // 角色接口数据类型
 interface Role {
@@ -130,7 +129,7 @@ export function unallocatedUserList(query: { [key: string]: any }): Promise<{ to
 }
 
 // 取消用户授权角色
-export function authUserCancel(data: { roleId: UnwrapRef<any>, userId: any }): Promise<{ success: boolean }> {
+export function authUserCancel(data: any): Promise<{ success: boolean }> {
     return request({
         url: '/system/role/authUser/cancel',
         method: 'put',
@@ -139,7 +138,7 @@ export function authUserCancel(data: { roleId: UnwrapRef<any>, userId: any }): P
 }
 
 // 批量取消用户授权角色
-export function authUserCancelAll(data: { roleId: UnwrapRef<any>, userIds: string }): Promise<{ success: boolean }> {
+export function authUserCancelAll(data: any): Promise<{ success: boolean }> {
     return request({
         url: '/system/role/authUser/cancelAll',
         method: 'put',
@@ -148,7 +147,7 @@ export function authUserCancelAll(data: { roleId: UnwrapRef<any>, userIds: strin
 }
 
 // 授权用户选择
-export function authUserSelectAll(data: { roleId: UnwrapRef<any>, userIds: string }): Promise<{
+export function authUserSelectAll(data: any): Promise<{
     success: boolean
 }> {
     return request({

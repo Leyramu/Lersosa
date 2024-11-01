@@ -4,33 +4,4 @@
 #  The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
-
-from typing import Any, Optional
-
-from fastapi.responses import JSONResponse
-from pydantic import BaseModel
-
-from app.model.enum import MsgStatus, CodeStatus
-
-
-# 统一返回类
-class RepoResult(BaseModel):
-    code: Optional[int] = None
-    msg: Optional[str] = None
-    data: Optional[Any] = None
-
-    @staticmethod
-    def success(code: int = CodeStatus.SUCCESS.value, msg: str = MsgStatus.SUCCESS_MESSAGE.value,
-                data: Any = None) -> 'JSONResponse':
-        return JSONResponse(
-            status_code=CodeStatus.SUCCESS.value,
-            content=RepoResult(code=code, msg=msg, data=data).model_dump()
-        )
-
-    @staticmethod
-    def error(code: int = CodeStatus.FAILURE.value, msg: str = MsgStatus.FAILURE_MESSAGE.value,
-              data: Any = None) -> 'JSONResponse':
-        return JSONResponse(
-            status_code=CodeStatus.FAILURE.value,
-            content=RepoResult(code=code, msg=msg, data=data).model_dump()
-        )
+from .test import Test

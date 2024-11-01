@@ -5,32 +5,20 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
-from typing import Any, Optional
-
-from fastapi.responses import JSONResponse
-from pydantic import BaseModel
-
-from app.model.enum import MsgStatus, CodeStatus
+from enum import Enum
 
 
-# 统一返回类
-class RepoResult(BaseModel):
-    code: Optional[int] = None
-    msg: Optional[str] = None
-    data: Optional[Any] = None
-
-    @staticmethod
-    def success(code: int = CodeStatus.SUCCESS.value, msg: str = MsgStatus.SUCCESS_MESSAGE.value,
-                data: Any = None) -> 'JSONResponse':
-        return JSONResponse(
-            status_code=CodeStatus.SUCCESS.value,
-            content=RepoResult(code=code, msg=msg, data=data).model_dump()
-        )
-
-    @staticmethod
-    def error(code: int = CodeStatus.FAILURE.value, msg: str = MsgStatus.FAILURE_MESSAGE.value,
-              data: Any = None) -> 'JSONResponse':
-        return JSONResponse(
-            status_code=CodeStatus.FAILURE.value,
-            content=RepoResult(code=code, msg=msg, data=data).model_dump()
-        )
+# 状态码枚举
+class CodeStatus(Enum):
+    SUCCESS = 200
+    FAILURE = 400
+    NOT_FOUND = 404
+    INTERNAL_SERVER_ERROR = 500
+    UNAUTHORIZED = 401
+    FORBIDDEN = 403
+    BAD_REQUEST = 400
+    NOT_IMPLEMENTED = 501
+    METHOD_NOT_ALLOWED = 405
+    CONFLICT = 409
+    UNPROCESSABLE_ENTITY = 422
+    TOO_MANY_REQUESTS = 429

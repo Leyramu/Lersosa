@@ -11,7 +11,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from nacos import NacosClient
 
-from app.config import NacosConfig, ServerConfig
+from app.common.config import NacosConfig, ServerConfig
 
 
 # Nacos客户端包装类

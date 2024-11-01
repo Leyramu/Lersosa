@@ -5,11 +5,26 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
+from app.controller.request import TestRequest
+from app.model.entity import Test
+
+
 class TestService:
 
     @staticmethod
-    async def read_items():
-        return {"你好", "世界"}
+    async def read_items(data: TestRequest = None):
+        if data:
+            print(data.string)
+
+        data = [
+            {"id": 1, "name": "张三", "age": 30, "address": "北京", "sex": "男"},
+            {"id": 2, "name": "李四", "age": 25, "address": "上海"},
+            {"id": 3, "name": "王五", "age": 35, "address": "广州"}
+        ]
+
+        test_items = [Test(**item) for item in data]
+
+        return test_items
 
     @staticmethod
     async def read_item(item_id):
