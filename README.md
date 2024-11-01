@@ -44,9 +44,6 @@ LeyramuLersosa    多语言混合开发框架
 ├─lersosa-java    Java 后端
 │  ├─lersosa-api    微服务 API 模块
 │  │  └─lersosa-api-system    系统模块
-│  ├─lersosa-cloud    微服务核心模块
-│  │  ├─lersosa-cloud-resgistry    注册中心模块
-│  │  └─lersosa-cloud-sentinel    限流熔断模块
 │  ├─lersosa-gateway    微服务网关模块
 │  │  └─lersosa-gateway-api    API 网关模块
 │  ├─lersosa-common    微服务公共模块
@@ -70,6 +67,8 @@ LeyramuLersosa    多语言混合开发框架
 │  │  ├─lersosa-service-system    系统业务模块
 │  │  └─lersosa-service-openai    OpenAI 业务模块
 │  ├─lersosa-visual    微服务可视化模块
+│  │  ├─lersosa-visual-resgistry    注册中心模块
+│  │  └─lersosa-visual-sentinel    限流熔断模块
 │  │  └─lersosa-visual-monitor    微服务监控模块
 │  └─lersosa-web    微服务页面渲染模块
 │      ├─lersosa-web-search    搜索渲染模块
