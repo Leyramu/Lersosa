@@ -9,6 +9,7 @@ import uvicorn
 
 from app import application
 
+# 运行
 if __name__ == "__main__":
     # 开发模式
     uvicorn.run(application, env_file=".env.development", host="127.0.0.1", port=8000, log_level="info")

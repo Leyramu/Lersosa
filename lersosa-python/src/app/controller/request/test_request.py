@@ -8,5 +8,6 @@
 from pydantic import BaseModel
 
 
+# 测试请求类
 class TestRequest(BaseModel):
     string: str

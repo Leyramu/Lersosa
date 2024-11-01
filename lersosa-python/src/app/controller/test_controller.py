@@ -11,6 +11,7 @@ from app.controller.request import TestRequest
 from app.service import TestService
 
 
+#  测试控制器
 class TestController(BaseController):
     """
     TestController类继承自BaseController，用于处理与测试相关的API请求。
@@ -30,7 +31,7 @@ class TestController(BaseController):
     # 实例化测试服务
     testService = TestService()
 
-    @Get("/")
+    @Get("")
     async def read_items(self, data: TestRequest = None):
         """
         处理GET请求，返回测试项的数据。

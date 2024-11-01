@@ -9,8 +9,10 @@ from app.controller.request import TestRequest
 from app.model.entity import Test
 
 
+# 测试业务逻辑
 class TestService:
 
+    # 获取所有数据
     @staticmethod
     async def read_items(data: TestRequest = None):
         if data:
@@ -25,11 +27,3 @@ class TestService:
         test_items = [Test(**item) for item in data]
 
         return test_items
-
-    @staticmethod
-    async def read_item(item_id):
-        return {"111"}
-
-    @staticmethod
-    async def update_item(item_id):
-        return {"222"}

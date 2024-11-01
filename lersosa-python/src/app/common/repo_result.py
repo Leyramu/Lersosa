@@ -19,6 +19,7 @@ class RepoResult(BaseModel):
     msg: Optional[str] = None
     data: Optional[Any] = None
 
+    # 成功方法
     @staticmethod
     def success(code: int = CodeStatus.SUCCESS.value, msg: str = MsgStatus.SUCCESS_MESSAGE.value,
                 data: Any = None) -> 'JSONResponse':
@@ -27,6 +28,7 @@ class RepoResult(BaseModel):
             content=RepoResult(code=code, msg=msg, data=data).model_dump()
         )
 
+    # 失败方法
     @staticmethod
     def error(code: int = CodeStatus.FAILURE.value, msg: str = MsgStatus.FAILURE_MESSAGE.value,
               data: Any = None) -> 'JSONResponse':

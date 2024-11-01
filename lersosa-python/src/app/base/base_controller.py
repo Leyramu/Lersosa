@@ -10,11 +10,15 @@ from inspect import iscoroutinefunction
 from fastapi import APIRouter
 
 
+#  路由控制器
 class BaseController(APIRouter):
+
+    # 初始化
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.register_routes()
 
+    # Get 装饰器
     @staticmethod
     def get(path, *args, **kwargs):
         def decorator(func):
@@ -23,6 +27,7 @@ class BaseController(APIRouter):
 
         return decorator
 
+    # Post 装饰器
     @staticmethod
     def post(path, *args, **kwargs):
         def decorator(func):
@@ -31,6 +36,7 @@ class BaseController(APIRouter):
 
         return decorator
 
+    # Put 装饰器
     @staticmethod
     def put(path, *args, **kwargs):
         def decorator(func):
@@ -39,6 +45,7 @@ class BaseController(APIRouter):
 
         return decorator
 
+    # Delete 装饰器
     @staticmethod
     def delete(path, *args, **kwargs):
         def decorator(func):
@@ -47,6 +54,7 @@ class BaseController(APIRouter):
 
         return decorator
 
+    # 路由注册
     def register_routes(self):
         for name in dir(self):
             method = getattr(self, name)

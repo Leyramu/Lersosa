@@ -77,9 +77,18 @@ LeyramuLersosa    多语言混合开发框架
 ├─lersosa-python    Python 算法端
 │  └─src    源代码目录
 │       ├─app    应用模块
-│       │  ├─routes    路由模块
-│       │  └─utils    工具模块
-│       └─center    注册中心模块
+│       │  ├─base    基础模块
+│       │  ├─common    通用模块
+│       │  │  ├─config    配置模块
+│       │  │  └─nacos     配置中心模块
+│       │  ├─model    模型模块
+│       │  │  ├─entity    实体模块
+│       │  │  └─enum     枚举模块
+│       │  ├─service    服务模块
+│       │  ├─controller    控制器模块
+│       │  ├─core    核心模块
+│       │  └─exception    异常模块
+│       └─model    模型模块
 └─lersosa-vite    Vite 前端
     ├─lersosa-vite-admin    前端管理层模块
     └─lersosa-vite-user    前端用户层模块

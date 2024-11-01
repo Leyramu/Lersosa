@@ -11,15 +11,21 @@ from app.common import RepoResult
 from app.model.enum import CodeStatus
 
 
+# 异常处理
 class ExceptionHandlers:
+
+    # 初始化
     def __init__(self, app: FastAPI):
         self.app = app
 
+    # 添加异常处理器
     def add_exception_handlers(self):
+        # 自定义异常处理器
         @self.app.exception_handler(HTTPException)
         async def http_exception_handler(_request: Request, exc: HTTPException):
             return RepoResult.error(code=exc.status_code, msg=exc.detail)
 
+        # 全局异常处理器
         @self.app.exception_handler(Exception)
         async def global_exception_handler(_request: Request, exc: Exception):
             return RepoResult.error(code=CodeStatus.INTERNAL_SERVER_ERROR.value, msg=str(exc))
