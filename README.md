@@ -95,7 +95,7 @@ LeyramuLersosa    多语言混合开发框架
 
 ## 8. 技术栈
 
-1. 算法端：Python、Flask、Flask-RESTful
+1. 算法端：Python、FastAPI
 2. 后端：Java、Spring Cloud、Spring Boot、Spring Security、Spring Data JPA、Spring Cloud Gateway、Spring Cloud OpenFeign、Spring
    Cloud Alibaba、Spring Cloud Stream、Spring Cloud Config、Spring Cloud Sleuth、Spring Cloud
    Zipkin、Redis、MySQL、Docker、Nacos、Swagger、JWT、JWT-OAuth2.0、Feign、Hystrix、RabbitMQ、Shiro、MyBatis、MyBatis-Plus、Lombok、Fastjson、Jackson
