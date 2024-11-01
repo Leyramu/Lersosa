@@ -17,4 +17,4 @@ class NacosConfig:
     NACOS_PASSWORD = os.getenv('NACOS_PASSWORD', 'Zcx@223852//')
     NACOS_DATA_ID = os.getenv('NACOS_DATA_ID', 'lersosa-service-python.yml')
     NACOS_SERVICE_NAME = os.getenv('NACOS_SERVICE_NAME', 'lersosa-service-python')
-    HEARTBEAT_INTERVAL = os.getenv('HEARTBEAT_INTERVAL', 10)
+    HEARTBEAT_INTERVAL = int(os.getenv('HEARTBEAT_INTERVAL', '10'))
