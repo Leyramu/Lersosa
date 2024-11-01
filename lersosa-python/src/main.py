@@ -13,5 +13,8 @@ if __name__ == "__main__":
     # 开发模式
     uvicorn.run(application, env_file=".env.development", host="127.0.0.1", port=8000, log_level="info")
 
+    # 灰度模式
+    # uvicorn.run(application, env_file=".env.staging", host="211.64.41.127", port=8000, log_level="info")
+
     # 生产模式
     # uvicorn.run(application, env_file=".env.production", host="lersosa.leyramu.top", port=8000, log_level="info")

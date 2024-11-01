@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="LersosaPythonAppDev" type="Python.FastAPI">
-    <option name="additionalOptions" value="--reload --host=211.64.41.127 --port=8000 --env-file .env.development" />
+    <option name="additionalOptions" value="--reload --host=localhost --port=8000 --env-file .env.development" />
     <option name="appName" value="application" />
     <option name="file" value="D:\CodesProject\Java\LeyramuLersosa\lersosa-python\src\app\bootstrap.py" />
     <module name="lersosa-python" />
