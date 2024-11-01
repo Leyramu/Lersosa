@@ -5,4 +5,4 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
-from .nacos_client import lifespan
+from .nacos_client import NacosClientWrapper

@@ -6,18 +6,16 @@
 
 
 import asyncio
-from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
 from nacos import NacosClient
 
-from app.common.config import NacosConfig, ServerConfig
+from app.common.config import NacosConfig
 
 
-# Nacos客户端包装类
-class NacosClientWrapper:
+# Nacos客户端包装类，继承自NacosClient
+class NacosClientWrapper(NacosClient):
     def __init__(self):
-        self.nacos_client = NacosClient(
+        super().__init__(
             server_addresses=NacosConfig.NACOS_SERVER_ADDR,
             namespace=NacosConfig.NACOS_NAMESPACE,
             username=NacosConfig.NACOS_USERNAME,
@@ -26,7 +24,7 @@ class NacosClientWrapper:
 
     # 注册服务
     async def register_service(self, service_name, group_name, ip, port):
-        self.nacos_client.add_naming_instance(
+        self.add_naming_instance(
             service_name=service_name,
             group_name=group_name,
             ip=ip,
@@ -37,7 +35,7 @@ class NacosClientWrapper:
     async def service_heartbeat(self, service_name, group_name, ip, port):
         while True:
             try:
-                self.nacos_client.send_heartbeat(
+                self.send_heartbeat(
                     service_name=service_name,
                     group_name=group_name,
                     ip=ip,
@@ -49,47 +47,9 @@ class NacosClientWrapper:
 
     # 注销服务
     async def unregister_service(self, service_name, group_name, ip, port):
-        self.nacos_client.remove_naming_instance(
+        self.remove_naming_instance(
             service_name=service_name,
             group_name=group_name,
             ip=ip,
             port=port
         )
-
-
-# 创建Nacos客户端实例
-nacos_client = NacosClientWrapper()
-
-
-# 生命周期管理
-@asynccontextmanager
-async def lifespan(_app: FastAPI):
-    # 获取当前服务的信息
-    service_name = NacosConfig.NACOS_SERVICE_NAME
-    group_name = NacosConfig.NACOS_GROUP
-    ip = ServerConfig.SERVER_IP
-    port = ServerConfig.SERVER_PORT
-
-    # 注册服务到Nacos
-    await nacos_client.register_service(service_name, group_name, ip, port)
-
-    # 启动心跳任务
-    heartbeat_task = asyncio.create_task(nacos_client.service_heartbeat(service_name, group_name, ip, port))
-
-    try:
-        yield
-    finally:
-        # 取消心跳任务
-        heartbeat_task.cancel()
-        try:
-            # 等待心跳任务完成或被取消
-            await asyncio.wait_for(heartbeat_task, timeout=1)
-        except asyncio.exceptions.CancelledError:
-            # 如果心跳任务被取消，忽略错误
-            pass
-        except asyncio.exceptions.TimeoutError:
-            # 如果等待超时，忽略错误
-            pass
-
-    # 注销服务
-    await nacos_client.unregister_service(service_name, group_name, ip, port)

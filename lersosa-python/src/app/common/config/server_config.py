@@ -8,7 +8,7 @@
 import os
 
 
-# 网关配置类
+# 服务器配置类
 class ServerConfig:
     SERVER_IP = os.getenv('SERVER_IP', 'localhost')
     SERVER_PORT = os.getenv('SERVER_PORT', 8000)

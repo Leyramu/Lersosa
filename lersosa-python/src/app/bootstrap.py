@@ -5,29 +5,32 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.common import RepoResult
-from app.common.nacos import lifespan
 from app.controller import controllers
-from app.model.enum import CodeStatus
+from app.core import NacosLifecycle
+from app.exception import ExceptionHandlers
 
 
-# 创建FastAPI应用实例
-class App:
+# 创建FastAPI应用实例，继承自FastAPI
+class App(FastAPI):
     def __init__(self):
-        self.app = FastAPI(lifespan=lifespan)
+        super().__init__(
+            lifespan=NacosLifecycle(self).lifespan
+        )
         self._register_routes()
         self._add_middlewares()
         self._add_exception_handlers()
         self._add_root_route()
 
+    # 注册路由
     def _register_routes(self):
-        self.app.include_router(controllers)
+        self.include_router(controllers)
 
+    # 添加中间件
     def _add_middlewares(self):
-        self.app.add_middleware(
+        self.add_middleware(
             CORSMiddleware,  # type: ignore
             allow_origins=["*"],
             allow_credentials=True,
@@ -35,20 +38,17 @@ class App:
             allow_headers=["*"],
         )
 
+    # 添加异常处理器
     def _add_exception_handlers(self):
-        @self.app.exception_handler(HTTPException)
-        async def http_exception_handler(_request: Request, exc: HTTPException):
-            return RepoResult.error(code=exc.status_code, msg=exc.detail)
+        exception_handlers = ExceptionHandlers(self)
+        exception_handlers.add_exception_handlers()
 
-        @self.app.exception_handler(Exception)
-        async def global_exception_handler(_request: Request, exc: Exception):
-            return RepoResult.error(code=CodeStatus.INTERNAL_SERVER_ERROR.value, msg=str(exc))
-
+    # 添加根路由
     def _add_root_route(self):
-        @self.app.get("/")
+        @self.get("/")
         async def root():
             return {"message": "欢迎使用 Leyramu 内部网关！"}
 
 
 # 创建应用实例
-app = App().app
+application = App()

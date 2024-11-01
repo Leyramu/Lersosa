@@ -5,4 +5,4 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
-from .app import app
+from .bootstrap import application

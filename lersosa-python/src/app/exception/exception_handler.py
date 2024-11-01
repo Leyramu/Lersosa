@@ -5,5 +5,21 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
-from .nacos_config import NacosConfig
-from .server_config import ServerConfig
+from fastapi import FastAPI, Request, HTTPException
+
+from app.common import RepoResult
+from app.model.enum import CodeStatus
+
+
+class ExceptionHandlers:
+    def __init__(self, app: FastAPI):
+        self.app = app
+
+    def add_exception_handlers(self):
+        @self.app.exception_handler(HTTPException)
+        async def http_exception_handler(_request: Request, exc: HTTPException):
+            return RepoResult.error(code=exc.status_code, msg=exc.detail)
+
+        @self.app.exception_handler(Exception)
+        async def global_exception_handler(_request: Request, exc: Exception):
+            return RepoResult.error(code=CodeStatus.INTERNAL_SERVER_ERROR.value, msg=str(exc))
