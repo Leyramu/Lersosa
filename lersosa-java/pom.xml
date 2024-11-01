@@ -57,6 +57,22 @@
                 <role>contributor</role>
             </roles>
         </developer>
+
+        <!--      第二开发者      -->
+        <developer>
+            <id>yuyeyuyy</id>
+            <name>Chenhb</name>
+            <email>3267745251@qq.com</email>
+            <url>https://github.com/yuyeyuyy</url>
+            <organization>leyramu</organization>
+            <organizationUrl>https://github.com/Leyramu</organizationUrl>
+            <timezone>+8</timezone>
+            <roles>
+                <role>developer</role>
+                <role>maintainer</role>
+                <role>contributor</role>
+            </roles>
+        </developer>
     </developers>
 
     <!--      SCM 信息      -->

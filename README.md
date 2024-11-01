@@ -67,7 +67,7 @@ LeyramuLersosa    多语言混合开发框架
 │  │  ├─lersosa-service-system    系统业务模块
 │  │  └─lersosa-service-openai    OpenAI 业务模块
 │  ├─lersosa-visual    微服务可视化模块
-│  │  ├─lersosa-visual-resgistry    注册中心模块
+│  │  ├─lersosa-visual-nacos    注册中心模块
 │  │  └─lersosa-visual-sentinel    限流熔断模块
 │  │  └─lersosa-visual-monitor    微服务监控模块
 │  └─lersosa-web    微服务页面渲染模块
@@ -95,7 +95,7 @@ LeyramuLersosa    多语言混合开发框架
 
 ## 8. 技术栈
 
-1. 算法端：Python、FastAPI
+1. 算法端：Python、FastAPI、Nacos
 2. 后端：Java、Spring Cloud、Spring Boot、Spring Security、Spring Data JPA、Spring Cloud Gateway、Spring Cloud OpenFeign、Spring
    Cloud Alibaba、Spring Cloud Stream、Spring Cloud Config、Spring Cloud Sleuth、Spring Cloud
    Zipkin、Redis、MySQL、Docker、Nacos、Swagger、JWT、JWT-OAuth2.0、Feign、Hystrix、RabbitMQ、Shiro、MyBatis、MyBatis-Plus、Lombok、Fastjson、Jackson
@@ -103,7 +103,8 @@ LeyramuLersosa    多语言混合开发框架
 
 ## 9. 贡献
 
-1. 后端贡献者：[Miraitowa_zcx](https://github.com/Miraitowa-zcx)
+1. 框架贡献者：[Miraitowa_zcx](https://github.com/Miraitowa-zcx)
+2. 框架贡献者：[Chenhb](https://github.com/yuyeyuyy)
 
 ## 10. 版权声明
 

@@ -13,6 +13,7 @@ from fastapi import FastAPI
 from app.common.config import NacosConfig, ServerConfig
 from app.common.nacos import NacosClientWrapper
 
+
 #  Nacos 生命周期管理
 class NacosLifecycle:
     def __init__(self, app: FastAPI):
