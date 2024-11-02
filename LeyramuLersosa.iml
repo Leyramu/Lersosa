@@ -9,6 +9,7 @@
       <excludeFolder url="file://$MODULE_DIR$/docker/mysql" />
       <excludeFolder url="file://$MODULE_DIR$/docker/redis" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/.conda" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

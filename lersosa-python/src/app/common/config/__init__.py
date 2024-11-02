@@ -5,5 +5,6 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
+from .model_config import ModelConfig
 from .nacos_config import NacosConfig
 from .server_config import ServerConfig

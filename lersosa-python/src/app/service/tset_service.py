@@ -5,6 +5,8 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
+from algo.ultralytics.models import YOLO
+from app.common.config import ModelConfig
 from app.controller.request import TestRequest
 from app.model.entity import Test
 
@@ -14,16 +16,17 @@ class TestService:
 
     # 获取所有数据
     @staticmethod
-    async def read_items(data: TestRequest = None):
-        if data:
-            print(data.string)
+    async def read_items(param: TestRequest = None):
+        # 测试传参
+        if param is not None:
+            print(param.image_base64)
 
-        data = [
-            {"id": 1, "name": "张三", "age": 30, "address": "北京", "sex": "男"},
-            {"id": 2, "name": "李四", "age": 25, "address": "上海"},
-            {"id": 3, "name": "王五", "age": 35, "address": "广州"}
-        ]
+        model = YOLO(model=ModelConfig.MODEL_PATH)
+        data = model.predict(
+            # source=param.base64_to_img(),
+            source=ModelConfig.MODEL_SOURCES,
+            save=False,
+            show=False,
+        )
 
-        test_items = [Test(**item) for item in data]
-
-        return test_items
+        return Test(img_array=data[0].plot()).numpy_to_base64()

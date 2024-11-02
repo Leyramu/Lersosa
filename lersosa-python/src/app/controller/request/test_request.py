@@ -5,9 +5,22 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
+import base64
+import io
+
+import cv2
+import numpy as np
+from PIL import Image
 from pydantic import BaseModel
 
 
 # 测试请求类
 class TestRequest(BaseModel):
-    string: str
+    image_base64: str = None
+
+    # 将base64转换为图片
+    def base64_to_img(self):
+        image_data = base64.b64decode(self.image_base64)
+        image = Image.open(io.BytesIO(image_data))
+        img_array = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+        return img_array

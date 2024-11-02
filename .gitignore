@@ -1,4 +1,5 @@
 # 环境文件
+/.conda/
 /.jdks/
 /.venv/
 /.idea/shelf/
