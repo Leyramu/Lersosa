@@ -5,11 +5,11 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
-from enum import Enum
+from enum import StrEnum
 
 
 # 状态消息枚举
-class MsgStatus(Enum):
+class MsgStatus(StrEnum):
     INTERNAL_SERVER_ERROR_MESSAGE = "服务器内部错误"
     NOT_FOUND_MESSAGE = "未找到"
     UNAUTHORIZED_MESSAGE = "未授权"

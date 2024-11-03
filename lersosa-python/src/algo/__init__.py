@@ -5,4 +5,4 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
-from algo import *
+from algo import ultralytics

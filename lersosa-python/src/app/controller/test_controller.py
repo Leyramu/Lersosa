@@ -27,11 +27,7 @@ class TestController(BaseController):
             tags=["test"],
             responses={404: {"description": "Not found"}},
         )
-
-    # 实例化测试服务
-    testService = TestService()
-
-    @Get("/")
+    @Get("")
     async def read_items(self, param: TestRequest = None):
         """
         处理GET请求，返回测试项的数据。
@@ -40,5 +36,5 @@ class TestController(BaseController):
             RepoResult: 包含测试项数据的RepoResult对象。
         """
         return RepoResult.success(
-            data=await self.testService.read_items(param)
+            data=await TestService.read_items(param)
         )

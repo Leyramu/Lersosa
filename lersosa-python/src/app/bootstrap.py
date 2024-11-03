@@ -9,8 +9,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.controller import controllers
-from app.core import NacosLifecycle
-from app.exception import ExceptionHandlers
+from app.core.context import NacosLifecycle
+from app.core.exception import ExceptionHandlers
 
 
 # 创建FastAPI应用实例，继承自FastAPI

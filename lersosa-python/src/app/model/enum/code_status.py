@@ -5,11 +5,11 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
-from enum import Enum
+from enum import IntEnum
 
 
 # 状态码枚举
-class CodeStatus(Enum):
+class CodeStatus(IntEnum):
     SUCCESS = 200
     FAILURE = 400
     NOT_FOUND = 404

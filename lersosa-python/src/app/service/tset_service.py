@@ -5,7 +5,8 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
-from algo.ultralytics.models import YOLO
+from ultralytics import YOLO
+
 from app.common.config import ModelConfig
 from app.controller.request import TestRequest
 from app.model.entity import Test
