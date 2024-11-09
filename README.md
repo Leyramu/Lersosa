@@ -121,32 +121,32 @@ Lersosa    多语言混合开发框架
 │      └─lersosa-web-page    页面渲染模块
 ├─lersosa-python    Python 算法端
 │  └─src    源代码目录
-│       ├─algo    算法模块
-│       │  └─data    数据模块
-│       │      ├─processed    数据处理模块
-│       │      │  ├─test    测试数据模块
-│       │      │  ├─train    训练数据模块
-│       │      │  └─validation    数据校验模块
-│       │      └─raw    原始数据模块
-│       ├─app    应用模块
-│       │  ├─base    基础模块
-│       │  ├─common    通用模块
-│       │  │  ├─config    配置模块
-│       │  │  ├─domain    域模块
-│       │  │  └─nacos     配置中心模块
-│       │  ├─domain    模型模块
-│       │  │  ├─entity    实体模块
-│       │  │  └─enum     枚举模块
-│       │  ├─service    服务模块
-│       │  ├─controller    控制器模块
-│       │  │  └─request    请求模块
-│       │  └─core    核心模块
-│       │      ├─context    上下文模块
-│       │      ├─exception    异常模块
-│       │      └─rpc    RPC 模块
-│       ├─model    模型模块
-│       └─proto    协议模块
-│           └─rpc    RPC 协议模块
+│      ├─algo    算法模块
+│      │  └─data    数据模块
+│      │      ├─processed    数据处理模块
+│      │      │  ├─test    测试数据模块
+│      │      │  ├─train    训练数据模块
+│      │      │  └─validation    数据校验模块
+│      │      └─raw    原始数据模块
+│      ├─app    应用模块
+│      │  ├─base    基础模块
+│      │  ├─common    通用模块
+│      │  │  ├─config    配置模块
+│      │  │  ├─domain    域模块
+│      │  │  └─nacos     配置中心模块
+│      │  ├─domain    模型模块
+│      │  │  ├─entity    实体模块
+│      │  │  └─enum     枚举模块
+│      │  ├─service    服务模块
+│      │  ├─controller    控制器模块
+│      │  │  └─request    请求模块
+│      │  └─core    核心模块
+│      │      ├─context    上下文模块
+│      │      ├─exception    异常模块
+│      │      └─rpc    RPC 模块
+│      ├─model    模型模块
+│      └─proto    协议模块
+│          └─rpc    RPC 协议模块
 ├─lersosa-vite    Vite 前端
 │  ├─lersosa-vite-admin    前端管理层模块
 │  │  ├─bin    编译脚本
