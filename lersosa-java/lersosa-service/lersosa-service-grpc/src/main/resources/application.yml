@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: @pom.artifactId@
+  profiles:
+    active: @PROFILE-ACTIVE@
+
+server:
+  port: ${SERVER_PORT:6000}
+
+grpc:
+  server:
+    port: ${SERVER_PORT:6001}

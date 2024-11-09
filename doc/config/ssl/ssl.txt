@@ -1,0 +1,124 @@
+/*
+ * Copyright (c) 2024 Leyramu. All rights reserved.
+ * This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+ * For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+ * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+ * By using this project, users acknowledge and agree to abide by these terms and conditions.
+ */
+
+
+ => Miraitowa_zcx【名称】
+ => Leyramu【组织单位、组织】
+ => ShanDong【城市区域名称】
+ => JiNan【省市区名称】
+ => zh【国家】
+
+
+---开始---lersosa-cloud-nacos---开始---
+
+生成证书命令（域名）：keytool -genkey -alias lersosa-cloud-nacos -keyalg RSA -keysize 2048 -storetype PKCS12 -validity 3650 -keystore scg-keystore.p12 -ext san=ip:127.0.0.1,dns:localhost -storepass Zcx@223852//
+
+nginx证书：openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/key.pem -out /opt/cert.pem
+
+导出证书：keytool -export -alias lersosa-cloud-nacos -file nacos.crt -keystore scg-keystore.p12 -storepass Zcx@223852//
+
+导入JDK（密码：Zcx@223852//）：keytool -import -alias <别名> -keystore <Java Home路径>\lib\security\cacerts -file <证书名称>
+
+---结束---lersosa-cloud-register---结束---
+
+
+==========================================================================================================================================================================
+
+
+---开始---lersosa-gateway-api---开始---
+
+生成证书命令（域名）：keytool -genkey -alias lersosa-gateway-api -keyalg RSA -keysize 2048 -storetype PKCS12 -validity 3650 -keystore scg-keystore.p12 -ext san=ip:127.0.0.1,dns:localhost -storepass Zcx@223852//
+
+nginx证书：openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/key.pem -out /opt/cert.pem
+
+---结束---lersosa-gateway-api---结束---
+
+
+==========================================================================================================================================================================
+
+
+---开始---lersosa-service-auth---开始---
+
+生成证书命令（域名）：keytool -genkey -alias lersosa-service-auth -keyalg RSA -keysize 2048 -storetype PKCS12 -validity 3650 -keystore scg-keystore.p12 -ext san=ip:127.0.0.1,dns:localhost -storepass Zcx@223852//
+
+nginx证书：openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/key.pem -out /opt/cert.pem
+
+---结束---lersosa-service-auth---结束---
+
+
+==========================================================================================================================================================================
+
+
+---开始---lersosa-service-file---开始---
+
+生成证书命令（域名）：keytool -genkey -alias lersosa-service-file -keyalg RSA -keysize 2048 -storetype PKCS12 -validity 3650 -keystore scg-keystore.p12 -ext san=ip:127.0.0.1,dns:localhost -storepass Zcx@223852//
+
+nginx证书：openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/key.pem -out /opt/cert.pem
+
+---结束---lersosa-service-file---结束---
+
+
+==========================================================================================================================================================================
+
+
+---开始---lersosa-service-gen---开始---
+
+生成证书命令（域名）：keytool -genkey -alias lersosa-service-gen -keyalg RSA -keysize 2048 -storetype PKCS12 -validity 3650 -keystore scg-keystore.p12 -ext san=ip:127.0.0.1,dns:localhost -storepass Zcx@223852//
+
+nginx证书：openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/key.pem -out /opt/cert.pem
+
+---结束---lersosa-service-gen---结束---
+
+
+==========================================================================================================================================================================
+
+
+---开始---lersosa-service-job---开始---
+
+生成证书命令（域名）：keytool -genkey -alias lersosa-service-job -keyalg RSA -keysize 2048 -storetype PKCS12 -validity 3650 -keystore scg-keystore.p12 -ext san=ip:127.0.0.1,dns:localhost -storepass Zcx@223852//
+
+nginx证书：openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/key.pem -out /opt/cert.pem
+
+---结束---lersosa-service-job---结束---
+
+
+==========================================================================================================================================================================
+
+
+---开始---lersosa-service-openai---开始---
+
+生成证书命令（域名）：keytool -genkey -alias lersosa-service-openai -keyalg RSA -keysize 2048 -storetype PKCS12 -validity 3650 -keystore scg-keystore.p12 -ext san=ip:127.0.0.1,dns:localhost -storepass Zcx@223852//
+
+nginx证书：openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/key.pem -out /opt/cert.pem
+
+---结束---lersosa-service-openai---结束---
+
+
+==========================================================================================================================================================================
+
+
+---开始---lersosa-service-system---开始---
+
+生成证书命令（域名）：keytool -genkey -alias lersosa-service-system -keyalg RSA -keysize 2048 -storetype PKCS12 -validity 3650 -keystore scg-keystore.p12 -ext san=ip:127.0.0.1,dns:localhost -storepass Zcx@223852//
+
+nginx证书：openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/key.pem -out /opt/cert.pem
+
+---结束---lersosa-service-system---结束---
+
+
+==========================================================================================================================================================================
+
+
+---开始---lersosa-visual-monitor---开始---
+
+生成证书命令（域名）：keytool -genkey -alias lersosa-visual-monitor -keyalg RSA -keysize 2048 -storetype PKCS12 -validity 3650 -keystore scg-keystore.p12 -ext san=ip:127.0.0.1,dns:localhost -storepass Zcx@223852//
+
+nginx证书：openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /opt/key.pem -out /opt/cert.pem
+
+---结束---lersosa-visual-monitor---结束---
+

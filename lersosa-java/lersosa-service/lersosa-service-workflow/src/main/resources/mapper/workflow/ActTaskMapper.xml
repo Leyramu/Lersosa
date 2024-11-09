@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?><!--
+  ~ Copyright (c) 2024 Leyramu. All rights reserved.
+  ~ This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  ~ For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  ~ The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  ~ By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="leyramu.framework.lersosa.workflow.mapper.ActTaskMapper">
+    <resultMap id="TaskVoResult" type="leyramu.framework.lersosa.workflow.domain.vo.TaskVo">
+        <result column="ID_" property="id" />
+        <result column="NAME_" property="name" />
+        <result column="DESCRIPTION_" property="description" />
+        <result column="PRIORITY_" property="priority" />
+        <result column="OWNER_" property="owner" />
+        <result column="ASSIGNEE_" property="assignee" />
+        <result column="PROC_INST_ID_" property="processInstanceId" />
+        <result column="EXECUTION_ID_" property="executionId" />
+        <result column="TASK_DEF_ID_" property="taskDefinitionId" />
+        <result column="PROC_DEF_ID_" property="processDefinitionId" />
+        <result column="CREATE_TIME_" property="createTime" />
+        <result column="START_TIME_" property="startTime" />
+        <result column="END_TIME_" property="endTime" />
+        <result column="TASK_DEF_KEY_" property="taskDefinitionKey" />
+        <result column="DUE_DATE_" property="dueDate" />
+        <result column="CATEGORY_" property="category" />
+        <result column="PARENT_TASK_ID_" property="parentTaskId" />
+        <result column="TENANT_ID_" property="tenantId" />
+        <result column="CLAIM_TIME" property="claimTime" />
+        <result column="BUSINESS_STATUS_" property="businessStatus" />
+        <result column="processDefinitionName" property="processDefinitionName" />
+        <result column="processDefinitionKey" property="processDefinitionKey" />
+        <result column="processDefinitionVersion" property="processDefinitionVersion" />
+        <result column="BUSINESS_KEY_" property="businessKey" />
+
+    </resultMap>
+    <select id="getTaskWaitByPage" resultMap="TaskVoResult">
+        select *
+        from (SELECT RES.*,
+                     AHP.BUSINESS_STATUS_,
+                     AHP.BUSINESS_KEY_,
+                     ARP.NAME_    AS processDefinitionName,
+                     ARP.KEY_     AS processDefinitionKey,
+                     ARP.VERSION_ AS processDefinitionVersion
+              FROM ACT_RU_TASK RES
+                       INNER JOIN ACT_HI_PROCINST AHP ON RES.PROC_INST_ID_ = AHP.PROC_INST_ID_
+                       INNER JOIN ACT_RE_PROCDEF ARP ON ARP.ID_ = RES.PROC_DEF_ID_
+              WHERE RES.PARENT_TASK_ID_ IS NULL) t ${ew.getCustomSqlSegment}
+    </select>
+
+    <select id="getTaskFinishByPage" resultMap="TaskVoResult">
+        select *
+        from (SELECT HTI.*,
+                     AHP.BUSINESS_STATUS_,
+                     AHP.BUSINESS_KEY_,
+                     ARP.NAME_    AS processDefinitionName,
+                     ARP.KEY_     AS processDefinitionKey,
+                     ARP.VERSION_ AS processDefinitionVersion
+              FROM ACT_HI_TASKINST HTI
+                       INNER JOIN ACT_HI_PROCINST AHP ON HTI.PROC_INST_ID_ = AHP.PROC_INST_ID_
+                       INNER JOIN ACT_RE_PROCDEF ARP ON ARP.ID_ = HTI.PROC_DEF_ID_
+              WHERE HTI.PARENT_TASK_ID_ IS NULL
+                AND HTI.END_TIME_ IS NOT NULL) t ${ew.getCustomSqlSegment}
+    </select>
+
+    <select id="getTaskCopyByPage" resultMap="TaskVoResult">
+        select *
+        from (SELECT AHT.*,
+                     AHP.BUSINESS_STATUS_,
+                     AHP.BUSINESS_KEY_,
+                     ARP.NAME_    as processDefinitionName,
+                     ARP.KEY_     as processDefinitionKey,
+                     ARP.VERSION_ AS processDefinitionVersion
+              FROM ACT_HI_TASKINST AHT
+                       INNER JOIN ACT_HI_PROCINST AHP ON AHT.PROC_INST_ID_ = AHP.PROC_INST_ID_
+                       INNER JOIN ACT_RE_PROCDEF ARP ON ARP.ID_ = AHT.PROC_DEF_ID_
+              WHERE AHT.PARENT_TASK_ID_ IS NOT NULL
+                and AHT.scope_type_ = 'copy') t ${ew.getCustomSqlSegment}
+    </select>
+</mapper>

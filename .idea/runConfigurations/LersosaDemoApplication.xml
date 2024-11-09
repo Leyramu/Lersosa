@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="LersosaDemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="lersosa-example" nameIsGenerated="true">
+    <module name="lersosa-example-demo" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="leyramu.framework.lersosa.demo.LersosaDemoApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

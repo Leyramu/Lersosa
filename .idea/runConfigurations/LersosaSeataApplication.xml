@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="LersosaSeataApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="lersosa-visual" nameIsGenerated="true">
+    <module name="lersosa-visual-seata" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.seata.server.LersosaSeataApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

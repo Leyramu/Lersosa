@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="LersosaNacosApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="lersosa-visual" nameIsGenerated="true">
+    <module name="lersosa-visual-nacos" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.alibaba.nacos.LersosaNacosApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

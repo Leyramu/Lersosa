@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?><!--
+  ~ Copyright (c) 2024 Leyramu. All rights reserved.
+  ~ This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  ~ For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  ~ The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  ~ By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="leyramu.framework.lersosa.gen.mapper.GenTableMapper">
+
+    <!-- 多结构嵌套自动映射需带上每个实体的主键id 否则映射会失败 -->
+    <resultMap id="GenTableResult" type="leyramu.framework.lersosa.gen.domain.GenTable">
+        <id column="table_id" property="tableId" />
+        <collection javaType="java.util.List" property="columns" resultMap="GenTableColumnResult" />
+    </resultMap>
+
+    <resultMap id="GenTableColumnResult" type="leyramu.framework.lersosa.gen.domain.GenTableColumn">
+        <id column="column_id" property="columnId" />
+    </resultMap>
+
+    <sql id="genSelect">
+        SELECT t.table_id,
+               t.data_name,
+               t.table_name,
+               t.table_comment,
+               t.sub_table_name,
+               t.sub_table_fk_name,
+               t.class_name,
+               t.tpl_category,
+               t.package_name,
+               t.module_name,
+               t.business_name,
+               t.function_name,
+               t.function_author,
+               t.gen_type,
+               t.gen_path,
+               t.options,
+               t.remark,
+               c.column_id,
+               c.column_name,
+               c.column_comment,
+               c.column_type,
+               c.java_type,
+               c.java_field,
+               c.is_pk,
+               c.is_increment,
+               c.is_required,
+               c.is_insert,
+               c.is_edit,
+               c.is_list,
+               c.is_query,
+               c.query_type,
+               c.html_type,
+               c.dict_type,
+               c.sort
+        FROM gen_table t
+                 LEFT JOIN gen_table_column c ON t.table_id = c.table_id
+    </sql>
+
+    <select id="selectGenTableById" parameterType="Long" resultMap="GenTableResult">
+        <include refid="genSelect" />
+        where t.table_id = #{tableId} order by c.sort
+    </select>
+
+    <select id="selectGenTableByName" parameterType="String" resultMap="GenTableResult">
+        <include refid="genSelect" />
+        where t.table_name = #{tableName} order by c.sort
+    </select>
+
+    <select id="selectGenTableAll" parameterType="String" resultMap="GenTableResult">
+        <include refid="genSelect" />
+        order by c.sort
+    </select>
+
+    <select id="selectTableNameList" resultType="java.lang.String">
+        select table_name
+        from gen_table
+        where data_name = #{dataName,jdbcType=VARCHAR}
+    </select>
+</mapper>

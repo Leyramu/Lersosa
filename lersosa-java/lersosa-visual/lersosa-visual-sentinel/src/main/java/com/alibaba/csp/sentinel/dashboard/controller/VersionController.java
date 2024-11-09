@@ -1,0 +1,40 @@
+/*
+ * Copyright (c) 2024 Leyramu. All rights reserved.
+ * This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+ * For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+ * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+ * By using this project, users acknowledge and agree to abide by these terms and conditions.
+ */
+package com.alibaba.csp.sentinel.dashboard.controller;
+
+import com.alibaba.csp.sentinel.dashboard.domain.Result;
+import com.alibaba.csp.sentinel.util.StringUtil;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * @author hisenyuan
+ * @since 1.7.0
+ */
+@RestController
+public class VersionController {
+
+    private static final String VERSION_PATTERN = "-";
+
+    @Value("${sentinel.dashboard.version:}")
+    private String sentinelDashboardVersion;
+
+    @GetMapping("/version")
+    public Result<String> apiGetVersion() {
+        if (StringUtil.isNotBlank(sentinelDashboardVersion)) {
+            String res = sentinelDashboardVersion;
+            if (sentinelDashboardVersion.contains(VERSION_PATTERN)) {
+                res = sentinelDashboardVersion.substring(0, sentinelDashboardVersion.indexOf(VERSION_PATTERN));
+            }
+            return Result.ofSuccess(res);
+        } else {
+            return Result.ofFail(1, "getVersion failed: empty version");
+        }
+    }
+}

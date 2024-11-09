@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Lersosa.iml" filepath="$PROJECT_DIR$/Lersosa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lersosa-python/lersosa-python.iml" filepath="$PROJECT_DIR$/lersosa-python/lersosa-python.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lersosa-vite/lersosa-vite.iml" filepath="$PROJECT_DIR$/lersosa-vite/lersosa-vite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lersosa-vite/lersosa-vite-admin/lersosa-vite-admin.iml" filepath="$PROJECT_DIR$/lersosa-vite/lersosa-vite-admin/lersosa-vite-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lersosa-vite/lersosa-vite-user/lersosa-vite-user.iml" filepath="$PROJECT_DIR$/lersosa-vite/lersosa-vite-user/lersosa-vite-user.iml" />
+    </modules>
+  </component>
+</project>

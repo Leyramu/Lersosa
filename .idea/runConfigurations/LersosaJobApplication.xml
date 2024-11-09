@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="LersosaJobApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="lersosa-service" nameIsGenerated="true">
+    <module name="lersosa-service-job" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="leyramu.framework.lersosa.job.LersosaJobApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

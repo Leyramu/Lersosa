@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="GENERAL_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.jdks" />
+      <excludeFolder url="file://$MODULE_DIR$/logs" />
+      <excludeFolder url="file://$MODULE_DIR$/work" />
+      <excludeFolder url="file://$MODULE_DIR$/docker/minio" />
+      <excludeFolder url="file://$MODULE_DIR$/docker/mysql" />
+      <excludeFolder url="file://$MODULE_DIR$/docker/redis" />
+      <excludeFolder url="file://$MODULE_DIR$/sessionStore" />
+      <excludeFolder url="file://$MODULE_DIR$/.conda" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

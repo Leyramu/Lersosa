@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="LersosaMonitorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="lersosa-visual" nameIsGenerated="true">
+    <module name="lersosa-visual-monitor" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="leyramu.framework.lersosa.visual.monitor.LersosaMonitorApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

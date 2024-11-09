@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="LersosaGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="lersosa-gateway" nameIsGenerated="true">
+    <module name="lersosa-gateway-api" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="leyramu.framework.lersosa.gateway.api.LersosaGatewayApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

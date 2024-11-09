@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="LersosaTestMqApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="lersosa-example" nameIsGenerated="true">
+    <module name="lersosa-example-test-mq" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="leyramu.framework.lersosa.stream.LersosaTestMqApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

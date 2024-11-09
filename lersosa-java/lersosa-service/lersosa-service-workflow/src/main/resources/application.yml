@@ -1,0 +1,12 @@
+# Tomcat
+server:
+  port: 9205
+
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: @pom.artifactId@
+  profiles:
+    # 环境配置
+    active: @PROFILE-ACTIVE@

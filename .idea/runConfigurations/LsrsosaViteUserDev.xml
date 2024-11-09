@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="LsrsosaViteUserDev" type="js.build_tools.npm" folderName="vite-user">
+    <package-json value="$PROJECT_DIR$/lersosa-vite/lersosa-vite-user/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="dev" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>
