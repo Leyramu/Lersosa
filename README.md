@@ -1,3 +1,5 @@
+# 多语言混合开发框架
+
 ## 1. 概述
 
 本项目是一个开源的、跨平台的开发框架，旨在简化构建复杂应用程序的过程，支持多种编程语言和库的无缝集成。它的核心理念是让你能够在同一个项目中自由地使用
@@ -35,10 +37,23 @@ Java, Python, Go 等不同语言的优势，提供了一种高效且灵活的开
 3. Java 后端 Demo 运行使用 Java-22.0.2 测试通过
 4. Vue 前端 Demo 运行使用 Vite-5.4.10 测试通过
 
-## 3. 框架结构树
+## 7. 框架结构树
 
 ``` tree
-Lersosa    DevelopTalentRank
+Lersosa    多语言混合开发框架
+├─.idea    IDEA 配置文件
+├─doc     文档
+│  ├─bin      编译脚本
+│  ├─build     构建脚本
+│  ├─config    配置文件
+│  │  ├─maven    Maven 配置文件
+│  │  ├─nacos    Nacos 配置文件
+│  │  └─ssl     SSL 证书
+│  ├─db      数据库脚本
+│  └─deploy    部署脚本
+│  ├─nginx     Nginx 配置文件
+│  └─lersosa    工程部署文件
+├─docker      Docker 镜像
 ├─lersosa-java    Java 后端
 │  ├─lersosa-api    微服务 API 模块
 │  │  ├─lersosa-api-bom    API 依赖模块
@@ -107,23 +122,62 @@ Lersosa    DevelopTalentRank
 ├─lersosa-python    Python 算法端
 │  └─src    源代码目录
 │       ├─algo    算法模块
-│       │  └─ultimate    模型模块
+│       │  └─data    数据模块
+│       │      ├─processed    数据处理模块
+│       │      │  ├─test    测试数据模块
+│       │      │  ├─train    训练数据模块
+│       │      │  └─validation    数据校验模块
+│       │      └─raw    原始数据模块
 │       ├─app    应用模块
 │       │  ├─base    基础模块
 │       │  ├─common    通用模块
 │       │  │  ├─config    配置模块
+│       │  │  ├─domain    域模块
 │       │  │  └─nacos     配置中心模块
-│       │  ├─model    模型模块
+│       │  ├─domain    模型模块
 │       │  │  ├─entity    实体模块
 │       │  │  └─enum     枚举模块
 │       │  ├─service    服务模块
 │       │  ├─controller    控制器模块
-│       │  ├─core    核心模块
-│       │  └─exception    异常模块
-│       └─model    模型模块
-└─lersosa-vite    Vite 前端
-    ├─lersosa-vite-admin    前端管理层模块
-    └─lersosa-vite-user    前端用户层模块
+│       │  │  └─request    请求模块
+│       │  └─core    核心模块
+│       │      ├─context    上下文模块
+│       │      ├─exception    异常模块
+│       │      └─rpc    RPC 模块
+│       ├─model    模型模块
+│       └─proto    协议模块
+│           └─rpc    RPC 协议模块
+├─lersosa-vite    Vite 前端
+│  ├─lersosa-vite-admin    前端管理层模块
+│  │  ├─bin    编译脚本
+│  │  ├─html  静态页面
+│  │  ├─public    公共资源
+│  │  ├─src    源代码
+│  │  │  ├─api    接口文件
+│  │  │  ├─assets    静态资源
+│  │  │  ├─bpmn   流程图
+│  │  │  ├─components    组件
+│  │  │  ├─directive    指令
+│  │  │  ├─enums    枚举
+│  │  │  ├─hooks    钩子
+│  │  │  ├─lang    多语言
+│  │  │  ├─layout    布局
+│  │  │  ├─plugins    插件
+│  │  │  ├─router    路由
+│  │  │  ├─store    状态管理
+│  │  │  ├─types    类型
+│  │  │  ├─utils    工具
+│  │  │  └─views    页面
+│  │  ├─vite    Vite 配置文件
+│  └─lersosa-vite-user    前端用户层模块
+│     ├─public    公共资源
+│     └─src    源代码
+│         ├─assets    静态资源
+│         └─components    组件
+├─.editorconfig    编辑器配置
+├─.gitignore    git 忽略文件
+├─LICENSE    开源协议
+└─README.md    项目介绍
 ```
 
 ## 4. 技术栈
