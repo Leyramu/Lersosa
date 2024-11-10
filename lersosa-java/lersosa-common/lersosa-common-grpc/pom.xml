@@ -27,7 +27,7 @@
     <!--      属性      -->
     <properties>
         <revision>2.0.0</revision>
-        <java.version>17</java.version>
+        <java.version>22</java.version>
         <grpc.version>1.68.0</grpc.version>
         <tomcat.version>9.0.83</tomcat.version>
         <protobuf.version>4.27.2</protobuf.version>
@@ -35,6 +35,7 @@
         <os.detected.classifier>windows-x86_64</os.detected.classifier>
         <protobuf.maven.plugin.version>0.6.1</protobuf.maven.plugin.version>
         <grpc-spring-boot-starter.version>3.0.0.RELEASE</grpc-spring-boot-starter.version>
+        <maven-compiler-plugin.verison>3.13.0</maven-compiler-plugin.verison>
     </properties>
 
     <!--     Spring Cloud 依赖管理     -->
@@ -175,6 +176,15 @@
 
         <!--      插件配置      -->
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.verison}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
             <!--      Protobuf 插件      -->
             <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
