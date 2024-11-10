@@ -23,7 +23,7 @@ jobs:
 
       - name: Cache Maven packages
         id: cache-maven-packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -32,8 +32,11 @@ jobs:
       - name: Build with Maven
         run: mvn -B clean package -DskipTests --file ./lersosa-java/pom.xml
 
+      - name: List files in all target directories
+        run: find . -type d -name 'target' -exec ls -R {} \;
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4.4.0
         with:
-          name: spring-cloud-jar
-          path: target/*.jar
+          name: spring-cloud-jars
+          path: '**/target/*.jar'
