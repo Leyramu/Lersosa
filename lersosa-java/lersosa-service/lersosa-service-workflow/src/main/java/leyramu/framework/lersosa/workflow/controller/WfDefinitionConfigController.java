@@ -35,7 +35,7 @@ import java.util.List;
 @Validated
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/workflow/definitionConfig")
+@RequestMapping("/definitionConfig")
 public class WfDefinitionConfigController extends BaseController {
 
     private final IWfDefinitionConfigService wfDefinitionConfigService;

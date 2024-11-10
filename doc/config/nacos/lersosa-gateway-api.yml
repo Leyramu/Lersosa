@@ -60,6 +60,8 @@ spring:
           uri: lb://lersosa-service-workflow
           predicates:
             - Path=/workflow/**
+          filters:
+            - StripPrefix=1
         # 演示服务
         - id: lersosa-service-demo
           uri: lb://lersosa-service-demo

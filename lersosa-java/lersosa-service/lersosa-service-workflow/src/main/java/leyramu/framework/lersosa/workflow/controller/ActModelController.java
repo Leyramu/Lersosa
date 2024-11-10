@@ -44,12 +44,12 @@ import java.util.List;
 @Validated
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/workflow/model")
+@RequestMapping("/model")
 public class ActModelController extends BaseController {
 
-    private final IActModelService actModelService;
     @Autowired(required = false)
     private RepositoryService repositoryService;
+    private final IActModelService actModelService;
 
     /**
      * 分页查询模型

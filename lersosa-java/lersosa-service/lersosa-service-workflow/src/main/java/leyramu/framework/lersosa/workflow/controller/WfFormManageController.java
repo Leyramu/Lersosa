@@ -41,7 +41,7 @@ import java.util.List;
 @Validated
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/workflow/formManage")
+@RequestMapping("/formManage")
 public class WfFormManageController extends BaseController {
 
     private final IWfFormManageService wfFormManageService;

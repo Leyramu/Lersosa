@@ -46,7 +46,7 @@ import java.util.Map;
 @Validated
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/workflow/task")
+@RequestMapping("/task")
 public class ActTaskController extends BaseController {
 
     private final IActTaskService actTaskService;
