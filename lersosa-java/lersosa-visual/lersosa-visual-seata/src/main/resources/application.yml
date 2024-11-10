@@ -45,7 +45,7 @@ seata:
       password: ${NACOS-PASSWORD}
       cluster: default
   security:
-    secretKey: SeataSecretKey0c382ef121d778043159209298fd40bf3850a017
+    secretKey: TGV5cmFtdV9MZXJzb3NhX0F1dGhvcl9CeV9NaXJhaXRvd2FfemN4
     tokenValidityInMilliseconds: 1800000
     ignore:
-      urls: /,/**/*.css,/**/*.js,/**/*.html,/**/*.map,/**/*.svg,/**/*.png,/**/*.jpeg,/**/*.ico,/api/v1/auth/logi
+      urls: /,/**/*.css,/**/*.js,/**/*.html,/**/*.map,/**/*.svg,/**/*.png,/**/*.jpeg,/**/*.ico,/api/v1/auth/login
