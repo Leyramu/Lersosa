@@ -9,28 +9,16 @@
 package leyramu.framework.lersosa.grpc.service;
 
 import io.grpc.stub.StreamObserver;
-import leyramu.framework.lersosa.common.grpc.lib.GreeterGrpc;
 import leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass;
-import lombok.extern.slf4j.Slf4j;
-import net.devh.boot.grpc.server.service.GrpcService;
 
 /**
  * GreeterService 业务层 接口
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
- * @since 2024/11/8
+ * @since 2024/11/11
  */
-@Slf4j
-@GrpcService
-public class GreeterService extends GreeterGrpc.GreeterImplBase {
+public interface GreeterService {
 
-    @Override
-    public void sayHello(GreeterOuterClass.HelloRequest request, StreamObserver<GreeterOuterClass.HelloReply> responseObserver) {
-        String message = "Hello World" + request.getName();
-        final GreeterOuterClass.HelloReply.Builder replyBuilder = GreeterOuterClass.HelloReply.newBuilder();
-        responseObserver.onNext(replyBuilder.setMessage(message).build());
-        responseObserver.onCompleted();
-        log.info("Returning：{}", message);
-    }
+    void sayHello(GreeterOuterClass.HelloRequest request, StreamObserver<GreeterOuterClass.HelloReply> responseObserver);
 }

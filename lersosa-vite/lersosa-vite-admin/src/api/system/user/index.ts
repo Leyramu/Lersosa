@@ -2,7 +2,7 @@ import { DeptVO } from './../dept/types';
 import { RoleVO } from '@/api/system/role/types';
 import request from '@/utils/request';
 import { AxiosPromise } from 'axios';
-import { UserForm, UserQuery, UserVO, UserInfoVO } from './types';
+import { UserForm, UserInfoVO, UserQuery, UserVO } from './types';
 import { parseStrEmpty } from '@/utils/lersosa';
 
 /**

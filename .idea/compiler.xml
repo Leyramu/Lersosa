@@ -3,6 +3,12 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="lersosa-common-grpc" />
+      </profile>
       <profile name="Annotation profile for lersosa-visual-nacos" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -99,12 +105,6 @@
         </processorPath>
         <module name="lersosa-visual-sentinel" />
       </profile>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="lersosa-common-grpc" />
-      </profile>
       <profile name="Annotation profile for Lersosa" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -113,7 +113,7 @@
           <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
           <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.34/lombok-1.18.34.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.4/spring-boot-configuration-processor-3.3.4.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.5/spring-boot-configuration-processor-3.3.5.jar" />
           <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
           <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
@@ -125,7 +125,7 @@
           <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
           <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.34/lombok-1.18.34.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.4/spring-boot-configuration-processor-3.3.4.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.5/spring-boot-configuration-processor-3.3.5.jar" />
           <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
           <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
@@ -143,6 +143,7 @@
         <module name="lersosa-common-mail" />
         <module name="lersosa-service-gen" />
         <module name="lersosa-common-excel" />
+        <module name="lersosa-service-openai" />
         <module name="lersosa-common-elasticsearch" />
         <module name="lersosa-api-workflow" />
         <module name="lersosa-common-dubbo" />
@@ -187,12 +188,15 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="lersosa-api-grpc" target="22" />
+      <module name="lersosa-common-spring" target="1.5" />
       <module name="lersosa-example-grpc" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="lersosa-api" options="-parameters" />
+      <module name="lersosa-api-grpc" options="-parameters" />
       <module name="lersosa-api-resource" options="-parameters" />
       <module name="lersosa-api-system" options="-parameters" />
       <module name="lersosa-api-workflow" options="-parameters" />
@@ -227,6 +231,7 @@
       <module name="lersosa-common-skylog" options="-parameters" />
       <module name="lersosa-common-sms" options="-parameters" />
       <module name="lersosa-common-social" options="-parameters" />
+      <module name="lersosa-common-spring" options="" />
       <module name="lersosa-common-sse" options="-parameters" />
       <module name="lersosa-common-tenant" options="-parameters" />
       <module name="lersosa-common-translation" options="-parameters" />
@@ -244,6 +249,7 @@
       <module name="lersosa-service-gen" options="-parameters" />
       <module name="lersosa-service-grpc" options="-parameters" />
       <module name="lersosa-service-job" options="-parameters" />
+      <module name="lersosa-service-openai" options="-parameters" />
       <module name="lersosa-service-resource" options="-parameters" />
       <module name="lersosa-service-system" options="-parameters" />
       <module name="lersosa-service-workflow" options="-parameters" />

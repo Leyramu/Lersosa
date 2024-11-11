@@ -28,6 +28,7 @@
         <module>lersosa-service-resource</module>
         <module>lersosa-service-workflow</module>
         <module>lersosa-service-grpc</module>
+        <module>lersosa-service-openai</module>
     </modules>
 
     <!--      打包方式      -->

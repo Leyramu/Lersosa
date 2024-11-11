@@ -141,4 +141,6 @@ public interface RemoteUserService {
      * @return 用户ids
      */
     List<Long> selectUserIdsByRoleIds(List<Long> roleIds);
+
+    String hello(String name);
 }

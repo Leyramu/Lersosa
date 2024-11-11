@@ -21,7 +21,7 @@
 
     <!--      子模块      -->
     <modules>
-        <module>lersosa-common-alibaba-bom</module>
+        <module>lersosa-common-alibaba</module>
         <module>lersosa-common-bom</module>
         <module>lersosa-common-bus</module>
         <module>lersosa-common-core</module>

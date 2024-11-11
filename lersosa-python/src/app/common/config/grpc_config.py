@@ -10,4 +10,4 @@ import os
 
 class GrpcConfig:
     GRPC_HOST = os.getenv('GRPC_HOST', 'localhost')
-    GRPC_PORT = int(os.getenv('GRPC_PORT', '6000'))
+    GRPC_PORT = int(os.getenv('GRPC_PORT', '6001'))

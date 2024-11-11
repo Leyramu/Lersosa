@@ -20,10 +20,10 @@
     </parent>
 
     <!--      模块描述      -->
-    <description>Grpc 服务模块</description>
+    <description>OpenAi 服务模块</description>
 
     <!--      工件 ID      -->
-    <artifactId>lersosa-service-grpc</artifactId>
+    <artifactId>lersosa-service-openai</artifactId>
 
     <!--      依赖      -->
     <dependencies>
@@ -33,10 +33,10 @@
             <artifactId>lersosa-common-nacos</artifactId>
         </dependency>
 
-        <!--      Lersosa Common Log      -->
+        <!--      Lersosa Common Doc      -->
         <dependency>
             <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-log</artifactId>
+            <artifactId>lersosa-common-doc</artifactId>
         </dependency>
 
         <!--      Lersosa Common Dubbo      -->
@@ -45,40 +45,46 @@
             <artifactId>lersosa-common-dubbo</artifactId>
         </dependency>
 
-        <!--      Lersosa Common Security      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-security</artifactId>
-        </dependency>
-
-        <!--      Lersosa Common Tenant      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-tenant</artifactId>
-        </dependency>
-
-        <!--      Lersosa Common Grpc      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-grpc</artifactId>
-        </dependency>
-
         <!--      Lersosa Common Web      -->
         <dependency>
             <groupId>leyramu.framework</groupId>
             <artifactId>lersosa-common-web</artifactId>
         </dependency>
 
-        <!--        &lt;!&ndash;      Lersosa Api Grpc      &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>leyramu.framework</groupId>-->
-        <!--            <artifactId>lersosa-api-grpc</artifactId>-->
-        <!--        </dependency>-->
-
-        <!--      Lombok      -->
+        <!--      Lersosa Common Log      -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-log</artifactId>
+        </dependency>
+
+        <!--      Lersosa Common Tenant      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-tenant</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>leyramu.framework</groupId>
+                    <artifactId>lersosa-common-mybatis</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--      Lersosa Common Security      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-security</artifactId>
+        </dependency>
+
+        <!--    Spring Ai OpenAi    -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!--    Spring Ai Core    -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-core</artifactId>
         </dependency>
     </dependencies>
 
@@ -89,7 +95,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
                 <executions>
                     <execution>
                         <goals>

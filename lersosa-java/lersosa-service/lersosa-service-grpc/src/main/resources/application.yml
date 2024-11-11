@@ -9,4 +9,4 @@ server:
 
 grpc:
   server:
-    port: ${SERVER_PORT:6001}
+    port: 6001

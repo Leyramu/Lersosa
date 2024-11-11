@@ -81,6 +81,8 @@ spring:
           uri: lb://lersosa-service-python
           predicates:
             - Path=/python/**
+          filters:
+            - StripPrefix=1
 
     # sentinel 配置
     sentinel:

@@ -92,7 +92,8 @@
         <revision>2.0.0</revision>
         <java.version>22</java.version>
         <lombok.version>1.18.34</lombok.version>
-        <spring-boot.version>3.3.4</spring-boot.version>
+        <spring-ai.version>0.8.1</spring-ai.version>
+        <spring-boot.version>3.3.5</spring-boot.version>
         <spring-cloud.version>2023.0.3</spring-cloud.version>
         <mapstruct-plus.version>1.4.5</mapstruct-plus.version>
         <therapi-javadoc.version>0.15.0</therapi-javadoc.version>
@@ -110,7 +111,7 @@
             <!--    Lersosa Common Alibaba Dependencies    -->
             <dependency>
                 <groupId>leyramu.framework</groupId>
-                <artifactId>lersosa-common-alibaba-bom</artifactId>
+                <artifactId>lersosa-common-alibaba</artifactId>
                 <version>${revision}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -157,6 +158,15 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--    Spring Cloud Ai Bom    -->
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>${spring-ai.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -344,6 +354,19 @@
             </releases>
             <snapshots>
                 <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <!--    Spring Snapshots    -->
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
 

@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="LersosaOpenAiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="lersosa-service" nameIsGenerated="true">
+    <module name="lersosa-service-openai" />
+    <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="leyramu.framework.lersosa.openai.LersosaOpenAiApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -61,5 +61,4 @@ public class CacheController {
         infoVo.setCommandStats(pieList);
         return R.ok(infoVo);
     }
-
 }

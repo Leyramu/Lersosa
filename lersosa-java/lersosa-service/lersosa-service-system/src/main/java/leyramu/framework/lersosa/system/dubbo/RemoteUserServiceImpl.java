@@ -318,4 +318,8 @@ public class RemoteUserServiceImpl implements RemoteUserService {
         return userService.selectUserIdsByRoleIds(roleIds);
     }
 
+    @Override
+    public String hello(String name) {
+        return "hello " + name;
+    }
 }

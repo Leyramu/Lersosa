@@ -60,7 +60,7 @@
           <template #header>
             <el-row :gutter="10">
               <el-col :span="1.5">
-                <el-button v-has-permi="['system:user:add']" type="primary" plain icon="Plus" @click="handleAdd()">新增</el-button>
+                <el-button v-has-permi="['system:user:add']" type="primary" plain icon="Plus" @click="handleAdd()">新增 </el-button>
               </el-col>
               <el-col :span="1.5">
                 <el-button v-has-permi="['system:user:add']" type="success" plain :disabled="single" icon="Edit" @click="handleUpdate()">
@@ -76,13 +76,15 @@
                 <el-dropdown class="mt-[1px]">
                   <el-button plain type="info">
                     更多
-                    <el-icon class="el-icon--right"><arrow-down /></el-icon
-                  ></el-button>
+                    <el-icon class="el-icon--right">
+                      <arrow-down />
+                    </el-icon>
+                  </el-button>
                   <template #dropdown>
                     <el-dropdown-menu>
-                      <el-dropdown-item icon="Download" @click="importTemplate">下载模板</el-dropdown-item>
-                      <el-dropdown-item icon="Top" @click="handleImport"> 导入数据</el-dropdown-item>
-                      <el-dropdown-item icon="Download" @click="handleExport"> 导出数据</el-dropdown-item>
+                      <el-dropdown-item icon="Download" @click="importTemplate">下载模板 </el-dropdown-item>
+                      <el-dropdown-item icon="Top" @click="handleImport"> 导入数据 </el-dropdown-item>
+                      <el-dropdown-item icon="Download" @click="handleExport"> 导出数据 </el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
@@ -199,7 +201,9 @@
           <el-col :span="12">
             <el-form-item label="状态">
               <el-radio-group v-model="form.status">
-                <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :value="dict.value">{{ dict.label }}</el-radio>
+                <el-radio v-for="dict in sys_normal_disable" :key="dict.value" :value="dict.value">
+                  {{ dict.label }}
+                </el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -268,9 +272,12 @@
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <template #tip>
           <div class="text-center el-upload__tip">
-            <div class="el-upload__tip"><el-checkbox v-model="upload.updateSupport" />是否更新已经存在的用户数据</div>
+            <div class="el-upload__tip">
+              <el-checkbox v-model="upload.updateSupport" />
+              是否更新已经存在的用户数据
+            </div>
             <span>仅允许导入xls、xlsx格式文件。</span>
-            <el-link type="primary" :underline="false" style="font-size: 12px; vertical-align: baseline" @click="importTemplate">下载模板</el-link>
+            <el-link type="primary" :underline="false" style="font-size: 12px; vertical-align: baseline" @click="importTemplate">下载模板 </el-link>
           </div>
         </template>
       </el-upload>
@@ -289,7 +296,7 @@ import api from '@/api/system/user';
 import { UserForm, UserQuery, UserVO } from '@/api/system/user/types';
 import { DeptVO } from '@/api/system/dept/types';
 import { RoleVO } from '@/api/system/role/types';
-import { PostQuery, PostVO } from '@/api/system/post/types';
+import { PostVO } from '@/api/system/post/types';
 import { treeselect } from '@/api/system/dept';
 import { globalHeaders } from '@/utils/request';
 import { to } from 'await-to-js';
@@ -470,7 +477,7 @@ const resetQuery = () => {
 /** 删除按钮操作 */
 const handleDelete = async (row?: UserVO) => {
   const userIds = row?.userId || ids.value;
-  const [err] = await to(await proxy?.$modal.confirm('是否确认删除用户编号为"' + userIds + '"的数据项？') as any);
+  const [err] = await to((await proxy?.$modal.confirm('是否确认删除用户编号为"' + userIds + '"的数据项？')) as any);
   if (!err) {
     await api.delUser(userIds);
     await getList();

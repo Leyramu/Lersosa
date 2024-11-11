@@ -13,7 +13,7 @@ EXPOSE 8848
 
 ENV TZ=Asia/Shanghai LANG=C.UTF-8 LC_ALL=C.UTF-8 JAVA_OPTS="-Xms512m -Xmx1024m"
 
-ADD ./target/lersosa-nacos.jar ./app.jar
+ADD ./target/lersosa-visual-nacos.jar ./app.jar
 
 ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom ${JAVA_OPTS} -jar app.jar
 

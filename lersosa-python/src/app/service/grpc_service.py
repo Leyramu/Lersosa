@@ -16,5 +16,5 @@ class GrpcService:
     async def say_hello():
         return (GrpcEntity(
             data=GreeterClient(GrpcConfig.GRPC_HOST, GrpcConfig.GRPC_PORT)
-            .call_method("SayHello", "！"))
+            .call_method("SayHello", "！123456789"))
                 .to_json())
