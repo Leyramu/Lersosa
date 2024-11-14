@@ -5,48 +5,52 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.repository.metric;
 
 import java.util.List;
 
 /**
- * Repository interface for aggregated metrics data.
+ * 用于聚合指标数据的存储库界面.
  *
  * @param <T> type of metrics
  * @author Eric Zhao
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
 public interface MetricsRepository<T> {
 
     /**
-     * Save the metric to the storage repository.
+     * 将指标保存到存储库.
      *
-     * @param metric metric data to save
+     * @param metric 要保存的指标数据
      */
     void save(T metric);
 
     /**
-     * Save all metrics to the storage repository.
+     * 将所有指标保存到存储库.
      *
-     * @param metrics metrics to save
+     * @param metrics 要保存的指标
      */
     void saveAll(Iterable<T> metrics);
 
     /**
-     * Get all metrics by {@code appName} and {@code resourceName} between a period of time.
+     * 通过 {@code appName} 和 {@code resourceName} 获取一段时间内的所有指标.
      *
-     * @param app       application name for Sentinel
-     * @param resource  resource name
-     * @param startTime start timestamp
-     * @param endTime   end timestamp
-     * @return all metrics in query conditions
+     * @param app       Sentinel 的应用程序名称
+     * @param resource  资源名称
+     * @param startTime 开始时间戳
+     * @param endTime   结束时间戳
+     * @return 查询条件中的所有指标
      */
     List<T> queryByAppAndResourceBetween(String app, String resource, long startTime, long endTime);
 
     /**
-     * List resource name of provided application name.
+     * 列出提供的应用程序名称的资源名称.
      *
-     * @param app application name
-     * @return list of resources
+     * @param app 应用程序名称
+     * @return 资源列表
      */
     List<String> listResourcesOfApp(String app);
 }

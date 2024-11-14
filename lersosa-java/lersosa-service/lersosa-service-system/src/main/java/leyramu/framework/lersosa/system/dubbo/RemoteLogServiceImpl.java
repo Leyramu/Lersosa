@@ -22,7 +22,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
- * 操作日志记录
+ * 操作日志记录.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -37,7 +37,7 @@ public class RemoteLogServiceImpl implements RemoteLogService {
     private final ISysLogininforService logininforService;
 
     /**
-     * 保存系统日志
+     * 保存系统日志.
      *
      * @param remoteOperLogBo 日志实体
      */
@@ -49,7 +49,7 @@ public class RemoteLogServiceImpl implements RemoteLogService {
     }
 
     /**
-     * 保存访问记录
+     * 保存访问记录.
      *
      * @param remoteLogininforBo 访问实体
      */

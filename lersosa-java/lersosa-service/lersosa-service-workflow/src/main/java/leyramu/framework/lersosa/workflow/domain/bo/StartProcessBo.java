@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * 启动流程对象
+ * 启动流程对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -33,19 +33,19 @@ public class StartProcessBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 业务唯一值id
+     * 业务唯一值id.
      */
     @NotBlank(message = "业务ID不能为空", groups = {AddGroup.class})
     private String businessKey;
 
     /**
-     * 表名
+     * 表名.
      */
     @NotBlank(message = "表名不能为空", groups = {AddGroup.class})
     private String tableName;
 
     /**
-     * 流程变量，前端会提交一个元素{'entity': {业务详情数据对象}}
+     * 流程变量，前端会提交一个元素{'entity': {业务详情数据对象}}.
      */
     private Map<String, Object> variables;
 

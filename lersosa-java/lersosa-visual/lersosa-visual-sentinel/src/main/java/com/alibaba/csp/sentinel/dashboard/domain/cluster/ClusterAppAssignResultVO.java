@@ -5,48 +5,77 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.cluster;
+
+import lombok.Data;
 
 import java.util.Set;
 
 /**
+ * 集群应用程序分配结果.
+ *
  * @author Eric Zhao
- * @since 1.4.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class ClusterAppAssignResultVO {
 
+    /**
+     * 服务器设置失败.
+     */
     private Set<String> failedServerSet;
+
+    /**
+     * 客户端设置失败.
+     */
     private Set<String> failedClientSet;
 
+    /**
+     * 总数量.
+     */
     private Integer totalCount;
 
-    public Set<String> getFailedServerSet() {
-        return failedServerSet;
-    }
-
+    /**
+     * 设置失败的服务器.
+     *
+     * @param failedServerSet 服务器设置失败
+     * @return this
+     */
     public ClusterAppAssignResultVO setFailedServerSet(Set<String> failedServerSet) {
         this.failedServerSet = failedServerSet;
         return this;
     }
 
-    public Set<String> getFailedClientSet() {
-        return failedClientSet;
-    }
-
+    /**
+     * 设置失败的客户端.
+     *
+     * @param failedClientSet 客户端设置失败
+     * @return this
+     */
     public ClusterAppAssignResultVO setFailedClientSet(Set<String> failedClientSet) {
         this.failedClientSet = failedClientSet;
         return this;
     }
 
-    public Integer getTotalCount() {
-        return totalCount;
-    }
-
+    /**
+     * 设置总数量.
+     *
+     * @param totalCount 总数量
+     * @return this
+     */
     public ClusterAppAssignResultVO setTotalCount(Integer totalCount) {
         this.totalCount = totalCount;
         return this;
     }
 
+    /**
+     * 重写 toString方法.
+     *
+     * @return 字符串
+     */
     @Override
     public String toString() {
         return "ClusterAppAssignResultVO{" +

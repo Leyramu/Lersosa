@@ -11,6 +11,7 @@ package leyramu.framework.lersosa.common.websocket.interceptor;
 import cn.dev33.satoken.exception.NotLoginException;
 import leyramu.framework.lersosa.common.satoken.utils.LoginHelper;
 import leyramu.framework.lersosa.system.api.model.LoginUser;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -22,7 +23,7 @@ import java.util.Map;
 import static leyramu.framework.lersosa.common.websocket.constant.WebSocketConstants.LOGIN_USER_KEY;
 
 /**
- * WebSocket握手请求的拦截器
+ * WebSocket握手请求的拦截器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -32,7 +33,7 @@ import static leyramu.framework.lersosa.common.websocket.constant.WebSocketConst
 public class PlusWebSocketInterceptor implements HandshakeInterceptor {
 
     /**
-     * WebSocket握手之前执行的前置处理方法
+     * WebSocket握手之前执行的前置处理方法.
      *
      * @param request    WebSocket握手请求
      * @param response   WebSocket握手响应
@@ -41,7 +42,7 @@ public class PlusWebSocketInterceptor implements HandshakeInterceptor {
      * @return 如果允许握手继续进行，则返回true；否则返回false
      */
     @Override
-    public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) {
+    public boolean beforeHandshake(@NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response, @NonNull WebSocketHandler wsHandler, Map<String, Object> attributes) {
         try {
             LoginUser loginUser = LoginHelper.getLoginUser();
             attributes.put(LOGIN_USER_KEY, loginUser);
@@ -53,7 +54,7 @@ public class PlusWebSocketInterceptor implements HandshakeInterceptor {
     }
 
     /**
-     * WebSocket握手成功后执行的后置处理方法
+     * WebSocket握手成功后执行的后置处理方法.
      *
      * @param request   WebSocket握手请求
      * @param response  WebSocket握手响应
@@ -61,7 +62,7 @@ public class PlusWebSocketInterceptor implements HandshakeInterceptor {
      * @param exception 握手过程中可能出现的异常
      */
     @Override
-    public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception exception) {
+    public void afterHandshake(@NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response, @NonNull WebSocketHandler wsHandler, Exception exception) {
         // 在这个方法中可以执行一些握手成功后的后续处理逻辑，比如记录日志或者其他操作
     }
 

@@ -5,12 +5,21 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain;
 
+import lombok.Data;
+
 /**
+ * 封装返回结果.
+ *
  * @author leyou
  * @author Eric Zhao
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class Result<R> {
 
     private boolean success;
@@ -47,17 +56,9 @@ public class Result<R> {
         return result;
     }
 
-    public boolean isSuccess() {
-        return success;
-    }
-
     public Result<R> setSuccess(boolean success) {
         this.success = success;
         return this;
-    }
-
-    public int getCode() {
-        return code;
     }
 
     public Result<R> setCode(int code) {
@@ -65,17 +66,9 @@ public class Result<R> {
         return this;
     }
 
-    public String getMsg() {
-        return msg;
-    }
-
     public Result<R> setMsg(String msg) {
         this.msg = msg;
         return this;
-    }
-
-    public R getData() {
-        return data;
     }
 
     public Result<R> setData(R data) {

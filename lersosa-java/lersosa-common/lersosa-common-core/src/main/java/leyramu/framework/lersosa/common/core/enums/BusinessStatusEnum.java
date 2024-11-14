@@ -17,7 +17,7 @@ import lombok.Getter;
 import java.util.Arrays;
 
 /**
- * 业务状态枚举
+ * 业务状态枚举.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,46 +28,46 @@ import java.util.Arrays;
 public enum BusinessStatusEnum {
 
     /**
-     * 已撤销
+     * 已撤销.
      */
     CANCEL("cancel", "已撤销"),
     /**
-     * 草稿
+     * 草稿.
      */
     DRAFT("draft", "草稿"),
     /**
-     * 待审核
+     * 待审核.
      */
     WAITING("waiting", "待审核"),
     /**
-     * 已完成
+     * 已完成.
      */
     FINISH("finish", "已完成"),
     /**
-     * 已作废
+     * 已作废.
      */
     INVALID("invalid", "已作废"),
     /**
-     * 已退回
+     * 已退回.
      */
     BACK("back", "已退回"),
     /**
-     * 已终止
+     * 已终止.
      */
     TERMINATION("termination", "已终止");
 
     /**
-     * 状态
+     * 状态.
      */
     private final String status;
 
     /**
-     * 描述
+     * 描述.
      */
     private final String desc;
 
     /**
-     * 获取业务状态
+     * 获取业务状态.
      *
      * @param status 状态
      */
@@ -83,7 +83,7 @@ public enum BusinessStatusEnum {
     }
 
     /**
-     * 启动流程校验
+     * 启动流程校验.
      *
      * @param status 状态
      */
@@ -102,7 +102,7 @@ public enum BusinessStatusEnum {
     }
 
     /**
-     * 撤销流程校验
+     * 撤销流程校验.
      *
      * @param status 状态
      */
@@ -123,7 +123,7 @@ public enum BusinessStatusEnum {
     }
 
     /**
-     * 驳回流程校验
+     * 驳回流程校验.
      *
      * @param status 状态
      */
@@ -144,7 +144,7 @@ public enum BusinessStatusEnum {
     }
 
     /**
-     * 作废,终止流程校验
+     * 作废,终止流程校验.
      *
      * @param status 状态
      */
@@ -160,4 +160,3 @@ public enum BusinessStatusEnum {
         }
     }
 }
-

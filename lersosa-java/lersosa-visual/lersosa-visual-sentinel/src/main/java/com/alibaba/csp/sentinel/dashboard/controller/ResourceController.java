@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.controller;
 
 import com.alibaba.csp.sentinel.command.vo.NodeVo;
@@ -13,9 +14,8 @@ import com.alibaba.csp.sentinel.dashboard.domain.ResourceTreeNode;
 import com.alibaba.csp.sentinel.dashboard.domain.Result;
 import com.alibaba.csp.sentinel.dashboard.domain.vo.ResourceVo;
 import com.alibaba.csp.sentinel.util.StringUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,39 +24,48 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * 资源控制器.
+ *
  * @author Carpenter Lee
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Slf4j
 @RestController
-@RequestMapping(value = "/resource")
+@RequiredArgsConstructor
+@RequestMapping("/resource")
 public class ResourceController {
 
-    private static Logger logger = LoggerFactory.getLogger(ResourceController.class);
-
-    @Autowired
-    private SentinelApiClient httpFetcher;
+    /**
+     * Sentinel API 客户端.
+     */
+    private final SentinelApiClient httpFetcher;
 
     /**
-     * Fetch real time statistics info of the machine.
+     * 获取机器的实时统计信息.
      *
-     * @param ip        ip to fetch
-     * @param port      port of the ip
-     * @param type      one of [root, default, cluster], 'root' means fetching from tree root node, 'default' means
-     *                  fetching from tree default node, 'cluster' means fetching from cluster node.
-     * @param searchKey key to search
-     * @return node statistics info.
+     * @param ip        要获取的 IP
+     * @param port      IP 的端口
+     * @param type      资源类型
+     * @param searchKey 搜索键
+     * @return 节点统计信息
      */
     @GetMapping("/machineResource.json")
-    public Result<List<ResourceVo>> fetchResourceChainListOfMachine(String ip, Integer port, String type,
-                                                                    String searchKey) {
+    public Result<List<ResourceVo>> fetchResourceChainListOfMachine(
+        String ip,
+        Integer port,
+        String type,
+        String searchKey) {
         if (StringUtil.isEmpty(ip) || port == null) {
             return Result.ofFail(-1, "invalid param, give ip, port");
         }
-        final String ROOT = "root";
-        final String DEFAULT = "default";
+        final String root = "root";
+        final String cDefault = "default";
         if (StringUtil.isEmpty(type)) {
-            type = ROOT;
+            type = root;
         }
-        if (ROOT.equalsIgnoreCase(type) || DEFAULT.equalsIgnoreCase(type)) {
+        if (root.equalsIgnoreCase(type) || cDefault.equalsIgnoreCase(type)) {
             List<NodeVo> nodeVos = httpFetcher.fetchResourceOfMachine(ip, port, type);
             if (nodeVos == null) {
                 return Result.ofSuccess(null);
@@ -65,7 +74,6 @@ public class ResourceController {
             treeNode.searchIgnoreCase(searchKey);
             return Result.ofSuccess(ResourceVo.fromResourceTreeNode(treeNode));
         } else {
-            // Normal (cluster node).
             List<NodeVo> nodeVos = httpFetcher.fetchClusterNodeOfMachine(ip, port, true);
             if (nodeVos == null) {
                 return Result.ofSuccess(null);

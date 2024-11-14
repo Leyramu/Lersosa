@@ -11,6 +11,7 @@ package leyramu.framework.lersosa.common.core.config;
 import cn.hutool.core.util.ArrayUtil;
 import leyramu.framework.lersosa.common.core.exception.ServiceException;
 import leyramu.framework.lersosa.common.core.utils.SpringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.core.task.VirtualThreadTaskExecutor;
@@ -20,17 +21,18 @@ import java.util.Arrays;
 import java.util.concurrent.Executor;
 
 /**
- * 异步配置
+ * 异步配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/5
  */
+@Slf4j
 @AutoConfiguration
 public class AsyncConfig implements AsyncConfigurer {
 
     /**
-     * 自定义 @Async 注解使用系统线程池
+     * 自定义 @Async 注解使用系统线程池.
      */
     @Override
     public Executor getAsyncExecutor() {
@@ -41,12 +43,12 @@ public class AsyncConfig implements AsyncConfigurer {
     }
 
     /**
-     * 异步执行异常处理
+     * 异步执行异常处理.
      */
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
         return (throwable, method, objects) -> {
-            throwable.printStackTrace();
+            log.error("Async exception handler: ", throwable);
             StringBuilder sb = new StringBuilder();
             sb.append("Exception message - ").append(throwable.getMessage())
                 .append(", Method name - ").append(method.getName());
@@ -56,5 +58,4 @@ public class AsyncConfig implements AsyncConfigurer {
             throw new ServiceException(sb.toString());
         };
     }
-
 }

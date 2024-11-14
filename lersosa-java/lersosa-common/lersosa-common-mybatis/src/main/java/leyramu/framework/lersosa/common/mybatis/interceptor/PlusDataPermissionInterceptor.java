@@ -31,11 +31,10 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
- * 数据权限拦截器
+ * 数据权限拦截器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -47,7 +46,7 @@ public class PlusDataPermissionInterceptor extends BaseMultiTableInnerIntercepto
     private final PlusDataPermissionHandler dataPermissionHandler;
 
     /**
-     * 构造函数，初始化 PlusDataPermissionHandler 实例
+     * 构造函数，初始化 PlusDataPermissionHandler 实例.
      *
      * @param mapperPackage 扫描的映射器包
      */
@@ -56,7 +55,7 @@ public class PlusDataPermissionInterceptor extends BaseMultiTableInnerIntercepto
     }
 
     /**
-     * 在执行查询之前，检查并处理数据权限相关逻辑
+     * 在执行查询之前，检查并处理数据权限相关逻辑.
      *
      * @param executor      MyBatis 执行器对象
      * @param ms            映射语句对象
@@ -64,10 +63,9 @@ public class PlusDataPermissionInterceptor extends BaseMultiTableInnerIntercepto
      * @param rowBounds     分页对象
      * @param resultHandler 结果处理器
      * @param boundSql      绑定的 SQL 对象
-     * @throws SQLException 如果发生 SQL 异常
      */
     @Override
-    public void beforeQuery(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
+    public void beforeQuery(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
         // 检查是否需要忽略数据权限处理
         if (InterceptorIgnoreHelper.willIgnoreDataPermission(ms.getId())) {
             return;
@@ -82,7 +80,7 @@ public class PlusDataPermissionInterceptor extends BaseMultiTableInnerIntercepto
     }
 
     /**
-     * 在准备 SQL 语句之前，检查并处理更新和删除操作的数据权限相关逻辑
+     * 在准备 SQL 语句之前，检查并处理更新和删除操作的数据权限相关逻辑.
      *
      * @param sh                 MyBatis StatementHandler 对象
      * @param connection         数据库连接对象
@@ -110,7 +108,7 @@ public class PlusDataPermissionInterceptor extends BaseMultiTableInnerIntercepto
     }
 
     /**
-     * 处理 SELECT 查询语句中的 WHERE 条件
+     * 处理 SELECT 查询语句中的 WHERE 条件.
      *
      * @param select SELECT 查询对象
      * @param index  查询语句的索引
@@ -128,7 +126,7 @@ public class PlusDataPermissionInterceptor extends BaseMultiTableInnerIntercepto
     }
 
     /**
-     * 处理 UPDATE 语句中的 WHERE 条件
+     * 处理 UPDATE 语句中的 WHERE 条件.
      *
      * @param update UPDATE 查询对象
      * @param index  查询语句的索引
@@ -144,7 +142,7 @@ public class PlusDataPermissionInterceptor extends BaseMultiTableInnerIntercepto
     }
 
     /**
-     * 处理 DELETE 语句中的 WHERE 条件
+     * 处理 DELETE 语句中的 WHERE 条件.
      *
      * @param delete DELETE 查询对象
      * @param index  查询语句的索引
@@ -160,7 +158,7 @@ public class PlusDataPermissionInterceptor extends BaseMultiTableInnerIntercepto
     }
 
     /**
-     * 设置 SELECT 语句的 WHERE 条件
+     * 设置 SELECT 语句的 WHERE 条件.
      *
      * @param plainSelect       SELECT 查询对象
      * @param mappedStatementId 映射语句的 ID
@@ -173,7 +171,7 @@ public class PlusDataPermissionInterceptor extends BaseMultiTableInnerIntercepto
     }
 
     /**
-     * 构建表达式，用于处理表的数据权限
+     * 构建表达式，用于处理表的数据权限.
      *
      * @param table        表对象
      * @param where        WHERE 条件表达式

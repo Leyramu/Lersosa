@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Excel 导入监听
+ * Excel 导入监听.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -36,17 +36,17 @@ import java.util.Set;
 public class DefaultExcelListener<T> extends AnalysisEventListener<T> implements ExcelListener<T> {
 
     /**
-     * 是否Validator检验，默认为是
+     * 是否Validator检验，默认为是.
      */
     private Boolean isValidate = Boolean.TRUE;
 
     /**
-     * excel 表头数据
+     * excel 表头数据.
      */
     private Map<Integer, String> headMap;
 
     /**
-     * 导入回执
+     * 导入回执.
      */
     private ExcelResult<T> excelResult;
 
@@ -56,13 +56,13 @@ public class DefaultExcelListener<T> extends AnalysisEventListener<T> implements
     }
 
     /**
-     * 处理异常
+     * 处理异常.
      *
      * @param exception ExcelDataConvertException
      * @param context   Excel 上下文
      */
     @Override
-    public void onException(Exception exception, AnalysisContext context) throws Exception {
+    public void onException(Exception exception, AnalysisContext context) {
         String errMsg = null;
         if (exception instanceof ExcelDataConvertException excelDataConvertException) {
             // 如果是某一个单元格的转换异常 能获取到具体行号
@@ -109,5 +109,4 @@ public class DefaultExcelListener<T> extends AnalysisEventListener<T> implements
     public ExcelResult<T> getExcelResult() {
         return excelResult;
     }
-
 }

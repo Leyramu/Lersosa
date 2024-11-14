@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 远程调用工作流服务
+ * 远程调用工作流服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,11 +29,13 @@ import java.util.Map;
 public class RemoteWorkflowServiceImpl implements RemoteWorkflowService {
 
     private final WorkflowService workflowService;
+
+    @SuppressWarnings("unused")
     private final IActHiProcinstService actHiProcinstService;
 
     @Override
-    public boolean deleteRunAndHisInstance(List<String> businessKeys) {
-        return workflowService.deleteRunAndHisInstance(businessKeys);
+    public void deleteRunAndHisInstance(List<String> businessKeys) {
+        workflowService.deleteRunAndHisInstance(businessKeys);
     }
 
     @Override
@@ -67,7 +69,7 @@ public class RemoteWorkflowServiceImpl implements RemoteWorkflowService {
     }
 
     /**
-     * 按照业务id查询流程实例id
+     * 按照业务id查询流程实例id.
      *
      * @param businessKey 业务id
      * @return 结果

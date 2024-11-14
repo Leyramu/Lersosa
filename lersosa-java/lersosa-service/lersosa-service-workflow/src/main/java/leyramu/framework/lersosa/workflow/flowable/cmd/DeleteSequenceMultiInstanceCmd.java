@@ -27,7 +27,7 @@ import static leyramu.framework.lersosa.workflow.common.constant.FlowConstant.NU
 
 
 /**
- * 串行减签
+ * 串行减签.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -37,22 +37,22 @@ import static leyramu.framework.lersosa.workflow.common.constant.FlowConstant.NU
 public class DeleteSequenceMultiInstanceCmd implements Command<Void> {
 
     /**
-     * 当前节点审批人员id
+     * 当前节点审批人员id.
      */
     private final String currentUserId;
 
     /**
-     * 执行id
+     * 执行id.
      */
     private final String executionId;
 
     /**
-     * 会签人员集合KEY
+     * 会签人员集合KEY.
      */
     private final String assigneeList;
 
     /**
-     * 减签人员
+     * 减签人员.
      */
     private final List<Long> assignees;
 

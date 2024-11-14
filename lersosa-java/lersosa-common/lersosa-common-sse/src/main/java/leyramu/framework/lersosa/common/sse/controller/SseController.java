@@ -24,7 +24,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import java.util.List;
 
 /**
- * SSE 控制器
+ * SSE 控制器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -38,7 +38,7 @@ public class SseController implements DisposableBean {
     private final SseEmitterManager sseEmitterManager;
 
     /**
-     * 建立 SSE 连接
+     * 建立 SSE 连接.
      */
     @GetMapping(value = "${sse.path}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter connect() {
@@ -48,7 +48,7 @@ public class SseController implements DisposableBean {
     }
 
     /**
-     * 关闭 SSE 连接
+     * 关闭 SSE 连接.
      */
     @GetMapping(value = "${sse.path}/close")
     public R<Void> close() {
@@ -59,7 +59,7 @@ public class SseController implements DisposableBean {
     }
 
     /**
-     * 向特定用户发送消息
+     * 向特定用户发送消息.
      *
      * @param userId 目标用户的 ID
      * @param msg    要发送的消息内容
@@ -74,7 +74,7 @@ public class SseController implements DisposableBean {
     }
 
     /**
-     * 向所有用户发送消息
+     * 向所有用户发送消息.
      *
      * @param msg 要发送的消息内容
      */
@@ -85,11 +85,10 @@ public class SseController implements DisposableBean {
     }
 
     /**
-     * 清理资源。此方法目前不执行任何操作，但避免因未实现而导致错误
+     * 清理资源。此方法目前不执行任何操作，但避免因未实现而导致错误.
      */
     @Override
-    public void destroy() throws Exception {
+    public void destroy() {
         // 销毁时不需要做什么 此方法避免无用操作报错
     }
-
 }

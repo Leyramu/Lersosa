@@ -34,9 +34,10 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
+import java.util.Objects;
 
 /**
- * 用户行为 侦听器的实现
+ * 用户行为 侦听器的实现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -51,18 +52,19 @@ public class UserActionListener implements SaTokenListener {
     @DubboReference
     private RemoteUserService remoteUserService;
     @DubboReference
+    @SuppressWarnings("unused")
     private RemoteMessageService remoteMessageService;
 
     /**
-     * 每次登录时触发
+     * 每次登录时触发.
      */
     @Override
     public void doLogin(String loginType, Object loginId, String tokenValue, SaLoginModel loginModel) {
-        UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
-        String ip = ServletUtils.getClientIP();
+        UserAgent userAgent = UserAgentUtil.parse(Objects.requireNonNull(ServletUtils.getRequest()).getHeader("User-Agent"));
+        String ip = ServletUtils.getClientIp();
         SysUserOnline userOnline = new SysUserOnline();
         userOnline.setIpaddr(ip);
-        userOnline.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
+        userOnline.setLoginLocation(AddressUtils.getRealAddressByIp(ip));
         userOnline.setBrowser(userAgent.getBrowser().getName());
         userOnline.setOs(userAgent.getOs().getName());
         userOnline.setLoginTime(System.currentTimeMillis());
@@ -93,7 +95,7 @@ public class UserActionListener implements SaTokenListener {
     }
 
     /**
-     * 每次注销时触发
+     * 每次注销时触发.
      */
     @Override
     public void doLogout(String loginType, Object loginId, String tokenValue) {
@@ -105,7 +107,7 @@ public class UserActionListener implements SaTokenListener {
     }
 
     /**
-     * 每次被踢下线时触发
+     * 每次被踢下线时触发.
      */
     @Override
     public void doKickout(String loginType, Object loginId, String tokenValue) {
@@ -117,7 +119,7 @@ public class UserActionListener implements SaTokenListener {
     }
 
     /**
-     * 每次被顶下线时触发
+     * 每次被顶下线时触发.
      */
     @Override
     public void doReplaced(String loginType, Object loginId, String tokenValue) {
@@ -129,52 +131,51 @@ public class UserActionListener implements SaTokenListener {
     }
 
     /**
-     * 每次被封禁时触发
+     * 每次被封禁时触发.
      */
     @Override
     public void doDisable(String loginType, Object loginId, String service, int level, long disableTime) {
     }
 
     /**
-     * 每次被解封时触发
+     * 每次被解封时触发.
      */
     @Override
     public void doUntieDisable(String loginType, Object loginId, String service) {
     }
 
     /**
-     * 每次打开二级认证时触发
+     * 每次打开二级认证时触发.
      */
     @Override
     public void doOpenSafe(String loginType, String tokenValue, String service, long safeTime) {
     }
 
     /**
-     * 每次创建Session时触发
+     * 每次创建Session时触发.
      */
     @Override
     public void doCloseSafe(String loginType, String tokenValue, String service) {
     }
 
     /**
-     * 每次创建Session时触发
+     * 每次创建Session时触发.
      */
     @Override
     public void doCreateSession(String id) {
     }
 
     /**
-     * 每次注销Session时触发
+     * 每次注销Session时触发.
      */
     @Override
     public void doLogoutSession(String id) {
     }
 
     /**
-     * 每次Token续期时触发
+     * 每次Token续期时触发.
      */
     @Override
     public void doRenewTimeout(String tokenValue, Object loginId, long timeout) {
     }
-
 }

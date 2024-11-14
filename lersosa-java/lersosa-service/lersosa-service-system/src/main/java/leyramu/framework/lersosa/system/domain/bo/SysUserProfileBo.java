@@ -21,7 +21,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * 个人信息业务处理
+ * 个人信息业务处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -33,30 +33,29 @@ import lombok.NoArgsConstructor;
 public class SysUserProfileBo extends BaseEntity {
 
     /**
-     * 用户昵称
+     * 用户昵称.
      */
     @Xss(message = "用户昵称不能包含脚本字符")
-    @Size(min = 0, max = 30, message = "用户昵称长度不能超过{max}个字符")
+    @Size(max = 30, message = "用户昵称长度不能超过{max}个字符")
     private String nickName;
 
     /**
-     * 用户邮箱
+     * 用户邮箱.
      */
     @Sensitive(strategy = SensitiveStrategy.EMAIL)
     @Email(message = "邮箱格式不正确")
-    @Size(min = 0, max = 50, message = "邮箱长度不能超过{max}个字符")
+    @Size(max = 50, message = "邮箱长度不能超过{max}个字符")
     private String email;
 
     /**
-     * 手机号码
+     * 手机号码.
      */
     @Sensitive(strategy = SensitiveStrategy.PHONE)
     @Pattern(regexp = RegexConstants.MOBILE, message = "手机号格式不正确")
     private String phonenumber;
 
     /**
-     * 用户性别（0男 1女 2未知）
+     * 用户性别（0男 1女 2未知）.
      */
     private String sex;
-
 }

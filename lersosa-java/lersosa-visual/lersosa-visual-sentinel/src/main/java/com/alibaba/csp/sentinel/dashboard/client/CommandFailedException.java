@@ -5,20 +5,36 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.client;
 
+import lombok.RequiredArgsConstructor;
+
 /**
+ * 命令失败异常.
+ *
  * @author Eric Zhao
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
+@RequiredArgsConstructor
 public class CommandFailedException extends RuntimeException {
 
-    public CommandFailedException() {
-    }
-
+    /**
+     * 构造函数.
+     *
+     * @param message 异常信息
+     */
     public CommandFailedException(String message) {
         super(message);
     }
 
+    /**
+     * 重写填充堆栈跟踪方法，使其返回当前对象，以阻止堆栈跟踪的生成.
+     *
+     * @return 当前对象
+     */
     @Override
     public synchronized Throwable fillInStackTrace() {
         return this;

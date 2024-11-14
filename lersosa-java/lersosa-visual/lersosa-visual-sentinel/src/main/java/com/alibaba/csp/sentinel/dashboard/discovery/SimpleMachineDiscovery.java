@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.discovery;
 
 import com.alibaba.csp.sentinel.util.AssertUtil;
@@ -18,13 +19,27 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
+ * {@link MachineDiscovery} 的默认实现.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
 @Component
 public class SimpleMachineDiscovery implements MachineDiscovery {
 
+    /**
+     * 应用信息.
+     */
     private final ConcurrentMap<String, AppInfo> apps = new ConcurrentHashMap<>();
 
+    /**
+     * 添加机器.
+     *
+     * @param machineInfo 机器信息
+     * @return 添加成功返回1，否则返回0
+     */
     @Override
     public long addMachine(MachineInfo machineInfo) {
         AssertUtil.notNull(machineInfo, "machineInfo cannot be null");
@@ -33,6 +48,14 @@ public class SimpleMachineDiscovery implements MachineDiscovery {
         return 1;
     }
 
+    /**
+     * 删除机器.
+     *
+     * @param app  应用名称
+     * @param ip   ip地址
+     * @param port 端口号
+     * @return 删除成功返回true，否则返回false
+     */
     @Override
     public boolean removeMachine(String app, String ip, int port) {
         AssertUtil.assertNotBlank(app, "app name cannot be blank");
@@ -43,26 +66,46 @@ public class SimpleMachineDiscovery implements MachineDiscovery {
         return false;
     }
 
+    /**
+     * 获取应用名称列表.
+     *
+     * @return 应用名称列表
+     */
     @Override
     public List<String> getAppNames() {
         return new ArrayList<>(apps.keySet());
     }
 
+    /**
+     * 获取应用详细信息.
+     *
+     * @param app 应用名称
+     * @return 应用详细信息
+     */
     @Override
     public AppInfo getDetailApp(String app) {
         AssertUtil.assertNotBlank(app, "app name cannot be blank");
         return apps.get(app);
     }
 
+    /**
+     * 获取应用简要信息.
+     *
+     * @return 应用简要信息
+     */
     @Override
     public Set<AppInfo> getBriefApps() {
         return new HashSet<>(apps.values());
     }
 
+    /**
+     * 删除应用.
+     *
+     * @param app 应用名称
+     */
     @Override
     public void removeApp(String app) {
         AssertUtil.assertNotBlank(app, "app name cannot be blank");
         apps.remove(app);
     }
-
 }

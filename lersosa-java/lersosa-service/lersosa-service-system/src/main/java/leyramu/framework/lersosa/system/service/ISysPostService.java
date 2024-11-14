@@ -16,7 +16,7 @@ import leyramu.framework.lersosa.system.domain.vo.SysPostVo;
 import java.util.List;
 
 /**
- * 岗位信息 服务层
+ * 岗位信息 服务层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,7 +28,7 @@ public interface ISysPostService {
     TableDataInfo<SysPostVo> selectPagePostList(SysPostBo post, PageQuery pageQuery);
 
     /**
-     * 查询岗位信息集合
+     * 查询岗位信息集合.
      *
      * @param post 岗位信息
      * @return 岗位列表
@@ -36,14 +36,15 @@ public interface ISysPostService {
     List<SysPostVo> selectPostList(SysPostBo post);
 
     /**
-     * 查询所有岗位
+     * 查询所有岗位.
      *
      * @return 岗位列表
      */
+    @SuppressWarnings("unused")
     List<SysPostVo> selectPostAll();
 
     /**
-     * 通过岗位ID查询岗位信息
+     * 通过岗位ID查询岗位信息.
      *
      * @param postId 岗位ID
      * @return 角色对象信息
@@ -51,7 +52,7 @@ public interface ISysPostService {
     SysPostVo selectPostById(Long postId);
 
     /**
-     * 根据用户ID获取岗位选择框列表
+     * 根据用户ID获取岗位选择框列表.
      *
      * @param userId 用户ID
      * @return 选中岗位ID列表
@@ -59,7 +60,7 @@ public interface ISysPostService {
     List<Long> selectPostListByUserId(Long userId);
 
     /**
-     * 通过岗位ID串查询岗位
+     * 通过岗位ID串查询岗位.
      *
      * @param postIds 岗位id串
      * @return 岗位列表信息
@@ -67,7 +68,7 @@ public interface ISysPostService {
     List<SysPostVo> selectPostByIds(List<Long> postIds);
 
     /**
-     * 校验岗位名称
+     * 校验岗位名称.
      *
      * @param post 岗位信息
      * @return 结果
@@ -75,7 +76,7 @@ public interface ISysPostService {
     boolean checkPostNameUnique(SysPostBo post);
 
     /**
-     * 校验岗位编码
+     * 校验岗位编码.
      *
      * @param post 岗位信息
      * @return 结果
@@ -83,7 +84,7 @@ public interface ISysPostService {
     boolean checkPostCodeUnique(SysPostBo post);
 
     /**
-     * 通过岗位ID查询岗位使用数量
+     * 通过岗位ID查询岗位使用数量.
      *
      * @param postId 岗位ID
      * @return 结果
@@ -91,7 +92,7 @@ public interface ISysPostService {
     long countUserPostById(Long postId);
 
     /**
-     * 通过部门ID查询岗位使用数量
+     * 通过部门ID查询岗位使用数量.
      *
      * @param deptId 部门id
      * @return 结果
@@ -99,15 +100,16 @@ public interface ISysPostService {
     long countPostByDeptId(Long deptId);
 
     /**
-     * 删除岗位信息
+     * 删除岗位信息.
      *
      * @param postId 岗位ID
      * @return 结果
      */
+    @SuppressWarnings("unused")
     int deletePostById(Long postId);
 
     /**
-     * 批量删除岗位信息
+     * 批量删除岗位信息.
      *
      * @param postIds 需要删除的岗位ID
      * @return 结果
@@ -115,7 +117,7 @@ public interface ISysPostService {
     int deletePostByIds(Long[] postIds);
 
     /**
-     * 新增保存岗位信息
+     * 新增保存岗位信息.
      *
      * @param bo 岗位信息
      * @return 结果
@@ -123,7 +125,7 @@ public interface ISysPostService {
     int insertPost(SysPostBo bo);
 
     /**
-     * 修改保存岗位信息
+     * 修改保存岗位信息.
      *
      * @param bo 岗位信息
      * @return 结果

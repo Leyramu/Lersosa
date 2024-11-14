@@ -13,7 +13,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * 登录租户对象
+ * 登录租户对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -23,13 +23,12 @@ import java.util.List;
 public class LoginTenantVo {
 
     /**
-     * 租户开关
+     * 租户开关.
      */
     private Boolean tenantEnabled;
 
     /**
-     * 租户对象列表
+     * 租户对象列表.
      */
     private List<TenantListVo> voList;
-
 }

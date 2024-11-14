@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 岗位信息 服务层处理
+ * 岗位信息 服务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -59,7 +59,7 @@ public class SysPostServiceImpl implements ISysPostService {
     }
 
     /**
-     * 查询岗位信息集合
+     * 查询岗位信息集合.
      *
      * @param post 岗位信息
      * @return 岗位信息集合
@@ -70,7 +70,7 @@ public class SysPostServiceImpl implements ISysPostService {
     }
 
     /**
-     * 根据查询条件构建查询包装器
+     * 根据查询条件构建查询包装器.
      *
      * @param bo 查询条件对象
      * @return 构建好的查询包装器
@@ -102,7 +102,7 @@ public class SysPostServiceImpl implements ISysPostService {
     }
 
     /**
-     * 查询所有岗位
+     * 查询所有岗位.
      *
      * @return 岗位列表
      */
@@ -112,7 +112,7 @@ public class SysPostServiceImpl implements ISysPostService {
     }
 
     /**
-     * 通过岗位ID查询岗位信息
+     * 通过岗位ID查询岗位信息.
      *
      * @param postId 岗位ID
      * @return 角色对象信息
@@ -123,7 +123,7 @@ public class SysPostServiceImpl implements ISysPostService {
     }
 
     /**
-     * 根据用户ID获取岗位选择框列表
+     * 根据用户ID获取岗位选择框列表.
      *
      * @param userId 用户ID
      * @return 选中岗位ID列表
@@ -135,7 +135,7 @@ public class SysPostServiceImpl implements ISysPostService {
     }
 
     /**
-     * 通过岗位ID串查询岗位
+     * 通过岗位ID串查询岗位.
      *
      * @param postIds 岗位id串
      * @return 岗位列表信息
@@ -149,7 +149,7 @@ public class SysPostServiceImpl implements ISysPostService {
     }
 
     /**
-     * 校验岗位名称是否唯一
+     * 校验岗位名称是否唯一.
      *
      * @param post 岗位信息
      * @return 结果
@@ -159,11 +159,11 @@ public class SysPostServiceImpl implements ISysPostService {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysPost>()
             .eq(SysPost::getPostName, post.getPostName())
             .ne(ObjectUtil.isNotNull(post.getPostId()), SysPost::getPostId, post.getPostId()));
-        return !exist;
+        return exist;
     }
 
     /**
-     * 校验岗位编码是否唯一
+     * 校验岗位编码是否唯一.
      *
      * @param post 岗位信息
      * @return 结果
@@ -173,11 +173,11 @@ public class SysPostServiceImpl implements ISysPostService {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysPost>()
             .eq(SysPost::getPostCode, post.getPostCode())
             .ne(ObjectUtil.isNotNull(post.getPostId()), SysPost::getPostId, post.getPostId()));
-        return !exist;
+        return exist;
     }
 
     /**
-     * 通过岗位ID查询岗位使用数量
+     * 通过岗位ID查询岗位使用数量.
      *
      * @param postId 岗位ID
      * @return 结果
@@ -188,7 +188,7 @@ public class SysPostServiceImpl implements ISysPostService {
     }
 
     /**
-     * 通过部门ID查询岗位使用数量
+     * 通过部门ID查询岗位使用数量.
      *
      * @param deptId 部门id
      * @return 结果
@@ -199,7 +199,7 @@ public class SysPostServiceImpl implements ISysPostService {
     }
 
     /**
-     * 删除岗位信息
+     * 删除岗位信息.
      *
      * @param postId 岗位ID
      * @return 结果
@@ -210,7 +210,7 @@ public class SysPostServiceImpl implements ISysPostService {
     }
 
     /**
-     * 批量删除岗位信息
+     * 批量删除岗位信息.
      *
      * @param postIds 需要删除的岗位ID
      * @return 结果
@@ -227,7 +227,7 @@ public class SysPostServiceImpl implements ISysPostService {
     }
 
     /**
-     * 新增保存岗位信息
+     * 新增保存岗位信息.
      *
      * @param bo 岗位信息
      * @return 结果
@@ -239,7 +239,7 @@ public class SysPostServiceImpl implements ISysPostService {
     }
 
     /**
-     * 修改保存岗位信息
+     * 修改保存岗位信息.
      *
      * @param bo 岗位信息
      * @return 结果

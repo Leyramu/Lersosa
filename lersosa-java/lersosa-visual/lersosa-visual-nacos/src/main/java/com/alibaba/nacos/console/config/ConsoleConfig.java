@@ -10,7 +10,8 @@ package com.alibaba.nacos.console.config;
 
 import com.alibaba.nacos.console.filter.XssFilter;
 import com.alibaba.nacos.core.code.ControllerMethodsCache;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -25,25 +26,28 @@ import javax.annotation.PostConstruct;
 import java.time.ZoneId;
 
 /**
- * Console config.
+ * 控制台配置.
  *
  * @author yshen
  * @author nkorange
- * @since 1.2.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 1.0.0
+ * @since 2024/11/13
  */
 @Component
 @EnableScheduling
+@RequiredArgsConstructor
 @PropertySource("/application.properties")
 public class ConsoleConfig {
 
-    @Autowired
-    private ControllerMethodsCache methodsCache;
+    private final ControllerMethodsCache methodsCache;
 
+    @Getter
     @Value("${nacos.console.ui.enabled:true}")
     private boolean consoleUiEnabled;
 
     /**
-     * Init.
+     * 初始化.
      */
     @PostConstruct
     public void init() {
@@ -74,9 +78,5 @@ public class ConsoleConfig {
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jacksonObjectMapperCustomization() {
         return jacksonObjectMapperBuilder -> jacksonObjectMapperBuilder.timeZone(ZoneId.systemDefault().toString());
-    }
-
-    public boolean isConsoleUiEnabled() {
-        return consoleUiEnabled;
     }
 }

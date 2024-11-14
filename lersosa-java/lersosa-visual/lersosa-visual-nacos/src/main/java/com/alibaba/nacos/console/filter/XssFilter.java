@@ -8,6 +8,7 @@
 
 package com.alibaba.nacos.console.filter;
 
+import lombok.NonNull;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -17,9 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * XSS filter.
+ * XSS 筛选器.
  *
  * @author onewe
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 1.0.0
+ * @since 2024/11/13
  */
 public class XssFilter extends OncePerRequestFilter {
 
@@ -28,7 +32,7 @@ public class XssFilter extends OncePerRequestFilter {
     private static final String CONTENT_SECURITY_POLICY = "script-src 'self'";
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(@NonNull HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
 
         response.setHeader(CONTENT_SECURITY_POLICY_HEADER, CONTENT_SECURITY_POLICY);

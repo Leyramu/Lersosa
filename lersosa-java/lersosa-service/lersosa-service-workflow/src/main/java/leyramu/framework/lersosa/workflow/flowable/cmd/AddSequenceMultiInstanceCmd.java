@@ -22,7 +22,7 @@ import java.util.Map;
 import static leyramu.framework.lersosa.workflow.common.constant.FlowConstant.NUMBER_OF_INSTANCES;
 
 /**
- * 串行加签
+ * 串行加签.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,17 +31,17 @@ import static leyramu.framework.lersosa.workflow.common.constant.FlowConstant.NU
 public class AddSequenceMultiInstanceCmd implements Command<Void> {
 
     /**
-     * 执行id
+     * 执行id.
      */
     private final String executionId;
 
     /**
-     * 会签人员集合KEY
+     * 会签人员集合KEY.
      */
     private final String assigneeList;
 
     /**
-     * 加签人员
+     * 加签人员.
      */
     private final List<Long> assignees;
 

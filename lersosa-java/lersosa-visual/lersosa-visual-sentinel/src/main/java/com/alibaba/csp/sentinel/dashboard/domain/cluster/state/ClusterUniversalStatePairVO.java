@@ -5,55 +5,80 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.cluster.state;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
+ * 集群通用状态.
+ *
  * @author Eric Zhao
- * @since 1.4.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ClusterUniversalStatePairVO {
 
+    /**
+     * 客户端 IP.
+     */
     private String ip;
+
+    /**
+     * 客户端端口.
+     */
     private Integer commandPort;
 
+    /**
+     * 集群状态.
+     */
     private ClusterUniversalStateVO state;
 
-    public ClusterUniversalStatePairVO() {
-    }
-
-    public ClusterUniversalStatePairVO(String ip, Integer commandPort, ClusterUniversalStateVO state) {
-        this.ip = ip;
-        this.commandPort = commandPort;
-        this.state = state;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
+    /**
+     * 设置客户端 IP.
+     *
+     * @param ip 客户端 IP
+     * @return 当前对象
+     */
     public ClusterUniversalStatePairVO setIp(String ip) {
         this.ip = ip;
         return this;
     }
 
-    public Integer getCommandPort() {
-        return commandPort;
-    }
-
+    /**
+     * 设置客户端端口.
+     *
+     * @param commandPort 客户端端口
+     * @return 当前对象
+     */
+    @SuppressWarnings("unused")
     public ClusterUniversalStatePairVO setCommandPort(Integer commandPort) {
         this.commandPort = commandPort;
         return this;
     }
 
-    public ClusterUniversalStateVO getState() {
-        return state;
-    }
-
+    /**
+     * 设置集群状态.
+     *
+     * @param state 集群状态
+     * @return 当前对象
+     */
     public ClusterUniversalStatePairVO setState(ClusterUniversalStateVO state) {
         this.state = state;
         return this;
     }
 
+    /**
+     * 重写 toString 方法.
+     *
+     * @return 集群通用状态对VO的字符串表示形式
+     */
     @Override
     public String toString() {
         return "ClusterUniversalStatePairVO{" +

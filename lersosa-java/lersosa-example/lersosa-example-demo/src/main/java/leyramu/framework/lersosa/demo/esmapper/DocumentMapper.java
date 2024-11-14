@@ -12,7 +12,7 @@ import leyramu.framework.lersosa.demo.domain.Document;
 import org.dromara.easyes.core.kernel.BaseEsMapper;
 
 /**
- * 文档接口
+ * 文档接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

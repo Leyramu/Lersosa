@@ -14,7 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 流程实例请求对象
+ * 流程实例请求对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,27 +27,27 @@ public class ProcessInstanceBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 流程名称
+     * 流程名称.
      */
     private String name;
 
     /**
-     * 流程key
+     * 流程key.
      */
     private String key;
 
     /**
-     * 任务发起人
+     * 任务发起人.
      */
     private String startUserId;
 
     /**
-     * 业务id
+     * 业务id.
      */
     private String businessKey;
 
     /**
-     * 模型分类
+     * 模型分类.
      */
     private String categoryCode;
 }

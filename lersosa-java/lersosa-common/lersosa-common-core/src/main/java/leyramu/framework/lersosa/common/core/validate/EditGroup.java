@@ -9,7 +9,7 @@
 package leyramu.framework.lersosa.common.core.validate;
 
 /**
- * 校验分组 edit
+ * 校验分组 edit.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

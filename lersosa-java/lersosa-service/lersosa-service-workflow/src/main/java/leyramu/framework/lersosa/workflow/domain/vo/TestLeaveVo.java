@@ -20,7 +20,7 @@ import java.util.Date;
 
 
 /**
- * 请假视图对象 test_leave
+ * 请假视图对象 test_leave.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -35,45 +35,44 @@ public class TestLeaveVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * 主键.
      */
     @ExcelProperty(value = "主键")
     private Long id;
 
     /**
-     * 请假类型
+     * 请假类型.
      */
     @ExcelProperty(value = "请假类型")
     private String leaveType;
 
     /**
-     * 开始时间
+     * 开始时间.
      */
     @ExcelProperty(value = "开始时间")
     private Date startDate;
 
     /**
-     * 结束时间
+     * 结束时间.
      */
     @ExcelProperty(value = "结束时间")
     private Date endDate;
 
     /**
-     * 请假天数
+     * 请假天数.
      */
     @ExcelProperty(value = "请假天数")
     private Integer leaveDays;
 
     /**
-     * 备注
+     * 备注.
      */
     @ExcelProperty(value = "请假原因")
     private String remark;
 
     /**
-     * 状态
+     * 状态.
      */
     @ExcelProperty(value = "状态")
     private String status;
-
 }

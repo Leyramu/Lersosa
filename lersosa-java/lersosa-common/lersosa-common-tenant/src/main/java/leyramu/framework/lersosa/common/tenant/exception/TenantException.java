@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.common.core.exception.base.BaseException;
 import java.io.Serial;
 
 /**
- * 租户异常类
+ * 租户异常类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

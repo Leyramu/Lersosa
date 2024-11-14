@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 字典类型视图对象 sys_dict_type
+ * 字典类型视图对象 sys_dict_type.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -34,33 +34,32 @@ public class SysDictTypeVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 字典主键
+     * 字典主键.
      */
     @ExcelProperty(value = "字典主键")
     private Long dictId;
 
     /**
-     * 字典名称
+     * 字典名称.
      */
     @ExcelProperty(value = "字典名称")
     private String dictName;
 
     /**
-     * 字典类型
+     * 字典类型.
      */
     @ExcelProperty(value = "字典类型")
     private String dictType;
 
     /**
-     * 备注
+     * 备注.
      */
     @ExcelProperty(value = "备注")
     private String remark;
 
     /**
-     * 创建时间
+     * 创建时间.
      */
     @ExcelProperty(value = "创建时间")
     private Date createTime;
-
 }

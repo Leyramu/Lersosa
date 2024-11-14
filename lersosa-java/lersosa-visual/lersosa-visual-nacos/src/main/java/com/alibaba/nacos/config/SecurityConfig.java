@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 权限安全配置
+ * 权限安全配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -35,5 +35,4 @@ public class SecurityConfig {
         registrationBean.addUrlPatterns("/actuator", "/actuator/**");
         return registrationBean;
     }
-
 }

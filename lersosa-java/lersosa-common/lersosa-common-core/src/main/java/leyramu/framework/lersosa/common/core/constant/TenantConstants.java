@@ -9,7 +9,7 @@
 package leyramu.framework.lersosa.common.core.constant;
 
 /**
- * 租户常量信息
+ * 租户常量信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -18,38 +18,38 @@ package leyramu.framework.lersosa.common.core.constant;
 public interface TenantConstants {
 
     /**
-     * 租户正常状态
+     * 租户正常状态.
      */
     String NORMAL = "0";
 
     /**
-     * 租户封禁状态
+     * 租户封禁状态.
      */
+    @SuppressWarnings("unused")
     String DISABLE = "1";
 
     /**
-     * 超级管理员ID
+     * 超级管理员ID.
      */
     Long SUPER_ADMIN_ID = 1L;
 
     /**
-     * 超级管理员角色 roleKey
+     * 超级管理员角色 roleKey.
      */
     String SUPER_ADMIN_ROLE_KEY = "superadmin";
 
     /**
-     * 租户管理员角色 roleKey
+     * 租户管理员角色 roleKey.
      */
     String TENANT_ADMIN_ROLE_KEY = "admin";
 
     /**
-     * 租户管理员角色名称
+     * 租户管理员角色名称.
      */
     String TENANT_ADMIN_ROLE_NAME = "管理员";
 
     /**
-     * 默认租户ID
+     * 默认租户ID.
      */
     String DEFAULT_TENANT_ID = "000000";
-
 }

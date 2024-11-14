@@ -21,7 +21,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 岗位信息 数据层
+ * 岗位信息 数据层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,17 +30,16 @@ import java.util.List;
 public interface SysPostMapper extends BaseMapperPlus<SysPost, SysPostVo> {
 
     @DataPermission({
-        @DataColumn(key = "deptName", value = "dept_id"),
+        @DataColumn,
         @DataColumn(key = "userName", value = "create_by")
     })
     Page<SysPostVo> selectPagePostList(@Param("page") Page<SysPostVo> page, @Param(Constants.WRAPPER) Wrapper<SysPost> queryWrapper);
 
     /**
-     * 查询用户所属岗位组
+     * 查询用户所属岗位组.
      *
      * @param userId 用户ID
      * @return 结果
      */
     List<SysPostVo> selectPostsByUserId(Long userId);
-
 }

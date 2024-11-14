@@ -22,9 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * 流程定义配置Service业务层处理
+ * 流程定义配置Service业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -37,7 +38,7 @@ public class WfDefinitionConfigServiceImpl implements IWfDefinitionConfigService
     private final WfDefinitionConfigMapper baseMapper;
 
     /**
-     * 查询流程定义配置
+     * 查询流程定义配置.
      */
     @Override
     public WfDefinitionConfigVo getByDefId(String definitionId) {
@@ -45,7 +46,7 @@ public class WfDefinitionConfigServiceImpl implements IWfDefinitionConfigService
     }
 
     /**
-     * 查询流程定义配置
+     * 查询流程定义配置.
      *
      * @param tableName 表名
      * @return 结果
@@ -55,13 +56,13 @@ public class WfDefinitionConfigServiceImpl implements IWfDefinitionConfigService
         List<WfDefinitionConfigVo> wfDefinitionConfigVos = baseMapper.selectVoList(
             new LambdaQueryWrapper<WfDefinitionConfig>().eq(WfDefinitionConfig::getTableName, tableName).orderByDesc(WfDefinitionConfig::getVersion));
         if (CollUtil.isNotEmpty(wfDefinitionConfigVos)) {
-            return wfDefinitionConfigVos.get(0);
+            return wfDefinitionConfigVos.getFirst();
         }
         return null;
     }
 
     /**
-     * 查询流程定义配置
+     * 查询流程定义配置.
      *
      * @param definitionId 流程定义id
      * @param tableName    表名
@@ -75,7 +76,7 @@ public class WfDefinitionConfigServiceImpl implements IWfDefinitionConfigService
     }
 
     /**
-     * 查询流程定义配置排除当前查询的流程定义
+     * 查询流程定义配置排除当前查询的流程定义.
      *
      * @param tableName    表名
      * @param definitionId 流程定义id
@@ -88,7 +89,7 @@ public class WfDefinitionConfigServiceImpl implements IWfDefinitionConfigService
     }
 
     /**
-     * 查询流程定义配置列表
+     * 查询流程定义配置列表.
      */
     @Override
     public List<WfDefinitionConfigVo> queryList(List<String> definitionIds) {
@@ -96,14 +97,14 @@ public class WfDefinitionConfigServiceImpl implements IWfDefinitionConfigService
     }
 
     /**
-     * 新增流程定义配置
+     * 新增流程定义配置.
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean saveOrUpdate(WfDefinitionConfigBo bo) {
         WfDefinitionConfig add = MapstructUtils.convert(bo, WfDefinitionConfig.class);
         baseMapper.delete(new LambdaQueryWrapper<WfDefinitionConfig>().eq(WfDefinitionConfig::getTableName, bo.getTableName()));
-        add.setTableName(add.getTableName().toLowerCase());
+        Objects.requireNonNull(add).setTableName(add.getTableName().toLowerCase());
         boolean flag = baseMapper.insertOrUpdate(add);
         if (flag) {
             bo.setId(add.getId());
@@ -112,7 +113,7 @@ public class WfDefinitionConfigServiceImpl implements IWfDefinitionConfigService
     }
 
     /**
-     * 批量删除流程定义配置
+     * 批量删除流程定义配置.
      */
     @Override
     public Boolean deleteByIds(Collection<Long> ids) {
@@ -120,7 +121,7 @@ public class WfDefinitionConfigServiceImpl implements IWfDefinitionConfigService
     }
 
     @Override
-    public Boolean deleteByDefIds(Collection<String> ids) {
-        return baseMapper.delete(new LambdaQueryWrapper<WfDefinitionConfig>().in(WfDefinitionConfig::getDefinitionId, ids)) > 0;
+    public void deleteByDefIds(Collection<String> ids) {
+        baseMapper.delete(new LambdaQueryWrapper<WfDefinitionConfig>().in(WfDefinitionConfig::getDefinitionId, ids));
     }
 }

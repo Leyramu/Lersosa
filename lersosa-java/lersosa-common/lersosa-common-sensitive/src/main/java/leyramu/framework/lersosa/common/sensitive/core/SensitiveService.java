@@ -9,9 +9,7 @@
 package leyramu.framework.lersosa.common.sensitive.core;
 
 /**
- * 脱敏服务
- * 默认管理员不过滤
- * 需自行根据业务重写实现
+ * 脱敏服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -20,8 +18,7 @@ package leyramu.framework.lersosa.common.sensitive.core;
 public interface SensitiveService {
 
     /**
-     * 是否脱敏
+     * 是否脱敏.
      */
     boolean isSensitive(String roleKey, String perms);
-
 }

@@ -5,21 +5,36 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.client;
 
+import lombok.RequiredArgsConstructor;
+
 /**
+ * 找不到命令异常.
+ *
  * @author Eric Zhao
- * @since 0.2.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
+@RequiredArgsConstructor
 public class CommandNotFoundException extends Exception {
 
-    public CommandNotFoundException() {
-    }
-
+    /**
+     * 使用指定的详细信息消息构造新异常.
+     *
+     * @param message 详细信息
+     */
     public CommandNotFoundException(String message) {
         super(message);
     }
 
+    /**
+     * 覆盖默认的填充堆栈跟踪方法，以阻止填充堆栈跟踪.
+     *
+     * @return 此对象
+     */
     @Override
     public synchronized Throwable fillInStackTrace() {
         return this;

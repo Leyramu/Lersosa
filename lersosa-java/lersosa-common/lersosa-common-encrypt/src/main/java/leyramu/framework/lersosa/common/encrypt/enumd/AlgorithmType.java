@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 算法名称
+ * 算法名称.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -24,32 +24,32 @@ import lombok.Getter;
 public enum AlgorithmType {
 
     /**
-     * 默认走yml配置
+     * 默认走yml配置.
      */
     DEFAULT(null),
 
     /**
-     * base64
+     * base64.
      */
     BASE64(Base64Encryptor.class),
 
     /**
-     * aes
+     * aes.
      */
     AES(AesEncryptor.class),
 
     /**
-     * rsa
+     * rsa.
      */
     RSA(RsaEncryptor.class),
 
     /**
-     * sm2
+     * sm2.
      */
     SM2(Sm2Encryptor.class),
 
     /**
-     * sm4
+     * sm4.
      */
     SM4(Sm4Encryptor.class);
 

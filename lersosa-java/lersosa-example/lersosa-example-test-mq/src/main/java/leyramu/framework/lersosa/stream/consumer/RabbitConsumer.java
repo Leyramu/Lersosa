@@ -16,7 +16,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 /**
- * 消息消费者
+ * 消息消费者.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 public class RabbitConsumer {
 
     /**
-     * 普通消息
+     * 普通消息.
      */
     @RabbitListener(queues = RabbitConfig.QUEUE_NAME)
     public void listenQueue(Message message) {
@@ -35,7 +35,7 @@ public class RabbitConsumer {
     }
 
     /**
-     * 处理延迟队列消息
+     * 处理延迟队列消息.
      */
     @RabbitListener(queues = RabbitTtlQueueConfig.DELAY_QUEUE_NAME)
     public void receiveDelayMessage(String message) {
@@ -43,9 +43,7 @@ public class RabbitConsumer {
     }
 
     /**
-     * 处理死信队列消息
-     * 当消息在延迟队列中未能被正确处理（例如因消费者逻辑错误、超时未ACK等原因）
-     * 它会被自动转发到死信队列中，以便后续的特殊处理或重新尝试。
+     * 处理死信队列消息.
      */
     @RabbitListener(queues = RabbitTtlQueueConfig.DEAD_LETTER_QUEUE)
     public void receiveDeadMessage(String message) {

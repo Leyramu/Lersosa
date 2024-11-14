@@ -5,12 +5,20 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.cluster;
 
+import lombok.Data;
+
 /**
+ * 群集客户端信息视图对象.
+ *
  * @author Eric Zhao
- * @since 1.4.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class ClusterClientInfoVO {
 
     private String serverHost;
@@ -20,17 +28,10 @@ public class ClusterClientInfoVO {
 
     private Integer requestTimeout;
 
-    public String getServerHost() {
-        return serverHost;
-    }
-
+    @SuppressWarnings("unused")
     public ClusterClientInfoVO setServerHost(String serverHost) {
         this.serverHost = serverHost;
         return this;
-    }
-
-    public Integer getServerPort() {
-        return serverPort;
     }
 
     public ClusterClientInfoVO setServerPort(Integer serverPort) {
@@ -38,19 +39,13 @@ public class ClusterClientInfoVO {
         return this;
     }
 
-    public Integer getClientState() {
-        return clientState;
-    }
-
+    @SuppressWarnings("unused")
     public ClusterClientInfoVO setClientState(Integer clientState) {
         this.clientState = clientState;
         return this;
     }
 
-    public Integer getRequestTimeout() {
-        return requestTimeout;
-    }
-
+    @SuppressWarnings("unused")
     public ClusterClientInfoVO setRequestTimeout(Integer requestTimeout) {
         this.requestTimeout = requestTimeout;
         return this;

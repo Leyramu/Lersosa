@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serial;
 
 /**
- * 小程序登录用户身份权限
+ * 小程序登录用户身份权限.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,8 +30,7 @@ public class XcxLoginUser extends LoginUser {
     private static final long serialVersionUID = 1L;
 
     /**
-     * openid
+     * openid.
      */
     private String openid;
-
 }

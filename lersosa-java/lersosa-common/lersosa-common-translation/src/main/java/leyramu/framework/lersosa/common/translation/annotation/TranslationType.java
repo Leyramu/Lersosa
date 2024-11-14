@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.common.translation.core.TranslationInterface;
 import java.lang.annotation.*;
 
 /**
- * 翻译类型注解 (标注到{@link TranslationInterface} 的实现类)
+ * 翻译类型注解 (标注到{@link TranslationInterface} 的实现类).
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,8 +26,7 @@ import java.lang.annotation.*;
 public @interface TranslationType {
 
     /**
-     * 类型
+     * 类型.
      */
     String type();
-
 }

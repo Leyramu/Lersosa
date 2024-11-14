@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
 import org.apache.dubbo.config.annotation.DubboReference;
 
 /**
- * 部门翻译实现
+ * 部门翻译实现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

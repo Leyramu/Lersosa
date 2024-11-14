@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 流程实例 服务层
+ * 流程实例 服务层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,7 +28,7 @@ import java.util.Map;
  */
 public interface IActProcessInstanceService {
     /**
-     * 通过流程实例id获取历史流程图
+     * 通过流程实例id获取历史流程图.
      *
      * @param businessKey 流程实例id
      * @return 结果
@@ -36,7 +36,7 @@ public interface IActProcessInstanceService {
     String getHistoryImage(String businessKey);
 
     /**
-     * 通过业务id获取历史流程图运行中，历史等节点
+     * 通过业务id获取历史流程图运行中，历史等节点.
      *
      * @param businessKey 业务id
      * @return 结果
@@ -44,7 +44,7 @@ public interface IActProcessInstanceService {
     Map<String, Object> getHistoryList(String businessKey);
 
     /**
-     * 分页查询正在运行的流程实例
+     * 分页查询正在运行的流程实例.
      *
      * @param processInstanceBo 参数
      * @param pageQuery         分页
@@ -53,7 +53,7 @@ public interface IActProcessInstanceService {
     TableDataInfo<ProcessInstanceVo> getPageByRunning(ProcessInstanceBo processInstanceBo, PageQuery pageQuery);
 
     /**
-     * 分页查询已结束的流程实例
+     * 分页查询已结束的流程实例.
      *
      * @param processInstanceBo 参数
      * @param pageQuery         分页
@@ -62,7 +62,7 @@ public interface IActProcessInstanceService {
     TableDataInfo<ProcessInstanceVo> getPageByFinish(ProcessInstanceBo processInstanceBo, PageQuery pageQuery);
 
     /**
-     * 获取审批记录
+     * 获取审批记录.
      *
      * @param businessKey 业务id
      * @return 结果
@@ -70,7 +70,7 @@ public interface IActProcessInstanceService {
     List<ActHistoryInfoVo> getHistoryRecord(String businessKey);
 
     /**
-     * 作废流程实例，不会删除历史记录(删除运行中的实例)
+     * 作废流程实例，不会删除历史记录(删除运行中的实例).
      *
      * @param processInvalidBo 参数
      * @return 结果
@@ -78,7 +78,7 @@ public interface IActProcessInstanceService {
     boolean deleteRunInstance(ProcessInvalidBo processInvalidBo);
 
     /**
-     * 运行中的实例 删除程实例，删除历史记录，删除业务与流程关联信息
+     * 运行中的实例 删除程实例，删除历史记录，删除业务与流程关联信息.
      *
      * @param businessKeys 业务id
      * @return 结果
@@ -86,7 +86,7 @@ public interface IActProcessInstanceService {
     boolean deleteRunAndHisInstance(List<String> businessKeys);
 
     /**
-     * 已完成的实例 删除程实例，删除历史记录，删除业务与流程关联信息
+     * 已完成的实例 删除程实例，删除历史记录，删除业务与流程关联信息.
      *
      * @param businessKeys 业务id
      * @return 结果
@@ -94,7 +94,7 @@ public interface IActProcessInstanceService {
     boolean deleteFinishAndHisInstance(List<String> businessKeys);
 
     /**
-     * 撤销流程申请
+     * 撤销流程申请.
      *
      * @param businessKey 业务id
      * @return 结果
@@ -102,7 +102,7 @@ public interface IActProcessInstanceService {
     boolean cancelProcessApply(String businessKey);
 
     /**
-     * 分页查询当前登录人单据
+     * 分页查询当前登录人单据.
      *
      * @param processInstanceBo 参数
      * @param pageQuery         分页
@@ -111,7 +111,7 @@ public interface IActProcessInstanceService {
     TableDataInfo<ProcessInstanceVo> getPageByCurrent(ProcessInstanceBo processInstanceBo, PageQuery pageQuery);
 
     /**
-     * 任务催办(给当前任务办理人发送站内信，邮件，短信等)
+     * 任务催办(给当前任务办理人发送站内信，邮件，短信等).
      *
      * @param taskUrgingBo 任务催办
      * @return 结果

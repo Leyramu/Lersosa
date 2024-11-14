@@ -5,20 +5,30 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.entity;
+
+import lombok.Data;
 
 import java.util.Date;
 
 /**
+ * 度量实体.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@SuppressWarnings("unused")
 public class MetricEntity {
     private Long id;
     private Date gmtCreate;
     private Date gmtModified;
     private String app;
     /**
-     * 监控信息的时间戳
+     * 监控信息的时间戳.
      */
     private Date timestamp;
     private String resource;
@@ -28,12 +38,12 @@ public class MetricEntity {
     private Long exceptionQps;
 
     /**
-     * summary rt of all success exit qps.
+     * 所有成功退出 QPS 的 RT 总结.
      */
     private double rt;
 
     /**
-     * 本次聚合的总条数
+     * 本次聚合的总条数.
      */
     private int count;
 
@@ -78,115 +88,19 @@ public class MetricEntity {
     }
 
     /**
-     * {@link #rt} = {@code avgRt * successQps}
+     * {@link #rt} = {@code avgRt * successQps}.
      *
      * @param avgRt      average rt of {@code successQps}
-     * @param successQps
+     * @param successQps 成功请求数
      */
     public synchronized void setRtAndSuccessQps(double avgRt, Long successQps) {
         this.rt = avgRt * successQps;
         this.successQps = successQps;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    public String getApp() {
-        return app;
-    }
-
-    public void setApp(String app) {
-        this.app = app;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getResource() {
-        return resource;
-    }
-
     public void setResource(String resource) {
         this.resource = resource;
         this.resourceCode = resource.hashCode();
-    }
-
-    public Long getPassQps() {
-        return passQps;
-    }
-
-    public void setPassQps(Long passQps) {
-        this.passQps = passQps;
-    }
-
-    public Long getBlockQps() {
-        return blockQps;
-    }
-
-    public void setBlockQps(Long blockQps) {
-        this.blockQps = blockQps;
-    }
-
-    public Long getExceptionQps() {
-        return exceptionQps;
-    }
-
-    public void setExceptionQps(Long exceptionQps) {
-        this.exceptionQps = exceptionQps;
-    }
-
-    public double getRt() {
-        return rt;
-    }
-
-    public void setRt(double rt) {
-        this.rt = rt;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public int getResourceCode() {
-        return resourceCode;
-    }
-
-    public Long getSuccessQps() {
-        return successQps;
-    }
-
-    public void setSuccessQps(Long successQps) {
-        this.successQps = successQps;
     }
 
     @Override
@@ -207,5 +121,4 @@ public class MetricEntity {
             ", resourceCode=" + resourceCode +
             '}';
     }
-
 }

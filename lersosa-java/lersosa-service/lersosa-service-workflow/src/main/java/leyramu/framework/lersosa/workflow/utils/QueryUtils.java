@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 查询工具
+ * 查询工具.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -66,6 +66,7 @@ public class QueryUtils {
         return query;
     }
 
+    @SuppressWarnings("unused")
     public static DeploymentQuery deploymentQuery(String deploymentId) {
         return deploymentQuery().deploymentId(deploymentId);
     }
@@ -159,7 +160,7 @@ public class QueryUtils {
     }
 
     /**
-     * 按照任务id查询当前任务
+     * 按照任务id查询当前任务.
      *
      * @param taskId 任务id
      */

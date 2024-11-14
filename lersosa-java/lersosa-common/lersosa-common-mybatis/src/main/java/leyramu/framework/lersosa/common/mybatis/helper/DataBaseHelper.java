@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 数据库助手
+ * 数据库助手.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -36,7 +36,7 @@ public class DataBaseHelper {
     private static final DynamicRoutingDataSource DS = SpringUtils.getBean(DynamicRoutingDataSource.class);
 
     /**
-     * 获取当前数据库类型
+     * 获取当前数据库类型.
      */
     public static DataBaseType getDataBaseType() {
         DataSource dataSource = DS.determineDataSource();
@@ -83,7 +83,7 @@ public class DataBaseHelper {
     }
 
     /**
-     * 获取当前加载的数据库名
+     * 获取当前加载的数据库名.
      */
     public static List<String> getDataSourceNameList() {
         return new ArrayList<>(DS.getDataSources().keySet());

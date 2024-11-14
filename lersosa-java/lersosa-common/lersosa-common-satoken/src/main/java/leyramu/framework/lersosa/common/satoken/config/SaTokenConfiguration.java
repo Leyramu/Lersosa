@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 
 /**
- * Sa-Token 配置
+ * Sa-Token 配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -37,7 +37,7 @@ public class SaTokenConfiguration {
     }
 
     /**
-     * 权限接口实现(使用bean注入方便用户替换)
+     * 权限接口实现(使用bean注入方便用户替换).
      */
     @Bean
     public StpInterface stpInterface() {
@@ -45,7 +45,7 @@ public class SaTokenConfiguration {
     }
 
     /**
-     * 自定义dao层存储
+     * 自定义dao层存储.
      */
     @Bean
     public SaTokenDao saTokenDao() {
@@ -53,11 +53,10 @@ public class SaTokenConfiguration {
     }
 
     /**
-     * 异常处理器
+     * 异常处理器.
      */
     @Bean
     public SaTokenExceptionHandler saTokenExceptionHandler() {
         return new SaTokenExceptionHandler();
     }
-
 }

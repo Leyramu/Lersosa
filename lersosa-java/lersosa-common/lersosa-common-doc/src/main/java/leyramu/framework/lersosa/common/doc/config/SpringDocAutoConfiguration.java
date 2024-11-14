@@ -39,7 +39,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Swagger 文档配置
+ * Swagger 文档配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -90,19 +90,20 @@ public class SpringDocAutoConfiguration {
     }
 
     /**
-     * 自定义 openapi 处理器
+     * 自定义 openapi 处理器.
      */
     @Bean
-    public OpenAPIService openApiBuilder(Optional<OpenAPI> openAPI,
-                                         SecurityService securityParser,
-                                         SpringDocConfigProperties springDocConfigProperties, PropertyResolverUtils propertyResolverUtils,
-                                         Optional<List<OpenApiBuilderCustomizer>> openApiBuilderCustomisers,
-                                         Optional<List<ServerBaseUrlCustomizer>> serverBaseUrlCustomisers, Optional<JavadocProvider> javadocProvider) {
-        return new OpenApiHandler(openAPI, securityParser, springDocConfigProperties, propertyResolverUtils, openApiBuilderCustomisers, serverBaseUrlCustomisers, javadocProvider);
+    public OpenAPIService openApiBuilder(
+        Optional<OpenAPI> openApi,
+        SecurityService securityParser,
+        SpringDocConfigProperties springDocConfigProperties, PropertyResolverUtils propertyResolverUtils,
+        Optional<List<OpenApiBuilderCustomizer>> openApiBuilderCustomisers,
+        Optional<List<ServerBaseUrlCustomizer>> serverBaseUrlCustomisers, Optional<JavadocProvider> javadocProvider) {
+        return new OpenApiHandler(openApi, securityParser, springDocConfigProperties, propertyResolverUtils, openApiBuilderCustomisers, serverBaseUrlCustomisers, javadocProvider);
     }
 
     /**
-     * 对已经生成好的 OpenApi 进行自定义操作
+     * 对已经生成好的 OpenApi 进行自定义操作.
      */
     @Bean
     public OpenApiCustomizer openApiCustomizer() {
@@ -126,5 +127,4 @@ public class SpringDocAutoConfiguration {
             openApi.setPaths(newPaths);
         };
     }
-
 }

@@ -20,6 +20,7 @@ import leyramu.framework.lersosa.common.oss.enumd.AccessPolicyType;
 import leyramu.framework.lersosa.common.oss.enumd.PolicyType;
 import leyramu.framework.lersosa.common.oss.exception.OssException;
 import leyramu.framework.lersosa.common.oss.properties.OssProperties;
+import lombok.Getter;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.ResponseInputStream;
@@ -45,8 +46,7 @@ import java.nio.file.Path;
 import java.time.Duration;
 
 /**
- * S3 存储协议 所有兼容S3协议的云厂商均支持
- * 阿里云 腾讯云 七牛云 minio
+ * S3 存储协议 所有兼容S3协议的云厂商均支持.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -55,32 +55,36 @@ import java.time.Duration;
 public class OssClient {
 
     /**
-     * 服务商
+     * 服务商.
+     * -- GETTER --
+     *  服务商
+
      */
+    @Getter
     private final String configKey;
 
     /**
-     * 配置属性
+     * 配置属性.
      */
     private final OssProperties properties;
 
     /**
-     * Amazon S3 异步客户端
+     * Amazon S3 异步客户端.
      */
     private final S3AsyncClient client;
 
     /**
-     * 用于管理 S3 数据传输的高级工具
+     * 用于管理 S3 数据传输的高级工具.
      */
     private final S3TransferManager transferManager;
 
     /**
-     * AWS S3 预签名 URL 的生成器
+     * AWS S3 预签名 URL 的生成器.
      */
     private final S3Presigner presigner;
 
     /**
-     * 构造方法
+     * 构造方法.
      *
      * @param configKey     配置键
      * @param ossProperties Oss配置属性
@@ -136,7 +140,7 @@ public class OssClient {
     }
 
     /**
-     * 生成 AWS S3 存储桶访问策略
+     * 生成 AWS S3 存储桶访问策略.
      *
      * @param bucketName 存储桶
      * @param policyType 桶策略类型
@@ -209,8 +213,7 @@ public class OssClient {
     }
 
     /**
-     * 同步创建存储桶
-     * 如果存储桶不存在，会进行创建；如果存储桶存在，不执行任何操作
+     * 同步创建存储桶.
      *
      * @throws OssException 当创建存储桶时发生异常时抛出
      */
@@ -246,7 +249,7 @@ public class OssClient {
     }
 
     /**
-     * 上传文件到 Amazon S3，并返回上传结果
+     * 上传文件到 Amazon S3，并返回上传结果.
      *
      * @param filePath    本地文件路径
      * @param key         在 Amazon S3 中的对象键
@@ -287,7 +290,7 @@ public class OssClient {
     }
 
     /**
-     * 上传 InputStream 到 Amazon S3
+     * 上传 InputStream 到 Amazon S3.
      *
      * @param inputStream 要上传的输入流
      * @param key         在 Amazon S3 中的对象键
@@ -336,7 +339,7 @@ public class OssClient {
     }
 
     /**
-     * 下载文件从 Amazon S3 到临时目录
+     * 下载文件从 Amazon S3 到临时目录.
      *
      * @param path 文件在 Amazon S3 中的对象键
      * @return 下载后的文件在本地的临时路径
@@ -360,7 +363,7 @@ public class OssClient {
     }
 
     /**
-     * 下载文件从 Amazon S3 到 输出流
+     * 下载文件从 Amazon S3 到 输出流.
      *
      * @param key 文件在 Amazon S3 中的对象键
      * @param out 输出流
@@ -391,7 +394,7 @@ public class OssClient {
     }
 
     /**
-     * 删除云存储服务中指定路径下文件
+     * 删除云存储服务中指定路径下文件.
      *
      * @param path 指定路径
      */
@@ -407,7 +410,7 @@ public class OssClient {
     }
 
     /**
-     * 获取私有URL链接
+     * 获取私有URL链接.
      *
      * @param objectKey 对象KEY
      * @param second    授权时间
@@ -426,7 +429,7 @@ public class OssClient {
     }
 
     /**
-     * 上传 byte[] 数据到 Amazon S3，使用指定的后缀构造对象键。
+     * 上传 byte[] 数据到 Amazon S3，使用指定的后缀构造对象键.
      *
      * @param data   要上传的 byte[] 数据
      * @param suffix 对象键的后缀
@@ -438,7 +441,7 @@ public class OssClient {
     }
 
     /**
-     * 上传 InputStream 到 Amazon S3，使用指定的后缀构造对象键。
+     * 上传 InputStream 到 Amazon S3，使用指定的后缀构造对象键.
      *
      * @param inputStream 要上传的输入流
      * @param suffix      对象键的后缀
@@ -446,12 +449,13 @@ public class OssClient {
      * @return UploadResult 包含上传后的文件信息
      * @throws OssException 如果上传失败，抛出自定义异常
      */
+    @SuppressWarnings("unused")
     public UploadResult uploadSuffix(InputStream inputStream, String suffix, Long length, String contentType) {
         return upload(inputStream, getPath(properties.getPrefix(), suffix), length, contentType);
     }
 
     /**
-     * 上传文件到 Amazon S3，使用指定的后缀构造对象键
+     * 上传文件到 Amazon S3，使用指定的后缀构造对象键.
      *
      * @param file   要上传的文件
      * @param suffix 对象键的后缀
@@ -463,11 +467,12 @@ public class OssClient {
     }
 
     /**
-     * 获取文件输入流
+     * 获取文件输入流.
      *
      * @param path 完整文件路径
      * @return 输入流
      */
+    @SuppressWarnings("unused")
     public InputStream getObjectContent(String path) throws IOException {
         // 下载文件到临时目录
         Path tempFilePath = fileDownload(path);
@@ -480,7 +485,7 @@ public class OssClient {
     }
 
     /**
-     * 获取 S3 客户端的终端点 URL
+     * 获取 S3 客户端的终端点 URL.
      *
      * @return 终端点 URL
      */
@@ -492,7 +497,7 @@ public class OssClient {
     }
 
     /**
-     * 获取 S3 客户端的终端点 URL（自定义域名）
+     * 获取 S3 客户端的终端点 URL（自定义域名）.
      *
      * @return 终端点 URL
      */
@@ -517,9 +522,7 @@ public class OssClient {
     }
 
     /**
-     * 根据传入的 region 参数返回相应的 AWS 区域
-     * 如果 region 参数非空，使用 Region.of 方法创建并返回对应的 AWS 区域对象
-     * 如果 region 参数为空，返回一个默认的 AWS 区域（例如，us-east-1），作为广泛支持的区域
+     * 根据传入的 region 参数返回相应的 AWS 区域.
      *
      * @return 对应的 AWS 区域对象，或者默认的广泛支持的区域（us-east-1）
      */
@@ -531,7 +534,7 @@ public class OssClient {
     }
 
     /**
-     * 获取云存储服务的URL
+     * 获取云存储服务的URL.
      *
      * @return 文件路径
      */
@@ -553,7 +556,7 @@ public class OssClient {
     }
 
     /**
-     * 生成一个符合特定规则的、唯一的文件路径。通过使用日期、UUID、前缀和后缀等元素的组合，确保了文件路径的独一无二性
+     * 生成一个符合特定规则的、唯一的文件路径。通过使用日期、UUID、前缀和后缀等元素的组合，确保了文件路径的独一无二性.
      *
      * @param prefix 前缀
      * @param suffix 后缀
@@ -571,7 +574,7 @@ public class OssClient {
     }
 
     /**
-     * 移除路径中的基础URL部分，得到相对路径
+     * 移除路径中的基础URL部分，得到相对路径.
      *
      * @param path 完整的路径，包括基础URL和相对路径
      * @return 去除基础URL后的相对路径
@@ -581,14 +584,7 @@ public class OssClient {
     }
 
     /**
-     * 服务商
-     */
-    public String getConfigKey() {
-        return configKey;
-    }
-
-    /**
-     * 获取是否使用 HTTPS 的配置，并返回相应的协议头部。
+     * 获取是否使用 HTTPS 的配置，并返回相应的协议头部.
      *
      * @return 协议头部，根据是否使用 HTTPS 返回 "https://" 或 "http://"
      */
@@ -597,19 +593,18 @@ public class OssClient {
     }
 
     /**
-     * 检查配置是否相同
+     * 检查配置是否相同.
      */
     public boolean checkPropertiesSame(OssProperties properties) {
-        return this.properties.equals(properties);
+        return !this.properties.equals(properties);
     }
 
     /**
-     * 获取当前桶权限类型
+     * 获取当前桶权限类型.
      *
      * @return 当前桶权限类型code
      */
     public AccessPolicyType getAccessPolicy() {
         return AccessPolicyType.getByType(properties.getAccessPolicy());
     }
-
 }

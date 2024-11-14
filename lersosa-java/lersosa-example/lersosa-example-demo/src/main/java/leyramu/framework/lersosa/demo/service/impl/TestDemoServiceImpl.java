@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 测试单表Service业务层处理
+ * 测试单表Service业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -54,7 +54,7 @@ public class TestDemoServiceImpl implements ITestDemoService {
     }
 
     /**
-     * 自定义分页查询
+     * 自定义分页查询.
      */
     @Override
     public TableDataInfo<TestDemoVo> customPageList(TestDemoBo bo, PageQuery pageQuery) {
@@ -98,11 +98,11 @@ public class TestDemoServiceImpl implements ITestDemoService {
     }
 
     /**
-     * 保存前的数据校验
+     * 保存前的数据校验.
      *
-     * @param entity 实体类数据
+     * @param ignoredEntity 实体类数据
      */
-    private void validEntityBeforeSave(TestDemo entity) {
+    private void validEntityBeforeSave(TestDemo ignoredEntity) {
         //TODO 做一些数据校验,如唯一约束
     }
 
@@ -119,7 +119,7 @@ public class TestDemoServiceImpl implements ITestDemoService {
     }
 
     @Override
-    public Boolean saveBatch(List<TestDemo> list) {
-        return baseMapper.insertBatch(list);
+    public void saveBatch(List<TestDemo> list) {
+        baseMapper.insertBatch(list);
     }
 }

@@ -15,7 +15,7 @@ import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
- * 获取i18n资源文件
+ * 获取i18n资源文件.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,7 +27,7 @@ public class MessageUtils {
     private static final MessageSource MESSAGE_SOURCE = SpringUtils.getBean(MessageSource.class);
 
     /**
-     * 根据消息键和参数 获取消息 委托给spring messageSource
+     * 根据消息键和参数 获取消息 委托给spring messageSource.
      *
      * @param code 消息键
      * @param args 参数

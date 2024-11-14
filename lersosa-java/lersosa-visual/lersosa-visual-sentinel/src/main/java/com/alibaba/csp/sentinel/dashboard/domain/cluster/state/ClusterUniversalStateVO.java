@@ -5,46 +5,76 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.cluster.state;
 
+import lombok.Data;
+
 /**
+ * 群集通用状态视图对象.
+ *
  * @author Eric Zhao
- * @since 1.4.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class ClusterUniversalStateVO {
 
+    /**
+     * 状态概要信息.
+     */
     private ClusterStateSimpleEntity stateInfo;
+
+    /**
+     * 集群客户端状态.
+     */
     private ClusterClientStateVO client;
+
+    /**
+     * 集群服务端状态.
+     */
     private ClusterServerStateVO server;
 
-    public ClusterClientStateVO getClient() {
-        return client;
-    }
-
+    /**
+     * 设置客户端状态.
+     *
+     * @param client 客户端状态
+     * @return this
+     */
     public ClusterUniversalStateVO setClient(ClusterClientStateVO client) {
         this.client = client;
         return this;
     }
 
-    public ClusterServerStateVO getServer() {
-        return server;
-    }
-
+    /**
+     * 设置服务端状态.
+     *
+     * @param server 服务端状态
+     * @return this
+     */
     public ClusterUniversalStateVO setServer(ClusterServerStateVO server) {
         this.server = server;
         return this;
     }
 
-    public ClusterStateSimpleEntity getStateInfo() {
-        return stateInfo;
-    }
-
+    /**
+     * 设置状态概要信息.
+     *
+     * @param stateInfo 状态概要信息
+     * @return this
+     */
     public ClusterUniversalStateVO setStateInfo(
         ClusterStateSimpleEntity stateInfo) {
         this.stateInfo = stateInfo;
         return this;
     }
 
+    /**
+     * 获取状态概要信息.
+     *
+     * @return 状态概要信息
+     */
     @Override
     public String toString() {
         return "ClusterUniversalStateVO{" +

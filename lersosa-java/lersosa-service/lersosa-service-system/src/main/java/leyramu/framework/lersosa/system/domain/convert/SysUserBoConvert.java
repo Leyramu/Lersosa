@@ -17,7 +17,7 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
 /**
- * 用户信息转换器
+ * 用户信息转换器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,11 +27,12 @@ import org.mapstruct.ReportingPolicy;
 public interface SysUserBoConvert extends BaseMapper<RemoteUserBo, SysUserBo> {
 
     /**
-     * RemoteUserBoToSysUserBo
+     * RemoteUserBoToSysUserBo.
      *
      * @param remoteUserBo 待转换对象
      * @return 转换后对象
      */
+    @Override
     @Mapping(target = "roleIds", ignore = true)
     @Mapping(target = "postIds", ignore = true)
     SysUserBo convert(RemoteUserBo remoteUserBo);

@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 表单管理对象 wf_form_manage
+ * 表单管理对象 wf_form_manage.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -32,30 +32,28 @@ public class WfFormManage extends TenantEntity {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * 主键.
      */
     @TableId(value = "id")
     private Long id;
 
     /**
-     * 表单名称
+     * 表单名称.
      */
     private String formName;
 
     /**
-     * 表单类型
+     * 表单类型.
      */
     private String formType;
 
     /**
-     * 路由地址/表单ID
+     * 路由地址/表单ID.
      */
     private String router;
 
     /**
-     * 备注
+     * 备注.
      */
     private String remark;
-
-
 }

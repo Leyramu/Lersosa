@@ -19,7 +19,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 /**
- * 转发认证过滤器(内部服务外网隔离)
+ * 转发认证过滤器(内部服务外网隔离).
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 请假
+ * 请假.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -47,7 +47,7 @@ public class TestLeaveController extends BaseController {
     private final ITestLeaveService testLeaveService;
 
     /**
-     * 查询请假列表
+     * 查询请假列表.
      */
     @SaCheckPermission("workflow:leave:list")
     @GetMapping("/list")
@@ -56,7 +56,7 @@ public class TestLeaveController extends BaseController {
     }
 
     /**
-     * 导出请假列表
+     * 导出请假列表.
      */
     @SaCheckPermission("workflow:leave:export")
     @Log(title = "请假", businessType = BusinessType.EXPORT)
@@ -67,7 +67,7 @@ public class TestLeaveController extends BaseController {
     }
 
     /**
-     * 获取请假详细信息
+     * 获取请假详细信息.
      *
      * @param id 主键
      */
@@ -79,7 +79,7 @@ public class TestLeaveController extends BaseController {
     }
 
     /**
-     * 新增请假
+     * 新增请假.
      */
     @SaCheckPermission("workflow:leave:add")
     @Log(title = "请假", businessType = BusinessType.INSERT)
@@ -90,7 +90,7 @@ public class TestLeaveController extends BaseController {
     }
 
     /**
-     * 修改请假
+     * 修改请假.
      */
     @SaCheckPermission("workflow:leave:edit")
     @Log(title = "请假", businessType = BusinessType.UPDATE)
@@ -101,7 +101,7 @@ public class TestLeaveController extends BaseController {
     }
 
     /**
-     * 删除请假
+     * 删除请假.
      *
      * @param ids 主键串
      */

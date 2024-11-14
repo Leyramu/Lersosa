@@ -14,6 +14,7 @@ import jakarta.servlet.WriteListener;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletResponseWrapper;
 import leyramu.framework.lersosa.common.encrypt.utils.EncryptUtils;
+import lombok.NonNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -22,7 +23,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
 /**
- * 加密响应参数包装类
+ * 加密响应参数包装类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -61,6 +62,7 @@ public class EncryptResponseBodyWrapper extends HttpServletResponseWrapper {
         byteArrayOutputStream.reset();
     }
 
+    @SuppressWarnings("unused")
     public byte[] getResponseData() throws IOException {
         flushBuffer();
         return byteArrayOutputStream.toByteArray();
@@ -72,13 +74,13 @@ public class EncryptResponseBodyWrapper extends HttpServletResponseWrapper {
     }
 
     /**
-     * 获取加密内容
+     * 获取加密内容.
      *
      * @param servletResponse response
      * @param publicKey       RSA公钥 (用于加密 AES 秘钥)
      * @param headerFlag      请求头标志
      * @return 加密内容
-     * @throws IOException
+     * @throws IOException IO异常
      */
     public String getEncryptContent(HttpServletResponse servletResponse, String publicKey, String headerFlag) throws IOException {
         // 生成秘钥
@@ -102,7 +104,7 @@ public class EncryptResponseBodyWrapper extends HttpServletResponseWrapper {
     }
 
     @Override
-    public ServletOutputStream getOutputStream() throws IOException {
+    public ServletOutputStream getOutputStream() {
         return new ServletOutputStream() {
             @Override
             public boolean isReady() {
@@ -115,20 +117,19 @@ public class EncryptResponseBodyWrapper extends HttpServletResponseWrapper {
             }
 
             @Override
-            public void write(int b) throws IOException {
+            public void write(int b) {
                 byteArrayOutputStream.write(b);
             }
 
             @Override
-            public void write(byte[] b) throws IOException {
+            public void write(byte @NonNull [] b) throws IOException {
                 byteArrayOutputStream.write(b);
             }
 
             @Override
-            public void write(byte[] b, int off, int len) throws IOException {
+            public void write(byte @NonNull [] b, int off, int len) {
                 byteArrayOutputStream.write(b, off, len);
             }
         };
     }
-
 }

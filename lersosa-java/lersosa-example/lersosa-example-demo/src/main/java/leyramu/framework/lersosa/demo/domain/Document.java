@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.demo.domain;
 import lombok.Data;
 
 /**
- * 文档实体
+ * 文档实体.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -21,17 +21,17 @@ import lombok.Data;
 public class Document {
 
     /**
-     * es中的唯一id
+     * es中的唯一id.
      */
     private String id;
 
     /**
-     * 文档标题
+     * 文档标题.
      */
     private String title;
 
     /**
-     * 文档内容
+     * 文档内容.
      */
     private String content;
 }

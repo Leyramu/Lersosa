@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard;
 
 import com.alibaba.csp.sentinel.init.InitExecutor;
@@ -12,8 +13,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Sentinel 降级限流模块
- *
+ * Sentinel 降级限流模块.
+ *l
  * @author Carpenter Lee
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -23,7 +24,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LersosaSentinelApplication {
 
     /**
-     * 启动 Sentinel 模块
+     * 启动 Sentinel 模块.
      *
      * @param args 命令行参数
      */
@@ -33,7 +34,7 @@ public class LersosaSentinelApplication {
     }
 
     /**
-     * 触发 Sentinel 初始化
+     * 触发 Sentinel 初始化.
      */
     private static void triggerSentinelInit() {
         new Thread(InitExecutor::doInit).start();

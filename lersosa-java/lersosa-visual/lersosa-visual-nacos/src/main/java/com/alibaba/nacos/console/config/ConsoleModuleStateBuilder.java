@@ -13,9 +13,12 @@ import com.alibaba.nacos.sys.module.ModuleStateBuilder;
 import com.alibaba.nacos.sys.utils.ApplicationUtils;
 
 /**
- * Console module state builder.
+ * 控制台模块状态生成器.
  *
  * @author xiweng.yy
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 1.0.0
+ * @since 2024/11/13
  */
 public class ConsoleModuleStateBuilder implements ModuleStateBuilder {
 

@@ -16,7 +16,7 @@ import leyramu.framework.lersosa.system.domain.vo.SysOperLogVo;
 import java.util.List;
 
 /**
- * 操作日志 服务层
+ * 操作日志 服务层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,14 +27,14 @@ public interface ISysOperLogService {
     TableDataInfo<SysOperLogVo> selectPageOperLogList(SysOperLogBo operLog, PageQuery pageQuery);
 
     /**
-     * 新增操作日志
+     * 新增操作日志.
      *
      * @param bo 操作日志对象
      */
     void insertOperlog(SysOperLogBo bo);
 
     /**
-     * 查询系统操作日志集合
+     * 查询系统操作日志集合.
      *
      * @param operLog 操作日志对象
      * @return 操作日志集合
@@ -42,7 +42,7 @@ public interface ISysOperLogService {
     List<SysOperLogVo> selectOperLogList(SysOperLogBo operLog);
 
     /**
-     * 批量删除系统操作日志
+     * 批量删除系统操作日志.
      *
      * @param operIds 需要删除的操作日志ID
      * @return 结果
@@ -50,15 +50,16 @@ public interface ISysOperLogService {
     int deleteOperLogByIds(Long[] operIds);
 
     /**
-     * 查询操作日志详细
+     * 查询操作日志详细.
      *
      * @param operId 操作ID
      * @return 操作日志对象
      */
+    @SuppressWarnings("unused")
     SysOperLogVo selectOperLogById(Long operId);
 
     /**
-     * 清空操作日志
+     * 清空操作日志.
      */
     void cleanOperLog();
 }

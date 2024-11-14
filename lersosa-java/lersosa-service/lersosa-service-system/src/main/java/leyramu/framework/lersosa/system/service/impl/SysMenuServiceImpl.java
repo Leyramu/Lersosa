@@ -40,7 +40,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- * 菜单 业务层处理
+ * 菜单 业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -56,7 +56,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     private final SysTenantPackageMapper tenantPackageMapper;
 
     /**
-     * 根据用户查询系统菜单列表
+     * 根据用户查询系统菜单列表.
      *
      * @param userId 用户ID
      * @return 菜单列表
@@ -67,7 +67,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 查询系统菜单列表
+     * 查询系统菜单列表.
      *
      * @param menu 菜单信息
      * @return 菜单列表
@@ -98,7 +98,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 根据用户ID查询权限
+     * 根据用户ID查询权限.
      *
      * @param userId 用户ID
      * @return 权限列表
@@ -116,7 +116,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 根据角色ID查询权限
+     * 根据角色ID查询权限.
      *
      * @param roleId 角色ID
      * @return 权限列表
@@ -134,7 +134,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 根据用户ID查询菜单
+     * 根据用户ID查询菜单.
      *
      * @param userId 用户名称
      * @return 菜单列表
@@ -151,7 +151,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 根据角色ID查询菜单树信息
+     * 根据角色ID查询菜单树信息.
      *
      * @param roleId 角色ID
      * @return 选中菜单列表
@@ -163,7 +163,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 根据租户套餐ID查询菜单树信息
+     * 根据租户套餐ID查询菜单树信息.
      *
      * @param packageId 租户套餐ID
      * @return 选中菜单列表
@@ -191,8 +191,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 构建前端路由所需要的菜单
-     * 路由name命名规则 path首字母转大写 + id
+     * 构建前端路由所需要的菜单.
      *
      * @param menus 菜单列表
      * @return 路由列表
@@ -246,7 +245,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 构建前端所需要下拉树结构
+     * 构建前端所需要下拉树结构.
      *
      * @param menus 菜单列表
      * @return 下拉树结构列表
@@ -264,7 +263,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 根据菜单ID查询信息
+     * 根据菜单ID查询信息.
      *
      * @param menuId 菜单ID
      * @return 菜单信息
@@ -275,7 +274,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 是否存在菜单子节点
+     * 是否存在菜单子节点.
      *
      * @param menuId 菜单ID
      * @return 结果
@@ -286,7 +285,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 查询菜单使用数量
+     * 查询菜单使用数量.
      *
      * @param menuId 菜单ID
      * @return 结果
@@ -297,7 +296,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 新增保存菜单信息
+     * 新增保存菜单信息.
      *
      * @param bo 菜单信息
      * @return 结果
@@ -309,7 +308,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 修改保存菜单信息
+     * 修改保存菜单信息.
      *
      * @param bo 菜单信息
      * @return 结果
@@ -321,7 +320,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 删除菜单管理信息
+     * 删除菜单管理信息.
      *
      * @param menuId 菜单ID
      * @return 结果
@@ -332,7 +331,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 校验菜单名称是否唯一
+     * 校验菜单名称是否唯一.
      *
      * @param menu 菜单信息
      * @return 结果
@@ -343,16 +342,17 @@ public class SysMenuServiceImpl implements ISysMenuService {
             .eq(SysMenu::getMenuName, menu.getMenuName())
             .eq(SysMenu::getParentId, menu.getParentId())
             .ne(ObjectUtil.isNotNull(menu.getMenuId()), SysMenu::getMenuId, menu.getMenuId()));
-        return !exist;
+        return exist;
     }
 
     /**
-     * 根据父节点的ID获取所有子节点
+     * 根据父节点的ID获取所有子节点.
      *
      * @param list     分类表
      * @param parentId 传入的父节点ID
      * @return String
      */
+    @SuppressWarnings("all")
     private List<SysMenu> getChildPerms(List<SysMenu> list, int parentId) {
         List<SysMenu> returnList = new ArrayList<>();
         for (SysMenu t : list) {
@@ -366,7 +366,7 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     /**
-     * 递归列表
+     * 递归列表.
      */
     private void recursionFn(List<SysMenu> list, SysMenu t) {
         // 得到子节点列表
@@ -379,5 +379,4 @@ public class SysMenuServiceImpl implements ISysMenuService {
             }
         }
     }
-
 }

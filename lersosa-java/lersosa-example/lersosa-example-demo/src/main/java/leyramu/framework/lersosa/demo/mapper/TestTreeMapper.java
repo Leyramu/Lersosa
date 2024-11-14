@@ -15,16 +15,15 @@ import leyramu.framework.lersosa.demo.domain.TestTree;
 import leyramu.framework.lersosa.demo.domain.vo.TestTreeVo;
 
 /**
- * 测试树表Mapper接口
+ * 测试树表Mapper接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
 @DataPermission({
-    @DataColumn(key = "deptName", value = "dept_id"),
+    @DataColumn(),
     @DataColumn(key = "userName", value = "user_id")
 })
 public interface TestTreeMapper extends BaseMapperPlus<TestTree, TestTreeVo> {
-
 }

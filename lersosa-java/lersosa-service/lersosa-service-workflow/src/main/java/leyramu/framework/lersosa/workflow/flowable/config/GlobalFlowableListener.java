@@ -14,6 +14,7 @@ import leyramu.framework.lersosa.common.tenant.helper.TenantHelper;
 import leyramu.framework.lersosa.workflow.common.enums.TaskStatusEnum;
 import leyramu.framework.lersosa.workflow.flowable.handler.TaskTimeoutJobHandler;
 import leyramu.framework.lersosa.workflow.utils.QueryUtils;
+import lombok.RequiredArgsConstructor;
 import org.flowable.bpmn.model.BoundaryEvent;
 import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.bpmn.model.FlowElement;
@@ -30,7 +31,6 @@ import org.flowable.job.service.impl.persistence.entity.JobEntity;
 import org.flowable.job.service.impl.persistence.entity.TimerJobEntity;
 import org.flowable.task.api.Task;
 import org.flowable.task.service.impl.persistence.entity.TaskEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -40,26 +40,24 @@ import java.util.List;
 
 
 /**
- * 引擎调度监听
+ * 引擎调度监听.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
 @Component
+@RequiredArgsConstructor(onConstructor_ = @Lazy)
 public class GlobalFlowableListener implements FlowableEventListener {
 
-    @Autowired
     @Lazy
-    private TaskService taskService;
+    private final TaskService taskService;
 
-    @Autowired
     @Lazy
-    private RuntimeService runtimeService;
+    private final RuntimeService runtimeService;
 
-    @Autowired
     @Lazy
-    private RepositoryService repositoryService;
+    private final RepositoryService repositoryService;
 
     @Value("${flowable.async-executor-activate}")
     private boolean asyncExecutorActivate;
@@ -120,7 +118,7 @@ public class GlobalFlowableListener implements FlowableEventListener {
     }
 
     /**
-     * 处理边界定时事件自动审批记录
+     * 处理边界定时事件自动审批记录.
      *
      * @param event 事件
      */

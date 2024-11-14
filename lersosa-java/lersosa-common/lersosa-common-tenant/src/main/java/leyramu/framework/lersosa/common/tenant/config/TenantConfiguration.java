@@ -32,12 +32,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 
 /**
- * 租户配置类
+ * 租户配置类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@SuppressWarnings("all")
 @EnableConfigurationProperties(TenantProperties.class)
 @AutoConfiguration(after = {RedisConfiguration.class})
 @ConditionalOnProperty(value = "tenant.enable", havingValue = "true")
@@ -65,7 +66,7 @@ public class TenantConfiguration {
     }
 
     /**
-     * 多租户缓存管理器
+     * 多租户缓存管理器.
      */
     @Primary
     @Bean
@@ -74,7 +75,7 @@ public class TenantConfiguration {
     }
 
     /**
-     * 多租户鉴权dao实现
+     * 多租户鉴权dao实现.
      */
     @Primary
     @Bean
@@ -87,13 +88,11 @@ public class TenantConfiguration {
     static class MybatisPlusConfig {
 
         /**
-         * 多租户插件
+         * 多租户插件.
          */
         @Bean
         public TenantLineInnerInterceptor tenantLineInnerInterceptor(TenantProperties tenantProperties) {
             return new TenantLineInnerInterceptor(new PlusTenantLineHandler(tenantProperties));
         }
-
     }
-
 }

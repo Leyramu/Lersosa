@@ -20,7 +20,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * stream 流工具类
+ * stream 流工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 public class StreamUtils {
 
     /**
-     * 将collection过滤
+     * 将collection过滤.
      *
      * @param collection 需要转化的集合
      * @param function   过滤方法
@@ -45,7 +45,7 @@ public class StreamUtils {
     }
 
     /**
-     * 找到流中满足条件的第一个元素
+     * 找到流中满足条件的第一个元素.
      *
      * @param collection 需要查询的集合
      * @param function   过滤方法
@@ -59,7 +59,7 @@ public class StreamUtils {
     }
 
     /**
-     * 找到流中任意一个满足条件的元素
+     * 找到流中任意一个满足条件的元素.
      *
      * @param collection 需要查询的集合
      * @param function   过滤方法
@@ -73,7 +73,7 @@ public class StreamUtils {
     }
 
     /**
-     * 将collection拼接
+     * 将collection拼接.
      *
      * @param collection 需要转化的集合
      * @param function   拼接方法
@@ -84,7 +84,7 @@ public class StreamUtils {
     }
 
     /**
-     * 将collection拼接
+     * 将collection拼接.
      *
      * @param collection 需要转化的集合
      * @param function   拼接方法
@@ -99,7 +99,7 @@ public class StreamUtils {
     }
 
     /**
-     * 将collection排序
+     * 将collection排序.
      *
      * @param collection 需要转化的集合
      * @param comparing  排序方法
@@ -114,8 +114,7 @@ public class StreamUtils {
     }
 
     /**
-     * 将collection转化为类型不变的map<br>
-     * <B>{@code Collection<V>  ---->  Map<K,V>}</B>
+     * 将collection转化为类型不变的map<br>.
      *
      * @param collection 需要转化的集合
      * @param key        V类型转化为K类型的lambda方法
@@ -127,12 +126,11 @@ public class StreamUtils {
         if (CollUtil.isEmpty(collection)) {
             return MapUtil.newHashMap();
         }
-        return collection.stream().filter(Objects::nonNull).collect(Collectors.toMap(key, Function.identity(), (l, r) -> l));
+        return collection.stream().filter(Objects::nonNull).collect(Collectors.toMap(key, Function.identity(), (l, _) -> l));
     }
 
     /**
-     * 将Collection转化为map(value类型与collection的泛型不同)<br>
-     * <B>{@code Collection<E> -----> Map<K,V>  }</B>
+     * 将Collection转化为map(value类型与collection的泛型不同).
      *
      * @param collection 需要转化的集合
      * @param key        E类型转化为K类型的lambda方法
@@ -146,12 +144,11 @@ public class StreamUtils {
         if (CollUtil.isEmpty(collection)) {
             return MapUtil.newHashMap();
         }
-        return collection.stream().filter(Objects::nonNull).collect(Collectors.toMap(key, value, (l, r) -> l));
+        return collection.stream().filter(Objects::nonNull).collect(Collectors.toMap(key, value, (l, _) -> l));
     }
 
     /**
-     * 将collection按照规则(比如有相同的班级id)分类成map<br>
-     * <B>{@code Collection<E> -------> Map<K,List<E>> } </B>
+     * 将collection按照规则(比如有相同的班级id)分类成map.
      *
      * @param collection 需要分类的集合
      * @param key        分类的规则
@@ -169,8 +166,7 @@ public class StreamUtils {
     }
 
     /**
-     * 将collection按照两个规则(比如有相同的年级id,班级id)分类成双层map<br>
-     * <B>{@code Collection<E>  --->  Map<T,Map<U,List<E>>> } </B>
+     * 将collection按照两个规则(比如有相同的年级id,班级id)分类成双层map.
      *
      * @param collection 需要分类的集合
      * @param key1       第一个分类的规则
@@ -190,8 +186,7 @@ public class StreamUtils {
     }
 
     /**
-     * 将collection按照两个规则(比如有相同的年级id,班级id)分类成双层map<br>
-     * <B>{@code Collection<E>  --->  Map<T,Map<U,E>> } </B>
+     * 将collection按照两个规则(比如有相同的年级id,班级id)分类成双层map.
      *
      * @param collection 需要分类的集合
      * @param key1       第一个分类的规则
@@ -201,18 +196,18 @@ public class StreamUtils {
      * @param <E>        collection中的泛型
      * @return 分类后的map
      */
+    @SuppressWarnings("unused")
     public static <E, T, U> Map<T, Map<U, E>> group2Map(Collection<E> collection, Function<E, T> key1, Function<E, U> key2) {
         if (CollUtil.isEmpty(collection) || key1 == null || key2 == null) {
             return MapUtil.newHashMap();
         }
         return collection
             .stream().filter(Objects::nonNull)
-            .collect(Collectors.groupingBy(key1, LinkedHashMap::new, Collectors.toMap(key2, Function.identity(), (l, r) -> l)));
+            .collect(Collectors.groupingBy(key1, LinkedHashMap::new, Collectors.toMap(key2, Function.identity(), (l, _) -> l)));
     }
 
     /**
-     * 将collection转化为List集合，但是两者的泛型不同<br>
-     * <B>{@code Collection<E>  ------>  List<T> } </B>
+     * 将collection转化为List集合，但是两者的泛型不同.
      *
      * @param collection 需要转化的集合
      * @param function   collection中的泛型转化为list泛型的lambda表达式
@@ -233,8 +228,7 @@ public class StreamUtils {
     }
 
     /**
-     * 将collection转化为Set集合，但是两者的泛型不同<br>
-     * <B>{@code Collection<E>  ------>  Set<T> } </B>
+     * 将collection转化为Set集合，但是两者的泛型不同.
      *
      * @param collection 需要转化的集合
      * @param function   collection中的泛型转化为set泛型的lambda表达式
@@ -255,7 +249,7 @@ public class StreamUtils {
 
 
     /**
-     * 合并两个相同key类型的map
+     * 合并两个相同key类型的map.
      *
      * @param map1  第一个需要合并的 map
      * @param map2  第二个需要合并的 map
@@ -266,6 +260,7 @@ public class StreamUtils {
      * @param <V>   最终map的value类型
      * @return 合并后的map
      */
+    @SuppressWarnings("unused")
     public static <K, X, Y, V> Map<K, V> merge(Map<K, X> map1, Map<K, Y> map2, BiFunction<X, Y, V> merge) {
         if (MapUtil.isEmpty(map1) && MapUtil.isEmpty(map2)) {
             return MapUtil.newHashMap();
@@ -288,5 +283,4 @@ public class StreamUtils {
         }
         return map;
     }
-
 }

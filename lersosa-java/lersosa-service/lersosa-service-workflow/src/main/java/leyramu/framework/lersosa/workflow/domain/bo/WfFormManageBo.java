@@ -19,7 +19,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 表单管理业务对象 wf_form_manage
+ * 表单管理业务对象 wf_form_manage.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,33 +31,31 @@ import lombok.EqualsAndHashCode;
 public class WfFormManageBo extends BaseEntity {
 
     /**
-     * 主键
+     * 主键.
      */
     @NotNull(message = "主键不能为空", groups = {EditGroup.class})
     private Long id;
 
     /**
-     * 表单名称
+     * 表单名称.
      */
     @NotBlank(message = "表单名称不能为空", groups = {AddGroup.class, EditGroup.class})
     private String formName;
 
     /**
-     * 表单类型
+     * 表单类型.
      */
     @NotBlank(message = "表单类型不能为空", groups = {AddGroup.class, EditGroup.class})
     private String formType;
+
     /**
-     * 路由地址/表单ID
+     * 路由地址/表单ID.
      */
     @NotBlank(message = "路由地址/表单ID不能为空", groups = {AddGroup.class, EditGroup.class})
     private String router;
 
-
     /**
-     * 备注
+     * 备注.
      */
     private String remark;
-
-
 }

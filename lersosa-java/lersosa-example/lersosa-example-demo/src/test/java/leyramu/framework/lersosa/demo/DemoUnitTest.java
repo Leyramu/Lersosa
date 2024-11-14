@@ -12,12 +12,12 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.concurrent.TimeUnit;
-
 /**
- * 单元测试案例
+ * 单元测试案例.
  *
- * @author Lion Li
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 1.0.0
+ * @since 2024/11/6
  */
 @SpringBootTest // 此注解只能在 springboot 主包下使用 需包含 main 方法与 yml 配置文件
 @DisplayName("单元测试案例")
@@ -49,7 +49,7 @@ public class DemoUnitTest {
         System.out.println(appName);
     }
 
-    @Timeout(value = 2L, unit = TimeUnit.SECONDS)
+    @Timeout(value = 2L)
     @DisplayName("测试 @Timeout 注解")
     @Test
     public void testTimeout() throws InterruptedException {

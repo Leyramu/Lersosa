@@ -49,7 +49,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.model.AuthUser;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -58,30 +57,32 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * 登录校验方法
+ * 登录校验方法.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
-@RequiredArgsConstructor
-@Service
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class SysLoginService {
 
-    @Autowired
-    private final CaptchaProperties captchaProperties;
     @DubboReference
     private RemoteUserService remoteUserService;
+
     @DubboReference
     private RemoteTenantService remoteTenantService;
+
     @DubboReference
     private RemoteSocialService remoteSocialService;
-    @Autowired
-    private UserPasswordProperties userPasswordProperties;
+
+    private final CaptchaProperties captchaProperties;
+
+    private final UserPasswordProperties userPasswordProperties;
 
     /**
-     * 绑定第三方用户
+     * 绑定第三方用户.
      *
      * @param authUserData 授权响应实体
      */
@@ -111,7 +112,7 @@ public class SysLoginService {
             remoteSocialService.insertByBo(bo);
         } else {
             // 更新用户信息
-            bo.setId(list.get(0).getId());
+            bo.setId(list.getFirst().getId());
             remoteSocialService.updateByBo(bo);
             // 如果要绑定的平台账号已经被绑定过了 是否抛异常自行决断
             // throw new ServiceException("此平台账号已经被绑定!");
@@ -119,7 +120,7 @@ public class SysLoginService {
     }
 
     /**
-     * 退出登录
+     * 退出登录.
      */
     public void logout() {
         try {
@@ -142,7 +143,7 @@ public class SysLoginService {
     }
 
     /**
-     * 注册
+     * 注册.
      */
     public void register(RegisterBody registerBody) {
         String tenantId = registerBody.getTenantId();
@@ -173,7 +174,7 @@ public class SysLoginService {
     }
 
     /**
-     * 校验验证码
+     * 校验验证码.
      *
      * @param username 用户名
      * @param code     验证码
@@ -194,12 +195,11 @@ public class SysLoginService {
     }
 
     /**
-     * 记录登录信息
+     * 记录登录信息.
      *
      * @param username 用户名
      * @param status   状态
      * @param message  消息内容
-     * @return
      */
     public void recordLogininfor(String tenantId, String username, String status, String message) {
         // 封装对象
@@ -212,7 +212,7 @@ public class SysLoginService {
     }
 
     /**
-     * 登录校验
+     * 登录校验.
      */
     public void checkLogin(LoginType loginType, String tenantId, String username, Supplier<Boolean> supplier) {
         String errorKey = CacheConstants.PWD_ERR_CNT_KEY + username;
@@ -248,7 +248,7 @@ public class SysLoginService {
     }
 
     /**
-     * 校验租户
+     * 校验租户.
      *
      * @param tenantId 租户ID
      */

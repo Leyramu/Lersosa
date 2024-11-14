@@ -16,7 +16,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 /**
- * 初始化 system 模块对应业务数据
+ * 初始化 system 模块对应业务数据.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,9 +30,8 @@ public class ResourceApplicationRunner implements ApplicationRunner {
     private final ISysOssConfigService ossConfigService;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         ossConfigService.init();
         log.info("初始化OSS配置成功");
     }
-
 }

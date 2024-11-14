@@ -11,12 +11,13 @@ package leyramu.framework.lersosa.common.core.exception.file;
 import java.io.Serial;
 
 /**
- * 文件名称超长限制异常类
+ * 文件名称超长限制异常类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@SuppressWarnings("unused")
 public class FileNameLengthLimitExceededException extends FileException {
 
     @Serial

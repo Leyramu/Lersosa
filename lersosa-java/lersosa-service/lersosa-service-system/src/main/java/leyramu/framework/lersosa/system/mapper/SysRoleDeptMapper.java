@@ -12,7 +12,7 @@ import leyramu.framework.lersosa.common.mybatis.core.mapper.BaseMapperPlus;
 import leyramu.framework.lersosa.system.domain.SysRoleDept;
 
 /**
- * 角色与部门关联表 数据层
+ * 角色与部门关联表 数据层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

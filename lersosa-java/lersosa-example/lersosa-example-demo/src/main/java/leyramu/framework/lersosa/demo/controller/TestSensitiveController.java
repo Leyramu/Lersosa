@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 测试数据脱敏控制器
- * <p>
- * 默认管理员不过滤
- * 需自行根据业务重写实现
+ * 测试数据脱敏控制器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -34,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestSensitiveController extends BaseController {
 
     /**
-     * 测试数据脱敏
+     * 测试数据脱敏.
      */
     @GetMapping("/test")
     public R<TestSensitive> test() {
@@ -51,35 +48,33 @@ public class TestSensitiveController extends BaseController {
     static class TestSensitive {
 
         /**
-         * 身份证
+         * 身份证.
          */
         @Sensitive(strategy = SensitiveStrategy.ID_CARD)
         private String idCard;
 
         /**
-         * 电话
+         * 电话.
          */
         @Sensitive(strategy = SensitiveStrategy.PHONE, roleKey = "common")
         private String phone;
 
         /**
-         * 地址
+         * 地址.
          */
         @Sensitive(strategy = SensitiveStrategy.ADDRESS, perms = "system:user:query")
         private String address;
 
         /**
-         * 邮箱
+         * 邮箱.
          */
         @Sensitive(strategy = SensitiveStrategy.EMAIL, roleKey = "common", perms = "system:user:query1")
         private String email;
 
         /**
-         * 银行卡
+         * 银行卡.
          */
         @Sensitive(strategy = SensitiveStrategy.BANK_CARD, roleKey = "common1", perms = "system:user:query")
         private String bankCard;
-
     }
-
 }

@@ -12,7 +12,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * SSE 配置项
+ * SSE 配置项.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,7 +25,7 @@ public class SseProperties {
     private Boolean enabled;
 
     /**
-     * 路径
+     * 路径.
      */
     private String path;
 }

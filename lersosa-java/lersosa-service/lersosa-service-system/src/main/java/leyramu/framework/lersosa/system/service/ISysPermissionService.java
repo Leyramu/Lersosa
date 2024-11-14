@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.system.service;
 import java.util.Set;
 
 /**
- * 用户权限处理
+ * 用户权限处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -20,7 +20,7 @@ import java.util.Set;
 public interface ISysPermissionService {
 
     /**
-     * 获取角色数据权限
+     * 获取角色数据权限.
      *
      * @param userId 用户id
      * @return 角色权限信息
@@ -28,11 +28,10 @@ public interface ISysPermissionService {
     Set<String> getRolePermission(Long userId);
 
     /**
-     * 获取菜单数据权限
+     * 获取菜单数据权限.
      *
      * @param userId 用户id
      * @return 菜单权限信息
      */
     Set<String> getMenuPermission(Long userId);
-
 }

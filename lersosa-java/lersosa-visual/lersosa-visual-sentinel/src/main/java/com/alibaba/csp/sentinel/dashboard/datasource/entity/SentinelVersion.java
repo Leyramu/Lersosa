@@ -5,26 +5,68 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.datasource.entity;
+
+import lombok.Data;
+
+import java.util.Objects;
 
 /**
  * @author Eric Zhao
- * @since 0.2.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class SentinelVersion {
+
+    /**
+     * 主要版本号.
+     */
     private int majorVersion;
+
+    /**
+     * 镜像版本号.
+     */
     private int minorVersion;
+
+    /**
+     * 修复版本号.
+     */
     private int fixVersion;
+
+    /**
+     * 版本后缀.
+     */
     private String postfix;
 
+    /**
+     * 无参构造函数.
+     */
     public SentinelVersion() {
         this(0, 0, 0);
     }
 
+    /**
+     * 构造函数.
+     *
+     * @param major 主要版本号
+     * @param minor 镜像版本号
+     * @param fix   修复版本号
+     */
     public SentinelVersion(int major, int minor, int fix) {
         this(major, minor, fix, null);
     }
 
+    /**
+     * 构造函数.
+     *
+     * @param major   主要版本号
+     * @param minor   镜像版本号
+     * @param fix     修复版本号
+     * @param postfix 版本后缀
+     */
     public SentinelVersion(int major, int minor, int fix, String postfix) {
         this.majorVersion = major;
         this.minorVersion = minor;
@@ -33,48 +75,52 @@ public class SentinelVersion {
     }
 
     /**
-     * 000, 000, 000
+     * 获取完整版本号.
      */
     public int getFullVersion() {
         return majorVersion * 1000000 + minorVersion * 1000 + fixVersion;
     }
 
-    public int getMajorVersion() {
-        return majorVersion;
-    }
-
+    /**
+     * 设置主要版本号.
+     *
+     * @param majorVersion 主要版本号
+     * @return this
+     */
     public SentinelVersion setMajorVersion(int majorVersion) {
         this.majorVersion = majorVersion;
         return this;
     }
 
-    public int getMinorVersion() {
-        return minorVersion;
-    }
-
+    /**
+     * 设置镜像版本号.
+     *
+     * @param minorVersion 镜像版本号
+     * @return this
+     */
     public SentinelVersion setMinorVersion(int minorVersion) {
         this.minorVersion = minorVersion;
         return this;
     }
 
-    public int getFixVersion() {
-        return fixVersion;
-    }
-
+    /**
+     * 设置修复版本号.
+     *
+     * @param fixVersion 修复版本号
+     * @return this
+     */
     public SentinelVersion setFixVersion(int fixVersion) {
         this.fixVersion = fixVersion;
         return this;
     }
 
-    public String getPostfix() {
-        return postfix;
-    }
-
-    public SentinelVersion setPostfix(String postfix) {
-        this.postfix = postfix;
-        return this;
-    }
-
+    /**
+     * 比较两个版本号大小，返回true表示当前版本号大于参数版本号，否则返回false.
+     *
+     * @param version 版本号
+     * @return boolean
+     */
+    @SuppressWarnings("unused")
     public boolean greaterThan(SentinelVersion version) {
         if (version == null) {
             return true;
@@ -82,6 +128,12 @@ public class SentinelVersion {
         return getFullVersion() > version.getFullVersion();
     }
 
+    /**
+     * 比较两个版本号大小，返回true表示当前版本号大于等于参数版本号，否则返回false.
+     *
+     * @param version 版本号
+     * @return boolean
+     */
     public boolean greaterOrEqual(SentinelVersion version) {
         if (version == null) {
             return true;
@@ -89,6 +141,12 @@ public class SentinelVersion {
         return getFullVersion() >= version.getFullVersion();
     }
 
+    /**
+     * 判断两个版本号是否相等.
+     *
+     * @param o 版本号
+     * @return boolean
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -103,9 +161,14 @@ public class SentinelVersion {
         if (getFullVersion() != that.getFullVersion()) {
             return false;
         }
-        return postfix != null ? postfix.equals(that.postfix) : that.postfix == null;
+        return Objects.equals(postfix, that.postfix);
     }
 
+    /**
+     * 获取版本号hash值.
+     *
+     * @return int
+     */
     @Override
     public int hashCode() {
         int result = majorVersion;
@@ -115,6 +178,11 @@ public class SentinelVersion {
         return result;
     }
 
+    /**
+     * 获取版本号字符串.
+     *
+     * @return String
+     */
     @Override
     public String toString() {
         return "SentinelVersion{" +

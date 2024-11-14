@@ -5,89 +5,71 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.datasource.entity;
 
 import com.alibaba.csp.sentinel.dashboard.discovery.MachineInfo;
+import lombok.Data;
 
 import java.util.Date;
 
 /**
+ * 机器实体.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@SuppressWarnings("unused")
 public class MachineEntity {
+
+    /**
+     * 主键.
+     */
     private Long id;
+
+    /**
+     * 创建时间.
+     */
     private Date gmtCreate;
+
+    /**
+     * 修改时间.
+     */
     private Date gmtModified;
+
+    /**
+     * 应用名称.
+     */
     private String app;
+
+    /**
+     * ip地址.
+     */
     private String ip;
+
+    /**
+     * 主机名.
+     */
     private String hostname;
+
+    /**
+     * 上次心跳时间.
+     */
     private Date timestamp;
+
+    /**
+     * 端口号.
+     */
     private Integer port;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    public String getApp() {
-        return app;
-    }
-
-    public void setApp(String app) {
-        this.app = app;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public String getHostname() {
-        return hostname;
-    }
-
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Integer getPort() {
-        return port;
-    }
-
-    public void setPort(Integer port) {
-        this.port = port;
-    }
-
+    /**
+     * 转换为MachineInfo对象.
+     *
+     * @return MachineInfo对象
+     */
     public MachineInfo toMachineInfo() {
         MachineInfo machineInfo = new MachineInfo();
 
@@ -101,6 +83,11 @@ public class MachineEntity {
         return machineInfo;
     }
 
+    /**
+     * 重写toString方法.
+     *
+     * @return 字符串
+     */
     @Override
     public String toString() {
         return "MachineEntity{" +

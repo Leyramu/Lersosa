@@ -22,7 +22,7 @@ import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.request.*;
 
 /**
- * 认证授权工具类
+ * 认证授权工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

@@ -47,7 +47,6 @@ import org.flowable.engine.repository.Model;
 import org.flowable.engine.repository.ModelQuery;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.validation.ValidationError;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,7 +64,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * 模型管理 服务层实现
+ * 模型管理 服务层实现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -77,12 +76,13 @@ import java.util.zip.ZipOutputStream;
 public class ActModelServiceImpl implements IActModelService {
 
     private final IWfNodeConfigService wfNodeConfigService;
+
     private final IWfDefinitionConfigService wfDefinitionConfigService;
-    @Autowired(required = false)
-    private RepositoryService repositoryService;
+
+    private final RepositoryService repositoryService;
 
     /**
-     * 分页查询模型
+     * 分页查询模型.
      *
      * @param modelBo 模型参数
      * @return 返回分页列表
@@ -113,7 +113,7 @@ public class ActModelServiceImpl implements IActModelService {
     }
 
     /**
-     * 新增模型
+     * 新增模型.
      *
      * @param modelBo 模型请求对象
      * @return 结果
@@ -151,7 +151,7 @@ public class ActModelServiceImpl implements IActModelService {
     }
 
     /**
-     * 查询模型
+     * 查询模型.
      *
      * @param id 模型id
      * @return 模型数据
@@ -178,7 +178,7 @@ public class ActModelServiceImpl implements IActModelService {
     }
 
     /**
-     * 修改模型信息
+     * 修改模型信息.
      *
      * @param modelBo 模型数据
      * @return 结果
@@ -188,7 +188,7 @@ public class ActModelServiceImpl implements IActModelService {
         try {
             Model model = repositoryService.getModel(modelBo.getId());
             List<Model> list = QueryUtils.modelQuery().modelKey(modelBo.getKey()).list();
-            list.stream().filter(e -> !e.getId().equals(model.getId())).findFirst().ifPresent(e -> {
+            list.stream().filter(e -> !e.getId().equals(model.getId())).findFirst().ifPresent(_ -> {
                 throw new ServiceException("模型KEY已存在！");
             });
             model.setCategory(modelBo.getCategoryCode());
@@ -201,7 +201,7 @@ public class ActModelServiceImpl implements IActModelService {
     }
 
     /**
-     * 编辑模型XML
+     * 编辑模型XML.
      *
      * @param modelBo 模型数据
      * @return 结果
@@ -219,7 +219,7 @@ public class ActModelServiceImpl implements IActModelService {
             ModelUtils.checkBpmnModel(bpmnModel);
             Model model = repositoryService.getModel(modelId);
             List<Model> list = QueryUtils.modelQuery().modelKey(key).list();
-            list.stream().filter(e -> !e.getId().equals(model.getId())).findFirst().ifPresent(e -> {
+            list.stream().filter(e -> !e.getId().equals(model.getId())).findFirst().ifPresent(_ -> {
                 throw new ServiceException("模型KEY已存在！");
             });
             // 校验key命名规范
@@ -250,7 +250,7 @@ public class ActModelServiceImpl implements IActModelService {
     }
 
     /**
-     * 模型部署
+     * 模型部署.
      *
      * @param id 模型id
      * @return 结果
@@ -345,7 +345,7 @@ public class ActModelServiceImpl implements IActModelService {
     }
 
     /**
-     * 导出模型zip压缩包
+     * 导出模型zip压缩包.
      *
      * @param modelIds 模型id
      * @param response 相应
@@ -389,7 +389,7 @@ public class ActModelServiceImpl implements IActModelService {
     }
 
     /**
-     * 复制模型
+     * 复制模型.
      *
      * @param modelBo 模型数据
      * @return 结果

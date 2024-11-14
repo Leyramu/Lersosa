@@ -5,30 +5,33 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.util;
 
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.SentinelVersion;
 import com.alibaba.csp.sentinel.util.StringUtil;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
 
 /**
- * Util class for parsing version.
+ * 用于解析版本的 Util 类.
  *
  * @author Eric Zhao
- * @since 0.2.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Slf4j
+@NoArgsConstructor
 public final class VersionUtils {
 
-    private VersionUtils() {
-    }
-
     /**
-     * Parse version of Sentinel from raw string.
+     * 从原始字符串解析 Sentinel 的版本.
      *
-     * @param verStr version string
-     * @return parsed {@link SentinelVersion} if the version is valid; empty if
-     * there is something wrong with the format
+     * @param verStr version 字符串
+     * @return 如果版本有效，则解析 {@link SentinelVersion};如果格式有问题，则为空
      */
     public static Optional<SentinelVersion> parseVersion(String verStr) {
         if (StringUtil.isBlank(verStr)) {
@@ -38,14 +41,12 @@ public final class VersionUtils {
             String versionFull = verStr;
             SentinelVersion version = new SentinelVersion();
 
-            // postfix
             int index = versionFull.indexOf("-");
             if (index == 0) {
-                // Start with "-"
                 return Optional.empty();
             }
             if (index == versionFull.length() - 1) {
-                // End with "-"
+                log.warn("Invalid version string: {}", versionFull);
             } else if (index > 0) {
                 version.setPostfix(versionFull.substring(index + 1));
             }
@@ -54,24 +55,22 @@ public final class VersionUtils {
                 versionFull = versionFull.substring(0, index);
             }
 
-            // x.x.x
             int segment = 0;
             int[] ver = new int[3];
             while (segment < ver.length) {
                 index = versionFull.indexOf('.');
                 if (index < 0) {
-                    if (versionFull.length() > 0) {
-                        ver[segment] = Integer.valueOf(versionFull);
+                    if (!versionFull.isEmpty()) {
+                        ver[segment] = Integer.parseInt(versionFull);
                     }
                     break;
                 }
-                ver[segment] = Integer.valueOf(versionFull.substring(0, index));
+                ver[segment] = Integer.parseInt(versionFull.substring(0, index));
                 versionFull = versionFull.substring(index + 1);
                 segment++;
             }
 
             if (ver[0] < 1) {
-                // Wrong format, return empty.
                 return Optional.empty();
             } else {
                 return Optional.of(version
@@ -80,7 +79,6 @@ public final class VersionUtils {
                     .setFixVersion(ver[2]));
             }
         } catch (Exception ex) {
-            // Parse fail, return empty.
             return Optional.empty();
         }
     }

@@ -14,7 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 文件信息
+ * 文件信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,20 +27,17 @@ public class RemoteSms implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 是否成功
+     * 是否成功.
      */
     private Boolean success;
 
     /**
-     * 配置标识名 如未配置取对应渠道名例如 Alibaba
+     * 配置标识名 如未配置取对应渠道名例如 Alibaba.
      */
     private String configId;
 
     /**
-     * 厂商原返回体
-     * <p>
-     * 可自行转换为 SDK 对应的 SendSmsResponse
+     * 厂商原返回体.
      */
     private String response;
-
 }

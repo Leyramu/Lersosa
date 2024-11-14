@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.datasource.entity.rule;
 
 import com.alibaba.csp.sentinel.slots.block.Rule;
@@ -12,21 +13,59 @@ import com.alibaba.csp.sentinel.slots.block.Rule;
 import java.util.Date;
 
 /**
+ * 规则实体.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
 public interface RuleEntity {
 
+    /**
+     * 获取规则ID.
+     *
+     * @return 规则ID
+     */
     Long getId();
 
+    /**
+     * 设置规则ID.
+     *
+     * @param id 规则ID
+     */
     void setId(Long id);
 
+    /**
+     * 获取应用名称.
+     *
+     * @return 应用名称
+     */
     String getApp();
 
+    /**
+     * 获取应用IP.
+     */
     String getIp();
 
+    /**
+     * 获取应用端口.
+     *
+     * @return 应用端口
+     */
     Integer getPort();
 
+    /**
+     * 获取创建时间.
+     *
+     * @return 创建时间
+     */
     Date getGmtCreate();
 
+    /**
+     * 获取修改时间.
+     *
+     * @return 修改时间
+     */
     Rule toRule();
 }

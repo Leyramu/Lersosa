@@ -14,7 +14,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 /**
- * api解密属性配置类
+ * api解密属性配置类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,13 +27,12 @@ import org.springframework.stereotype.Component;
 public class ApiDecryptProperties {
 
     /**
-     * 加密开关
+     * 加密开关.
      */
     private Boolean enabled;
 
     /**
-     * 头部标识
+     * 头部标识.
      */
     private String headerFlag;
-
 }

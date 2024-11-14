@@ -5,82 +5,152 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.datasource.entity.gateway;
 
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayFlowRule;
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayParamFlowItem;
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.RuleEntity;
 import com.alibaba.csp.sentinel.slots.block.Rule;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.Objects;
 
 /**
- * Entity for {@link GatewayFlowRule}.
+ * {@link GatewayFlowRule} 的实体.
  *
  * @author cdfive
- * @since 1.7.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class GatewayFlowRuleEntity implements RuleEntity {
 
-    /**间隔单位*/
     /**
-     * 0-秒
+     * 间隔单位 0-秒.
      */
     public static final int INTERVAL_UNIT_SECOND = 0;
+
     /**
-     * 1-分
+     * 间隔单位 1-分.
      */
     public static final int INTERVAL_UNIT_MINUTE = 1;
+
     /**
-     * 2-时
+     * 间隔单位 2-时.
      */
     public static final int INTERVAL_UNIT_HOUR = 2;
+
     /**
-     * 3-天
+     * 间隔单位 3-天.
      */
     public static final int INTERVAL_UNIT_DAY = 3;
 
+    /**
+     * 规则ID.
+     */
     private Long id;
+
+    /**
+     * 应用名称.
+     */
     private String app;
+
+    /**
+     * ip.
+     */
     private String ip;
+
+    /**
+     * 端口.
+     */
     private Integer port;
 
+    /**
+     * 创建时间.
+     */
     private Date gmtCreate;
+
+    /**
+     * 修改时间.
+     */
     private Date gmtModified;
 
+    /**
+     * 资源名称.
+     */
     private String resource;
+
+    /**
+     * 资源模式.
+     */
     private Integer resourceMode;
 
+    /**
+     * 0-QPS, 1-线程数.
+     */
     private Integer grade;
+
+    /**
+     * QPS/线程数.
+     */
     private Double count;
+
+    /**
+     * 时间间隔（秒）.
+     */
     private Long interval;
+
+    /**
+     * 间隔单位.
+     */
     private Integer intervalUnit;
 
+    /**
+     * 控制行为.
+     */
     private Integer controlBehavior;
+
+    /**
+     * 突发流控.
+     */
     private Integer burst;
 
+    /**
+     * 队列超时时间（毫秒）.
+     */
     private Integer maxQueueingTimeoutMs;
 
+    /**
+     * 参数流控项.
+     */
     private GatewayParamFlowItemEntity paramItem;
 
+    /**
+     * 计算时间间隔（秒）.
+     *
+     * @param interval     时间间隔（秒）
+     * @param intervalUnit 时间间隔单位
+     * @return 时间间隔（秒）
+     */
     public static Long calIntervalSec(Long interval, Integer intervalUnit) {
-        switch (intervalUnit) {
-            case INTERVAL_UNIT_SECOND:
-                return interval;
-            case INTERVAL_UNIT_MINUTE:
-                return interval * 60;
-            case INTERVAL_UNIT_HOUR:
-                return interval * 60 * 60;
-            case INTERVAL_UNIT_DAY:
-                return interval * 60 * 60 * 24;
-            default:
-                break;
-        }
-
-        throw new IllegalArgumentException("Invalid intervalUnit: " + intervalUnit);
+        return switch (intervalUnit) {
+            case INTERVAL_UNIT_SECOND -> interval;
+            case INTERVAL_UNIT_MINUTE -> interval * 60;
+            case INTERVAL_UNIT_HOUR -> interval * 60 * 60;
+            case INTERVAL_UNIT_DAY -> interval * 60 * 60 * 24;
+            default -> throw new IllegalArgumentException("Invalid intervalUnit: " + intervalUnit);
+        };
     }
 
+    /**
+     * 解析时间间隔.
+     *
+     * @param intervalSec 时间间隔（秒）
+     * @return [时间间隔（秒），时间间隔单位]
+     */
     public static Object[] parseIntervalSec(Long intervalSec) {
         if (intervalSec % (60 * 60 * 24) == 0) {
             return new Object[]{intervalSec / (60 * 60 * 24), INTERVAL_UNIT_DAY};
@@ -97,6 +167,15 @@ public class GatewayFlowRuleEntity implements RuleEntity {
         return new Object[]{intervalSec, INTERVAL_UNIT_SECOND};
     }
 
+    /**
+     * 从 {@link GatewayFlowRule} 转换为 {@link GatewayFlowRuleEntity}.
+     *
+     * @param app  应用名称
+     * @param ip   ip
+     * @param port 端口
+     * @param rule {@link GatewayFlowRule}
+     * @return {@link GatewayFlowRuleEntity}
+     */
     public static GatewayFlowRuleEntity fromGatewayFlowRule(String app, String ip, Integer port, GatewayFlowRule rule) {
         GatewayFlowRuleEntity entity = new GatewayFlowRuleEntity();
         entity.setApp(app);
@@ -129,6 +208,9 @@ public class GatewayFlowRuleEntity implements RuleEntity {
         return entity;
     }
 
+    /**
+     * 转换为 {@link GatewayFlowRule}.
+     */
     public GatewayFlowRule toGatewayFlowRule() {
         GatewayFlowRule rule = new GatewayFlowRule();
         rule.setResource(resource);
@@ -163,145 +245,82 @@ public class GatewayFlowRuleEntity implements RuleEntity {
         return rule;
     }
 
+    /**
+     * 获取规则ID.
+     *
+     * @return 规则ID
+     */
     @Override
     public Long getId() {
         return id;
     }
 
+    /**
+     * 设置规则ID.
+     *
+     * @param id 规则ID
+     */
     @Override
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * 获取应用名称.
+     *
+     * @return 应用名称
+     */
     @Override
     public String getApp() {
         return app;
     }
 
-    public void setApp(String app) {
-        this.app = app;
-    }
-
+    /**
+     * 获取IP地址.
+     *
+     * @return IP地址
+     */
     @Override
     public String getIp() {
         return ip;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
+    /**
+     * 获取端口号.
+     *
+     * @return 端口号
+     */
     @Override
     public Integer getPort() {
         return port;
     }
 
-    public void setPort(Integer port) {
-        this.port = port;
-    }
-
+    /**
+     * 获取创建时间.
+     *
+     * @return 创建时间
+     */
     @Override
     public Date getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
+    /**
+     * 将当前实体转换为规则对象.
+     *
+     * @return 规则对象
+     */
     @Override
     public Rule toRule() {
         return null;
     }
 
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    public GatewayParamFlowItemEntity getParamItem() {
-        return paramItem;
-    }
-
-    public void setParamItem(GatewayParamFlowItemEntity paramItem) {
-        this.paramItem = paramItem;
-    }
-
-    public String getResource() {
-        return resource;
-    }
-
-    public void setResource(String resource) {
-        this.resource = resource;
-    }
-
-    public Integer getResourceMode() {
-        return resourceMode;
-    }
-
-    public void setResourceMode(Integer resourceMode) {
-        this.resourceMode = resourceMode;
-    }
-
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
-
-    public Double getCount() {
-        return count;
-    }
-
-    public void setCount(Double count) {
-        this.count = count;
-    }
-
-    public Long getInterval() {
-        return interval;
-    }
-
-    public void setInterval(Long interval) {
-        this.interval = interval;
-    }
-
-    public Integer getIntervalUnit() {
-        return intervalUnit;
-    }
-
-    public void setIntervalUnit(Integer intervalUnit) {
-        this.intervalUnit = intervalUnit;
-    }
-
-    public Integer getControlBehavior() {
-        return controlBehavior;
-    }
-
-    public void setControlBehavior(Integer controlBehavior) {
-        this.controlBehavior = controlBehavior;
-    }
-
-    public Integer getBurst() {
-        return burst;
-    }
-
-    public void setBurst(Integer burst) {
-        this.burst = burst;
-    }
-
-    public Integer getMaxQueueingTimeoutMs() {
-        return maxQueueingTimeoutMs;
-    }
-
-    public void setMaxQueueingTimeoutMs(Integer maxQueueingTimeoutMs) {
-        this.maxQueueingTimeoutMs = maxQueueingTimeoutMs;
-    }
-
+    /**
+     * 重写equals方法以自定义对象相等性比较.
+     *
+     * @param o 要与当前对象进行比较的对象
+     * @return 如果两个对象相等则返回true，否则返回false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -329,11 +348,23 @@ public class GatewayFlowRuleEntity implements RuleEntity {
             Objects.equals(paramItem, that.paramItem);
     }
 
+
+    /**
+     * 重写hashCode方法以自定义对象的哈希码生成算法.
+     *
+     * @return 当前对象的哈希码
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id, app, ip, port, gmtCreate, gmtModified, resource, resourceMode, grade, count, interval, intervalUnit, controlBehavior, burst, maxQueueingTimeoutMs, paramItem);
     }
 
+
+    /**
+     * 重写toString方法以自定义对象的字符串表示形式.
+     *
+     * @return 当前对象的字符串表示
+     */
     @Override
     public String toString() {
         return "GatewayFlowRuleEntity{" +

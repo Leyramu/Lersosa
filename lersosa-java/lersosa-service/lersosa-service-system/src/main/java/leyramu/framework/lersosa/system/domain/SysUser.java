@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * 用户对象 sys_user
+ * 用户对象 sys_user.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,53 +31,53 @@ import java.util.Date;
 public class SysUser extends TenantEntity {
 
     /**
-     * 用户ID
+     * 用户ID.
      */
     @TableId(value = "user_id")
     private Long userId;
 
     /**
-     * 部门ID
+     * 部门ID.
      */
     private Long deptId;
 
     /**
-     * 用户账号
+     * 用户账号.
      */
     private String userName;
 
     /**
-     * 用户昵称
+     * 用户昵称.
      */
     private String nickName;
 
     /**
-     * 用户类型（sys_user系统用户）
+     * 用户类型（sys_user系统用户）.
      */
     private String userType;
 
     /**
-     * 用户邮箱
+     * 用户邮箱.
      */
     private String email;
 
     /**
-     * 手机号码
+     * 手机号码.
      */
     private String phonenumber;
 
     /**
-     * 用户性别
+     * 用户性别.
      */
     private String sex;
 
     /**
-     * 用户头像
+     * 用户头像.
      */
     private Long avatar;
 
     /**
-     * 密码
+     * 密码.
      */
     @TableField(
         insertStrategy = FieldStrategy.NOT_EMPTY,
@@ -87,31 +87,30 @@ public class SysUser extends TenantEntity {
     private String password;
 
     /**
-     * 帐号状态（0正常 1停用）
+     * 帐号状态（0正常 1停用）.
      */
     private String status;
 
     /**
-     * 删除标志（0代表存在 2代表删除）
+     * 删除标志（0代表存在 2代表删除）.
      */
     @TableLogic
     private String delFlag;
 
     /**
-     * 最后登录IP
+     * 最后登录IP.
      */
     private String loginIp;
 
     /**
-     * 最后登录时间
+     * 最后登录时间.
      */
     private Date loginDate;
 
     /**
-     * 备注
+     * 备注.
      */
     private String remark;
-
 
     public SysUser(Long userId) {
         this.userId = userId;
@@ -120,5 +119,4 @@ public class SysUser extends TenantEntity {
     public boolean isSuperAdmin() {
         return UserConstants.SUPER_ADMIN_ID.equals(this.userId);
     }
-
 }

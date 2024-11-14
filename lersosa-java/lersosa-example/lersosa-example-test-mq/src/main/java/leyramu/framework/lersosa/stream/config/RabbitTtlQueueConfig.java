@@ -16,7 +16,7 @@ import java.util.Map;
 
 
 /**
- * RabbitTTL队列
+ * RabbitTTL队列.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -40,7 +40,7 @@ public class RabbitTtlQueueConfig {
     public static final String DEAD_LETTER_ROUTING_KEY = "dlx.routing.key";
 
     /**
-     * 声明延迟队列
+     * 声明延迟队列.
      */
     @Bean
     public Queue delayQueue() {
@@ -51,7 +51,7 @@ public class RabbitTtlQueueConfig {
     }
 
     /**
-     * 声明延迟交换机
+     * 声明延迟交换机.
      */
     @Bean
     public CustomExchange delayExchange() {
@@ -60,7 +60,7 @@ public class RabbitTtlQueueConfig {
     }
 
     /**
-     * 将延迟队列绑定到延迟交换机
+     * 将延迟队列绑定到延迟交换机.
      */
     @Bean
     public Binding delayBinding(Queue delayQueue, CustomExchange delayExchange) {
@@ -68,7 +68,7 @@ public class RabbitTtlQueueConfig {
     }
 
     /**
-     * 声明死信队列
+     * 声明死信队列.
      */
     @Bean
     public Queue deadLetterQueue() {
@@ -76,7 +76,7 @@ public class RabbitTtlQueueConfig {
     }
 
     /**
-     * 声明死信交换机
+     * 声明死信交换机.
      */
     @Bean
     public DirectExchange deadLetterExchange() {
@@ -84,12 +84,11 @@ public class RabbitTtlQueueConfig {
     }
 
     /**
-     * 将死信队列绑定到死信交换机
+     * 将死信队列绑定到死信交换机.
      */
     @Bean
     public Binding deadLetterBinding(Queue deadLetterQueue, DirectExchange deadLetterExchange) {
         return BindingBuilder.bind(deadLetterQueue).to(deadLetterExchange).with(DEAD_LETTER_ROUTING_KEY);
     }
-
 }
 

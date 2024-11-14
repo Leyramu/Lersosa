@@ -31,7 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 测试树表Controller
+ * 测试树表Controller.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -46,7 +46,7 @@ public class TestTreeController extends BaseController {
     private final ITestTreeService iTestTreeService;
 
     /**
-     * 查询测试树表列表
+     * 查询测试树表列表.
      */
     @SaCheckPermission("demo:tree:list")
     @GetMapping("/list")
@@ -56,7 +56,7 @@ public class TestTreeController extends BaseController {
     }
 
     /**
-     * 导出测试树表列表
+     * 导出测试树表列表.
      */
     @SaCheckPermission("demo:tree:export")
     @Log(title = "测试树表", businessType = BusinessType.EXPORT)
@@ -67,7 +67,7 @@ public class TestTreeController extends BaseController {
     }
 
     /**
-     * 获取测试树表详细信息
+     * 获取测试树表详细信息.
      *
      * @param id 测试树ID
      */
@@ -78,7 +78,7 @@ public class TestTreeController extends BaseController {
     }
 
     /**
-     * 新增测试树表
+     * 新增测试树表.
      */
     @SaCheckPermission("demo:tree:add")
     @Log(title = "测试树表", businessType = BusinessType.INSERT)
@@ -89,7 +89,7 @@ public class TestTreeController extends BaseController {
     }
 
     /**
-     * 修改测试树表
+     * 修改测试树表.
      */
     @SaCheckPermission("demo:tree:edit")
     @Log(title = "测试树表", businessType = BusinessType.UPDATE)
@@ -100,7 +100,7 @@ public class TestTreeController extends BaseController {
     }
 
     /**
-     * 删除测试树表
+     * 删除测试树表.
      *
      * @param ids 测试树ID串
      */

@@ -36,7 +36,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 租户套餐管理
+ * 租户套餐管理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -52,7 +52,7 @@ public class SysTenantPackageController extends BaseController {
     private final ISysTenantPackageService tenantPackageService;
 
     /**
-     * 查询租户套餐列表
+     * 查询租户套餐列表.
      */
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
     @SaCheckPermission("system:tenantPackage:list")
@@ -62,7 +62,7 @@ public class SysTenantPackageController extends BaseController {
     }
 
     /**
-     * 查询租户套餐下拉选列表
+     * 查询租户套餐下拉选列表.
      */
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
     @SaCheckPermission("system:tenantPackage:list")
@@ -72,7 +72,7 @@ public class SysTenantPackageController extends BaseController {
     }
 
     /**
-     * 导出租户套餐列表
+     * 导出租户套餐列表.
      */
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
     @SaCheckPermission("system:tenantPackage:export")
@@ -84,7 +84,7 @@ public class SysTenantPackageController extends BaseController {
     }
 
     /**
-     * 获取租户套餐详细信息
+     * 获取租户套餐详细信息.
      *
      * @param packageId 主键
      */
@@ -97,7 +97,7 @@ public class SysTenantPackageController extends BaseController {
     }
 
     /**
-     * 新增租户套餐
+     * 新增租户套餐.
      */
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
     @SaCheckPermission("system:tenantPackage:add")
@@ -105,14 +105,14 @@ public class SysTenantPackageController extends BaseController {
     @RepeatSubmit()
     @PostMapping()
     public R<Void> add(@Validated(AddGroup.class) @RequestBody SysTenantPackageBo bo) {
-        if (!tenantPackageService.checkPackageNameUnique(bo)) {
+        if (tenantPackageService.checkPackageNameUnique(bo)) {
             return R.fail("新增套餐'" + bo.getPackageName() + "'失败，套餐名称已存在");
         }
         return toAjax(tenantPackageService.insertByBo(bo));
     }
 
     /**
-     * 修改租户套餐
+     * 修改租户套餐.
      */
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
     @SaCheckPermission("system:tenantPackage:edit")
@@ -120,14 +120,14 @@ public class SysTenantPackageController extends BaseController {
     @RepeatSubmit()
     @PutMapping()
     public R<Void> edit(@Validated(EditGroup.class) @RequestBody SysTenantPackageBo bo) {
-        if (!tenantPackageService.checkPackageNameUnique(bo)) {
+        if (tenantPackageService.checkPackageNameUnique(bo)) {
             return R.fail("修改套餐'" + bo.getPackageName() + "'失败，套餐名称已存在");
         }
         return toAjax(tenantPackageService.updateByBo(bo));
     }
 
     /**
-     * 状态修改
+     * 状态修改.
      */
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
     @SaCheckPermission("system:tenantPackage:edit")
@@ -138,7 +138,7 @@ public class SysTenantPackageController extends BaseController {
     }
 
     /**
-     * 删除租户套餐
+     * 删除租户套餐.
      *
      * @param packageIds 主键串
      */

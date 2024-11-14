@@ -5,87 +5,110 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.cluster.config;
 
+import lombok.Data;
+
 /**
+ * 服务器流控配置.
+ *
  * @author Eric Zhao
- * @since 1.4.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class ServerFlowConfig {
 
+    /**
+     * 默认流控阈值.
+     */
     public static final double DEFAULT_EXCEED_COUNT = 1.0d;
+
+    /**
+     * 默认最大占用比例.
+     */
     public static final double DEFAULT_MAX_OCCUPY_RATIO = 1.0d;
 
+    /**
+     * 默认统计时间间隔.
+     */
     public static final int DEFAULT_INTERVAL_MS = 1000;
+
+    /**
+     * 默认采样数.
+     */
     public static final int DEFAULT_SAMPLE_COUNT = 10;
+
+    /**
+     * 默认最大QPS.
+     */
     public static final double DEFAULT_MAX_ALLOWED_QPS = 30000;
 
+    /**
+     * 命名空间.
+     */
     private final String namespace;
 
+    /**
+     * 阈值.
+     */
     private Double exceedCount = DEFAULT_EXCEED_COUNT;
+
+
+    /**
+     * 最大占用比例.
+     */
     private Double maxOccupyRatio = DEFAULT_MAX_OCCUPY_RATIO;
+
+    /**
+     * 统计时间间隔.
+     */
     private Integer intervalMs = DEFAULT_INTERVAL_MS;
+
+    /**
+     * 采样数.
+     */
     private Integer sampleCount = DEFAULT_SAMPLE_COUNT;
 
+    /**
+     * 最大QPS.
+     */
     private Double maxAllowedQps = DEFAULT_MAX_ALLOWED_QPS;
 
+    /**
+     * 无参构造.
+     */
     public ServerFlowConfig() {
         this("default");
     }
 
+    /**
+     * 构造函数.
+     *
+     * @param namespace 命名空间
+     */
     public ServerFlowConfig(String namespace) {
         this.namespace = namespace;
     }
 
-    public String getNamespace() {
-        return namespace;
-    }
-
-    public Double getExceedCount() {
-        return exceedCount;
-    }
-
-    public ServerFlowConfig setExceedCount(Double exceedCount) {
-        this.exceedCount = exceedCount;
-        return this;
-    }
-
-    public Double getMaxOccupyRatio() {
-        return maxOccupyRatio;
-    }
-
-    public ServerFlowConfig setMaxOccupyRatio(Double maxOccupyRatio) {
-        this.maxOccupyRatio = maxOccupyRatio;
-        return this;
-    }
-
-    public Integer getIntervalMs() {
-        return intervalMs;
-    }
-
-    public ServerFlowConfig setIntervalMs(Integer intervalMs) {
-        this.intervalMs = intervalMs;
-        return this;
-    }
-
-    public Integer getSampleCount() {
-        return sampleCount;
-    }
-
-    public ServerFlowConfig setSampleCount(Integer sampleCount) {
-        this.sampleCount = sampleCount;
-        return this;
-    }
-
-    public Double getMaxAllowedQps() {
-        return maxAllowedQps;
-    }
-
+    /**
+     * 设置最大QPS.
+     *
+     * @param maxAllowedQps 最大QPS
+     * @return this
+     */
     public ServerFlowConfig setMaxAllowedQps(Double maxAllowedQps) {
         this.maxAllowedQps = maxAllowedQps;
         return this;
     }
 
+    /**
+     * 获取配置信息.
+     *
+     * @return 字符串
+     */
     @Override
     public String toString() {
         return "ServerFlowConfig{" +

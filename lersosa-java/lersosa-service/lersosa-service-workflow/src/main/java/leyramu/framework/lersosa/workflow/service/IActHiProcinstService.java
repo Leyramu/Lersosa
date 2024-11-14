@@ -14,7 +14,7 @@ import leyramu.framework.lersosa.workflow.domain.ActHiProcinst;
 import java.util.List;
 
 /**
- * 流程实例Service接口
+ * 流程实例Service接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -23,7 +23,7 @@ import java.util.List;
 public interface IActHiProcinstService {
 
     /**
-     * 按照业务id查询
+     * 按照业务id查询.
      *
      * @param businessKeys 业务id
      * @return 结果
@@ -31,7 +31,7 @@ public interface IActHiProcinstService {
     List<ActHiProcinst> selectByBusinessKeyIn(List<String> businessKeys);
 
     /**
-     * 按照业务id查询
+     * 按照业务id查询.
      *
      * @param businessKey 业务id
      * @return 结果

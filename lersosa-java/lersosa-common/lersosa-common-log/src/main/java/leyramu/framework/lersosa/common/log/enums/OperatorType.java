@@ -9,7 +9,7 @@
 package leyramu.framework.lersosa.common.log.enums;
 
 /**
- * 操作人类别
+ * 操作人类别.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -17,17 +17,17 @@ package leyramu.framework.lersosa.common.log.enums;
  */
 public enum OperatorType {
     /**
-     * 其它
+     * 其它.
      */
     OTHER,
 
     /**
-     * 后台用户
+     * 后台用户.
      */
     MANAGE,
 
     /**
-     * 手机端用户
+     * 手机端用户.
      */
     MOBILE
 }

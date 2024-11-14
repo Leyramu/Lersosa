@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.common.loadbalance.config;
 import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClients;
 
 /**
- * 自定义负载均衡自动配置
+ * 自定义负载均衡自动配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -19,5 +19,4 @@ import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClients;
  */
 @LoadBalancerClients(defaultConfiguration = CustomLoadBalanceClientConfiguration.class)
 public class CustomLoadBalanceAutoConfiguration {
-
 }

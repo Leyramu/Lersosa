@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
- * 角色和菜单关联 sys_role_menu
+ * 角色和菜单关联 sys_role_menu.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,14 +25,13 @@ import lombok.Data;
 public class SysRoleMenu {
 
     /**
-     * 角色ID
+     * 角色ID.
      */
     @TableId(type = IdType.INPUT)
     private Long roleId;
 
     /**
-     * 菜单ID
+     * 菜单ID.
      */
     private Long menuId;
-
 }

@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * WebSocketSession 用于保存当前所有在线的会话信息
+ * WebSocketSession 用于保存当前所有在线的会话信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,7 +29,7 @@ public class WebSocketSessionHolder {
     private static final Map<Long, WebSocketSession> USER_SESSION_MAP = new ConcurrentHashMap<>();
 
     /**
-     * 将WebSocket会话添加到用户会话Map中
+     * 将WebSocket会话添加到用户会话Map中.
      *
      * @param sessionKey 会话键，用于检索会话
      * @param session    要添加的WebSocket会话
@@ -39,10 +39,11 @@ public class WebSocketSessionHolder {
     }
 
     /**
-     * 从用户会话Map中移除指定会话键对应的WebSocket会话
+     * 从用户会话Map中移除指定会话键对应的WebSocket会话.
      *
      * @param sessionKey 要移除的会话键
      */
+    @SuppressWarnings("all")
     public static void removeSession(Long sessionKey) {
         if (USER_SESSION_MAP.containsKey(sessionKey)) {
             USER_SESSION_MAP.remove(sessionKey);
@@ -50,7 +51,7 @@ public class WebSocketSessionHolder {
     }
 
     /**
-     * 根据会话键从用户会话Map中获取WebSocket会话
+     * 根据会话键从用户会话Map中获取WebSocket会话.
      *
      * @param sessionKey 要获取的会话键
      * @return 与给定会话键对应的WebSocket会话，如果不存在则返回null
@@ -60,7 +61,7 @@ public class WebSocketSessionHolder {
     }
 
     /**
-     * 获取存储在用户会话Map中所有WebSocket会话的会话键集合
+     * 获取存储在用户会话Map中所有WebSocket会话的会话键集合.
      *
      * @return 所有WebSocket会话的会话键集合
      */
@@ -69,7 +70,7 @@ public class WebSocketSessionHolder {
     }
 
     /**
-     * 检查给定的会话键是否存在于用户会话Map中
+     * 检查给定的会话键是否存在于用户会话Map中.
      *
      * @param sessionKey 要检查的会话键
      * @return 如果存在对应的会话键，则返回true；否则返回false

@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.repository.rule;
 
 import com.alibaba.csp.sentinel.dashboard.discovery.MachineInfo;
@@ -12,66 +13,60 @@ import com.alibaba.csp.sentinel.dashboard.discovery.MachineInfo;
 import java.util.List;
 
 /**
- * Interface to store and find rules.
+ * 用于存储和查找规则的接口.
  *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
 public interface RuleRepository<T, ID> {
 
     /**
-     * Save one.
+     * 保存一个.
      *
-     * @param entity
-     * @return
+     * @param entity 要保存的实体
+     * @return 已保存的实体
      */
     T save(T entity);
 
     /**
-     * Save all.
+     * 全部保存.
      *
-     * @param rules
-     * @return rules saved.
+     * @param rules 待保存
+     * @return 保存的规则.
      */
     List<T> saveAll(List<T> rules);
 
     /**
-     * Delete by id
+     * 按 ID 删除.
      *
-     * @param id
-     * @return entity deleted
+     * @param id 实体 ID
+     * @return 实体已删除
      */
     T delete(ID id);
 
     /**
-     * Find by id.
+     * 按 ID 查找.
      *
-     * @param id
-     * @return
+     * @param id 实体 ID
+     * @return 实体
      */
     T findById(ID id);
 
     /**
-     * Find all by machine.
+     * 按机器查找全部.
      *
-     * @param machineInfo
-     * @return
+     * @param machineInfo 机器信息
+     * @return 实体列表
      */
     List<T> findAllByMachine(MachineInfo machineInfo);
 
     /**
-     * Find all by application.
+     * 按应用查找全部.
      *
-     * @param appName valid app name
-     * @return all rules of the application
-     * @since 1.4.0
+     * @param appName 有效的 App 名称
+     * @return 应用程序的所有规则
      */
     List<T> findAllByApp(String appName);
-
-    ///**
-    // * Find all by app and enable switch.
-    // * @param app
-    // * @param enable
-    // * @return
-    // */
-    //List<T> findAllByAppAndEnable(String app, boolean enable);
 }

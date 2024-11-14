@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 
 /**
- * dubbo 配置类
+ * dubbo 配置类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,7 +29,7 @@ import org.springframework.context.annotation.PropertySource;
 public class DubboConfiguration {
 
     /**
-     * dubbo自定义IP注入(避免IP不正确问题)
+     * dubbo自定义IP注入(避免IP不正确问题).
      */
     @Bean
     public BeanFactoryPostProcessor customBeanFactoryPostProcessor() {

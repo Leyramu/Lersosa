@@ -5,13 +5,21 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.entity;
+
+import lombok.Data;
 
 import java.util.Date;
 
 /**
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@SuppressWarnings("unused")
 public class MetricPositionEntity {
     private long id;
     private Date gmtCreate;
@@ -19,83 +27,19 @@ public class MetricPositionEntity {
     private String app;
     private String ip;
     /**
-     * Sentinel在该应用上使用的端口
+     * Sentinel在该应用上使用的端口.
      */
     private int port;
 
     /**
-     * 机器名，冗余字段
+     * 机器名，冗余字段.
      */
     private String hostname;
 
     /**
-     * 上一次拉取的最晚时间戳
+     * 上一次拉取的最晚时间戳.
      */
     private Date lastFetch;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    public String getApp() {
-        return app;
-    }
-
-    public void setApp(String app) {
-        this.app = app;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public String getHostname() {
-        return hostname;
-    }
-
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
-    }
-
-    public Date getLastFetch() {
-        return lastFetch;
-    }
-
-    public void setLastFetch(Date lastFetch) {
-        this.lastFetch = lastFetch;
-    }
 
     @Override
     public String toString() {

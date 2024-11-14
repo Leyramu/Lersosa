@@ -5,98 +5,70 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.datasource.entity;
+
+import lombok.Data;
 
 import java.util.Date;
 
 /**
+ * 度量位置实体.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@SuppressWarnings("unused")
 public class MetricPositionEntity {
-    private long id;
-    private Date gmtCreate;
-    private Date gmtModified;
-    private String app;
-    private String ip;
+
     /**
-     * Sentinel在该应用上使用的端口
+     * 主键ID.
+     */
+    private long id;
+
+    /**
+     * 创建时间.
+     */
+    private Date gmtCreate;
+
+    /**
+     * 修改时间.
+     */
+    private Date gmtModified;
+
+    /**
+     * 应用名称.
+     */
+    private String app;
+
+    /**
+     * Sentinel所在机器的IP地址.
+     */
+    private String ip;
+
+    /**
+     * Sentinel在该应用上使用的端口.
      */
     private int port;
 
     /**
-     * 机器名，冗余字段
+     * 机器名，冗余字段.
      */
     private String hostname;
 
     /**
-     * 上一次拉取的最晚时间戳
+     * 上一次拉取的最晚时间戳.
      */
     private Date lastFetch;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    public String getApp() {
-        return app;
-    }
-
-    public void setApp(String app) {
-        this.app = app;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public String getHostname() {
-        return hostname;
-    }
-
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
-    }
-
-    public Date getLastFetch() {
-        return lastFetch;
-    }
-
-    public void setLastFetch(Date lastFetch) {
-        this.lastFetch = lastFetch;
-    }
-
+    /**
+     * 重写toString方法，方便调试.
+     *
+     * @return 对象的字符串表示形式
+     */
     @Override
     public String toString() {
         return "MetricPositionEntity{" +

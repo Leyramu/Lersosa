@@ -5,30 +5,44 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.cluster.state;
 
 import com.alibaba.csp.sentinel.dashboard.domain.cluster.ClusterClientInfoVO;
+import lombok.Data;
 
 /**
+ * 群集客户端状态视图对象.
+ *
  * @author Eric Zhao
- * @since 1.4.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class ClusterClientStateVO {
 
     /**
-     * Cluster token client state.
+     * 群集令牌客户端状态.
      */
     private ClusterClientInfoVO clientConfig;
 
-    public ClusterClientInfoVO getClientConfig() {
-        return clientConfig;
-    }
-
+    /**
+     * 设置客户端配置.
+     *
+     * @param clientConfig 客户端配置
+     * @return this
+     */
     public ClusterClientStateVO setClientConfig(ClusterClientInfoVO clientConfig) {
         this.clientConfig = clientConfig;
         return this;
     }
 
+    /**
+     * 获取客户端配置.
+     *
+     * @return 客户端配置
+     */
     @Override
     public String toString() {
         return "ClusterClientStateVO{" +

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 菜单 业务层
+ * 菜单 业务层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,7 +27,7 @@ import java.util.Set;
 public interface ISysMenuService {
 
     /**
-     * 根据用户查询系统菜单列表
+     * 根据用户查询系统菜单列表.
      *
      * @param userId 用户ID
      * @return 菜单列表
@@ -35,7 +35,7 @@ public interface ISysMenuService {
     List<SysMenuVo> selectMenuList(Long userId);
 
     /**
-     * 根据用户查询系统菜单列表
+     * 根据用户查询系统菜单列表.
      *
      * @param menu   菜单信息
      * @param userId 用户ID
@@ -44,7 +44,7 @@ public interface ISysMenuService {
     List<SysMenuVo> selectMenuList(SysMenuBo menu, Long userId);
 
     /**
-     * 根据用户ID查询权限
+     * 根据用户ID查询权限.
      *
      * @param userId 用户ID
      * @return 权限列表
@@ -52,15 +52,16 @@ public interface ISysMenuService {
     Set<String> selectMenuPermsByUserId(Long userId);
 
     /**
-     * 根据角色ID查询权限
+     * 根据角色ID查询权限.
      *
      * @param roleId 角色ID
      * @return 权限列表
      */
+    @SuppressWarnings("unused")
     Set<String> selectMenuPermsByRoleId(Long roleId);
 
     /**
-     * 根据用户ID查询菜单树信息
+     * 根据用户ID查询菜单树信息.
      *
      * @param userId 用户ID
      * @return 菜单列表
@@ -68,7 +69,7 @@ public interface ISysMenuService {
     List<SysMenu> selectMenuTreeByUserId(Long userId);
 
     /**
-     * 根据角色ID查询菜单树信息
+     * 根据角色ID查询菜单树信息.
      *
      * @param roleId 角色ID
      * @return 选中菜单列表
@@ -76,7 +77,7 @@ public interface ISysMenuService {
     List<Long> selectMenuListByRoleId(Long roleId);
 
     /**
-     * 根据租户套餐ID查询菜单树信息
+     * 根据租户套餐ID查询菜单树信息.
      *
      * @param packageId 租户套餐ID
      * @return 选中菜单列表
@@ -84,7 +85,7 @@ public interface ISysMenuService {
     List<Long> selectMenuListByPackageId(Long packageId);
 
     /**
-     * 构建前端路由所需要的菜单
+     * 构建前端路由所需要的菜单.
      *
      * @param menus 菜单列表
      * @return 路由列表
@@ -92,7 +93,7 @@ public interface ISysMenuService {
     List<RouterVo> buildMenus(List<SysMenu> menus);
 
     /**
-     * 构建前端所需要下拉树结构
+     * 构建前端所需要下拉树结构.
      *
      * @param menus 菜单列表
      * @return 下拉树结构列表
@@ -100,7 +101,7 @@ public interface ISysMenuService {
     List<Tree<Long>> buildMenuTreeSelect(List<SysMenuVo> menus);
 
     /**
-     * 根据菜单ID查询信息
+     * 根据菜单ID查询信息.
      *
      * @param menuId 菜单ID
      * @return 菜单信息
@@ -108,7 +109,7 @@ public interface ISysMenuService {
     SysMenuVo selectMenuById(Long menuId);
 
     /**
-     * 是否存在菜单子节点
+     * 是否存在菜单子节点.
      *
      * @param menuId 菜单ID
      * @return 结果 true 存在 false 不存在
@@ -116,7 +117,7 @@ public interface ISysMenuService {
     boolean hasChildByMenuId(Long menuId);
 
     /**
-     * 查询菜单是否存在角色
+     * 查询菜单是否存在角色.
      *
      * @param menuId 菜单ID
      * @return 结果 true 存在 false 不存在
@@ -124,7 +125,7 @@ public interface ISysMenuService {
     boolean checkMenuExistRole(Long menuId);
 
     /**
-     * 新增保存菜单信息
+     * 新增保存菜单信息.
      *
      * @param bo 菜单信息
      * @return 结果
@@ -132,7 +133,7 @@ public interface ISysMenuService {
     int insertMenu(SysMenuBo bo);
 
     /**
-     * 修改保存菜单信息
+     * 修改保存菜单信息.
      *
      * @param bo 菜单信息
      * @return 结果
@@ -140,7 +141,7 @@ public interface ISysMenuService {
     int updateMenu(SysMenuBo bo);
 
     /**
-     * 删除菜单管理信息
+     * 删除菜单管理信息.
      *
      * @param menuId 菜单ID
      * @return 结果
@@ -148,7 +149,7 @@ public interface ISysMenuService {
     int deleteMenuById(Long menuId);
 
     /**
-     * 校验菜单名称是否唯一
+     * 校验菜单名称是否唯一.
      *
      * @param menu 菜单信息
      * @return 结果

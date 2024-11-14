@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * 延时消息生产者
+ * 延时消息生产者.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -35,7 +35,6 @@ public class DelayRabbitProducer {
                 message1.getMessageProperties().setDelayLong(delay);
                 return message1;
             });
-        log.info("【生产者】Delayed message send: " + message);
+        log.info("【生产者】Delayed message send: {}", message);
     }
-
 }

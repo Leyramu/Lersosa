@@ -20,9 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Health ControllerV2.
+ * 运行状况控制器 V2.
  *
  * @author DiligenceLai
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 1.0.0
+ * @since 2024/11/13
  */
 @RestController("consoleHealthV2")
 @RequestMapping("/v2/console/health")
@@ -30,10 +33,9 @@ import javax.servlet.http.HttpServletRequest;
 public class HealthControllerV2 {
 
     /**
-     * Whether the Nacos is in broken states or not, and cannot recover except by being restarted.
+     * Nacos 是否处于 broken 状态，除非重启才能恢复.
      *
-     * @return HTTP code equal to 200 indicates that Nacos is in right states. HTTP code equal to 500 indicates that
-     * Nacos is in broken states.
+     * @return HTTP 代码等于 200 表示 Nacos 处于正确的状态。HTTP 代码等于 500 表示 Nacos 处于 broken 状态
      */
     @GetMapping("/liveness")
     public Result<String> liveness() {
@@ -41,18 +43,16 @@ public class HealthControllerV2 {
     }
 
     /**
-     * Ready to receive the request or not.
+     * 准备好接收请求.
      *
-     * @return HTTP code equal to 200 indicates that Nacos is ready. HTTP code equal to 500 indicates that Nacos is not
-     * ready.
+     * @return HTTP 代码等于 200 表示 Nacos 已准备就绪。HTTP 代码等于 500 表示 Nacos 尚未准备就绪
      */
     @GetMapping("/readiness")
-    public Result<String> readiness(HttpServletRequest request) {
+    public Result<String> readiness(HttpServletRequest ignoredRequest) {
         ReadinessResult result = ModuleHealthCheckerHolder.getInstance().checkReadiness();
         if (result.isSuccess()) {
             return Result.success("ok");
         }
         return Result.failure(result.getResultMessage());
     }
-
 }

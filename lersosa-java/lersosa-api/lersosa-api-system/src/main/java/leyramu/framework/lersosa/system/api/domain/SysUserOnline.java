@@ -15,7 +15,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 当前在线会话
+ * 当前在线会话.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,53 +29,52 @@ public class SysUserOnline implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 会话编号
+     * 会话编号.
      */
     private String tokenId;
 
     /**
-     * 部门名称
+     * 部门名称.
      */
     private String deptName;
 
     /**
-     * 用户名称
+     * 用户名称.
      */
     private String userName;
 
     /**
-     * 客户端
+     * 客户端.
      */
     private String clientKey;
 
     /**
-     * 设备类型
+     * 设备类型.
      */
     private String deviceType;
 
     /**
-     * 登录IP地址
+     * 登录IP地址.
      */
     private String ipaddr;
 
     /**
-     * 登录地址
+     * 登录地址.
      */
     private String loginLocation;
 
     /**
-     * 浏览器类型
+     * 浏览器类型.
      */
     private String browser;
 
     /**
-     * 操作系统
+     * 操作系统.
      */
     private String os;
 
     /**
-     * 登录时间
+     * 登录时间.
      */
     private Long loginTime;
-
 }

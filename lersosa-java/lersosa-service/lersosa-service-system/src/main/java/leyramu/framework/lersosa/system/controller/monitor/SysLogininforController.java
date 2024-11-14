@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 系统访问记录
+ * 系统访问记录.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -44,7 +44,7 @@ public class SysLogininforController extends BaseController {
     private final ISysLogininforService logininforService;
 
     /**
-     * 获取系统访问记录列表
+     * 获取系统访问记录列表.
      */
     @SaCheckPermission("monitor:logininfor:list")
     @GetMapping("/list")
@@ -53,7 +53,7 @@ public class SysLogininforController extends BaseController {
     }
 
     /**
-     * 导出系统访问记录列表
+     * 导出系统访问记录列表.
      */
     @Log(title = "登录日志", businessType = BusinessType.EXPORT)
     @SaCheckPermission("monitor:logininfor:export")
@@ -64,7 +64,7 @@ public class SysLogininforController extends BaseController {
     }
 
     /**
-     * 批量删除登录日志
+     * 批量删除登录日志.
      *
      * @param infoIds 日志ids
      */
@@ -76,7 +76,7 @@ public class SysLogininforController extends BaseController {
     }
 
     /**
-     * 清理系统访问记录
+     * 清理系统访问记录.
      */
     @SaCheckPermission("monitor:logininfor:remove")
     @Log(title = "登录日志", businessType = BusinessType.CLEAN)
@@ -96,5 +96,4 @@ public class SysLogininforController extends BaseController {
         }
         return R.ok();
     }
-
 }

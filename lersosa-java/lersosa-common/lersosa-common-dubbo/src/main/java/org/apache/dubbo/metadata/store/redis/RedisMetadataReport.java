@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package org.apache.dubbo.metadata.store.redis;
 
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
@@ -35,12 +36,13 @@ import static org.apache.dubbo.metadata.ServiceNameMapping.getAppNames;
 import static org.apache.dubbo.metadata.report.support.Constants.DEFAULT_METADATA_REPORT_CYCLE_REPORT;
 
 /**
- * Redis 元数据报告
+ * Redis 元数据报告.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@SuppressWarnings("all")
 public class RedisMetadataReport extends AbstractMetadataReport {
 
     private static final String REDIS_DATABASE_KEY = "database";
@@ -50,9 +52,9 @@ public class RedisMetadataReport extends AbstractMetadataReport {
     // protected , for test
     protected JedisPool pool;
     private Set<HostAndPort> jedisClusterNodes;
-    private int timeout;
-    private String password;
-    private SetParams jedisParams = SetParams.setParams();
+    private final int timeout;
+    private final String password;
+    private final SetParams jedisParams = SetParams.setParams();
 
     public RedisMetadataReport(URL url) {
         super(url);
@@ -208,16 +210,12 @@ public class RedisMetadataReport extends AbstractMetadataReport {
     }
 
     /**
-     * Store class and application names using Redis hashes
-     * key: default 'dubbo:mapping'
-     * field: class (serviceInterface)
-     * value: application_names
+     * Store class and application names using Redis hashes.
      *
      * @param serviceInterface    field(class)
      * @param defaultMappingGroup {@link ServiceNameMapping#DEFAULT_MAPPING_GROUP}
      * @param newConfigContent    new application_names
      * @param ticket              previous application_names
-     * @return
      */
     @Override
     public boolean registerServiceAppMapping(
@@ -300,24 +298,23 @@ public class RedisMetadataReport extends AbstractMetadataReport {
     }
 
     /**
-     * build mapping key
+     * build mapping key.
      *
      * @param defaultMappingGroup {@link ServiceNameMapping#DEFAULT_MAPPING_GROUP}
-     * @return
      */
     private String buildMappingKey(String defaultMappingGroup) {
         return this.root + GROUP_CHAR_SEPARATOR + defaultMappingGroup;
     }
 
     /**
-     * build pub/sub key
+     * build pub/sub key.
      */
     private String buildPubSubKey() {
         return buildMappingKey(DEFAULT_MAPPING_GROUP) + GROUP_CHAR_SEPARATOR + QUEUES_KEY;
     }
 
     /**
-     * get content and use content to complete cas
+     * get content and use content to complete cas.
      *
      * @param serviceKey class
      * @param group      {@link ServiceNameMapping#DEFAULT_MAPPING_GROUP}
@@ -331,7 +328,7 @@ public class RedisMetadataReport extends AbstractMetadataReport {
     }
 
     /**
-     * get current application_names
+     * get current application_names.
      */
     private String getMappingData(String key, String field) {
         if (pool != null) {
@@ -363,7 +360,7 @@ public class RedisMetadataReport extends AbstractMetadataReport {
     }
 
     /**
-     * remove listener. If have no listener,thread will dead
+     * remove listener. If have no listener,thread will dead.
      */
     @Override
     public void removeServiceAppMappingListener(String serviceKey, MappingListener listener) {
@@ -477,7 +474,7 @@ public class RedisMetadataReport extends AbstractMetadataReport {
         private final NotifySub notifySub = new NotifySub();
         // for test
         protected volatile boolean running = true;
-        private String path;
+        private final String path;
 
         public MappingDataListener(String path) {
             this.path = path;

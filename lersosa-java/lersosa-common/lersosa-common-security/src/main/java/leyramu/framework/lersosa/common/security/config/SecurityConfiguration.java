@@ -22,7 +22,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * 权限安全配置
+ * 权限安全配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -32,7 +32,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SecurityConfiguration implements WebMvcConfigurer {
 
     /**
-     * 注册sa-token的拦截器
+     * 注册sa-token的拦截器.
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -41,7 +41,7 @@ public class SecurityConfiguration implements WebMvcConfigurer {
     }
 
     /**
-     * 校验是否从网关转发
+     * 校验是否从网关转发.
      */
     @Bean
     public SaServletFilter getSaServletFilter() {
@@ -53,11 +53,11 @@ public class SecurityConfiguration implements WebMvcConfigurer {
                     SaSameUtil.checkCurrentRequestToken();
                 }
             })
-            .setError(e -> SaResult.error("认证失败，无法访问系统资源").setCode(HttpStatus.UNAUTHORIZED));
+            .setError(_ -> SaResult.error("认证失败，无法访问系统资源").setCode(HttpStatus.UNAUTHORIZED));
     }
 
     /**
-     * 对 actuator 健康检查接口 做账号密码鉴权
+     * 对 actuator 健康检查接口 做账号密码鉴权.
      */
     @Bean
     public SaServletFilter actuatorFilter() {
@@ -65,10 +65,7 @@ public class SecurityConfiguration implements WebMvcConfigurer {
         String password = SpringUtils.getProperty("spring.cloud.nacos.discovery.metadata.userpassword");
         return new SaServletFilter()
             .addInclude("/actuator", "/actuator/**")
-            .setAuth(obj -> {
-                SaHttpBasicUtil.check(username + ":" + password);
-            })
+            .setAuth(_ -> SaHttpBasicUtil.check(username + ":" + password))
             .setError(e -> SaResult.error(e.getMessage()).setCode(HttpStatus.UNAUTHORIZED));
     }
-
 }

@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 节点驳回记录 wf_task_back_node
+ * 节点驳回记录 wf_task_back_node.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -32,39 +32,38 @@ public class WfTaskBackNode extends TenantEntity {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * 主键.
      */
     @TableId(value = "id")
     private Long id;
 
     /**
-     * 实例id
+     * 实例id.
      */
     private String instanceId;
 
     /**
-     * 节点id
+     * 节点id.
      */
     private String nodeId;
 
     /**
-     * 节点名称
+     * 节点名称.
      */
     private String nodeName;
 
     /**
-     * 排序
+     * 排序.
      */
     private Integer orderNo;
 
     /**
-     * 节点类型
+     * 节点类型.
      */
     private String taskType;
 
     /**
-     * 办理人
+     * 办理人.
      */
     private String assignee;
-
 }

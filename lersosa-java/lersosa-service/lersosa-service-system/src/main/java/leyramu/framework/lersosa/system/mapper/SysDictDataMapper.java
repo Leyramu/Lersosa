@@ -16,7 +16,7 @@ import leyramu.framework.lersosa.system.domain.vo.SysDictDataVo;
 import java.util.List;
 
 /**
- * 字典表 数据层
+ * 字典表 数据层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

@@ -23,13 +23,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
- * 系统访问日志情况信息 服务层处理
+ * 系统访问日志情况信息 服务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -60,19 +57,19 @@ public class SysLogininforServiceImpl implements ISysLogininforService {
     }
 
     /**
-     * 新增系统登录日志
+     * 新增系统登录日志.
      *
      * @param bo 访问日志对象
      */
     @Override
     public void insertLogininfor(SysLogininforBo bo) {
         SysLogininfor logininfor = MapstructUtils.convert(bo, SysLogininfor.class);
-        logininfor.setLoginTime(new Date());
+        Objects.requireNonNull(logininfor).setLoginTime(new Date());
         baseMapper.insert(logininfor);
     }
 
     /**
-     * 查询系统登录日志集合
+     * 查询系统登录日志集合.
      *
      * @param logininfor 访问日志对象
      * @return 登录记录集合
@@ -90,7 +87,7 @@ public class SysLogininforServiceImpl implements ISysLogininforService {
     }
 
     /**
-     * 批量删除系统登录日志
+     * 批量删除系统登录日志.
      *
      * @param infoIds 需要删除的登录日志ID
      * @return 结果
@@ -101,7 +98,7 @@ public class SysLogininforServiceImpl implements ISysLogininforService {
     }
 
     /**
-     * 清空系统登录日志
+     * 清空系统登录日志.
      */
     @Override
     public void cleanLogininfor() {

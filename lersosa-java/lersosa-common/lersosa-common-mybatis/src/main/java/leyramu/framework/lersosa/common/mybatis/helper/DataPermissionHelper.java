@@ -24,7 +24,7 @@ import java.util.Stack;
 import java.util.function.Supplier;
 
 /**
- * 数据权限助手
+ * 数据权限助手.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -39,7 +39,7 @@ public class DataPermissionHelper {
     private static final ThreadLocal<Stack<Integer>> REENTRANT_IGNORE = ThreadLocal.withInitial(Stack::new);
 
     /**
-     * 从上下文中获取指定键的变量值，并将其转换为指定的类型
+     * 从上下文中获取指定键的变量值，并将其转换为指定的类型.
      *
      * @param key 变量的键
      * @param <T> 变量值的类型
@@ -51,7 +51,7 @@ public class DataPermissionHelper {
     }
 
     /**
-     * 向上下文中设置指定键的变量值
+     * 向上下文中设置指定键的变量值.
      *
      * @param key   要设置的变量的键
      * @param value 要设置的变量值
@@ -62,11 +62,12 @@ public class DataPermissionHelper {
     }
 
     /**
-     * 获取数据权限上下文
+     * 获取数据权限上下文.
      *
      * @return 存储在SaStorage中的Map对象，用于存储数据权限相关的上下文信息
      * @throws NullPointerException 如果数据权限上下文类型异常，则抛出NullPointerException
      */
+    @SuppressWarnings("rawtypes")
     public static Map<String, Object> getContext() {
         SaStorage saStorage = SaHolder.getStorage();
         Object attribute = saStorage.get(DATA_PERMISSION_KEY);
@@ -80,6 +81,7 @@ public class DataPermissionHelper {
         throw new NullPointerException("data permission context type exception");
     }
 
+    @SuppressWarnings("all")
     private static IgnoreStrategy getIgnoreStrategy() {
         Object ignoreStrategyLocal = ReflectUtils.getStaticFieldValue(ReflectUtils.getField(InterceptorIgnoreHelper.class, "IGNORE_STRATEGY_LOCAL"));
         if (ignoreStrategyLocal instanceof ThreadLocal<?> IGNORE_STRATEGY_LOCAL) {
@@ -91,7 +93,7 @@ public class DataPermissionHelper {
     }
 
     /**
-     * 开启忽略数据权限(开启后需手动调用 {@link #disableIgnore()} 关闭)
+     * 开启忽略数据权限(开启后需手动调用 {@link #disableIgnore()} 关闭).
      */
     public static void enableIgnore() {
         IgnoreStrategy ignoreStrategy = getIgnoreStrategy();
@@ -105,7 +107,7 @@ public class DataPermissionHelper {
     }
 
     /**
-     * 关闭忽略数据权限
+     * 关闭忽略数据权限.
      */
     public static void disableIgnore() {
         IgnoreStrategy ignoreStrategy = getIgnoreStrategy();
@@ -127,7 +129,7 @@ public class DataPermissionHelper {
     }
 
     /**
-     * 在忽略数据权限中执行
+     * 在忽略数据权限中执行.
      *
      * @param handle 处理执行方法
      */
@@ -141,7 +143,7 @@ public class DataPermissionHelper {
     }
 
     /**
-     * 在忽略数据权限中执行
+     * 在忽略数据权限中执行.
      *
      * @param handle 处理执行方法
      */
@@ -153,5 +155,4 @@ public class DataPermissionHelper {
             disableIgnore();
         }
     }
-
 }

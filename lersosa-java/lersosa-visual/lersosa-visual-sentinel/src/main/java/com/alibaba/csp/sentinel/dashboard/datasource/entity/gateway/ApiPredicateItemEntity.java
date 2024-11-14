@@ -5,48 +5,45 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.datasource.entity.gateway;
 
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPredicateItem;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 /**
- * Entity for {@link ApiPredicateItem}.
+ * {@link ApiPredicateItem} 的实体.
  *
  * @author cdfive
- * @since 1.7.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ApiPredicateItemEntity {
 
+    /**
+     * 匹配路径.
+     */
     private String pattern;
 
+    /**
+     * 匹配策略.
+     */
     private Integer matchStrategy;
 
-    public ApiPredicateItemEntity() {
-    }
-
-    public ApiPredicateItemEntity(String pattern, int matchStrategy) {
-        this.pattern = pattern;
-        this.matchStrategy = matchStrategy;
-    }
-
-    public String getPattern() {
-        return pattern;
-    }
-
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
-    }
-
-    public Integer getMatchStrategy() {
-        return matchStrategy;
-    }
-
-    public void setMatchStrategy(Integer matchStrategy) {
-        this.matchStrategy = matchStrategy;
-    }
-
+    /**
+     * 重写equals方法以自定义对象相等性比较.
+     *
+     * @param o 要与当前对象进行比较的对象
+     * @return 如果两个对象相等则返回true，否则返回false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -60,11 +57,22 @@ public class ApiPredicateItemEntity {
             Objects.equals(matchStrategy, that.matchStrategy);
     }
 
+
+    /**
+     * 重写hashCode方法以自定义对象的哈希码生成算法.
+     *
+     * @return 当前对象的哈希码
+     */
     @Override
     public int hashCode() {
         return Objects.hash(pattern, matchStrategy);
     }
 
+    /**
+     * 重写toString方法以自定义对象的字符串表示形式.
+     *
+     * @return 当前对象的字符串表示
+     */
     @Override
     public String toString() {
         return "ApiPredicateItemEntity{" +

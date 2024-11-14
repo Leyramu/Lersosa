@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 流程定义配置
+ * 流程定义配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -42,7 +42,7 @@ public class WfDefinitionConfigController extends BaseController {
 
 
     /**
-     * 获取流程定义配置详细信息
+     * 获取流程定义配置详细信息.
      *
      * @param definitionId 主键
      */
@@ -53,7 +53,7 @@ public class WfDefinitionConfigController extends BaseController {
     }
 
     /**
-     * 新增流程定义配置
+     * 新增流程定义配置.
      */
     @Log(title = "流程定义配置", businessType = BusinessType.INSERT)
     @RepeatSubmit()
@@ -63,7 +63,7 @@ public class WfDefinitionConfigController extends BaseController {
     }
 
     /**
-     * 删除流程定义配置
+     * 删除流程定义配置.
      *
      * @param ids 主键串
      */
@@ -75,7 +75,7 @@ public class WfDefinitionConfigController extends BaseController {
     }
 
     /**
-     * 查询流程定义配置排除当前查询的流程定义
+     * 查询流程定义配置排除当前查询的流程定义.
      *
      * @param tableName    表名
      * @param definitionId 流程定义id
@@ -85,5 +85,4 @@ public class WfDefinitionConfigController extends BaseController {
                                                                 @NotBlank(message = "流程定义ID不能为空") @PathVariable String definitionId) {
         return R.ok(wfDefinitionConfigService.getByTableNameNotDefId(tableName, definitionId));
     }
-
 }

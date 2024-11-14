@@ -19,8 +19,7 @@ import org.lionsoul.ip2region.xdb.Searcher;
 import java.io.File;
 
 /**
- * 根据ip地址定位工具类，离线方式
- * 参考地址：<a href="https://gitee.com/lionsoul/ip2region/tree/master/binding/java">集成 ip2region 实现离线IP地址定位库</a>
+ * 根据ip地址定位工具类，离线方式.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -60,7 +59,7 @@ public class RegionUtils {
     }
 
     /**
-     * 根据IP地址离线获取城市
+     * 根据IP地址离线获取城市.
      */
     public static String getCityInfo(String ip) {
         try {
@@ -73,5 +72,4 @@ public class RegionUtils {
             return "未知";
         }
     }
-
 }

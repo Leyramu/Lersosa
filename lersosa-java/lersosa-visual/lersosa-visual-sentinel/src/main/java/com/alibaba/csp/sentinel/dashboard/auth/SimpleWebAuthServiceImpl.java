@@ -5,58 +5,103 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.auth;
+
+import lombok.RequiredArgsConstructor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
+ * 简单的 Web 身份验证服务实施.
+ *
  * @author cdfive
- * @since 1.6.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
 public class SimpleWebAuthServiceImpl implements AuthService<HttpServletRequest> {
 
+    /**
+     * 默认的 Web 身份验证会话键.
+     */
     public static final String WEB_SESSION_KEY = "session_sentinel_admin";
 
+    /**
+     * 获取当前用户.
+     *
+     * @param request 请求对象
+     * @return 用户对象
+     */
     @Override
     public AuthUser getAuthUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Object sentinelUserObj = session.getAttribute(SimpleWebAuthServiceImpl.WEB_SESSION_KEY);
-        if (sentinelUserObj != null && sentinelUserObj instanceof AuthUser) {
+        if (sentinelUserObj instanceof AuthUser) {
             return (AuthUser) sentinelUserObj;
         }
-
         return null;
     }
 
+    /**
+     * 简单的 Web 身份验证用户实现.
+     */
+    @RequiredArgsConstructor
     public static final class SimpleWebAuthUserImpl implements AuthUser {
 
-        private String username;
+        /**
+         * 用户名.
+         */
+        private final String username;
 
-        public SimpleWebAuthUserImpl(String username) {
-            this.username = username;
-        }
-
+        /**
+         * 认证目标.
+         *
+         * @param target        目标
+         * @param privilegeType 权限类型
+         * @return 是否通过
+         */
         @Override
         public boolean authTarget(String target, PrivilegeType privilegeType) {
             return true;
         }
 
+        /**
+         * 是否是超级用户.
+         *
+         * @return 是否是超级用户
+         */
         @Override
         public boolean isSuperUser() {
             return true;
         }
 
+        /**
+         * 获取用户昵称.
+         *
+         * @return 用户昵称
+         */
         @Override
         public String getNickName() {
             return username;
         }
 
+        /**
+         * 获取用户登录名.
+         *
+         * @return 用户登录名
+         */
         @Override
         public String getLoginName() {
             return username;
         }
 
+        /**
+         * 获取用户 ID.
+         *
+         * @return 用户 ID
+         */
         @Override
         public String getId() {
             return username;

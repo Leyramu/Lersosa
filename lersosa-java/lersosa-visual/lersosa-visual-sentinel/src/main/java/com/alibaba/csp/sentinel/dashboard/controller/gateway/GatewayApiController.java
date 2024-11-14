@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.controller.gateway;
 
 import com.alibaba.csp.sentinel.dashboard.auth.AuthAction;
@@ -19,9 +20,8 @@ import com.alibaba.csp.sentinel.dashboard.domain.vo.gateway.api.ApiPredicateItem
 import com.alibaba.csp.sentinel.dashboard.domain.vo.gateway.api.UpdateApiReqVo;
 import com.alibaba.csp.sentinel.dashboard.repository.gateway.InMemApiDefinitionStore;
 import com.alibaba.csp.sentinel.util.StringUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,23 +31,37 @@ import java.util.*;
 import static com.alibaba.csp.sentinel.adapter.gateway.common.SentinelGatewayConstants.*;
 
 /**
- * Gateway api Controller for manage gateway api definitions.
+ * 用于管理网关 API 定义的网关 API 控制器.
  *
  * @author cdfive
- * @since 1.7.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
+@Slf4j
 @RestController
-@RequestMapping(value = "/gateway/api")
+@RequiredArgsConstructor
+@RequestMapping("/gateway/api")
 public class GatewayApiController {
 
-    private final Logger logger = LoggerFactory.getLogger(GatewayApiController.class);
+    /**
+     * 存储网关 API 定义实体的存储库.
+     */
+    private final InMemApiDefinitionStore repository;
 
-    @Autowired
-    private InMemApiDefinitionStore repository;
+    /**
+     * 用于调用 Sentinel API 的客户端.
+     */
+    private final SentinelApiClient sentinelApiClient;
 
-    @Autowired
-    private SentinelApiClient sentinelApiClient;
-
+    /**
+     * 查询API定义信息.
+     *
+     * @param app  应用名称
+     * @param ip   机器IP
+     * @param port 机器端口
+     * @return 查询结果，包括成功时的API列表或失败时的错误信息
+     */
     @GetMapping("/list.json")
     @AuthAction(AuthService.PrivilegeType.READ_RULE)
     public Result<List<ApiDefinitionEntity>> queryApis(String app, String ip, Integer port) {
@@ -67,14 +81,21 @@ public class GatewayApiController {
             repository.saveAll(apis);
             return Result.ofSuccess(apis);
         } catch (Throwable throwable) {
-            logger.error("queryApis error:", throwable);
+            log.error("queryApis error:", throwable);
             return Result.ofThrowable(-1, throwable);
         }
     }
 
+    /**
+     * 添加新的API定义.
+     *
+     * @param ignoredRequest 忽略的HTTP请求
+     * @param reqVo          添加API请求的视图对象
+     * @return 添加结果，包括成功时的API实体或失败时的错误信息
+     */
     @PostMapping("/new.json")
     @AuthAction(AuthService.PrivilegeType.WRITE_RULE)
-    public Result<ApiDefinitionEntity> addApi(HttpServletRequest request, @RequestBody AddApiReqVo reqVo) {
+    public Result<ApiDefinitionEntity> addApi(HttpServletRequest ignoredRequest, @RequestBody AddApiReqVo reqVo) {
 
         String app = reqVo.getApp();
         if (StringUtil.isBlank(app)) {
@@ -96,14 +117,12 @@ public class GatewayApiController {
         }
         entity.setPort(port);
 
-        // API名称
         String apiName = reqVo.getApiName();
         if (StringUtil.isBlank(apiName)) {
             return Result.ofFail(-1, "apiName can't be null or empty");
         }
         entity.setApiName(apiName.trim());
 
-        // 匹配规则列表
         List<ApiPredicateItemVo> predicateItems = reqVo.getPredicateItems();
         if (CollectionUtils.isEmpty(predicateItems)) {
             return Result.ofFail(-1, "predicateItems can't empty");
@@ -113,14 +132,12 @@ public class GatewayApiController {
         for (ApiPredicateItemVo predicateItem : predicateItems) {
             ApiPredicateItemEntity predicateItemEntity = new ApiPredicateItemEntity();
 
-            // 匹配模式
             Integer matchStrategy = predicateItem.getMatchStrategy();
             if (!Arrays.asList(URL_MATCH_STRATEGY_EXACT, URL_MATCH_STRATEGY_PREFIX, URL_MATCH_STRATEGY_REGEX).contains(matchStrategy)) {
                 return Result.ofFail(-1, "invalid matchStrategy: " + matchStrategy);
             }
             predicateItemEntity.setMatchStrategy(matchStrategy);
 
-            // 匹配串
             String pattern = predicateItem.getPattern();
             if (StringUtil.isBlank(pattern)) {
                 return Result.ofFail(-1, "pattern can't be null or empty");
@@ -131,9 +148,8 @@ public class GatewayApiController {
         }
         entity.setPredicateItems(new LinkedHashSet<>(predicateItemEntities));
 
-        // 检查API名称不能重复
         List<ApiDefinitionEntity> allApis = repository.findAllByMachine(MachineInfo.of(app.trim(), ip.trim(), port));
-        if (allApis.stream().map(o -> o.getApiName()).anyMatch(o -> o.equals(apiName.trim()))) {
+        if (allApis.stream().map(ApiDefinitionEntity::getApiName).anyMatch(o -> o.equals(apiName.trim()))) {
             return Result.ofFail(-1, "apiName exists: " + apiName);
         }
 
@@ -144,17 +160,23 @@ public class GatewayApiController {
         try {
             entity = repository.save(entity);
         } catch (Throwable throwable) {
-            logger.error("add gateway api error:", throwable);
+            log.error("add gateway api error:", throwable);
             return Result.ofThrowable(-1, throwable);
         }
 
-        if (!publishApis(app, ip, port)) {
-            logger.warn("publish gateway apis fail after add");
+        if (publishApis(app, ip, port)) {
+            log.warn("publish gateway apis fail after add");
         }
 
         return Result.ofSuccess(entity);
     }
 
+    /**
+     * 更新API定义.
+     *
+     * @param reqVo 更新API请求的视图对象
+     * @return 更新结果，包括成功时的API实体或失败时的错误信息
+     */
     @PostMapping("/save.json")
     @AuthAction(AuthService.PrivilegeType.WRITE_RULE)
     public Result<ApiDefinitionEntity> updateApi(@RequestBody UpdateApiReqVo reqVo) {
@@ -173,7 +195,6 @@ public class GatewayApiController {
             return Result.ofFail(-1, "api does not exist, id=" + id);
         }
 
-        // 匹配规则列表
         List<ApiPredicateItemVo> predicateItems = reqVo.getPredicateItems();
         if (CollectionUtils.isEmpty(predicateItems)) {
             return Result.ofFail(-1, "predicateItems can't empty");
@@ -183,14 +204,12 @@ public class GatewayApiController {
         for (ApiPredicateItemVo predicateItem : predicateItems) {
             ApiPredicateItemEntity predicateItemEntity = new ApiPredicateItemEntity();
 
-            // 匹配模式
             int matchStrategy = predicateItem.getMatchStrategy();
             if (!Arrays.asList(URL_MATCH_STRATEGY_EXACT, URL_MATCH_STRATEGY_PREFIX, URL_MATCH_STRATEGY_REGEX).contains(matchStrategy)) {
                 return Result.ofFail(-1, "Invalid matchStrategy: " + matchStrategy);
             }
             predicateItemEntity.setMatchStrategy(matchStrategy);
 
-            // 匹配串
             String pattern = predicateItem.getPattern();
             if (StringUtil.isBlank(pattern)) {
                 return Result.ofFail(-1, "pattern can't be null or empty");
@@ -207,20 +226,25 @@ public class GatewayApiController {
         try {
             entity = repository.save(entity);
         } catch (Throwable throwable) {
-            logger.error("update gateway api error:", throwable);
+            log.error("update gateway api error:", throwable);
             return Result.ofThrowable(-1, throwable);
         }
 
-        if (!publishApis(app, entity.getIp(), entity.getPort())) {
-            logger.warn("publish gateway apis fail after update");
+        if (publishApis(app, entity.getIp(), entity.getPort())) {
+            log.warn("publish gateway apis fail after update");
         }
 
         return Result.ofSuccess(entity);
     }
 
+    /**
+     * 处理API删除请求的方法.
+     *
+     * @param id 要删除的API的ID，不能为null
+     * @return 返回一个Result对象，包含处理结果和可能的错误信息
+     */
     @PostMapping("/delete.json")
     @AuthAction(AuthService.PrivilegeType.DELETE_RULE)
-
     public Result<Long> deleteApi(Long id) {
         if (id == null) {
             return Result.ofFail(-1, "id can't be null");
@@ -234,19 +258,27 @@ public class GatewayApiController {
         try {
             repository.delete(id);
         } catch (Throwable throwable) {
-            logger.error("delete gateway api error:", throwable);
+            log.error("delete gateway api error:", throwable);
             return Result.ofThrowable(-1, throwable);
         }
 
-        if (!publishApis(oldEntity.getApp(), oldEntity.getIp(), oldEntity.getPort())) {
-            logger.warn("publish gateway apis fail after delete");
+        if (publishApis(oldEntity.getApp(), oldEntity.getIp(), oldEntity.getPort())) {
+            log.warn("publish gateway apis fail after delete");
         }
 
         return Result.ofSuccess(id);
     }
 
+    /**
+     * 发布或更新指定机器上的API定义.
+     *
+     * @param app  应用名称
+     * @param ip   IP地址
+     * @param port 端口号
+     * @return 如果API发布失败，则返回true；否则返回false
+     */
     private boolean publishApis(String app, String ip, Integer port) {
         List<ApiDefinitionEntity> apis = repository.findAllByMachine(MachineInfo.of(app, ip, port));
-        return sentinelApiClient.modifyApis(app, ip, port, apis);
+        return !sentinelApiClient.modifyApis(app, ip, port, apis);
     }
 }

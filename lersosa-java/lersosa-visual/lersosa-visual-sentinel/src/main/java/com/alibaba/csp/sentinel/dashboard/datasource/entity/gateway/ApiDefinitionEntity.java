@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.datasource.entity.gateway;
 
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiDefinition;
@@ -12,6 +13,8 @@ import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPathPredicateItem;
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPredicateItem;
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.RuleEntity;
 import com.alibaba.csp.sentinel.slots.block.Rule;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -19,33 +22,79 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Entity for {@link ApiDefinition}.
+ * {@link ApiDefinition} 的实体.
  *
  * @author cdfive
- * @since 1.7.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@NoArgsConstructor
 public class ApiDefinitionEntity implements RuleEntity {
 
+    /**
+     * 规则ID.
+     */
     private Long id;
+
+    /**
+     * 应用名称.
+     */
     private String app;
+
+    /**
+     * 应用IP.
+     */
     private String ip;
+
+    /**
+     * 应用端口.
+     */
     private Integer port;
 
+    /**
+     * 创建时间.
+     */
     private Date gmtCreate;
+
+    /**
+     * 修改时间.
+     */
     private Date gmtModified;
 
+    /**
+     * API名称.
+     */
     private String apiName;
+
+    /**
+     * 匹配规则集合.
+     */
     private Set<ApiPredicateItemEntity> predicateItems;
 
-    public ApiDefinitionEntity() {
-
-    }
-
+    /**
+     * 构造函数.
+     *
+     * @param apiName        API名称
+     * @param predicateItems 匹配规则集合
+     */
+    @SuppressWarnings("unused")
     public ApiDefinitionEntity(String apiName, Set<ApiPredicateItemEntity> predicateItems) {
         this.apiName = apiName;
         this.predicateItems = predicateItems;
     }
 
+    /**
+     * 从{@link ApiDefinition}创建实体.
+     *
+     * @param app           应用名称
+     * @param ip            应用IP
+     * @param port          应用端口
+     * @param apiDefinition API定义
+     * @return 实体
+     */
+    @SuppressWarnings("unused")
     public static ApiDefinitionEntity fromApiDefinition(String app, String ip, Integer port, ApiDefinition apiDefinition) {
         ApiDefinitionEntity entity = new ApiDefinitionEntity();
         entity.setApp(app);
@@ -70,6 +119,11 @@ public class ApiDefinitionEntity implements RuleEntity {
         return entity;
     }
 
+    /**
+     * 转换为{@link ApiDefinition}.
+     *
+     * @return {@link ApiDefinition}
+     */
     public ApiDefinition toApiDefinition() {
         ApiDefinition apiDefinition = new ApiDefinition();
         apiDefinition.setApiName(apiName);
@@ -89,81 +143,82 @@ public class ApiDefinitionEntity implements RuleEntity {
         return apiDefinition;
     }
 
-    public String getApiName() {
-        return apiName;
-    }
-
-    public void setApiName(String apiName) {
-        this.apiName = apiName;
-    }
-
-    public Set<ApiPredicateItemEntity> getPredicateItems() {
-        return predicateItems;
-    }
-
-    public void setPredicateItems(Set<ApiPredicateItemEntity> predicateItems) {
-        this.predicateItems = predicateItems;
-    }
-
+    /**
+     * 获取规则ID.
+     *
+     * @return 规则ID
+     */
     @Override
     public Long getId() {
         return id;
     }
 
+    /**
+     * 设置规则ID.
+     *
+     * @param id 规则ID
+     */
     @Override
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * 获取应用名称.
+     *
+     * @return 应用名称
+     */
     @Override
     public String getApp() {
         return app;
     }
 
-    public void setApp(String app) {
-        this.app = app;
-    }
-
+    /**
+     * 获取应用IP.
+     *
+     * @return 应用IP
+     */
     @Override
     public String getIp() {
         return ip;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
+    /**
+     * 获取应用端口.
+     *
+     * @return 应用端口
+     */
     @Override
     public Integer getPort() {
         return port;
     }
 
-    public void setPort(Integer port) {
-        this.port = port;
-    }
-
+    /**
+     * 获取创建时间.
+     *
+     * @return 创建时间
+     */
     @Override
     public Date getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
+    /**
+     * 转换为规则对象.
+     *
+     * @return 规则对象
+     */
     @Override
     public Rule toRule() {
         return null;
     }
 
+    /**
+     * 判断两个实体是否相等.
+     *
+     * @param o 对象
+     * @return 是否相等
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -183,11 +238,21 @@ public class ApiDefinitionEntity implements RuleEntity {
             Objects.equals(predicateItems, entity.predicateItems);
     }
 
+    /**
+     * 获取哈希值.
+     *
+     * @return 哈希值
+     */
     @Override
     public int hashCode() {
         return Objects.hash(id, app, ip, port, gmtCreate, gmtModified, apiName, predicateItems);
     }
 
+    /**
+     * 获取字符串表示.
+     *
+     * @return 字符串表示
+     */
     @Override
     public String toString() {
         return "ApiDefinitionEntity{" +

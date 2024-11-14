@@ -22,8 +22,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * <h1>Excel下拉可选项</h1>
- * 注意：为确保下拉框解析正确，传值务必使用createOptionValue()做为值的拼接
+ * Excel下拉可选项.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -34,30 +33,30 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @SuppressWarnings("unused")
 public class DropDownOptions {
+
     /**
-     * 分隔符
+     * 分隔符.
      */
     private static final String DELIMITER = "_";
     /**
-     * 一级下拉所在列index，从0开始算
+     * 一级下拉所在列index，从0开始算.
      */
     private int index = 0;
     /**
-     * 二级下拉所在的index，从0开始算，不能与一级相同
+     * 二级下拉所在的index，从0开始算，不能与一级相同.
      */
     private int nextIndex = 0;
     /**
-     * 一级下拉所包含的数据
+     * 一级下拉所包含的数据.
      */
     private List<String> options = new ArrayList<>();
     /**
-     * 二级下拉所包含的数据Map
-     * <p>以每一个一级选项值为Key，每个一级选项对应的二级数据为Value</p>
+     * 二级下拉所包含的数据Map.
      */
     private Map<String, List<String>> nextOptions = new HashMap<>();
 
     /**
-     * 创建只有一级的下拉选
+     * 创建只有一级的下拉选.
      */
     public DropDownOptions(int index, List<String> options) {
         this.index = index;
@@ -65,8 +64,7 @@ public class DropDownOptions {
     }
 
     /**
-     * <h2>创建每个选项可选值</h2>
-     * <p>注意：不能以数字，特殊符号开头，选项中不可以包含任何运算符号</p>
+     * 创建每个选项可选值.
      *
      * @param vars 可选值内包含的参数
      * @return 合规的可选值
@@ -92,7 +90,7 @@ public class DropDownOptions {
     }
 
     /**
-     * 将处理后合理的可选值解析为原始的参数
+     * 将处理后合理的可选值解析为原始的参数.
      *
      * @param option 经过处理后的合理的可选项
      * @return 原始的参数
@@ -102,7 +100,7 @@ public class DropDownOptions {
     }
 
     /**
-     * 创建级联下拉选项
+     * 创建级联下拉选项.
      *
      * @param parentList                  父实体可选项原始数据
      * @param parentIndex                 父下拉选位置
@@ -113,13 +111,14 @@ public class DropDownOptions {
      * @param howToBuildEveryOption       如何生成下拉选内容
      * @return 级联下拉选项
      */
-    public static <T> DropDownOptions buildLinkedOptions(List<T> parentList,
-                                                         int parentIndex,
-                                                         List<T> sonList,
-                                                         int sonIndex,
-                                                         Function<T, Number> parentHowToGetIdFunction,
-                                                         Function<T, Number> sonHowToGetParentIdFunction,
-                                                         Function<T, String> howToBuildEveryOption) {
+    public static <T> DropDownOptions buildLinkedOptions(
+        List<T> parentList,
+        int parentIndex,
+        List<T> sonList,
+        int sonIndex,
+        Function<T, Number> parentHowToGetIdFunction,
+        Function<T, Number> sonHowToGetParentIdFunction,
+        Function<T, String> howToBuildEveryOption) {
         DropDownOptions parentLinkSonOptions = new DropDownOptions();
         // 先创建父类的下拉
         parentLinkSonOptions.setIndex(parentIndex);
@@ -137,7 +136,7 @@ public class DropDownOptions {
         sonList.forEach(everySon -> {
             if (parentGroupByIdMap.containsKey(sonHowToGetParentIdFunction.apply(everySon))) {
                 // 找到对应的上级
-                T parentObj = parentGroupByIdMap.get(sonHowToGetParentIdFunction.apply(everySon)).get(0);
+                T parentObj = parentGroupByIdMap.get(sonHowToGetParentIdFunction.apply(everySon)).getFirst();
                 // 提取名称和ID作为Key
                 String key = howToBuildEveryOption.apply(parentObj);
                 // Key对应的Value

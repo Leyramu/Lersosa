@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.controller;
 
 import com.alibaba.csp.sentinel.dashboard.domain.Result;
@@ -14,17 +15,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * Sentinel Dashboard 版本号.
+ *
  * @author hisenyuan
- * @since 1.7.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
 @RestController
 public class VersionController {
 
+    /**
+     * 默认版本号分隔符.
+     */
     private static final String VERSION_PATTERN = "-";
 
+    /**
+     * Sentinel Dashboard 版本号.
+     */
     @Value("${sentinel.dashboard.version:}")
     private String sentinelDashboardVersion;
 
+    /**
+     * 获取 Sentinel Dashboard 版本号.
+     *
+     * @return 版本号
+     */
     @GetMapping("/version")
     public Result<String> apiGetVersion() {
         if (StringUtil.isNotBlank(sentinelDashboardVersion)) {

@@ -20,7 +20,7 @@ import com.alibaba.nacos.core.paramcheck.ExtractorManager;
 import com.alibaba.nacos.core.service.NamespaceOperationService;
 import com.alibaba.nacos.plugin.auth.constant.ActionTypes;
 import com.alibaba.nacos.plugin.auth.impl.constant.AuthConstants;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,11 +28,15 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
- * namespace service.
+ * 命名空间服务.
  *
  * @author Nacos
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 1.0.0
+ * @since 2024/11/13
  */
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/v1/console/namespaces")
 @ExtractorManager.Extractor(httpExtractor = ConsoleDefaultHttpParamExtractor.class)
 public class NamespaceController {
@@ -40,15 +44,16 @@ public class NamespaceController {
     private static final int NAMESPACE_ID_MAX_LENGTH = 128;
     private final Pattern namespaceIdCheckPattern = Pattern.compile("^[\\w-]+");
     private final Pattern namespaceNameCheckPattern = Pattern.compile("^[^@#$%^&*]+$");
-    @Autowired
-    private NamespacePersistService namespacePersistService;
-    @Autowired
-    private NamespaceOperationService namespaceOperationService;
+
+    @SuppressWarnings("all")
+    private final NamespacePersistService namespacePersistService;
+
+    private final NamespaceOperationService namespaceOperationService;
 
     /**
-     * Get namespace list.
+     * 获取命名空间列表.
      *
-     * @return namespace list
+     * @return 命名空间列表
      */
     @GetMapping
     public RestResult<List<Namespace>> getNamespaces() {
@@ -56,10 +61,10 @@ public class NamespaceController {
     }
 
     /**
-     * get namespace all info by namespace id.
+     * 按命名空间 ID 获取命名空间所有信息.
      *
-     * @param namespaceId namespaceId
-     * @return namespace all info
+     * @param namespaceId 命名空间 ID
+     * @return 命名空间 所有信息
      */
     @GetMapping(params = "show=all")
     public Namespace getNamespace(@RequestParam("namespaceId") String namespaceId) throws NacosException {
@@ -67,17 +72,18 @@ public class NamespaceController {
     }
 
     /**
-     * create namespace.
+     * 创建命名空间.
      *
-     * @param namespaceName namespace Name
-     * @param namespaceDesc namespace Desc
-     * @return whether create ok
+     * @param namespaceName 命名空间名称
+     * @param namespaceDesc 命名空间描述
+     * @return 是否创建成功
      */
     @PostMapping
     @Secured(resource = AuthConstants.CONSOLE_RESOURCE_NAME_PREFIX + "namespaces", action = ActionTypes.WRITE)
-    public Boolean createNamespace(@RequestParam("customNamespaceId") String namespaceId,
-                                   @RequestParam("namespaceName") String namespaceName,
-                                   @RequestParam(value = "namespaceDesc", required = false) String namespaceDesc) {
+    public Boolean createNamespace(
+        @RequestParam("customNamespaceId") String namespaceId,
+        @RequestParam("namespaceName") String namespaceName,
+        @RequestParam(value = "namespaceDesc", required = false) String namespaceDesc) {
         if (StringUtils.isBlank(namespaceId)) {
             namespaceId = UUID.randomUUID().toString();
         } else {
@@ -88,12 +94,10 @@ public class NamespaceController {
             if (namespaceId.length() > NAMESPACE_ID_MAX_LENGTH) {
                 return false;
             }
-            // check unique
             if (namespacePersistService.tenantInfoCountByTenantId(namespaceId) > 0) {
                 return false;
             }
         }
-        // contains illegal chars
         if (!namespaceNameCheckPattern.matcher(namespaceName).matches()) {
             return false;
         }
@@ -105,10 +109,10 @@ public class NamespaceController {
     }
 
     /**
-     * check namespaceId exist.
+     * 检查 namespaceId 是否存在.
      *
-     * @param namespaceId namespace id
-     * @return true if exist, otherwise false
+     * @param namespaceId 命名空间 ID
+     * @return 如果存在，则为 true，否则为 false
      */
     @GetMapping(params = "checkNamespaceIdExist=true")
     public Boolean checkNamespaceIdExist(@RequestParam("customNamespaceId") String namespaceId) {
@@ -119,19 +123,19 @@ public class NamespaceController {
     }
 
     /**
-     * edit namespace.
+     * 编辑命名空间.
      *
-     * @param namespace         namespace
-     * @param namespaceShowName namespace ShowName
-     * @param namespaceDesc     namespace Desc
-     * @return whether edit ok
+     * @param namespace         命名空间
+     * @param namespaceShowName 命名空间 ShowName
+     * @param namespaceDesc     命名空间描述
+     * @return 是否编辑成功
      */
     @PutMapping
     @Secured(resource = AuthConstants.CONSOLE_RESOURCE_NAME_PREFIX + "namespaces", action = ActionTypes.WRITE)
-    public Boolean editNamespace(@RequestParam("namespace") String namespace,
-                                 @RequestParam("namespaceShowName") String namespaceShowName,
-                                 @RequestParam(value = "namespaceDesc", required = false) String namespaceDesc) {
-        // contains illegal chars
+    public Boolean editNamespace(
+        @RequestParam("namespace") String namespace,
+        @RequestParam("namespaceShowName") String namespaceShowName,
+        @RequestParam(value = "namespaceDesc", required = false) String namespaceDesc) {
         if (!namespaceNameCheckPattern.matcher(namespaceShowName).matches()) {
             return false;
         }
@@ -139,15 +143,14 @@ public class NamespaceController {
     }
 
     /**
-     * del namespace by id.
+     * 按 ID 划分的 del 命名空间.
      *
-     * @param namespaceId namespace Id
-     * @return whether del ok
+     * @param namespaceId 命名空间 ID
+     * @return 是否删除成功
      */
     @DeleteMapping
     @Secured(resource = AuthConstants.CONSOLE_RESOURCE_NAME_PREFIX + "namespaces", action = ActionTypes.WRITE)
     public Boolean deleteNamespace(@RequestParam("namespaceId") String namespaceId) {
         return namespaceOperationService.removeNamespace(namespaceId);
     }
-
 }

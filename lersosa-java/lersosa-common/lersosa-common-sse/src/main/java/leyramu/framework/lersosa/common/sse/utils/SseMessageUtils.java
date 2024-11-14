@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * SSE工具类
+ * SSE工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,26 +29,28 @@ public class SseMessageUtils {
     private final static SseEmitterManager MANAGER = SpringUtils.getBean(SseEmitterManager.class);
 
     /**
-     * 向指定的WebSocket会话发送消息
+     * 向指定的WebSocket会话发送消息.
      *
      * @param userId  要发送消息的用户id
      * @param message 要发送的消息内容
      */
+    @SuppressWarnings("unused")
     public static void sendMessage(Long userId, String message) {
         MANAGER.sendMessage(userId, message);
     }
 
     /**
-     * 本机全用户会话发送消息
+     * 本机全用户会话发送消息.
      *
-     * @param message 要发送的消息内容
+     * @param message 要发送的消息内容.
      */
+    @SuppressWarnings("unused")
     public static void sendMessage(String message) {
         MANAGER.sendMessage(message);
     }
 
     /**
-     * 发布SSE订阅消息
+     * 发布SSE订阅消息.
      *
      * @param sseMessageDto 要发布的SSE消息对象
      */
@@ -57,12 +59,11 @@ public class SseMessageUtils {
     }
 
     /**
-     * 向所有的用户发布订阅的消息(群发)
+     * 向所有的用户发布订阅的消息(群发).
      *
      * @param message 要发布的消息内容
      */
     public static void publishAll(String message) {
         MANAGER.publishAll(message);
     }
-
 }

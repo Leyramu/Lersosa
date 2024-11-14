@@ -11,24 +11,26 @@ package leyramu.framework.lersosa.gateway.api.handler;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.GatewayCallbackManager;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import leyramu.framework.lersosa.gateway.api.utils.WebFluxUtils;
+import lombok.NonNull;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Mono;
 
 /**
- * 自定义限流异常处理
+ * 自定义限流异常处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
 public class SentinelFallbackHandler implements WebExceptionHandler {
-    private Mono<Void> writeResponse(ServerResponse response, ServerWebExchange exchange) {
+    private Mono<Void> writeResponse(ServerResponse ignoredResponse, ServerWebExchange exchange) {
         return WebFluxUtils.webFluxResponseWriter(exchange.getResponse(), "请求超过最大数，请稍候再试");
     }
 
     @Override
+    @NonNull
     public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
         ex.printStackTrace();
         if (exchange.getResponse().isCommitted()) {

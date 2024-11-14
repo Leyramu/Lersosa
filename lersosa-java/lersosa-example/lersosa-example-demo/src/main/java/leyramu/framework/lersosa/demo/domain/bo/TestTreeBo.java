@@ -19,7 +19,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 测试树表业务对象 test_tree
+ * 测试树表业务对象 test_tree.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -32,32 +32,31 @@ import lombok.EqualsAndHashCode;
 public class TestTreeBo extends BaseEntity {
 
     /**
-     * 主键
+     * 主键.
      */
     @NotNull(message = "主键不能为空", groups = {EditGroup.class})
     private Long id;
 
     /**
-     * 父ID
+     * 父ID.
      */
     private Long parentId;
 
     /**
-     * 部门id
+     * 部门id.
      */
     @NotNull(message = "部门id不能为空", groups = {AddGroup.class, EditGroup.class})
     private Long deptId;
 
     /**
-     * 用户id
+     * 用户id.
      */
     @NotNull(message = "用户id不能为空", groups = {AddGroup.class, EditGroup.class})
     private Long userId;
 
     /**
-     * 树节点名
+     * 树节点名.
      */
     @NotBlank(message = "树节点名不能为空", groups = {AddGroup.class, EditGroup.class})
     private String treeName;
-
 }

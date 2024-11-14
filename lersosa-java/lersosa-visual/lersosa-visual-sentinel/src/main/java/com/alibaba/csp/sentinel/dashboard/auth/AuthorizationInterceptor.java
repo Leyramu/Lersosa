@@ -5,17 +5,19 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.auth;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
- * The web interceptor for privilege-based authorization.
+ * 用于基于特权的授权的 Web 侦听器.
  *
  * @author lkxiaolou
  * @author wxq
- * @since 1.7.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
 public interface AuthorizationInterceptor extends HandlerInterceptor {
-
 }

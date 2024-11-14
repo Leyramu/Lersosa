@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
- * SMS异常处理器
+ * SMS异常处理器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,13 +28,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class SmsExceptionHandler {
 
     /**
-     * sms异常
+     * sms异常.
      */
     @ExceptionHandler(SmsBlendException.class)
     public R<Void> handleSmsBlendException(SmsBlendException e, HttpServletRequest request) {
-        String requestURI = request.getRequestURI();
-        log.error("请求地址'{}',发生sms短信异常.", requestURI, e);
+        String requestUri = request.getRequestURI();
+        log.error("请求地址'{}',发生sms短信异常.", requestUri, e);
         return R.fail(HttpStatus.HTTP_INTERNAL_ERROR, "短信发送失败，请稍后再试...");
     }
-
 }

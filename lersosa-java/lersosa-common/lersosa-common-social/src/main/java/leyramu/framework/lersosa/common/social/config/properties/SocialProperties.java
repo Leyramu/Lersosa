@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
- * Social 配置属性
+ * Social 配置属性.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,8 +27,7 @@ import java.util.Map;
 public class SocialProperties {
 
     /**
-     * 授权类型
+     * 授权类型.
      */
     private Map<String, SocialLoginConfigProperties> type;
-
 }

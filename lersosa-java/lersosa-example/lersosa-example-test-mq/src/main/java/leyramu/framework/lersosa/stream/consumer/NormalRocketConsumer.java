@@ -15,8 +15,11 @@ import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.stereotype.Component;
 
 /**
- * @author xbhog
- * @date 2024/06/01 16:53
+ * 正常消费者.
+ *
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 1.0.0
+ * @since 2024/11/6
  **/
 @Slf4j
 @Component
@@ -27,5 +30,4 @@ public class NormalRocketConsumer implements RocketMQListener<MessageExt> {
     public void onMessage(MessageExt ext) {
         log.info("【消费者】接收消息：消息体 => {}, tag => {}", new String(ext.getBody()), ext.getTags());
     }
-
 }

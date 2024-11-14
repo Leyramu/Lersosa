@@ -9,10 +9,10 @@
 package leyramu.framework.lersosa.openai.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.ai.chat.ChatResponse;
 import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.openai.OpenAiChatClient;
+import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,9 +22,9 @@ import reactor.core.publisher.Flux;
 import java.util.Map;
 
 /**
- * OpenAi 控制层
+ * OpenAi 控制层.
  *
- * @author <a href=mailto:2038322151@qq.com>Miraitowa_zcx<a/>
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/6/23
  */
@@ -34,12 +34,12 @@ import java.util.Map;
 public class ChatController {
 
     /**
-     * 注入 OpenAi 模型
+     * 注入 OpenAi 模型.
      */
-    private final OpenAiChatClient openAiChatClient;
+    private final OpenAiChatModel openAiChatModel;
 
     /**
-     * 生成文本
+     * 生成文本.
      *
      * @param message 消息
      * @return 生成文本
@@ -47,11 +47,11 @@ public class ChatController {
      */
     @GetMapping(value = "/chat")
     public Map<String, Object> generate(@RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
-        return Map.of("generation", openAiChatClient.call(message));
+        return Map.of("generation", openAiChatModel.call(message));
     }
 
     /**
-     * 生成文本流
+     * 生成文本流.
      *
      * @param message 消息
      * @return 生成文本流
@@ -60,6 +60,6 @@ public class ChatController {
     @GetMapping(value = "/chatStream")
     public Flux<ChatResponse> generateStream(@RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
         Prompt prompt = new Prompt(new UserMessage(message));
-        return openAiChatClient.stream(prompt);
+        return openAiChatModel.stream(prompt);
     }
 }

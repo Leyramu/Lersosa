@@ -5,16 +5,16 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.controller;
 
 import com.alibaba.csp.sentinel.dashboard.auth.AuthService;
 import com.alibaba.csp.sentinel.dashboard.auth.SimpleWebAuthServiceImpl;
 import com.alibaba.csp.sentinel.dashboard.config.DashboardConfig;
 import com.alibaba.csp.sentinel.dashboard.domain.Result;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,24 +23,44 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 登录认证.
+ *
  * @author cdfive
- * @since 1.6.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
+@Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
-
+    /**
+     * 从配置文件中获取的认证用户名，默认为"sentinel".
+     */
     @Value("${auth.username:sentinel}")
     private String authUsername;
 
+    /**
+     * 从配置文件中获取的认证密码，默认为"sentinel".
+     */
     @Value("${auth.password:sentinel}")
     private String authPassword;
 
-    @Autowired
-    private AuthService<HttpServletRequest> authService;
+    /**
+     * 认证服务接口，用于实现具体的认证逻辑.
+     */
+    private final AuthService<HttpServletRequest> authService;
 
+    /**
+     * 处理用户登录请求.
+     *
+     * @param request  HTTP请求对象，用于获取会话信息
+     * @param username 用户名
+     * @param password 密码
+     * @return 登录结果，包含认证用户信息或错误信息
+     */
     @PostMapping("/login")
     public Result<AuthService.AuthUser> login(HttpServletRequest request, String username, String password) {
         if (StringUtils.isNotBlank(DashboardConfig.getAuthUsername())) {
@@ -51,14 +71,9 @@ public class AuthController {
             authPassword = DashboardConfig.getAuthPassword();
         }
 
-        /*
-         * If auth.username or auth.password is blank(set in application.properties or VM arguments),
-         * auth will pass, as the front side validate the input which can't be blank,
-         * so user can input any username or password(both are not blank) to login in that case.
-         */
         if (StringUtils.isNotBlank(authUsername) && !authUsername.equals(username)
             || StringUtils.isNotBlank(authPassword) && !authPassword.equals(password)) {
-            LOGGER.error("Login failed: Invalid username or password, username=" + username);
+            log.error("Login failed: Invalid username or password, username={}", username);
             return Result.ofFail(-1, "Invalid username or password");
         }
 
@@ -67,13 +82,25 @@ public class AuthController {
         return Result.ofSuccess(authUser);
     }
 
-    @PostMapping(value = "/logout")
+    /**
+     * 处理用户登出请求.
+     *
+     * @param request HTTP请求对象，用于结束会话
+     * @return 登出结果
+     */
+    @PostMapping("/logout")
     public Result<?> logout(HttpServletRequest request) {
         request.getSession().invalidate();
         return Result.ofSuccess(null);
     }
 
-    @PostMapping(value = "/check")
+    /**
+     * 检查用户登录状态.
+     *
+     * @param request HTTP请求对象，用于获取会话信息
+     * @return 检查结果，如果未登录则返回错误信息
+     */
+    @PostMapping("/check")
     public Result<?> check(HttpServletRequest request) {
         AuthService.AuthUser authUser = authService.getAuthUser(request);
         if (authUser == null) {

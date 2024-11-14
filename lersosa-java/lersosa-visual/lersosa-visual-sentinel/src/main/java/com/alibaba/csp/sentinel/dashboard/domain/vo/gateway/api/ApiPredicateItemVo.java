@@ -5,45 +5,29 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.vo.gateway.api;
 
+import lombok.Data;
+
 /**
- * Value Object for add or update gateway api.
+ * Value 添加或更新网关 API 的对象.
  *
  * @author cdfive
- * @since 1.7.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class ApiPredicateItemVo {
 
     /**
-     * The pattern for matching url.
+     * 匹配 url 的模式.
      */
     private String pattern;
 
     /**
-     * The matching Strategy in url. Constants are defined in class SentinelGatewayConstants.\
-     *
-     * <ul>
-     *     <li>0(URL_MATCH_STRATEGY_EXACT): exact match mode</li>
-     *     <li>1(URL_MATCH_STRATEGY_PREFIX): prefix match mode</li>
-     *     <li>2(URL_MATCH_STRATEGY_REGEX): regex match mode</li>
-     * </ul>
+     * url 中的匹配策略.
      */
     private Integer matchStrategy;
-
-    public String getPattern() {
-        return pattern;
-    }
-
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
-    }
-
-    public Integer getMatchStrategy() {
-        return matchStrategy;
-    }
-
-    public void setMatchStrategy(Integer matchStrategy) {
-        this.matchStrategy = matchStrategy;
-    }
 }

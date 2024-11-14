@@ -32,10 +32,10 @@
         <tomcat.version>9.0.83</tomcat.version>
         <protobuf.version>4.27.2</protobuf.version>
         <os.detected.version>1.7.1</os.detected.version>
-<!--        <os.detected.classifier>windows-x86_64</os.detected.classifier>-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <protobuf.maven.plugin.version>0.6.1</protobuf.maven.plugin.version>
-        <grpc-spring-boot-starter.version>3.0.0.RELEASE</grpc-spring-boot-starter.version>
         <maven-compiler-plugin.verison>3.13.0</maven-compiler-plugin.verison>
+        <grpc-spring-boot-starter.version>3.0.0.RELEASE</grpc-spring-boot-starter.version>
     </properties>
 
     <!--     Spring Cloud 依赖管理     -->
@@ -184,6 +184,7 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
 

@@ -17,7 +17,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 自定义xss校验注解
+ * 自定义xss校验注解.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -33,5 +33,4 @@ public @interface Xss {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
 }

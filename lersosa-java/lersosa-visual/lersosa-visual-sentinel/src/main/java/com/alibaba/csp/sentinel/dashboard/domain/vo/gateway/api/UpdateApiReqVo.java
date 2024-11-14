@@ -5,16 +5,22 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.vo.gateway.api;
+
+import lombok.Data;
 
 import java.util.List;
 
 /**
- * Value Object for update gateway api.
+ * 更新网关 API 的 Value 对象.
  *
  * @author cdfive
- * @since 1.7.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class UpdateApiReqVo {
 
     private Long id;
@@ -22,28 +28,4 @@ public class UpdateApiReqVo {
     private String app;
 
     private List<ApiPredicateItemVo> predicateItems;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getApp() {
-        return app;
-    }
-
-    public void setApp(String app) {
-        this.app = app;
-    }
-
-    public List<ApiPredicateItemVo> getPredicateItems() {
-        return predicateItems;
-    }
-
-    public void setPredicateItems(List<ApiPredicateItemVo> predicateItems) {
-        this.predicateItems = predicateItems;
-    }
 }

@@ -26,9 +26,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * 表单管理Service业务层处理
+ * 表单管理Service业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -41,7 +42,7 @@ public class WfFormManageServiceImpl implements IWfFormManageService {
     private final WfFormManageMapper baseMapper;
 
     /**
-     * 查询表单管理
+     * 查询表单管理.
      */
     @Override
     public WfFormManageVo queryById(Long id) {
@@ -54,7 +55,7 @@ public class WfFormManageServiceImpl implements IWfFormManageService {
     }
 
     /**
-     * 查询表单管理列表
+     * 查询表单管理列表.
      */
     @Override
     public TableDataInfo<WfFormManageVo> queryPageList(WfFormManageBo bo, PageQuery pageQuery) {
@@ -73,7 +74,7 @@ public class WfFormManageServiceImpl implements IWfFormManageService {
     }
 
     /**
-     * 查询表单管理列表
+     * 查询表单管理列表.
      */
     @Override
     public List<WfFormManageVo> queryList(WfFormManageBo bo) {
@@ -89,20 +90,20 @@ public class WfFormManageServiceImpl implements IWfFormManageService {
     }
 
     /**
-     * 新增表单管理
+     * 新增表单管理.
      */
     @Override
     public Boolean insertByBo(WfFormManageBo bo) {
         WfFormManage add = MapstructUtils.convert(bo, WfFormManage.class);
         boolean flag = baseMapper.insert(add) > 0;
         if (flag) {
-            bo.setId(add.getId());
+            bo.setId(Objects.requireNonNull(add).getId());
         }
         return flag;
     }
 
     /**
-     * 修改表单管理
+     * 修改表单管理.
      */
     @Override
     public Boolean updateByBo(WfFormManageBo bo) {
@@ -111,7 +112,7 @@ public class WfFormManageServiceImpl implements IWfFormManageService {
     }
 
     /**
-     * 批量删除表单管理
+     * 批量删除表单管理.
      */
     @Override
     public Boolean deleteByIds(Collection<Long> ids) {

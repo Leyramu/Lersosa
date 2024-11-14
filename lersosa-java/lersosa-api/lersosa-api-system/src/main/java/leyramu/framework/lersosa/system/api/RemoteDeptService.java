@@ -9,7 +9,7 @@
 package leyramu.framework.lersosa.system.api;
 
 /**
- * 部门服务
+ * 部门服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -18,11 +18,10 @@ package leyramu.framework.lersosa.system.api;
 public interface RemoteDeptService {
 
     /**
-     * 通过部门ID查询部门名称
+     * 通过部门ID查询部门名称.
      *
      * @param deptIds 部门ID串逗号分隔
      * @return 部门名称串逗号分隔
      */
     String selectDeptNameByIds(String deptIds);
-
 }

@@ -5,18 +5,24 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.entity.gateway;
 
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayParamFlowItem;
+import lombok.Data;
 
 import java.util.Objects;
 
 /**
- * Entity for {@link GatewayParamFlowItem}.
+ * {@link GatewayParamFlowItem} 的实体.
  *
  * @author cdfive
- * @since 1.7.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@SuppressWarnings("unused")
 public class GatewayParamFlowItemEntity {
 
     private Integer parseStrategy;
@@ -26,38 +32,6 @@ public class GatewayParamFlowItemEntity {
     private String pattern;
 
     private Integer matchStrategy;
-
-    public Integer getParseStrategy() {
-        return parseStrategy;
-    }
-
-    public void setParseStrategy(Integer parseStrategy) {
-        this.parseStrategy = parseStrategy;
-    }
-
-    public String getFieldName() {
-        return fieldName;
-    }
-
-    public void setFieldName(String fieldName) {
-        this.fieldName = fieldName;
-    }
-
-    public String getPattern() {
-        return pattern;
-    }
-
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
-    }
-
-    public Integer getMatchStrategy() {
-        return matchStrategy;
-    }
-
-    public void setMatchStrategy(Integer matchStrategy) {
-        this.matchStrategy = matchStrategy;
-    }
 
     @Override
     public boolean equals(Object o) {

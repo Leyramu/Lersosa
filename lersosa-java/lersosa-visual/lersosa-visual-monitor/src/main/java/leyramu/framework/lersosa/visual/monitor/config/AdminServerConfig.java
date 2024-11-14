@@ -20,7 +20,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 
 /**
- * springboot-admin server配置类
+ * springboot-admin server配置类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,9 +30,15 @@ import java.util.concurrent.Executor;
 @EnableAdminServer
 public class AdminServerConfig {
 
+    /**
+     * 配置线程池.
+     *
+     * @param builder 线程池构建器
+     * @return 线程池
+     */
     @Lazy
-    @Bean(name = TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME)
     @ConditionalOnMissingBean(Executor.class)
+    @Bean(name = TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME)
     public ThreadPoolTaskExecutor applicationTaskExecutor(ThreadPoolTaskExecutorBuilder builder) {
         return builder.build();
     }

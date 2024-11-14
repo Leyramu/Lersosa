@@ -44,7 +44,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 /**
- * 租户Service业务层处理
+ * 租户Service业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -67,7 +67,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
     private final SysConfigMapper configMapper;
 
     /**
-     * 查询租户
+     * 查询租户.
      */
     @Override
     public SysTenantVo queryById(Long id) {
@@ -75,7 +75,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
     }
 
     /**
-     * 基于租户ID查询租户
+     * 基于租户ID查询租户.
      */
     @Cacheable(cacheNames = CacheNames.SYS_TENANT, key = "#tenantId")
     @Override
@@ -84,7 +84,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
     }
 
     /**
-     * 查询租户列表
+     * 查询租户列表.
      */
     @Override
     public TableDataInfo<SysTenantVo> queryPageList(SysTenantBo bo, PageQuery pageQuery) {
@@ -94,7 +94,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
     }
 
     /**
-     * 查询租户列表
+     * 查询租户列表.
      */
     @Override
     public List<SysTenantVo> queryList(SysTenantBo bo) {
@@ -121,7 +121,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
     }
 
     /**
-     * 新增租户
+     * 新增租户.
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -134,7 +134,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
                 return Convert.toStr(x);
             });
         String tenantId = generateTenantId(tenantIds);
-        add.setTenantId(tenantId);
+        Objects.requireNonNull(add).setTenantId(tenantId);
         boolean flag = baseMapper.insert(add) > 0;
         if (!flag) {
             throw new ServiceException("创建租户失败");
@@ -206,7 +206,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
     }
 
     /**
-     * 生成租户id
+     * 生成租户id.
      *
      * @param tenantIds 已有租户id列表
      * @return 租户id
@@ -222,7 +222,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
     }
 
     /**
-     * 根据租户菜单创建租户角色
+     * 根据租户菜单创建租户角色.
      *
      * @param tenantId  租户编号
      * @param packageId 租户套餐id
@@ -261,19 +261,19 @@ public class SysTenantServiceImpl implements ISysTenantService {
     }
 
     /**
-     * 修改租户
+     * 修改租户.
      */
     @CacheEvict(cacheNames = CacheNames.SYS_TENANT, key = "#bo.tenantId")
     @Override
     public Boolean updateByBo(SysTenantBo bo) {
         SysTenant tenant = MapstructUtils.convert(bo, SysTenant.class);
-        tenant.setTenantId(null);
+        Objects.requireNonNull(tenant).setTenantId(null);
         tenant.setPackageId(null);
         return baseMapper.updateById(tenant) > 0;
     }
 
     /**
-     * 修改租户状态
+     * 修改租户状态.
      *
      * @param bo 租户信息
      * @return 结果
@@ -288,7 +288,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
     }
 
     /**
-     * 校验租户是否允许操作
+     * 校验租户是否允许操作.
      *
      * @param tenantId 租户ID
      */
@@ -300,7 +300,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
     }
 
     /**
-     * 批量删除租户
+     * 批量删除租户.
      */
     @CacheEvict(cacheNames = CacheNames.SYS_TENANT, allEntries = true)
     @Override
@@ -315,18 +315,18 @@ public class SysTenantServiceImpl implements ISysTenantService {
     }
 
     /**
-     * 校验企业名称是否唯一
+     * 校验企业名称是否唯一.
      */
     @Override
     public boolean checkCompanyNameUnique(SysTenantBo bo) {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysTenant>()
             .eq(SysTenant::getCompanyName, bo.getCompanyName())
             .ne(ObjectUtil.isNotNull(bo.getTenantId()), SysTenant::getTenantId, bo.getTenantId()));
-        return !exist;
+        return exist;
     }
 
     /**
-     * 校验账号余额
+     * 校验账号余额.
      */
     @Override
     public boolean checkAccountBalance(String tenantId) {
@@ -341,7 +341,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
     }
 
     /**
-     * 校验有效期
+     * 校验有效期.
      */
     @Override
     public boolean checkExpireTime(String tenantId) {
@@ -355,7 +355,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
     }
 
     /**
-     * 同步租户套餐
+     * 同步租户套餐.
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -388,7 +388,7 @@ public class SysTenantServiceImpl implements ISysTenantService {
     }
 
     /**
-     * 同步租户字典
+     * 同步租户字典.
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -474,5 +474,4 @@ public class SysTenantServiceImpl implements ISysTenantService {
             TenantHelper.dynamic(tenantId, () -> CacheUtils.clear(CacheNames.SYS_DICT));
         }
     }
-
 }

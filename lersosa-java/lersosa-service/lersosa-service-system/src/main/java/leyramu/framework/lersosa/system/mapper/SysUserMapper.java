@@ -22,7 +22,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 用户表 数据层
+ * 用户表 数据层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,69 +31,69 @@ import java.util.List;
 public interface SysUserMapper extends BaseMapperPlus<SysUser, SysUserVo> {
 
     @DataPermission({
-        @DataColumn(key = "deptName", value = "u.dept_id"),
+        @DataColumn(value = "u.dept_id"),
         @DataColumn(key = "userName", value = "u.user_id")
     })
     Page<SysUserVo> selectPageUserList(@Param("page") Page<SysUser> page, @Param(Constants.WRAPPER) Wrapper<SysUser> queryWrapper);
 
     @DataPermission({
-        @DataColumn(key = "deptName", value = "dept_id"),
+        @DataColumn(),
         @DataColumn(key = "userName", value = "user_id")
     })
     List<SysUserVo> selectUserList(@Param(Constants.WRAPPER) Wrapper<SysUser> queryWrapper);
 
     /**
-     * 根据条件分页查询用户列表
+     * 根据条件分页查询用户列表.
      *
      * @param queryWrapper 查询条件
      * @return 用户信息集合信息
      */
     @DataPermission({
-        @DataColumn(key = "deptName", value = "d.dept_id"),
+        @DataColumn(value = "d.dept_id"),
         @DataColumn(key = "userName", value = "u.user_id")
     })
     List<SysUserExportVo> selectUserExportList(@Param(Constants.WRAPPER) Wrapper<SysUser> queryWrapper);
 
     /**
-     * 根据条件分页查询已配用户角色列表
+     * 根据条件分页查询已配用户角色列表.
      *
      * @param queryWrapper 查询条件
      * @return 用户信息集合信息
      */
     @DataPermission({
-        @DataColumn(key = "deptName", value = "d.dept_id"),
+        @DataColumn(value = "d.dept_id"),
         @DataColumn(key = "userName", value = "u.user_id")
     })
     Page<SysUserVo> selectAllocatedList(@Param("page") Page<SysUser> page, @Param(Constants.WRAPPER) Wrapper<SysUser> queryWrapper);
 
     /**
-     * 根据条件分页查询未分配用户角色列表
+     * 根据条件分页查询未分配用户角色列表.
      *
      * @param queryWrapper 查询条件
      * @return 用户信息集合信息
      */
     @DataPermission({
-        @DataColumn(key = "deptName", value = "d.dept_id"),
+        @DataColumn(value = "d.dept_id"),
         @DataColumn(key = "userName", value = "u.user_id")
     })
     Page<SysUserVo> selectUnallocatedList(@Param("page") Page<SysUser> page, @Param(Constants.WRAPPER) Wrapper<SysUser> queryWrapper);
 
     @DataPermission({
-        @DataColumn(key = "deptName", value = "dept_id"),
+        @DataColumn(),
         @DataColumn(key = "userName", value = "user_id")
     })
     long countUserById(Long userId);
 
     @Override
     @DataPermission({
-        @DataColumn(key = "deptName", value = "dept_id"),
+        @DataColumn(),
         @DataColumn(key = "userName", value = "user_id")
     })
     int update(@Param(Constants.ENTITY) SysUser user, @Param(Constants.WRAPPER) Wrapper<SysUser> updateWrapper);
 
     @Override
     @DataPermission({
-        @DataColumn(key = "deptName", value = "dept_id"),
+        @DataColumn(),
         @DataColumn(key = "userName", value = "user_id")
     })
     int updateById(@Param(Constants.ENTITY) SysUser user);

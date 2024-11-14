@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.resource.domain.SysOss;
 import leyramu.framework.lersosa.resource.domain.vo.SysOssVo;
 
 /**
- * 文件上传 数据层
+ * 文件上传 数据层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

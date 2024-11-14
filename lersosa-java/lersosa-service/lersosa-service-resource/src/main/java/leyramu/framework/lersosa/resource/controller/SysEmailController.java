@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Duration;
 
 /**
- * 邮件功能
+ * 邮件功能.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -45,11 +45,11 @@ public class SysEmailController extends BaseController {
     private final MailProperties mailProperties;
 
     /**
-     * 邮箱验证码
+     * 邮箱验证码.
      *
      * @param email 邮箱
      */
-    @RateLimiter(key = "#email", time = 60, count = 1)
+    @RateLimiter(key = "#email", count = 1)
     @GetMapping("/code")
     public R<Void> emailCode(@NotBlank(message = "{user.email.not.blank}") String email) {
         if (!mailProperties.getEnabled()) {
@@ -66,5 +66,4 @@ public class SysEmailController extends BaseController {
         }
         return R.ok();
     }
-
 }

@@ -5,17 +5,25 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.vo;
 
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.MetricEntity;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 /**
+ * 公制 vo.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class MetricVo implements Comparable<MetricVo> {
     private Long id;
     private String app;
@@ -26,8 +34,9 @@ public class MetricVo implements Comparable<MetricVo> {
     private Long blockQps;
     private Long successQps;
     private Long exceptionQps;
+
     /**
-     * average rt
+     * 平均 RT.
      */
     private Double rt;
     private Integer count;
@@ -35,6 +44,7 @@ public class MetricVo implements Comparable<MetricVo> {
     public MetricVo() {
     }
 
+    @SuppressWarnings("unused")
     public static List<MetricVo> fromMetricEntities(Collection<MetricEntity> entities) {
         List<MetricVo> list = new ArrayList<>();
         if (entities != null) {
@@ -46,11 +56,11 @@ public class MetricVo implements Comparable<MetricVo> {
     }
 
     /**
-     * 保留资源名为identity的结果。
+     * 保留资源名为identity的结果.
      *
      * @param entities 通过hashCode查找到的MetricEntities
      * @param identity 真正需要查找的资源名
-     * @return
+     * @return MetricVo集合
      */
     public static List<MetricVo> fromMetricEntities(Collection<MetricEntity> entities, String identity) {
         List<MetricVo> list = new ArrayList<>();
@@ -84,6 +94,7 @@ public class MetricVo implements Comparable<MetricVo> {
         return vo;
     }
 
+    @SuppressWarnings("unused")
     public static MetricVo parse(String line) {
         String[] strs = line.split("\\|");
         long timestamp = Long.parseLong(strs[0]);
@@ -103,94 +114,6 @@ public class MetricVo implements Comparable<MetricVo> {
         vo.rt = rt;
         vo.count = 1;
         return vo;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getApp() {
-        return app;
-    }
-
-    public void setApp(String app) {
-        this.app = app;
-    }
-
-    public Long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Long getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Long gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public String getResource() {
-        return resource;
-    }
-
-    public void setResource(String resource) {
-        this.resource = resource;
-    }
-
-    public Long getPassQps() {
-        return passQps;
-    }
-
-    public void setPassQps(Long passQps) {
-        this.passQps = passQps;
-    }
-
-    public Long getBlockQps() {
-        return blockQps;
-    }
-
-    public void setBlockQps(Long blockQps) {
-        this.blockQps = blockQps;
-    }
-
-    public Long getSuccessQps() {
-        return successQps;
-    }
-
-    public void setSuccessQps(Long successQps) {
-        this.successQps = successQps;
-    }
-
-    public Long getExceptionQps() {
-        return exceptionQps;
-    }
-
-    public void setExceptionQps(Long exceptionQps) {
-        this.exceptionQps = exceptionQps;
-    }
-
-    public Double getRt() {
-        return rt;
-    }
-
-    public void setRt(Double rt) {
-        this.rt = rt;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
     }
 
     @Override

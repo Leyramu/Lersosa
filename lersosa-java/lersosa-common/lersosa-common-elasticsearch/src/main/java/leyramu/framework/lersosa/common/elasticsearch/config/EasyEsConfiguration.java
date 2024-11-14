@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 /**
- * easy-es 配置
+ * easy-es 配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -23,5 +23,4 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 @ConditionalOnProperty(value = "easy-es.enable", havingValue = "true")
 @EsMapperScan("org.dromara.**.esmapper")
 public class EasyEsConfiguration {
-
 }

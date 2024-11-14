@@ -5,20 +5,25 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.util;
 
 import com.alibaba.csp.sentinel.util.StringUtil;
 import com.alibaba.csp.sentinel.util.function.Tuple2;
+import lombok.NoArgsConstructor;
 
 import java.util.Optional;
 
 /**
+ * 用于机器信息的 Utils 类.
+ *
  * @author Eric Zhao
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@NoArgsConstructor
 public final class MachineUtils {
-
-    private MachineUtils() {
-    }
 
     public static Optional<Integer> parseCommandPort(String machineIp) {
         try {

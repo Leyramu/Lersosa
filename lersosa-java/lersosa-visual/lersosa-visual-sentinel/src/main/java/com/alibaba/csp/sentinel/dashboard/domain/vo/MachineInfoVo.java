@@ -5,25 +5,40 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.vo;
 
 import com.alibaba.csp.sentinel.dashboard.discovery.MachineInfo;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 计算机信息视图对象.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class MachineInfoVo {
 
     private String app;
+
     private String hostname;
+
     private String ip;
+
     private int port;
+
     private long heartbeatVersion;
+
     private long lastHeartbeat;
+
     private boolean healthy;
+
 
     private String version;
 
@@ -48,68 +63,8 @@ public class MachineInfoVo {
         return vo;
     }
 
-    public String getApp() {
-        return app;
-    }
-
-    public void setApp(String app) {
-        this.app = app;
-    }
-
-    public String getHostname() {
-        return hostname;
-    }
-
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public long getLastHeartbeat() {
-        return lastHeartbeat;
-    }
-
-    public void setLastHeartbeat(long lastHeartbeat) {
-        this.lastHeartbeat = lastHeartbeat;
-    }
-
-    public long getHeartbeatVersion() {
-        return heartbeatVersion;
-    }
-
-    public void setHeartbeatVersion(long heartbeatVersion) {
-        this.heartbeatVersion = heartbeatVersion;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
     public MachineInfoVo setVersion(String version) {
         this.version = version;
         return this;
-    }
-
-    public boolean isHealthy() {
-        return healthy;
-    }
-
-    public void setHealthy(boolean healthy) {
-        this.healthy = healthy;
     }
 }

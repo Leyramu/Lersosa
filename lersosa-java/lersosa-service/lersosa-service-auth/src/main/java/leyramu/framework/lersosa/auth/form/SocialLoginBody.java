@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 三方登录对象
+ * 三方登录对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,21 +25,20 @@ import lombok.EqualsAndHashCode;
 public class SocialLoginBody extends LoginBody {
 
     /**
-     * 第三方登录平台
+     * 第三方登录平台.
      */
     @NotBlank(message = "{social.source.not.blank}")
     private String source;
 
     /**
-     * 第三方登录code
+     * 第三方登录code.
      */
     @NotBlank(message = "{social.code.not.blank}")
     private String socialCode;
 
     /**
-     * 第三方登录socialState
+     * 第三方登录socialState.
      */
     @NotBlank(message = "{social.state.not.blank}")
     private String socialState;
-
 }

@@ -14,8 +14,8 @@ import leyramu.framework.lersosa.common.translation.annotation.TranslationType;
 import leyramu.framework.lersosa.common.translation.core.TranslationInterface;
 import leyramu.framework.lersosa.common.translation.core.handler.TranslationBeanSerializerModifier;
 import leyramu.framework.lersosa.common.translation.core.handler.TranslationHandler;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 
 import java.util.HashMap;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 翻译模块配置类
+ * 翻译模块配置类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,13 +31,12 @@ import java.util.Map;
  */
 @Slf4j
 @AutoConfiguration
+@RequiredArgsConstructor
 public class TranslationConfig {
 
-    @Autowired
-    private List<TranslationInterface<?>> list;
+    private final List<TranslationInterface<?>> list;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     @PostConstruct
     public void init() {
@@ -47,7 +46,7 @@ public class TranslationConfig {
                 TranslationType annotation = trans.getClass().getAnnotation(TranslationType.class);
                 map.put(annotation.type(), trans);
             } else {
-                log.warn(trans.getClass().getName() + " 翻译实现类未标注 TranslationType 注解!");
+                log.warn("{} 翻译实现类未标注 TranslationType 注解!", trans.getClass().getName());
             }
         }
         TranslationHandler.TRANSLATION_MAPPER.putAll(map);
@@ -56,5 +55,4 @@ public class TranslationConfig {
             objectMapper.getSerializerFactory()
                 .withSerializerModifier(new TranslationBeanSerializerModifier()));
     }
-
 }

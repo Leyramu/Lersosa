@@ -117,11 +117,11 @@
             <artifactId>lersosa-common-sensitive</artifactId>
         </dependency>
 
-        <!-- 测试消息总线使用 搭配 TestBusController -->
-        <!--        <dependency>-->
-        <!--            <groupId>leyramu.framework</groupId>-->
-        <!--            <artifactId>lersosa-api-workflow</artifactId>-->
-        <!--        </dependency>-->
+        <!--      Lersosa Api Workflow      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-api-workflow</artifactId>
+        </dependency>
 
         <!--      Spring Boot Starter Test      -->
         <dependency>

@@ -14,7 +14,7 @@ import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.stereotype.Component;
 
 /**
- * 交易消息消费
+ * 交易消息消费.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,5 +29,4 @@ public class TransactionRocketConsumer implements RocketMQListener<String> {
     public void onMessage(String message) {
         log.info("【消费者】===>接收事务消息：{}", message);
     }
-
 }

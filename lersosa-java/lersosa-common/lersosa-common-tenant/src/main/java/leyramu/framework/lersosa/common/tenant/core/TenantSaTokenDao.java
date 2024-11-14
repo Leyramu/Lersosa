@@ -16,7 +16,7 @@ import java.time.Duration;
 import java.util.List;
 
 /**
- * SaToken 认证数据持久层 适配多租户
+ * SaToken 认证数据持久层 适配多租户.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -35,7 +35,7 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
     }
 
     /**
-     * 修修改指定key-value键值对 (过期时间不变)
+     * 修修改指定key-value键值对 (过期时间不变).
      */
     @Override
     public void update(String key, String value) {
@@ -48,7 +48,7 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
     }
 
     /**
-     * 删除Value
+     * 删除Value.
      */
     @Override
     public void delete(String key) {
@@ -56,7 +56,7 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
     }
 
     /**
-     * 获取Value的剩余存活时间 (单位: 秒)
+     * 获取Value的剩余存活时间 (单位: 秒).
      */
     @Override
     public long getTimeout(String key) {
@@ -64,7 +64,7 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
     }
 
     /**
-     * 修改Value的剩余存活时间 (单位: 秒)
+     * 修改Value的剩余存活时间 (单位: 秒).
      */
     @Override
     public void updateTimeout(String key, long timeout) {
@@ -73,6 +73,7 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
             long expire = getTimeout(key);
             if (expire == NEVER_EXPIRE) {
                 // 如果其已经被设置为永久，则不作任何处理
+                return;
             } else {
                 // 如果尚未被设置为永久，那么再次set一次
                 this.set(key, this.get(key), timeout);
@@ -84,7 +85,7 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
 
 
     /**
-     * 获取Object，如无返空
+     * 获取Object，如无返空.
      */
     @Override
     public Object getObject(String key) {
@@ -92,7 +93,7 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
     }
 
     /**
-     * 写入Object，并设定存活时间 (单位: 秒)
+     * 写入Object，并设定存活时间 (单位: 秒).
      */
     @Override
     public void setObject(String key, Object object, long timeout) {
@@ -100,7 +101,7 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
     }
 
     /**
-     * 更新Object (过期时间不变)
+     * 更新Object (过期时间不变).
      */
     @Override
     public void updateObject(String key, Object object) {
@@ -113,7 +114,7 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
     }
 
     /**
-     * 删除Object
+     * 删除Object.
      */
     @Override
     public void deleteObject(String key) {
@@ -121,7 +122,7 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
     }
 
     /**
-     * 获取Object的剩余存活时间 (单位: 秒)
+     * 获取Object的剩余存活时间 (单位: 秒).
      */
     @Override
     public long getObjectTimeout(String key) {
@@ -129,7 +130,7 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
     }
 
     /**
-     * 修改Object的剩余存活时间 (单位: 秒)
+     * 修改Object的剩余存活时间 (单位: 秒).
      */
     @Override
     public void updateObjectTimeout(String key, long timeout) {
@@ -138,6 +139,7 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
             long expire = getObjectTimeout(key);
             if (expire == NEVER_EXPIRE) {
                 // 如果其已经被设置为永久，则不作任何处理
+                return;
             } else {
                 // 如果尚未被设置为永久，那么再次set一次
                 this.setObject(key, this.getObject(key), timeout);
@@ -149,7 +151,7 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
 
 
     /**
-     * 搜索数据
+     * 搜索数据.
      */
     @Override
     public List<String> searchData(String prefix, String keyword, int start, int size, boolean sortType) {

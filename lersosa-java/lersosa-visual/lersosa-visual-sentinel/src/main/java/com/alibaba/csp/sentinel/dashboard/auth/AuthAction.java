@@ -5,13 +5,18 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.auth;
 
 import java.lang.annotation.*;
 
 /**
+ * 权限控制注解.
+ *
  * @author lkxiaolou
- * @since 1.7.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -19,17 +24,23 @@ import java.lang.annotation.*;
 public @interface AuthAction {
 
     /**
-     * @return the privilege type
+     * 权限类型.
+     *
+     * @return 权限类型
      */
     AuthService.PrivilegeType value();
 
     /**
-     * @return the target name to control
+     * 要控制的目标名称.
+     *
+     * @return 要控制的目标名称
      */
     String targetName() default "app";
 
     /**
-     * @return the message when permission is denied
+     * 权限被拒绝时的消息.
+     *
+     * @return 权限被拒绝时的消息
      */
     String message() default "Permission denied";
 }

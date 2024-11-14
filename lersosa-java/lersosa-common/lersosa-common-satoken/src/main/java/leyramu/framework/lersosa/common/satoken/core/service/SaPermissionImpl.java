@@ -15,9 +15,10 @@ import leyramu.framework.lersosa.system.api.model.LoginUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * sa-token 权限管理实现类
+ * sa-token 权限管理实现类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,31 +27,33 @@ import java.util.List;
 public class SaPermissionImpl implements StpInterface {
 
     /**
-     * 获取菜单权限列表
+     * 获取菜单权限列表.
      */
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
         LoginUser loginUser = LoginHelper.getLoginUser();
-        UserType userType = UserType.getUserType(loginUser.getUserType());
+        UserType userType = UserType.getUserType(Objects.requireNonNull(loginUser).getUserType());
         if (userType == UserType.SYS_USER) {
             return new ArrayList<>(loginUser.getMenuPermission());
         } else if (userType == UserType.APP_USER) {
             // 其他端 自行根据业务编写
+            return null;
         }
         return new ArrayList<>();
     }
 
     /**
-     * 获取角色权限列表
+     * 获取角色权限列表.
      */
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
         LoginUser loginUser = LoginHelper.getLoginUser();
-        UserType userType = UserType.getUserType(loginUser.getUserType());
+        UserType userType = UserType.getUserType(Objects.requireNonNull(loginUser).getUserType());
         if (userType == UserType.SYS_USER) {
             return new ArrayList<>(loginUser.getRolePermission());
         } else if (userType == UserType.APP_USER) {
             // 其他端 自行根据业务编写
+            return null;
         }
         return new ArrayList<>();
     }

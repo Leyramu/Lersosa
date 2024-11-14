@@ -6,4 +6,7 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
+/**
+ * 示例模块 实体类.
+ */
 package leyramu.framework.lersosa.demo.domain;

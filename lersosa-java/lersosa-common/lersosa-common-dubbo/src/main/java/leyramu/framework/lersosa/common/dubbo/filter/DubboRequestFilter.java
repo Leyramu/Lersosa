@@ -19,18 +19,7 @@ import org.apache.dubbo.rpc.*;
 import org.apache.dubbo.rpc.service.GenericService;
 
 /**
- * Dubbo 日志过滤器
- * <p>
- * 该过滤器通过实现 Dubbo 的 Filter 接口，在服务调用前后记录日志信息
- * 可根据配置开关和日志级别输出不同详细程度的日志信息
- * <p>
- * 激活条件：
- * - 在 Provider 和 Consumer 端都生效
- * - 执行顺序设置为最大值，确保在所有其他过滤器之后执行
- * <p>
- * 使用 SpringUtils 获取配置信息，根据配置决定是否记录日志及日志详细程度
- * <p>
- * 使用 Lombok 的 @Slf4j 注解简化日志记录
+ * Dubbo 日志过滤器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -41,7 +30,7 @@ import org.apache.dubbo.rpc.service.GenericService;
 public class DubboRequestFilter implements Filter {
 
     /**
-     * Dubbo Filter 接口实现方法，处理服务调用逻辑并记录日志
+     * Dubbo Filter 接口实现方法，处理服务调用逻辑并记录日志.
      *
      * @param invoker    Dubbo 服务调用者实例
      * @param invocation 调用的具体方法信息
@@ -79,7 +68,7 @@ public class DubboRequestFilter implements Filter {
         long elapsed = System.currentTimeMillis() - startTime;
         // 如果发生异常且调用的不是泛化服务，则记录异常日志
         if (result.hasException() && !invoker.getInterface().equals(GenericService.class)) {
-            log.error("DUBBO - 服务异常: {},Exception={}", baselog, result.getException());
+            log.error("DUBBO - 服务异常: {},Exception=", baselog, result.getException());
         } else {
             // 根据日志级别输出服务响应信息
             if (properties.getLogLevel() == RequestLogEnum.INFO) {
@@ -90,5 +79,4 @@ public class DubboRequestFilter implements Filter {
         }
         return result;
     }
-
 }

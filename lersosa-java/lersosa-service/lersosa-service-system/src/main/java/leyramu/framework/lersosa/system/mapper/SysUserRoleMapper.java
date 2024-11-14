@@ -14,7 +14,7 @@ import leyramu.framework.lersosa.system.domain.SysUserRole;
 import java.util.List;
 
 /**
- * 用户与角色关联表 数据层
+ * 用户与角色关联表 数据层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -23,5 +23,4 @@ import java.util.List;
 public interface SysUserRoleMapper extends BaseMapperPlus<SysUserRole, SysUserRole> {
 
     List<Long> selectUserIdsByRoleId(Long roleId);
-
 }

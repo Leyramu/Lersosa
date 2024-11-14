@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.controller;
 
 import com.alibaba.csp.sentinel.dashboard.auth.AuthAction;
@@ -18,33 +19,51 @@ import com.alibaba.csp.sentinel.dashboard.repository.rule.RuleRepository;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.degrade.circuitbreaker.CircuitBreakerStrategy;
 import com.alibaba.csp.sentinel.util.StringUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 
 /**
- * Controller regarding APIs of degrade rules. Refactored since 1.8.0.
+ * 关于降级规则的 API 的控制者.
  *
  * @author Carpenter Lee
  * @author Eric Zhao
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
+@Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/degrade")
 public class DegradeController {
 
-    private final Logger logger = LoggerFactory.getLogger(DegradeController.class);
+    /**
+     * 规则存储库，用于存储和检索规则实体.
+     */
+    private final RuleRepository<DegradeRuleEntity, Long> repository;
 
-    @Autowired
-    private RuleRepository<DegradeRuleEntity, Long> repository;
-    @Autowired
-    private SentinelApiClient sentinelApiClient;
-    @Autowired
-    private AppManagement appManagement;
+    /**
+     * 客户端API客户端，用于与 Sentinel 服务器进行通信以获取规则等数据.
+     */
+    private final SentinelApiClient sentinelApiClient;
 
+    /**
+     * 应用管理器，用于管理应用和机器信息.
+     */
+    private final AppManagement appManagement;
+
+    /**
+     * 处理查询机器降级规则的API请求.
+     *
+     * @param app  应用名称，用于标识一个具体的应用
+     * @param ip   机器IP地址，用于标识应用所在的机器
+     * @param port 机器端口号，用于进一步精确标识应用所在的机器
+     * @return 返回一个Result对象，其中包含降级规则列表
+     */
     @GetMapping("/rules.json")
     @AuthAction(PrivilegeType.READ_RULE)
     public Result<List<DegradeRuleEntity>> apiQueryMachineRules(String app, String ip, Integer port) {
@@ -57,7 +76,7 @@ public class DegradeController {
         if (port == null) {
             return Result.ofFail(-1, "port can't be null");
         }
-        if (!appManagement.isValidMachineOfApp(app, ip)) {
+        if (appManagement.isValidMachineOfApp(app, ip)) {
             return Result.ofFail(-1, "given ip does not belong to given app");
         }
         try {
@@ -65,11 +84,17 @@ public class DegradeController {
             rules = repository.saveAll(rules);
             return Result.ofSuccess(rules);
         } catch (Throwable throwable) {
-            logger.error("queryApps error:", throwable);
+            log.error("queryApps error:", throwable);
             return Result.ofThrowable(-1, throwable);
         }
     }
 
+    /**
+     * 处理添加降级规则的API请求.
+     *
+     * @param entity 降级规则实体，包含降级规则的所有必要信息
+     * @return 返回一个Result对象，其中包含添加后的降级规则实体
+     */
     @PostMapping("/rule")
     @AuthAction(PrivilegeType.WRITE_RULE)
     public Result<DegradeRuleEntity> apiAddRule(@RequestBody DegradeRuleEntity entity) {
@@ -83,19 +108,27 @@ public class DegradeController {
         try {
             entity = repository.save(entity);
         } catch (Throwable t) {
-            logger.error("Failed to add new degrade rule, app={}, ip={}", entity.getApp(), entity.getIp(), t);
+            log.error("Failed to add new degrade rule, app={}, ip={}", entity.getApp(), entity.getIp(), t);
             return Result.ofThrowable(-1, t);
         }
-        if (!publishRules(entity.getApp(), entity.getIp(), entity.getPort())) {
-            logger.warn("Publish degrade rules failed, app={}", entity.getApp());
+        if (publishRules(entity.getApp(), entity.getIp(), entity.getPort())) {
+            log.warn("Publish degrade rules failed, app={}", entity.getApp());
         }
         return Result.ofSuccess(entity);
     }
 
+    /**
+     * 更新降级规则接口.
+     *
+     * @param id     规则标识符
+     * @param entity 更新后的降级规则实体
+     * @return 更新结果，包含可能的错误信息
+     */
     @PutMapping("/rule/{id}")
     @AuthAction(PrivilegeType.WRITE_RULE)
-    public Result<DegradeRuleEntity> apiUpdateRule(@PathVariable("id") Long id,
-                                                   @RequestBody DegradeRuleEntity entity) {
+    public Result<DegradeRuleEntity> apiUpdateRule(
+        @PathVariable("id") Long id,
+        @RequestBody DegradeRuleEntity entity) {
         if (id == null || id <= 0) {
             return Result.ofFail(-1, "id can't be null or negative");
         }
@@ -117,15 +150,21 @@ public class DegradeController {
         try {
             entity = repository.save(entity);
         } catch (Throwable t) {
-            logger.error("Failed to save degrade rule, id={}, rule={}", id, entity, t);
+            log.error("Failed to save degrade rule, id={}, rule={}", id, entity, t);
             return Result.ofThrowable(-1, t);
         }
-        if (!publishRules(entity.getApp(), entity.getIp(), entity.getPort())) {
-            logger.warn("Publish degrade rules failed, app={}", entity.getApp());
+        if (publishRules(entity.getApp(), entity.getIp(), entity.getPort())) {
+            log.warn("Publish degrade rules failed, app={}", entity.getApp());
         }
         return Result.ofSuccess(entity);
     }
 
+    /**
+     * 删除降级规则接口.
+     *
+     * @param id 规则标识符
+     * @return 删除结果，包含可能的错误信息
+     */
     @DeleteMapping("/rule/{id}")
     @AuthAction(PrivilegeType.DELETE_RULE)
     public Result<Long> delete(@PathVariable("id") Long id) {
@@ -141,20 +180,34 @@ public class DegradeController {
         try {
             repository.delete(id);
         } catch (Throwable throwable) {
-            logger.error("Failed to delete degrade rule, id={}", id, throwable);
+            log.error("Failed to delete degrade rule, id={}", id, throwable);
             return Result.ofThrowable(-1, throwable);
         }
-        if (!publishRules(oldEntity.getApp(), oldEntity.getIp(), oldEntity.getPort())) {
-            logger.warn("Publish degrade rules failed, app={}", oldEntity.getApp());
+        if (publishRules(oldEntity.getApp(), oldEntity.getIp(), oldEntity.getPort())) {
+            log.warn("Publish degrade rules failed, app={}", oldEntity.getApp());
         }
         return Result.ofSuccess(id);
     }
 
+    /**
+     * 发布降级规则到指定应用和机器.
+     *
+     * @param app  应用名称
+     * @param ip   机器IP
+     * @param port 机器端口
+     * @return 发布是否失败
+     */
     private boolean publishRules(String app, String ip, Integer port) {
         List<DegradeRuleEntity> rules = repository.findAllByMachine(MachineInfo.of(app, ip, port));
-        return sentinelApiClient.setDegradeRuleOfMachine(app, ip, port, rules);
+        return !sentinelApiClient.setDegradeRuleOfMachine(app, ip, port, rules);
     }
 
+    /**
+     * 内部校验降级规则实体.
+     *
+     * @param entity 待校验的降级规则实体
+     * @return 校验结果，如果校验失败则包含错误信息，否则为null
+     */
     private <R> Result<R> checkEntityInternal(DegradeRuleEntity entity) {
         if (StringUtil.isBlank(entity.getApp())) {
             return Result.ofFail(-1, "app can't be blank");
@@ -162,7 +215,7 @@ public class DegradeController {
         if (StringUtil.isBlank(entity.getIp())) {
             return Result.ofFail(-1, "ip can't be null or empty");
         }
-        if (!appManagement.isValidMachineOfApp(entity.getApp(), entity.getIp())) {
+        if (appManagement.isValidMachineOfApp(entity.getApp(), entity.getIp())) {
             return Result.ofFail(-1, "given ip does not belong to given app");
         }
         if (entity.getPort() == null || entity.getPort() <= 0) {

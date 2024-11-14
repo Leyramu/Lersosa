@@ -17,7 +17,7 @@ import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.stereotype.Service;
 
 /**
- * 邮件服务
+ * 邮件服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,7 +30,7 @@ import org.springframework.stereotype.Service;
 public class RemoteMailServiceImpl implements RemoteMailService {
 
     /**
-     * 发送邮件
+     * 发送邮件.
      *
      * @param to      接收人
      * @param subject 标题
@@ -40,5 +40,4 @@ public class RemoteMailServiceImpl implements RemoteMailService {
     public void send(String to, String subject, String text) throws ServiceException {
         MailUtils.sendText(to, subject, text);
     }
-
 }

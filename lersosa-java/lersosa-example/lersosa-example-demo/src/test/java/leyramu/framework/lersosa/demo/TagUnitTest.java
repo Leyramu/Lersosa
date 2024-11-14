@@ -12,9 +12,11 @@ import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * 标签单元测试案例
+ * 标签单元测试案例.
  *
- * @author Lion Li
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 1.0.0
+ * @since 2024/11/6
  */
 @SpringBootTest
 @DisplayName("标签单元测试案例")

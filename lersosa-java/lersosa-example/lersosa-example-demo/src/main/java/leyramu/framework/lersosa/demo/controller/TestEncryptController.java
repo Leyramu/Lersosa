@@ -23,7 +23,7 @@ import java.util.Map;
 
 
 /**
- * 测试数据库加解密功能
+ * 测试数据库加解密功能.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -40,7 +40,7 @@ public class TestEncryptController {
     private Boolean encryptEnable;
 
     /**
-     * 测试数据库加解密
+     * 测试数据库加解密.
      *
      * @param key   测试key
      * @param value 测试value
@@ -60,6 +60,4 @@ public class TestEncryptController {
         map.put("解密", testDemo);
         return R.ok(map);
     }
-
-
 }

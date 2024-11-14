@@ -34,7 +34,7 @@ import static leyramu.framework.lersosa.workflow.common.constant.FlowConstant.US
 
 
 /**
- * 节点驳回记录Service业务层处理
+ * 节点驳回记录Service业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -68,7 +68,7 @@ public class WfTaskBackNodeServiceImpl implements IWfTaskBackNodeService {
         } else {
             WfTaskBackNode taskNode = StreamUtils.findFirst(list, e -> e.getNodeId().equals(wfTaskBackNode.getNodeId()) && e.getOrderNo() == 0);
             if (ObjectUtil.isEmpty(taskNode)) {
-                wfTaskBackNode.setOrderNo(list.get(0).getOrderNo() + 1);
+                wfTaskBackNode.setOrderNo(list.getFirst().getOrderNo() + 1);
                 WfTaskBackNode node = getListByInstanceIdAndNodeId(wfTaskBackNode.getInstanceId(), wfTaskBackNode.getNodeId());
                 if (ObjectUtil.isNotEmpty(node)) {
                     node.setAssignee(node.getAssignee() + StringUtils.SEPARATOR + LoginHelper.getUserId());
@@ -98,7 +98,7 @@ public class WfTaskBackNodeServiceImpl implements IWfTaskBackNodeService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteBackTaskNode(String processInstanceId, String targetActivityId) {
+    public void deleteBackTaskNode(String processInstanceId, String targetActivityId) {
         try {
             LambdaQueryWrapper<WfTaskBackNode> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.eq(WfTaskBackNode::getInstanceId, processInstanceId);
@@ -119,7 +119,6 @@ public class WfTaskBackNodeServiceImpl implements IWfTaskBackNodeService {
                     wfTaskBackNodeMapper.deleteByIds(ids);
                 }
             }
-            return true;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             throw new ServiceException("删除失败");
@@ -140,7 +139,7 @@ public class WfTaskBackNodeServiceImpl implements IWfTaskBackNodeService {
     }
 
     @Override
-    public boolean deleteByInstanceIds(List<String> processInstanceIds) {
+    public void deleteByInstanceIds(List<String> processInstanceIds) {
         LambdaQueryWrapper<WfTaskBackNode> wrapper = new LambdaQueryWrapper<>();
         wrapper.in(WfTaskBackNode::getInstanceId, processInstanceIds);
         List<WfTaskBackNode> list = wfTaskBackNodeMapper.selectList(wrapper);
@@ -148,6 +147,5 @@ public class WfTaskBackNodeServiceImpl implements IWfTaskBackNodeService {
         if (list.size() != delete) {
             throw new ServiceException("删除失败");
         }
-        return true;
     }
 }

@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.workflow.domain.WfNodeConfig;
 import leyramu.framework.lersosa.workflow.domain.vo.WfNodeConfigVo;
 
 /**
- * 节点配置Mapper接口
+ * 节点配置Mapper接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

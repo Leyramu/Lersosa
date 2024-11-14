@@ -39,7 +39,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * 模型工具
+ * 模型工具.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -65,7 +65,7 @@ public class ModelUtils {
     }
 
     /**
-     * bpmnModel转为xml
+     * bpmnModel转为xml.
      *
      * @param jsonBytes json
      */
@@ -86,7 +86,7 @@ public class ModelUtils {
     }
 
     /**
-     * xml转为bpmnModel
+     * xml转为bpmnModel.
      *
      * @param xmlBytes xml
      */
@@ -98,7 +98,7 @@ public class ModelUtils {
     }
 
     /**
-     * 校验模型
+     * 校验模型.
      *
      * @param bpmnModel bpmn模型
      */
@@ -136,7 +136,7 @@ public class ModelUtils {
     }
 
     /**
-     * 校验bpmn节点是否合法
+     * 校验bpmn节点是否合法.
      *
      * @param flowElements 节点集合
      * @param subtask      是否子流程
@@ -156,19 +156,18 @@ public class ModelUtils {
             throw new ServerException(subtask ? "子流程只能存在一个开始节点" : "只能存在一个开始节点！");
         }
 
-        StartEvent startEvent = startEventList.get(0);
+        StartEvent startEvent = startEventList.getFirst();
         List<SequenceFlow> outgoingFlows = startEvent.getOutgoingFlows();
         if (CollUtil.isEmpty(outgoingFlows)) {
             throw new ServerException(subtask ? "子流程流程节点为空，请至少设计一条主线流程！" : "流程节点为空，请至少设计一条主线流程！");
         }
 
-        FlowElement targetFlowElement = outgoingFlows.get(0).getTargetFlowElement();
+        FlowElement targetFlowElement = outgoingFlows.getFirst().getTargetFlowElement();
         if (!(targetFlowElement instanceof UserTask) && !subtask) {
             throw new ServerException("开始节点后第一个节点必须是用户任务！");
         }
         //开始节点后第一个节点申请人节点
-        if ((targetFlowElement instanceof UserTask) && !subtask) {
-            UserTask userTask = (UserTask) targetFlowElement;
+        if ((targetFlowElement instanceof UserTask userTask) && !subtask) {
             if (StringUtils.isBlank(userTask.getFormKey())) {
                 throw new ServerException("申请人节点必须选择表单！");
             }
@@ -180,7 +179,7 @@ public class ModelUtils {
     }
 
     /**
-     * 获取流程全部用户节点
+     * 获取流程全部用户节点.
      *
      * @param processDefinitionId 流程定义id
      */
@@ -188,13 +187,13 @@ public class ModelUtils {
         BpmnModel bpmnModel = PROCESS_ENGINE.getRepositoryService().getBpmnModel(processDefinitionId);
         List<UserTask> list = new ArrayList<>();
         List<Process> processes = bpmnModel.getProcesses();
-        Collection<FlowElement> flowElements = processes.get(0).getFlowElements();
+        Collection<FlowElement> flowElements = processes.getFirst().getFlowElements();
         buildUserTaskFlowElements(flowElements, list);
         return list;
     }
 
     /**
-     * 递归获取所有节点
+     * 递归获取所有节点.
      *
      * @param flowElements 节点信息
      * @param list         集合
@@ -211,7 +210,7 @@ public class ModelUtils {
     }
 
     /**
-     * 获取流程全部节点
+     * 获取流程全部节点.
      *
      * @param processDefinitionId 流程定义id
      */
@@ -219,13 +218,13 @@ public class ModelUtils {
         BpmnModel bpmnModel = PROCESS_ENGINE.getRepositoryService().getBpmnModel(processDefinitionId);
         List<FlowElement> list = new ArrayList<>();
         List<Process> processes = bpmnModel.getProcesses();
-        Collection<FlowElement> flowElements = processes.get(0).getFlowElements();
+        Collection<FlowElement> flowElements = processes.getFirst().getFlowElements();
         buildFlowElements(flowElements, list);
         return list;
     }
 
     /**
-     * 递归获取所有节点
+     * 递归获取所有节点.
      *
      * @param flowElements 节点信息
      * @param list         集合
@@ -241,10 +240,11 @@ public class ModelUtils {
     }
 
     /**
-     * 获取全部扩展信息
+     * 获取全部扩展信息.
      *
      * @param processDefinitionId 流程定义id
      */
+    @SuppressWarnings("unused")
     public static Map<String, List<ExtensionElement>> getExtensionElements(String processDefinitionId) {
         Map<String, List<ExtensionElement>> map = new HashMap<>();
         List<FlowElement> flowElements = getFlowElements(processDefinitionId);
@@ -257,11 +257,12 @@ public class ModelUtils {
     }
 
     /**
-     * 获取某个节点的扩展信息
+     * 获取某个节点的扩展信息.
      *
      * @param processDefinitionId 流程定义id
      * @param flowElementId       节点id
      */
+    @SuppressWarnings("unused")
     public static Map<String, List<ExtensionElement>> getExtensionElement(String processDefinitionId, String flowElementId) {
         BpmnModel bpmnModel = PROCESS_ENGINE.getRepositoryService().getBpmnModel(processDefinitionId);
         Process process = bpmnModel.getMainProcess();
@@ -270,7 +271,7 @@ public class ModelUtils {
     }
 
     /**
-     * 判断当前节点是否为用户任务
+     * 判断当前节点是否为用户任务.
      *
      * @param processDefinitionId 流程定义id
      * @param taskDefinitionKey   流程定义id
@@ -282,7 +283,7 @@ public class ModelUtils {
     }
 
     /**
-     * 获取申请人节点
+     * 获取申请人节点.
      *
      * @param processDefinitionId 流程定义id
      * @return 结果
@@ -290,10 +291,10 @@ public class ModelUtils {
     public static UserTask getApplyUserTask(String processDefinitionId) {
         BpmnModel bpmnModel = PROCESS_ENGINE.getRepositoryService().getBpmnModel(processDefinitionId);
         Collection<FlowElement> flowElements = bpmnModel.getMainProcess().getFlowElements();
-        List<StartEvent> startEventList = flowElements.stream().filter(StartEvent.class::isInstance).map(StartEvent.class::cast).collect(Collectors.toList());
-        StartEvent startEvent = startEventList.get(0);
+        List<StartEvent> startEventList = flowElements.stream().filter(StartEvent.class::isInstance).map(StartEvent.class::cast).toList();
+        StartEvent startEvent = startEventList.getFirst();
         List<SequenceFlow> outgoingFlows = startEvent.getOutgoingFlows();
-        FlowElement targetFlowElement = outgoingFlows.get(0).getTargetFlowElement();
+        FlowElement targetFlowElement = outgoingFlows.getFirst().getTargetFlowElement();
         return (UserTask) targetFlowElement;
     }
 }

@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 验证码类别
+ * 验证码类别.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,17 +27,17 @@ import lombok.Getter;
 public enum CaptchaCategory {
 
     /**
-     * 线段干扰
+     * 线段干扰.
      */
     LINE(LineCaptcha.class),
 
     /**
-     * 圆圈干扰
+     * 圆圈干扰.
      */
     CIRCLE(CircleCaptcha.class),
 
     /**
-     * 扭曲干扰
+     * 扭曲干扰.
      */
     SHEAR(ShearCaptcha.class);
 

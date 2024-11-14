@@ -18,7 +18,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 加签参数请求
+ * 加签参数请求.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,19 +31,19 @@ public class AddMultiBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 任务ID
+     * 任务ID.
      */
     @NotBlank(message = "任务ID不能为空", groups = AddGroup.class)
     private String taskId;
 
     /**
-     * 加签人员id
+     * 加签人员id.
      */
     @NotEmpty(message = "加签人员不能为空", groups = AddGroup.class)
     private List<Long> assignees;
 
     /**
-     * 加签人员名称
+     * 加签人员名称.
      */
     @NotEmpty(message = "加签人员不能为空", groups = AddGroup.class)
     private List<String> assigneeNames;

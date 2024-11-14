@@ -38,9 +38,10 @@ import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
- * 用户服务
+ * 用户服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -59,7 +60,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     private final SysUserMapper userMapper;
 
     /**
-     * 通过用户名查询用户信息
+     * 通过用户名查询用户信息.
      *
      * @param username 用户名
      * @param tenantId 租户id
@@ -82,7 +83,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     }
 
     /**
-     * 通过用户id查询用户信息
+     * 通过用户id查询用户信息.
      *
      * @param userId   用户id
      * @param tenantId 租户id
@@ -105,7 +106,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     }
 
     /**
-     * 通过手机号查询用户信息
+     * 通过手机号查询用户信息.
      *
      * @param phonenumber 手机号
      * @param tenantId    租户id
@@ -128,7 +129,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     }
 
     /**
-     * 通过邮箱查询用户信息
+     * 通过邮箱查询用户信息.
      *
      * @param email    邮箱
      * @param tenantId 租户id
@@ -151,7 +152,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     }
 
     /**
-     * 通过openid查询用户信息
+     * 通过openid查询用户信息.
      *
      * @param openid openid
      * @return 结果
@@ -162,9 +163,11 @@ public class RemoteUserServiceImpl implements RemoteUserService {
         SysUser sysUser = new SysUser();
         if (ObjectUtil.isNull(sysUser)) {
             // todo 用户不存在 业务逻辑自行实现
+            throw new UserException("user.not.exists", openid);
         }
         if (UserStatus.DISABLE.getCode().equals(sysUser.getStatus())) {
             // todo 用户已被停用 业务逻辑自行实现
+            throw new UserException("user.blocked", sysUser.getUserName());
         }
         // 框架登录不限制从什么表查询 只要最终构建出 LoginUser 即可
         // 此处可根据登录用户的数据不同 自行创建 loginUser 属性不够用继承扩展就行了
@@ -178,7 +181,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     }
 
     /**
-     * 注册用户信息
+     * 注册用户信息.
      *
      * @param remoteUserBo 用户信息
      * @return 结果
@@ -186,7 +189,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     @Override
     public Boolean registerUserInfo(RemoteUserBo remoteUserBo) throws UserException, ServiceException {
         SysUserBo sysUserBo = MapstructUtils.convert(remoteUserBo, SysUserBo.class);
-        String username = sysUserBo.getUserName();
+        String username = Objects.requireNonNull(sysUserBo).getUserName();
         boolean exist = TenantHelper.dynamic(remoteUserBo.getTenantId(), () -> {
             if (!("true".equals(configService.selectConfigByKey("sys.account.registerUser")))) {
                 throw new ServiceException("当前系统没有开启注册功能");
@@ -201,7 +204,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     }
 
     /**
-     * 通过用户ID查询用户账户
+     * 通过用户ID查询用户账户.
      *
      * @param userId 用户ID
      * @return 用户账户
@@ -212,7 +215,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     }
 
     /**
-     * 通过用户ID查询用户昵称
+     * 通过用户ID查询用户昵称.
      *
      * @param userId 用户ID
      * @return 用户昵称
@@ -223,7 +226,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     }
 
     /**
-     * 通过用户ID查询用户账户
+     * 通过用户ID查询用户账户.
      *
      * @param userIds 用户ID 多个用逗号隔开
      * @return 用户账户
@@ -234,7 +237,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     }
 
     /**
-     * 通过用户ID查询用户手机号
+     * 通过用户ID查询用户手机号.
      *
      * @param userId 用户id
      * @return 用户手机号
@@ -245,7 +248,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     }
 
     /**
-     * 通过用户ID查询用户邮箱
+     * 通过用户ID查询用户邮箱.
      *
      * @param userId 用户id
      * @return 用户邮箱
@@ -256,7 +259,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     }
 
     /**
-     * 构建登录用户
+     * 构建登录用户.
      */
     private LoginUser buildLoginUser(SysUserVo userVo) {
         LoginUser loginUser = new LoginUser();
@@ -280,7 +283,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     }
 
     /**
-     * 更新用户信息
+     * 更新用户信息.
      *
      * @param userId 用户ID
      * @param ip     IP地址
@@ -296,7 +299,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     }
 
     /**
-     * 通过用户ID查询用户列表
+     * 通过用户ID查询用户列表.
      *
      * @param userIds 用户ids
      * @return 用户列表
@@ -308,7 +311,7 @@ public class RemoteUserServiceImpl implements RemoteUserService {
     }
 
     /**
-     * 通过角色ID查询用户ID
+     * 通过角色ID查询用户ID.
      *
      * @param roleIds 角色ids
      * @return 用户ids

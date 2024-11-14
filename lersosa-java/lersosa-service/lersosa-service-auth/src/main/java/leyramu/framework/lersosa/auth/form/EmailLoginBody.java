@@ -15,7 +15,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 邮件登录对象
+ * 邮件登录对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,16 +26,15 @@ import lombok.EqualsAndHashCode;
 public class EmailLoginBody extends LoginBody {
 
     /**
-     * 邮箱
+     * 邮箱.
      */
     @NotBlank(message = "{user.email.not.blank}")
     @Email(message = "{user.email.not.valid}")
     private String email;
 
     /**
-     * 邮箱code
+     * 邮箱code.
      */
     @NotBlank(message = "{email.code.not.blank}")
     private String emailCode;
-
 }

@@ -23,20 +23,20 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * redis 工具类
+ * redis 工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@SuppressWarnings(value = {"unchecked", "rawtypes"})
+@SuppressWarnings(value = {"unchecked", "rawtypes", "unused"})
 public class RedisUtils {
 
     private static final RedissonClient CLIENT = SpringUtils.getBean(RedissonClient.class);
 
     /**
-     * 限流
+     * 限流.
      *
      * @param key          限流key
      * @param rateType     限流类型
@@ -46,7 +46,7 @@ public class RedisUtils {
      */
     public static long rateLimiter(String key, RateType rateType, int rate, int rateInterval) {
         RRateLimiter rateLimiter = CLIENT.getRateLimiter(key);
-        rateLimiter.trySetRate(rateType, rate, rateInterval, RateIntervalUnit.SECONDS);
+        rateLimiter.setRate(rateType, rate, Duration.ofSeconds(rateInterval));
         if (rateLimiter.tryAcquire()) {
             return rateLimiter.availablePermits();
         } else {
@@ -55,14 +55,14 @@ public class RedisUtils {
     }
 
     /**
-     * 获取客户端实例
+     * 获取客户端实例.
      */
     public static RedissonClient getClient() {
         return CLIENT;
     }
 
     /**
-     * 发布通道消息
+     * 发布通道消息.
      *
      * @param channelKey 通道key
      * @param msg        发送数据
@@ -75,7 +75,7 @@ public class RedisUtils {
     }
 
     /**
-     * 发布消息到指定的频道
+     * 发布消息到指定的频道.
      *
      * @param channelKey 通道key
      * @param msg        发送数据
@@ -86,7 +86,7 @@ public class RedisUtils {
     }
 
     /**
-     * 订阅通道接收消息
+     * 订阅通道接收消息.
      *
      * @param channelKey 通道key
      * @param clazz      消息类型
@@ -98,7 +98,7 @@ public class RedisUtils {
     }
 
     /**
-     * 缓存基本的对象，Integer、String、实体类等
+     * 缓存基本的对象，Integer、String、实体类等.
      *
      * @param key   缓存的键值
      * @param value 缓存的值
@@ -108,7 +108,7 @@ public class RedisUtils {
     }
 
     /**
-     * 缓存基本的对象，保留当前对象 TTL 有效期
+     * 缓存基本的对象，保留当前对象 TTL 有效期.
      *
      * @param key       缓存的键值
      * @param value     缓存的值
@@ -134,7 +134,7 @@ public class RedisUtils {
     }
 
     /**
-     * 缓存基本的对象，Integer、String、实体类等
+     * 缓存基本的对象，Integer、String、实体类等.
      *
      * @param key      缓存的键值
      * @param value    缓存的值
@@ -149,7 +149,7 @@ public class RedisUtils {
     }
 
     /**
-     * 如果不存在则设置 并返回 true 如果存在则返回 false
+     * 如果不存在则设置 并返回 true 如果存在则返回 false.
      *
      * @param key   缓存的键值
      * @param value 缓存的值
@@ -161,7 +161,7 @@ public class RedisUtils {
     }
 
     /**
-     * 如果存在则设置 并返回 true 如果存在则返回 false
+     * 如果存在则设置 并返回 true 如果存在则返回 false.
      *
      * @param key   缓存的键值
      * @param value 缓存的值
@@ -173,9 +173,7 @@ public class RedisUtils {
     }
 
     /**
-     * 注册对象监听器
-     * <p>
-     * key 监听器需开启 `notify-keyspace-events` 等 redis 相关配置
+     * 注册对象监听器.
      *
      * @param key      缓存的键值
      * @param listener 监听器配置
@@ -186,7 +184,7 @@ public class RedisUtils {
     }
 
     /**
-     * 设置有效时间
+     * 设置有效时间.
      *
      * @param key     Redis键
      * @param timeout 超时时间
@@ -197,7 +195,7 @@ public class RedisUtils {
     }
 
     /**
-     * 设置有效时间
+     * 设置有效时间.
      *
      * @param key      Redis键
      * @param duration 超时时间
@@ -209,7 +207,7 @@ public class RedisUtils {
     }
 
     /**
-     * 获得缓存的基本对象。
+     * 获得缓存的基本对象.
      *
      * @param key 缓存键值
      * @return 缓存键值对应的数据
@@ -220,7 +218,7 @@ public class RedisUtils {
     }
 
     /**
-     * 获得key剩余存活时间
+     * 获得key剩余存活时间.
      *
      * @param key 缓存键值
      * @return 剩余存活时间
@@ -231,7 +229,7 @@ public class RedisUtils {
     }
 
     /**
-     * 删除单个对象
+     * 删除单个对象.
      *
      * @param key 缓存的键值
      */
@@ -240,20 +238,18 @@ public class RedisUtils {
     }
 
     /**
-     * 删除集合对象
+     * 删除集合对象.
      *
      * @param collection 多个对象
      */
     public static void deleteObject(final Collection collection) {
         RBatch batch = CLIENT.createBatch();
-        collection.forEach(t -> {
-            batch.getBucket(t.toString()).deleteAsync();
-        });
+        collection.forEach(t -> batch.getBucket(t.toString()).deleteAsync());
         batch.execute();
     }
 
     /**
-     * 检查缓存对象是否存在
+     * 检查缓存对象是否存在.
      *
      * @param key 缓存的键值
      */
@@ -262,7 +258,7 @@ public class RedisUtils {
     }
 
     /**
-     * 缓存List数据
+     * 缓存List数据.
      *
      * @param key      缓存的键值
      * @param dataList 待缓存的List数据
@@ -274,7 +270,7 @@ public class RedisUtils {
     }
 
     /**
-     * 追加缓存List数据
+     * 追加缓存List数据.
      *
      * @param key  缓存的键值
      * @param data 待缓存的数据
@@ -286,9 +282,7 @@ public class RedisUtils {
     }
 
     /**
-     * 注册List监听器
-     * <p>
-     * key 监听器需开启 `notify-keyspace-events` 等 redis 相关配置
+     * 注册List监听器.
      *
      * @param key      缓存的键值
      * @param listener 监听器配置
@@ -299,7 +293,7 @@ public class RedisUtils {
     }
 
     /**
-     * 获得缓存的list对象
+     * 获得缓存的list对象.
      *
      * @param key 缓存的键值
      * @return 缓存键值对应的数据
@@ -310,7 +304,7 @@ public class RedisUtils {
     }
 
     /**
-     * 获得缓存的list对象(范围)
+     * 获得缓存的list对象(范围).
      *
      * @param key  缓存的键值
      * @param form 起始下标
@@ -323,7 +317,7 @@ public class RedisUtils {
     }
 
     /**
-     * 缓存Set
+     * 缓存Set.
      *
      * @param key     缓存键值
      * @param dataSet 缓存的数据
@@ -335,7 +329,7 @@ public class RedisUtils {
     }
 
     /**
-     * 追加缓存Set数据
+     * 追加缓存Set数据.
      *
      * @param key  缓存的键值
      * @param data 待缓存的数据
@@ -347,7 +341,7 @@ public class RedisUtils {
     }
 
     /**
-     * 注册Set监听器
+     * 注册Set监听器.
      * <p>
      * key 监听器需开启 `notify-keyspace-events` 等 redis 相关配置
      *
@@ -360,7 +354,7 @@ public class RedisUtils {
     }
 
     /**
-     * 获得缓存的set
+     * 获得缓存的set.
      *
      * @param key 缓存的key
      * @return set对象
@@ -371,7 +365,7 @@ public class RedisUtils {
     }
 
     /**
-     * 缓存Map
+     * 缓存Map.
      *
      * @param key     缓存的键值
      * @param dataMap 缓存的数据
@@ -384,9 +378,7 @@ public class RedisUtils {
     }
 
     /**
-     * 注册Map监听器
-     * <p>
-     * key 监听器需开启 `notify-keyspace-events` 等 redis 相关配置
+     * 注册Map监听器.
      *
      * @param key      缓存的键值
      * @param listener 监听器配置
@@ -397,7 +389,7 @@ public class RedisUtils {
     }
 
     /**
-     * 获得缓存的Map
+     * 获得缓存的Map.
      *
      * @param key 缓存的键值
      * @return map对象
@@ -408,7 +400,7 @@ public class RedisUtils {
     }
 
     /**
-     * 获得缓存Map的key列表
+     * 获得缓存Map的key列表.
      *
      * @param key 缓存的键值
      * @return key列表
@@ -419,7 +411,7 @@ public class RedisUtils {
     }
 
     /**
-     * 往Hash中存入数据
+     * 往Hash中存入数据.
      *
      * @param key   Redis键
      * @param hKey  Hash键
@@ -431,7 +423,7 @@ public class RedisUtils {
     }
 
     /**
-     * 获取Hash中的数据
+     * 获取Hash中的数据.
      *
      * @param key  Redis键
      * @param hKey Hash键
@@ -443,7 +435,7 @@ public class RedisUtils {
     }
 
     /**
-     * 删除Hash中的数据
+     * 删除Hash中的数据.
      *
      * @param key  Redis键
      * @param hKey Hash键
@@ -455,7 +447,7 @@ public class RedisUtils {
     }
 
     /**
-     * 删除Hash中的数据
+     * 删除Hash中的数据.
      *
      * @param key   Redis键
      * @param hKeys Hash键
@@ -470,7 +462,7 @@ public class RedisUtils {
     }
 
     /**
-     * 获取多个Hash中的数据
+     * 获取多个Hash中的数据.
      *
      * @param key   Redis键
      * @param hKeys Hash键集合
@@ -482,7 +474,7 @@ public class RedisUtils {
     }
 
     /**
-     * 设置原子值
+     * 设置原子值.
      *
      * @param key   Redis键
      * @param value 值
@@ -493,7 +485,7 @@ public class RedisUtils {
     }
 
     /**
-     * 获取原子值
+     * 获取原子值.
      *
      * @param key Redis键
      * @return 当前值
@@ -504,7 +496,7 @@ public class RedisUtils {
     }
 
     /**
-     * 递增原子值
+     * 递增原子值.
      *
      * @param key Redis键
      * @return 当前值
@@ -515,7 +507,7 @@ public class RedisUtils {
     }
 
     /**
-     * 递减原子值
+     * 递减原子值.
      *
      * @param key Redis键
      * @return 当前值
@@ -526,18 +518,19 @@ public class RedisUtils {
     }
 
     /**
-     * 获得缓存的基本对象列表(全局匹配忽略租户 自行拼接租户id)
+     * 获得缓存的基本对象列表(全局匹配忽略租户 自行拼接租户id).
      *
      * @param pattern 字符串前缀
      * @return 对象列表
      */
     public static Collection<String> keys(final String pattern) {
-        Stream<String> stream = CLIENT.getKeys().getKeysStreamByPattern(pattern);
+        Stream<String> stream = CLIENT.getKeys().getKeysStream()
+            .filter(key -> key.matches(pattern.replace("*", ".*")));
         return stream.collect(Collectors.toList());
     }
 
     /**
-     * 删除缓存的基本对象列表(全局匹配忽略租户 自行拼接租户id)
+     * 删除缓存的基本对象列表(全局匹配忽略租户 自行拼接租户id).
      *
      * @param pattern 字符串前缀
      */
@@ -546,7 +539,7 @@ public class RedisUtils {
     }
 
     /**
-     * 检查redis中是否存在key
+     * 检查redis中是否存在key.
      *
      * @param key 键
      */

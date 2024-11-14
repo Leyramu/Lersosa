@@ -31,7 +31,7 @@ import java.time.Duration;
 import java.util.LinkedHashMap;
 
 /**
- * 短信功能
+ * 短信功能.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -45,11 +45,11 @@ import java.util.LinkedHashMap;
 public class SysSmsController extends BaseController {
 
     /**
-     * 短信验证码
+     * 短信验证码.
      *
      * @param phonenumber 用户手机号
      */
-    @RateLimiter(key = "#phonenumber", time = 60, count = 1)
+    @RateLimiter(key = "#phonenumber", count = 1)
     @GetMapping("/code")
     public R<Void> smsCaptcha(@NotBlank(message = "{user.phonenumber.not.blank}") String phonenumber) {
         String key = GlobalConstants.CAPTCHA_CODE_KEY + phonenumber;
@@ -67,5 +67,4 @@ public class SysSmsController extends BaseController {
         }
         return R.ok();
     }
-
 }

@@ -15,7 +15,7 @@ import org.flowable.task.api.Task;
 import java.util.List;
 
 /**
- * 节点驳回记录Service接口
+ * 节点驳回记录Service接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -24,14 +24,14 @@ import java.util.List;
 public interface IWfTaskBackNodeService {
 
     /**
-     * 记录审批节点
+     * 记录审批节点.
      *
      * @param task 任务
      */
     void recordExecuteNode(Task task);
 
     /**
-     * 按流程实例id查询
+     * 按流程实例id查询.
      *
      * @param processInstanceId 流程实例id
      * @return 结果
@@ -39,7 +39,7 @@ public interface IWfTaskBackNodeService {
     List<WfTaskBackNode> getListByInstanceId(String processInstanceId);
 
     /**
-     * 按照流程实例id，节点id查询
+     * 按照流程实例id，节点id查询.
      *
      * @param processInstanceId 流程实例id
      * @param nodeId            节点id
@@ -48,27 +48,26 @@ public interface IWfTaskBackNodeService {
     WfTaskBackNode getListByInstanceIdAndNodeId(String processInstanceId, String nodeId);
 
     /**
-     * 删除驳回后的节点
+     * 删除驳回后的节点.
      *
      * @param processInstanceId 流程实例id
      * @param targetActivityId  节点id
-     * @return 结果
      */
-    boolean deleteBackTaskNode(String processInstanceId, String targetActivityId);
+    void deleteBackTaskNode(String processInstanceId, String targetActivityId);
 
     /**
-     * 按流程实例id删除
+     * 按流程实例id删除.
      *
      * @param processInstanceId 流程实例id
      * @return 结果
      */
+    @SuppressWarnings("unused")
     boolean deleteByInstanceId(String processInstanceId);
 
     /**
-     * 按流程实例id删除
+     * 按流程实例id删除.
      *
      * @param processInstanceIds 流程实例id
-     * @return 结果
      */
-    boolean deleteByInstanceIds(List<String> processInstanceIds);
+    void deleteByInstanceIds(List<String> processInstanceIds);
 }

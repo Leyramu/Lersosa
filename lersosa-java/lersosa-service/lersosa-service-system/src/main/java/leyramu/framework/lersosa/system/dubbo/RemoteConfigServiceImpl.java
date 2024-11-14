@@ -15,7 +15,7 @@ import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.stereotype.Service;
 
 /**
- * 配置服务
+ * 配置服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,11 +29,10 @@ public class RemoteConfigServiceImpl implements RemoteConfigService {
     private final ISysConfigService configService;
 
     /**
-     * 获取注册开关
+     * 获取注册开关.
      */
     @Override
     public boolean selectRegisterEnabled(String tenantId) {
         return configService.selectRegisterEnabled(tenantId);
     }
-
 }

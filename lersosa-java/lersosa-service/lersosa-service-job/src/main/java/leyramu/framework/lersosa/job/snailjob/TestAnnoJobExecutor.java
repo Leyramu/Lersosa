@@ -16,7 +16,7 @@ import com.aizuda.snailjob.common.log.SnailJobLog;
 import org.springframework.stereotype.Component;
 
 /**
- * 测试注解方式
+ * 测试注解方式.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @JobExecutor(name = "testJobExecutor")
+@SuppressWarnings("unused")
 public class TestAnnoJobExecutor {
 
     public ExecuteResult jobExecute(JobArgs jobArgs) {

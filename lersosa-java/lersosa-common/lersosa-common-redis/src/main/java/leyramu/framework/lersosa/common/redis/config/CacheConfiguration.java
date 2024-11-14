@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Bean;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 缓存配置
+ * 缓存配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 public class CacheConfiguration {
 
     /**
-     * caffeine 本地缓存处理器
+     * caffeine 本地缓存处理器.
      */
     @Bean
     public Cache<Object, Object> caffeine() {
@@ -45,11 +45,10 @@ public class CacheConfiguration {
     }
 
     /**
-     * 自定义缓存管理器 整合spring-cache
+     * 自定义缓存管理器 整合spring-cache.
      */
     @Bean
     public CacheManager cacheManager() {
         return new PlusSpringCacheManager();
     }
-
 }

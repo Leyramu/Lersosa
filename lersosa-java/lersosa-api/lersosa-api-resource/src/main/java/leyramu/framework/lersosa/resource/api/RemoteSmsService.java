@@ -14,16 +14,17 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
- * 短信服务
+ * 短信服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@SuppressWarnings("unused")
 public interface RemoteSmsService {
 
     /**
-     * 同步方法：发送固定消息模板短信
+     * 同步方法：发送固定消息模板短信.
      *
      * @param phone   目标手机号
      * @param message 短信内容
@@ -32,7 +33,7 @@ public interface RemoteSmsService {
     RemoteSms sendMessage(String phone, String message);
 
     /**
-     * 同步方法：发送固定消息模板多模板参数短信
+     * 同步方法：发送固定消息模板多模板参数短信.
      *
      * @param phone    目标手机号
      * @param messages 短信模板参数，使用 LinkedHashMap 以保持参数顺序
@@ -41,7 +42,7 @@ public interface RemoteSmsService {
     RemoteSms sendMessage(String phone, LinkedHashMap<String, String> messages);
 
     /**
-     * 同步方法：使用自定义模板发送短信
+     * 同步方法：使用自定义模板发送短信.
      *
      * @param phone      目标手机号
      * @param templateId 短信模板ID
@@ -51,7 +52,7 @@ public interface RemoteSmsService {
     RemoteSms sendMessage(String phone, String templateId, LinkedHashMap<String, String> messages);
 
     /**
-     * 同步方法：群发固定模板短信
+     * 同步方法：群发固定模板短信.
      *
      * @param phones  目标手机号列表（1~1000）
      * @param message 短信内容
@@ -60,7 +61,7 @@ public interface RemoteSmsService {
     RemoteSms messageTexting(List<String> phones, String message);
 
     /**
-     * 同步方法：使用自定义模板群发短信
+     * 同步方法：使用自定义模板群发短信.
      *
      * @param phones     目标手机号列表（1~1000）（1~1000）
      * @param templateId 短信模板ID
@@ -70,7 +71,7 @@ public interface RemoteSmsService {
     RemoteSms messageTexting(List<String> phones, String templateId, LinkedHashMap<String, String> messages);
 
     /**
-     * 异步方法：发送固定消息模板短信
+     * 异步方法：发送固定消息模板短信.
      *
      * @param phone   目标手机号
      * @param message 短信内容
@@ -78,7 +79,7 @@ public interface RemoteSmsService {
     void sendMessageAsync(String phone, String message);
 
     /**
-     * 异步方法：使用自定义模板发送短信
+     * 异步方法：使用自定义模板发送短信.
      *
      * @param phone      目标手机号
      * @param templateId 短信模板ID
@@ -87,7 +88,7 @@ public interface RemoteSmsService {
     void sendMessageAsync(String phone, String templateId, LinkedHashMap<String, String> messages);
 
     /**
-     * 延迟发送：发送固定消息模板短信
+     * 延迟发送：发送固定消息模板短信.
      *
      * @param phone       目标手机号
      * @param message     短信内容
@@ -96,7 +97,7 @@ public interface RemoteSmsService {
     void delayMessage(String phone, String message, Long delayedTime);
 
     /**
-     * 延迟发送：使用自定义模板发送定时短信
+     * 延迟发送：使用自定义模板发送定时短信.
      *
      * @param phone       目标手机号
      * @param templateId  短信模板ID
@@ -106,7 +107,7 @@ public interface RemoteSmsService {
     void delayMessage(String phone, String templateId, LinkedHashMap<String, String> messages, Long delayedTime);
 
     /**
-     * 延迟群发：群发延迟短信
+     * 延迟群发：群发延迟短信.
      *
      * @param phones      目标手机号列表（1~1000）
      * @param message     短信内容
@@ -115,7 +116,7 @@ public interface RemoteSmsService {
     void delayMessageTexting(List<String> phones, String message, Long delayedTime);
 
     /**
-     * 延迟群发：使用自定义模板发送群体延迟短信
+     * 延迟群发：使用自定义模板发送群体延迟短信.
      *
      * @param phones      目标手机号列表（1~1000）
      * @param templateId  短信模板ID
@@ -125,31 +126,30 @@ public interface RemoteSmsService {
     void delayMessageTexting(List<String> phones, String templateId, LinkedHashMap<String, String> messages, Long delayedTime);
 
     /**
-     * 加入黑名单
+     * 加入黑名单.
      *
      * @param phone 手机号
      */
     void addBlacklist(String phone);
 
     /**
-     * 加入黑名单
+     * 加入黑名单.
      *
      * @param phones 手机号列表
      */
     void addBlacklist(List<String> phones);
 
     /**
-     * 移除黑名单
+     * 移除黑名单.
      *
      * @param phone 手机号
      */
     void removeBlacklist(String phone);
 
     /**
-     * 移除黑名单
+     * 移除黑名单.
      *
      * @param phones 手机号
      */
     void removeBlacklist(List<String> phones);
-
 }

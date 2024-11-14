@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 任务催办
+ * 任务催办.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,17 +28,17 @@ public class TaskUrgingBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 流程实例id
+     * 流程实例id.
      */
     private String processInstanceId;
 
     /**
-     * 消息类型
+     * 消息类型.
      */
     private List<String> messageType;
 
     /**
-     * 催办内容（为空默认系统内置信息）
+     * 催办内容（为空默认系统内置信息）.
      */
     private String message;
 }

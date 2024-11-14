@@ -15,17 +15,18 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 /**
- * 文件服务(降级处理)
+ * 文件服务(降级处理).
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
 @Slf4j
+@SuppressWarnings("all")
 public class RemoteFileServiceMock implements RemoteFileService {
 
     /**
-     * 上传文件
+     * 上传文件.
      *
      * @param file 文件信息
      * @return 结果
@@ -37,7 +38,7 @@ public class RemoteFileServiceMock implements RemoteFileService {
     }
 
     /**
-     * 通过ossId查询对应的url
+     * 通过ossId查询对应的url.
      *
      * @param ossIds ossId串逗号分隔
      * @return url串逗号分隔
@@ -49,7 +50,7 @@ public class RemoteFileServiceMock implements RemoteFileService {
     }
 
     /**
-     * 通过ossId查询列表
+     * 通过ossId查询列表.
      *
      * @param ossIds ossId串逗号分隔
      * @return 列表
@@ -59,5 +60,4 @@ public class RemoteFileServiceMock implements RemoteFileService {
         log.warn("服务调用异常 -> 降级处理");
         return List.of();
     }
-
 }

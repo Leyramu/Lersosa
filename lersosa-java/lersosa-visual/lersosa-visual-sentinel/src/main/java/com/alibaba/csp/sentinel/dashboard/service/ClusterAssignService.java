@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.service;
 
 import com.alibaba.csp.sentinel.dashboard.domain.cluster.ClusterAppAssignResultVO;
@@ -14,37 +15,43 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * 集群分配服务.
+ *
  * @author Eric Zhao
- * @since 1.4.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
 public interface ClusterAssignService {
 
     /**
-     * Unbind a specific cluster server and its clients.
+     * 解绑特定集群服务器及其客户端.
      *
-     * @param app       app name
-     * @param machineId valid machine ID ({@code host@commandPort})
-     * @return assign result
+     * @param app       应用名称
+     * @param machineId 有效的计算机 ID （{@code host@commandPort}）
+     * @return 分配结果
      */
     ClusterAppAssignResultVO unbindClusterServer(String app, String machineId);
 
     /**
-     * Unbind a set of cluster servers and its clients.
+     * 解绑一组集群服务器及其客户端.
      *
-     * @param app          app name
-     * @param machineIdSet set of valid machine ID ({@code host@commandPort})
-     * @return assign result
+     * @param app          应用名称
+     * @param machineIdSet 一组有效的计算机 ID （{@code host@commandPort}）
+     * @return 分配结果
      */
     ClusterAppAssignResultVO unbindClusterServers(String app, Set<String> machineIdSet);
 
     /**
-     * Apply cluster server and client assignment for provided app.
+     * 为提供的应用程序应用群集服务器和客户端分配.
      *
-     * @param app          app name
-     * @param clusterMap   cluster assign map (server -> clients)
-     * @param remainingSet unassigned set of machine ID
-     * @return assign result
+     * @param app          应用名称
+     * @param clusterMap   集群分配映射（服务器 -> 客户端）
+     * @param remainingSet 未分配的计算机 ID 集
+     * @return 分配结果
      */
-    ClusterAppAssignResultVO applyAssignToApp(String app, List<ClusterAppAssignMap> clusterMap,
-                                              Set<String> remainingSet);
+    ClusterAppAssignResultVO applyAssignToApp(
+        String app,
+        List<ClusterAppAssignMap> clusterMap,
+        Set<String> remainingSet);
 }

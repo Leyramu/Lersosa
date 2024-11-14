@@ -37,7 +37,7 @@ import java.util.Map;
 import java.util.StringJoiner;
 
 /**
- * 防止重复提交(参考美团GTIS防重系统)
+ * 防止重复提交(参考美团GTIS防重系统).
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -49,7 +49,7 @@ public class RepeatSubmitAspect {
     private static final ThreadLocal<String> KEY_CACHE = new ThreadLocal<>();
 
     @Before("@annotation(repeatSubmit)")
-    public void doBefore(JoinPoint point, RepeatSubmit repeatSubmit) throws Throwable {
+    public void doBefore(JoinPoint point, RepeatSubmit repeatSubmit) {
         // 如果注解不为0 则使用注解数值
         long interval = repeatSubmit.timeUnit().toMillis(repeatSubmit.interval());
 
@@ -60,10 +60,16 @@ public class RepeatSubmitAspect {
         String nowParams = argsArrayToString(point.getArgs());
 
         // 请求地址（作为存放cache的key值）
-        String url = request.getRequestURI();
+        String url = null;
+        if (request != null) {
+            url = request.getRequestURI();
+        }
 
         // 唯一值（没有消息头则使用请求地址）
-        String submitKey = StringUtils.trimToEmpty(request.getHeader(SaManager.getConfig().getTokenName()));
+        String submitKey = null;
+        if (request != null) {
+            submitKey = StringUtils.trimToEmpty(request.getHeader(SaManager.getConfig().getTokenName()));
+        }
 
         submitKey = SecureUtil.md5(submitKey + ":" + nowParams);
         // 唯一标识（指定key + url + 消息头）
@@ -80,12 +86,12 @@ public class RepeatSubmitAspect {
     }
 
     /**
-     * 处理完请求后执行
+     * 处理完请求后执行.
      *
-     * @param joinPoint 切点
+     * @param ignoredRepeatSubmit 切点
      */
-    @AfterReturning(pointcut = "@annotation(repeatSubmit)", returning = "jsonResult")
-    public void doAfterReturning(JoinPoint joinPoint, RepeatSubmit repeatSubmit, Object jsonResult) {
+    @AfterReturning(pointcut = "@annotation(ignoredRepeatSubmit)", returning = "jsonResult")
+    public void doAfterReturning(JoinPoint ignoredJoinPoint, RepeatSubmit ignoredRepeatSubmit, Object jsonResult) {
         if (jsonResult instanceof R<?> r) {
             try {
                 // 成功则不删除redis数据 保证在有效时间内无法重复提交
@@ -100,19 +106,19 @@ public class RepeatSubmitAspect {
     }
 
     /**
-     * 拦截异常操作
+     * 拦截异常操作.
      *
-     * @param joinPoint 切点
-     * @param e         异常
+     * @param ignoredRepeatSubmit 切点
+     * @param ignoredE            异常
      */
-    @AfterThrowing(value = "@annotation(repeatSubmit)", throwing = "e")
-    public void doAfterThrowing(JoinPoint joinPoint, RepeatSubmit repeatSubmit, Exception e) {
+    @AfterThrowing(value = "@annotation(ignoredRepeatSubmit)", throwing = "ignoredE")
+    public void doAfterThrowing(JoinPoint ignoredJoinPoint, RepeatSubmit ignoredRepeatSubmit, Exception ignoredE) {
         RedisUtils.deleteObject(KEY_CACHE.get());
         KEY_CACHE.remove();
     }
 
     /**
-     * 参数拼装
+     * 参数拼装.
      */
     private String argsArrayToString(Object[] paramsArray) {
         StringJoiner params = new StringJoiner(" ");
@@ -128,7 +134,7 @@ public class RepeatSubmitAspect {
     }
 
     /**
-     * 判断是否需要过滤的对象。
+     * 判断是否需要过滤的对象.
      *
      * @param o 对象信息。
      * @return 如果是需要过滤的对象，则返回true；否则返回false。
@@ -152,5 +158,4 @@ public class RepeatSubmitAspect {
         return o instanceof MultipartFile || o instanceof HttpServletRequest || o instanceof HttpServletResponse
             || o instanceof BindingResult;
     }
-
 }

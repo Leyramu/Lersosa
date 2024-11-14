@@ -12,12 +12,11 @@ import leyramu.framework.lersosa.common.mybatis.core.mapper.BaseMapperPlus;
 import leyramu.framework.lersosa.system.domain.SysUserPost;
 
 /**
- * 用户与岗位关联表 数据层
+ * 用户与岗位关联表 数据层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
 public interface SysUserPostMapper extends BaseMapperPlus<SysUserPost, SysUserPost> {
-
 }

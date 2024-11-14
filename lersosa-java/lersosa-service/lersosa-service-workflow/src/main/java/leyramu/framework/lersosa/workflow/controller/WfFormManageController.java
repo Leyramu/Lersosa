@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 表单管理
+ * 表单管理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -47,7 +47,7 @@ public class WfFormManageController extends BaseController {
     private final IWfFormManageService wfFormManageService;
 
     /**
-     * 查询表单管理列表
+     * 查询表单管理列表.
      */
     @SaCheckPermission("workflow:formManage:list")
     @GetMapping("/list")
@@ -56,7 +56,7 @@ public class WfFormManageController extends BaseController {
     }
 
     /**
-     * 查询表单管理列表
+     * 查询表单管理列表.
      */
     @SaCheckPermission("workflow:formManage:list")
     @GetMapping("/list/selectList")
@@ -65,7 +65,7 @@ public class WfFormManageController extends BaseController {
     }
 
     /**
-     * 导出表单管理列表
+     * 导出表单管理列表.
      */
     @SaCheckPermission("workflow:formManage:export")
     @Log(title = "表单管理", businessType = BusinessType.EXPORT)
@@ -76,7 +76,7 @@ public class WfFormManageController extends BaseController {
     }
 
     /**
-     * 获取表单管理详细信息
+     * 获取表单管理详细信息.
      *
      * @param id 主键
      */
@@ -88,7 +88,7 @@ public class WfFormManageController extends BaseController {
     }
 
     /**
-     * 新增表单管理
+     * 新增表单管理.
      */
     @SaCheckPermission("workflow:formManage:add")
     @Log(title = "表单管理", businessType = BusinessType.INSERT)
@@ -99,7 +99,7 @@ public class WfFormManageController extends BaseController {
     }
 
     /**
-     * 修改表单管理
+     * 修改表单管理.
      */
     @SaCheckPermission("workflow:formManage:edit")
     @Log(title = "表单管理", businessType = BusinessType.UPDATE)
@@ -110,7 +110,7 @@ public class WfFormManageController extends BaseController {
     }
 
     /**
-     * 删除表单管理
+     * 删除表单管理.
      *
      * @param ids 主键串
      */

@@ -12,7 +12,7 @@ import io.grpc.stub.StreamObserver;
 import leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass;
 
 /**
- * GreeterService 业务层 接口
+ * GreeterService 业务层 接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * 租户Service接口
+ * 租户Service接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,72 +26,73 @@ import java.util.List;
 public interface ISysTenantService {
 
     /**
-     * 查询租户
+     * 查询租户.
      */
     SysTenantVo queryById(Long id);
 
     /**
-     * 基于租户ID查询租户
+     * 基于租户ID查询租户.
      */
     SysTenantVo queryByTenantId(String tenantId);
 
     /**
-     * 查询租户列表
+     * 查询租户列表.
      */
     TableDataInfo<SysTenantVo> queryPageList(SysTenantBo bo, PageQuery pageQuery);
 
     /**
-     * 查询租户列表
+     * 查询租户列表.
      */
     List<SysTenantVo> queryList(SysTenantBo bo);
 
     /**
-     * 新增租户
+     * 新增租户.
      */
     Boolean insertByBo(SysTenantBo bo);
 
     /**
-     * 修改租户
+     * 修改租户.
      */
     Boolean updateByBo(SysTenantBo bo);
 
     /**
-     * 修改租户状态
+     * 修改租户状态.
      */
     int updateTenantStatus(SysTenantBo bo);
 
     /**
-     * 校验租户是否允许操作
+     * 校验租户是否允许操作.
      */
     void checkTenantAllowed(String tenantId);
 
     /**
-     * 校验并批量删除租户信息
+     * 校验并批量删除租户信息.
      */
     Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid);
 
     /**
-     * 校验企业名称是否唯一
+     * 校验企业名称是否唯一.
      */
     boolean checkCompanyNameUnique(SysTenantBo bo);
 
     /**
-     * 校验账号余额
+     * 校验账号余额.
      */
     boolean checkAccountBalance(String tenantId);
 
     /**
-     * 校验有效期
+     * 校验有效期.
      */
+    @SuppressWarnings("unused")
     boolean checkExpireTime(String tenantId);
 
     /**
-     * 同步租户套餐
+     * 同步租户套餐.
      */
     Boolean syncTenantPackage(String tenantId, Long packageId);
 
     /**
-     * 同步租户字典
+     * 同步租户字典.
      */
     void syncTenantDict();
 }

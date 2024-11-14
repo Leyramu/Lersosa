@@ -14,7 +14,7 @@ import leyramu.framework.lersosa.demo.domain.ShardingOrderItem;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 订单明细表 Mapper 接口
+ * 订单明细表 Mapper 接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

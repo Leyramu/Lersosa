@@ -16,7 +16,7 @@ import me.zhyd.oauth.cache.AuthStateCache;
 import java.time.Duration;
 
 /**
- * 授权状态缓存
+ * 授权状态缓存.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,7 +26,7 @@ import java.time.Duration;
 public class AuthRedisStateCache implements AuthStateCache {
 
     /**
-     * 存入缓存
+     * 存入缓存.
      *
      * @param key   缓存key
      * @param value 缓存内容
@@ -38,7 +38,7 @@ public class AuthRedisStateCache implements AuthStateCache {
     }
 
     /**
-     * 存入缓存
+     * 存入缓存.
      *
      * @param key     缓存key
      * @param value   缓存内容
@@ -50,7 +50,7 @@ public class AuthRedisStateCache implements AuthStateCache {
     }
 
     /**
-     * 获取缓存内容
+     * 获取缓存内容.
      *
      * @param key 缓存key
      * @return 缓存内容
@@ -61,7 +61,7 @@ public class AuthRedisStateCache implements AuthStateCache {
     }
 
     /**
-     * 是否存在key，如果对应key的value值已过期，也返回false
+     * 是否存在key，如果对应key的value值已过期，也返回false.
      *
      * @param key 缓存key
      * @return true：存在key，并且value没过期；false：key不存在或者已过期

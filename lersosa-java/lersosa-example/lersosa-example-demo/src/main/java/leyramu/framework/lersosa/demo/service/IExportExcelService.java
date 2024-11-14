@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.demo.service;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * 导出下拉框Excel示例
+ * 导出下拉框Excel示例.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public interface IExportExcelService {
 
     /**
-     * 导出下拉框
+     * 导出下拉框.
      *
      * @param response /
      */

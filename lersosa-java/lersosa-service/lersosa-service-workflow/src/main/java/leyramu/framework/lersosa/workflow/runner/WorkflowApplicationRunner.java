@@ -18,7 +18,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 /**
- * 初始化 dubbo 接口生成接口代理 不然无法直接用 SpringUtils 注入 dubbo 接口使用
+ * 初始化 dubbo 接口生成接口代理 不然无法直接用 SpringUtils 注入 dubbo 接口使用.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,6 +27,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RequiredArgsConstructor
 @Component
+@SuppressWarnings("unused")
 public class WorkflowApplicationRunner implements ApplicationRunner {
 
     @DubboReference
@@ -35,7 +36,6 @@ public class WorkflowApplicationRunner implements ApplicationRunner {
     private RemoteFileService remoteFileService;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
     }
-
 }

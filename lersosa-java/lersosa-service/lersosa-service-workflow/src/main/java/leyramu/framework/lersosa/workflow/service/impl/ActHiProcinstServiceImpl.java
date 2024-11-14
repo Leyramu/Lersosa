@@ -21,7 +21,7 @@ import java.util.List;
 
 
 /**
- * 流程实例Service业务层处理
+ * 流程实例Service业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -34,7 +34,7 @@ public class ActHiProcinstServiceImpl implements IActHiProcinstService {
     private final ActHiProcinstMapper baseMapper;
 
     /**
-     * 按照业务id查询
+     * 按照业务id查询.
      *
      * @param businessKeys 业务id
      */
@@ -46,7 +46,7 @@ public class ActHiProcinstServiceImpl implements IActHiProcinstService {
     }
 
     /**
-     * 按照业务id查询
+     * 按照业务id查询.
      *
      * @param businessKey 业务id
      */
@@ -55,6 +55,5 @@ public class ActHiProcinstServiceImpl implements IActHiProcinstService {
         return baseMapper.selectOne(new LambdaQueryWrapper<ActHiProcinst>()
             .eq(ActHiProcinst::getBusinessKey, businessKey)
             .eq(TenantHelper.isEnable(), ActHiProcinst::getTenantId, TenantHelper.getTenantId()));
-
     }
 }

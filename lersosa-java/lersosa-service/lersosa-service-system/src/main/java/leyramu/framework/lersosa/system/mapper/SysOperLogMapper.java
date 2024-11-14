@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.system.domain.SysOperLog;
 import leyramu.framework.lersosa.system.domain.vo.SysOperLogVo;
 
 /**
- * 操作日志 数据层
+ * 操作日志 数据层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

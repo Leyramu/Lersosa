@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 搜索引擎 crud 演示案例
+ * 搜索引擎 crud 演示案例.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -34,7 +34,7 @@ public class EsCrudController {
     private final DocumentMapper documentMapper;
 
     /**
-     * 查询(指定)
+     * 查询(指定).
      *
      * @param title 标题
      */
@@ -46,7 +46,7 @@ public class EsCrudController {
     }
 
     /**
-     * 搜索(模糊)
+     * 搜索(模糊).
      *
      * @param key 搜索关键字
      */
@@ -58,7 +58,7 @@ public class EsCrudController {
     }
 
     /**
-     * 插入
+     * 插入.
      */
     @PostMapping("/insert")
     public Integer insert(@RequestBody Document document) {
@@ -66,7 +66,7 @@ public class EsCrudController {
     }
 
     /**
-     * 更新
+     * 更新.
      */
     @PutMapping("/update")
     public R<Void> update(@RequestBody Document document) {
@@ -74,19 +74,20 @@ public class EsCrudController {
         // case1: 已知id, 根据id更新 (为了演示方便,此id是从上一步查询中复制过来的,实际业务可以自行查询)
         documentMapper.updateById(document);
 
-        // case2: id未知, 根据条件更新
-//        LambdaEsUpdateWrapper<Document> wrapper = new LambdaEsUpdateWrapper<>();
-//        wrapper.like(Document::getTitle, document.getTitle());
-//        Document document2 = new Document();
-//        document2.setTitle(document.getTitle());
-//        document2.setContent(document.getContent());
-//        documentMapper.update(document2, wrapper);
-
+        /*
+            case2: id未知, 根据条件更新
+                LambdaEsUpdateWrapper<Document> wrapper = new LambdaEsUpdateWrapper<>();
+                wrapper.like(Document::getTitle, document.getTitle());
+                Document document2 = new Document();
+                document2.setTitle(document.getTitle());
+                document2.setContent(document.getContent());
+                documentMapper.update(document2, wrapper);
+*/
         return R.ok();
     }
 
     /**
-     * 删除
+     * 删除.
      *
      * @param id 主键
      */
@@ -95,5 +96,4 @@ public class EsCrudController {
         // 测试删除数据 删除有两种情况:根据id删或根据条件删
         return R.ok(documentMapper.deleteById(id));
     }
-
 }

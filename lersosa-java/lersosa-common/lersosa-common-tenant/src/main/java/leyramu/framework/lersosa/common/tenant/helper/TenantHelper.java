@@ -27,7 +27,7 @@ import java.util.Stack;
 import java.util.function.Supplier;
 
 /**
- * 租户助手
+ * 租户助手.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -44,12 +44,13 @@ public class TenantHelper {
     private static final ThreadLocal<Stack<Integer>> REENTRANT_IGNORE = ThreadLocal.withInitial(Stack::new);
 
     /**
-     * 租户功能是否启用
+     * 租户功能是否启用.
      */
     public static boolean isEnable() {
         return Convert.toBool(SpringUtils.getProperty("tenant.enable"), false);
     }
 
+    @SuppressWarnings("all")
     private static IgnoreStrategy getIgnoreStrategy() {
         Object ignoreStrategyLocal = ReflectUtils.getStaticFieldValue(ReflectUtils.getField(InterceptorIgnoreHelper.class, "IGNORE_STRATEGY_LOCAL"));
         if (ignoreStrategyLocal instanceof ThreadLocal<?> IGNORE_STRATEGY_LOCAL) {
@@ -61,7 +62,7 @@ public class TenantHelper {
     }
 
     /**
-     * 开启忽略租户(开启后需手动调用 {@link #disableIgnore()} 关闭)
+     * 开启忽略租户(开启后需手动调用 {@link #disableIgnore()} 关闭).
      */
     public static void enableIgnore() {
         IgnoreStrategy ignoreStrategy = getIgnoreStrategy();
@@ -75,7 +76,7 @@ public class TenantHelper {
     }
 
     /**
-     * 关闭忽略租户
+     * 关闭忽略租户.
      */
     public static void disableIgnore() {
         IgnoreStrategy ignoreStrategy = getIgnoreStrategy();
@@ -96,7 +97,7 @@ public class TenantHelper {
     }
 
     /**
-     * 在忽略租户中执行
+     * 在忽略租户中执行.
      *
      * @param handle 处理执行方法
      */
@@ -110,7 +111,7 @@ public class TenantHelper {
     }
 
     /**
-     * 在忽略租户中执行
+     * 在忽略租户中执行.
      *
      * @param handle 处理执行方法
      */
@@ -124,9 +125,7 @@ public class TenantHelper {
     }
 
     /**
-     * 设置动态租户(一直有效 需要手动清理)
-     * <p>
-     * 如果为未登录状态下 那么只在当前线程内生效
+     * 设置动态租户(一直有效 需要手动清理).
      *
      * @param tenantId 租户id
      * @param global   是否全局生效
@@ -135,7 +134,7 @@ public class TenantHelper {
         if (!isEnable()) {
             return;
         }
-        if (!LoginHelper.isLogin() || !global) {
+        if (LoginHelper.isLogin() || !global) {
             TEMP_DYNAMIC_TENANT.set(tenantId);
             return;
         }
@@ -144,15 +143,13 @@ public class TenantHelper {
     }
 
     /**
-     * 获取动态租户(一直有效 需要手动清理)
-     * <p>
-     * 如果为未登录状态下 那么只在当前线程内生效
+     * 获取动态租户(一直有效 需要手动清理).
      */
     public static String getDynamic() {
         if (!isEnable()) {
             return null;
         }
-        if (!LoginHelper.isLogin()) {
+        if (LoginHelper.isLogin()) {
             return TEMP_DYNAMIC_TENANT.get();
         }
         // 如果线程内有值 优先返回
@@ -170,13 +167,13 @@ public class TenantHelper {
     }
 
     /**
-     * 清除动态租户
+     * 清除动态租户.
      */
     public static void clearDynamic() {
         if (!isEnable()) {
             return;
         }
-        if (!LoginHelper.isLogin()) {
+        if (LoginHelper.isLogin()) {
             TEMP_DYNAMIC_TENANT.remove();
             return;
         }
@@ -186,7 +183,7 @@ public class TenantHelper {
     }
 
     /**
-     * 在动态租户中执行
+     * 在动态租户中执行.
      *
      * @param handle 处理执行方法
      */
@@ -200,7 +197,7 @@ public class TenantHelper {
     }
 
     /**
-     * 在动态租户中执行
+     * 在动态租户中执行.
      *
      * @param handle 处理执行方法
      */
@@ -214,7 +211,7 @@ public class TenantHelper {
     }
 
     /**
-     * 获取当前租户id(动态租户优先)
+     * 获取当前租户id(动态租户优先).
      */
     public static String getTenantId() {
         if (!isEnable()) {
@@ -226,5 +223,4 @@ public class TenantHelper {
         }
         return tenantId;
     }
-
 }

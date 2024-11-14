@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.system.domain.SysConfig;
 import leyramu.framework.lersosa.system.domain.vo.SysConfigVo;
 
 /**
- * 参数配置 数据层
+ * 参数配置 数据层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

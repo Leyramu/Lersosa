@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.common.mybatis.core.mapper.BaseMapperPlus;
 import leyramu.framework.lersosa.gen.domain.GenTableColumn;
 
 /**
- * 业务字段 数据层
+ * 业务字段 数据层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

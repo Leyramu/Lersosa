@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.workflow.domain.WfFormManage;
 import leyramu.framework.lersosa.workflow.domain.vo.WfFormManageVo;
 
 /**
- * 表单管理Mapper接口
+ * 表单管理Mapper接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

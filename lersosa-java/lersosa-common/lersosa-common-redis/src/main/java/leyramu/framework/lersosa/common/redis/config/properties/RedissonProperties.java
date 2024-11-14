@@ -15,7 +15,7 @@ import org.redisson.config.SubscriptionMode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Redisson 配置属性
+ * Redisson 配置属性.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,27 +26,27 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class RedissonProperties {
 
     /**
-     * redis缓存key前缀
+     * redis缓存key前缀.
      */
     private String keyPrefix;
 
     /**
-     * 线程池数量,默认值 = 当前处理核数量 * 2
+     * 线程池数量,默认值 = 当前处理核数量 * 2.
      */
     private int threads;
 
     /**
-     * Netty线程池数量,默认值 = 当前处理核数量 * 2
+     * Netty线程池数量,默认值 = 当前处理核数量 * 2.
      */
     private int nettyThreads;
 
     /**
-     * 单机服务配置
+     * 单机服务配置.
      */
     private SingleServerConfig singleServerConfig;
 
     /**
-     * 集群服务配置
+     * 集群服务配置.
      */
     private ClusterServersConfig clusterServersConfig;
 
@@ -55,32 +55,32 @@ public class RedissonProperties {
     public static class SingleServerConfig {
 
         /**
-         * 客户端名称
+         * 客户端名称.
          */
         private String clientName;
 
         /**
-         * 最小空闲连接数
+         * 最小空闲连接数.
          */
         private int connectionMinimumIdleSize;
 
         /**
-         * 连接池大小
+         * 连接池大小.
          */
         private int connectionPoolSize;
 
         /**
-         * 连接空闲超时，单位：毫秒
+         * 连接空闲超时，单位：毫秒.
          */
         private int idleConnectionTimeout;
 
         /**
-         * 命令等待超时，单位：毫秒
+         * 命令等待超时，单位：毫秒.
          */
         private int timeout;
 
         /**
-         * 发布和订阅连接池大小
+         * 发布和订阅连接池大小.
          */
         private int subscriptionConnectionPoolSize;
 
@@ -91,55 +91,53 @@ public class RedissonProperties {
     public static class ClusterServersConfig {
 
         /**
-         * 客户端名称
+         * 客户端名称.
          */
         private String clientName;
 
         /**
-         * master最小空闲连接数
+         * master最小空闲连接数.
          */
         private int masterConnectionMinimumIdleSize;
 
         /**
-         * master连接池大小
+         * master连接池大小.
          */
         private int masterConnectionPoolSize;
 
         /**
-         * slave最小空闲连接数
+         * slave最小空闲连接数.
          */
         private int slaveConnectionMinimumIdleSize;
 
         /**
-         * slave连接池大小
+         * slave连接池大小.
          */
         private int slaveConnectionPoolSize;
 
         /**
-         * 连接空闲超时，单位：毫秒
+         * 连接空闲超时，单位：毫秒.
          */
         private int idleConnectionTimeout;
 
         /**
-         * 命令等待超时，单位：毫秒
+         * 命令等待超时，单位：毫秒.
          */
         private int timeout;
 
         /**
-         * 发布和订阅连接池大小
+         * 发布和订阅连接池大小.
          */
         private int subscriptionConnectionPoolSize;
 
         /**
-         * 读取模式
+         * 读取模式.
          */
         private ReadMode readMode;
 
         /**
-         * 订阅模式
+         * 订阅模式.
          */
         private SubscriptionMode subscriptionMode;
-
     }
-
 }

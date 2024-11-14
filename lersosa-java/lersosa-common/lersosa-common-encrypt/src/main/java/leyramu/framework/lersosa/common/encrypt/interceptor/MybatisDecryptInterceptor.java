@@ -28,7 +28,7 @@ import java.sql.Statement;
 import java.util.*;
 
 /**
- * 出参解密拦截器
+ * 出参解密拦截器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -58,7 +58,7 @@ public class MybatisDecryptInterceptor implements Interceptor {
     }
 
     /**
-     * 解密对象
+     * 解密对象.
      *
      * @param sourceObject 待加密对象
      */
@@ -75,7 +75,7 @@ public class MybatisDecryptInterceptor implements Interceptor {
                 return;
             }
             // 判断第一个元素是否含有注解。如果没有直接返回，提高效率
-            Object firstItem = list.get(0);
+            Object firstItem = list.getFirst();
             if (ObjectUtil.isNull(firstItem) || CollUtil.isEmpty(encryptorManager.getFieldCache(firstItem.getClass()))) {
                 return;
             }
@@ -97,7 +97,7 @@ public class MybatisDecryptInterceptor implements Interceptor {
     }
 
     /**
-     * 字段值进行加密。通过字段的批注注册新的加密算法
+     * 字段值进行加密。通过字段的批注注册新的加密算法.
      *
      * @param value 待加密的值
      * @param field 待加密字段

@@ -18,7 +18,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 /**
- * 全局缓存获取body请求数据（解决流不能重复读取问题）
+ * 全局缓存获取body请求数据（解决流不能重复读取问题）.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

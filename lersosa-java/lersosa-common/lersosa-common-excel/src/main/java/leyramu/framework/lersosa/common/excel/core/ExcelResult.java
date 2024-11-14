@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.common.excel.core;
 import java.util.List;
 
 /**
- * excel返回对象
+ * excel返回对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -20,17 +20,17 @@ import java.util.List;
 public interface ExcelResult<T> {
 
     /**
-     * 对象列表
+     * 对象列表.
      */
     List<T> getList();
 
     /**
-     * 错误列表
+     * 错误列表.
      */
     List<String> getErrorList();
 
     /**
-     * 导入回执
+     * 导入回执.
      */
     String getAnalysis();
 }

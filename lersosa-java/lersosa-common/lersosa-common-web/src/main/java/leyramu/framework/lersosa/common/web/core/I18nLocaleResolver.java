@@ -10,12 +10,14 @@ package leyramu.framework.lersosa.common.web.core;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.NonNull;
 import org.springframework.web.servlet.LocaleResolver;
 
 import java.util.Locale;
+import java.util.MissingResourceException;
 
 /**
- * 获取请求头国际化信息
+ * 获取请求头国际化信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -24,18 +26,28 @@ import java.util.Locale;
 public class I18nLocaleResolver implements LocaleResolver {
 
     @Override
+    @NonNull
     public Locale resolveLocale(HttpServletRequest httpServletRequest) {
         String language = httpServletRequest.getHeader("content-language");
         Locale locale = Locale.getDefault();
-        if (language != null && language.length() > 0) {
+        if (language != null && !language.isEmpty()) {
             String[] split = language.split("_");
-            locale = new Locale(split[0], split[1]);
+            if (split.length == 2) {
+                try {
+                    locale = new Locale.Builder()
+                        .setLanguage(split[0])
+                        .setRegion(split[1])
+                        .build();
+                } catch (IllegalArgumentException e) {
+                    // Handle invalid language or region
+                    throw new MissingResourceException("Invalid language or region", Locale.class.getName(), language);
+                }
+            }
         }
         return locale;
     }
 
     @Override
-    public void setLocale(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Locale locale) {
-
+    public void setLocale(@NonNull HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Locale locale) {
     }
 }

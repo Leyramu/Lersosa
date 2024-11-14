@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ser.std.NumberSerializer;
 import java.io.IOException;
 
 /**
- * 超出 JS 最大最小值 处理
+ * 超出 JS 最大最小值 处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,11 +26,11 @@ import java.io.IOException;
 public class BigNumberSerializer extends NumberSerializer {
 
     /**
-     * 提供实例
+     * 提供实例.
      */
     public static final BigNumberSerializer INSTANCE = new BigNumberSerializer(Number.class);
     /**
-     * 根据 JS Number.MAX_SAFE_INTEGER 与 Number.MIN_SAFE_INTEGER 得来
+     * 根据 JS Number.MAX_SAFE_INTEGER 与 Number.MIN_SAFE_INTEGER 得来.
      */
     private static final long MAX_SAFE_INTEGER = 9007199254740991L;
     private static final long MIN_SAFE_INTEGER = -9007199254740991L;

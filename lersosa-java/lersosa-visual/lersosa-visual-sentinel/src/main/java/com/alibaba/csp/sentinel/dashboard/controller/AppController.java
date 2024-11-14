@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.controller;
 
 import com.alibaba.csp.sentinel.dashboard.discovery.AppInfo;
@@ -12,49 +13,82 @@ import com.alibaba.csp.sentinel.dashboard.discovery.AppManagement;
 import com.alibaba.csp.sentinel.dashboard.discovery.MachineInfo;
 import com.alibaba.csp.sentinel.dashboard.domain.Result;
 import com.alibaba.csp.sentinel.dashboard.domain.vo.MachineInfoVo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 /**
+ * 应用程序控制器.
+ *
  * @author Carpenter Lee
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
 @RestController
-@RequestMapping(value = "/app")
+@RequiredArgsConstructor
+@RequestMapping("/app")
 public class AppController {
 
-    @Autowired
-    private AppManagement appManagement;
+    /**
+     * 应用管理服务接口.
+     */
+    private final AppManagement appManagement;
 
+    /**
+     * 获取所有应用的简要信息列表.
+     *
+     * @param ignoredRequest HttpServletRequest对象，本方法中未使用
+     * @return 包含应用简要信息列表的Result对象
+     */
     @GetMapping("/names.json")
-    public Result<List<String>> queryApps(HttpServletRequest request) {
+    public Result<List<String>> queryApps(HttpServletRequest ignoredRequest) {
         return Result.ofSuccess(appManagement.getAppNames());
     }
 
+    /**
+     * 获取所有应用的简要信息列表.
+     *
+     * @param ignoredRequest HttpServletRequest对象，本方法中未使用
+     * @return 包含应用简要信息列表的Result对象
+     */
     @GetMapping("/briefinfos.json")
-    public Result<List<AppInfo>> queryAppInfos(HttpServletRequest request) {
+    public Result<List<AppInfo>> queryAppInfos(HttpServletRequest ignoredRequest) {
         List<AppInfo> list = new ArrayList<>(appManagement.getBriefApps());
-        Collections.sort(list, Comparator.comparing(AppInfo::getApp));
+        list.sort(Comparator.comparing(AppInfo::getApp));
         return Result.ofSuccess(list);
     }
 
-    @GetMapping(value = "/{app}/machines.json")
+    /**
+     * 根据应用名称获取机器信息列表.
+     *
+     * @param app 应用名称
+     * @return 包含机器信息列表的Result对象
+     */
+    @GetMapping("/{app}/machines.json")
     public Result<List<MachineInfoVo>> getMachinesByApp(@PathVariable("app") String app) {
         AppInfo appInfo = appManagement.getDetailApp(app);
         if (appInfo == null) {
             return Result.ofSuccess(null);
         }
         List<MachineInfo> list = new ArrayList<>(appInfo.getMachines());
-        Collections.sort(list, Comparator.comparing(MachineInfo::getApp).thenComparing(MachineInfo::getIp).thenComparingInt(MachineInfo::getPort));
+        list.sort(Comparator.comparing(MachineInfo::getApp).thenComparing(MachineInfo::getIp).thenComparingInt(MachineInfo::getPort));
         return Result.ofSuccess(MachineInfoVo.fromMachineInfoList(list));
     }
 
-    @RequestMapping(value = "/{app}/machine/remove.json")
+    /**
+     * 移除指定应用的机器信息.
+     *
+     * @param app  应用名称
+     * @param ip   机器的IP地址
+     * @param port 机器的端口号
+     * @return 表示移除操作结果的Result对象
+     */
+    @RequestMapping("/{app}/machine/remove.json")
     public Result<String> removeMachineById(
         @PathVariable("app") String app,
         @RequestParam(name = "ip") String ip,

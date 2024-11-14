@@ -6,4 +6,7 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
+/**
+ * 演示示例的Service接口的实现类.
+ */
 package leyramu.framework.lersosa.demo.service.impl;

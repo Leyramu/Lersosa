@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 使用方式 看官网文档扩展项目
+ * 使用方式 看官网文档扩展项目.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -50,9 +50,7 @@ public class TestShardingController {
             torder.setTotalMoney(100 + Integer.parseInt(i + ""));
             torderMapper.insert(torder);
         }
-
         return R.ok("分库分表数据批量插入成功！");
 
     }
-
 }

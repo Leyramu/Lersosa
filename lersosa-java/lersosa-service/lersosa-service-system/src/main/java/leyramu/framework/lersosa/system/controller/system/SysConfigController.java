@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 参数配置 信息操作处理
+ * 参数配置 信息操作处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -42,7 +42,7 @@ public class SysConfigController extends BaseController {
     private final ISysConfigService configService;
 
     /**
-     * 获取参数配置列表
+     * 获取参数配置列表.
      */
     @SaCheckPermission("system:config:list")
     @GetMapping("/list")
@@ -51,7 +51,7 @@ public class SysConfigController extends BaseController {
     }
 
     /**
-     * 导出参数配置列表
+     * 导出参数配置列表.
      */
     @Log(title = "参数管理", businessType = BusinessType.EXPORT)
     @SaCheckPermission("system:config:export")
@@ -62,7 +62,7 @@ public class SysConfigController extends BaseController {
     }
 
     /**
-     * 根据参数编号获取详细信息
+     * 根据参数编号获取详细信息.
      *
      * @param configId 参数ID
      */
@@ -73,7 +73,7 @@ public class SysConfigController extends BaseController {
     }
 
     /**
-     * 根据参数键名查询参数值
+     * 根据参数键名查询参数值.
      *
      * @param configKey 参数Key
      */
@@ -83,13 +83,13 @@ public class SysConfigController extends BaseController {
     }
 
     /**
-     * 新增参数配置
+     * 新增参数配置.
      */
     @SaCheckPermission("system:config:add")
     @Log(title = "参数管理", businessType = BusinessType.INSERT)
     @PostMapping
     public R<Void> add(@Validated @RequestBody SysConfigBo config) {
-        if (!configService.checkConfigKeyUnique(config)) {
+        if (configService.checkConfigKeyUnique(config)) {
             return R.fail("新增参数'" + config.getConfigName() + "'失败，参数键名已存在");
         }
         configService.insertConfig(config);
@@ -97,13 +97,13 @@ public class SysConfigController extends BaseController {
     }
 
     /**
-     * 修改参数配置
+     * 修改参数配置.
      */
     @SaCheckPermission("system:config:edit")
     @Log(title = "参数管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public R<Void> edit(@Validated @RequestBody SysConfigBo config) {
-        if (!configService.checkConfigKeyUnique(config)) {
+        if (configService.checkConfigKeyUnique(config)) {
             return R.fail("修改参数'" + config.getConfigName() + "'失败，参数键名已存在");
         }
         configService.updateConfig(config);
@@ -111,7 +111,7 @@ public class SysConfigController extends BaseController {
     }
 
     /**
-     * 根据参数键名修改参数配置
+     * 根据参数键名修改参数配置.
      */
     @SaCheckPermission("system:config:edit")
     @Log(title = "参数管理", businessType = BusinessType.UPDATE)
@@ -122,7 +122,7 @@ public class SysConfigController extends BaseController {
     }
 
     /**
-     * 删除参数配置
+     * 删除参数配置.
      *
      * @param configIds 参数ID串
      */
@@ -135,7 +135,7 @@ public class SysConfigController extends BaseController {
     }
 
     /**
-     * 刷新参数缓存
+     * 刷新参数缓存.
      */
     @SaCheckPermission("system:config:remove")
     @Log(title = "参数管理", businessType = BusinessType.CLEAN)

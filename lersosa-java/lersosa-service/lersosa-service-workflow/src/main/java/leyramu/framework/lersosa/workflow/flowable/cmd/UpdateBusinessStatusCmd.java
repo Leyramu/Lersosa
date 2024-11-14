@@ -16,7 +16,7 @@ import org.flowable.engine.impl.persistence.entity.HistoricProcessInstanceEntity
 import org.flowable.engine.impl.util.CommandContextUtil;
 
 /**
- * 修改流程状态
+ * 修改流程状态.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

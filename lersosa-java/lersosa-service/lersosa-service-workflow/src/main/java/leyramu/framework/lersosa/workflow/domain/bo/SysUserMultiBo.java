@@ -15,7 +15,7 @@ import java.io.Serializable;
 
 
 /**
- * 用户加签查询
+ * 用户加签查询.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,22 +28,22 @@ public class SysUserMultiBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 人员名称
+     * 人员名称.
      */
     private String userName;
 
     /**
-     * 人员名称
+     * 人员名称.
      */
     private String nickName;
 
     /**
-     * 部门id
+     * 部门id.
      */
     private String deptId;
 
     /**
-     * 任务id
+     * 任务id.
      */
     private String taskId;
 }

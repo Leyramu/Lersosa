@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 三方登录对象
+ * 三方登录对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,14 +25,13 @@ import lombok.EqualsAndHashCode;
 public class XcxLoginBody extends LoginBody {
 
     /**
-     * 小程序id(多个小程序时使用)
+     * 小程序id(多个小程序时使用).
      */
     private String appid;
 
     /**
-     * 小程序code
+     * 小程序code.
      */
     @NotBlank(message = "{xcx.code.not.blank}")
     private String xcxCode;
-
 }

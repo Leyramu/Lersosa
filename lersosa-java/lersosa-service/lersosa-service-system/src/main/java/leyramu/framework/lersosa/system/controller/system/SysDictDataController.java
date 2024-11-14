@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 数据字典信息
+ * 数据字典信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -46,7 +46,7 @@ public class SysDictDataController extends BaseController {
     private final ISysDictTypeService dictTypeService;
 
     /**
-     * 查询字典数据列表
+     * 查询字典数据列表.
      */
     @SaCheckPermission("system:dict:list")
     @GetMapping("/list")
@@ -55,7 +55,7 @@ public class SysDictDataController extends BaseController {
     }
 
     /**
-     * 导出字典数据列表
+     * 导出字典数据列表.
      */
     @Log(title = "字典数据", businessType = BusinessType.EXPORT)
     @SaCheckPermission("system:dict:export")
@@ -66,7 +66,7 @@ public class SysDictDataController extends BaseController {
     }
 
     /**
-     * 查询字典数据详细
+     * 查询字典数据详细.
      *
      * @param dictCode 字典code
      */
@@ -77,7 +77,7 @@ public class SysDictDataController extends BaseController {
     }
 
     /**
-     * 根据字典类型查询字典数据信息
+     * 根据字典类型查询字典数据信息.
      *
      * @param dictType 字典类型
      */
@@ -91,13 +91,13 @@ public class SysDictDataController extends BaseController {
     }
 
     /**
-     * 新增字典类型
+     * 新增字典类型.
      */
     @SaCheckPermission("system:dict:add")
     @Log(title = "字典数据", businessType = BusinessType.INSERT)
     @PostMapping
     public R<Void> add(@Validated @RequestBody SysDictDataBo dict) {
-        if (!dictDataService.checkDictDataUnique(dict)) {
+        if (dictDataService.checkDictDataUnique(dict)) {
             return R.fail("新增字典数据'" + dict.getDictValue() + "'失败，字典键值已存在");
         }
         dictDataService.insertDictData(dict);
@@ -105,13 +105,13 @@ public class SysDictDataController extends BaseController {
     }
 
     /**
-     * 修改保存字典类型
+     * 修改保存字典类型.
      */
     @SaCheckPermission("system:dict:edit")
     @Log(title = "字典数据", businessType = BusinessType.UPDATE)
     @PutMapping
     public R<Void> edit(@Validated @RequestBody SysDictDataBo dict) {
-        if (!dictDataService.checkDictDataUnique(dict)) {
+        if (dictDataService.checkDictDataUnique(dict)) {
             return R.fail("修改字典数据'" + dict.getDictValue() + "'失败，字典键值已存在");
         }
         dictDataService.updateDictData(dict);
@@ -119,7 +119,7 @@ public class SysDictDataController extends BaseController {
     }
 
     /**
-     * 删除字典类型
+     * 删除字典类型.
      *
      * @param dictCodes 字典code串
      */

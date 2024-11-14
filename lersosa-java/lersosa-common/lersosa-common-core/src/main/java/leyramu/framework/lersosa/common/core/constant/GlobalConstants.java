@@ -9,7 +9,7 @@
 package leyramu.framework.lersosa.common.core.constant;
 
 /**
- * 全局的key常量 (业务无关的key)
+ * 全局的key常量 (业务无关的key).
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -18,28 +18,27 @@ package leyramu.framework.lersosa.common.core.constant;
 public interface GlobalConstants {
 
     /**
-     * 全局 redis key (业务无关的key)
+     * 全局 redis key (业务无关的key).
      */
     String GLOBAL_REDIS_KEY = "global:";
 
     /**
-     * 验证码 redis key
+     * 验证码 redis key.
      */
     String CAPTCHA_CODE_KEY = GLOBAL_REDIS_KEY + "captcha_codes:";
 
     /**
-     * 防重提交 redis key
+     * 防重提交 redis key.
      */
     String REPEAT_SUBMIT_KEY = GLOBAL_REDIS_KEY + "repeat_submit:";
 
     /**
-     * 限流 redis key
+     * 限流 redis key.
      */
     String RATE_LIMIT_KEY = GLOBAL_REDIS_KEY + "rate_limit:";
 
     /**
-     * 三方认证 redis key
+     * 三方认证 redis key.
      */
     String SOCIAL_AUTH_CODE_KEY = GLOBAL_REDIS_KEY + "social_auth_codes:";
-
 }

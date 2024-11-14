@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 
 /**
- * 对象存储配置Controller
+ * 对象存储配置Controller.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -45,7 +45,7 @@ public class SysOssConfigController extends BaseController {
     private final ISysOssConfigService iSysOssConfigService;
 
     /**
-     * 查询对象存储配置列表
+     * 查询对象存储配置列表.
      */
     @SaCheckPermission("system:ossConfig:list")
     @GetMapping("/list")
@@ -54,7 +54,7 @@ public class SysOssConfigController extends BaseController {
     }
 
     /**
-     * 获取对象存储配置详细信息
+     * 获取对象存储配置详细信息.
      *
      * @param ossConfigId OSS配置ID
      */
@@ -65,7 +65,7 @@ public class SysOssConfigController extends BaseController {
     }
 
     /**
-     * 新增对象存储配置
+     * 新增对象存储配置.
      */
     @SaCheckPermission("system:ossConfig:add")
     @Log(title = "对象存储配置", businessType = BusinessType.INSERT)
@@ -75,7 +75,7 @@ public class SysOssConfigController extends BaseController {
     }
 
     /**
-     * 修改对象存储配置
+     * 修改对象存储配置.
      */
     @SaCheckPermission("system:ossConfig:edit")
     @Log(title = "对象存储配置", businessType = BusinessType.UPDATE)
@@ -85,7 +85,7 @@ public class SysOssConfigController extends BaseController {
     }
 
     /**
-     * 删除对象存储配置
+     * 删除对象存储配置.
      *
      * @param ossConfigIds OSS配置ID串
      */
@@ -97,7 +97,7 @@ public class SysOssConfigController extends BaseController {
     }
 
     /**
-     * 状态修改
+     * 状态修改.
      */
     @SaCheckPermission("system:ossConfig:edit")
     @Log(title = "对象存储状态修改", businessType = BusinessType.UPDATE)

@@ -5,17 +5,25 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.entity.rule;
 
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.RuleEntity;
 import com.alibaba.csp.sentinel.slots.block.AbstractRule;
+import lombok.Data;
 
 import java.util.Date;
 
 /**
+ * 规则实体基类.
+ *
  * @author Eric Zhao
- * @since 0.2.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@SuppressWarnings("unused")
 public abstract class AbstractRuleEntity<T extends AbstractRule> implements RuleEntity {
 
     protected Long id;
@@ -69,10 +77,6 @@ public abstract class AbstractRuleEntity<T extends AbstractRule> implements Rule
         return this;
     }
 
-    public T getRule() {
-        return rule;
-    }
-
     public AbstractRuleEntity<T> setRule(T rule) {
         this.rule = rule;
         return this;
@@ -86,10 +90,6 @@ public abstract class AbstractRuleEntity<T extends AbstractRule> implements Rule
     public AbstractRuleEntity<T> setGmtCreate(Date gmtCreate) {
         this.gmtCreate = gmtCreate;
         return this;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
     }
 
     public AbstractRuleEntity<T> setGmtModified(Date gmtModified) {

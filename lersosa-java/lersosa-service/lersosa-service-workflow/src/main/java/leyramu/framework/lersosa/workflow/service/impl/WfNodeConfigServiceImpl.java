@@ -25,7 +25,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * 节点配置Service业务层处理
+ * 节点配置Service业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -39,7 +39,7 @@ public class WfNodeConfigServiceImpl implements IWfNodeConfigService {
     private final IWfFormManageService wfFormManageService;
 
     /**
-     * 查询节点配置
+     * 查询节点配置.
      */
     @Override
     public WfNodeConfigVo queryById(Long id) {
@@ -47,15 +47,15 @@ public class WfNodeConfigServiceImpl implements IWfNodeConfigService {
     }
 
     /**
-     * 保存节点配置
+     * 保存节点配置.
      */
     @Override
-    public Boolean saveOrUpdate(List<WfNodeConfig> list) {
-        return baseMapper.insertOrUpdateBatch(list);
+    public void saveOrUpdate(List<WfNodeConfig> list) {
+        baseMapper.insertOrUpdateBatch(list);
     }
 
     /**
-     * 批量删除节点配置
+     * 批量删除节点配置.
      */
     @Override
     public Boolean deleteByIds(Collection<Long> ids) {
@@ -64,8 +64,8 @@ public class WfNodeConfigServiceImpl implements IWfNodeConfigService {
 
 
     @Override
-    public Boolean deleteByDefIds(Collection<String> ids) {
-        return baseMapper.delete(new LambdaQueryWrapper<WfNodeConfig>().in(WfNodeConfig::getDefinitionId, ids)) > 0;
+    public void deleteByDefIds(Collection<String> ids) {
+        baseMapper.delete(new LambdaQueryWrapper<WfNodeConfig>().in(WfNodeConfig::getDefinitionId, ids));
     }
 
     @Override

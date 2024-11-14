@@ -21,7 +21,7 @@ import reactor.core.publisher.Mono;
 import java.util.Locale;
 
 /**
- * 全局国际化处理
+ * 全局国际化处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -35,7 +35,7 @@ public class GlobalI18nFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String language = exchange.getRequest().getHeaders().getFirst("content-language");
         Locale locale = Locale.getDefault();
-        if (language != null && language.length() > 0) {
+        if (language != null && !language.isEmpty()) {
             String[] split = language.split("_");
             locale = new Locale(split[0], split[1]);
         }
@@ -47,5 +47,4 @@ public class GlobalI18nFilter implements GlobalFilter, Ordered {
     public int getOrder() {
         return Ordered.HIGHEST_PRECEDENCE;
     }
-
 }

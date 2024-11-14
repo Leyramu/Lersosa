@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
 
 /**
- * 重写 cacheName 处理方法 支持多租户
+ * 重写 cacheName 处理方法 支持多租户.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -47,5 +47,4 @@ public class TenantSpringCacheManager extends PlusSpringCacheManager {
         }
         return super.getCache(tenantId + ":" + name);
     }
-
 }

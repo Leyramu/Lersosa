@@ -23,7 +23,7 @@ import java.time.LocalTime;
 
 
 /**
- * 测试分布式锁的样例
+ * 测试分布式锁的样例.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -38,7 +38,7 @@ public class RedisLockController {
     private LockTemplate lockTemplate;
 
     /**
-     * 测试lock4j 注解
+     * 测试lock4j 注解.
      */
     @Lock4j(keys = {"#key"})
     @GetMapping("/testLock4j")
@@ -54,7 +54,7 @@ public class RedisLockController {
     }
 
     /**
-     * 测试lock4j 工具
+     * 测试lock4j 工具.
      */
     @GetMapping("/testLock4jLockTemplate")
     public R<String> testLock4jLockTemplate(String key, String value) {
@@ -77,5 +77,4 @@ public class RedisLockController {
         //结束
         return R.ok("操作成功", value);
     }
-
 }

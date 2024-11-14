@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.entity.rule;
 
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.AbstractRuleEntity;
@@ -12,15 +13,19 @@ import com.alibaba.csp.sentinel.slots.block.authority.AuthorityRule;
 import com.alibaba.csp.sentinel.util.AssertUtil;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.NoArgsConstructor;
 
 /**
+ * 颁发机构规则实体.
+ *
  * @author Eric Zhao
- * @since 0.2.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@NoArgsConstructor
+@SuppressWarnings("unused")
 public class AuthorityRuleEntity extends AbstractRuleEntity<AuthorityRule> {
-
-    public AuthorityRuleEntity() {
-    }
 
     public AuthorityRuleEntity(AuthorityRule authorityRule) {
         AssertUtil.notNull(authorityRule, "Authority rule should not be null");

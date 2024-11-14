@@ -5,55 +5,92 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.cluster.state;
+
+import lombok.Data;
 
 /**
  * @author Eric Zhao
- * @since 1.4.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class ClusterStateSimpleEntity {
 
+    /**
+     * 集群模式.
+     */
     private Integer mode;
+
+    /**
+     * 最近一次修改时间.
+     */
     private Long lastModified;
+
+    /**
+     * 客户端是否可用.
+     */
     private Boolean clientAvailable;
+
+    /**
+     * 服务端是否可用.
+     */
     private Boolean serverAvailable;
 
-    public Integer getMode() {
-        return mode;
-    }
-
+    /**
+     * 设置模式.
+     *
+     * @param mode 模式
+     * @return this
+     */
     public ClusterStateSimpleEntity setMode(Integer mode) {
         this.mode = mode;
         return this;
     }
 
-    public Long getLastModified() {
-        return lastModified;
-    }
-
+    /**
+     * 设置最近一次修改时间.
+     *
+     * @param lastModified 最近一次修改时间
+     * @return this
+     */
+    @SuppressWarnings("unused")
     public ClusterStateSimpleEntity setLastModified(Long lastModified) {
         this.lastModified = lastModified;
         return this;
     }
 
-    public Boolean getClientAvailable() {
-        return clientAvailable;
-    }
-
+    /**
+     * 设置客户端是否可用.
+     *
+     * @param clientAvailable 客户端是否可用
+     * @return this
+     */
+    @SuppressWarnings("unused")
     public ClusterStateSimpleEntity setClientAvailable(Boolean clientAvailable) {
         this.clientAvailable = clientAvailable;
         return this;
     }
 
-    public Boolean getServerAvailable() {
-        return serverAvailable;
-    }
-
+    /**
+     * 设置服务端是否可用.
+     *
+     * @param serverAvailable 服务端是否可用
+     * @return this
+     */
+    @SuppressWarnings("unused")
     public ClusterStateSimpleEntity setServerAvailable(Boolean serverAvailable) {
         this.serverAvailable = serverAvailable;
         return this;
     }
 
+    /**
+     * 输出字符串.
+     *
+     * @return 字符串
+     */
     @Override
     public String toString() {
         return "ClusterStateSimpleEntity{" +

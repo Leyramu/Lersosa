@@ -16,7 +16,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 字典数据表 sys_dict_data
+ * 字典数据表 sys_dict_data.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,53 +28,53 @@ import lombok.EqualsAndHashCode;
 public class SysDictData extends TenantEntity {
 
     /**
-     * 字典编码
+     * 字典编码.
      */
     @TableId(value = "dict_code")
     private Long dictCode;
 
     /**
-     * 字典排序
+     * 字典排序.
      */
     private Integer dictSort;
 
     /**
-     * 字典标签
+     * 字典标签.
      */
     private String dictLabel;
 
     /**
-     * 字典键值
+     * 字典键值.
      */
     private String dictValue;
 
     /**
-     * 字典类型
+     * 字典类型.
      */
     private String dictType;
 
     /**
-     * 样式属性（其他样式扩展）
+     * 样式属性（其他样式扩展）.
      */
     private String cssClass;
 
     /**
-     * 表格字典样式
+     * 表格字典样式.
      */
     private String listClass;
 
     /**
-     * 是否默认（Y是 N否）
+     * 是否默认（Y是 N否）.
      */
     private String isDefault;
 
     /**
-     * 备注
+     * 备注.
      */
     private String remark;
 
+    @SuppressWarnings("unused")
     public boolean getDefault() {
         return UserConstants.YES.equals(this.isDefault);
     }
-
 }

@@ -15,8 +15,7 @@ import org.dromara.sms4j.api.dao.SmsDao;
 import java.time.Duration;
 
 /**
- * SmsDao缓存配置 (使用框架自带RedisUtils实现 协议统一)
- * <p>主要用于短信重试和拦截的缓存
+ * SmsDao缓存配置 (使用框架自带RedisUtils实现 协议统一).
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,7 +24,7 @@ import java.time.Duration;
 public class PlusSmsDao implements SmsDao {
 
     /**
-     * 存储
+     * 存储.
      *
      * @param key       键
      * @param value     值
@@ -37,7 +36,7 @@ public class PlusSmsDao implements SmsDao {
     }
 
     /**
-     * 存储
+     * 存储.
      *
      * @param key   键
      * @param value 值
@@ -48,7 +47,7 @@ public class PlusSmsDao implements SmsDao {
     }
 
     /**
-     * 读取
+     * 读取.
      *
      * @param key 键
      * @return 值
@@ -59,8 +58,7 @@ public class PlusSmsDao implements SmsDao {
     }
 
     /**
-     * remove
-     * <p> 根据key移除缓存
+     * 根据key移除缓存.
      *
      * @param key 缓存键
      * @return 被删除的value
@@ -72,11 +70,10 @@ public class PlusSmsDao implements SmsDao {
     }
 
     /**
-     * 清空
+     * 清空.
      */
     @Override
     public void clean() {
         RedisUtils.deleteObject(GlobalConstants.GLOBAL_REDIS_KEY + "sms:");
     }
-
 }

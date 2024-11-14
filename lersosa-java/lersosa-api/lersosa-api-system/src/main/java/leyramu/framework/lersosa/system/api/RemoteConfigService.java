@@ -9,7 +9,7 @@
 package leyramu.framework.lersosa.system.api;
 
 /**
- * 配置服务
+ * 配置服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -18,11 +18,10 @@ package leyramu.framework.lersosa.system.api;
 public interface RemoteConfigService {
 
     /**
-     * 获取注册开关
+     * 获取注册开关.
      *
      * @param tenantId 租户id
      * @return true开启，false关闭
      */
     boolean selectRegisterEnabled(String tenantId);
-
 }

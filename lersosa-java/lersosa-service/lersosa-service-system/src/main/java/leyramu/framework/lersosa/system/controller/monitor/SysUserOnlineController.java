@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 在线用户监控
+ * 在线用户监控.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 public class SysUserOnlineController extends BaseController {
 
     /**
-     * 获取在线用户监控列表
+     * 获取在线用户监控列表.
      *
      * @param ipaddr   IP地址
      * @param userName 用户名
@@ -83,7 +83,7 @@ public class SysUserOnlineController extends BaseController {
     }
 
     /**
-     * 强退用户
+     * 强退用户.
      *
      * @param tokenId token值
      */
@@ -99,7 +99,7 @@ public class SysUserOnlineController extends BaseController {
     }
 
     /**
-     * 获取当前用户登录在线设备
+     * 获取当前用户登录在线设备.
      */
     @GetMapping()
     public TableDataInfo<SysUserOnline> getInfo() {
@@ -117,7 +117,7 @@ public class SysUserOnlineController extends BaseController {
     }
 
     /**
-     * 强退当前在线设备
+     * 强退当前在线设备.
      *
      * @param tokenId token值
      */
@@ -130,10 +130,9 @@ public class SysUserOnlineController extends BaseController {
             keys.stream()
                 .filter(key -> key.equals(tokenId))
                 .findFirst()
-                .ifPresent(key -> StpUtil.kickoutByTokenValue(tokenId));
+                .ifPresent(_ -> StpUtil.kickoutByTokenValue(tokenId));
         } catch (NotLoginException ignored) {
         }
         return R.ok();
     }
-
 }

@@ -15,7 +15,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 角色
+ * 角色.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,23 +30,22 @@ public class RoleDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 角色ID
+     * 角色ID.
      */
     private Long roleId;
 
     /**
-     * 角色名称
+     * 角色名称.
      */
     private String roleName;
 
     /**
-     * 角色权限
+     * 角色权限.
      */
     private String roleKey;
 
     /**
-     * 数据范围（1：所有数据权限；2：自定义数据权限；3：本部门数据权限；4：本部门及以下数据权限；5：仅本人数据权限）
+     * 数据范围（1：所有数据权限；2：自定义数据权限；3：本部门数据权限；4：本部门及以下数据权限；5：仅本人数据权限）.
      */
     private String dataScope;
-
 }

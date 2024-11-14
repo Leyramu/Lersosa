@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * anyline 适配 动态数据源改造
+ * anyline 适配 动态数据源改造.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -45,8 +45,7 @@ public class MyBatisDataSourceMonitor implements DataSourceMonitor {
     }
 
     /**
-     * 数据源特征 用来定准 adapter 包含数据库或JDBC协议关键字<br/>
-     * 一般会通过 产品名_url 合成 如果返回null 上层方法会通过driver_产品名_url合成
+     * 数据源特征 用来定准 adapter 包含数据库或JDBC协议关键字.
      *
      * @param datasource 数据源
      * @return String 返回null由上层自动提取
@@ -81,7 +80,7 @@ public class MyBatisDataSourceMonitor implements DataSourceMonitor {
     }
 
     /**
-     * 数据源唯一标识 如果不实现则默认feature
+     * 数据源唯一标识 如果不实现则默认feature.
      *
      * @param datasource 数据源
      * @return String 返回null由上层自动提取
@@ -98,8 +97,7 @@ public class MyBatisDataSourceMonitor implements DataSourceMonitor {
     }
 
     /**
-     * ConfigTable.KEEP_ADAPTER=2 : 根据当前接口判断是否保持同一个数据源绑定同一个adapter<br/>
-     * DynamicRoutingDataSource类型的返回false,因为同一个DynamicRoutingDataSource可能对应多类数据库, 如果项目中只有一种数据库 应该直接返回true
+     * ConfigTable.KEEP_ADAPTER=2 : 根据当前接口判断是否保持同一个数据源绑定同一个adapter.
      *
      * @param datasource 数据源
      * @return boolean
@@ -112,5 +110,4 @@ public class MyBatisDataSourceMonitor implements DataSourceMonitor {
         }
         return true;
     }
-
 }

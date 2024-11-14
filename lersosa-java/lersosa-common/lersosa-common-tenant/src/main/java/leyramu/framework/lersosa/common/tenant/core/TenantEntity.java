@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 租户基类
+ * 租户基类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -24,8 +24,7 @@ import lombok.EqualsAndHashCode;
 public class TenantEntity extends BaseEntity {
 
     /**
-     * 租户编号
+     * 租户编号.
      */
     private String tenantId;
-
 }

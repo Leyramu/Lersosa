@@ -14,7 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 模型视图对象
+ * 模型视图对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,32 +27,32 @@ public class ModelVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 模型id
+     * 模型id.
      */
     private String id;
 
     /**
-     * 模型名称
+     * 模型名称.
      */
     private String name;
 
     /**
-     * 模型标识key
+     * 模型标识key.
      */
     private String key;
 
     /**
-     * 模型分类
+     * 模型分类.
      */
     private String categoryCode;
 
     /**
-     * 模型XML
+     * 模型XML.
      */
     private String xml;
 
     /**
-     * 备注
+     * 备注.
      */
     private String description;
 }

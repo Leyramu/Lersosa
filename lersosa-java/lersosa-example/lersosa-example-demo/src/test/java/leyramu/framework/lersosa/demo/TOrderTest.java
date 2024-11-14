@@ -16,6 +16,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+ * 测试分表.
+ *
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 1.0.0
+ * @since 2024/11/6
+ */
 @SpringBootTest
 class TOrderTest {
 
@@ -51,6 +58,4 @@ class TOrderTest {
         }
 
     }
-
-
 }

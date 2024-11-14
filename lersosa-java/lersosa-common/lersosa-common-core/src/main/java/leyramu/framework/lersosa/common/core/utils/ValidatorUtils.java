@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 import java.util.Set;
 
 /**
- * Validator 校验框架工具
+ * Validator 校验框架工具.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,7 +29,7 @@ public class ValidatorUtils {
     private static final Validator VALID = SpringUtils.getBean(Validator.class);
 
     /**
-     * 对给定对象进行参数校验，并根据指定的校验组进行校验
+     * 对给定对象进行参数校验，并根据指定的校验组进行校验.
      *
      * @param object 要进行校验的对象
      * @param groups 校验组
@@ -41,5 +41,4 @@ public class ValidatorUtils {
             throw new ConstraintViolationException("参数校验异常", validate);
         }
     }
-
 }

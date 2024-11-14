@@ -17,7 +17,7 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
 /**
- * 操作日志转换器
+ * 操作日志转换器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,7 +27,7 @@ import org.mapstruct.ReportingPolicy;
 public interface SysOperLogBoConvert extends BaseMapper<RemoteOperLogBo, SysOperLogBo> {
 
     /**
-     * RemoteOperLogBoToSysOperLogBo
+     * RemoteOperLogBoToSysOperLogBo.
      *
      * @param remoteOperLogBo 待转换对象
      * @return 转换后对象

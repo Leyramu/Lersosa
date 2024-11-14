@@ -33,7 +33,7 @@ import java.util.Map;
 
 
 /**
- * 流程定义管理 控制层
+ * 流程定义管理 控制层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -48,7 +48,7 @@ public class ActProcessDefinitionController extends BaseController {
     private final IActProcessDefinitionService actProcessDefinitionService;
 
     /**
-     * 分页查询
+     * 分页查询.
      *
      * @param bo 参数
      */
@@ -58,7 +58,7 @@ public class ActProcessDefinitionController extends BaseController {
     }
 
     /**
-     * 查询历史流程定义列表
+     * 查询历史流程定义列表.
      *
      * @param key 流程定义key
      */
@@ -68,7 +68,7 @@ public class ActProcessDefinitionController extends BaseController {
     }
 
     /**
-     * 查看流程定义图片
+     * 查看流程定义图片.
      *
      * @param processDefinitionId 流程定义id
      */
@@ -78,7 +78,7 @@ public class ActProcessDefinitionController extends BaseController {
     }
 
     /**
-     * 查看流程定义xml文件
+     * 查看流程定义xml文件.
      *
      * @param processDefinitionId 流程定义id
      */
@@ -92,7 +92,7 @@ public class ActProcessDefinitionController extends BaseController {
     }
 
     /**
-     * 删除流程定义
+     * 删除流程定义.
      *
      * @param deploymentIds        部署id
      * @param processDefinitionIds 流程定义id
@@ -105,7 +105,7 @@ public class ActProcessDefinitionController extends BaseController {
     }
 
     /**
-     * 激活或者挂起流程定义
+     * 激活或者挂起流程定义.
      *
      * @param processDefinitionId 流程定义id
      */
@@ -117,7 +117,7 @@ public class ActProcessDefinitionController extends BaseController {
     }
 
     /**
-     * 迁移流程定义
+     * 迁移流程定义.
      *
      * @param currentProcessDefinitionId 当前流程定义id
      * @param fromProcessDefinitionId    需要迁移到的流程定义id
@@ -131,7 +131,7 @@ public class ActProcessDefinitionController extends BaseController {
     }
 
     /**
-     * 流程定义转换为模型
+     * 流程定义转换为模型.
      *
      * @param processDefinitionId 流程定义id
      */
@@ -143,7 +143,7 @@ public class ActProcessDefinitionController extends BaseController {
     }
 
     /**
-     * 通过zip或xml部署流程定义
+     * 通过zip或xml部署流程定义.
      *
      * @param file         文件
      * @param categoryCode 分类
@@ -153,5 +153,4 @@ public class ActProcessDefinitionController extends BaseController {
     public void deployByFile(@RequestParam("file") MultipartFile file, @RequestParam("categoryCode") String categoryCode) {
         actProcessDefinitionService.deployByFile(file, categoryCode);
     }
-
 }

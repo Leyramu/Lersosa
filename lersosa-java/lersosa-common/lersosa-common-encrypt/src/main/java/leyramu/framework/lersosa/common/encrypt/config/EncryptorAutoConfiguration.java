@@ -14,7 +14,7 @@ import leyramu.framework.lersosa.common.encrypt.core.EncryptorManager;
 import leyramu.framework.lersosa.common.encrypt.interceptor.MybatisDecryptInterceptor;
 import leyramu.framework.lersosa.common.encrypt.interceptor.MybatisEncryptInterceptor;
 import leyramu.framework.lersosa.common.encrypt.properties.EncryptorProperties;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -22,20 +22,20 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 /**
- * 加解密配置
+ * 加解密配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@RequiredArgsConstructor
 @AutoConfiguration(after = MybatisPlusAutoConfiguration.class)
 @EnableConfigurationProperties({EncryptorProperties.class, MybatisPlusProperties.class})
 @ConditionalOnClass(MybatisPlusAutoConfiguration.class)
 @ConditionalOnProperty(value = "mybatis-encryptor.enable", havingValue = "true")
 public class EncryptorAutoConfiguration {
 
-    @Autowired
-    private EncryptorProperties properties;
+    private final EncryptorProperties properties;
 
     @Bean
     public EncryptorManager encryptorManager(MybatisPlusProperties mybatisPlusProperties) {

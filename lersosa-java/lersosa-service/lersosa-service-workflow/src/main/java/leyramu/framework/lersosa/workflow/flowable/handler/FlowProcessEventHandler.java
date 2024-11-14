@@ -14,7 +14,7 @@ import leyramu.framework.lersosa.workflow.api.domain.event.ProcessTaskEvent;
 import org.springframework.stereotype.Component;
 
 /**
- * 流程监听服务
+ * 流程监听服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 public class FlowProcessEventHandler {
 
     /**
-     * 总体流程监听(例如: 提交 退回 撤销 终止 作废等)
+     * 总体流程监听(例如: 提交 退回 撤销 终止 作废等).
      *
      * @param key         流程key
      * @param businessKey 业务id
@@ -41,7 +41,7 @@ public class FlowProcessEventHandler {
     }
 
     /**
-     * 执行办理任务监听
+     * 执行办理任务监听.
      *
      * @param key               流程key
      * @param taskDefinitionKey 审批节点key

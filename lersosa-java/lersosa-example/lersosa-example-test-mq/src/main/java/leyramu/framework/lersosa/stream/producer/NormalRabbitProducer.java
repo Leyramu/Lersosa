@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * 普通消息生产者
+ * 普通消息生产者.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,6 +30,6 @@ public class NormalRabbitProducer {
 
     public void send(String message) {
         rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitConfig.ROUTING_KEY, message);
-        log.info("【生产者】Message send: " + message);
+        log.info("【生产者】Message send: {}", message);
     }
 }

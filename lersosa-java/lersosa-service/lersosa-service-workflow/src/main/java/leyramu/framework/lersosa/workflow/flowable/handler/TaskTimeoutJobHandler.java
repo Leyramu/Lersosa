@@ -19,7 +19,7 @@ import org.flowable.task.api.Task;
 import org.flowable.variable.api.delegate.VariableScope;
 
 /**
- * 办理超时(过期)任务
+ * 办理超时(过期)任务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

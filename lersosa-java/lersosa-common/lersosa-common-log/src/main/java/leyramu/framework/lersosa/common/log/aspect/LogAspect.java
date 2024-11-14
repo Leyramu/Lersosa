@@ -37,10 +37,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * 操作日志记录处理
+ * 操作日志记录处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -52,28 +53,28 @@ import java.util.StringJoiner;
 public class LogAspect {
 
     /**
-     * 排除敏感属性字段
+     * 排除敏感属性字段.
      */
     public static final String[] EXCLUDE_PROPERTIES = {"password", "oldPassword", "newPassword", "confirmPassword"};
 
 
     /**
-     * 计时 key
+     * 计时 key.
      */
     private static final ThreadLocal<StopWatch> KEY_CACHE = new ThreadLocal<>();
 
     /**
-     * 处理请求前执行
+     * 处理请求前执行.
      */
-    @Before(value = "@annotation(controllerLog)")
-    public void doBefore(JoinPoint joinPoint, Log controllerLog) {
+    @Before(value = "@annotation(ignoredControllerLog)")
+    public void doBefore(JoinPoint ignoredJoinPoint, Log ignoredControllerLog) {
         StopWatch stopWatch = new StopWatch();
         KEY_CACHE.set(stopWatch);
         stopWatch.start();
     }
 
     /**
-     * 处理完请求后执行
+     * 处理完请求后执行.
      *
      * @param joinPoint 切点
      */
@@ -83,7 +84,7 @@ public class LogAspect {
     }
 
     /**
-     * 拦截异常操作
+     * 拦截异常操作.
      *
      * @param joinPoint 切点
      * @param e         异常
@@ -101,12 +102,16 @@ public class LogAspect {
             operLog.setTenantId(LoginHelper.getTenantId());
             operLog.setStatus(BusinessStatus.SUCCESS.ordinal());
             // 请求的地址
-            String ip = ServletUtils.getClientIP();
+            String ip = ServletUtils.getClientIp();
             operLog.setOperIp(ip);
-            operLog.setOperUrl(StringUtils.substring(ServletUtils.getRequest().getRequestURI(), 0, 255));
+            operLog.setOperUrl(StringUtils.substring(Objects.requireNonNull(ServletUtils.getRequest()).getRequestURI(), 0, 255));
             LoginUser loginUser = LoginHelper.getLoginUser();
-            operLog.setOperName(loginUser.getUsername());
-            operLog.setDeptName(loginUser.getDeptName());
+            if (loginUser != null) {
+                operLog.setOperName(loginUser.getUsername());
+            }
+            if (loginUser != null) {
+                operLog.setDeptName(loginUser.getDeptName());
+            }
 
             if (e != null) {
                 operLog.setStatus(BusinessStatus.FAIL.ordinal());
@@ -129,18 +134,17 @@ public class LogAspect {
         } catch (Exception exp) {
             // 记录本地异常日志
             log.error("异常信息:{}", exp.getMessage());
-            exp.printStackTrace();
         } finally {
             KEY_CACHE.remove();
         }
     }
 
     /**
-     * 获取注解中对方法的描述信息 用于Controller层注解
+     * 获取注解中对方法的描述信息 用于Controller层注解.
      *
      * @param log     日志
      * @param operLog 操作日志
-     * @throws Exception
+     * @throws Exception 异常
      */
     public void getControllerMethodDescription(JoinPoint joinPoint, Log log, OperLogEvent operLog, Object jsonResult) throws Exception {
         // 设置action动作
@@ -161,12 +165,11 @@ public class LogAspect {
     }
 
     /**
-     * 获取请求的参数，放到log中
+     * 获取请求的参数，放到log中.
      *
      * @param operLog 操作日志
-     * @throws Exception 异常
      */
-    private void setRequestValue(JoinPoint joinPoint, OperLogEvent operLog, String[] excludeParamNames) throws Exception {
+    private void setRequestValue(JoinPoint joinPoint, OperLogEvent operLog, String[] excludeParamNames) {
         Map<String, String> paramsMap = ServletUtils.getParamMap(ServletUtils.getRequest());
         String requestMethod = operLog.getRequestMethod();
         if (MapUtil.isEmpty(paramsMap) && StringUtils.equalsAny(requestMethod, HttpMethod.PUT.name(), HttpMethod.POST.name(), HttpMethod.DELETE.name())) {
@@ -180,7 +183,7 @@ public class LogAspect {
     }
 
     /**
-     * 参数拼装
+     * 参数拼装.
      */
     private String argsArrayToString(Object[] paramsArray, String[] excludeParamNames) {
         StringJoiner params = new StringJoiner(" ");
@@ -203,7 +206,7 @@ public class LogAspect {
     }
 
     /**
-     * 判断是否需要过滤的对象。
+     * 判断是否需要过滤的对象.
      *
      * @param o 对象信息。
      * @return 如果是需要过滤的对象，则返回true；否则返回false。

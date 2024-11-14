@@ -22,24 +22,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 安全相关工具类
+ * 安全相关工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
 public class EncryptUtils {
+
     /**
-     * 公钥
+     * 公钥.
      */
     public static final String PUBLIC_KEY = "publicKey";
     /**
-     * 私钥
+     * 私钥.
      */
     public static final String PRIVATE_KEY = "privateKey";
 
     /**
-     * Base64加密
+     * Base64加密.
      *
      * @param data 待加密数据
      * @return 加密后字符串
@@ -49,7 +50,7 @@ public class EncryptUtils {
     }
 
     /**
-     * Base64解密
+     * Base64解密.
      *
      * @param data 待解密数据
      * @return 解密后字符串
@@ -59,7 +60,7 @@ public class EncryptUtils {
     }
 
     /**
-     * AES加密
+     * AES加密.
      *
      * @param data     待解密数据
      * @param password 秘钥字符串
@@ -78,7 +79,7 @@ public class EncryptUtils {
     }
 
     /**
-     * AES加密
+     * AES加密.
      *
      * @param data     待解密数据
      * @param password 秘钥字符串
@@ -97,7 +98,7 @@ public class EncryptUtils {
     }
 
     /**
-     * AES解密
+     * AES解密.
      *
      * @param data     待解密数据
      * @param password 秘钥字符串
@@ -116,7 +117,7 @@ public class EncryptUtils {
     }
 
     /**
-     * sm4加密
+     * sm4加密.
      *
      * @param data     待加密数据
      * @param password 秘钥字符串
@@ -135,7 +136,7 @@ public class EncryptUtils {
     }
 
     /**
-     * sm4加密
+     * sm4加密.
      *
      * @param data     待加密数据
      * @param password 秘钥字符串
@@ -154,7 +155,7 @@ public class EncryptUtils {
     }
 
     /**
-     * sm4解密
+     * sm4解密.
      *
      * @param data     待解密数据
      * @param password 秘钥字符串
@@ -173,10 +174,11 @@ public class EncryptUtils {
     }
 
     /**
-     * 产生sm2加解密需要的公钥和私钥
+     * 产生sm2加解密需要的公钥和私钥.
      *
      * @return 公私钥Map
      */
+    @SuppressWarnings("unused")
     public static Map<String, String> generateSm2Key() {
         Map<String, String> keyMap = new HashMap<>(2);
         SM2 sm2 = SmUtil.sm2();
@@ -186,7 +188,7 @@ public class EncryptUtils {
     }
 
     /**
-     * sm2公钥加密
+     * sm2公钥加密.
      *
      * @param data      待加密数据
      * @param publicKey 公钥
@@ -201,7 +203,7 @@ public class EncryptUtils {
     }
 
     /**
-     * sm2公钥加密
+     * sm2公钥加密.
      *
      * @param data      待加密数据
      * @param publicKey 公钥
@@ -216,7 +218,7 @@ public class EncryptUtils {
     }
 
     /**
-     * sm2私钥解密
+     * sm2私钥解密.
      *
      * @param data       待加密数据
      * @param privateKey 私钥
@@ -231,10 +233,11 @@ public class EncryptUtils {
     }
 
     /**
-     * 产生RSA加解密需要的公钥和私钥
+     * 产生RSA加解密需要的公钥和私钥.
      *
      * @return 公私钥Map
      */
+    @SuppressWarnings("unused")
     public static Map<String, String> generateRsaKey() {
         Map<String, String> keyMap = new HashMap<>(2);
         RSA rsa = SecureUtil.rsa();
@@ -244,7 +247,7 @@ public class EncryptUtils {
     }
 
     /**
-     * rsa公钥加密
+     * rsa公钥加密.
      *
      * @param data      待加密数据
      * @param publicKey 公钥
@@ -259,7 +262,7 @@ public class EncryptUtils {
     }
 
     /**
-     * rsa公钥加密
+     * rsa公钥加密.
      *
      * @param data      待加密数据
      * @param publicKey 公钥
@@ -274,7 +277,7 @@ public class EncryptUtils {
     }
 
     /**
-     * rsa私钥解密
+     * rsa私钥解密.
      *
      * @param data       待加密数据
      * @param privateKey 私钥
@@ -289,7 +292,7 @@ public class EncryptUtils {
     }
 
     /**
-     * md5加密
+     * md5加密.
      *
      * @param data 待加密数据
      * @return 加密后字符串, 采用Hex编码
@@ -299,7 +302,7 @@ public class EncryptUtils {
     }
 
     /**
-     * sha256加密
+     * sha256加密.
      *
      * @param data 待加密数据
      * @return 加密后字符串, 采用Hex编码
@@ -309,7 +312,7 @@ public class EncryptUtils {
     }
 
     /**
-     * sm3加密
+     * sm3加密.
      *
      * @param data 待加密数据
      * @return 加密后字符串, 采用Hex编码
@@ -317,5 +320,4 @@ public class EncryptUtils {
     public static String encryptBySm3(String data) {
         return SmUtil.sm3(data);
     }
-
 }

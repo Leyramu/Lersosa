@@ -12,7 +12,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * sentinel自定义配置类
+ * sentinel自定义配置类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -23,5 +23,4 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class SentinelCustomProperties {
 
     private String serverName;
-
 }

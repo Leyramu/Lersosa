@@ -9,7 +9,7 @@
 package leyramu.framework.lersosa.resource.api;
 
 /**
- * 消息服务
+ * 消息服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -18,7 +18,7 @@ package leyramu.framework.lersosa.resource.api;
 public interface RemoteMessageService {
 
     /**
-     * 发送消息
+     * 发送消息.
      *
      * @param sessionKey session主键 一般为用户id
      * @param message    消息文本
@@ -26,7 +26,7 @@ public interface RemoteMessageService {
     void publishMessage(Long sessionKey, String message);
 
     /**
-     * 发布订阅的消息(群发)
+     * 发布订阅的消息(群发).
      *
      * @param message 消息内容
      */

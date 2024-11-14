@@ -16,7 +16,7 @@ import leyramu.framework.lersosa.system.domain.vo.SysNoticeVo;
 import java.util.List;
 
 /**
- * 公告 服务层
+ * 公告 服务层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,7 +28,7 @@ public interface ISysNoticeService {
     TableDataInfo<SysNoticeVo> selectPageNoticeList(SysNoticeBo notice, PageQuery pageQuery);
 
     /**
-     * 查询公告信息
+     * 查询公告信息.
      *
      * @param noticeId 公告ID
      * @return 公告信息
@@ -36,15 +36,16 @@ public interface ISysNoticeService {
     SysNoticeVo selectNoticeById(Long noticeId);
 
     /**
-     * 查询公告列表
+     * 查询公告列表.
      *
      * @param notice 公告信息
      * @return 公告集合
      */
+    @SuppressWarnings("unused")
     List<SysNoticeVo> selectNoticeList(SysNoticeBo notice);
 
     /**
-     * 新增公告
+     * 新增公告.
      *
      * @param bo 公告信息
      * @return 结果
@@ -52,7 +53,7 @@ public interface ISysNoticeService {
     int insertNotice(SysNoticeBo bo);
 
     /**
-     * 修改公告
+     * 修改公告.
      *
      * @param bo 公告信息
      * @return 结果
@@ -60,15 +61,16 @@ public interface ISysNoticeService {
     int updateNotice(SysNoticeBo bo);
 
     /**
-     * 删除公告信息
+     * 删除公告信息.
      *
      * @param noticeId 公告ID
      * @return 结果
      */
+    @SuppressWarnings("unused")
     int deleteNoticeById(Long noticeId);
 
     /**
-     * 批量删除公告信息
+     * 批量删除公告信息.
      *
      * @param noticeIds 需要删除的公告ID
      * @return 结果

@@ -14,7 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 用户个人信息
+ * 用户个人信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,19 +27,17 @@ public class ProfileVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户信息
+     * 用户信息.
      */
     private SysUserVo user;
 
     /**
-     * 用户所属角色组
+     * 用户所属角色组.
      */
     private String roleGroup;
 
     /**
-     * 用户所属岗位组
+     * 用户所属岗位组.
      */
     private String postGroup;
-
-
 }

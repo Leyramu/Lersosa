@@ -14,7 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 流程变量
+ * 流程变量.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,12 +27,12 @@ public class VariableVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 变量key
+     * 变量key.
      */
     private String key;
 
     /**
-     * 变量值
+     * 变量值.
      */
     private String value;
 }

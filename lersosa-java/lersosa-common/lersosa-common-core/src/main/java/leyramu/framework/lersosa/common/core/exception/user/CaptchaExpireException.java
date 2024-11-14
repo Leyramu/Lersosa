@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.common.core.exception.user;
 import java.io.Serial;
 
 /**
- * 验证码失效异常类
+ * 验证码失效异常类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

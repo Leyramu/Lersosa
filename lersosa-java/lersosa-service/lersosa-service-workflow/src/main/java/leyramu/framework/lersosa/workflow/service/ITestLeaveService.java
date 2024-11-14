@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * 请假Service接口
+ * 请假Service接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,32 +26,32 @@ import java.util.List;
 public interface ITestLeaveService {
 
     /**
-     * 查询请假
+     * 查询请假.
      */
     TestLeaveVo queryById(Long id);
 
     /**
-     * 查询请假列表
+     * 查询请假列表.
      */
     TableDataInfo<TestLeaveVo> queryPageList(TestLeaveBo bo, PageQuery pageQuery);
 
     /**
-     * 查询请假列表
+     * 查询请假列表.
      */
     List<TestLeaveVo> queryList(TestLeaveBo bo);
 
     /**
-     * 新增请假
+     * 新增请假.
      */
     TestLeaveVo insertByBo(TestLeaveBo bo);
 
     /**
-     * 修改请假
+     * 修改请假.
      */
     TestLeaveVo updateByBo(TestLeaveBo bo);
 
     /**
-     * 校验并批量删除请假信息
+     * 校验并批量删除请假信息.
      */
     Boolean deleteWithValidByIds(Collection<Long> ids);
 }

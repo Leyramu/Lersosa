@@ -15,7 +15,7 @@ import leyramu.framework.lersosa.common.translation.core.handler.TranslationHand
 import java.lang.annotation.*;
 
 /**
- * 通用翻译注解
+ * 通用翻译注解.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,20 +30,17 @@ import java.lang.annotation.*;
 public @interface Translation {
 
     /**
-     * 类型 (需与实现类上的 {@link TranslationType} 注解type对应)
-     * <p>
-     * 默认取当前字段的值 如果设置了 @{@link Translation#mapper()} 则取映射字段的值
+     * 类型 (需与实现类上的 {@link TranslationType} 注解type对应).
      */
     String type();
 
     /**
-     * 映射字段 (如果不为空则取此字段的值)
+     * 映射字段 (如果不为空则取此字段的值).
      */
     String mapper() default "";
 
     /**
-     * 其他条件 例如: 字典type(sys_user_sex)
+     * 其他条件 例如: 字典type(sys_user_sex).
      */
     String other() default "";
-
 }

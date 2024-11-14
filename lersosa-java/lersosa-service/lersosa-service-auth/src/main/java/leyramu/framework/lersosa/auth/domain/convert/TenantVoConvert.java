@@ -15,7 +15,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 
 /**
- * 租户vo转换器
+ * 租户vo转换器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -23,5 +23,4 @@ import org.mapstruct.MappingConstants;
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface TenantVoConvert extends BaseMapper<RemoteTenantVo, TenantListVo> {
-
 }

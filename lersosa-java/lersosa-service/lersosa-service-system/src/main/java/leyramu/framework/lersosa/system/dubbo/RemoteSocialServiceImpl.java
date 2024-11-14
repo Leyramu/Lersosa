@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * 社会化关系服务
+ * 社会化关系服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -36,7 +36,7 @@ public class RemoteSocialServiceImpl implements RemoteSocialService {
     private final ISysSocialService sysSocialService;
 
     /**
-     * 根据 authId 查询用户授权信息
+     * 根据 authId 查询用户授权信息.
      *
      * @param authId 认证id
      * @return 授权信息
@@ -48,7 +48,7 @@ public class RemoteSocialServiceImpl implements RemoteSocialService {
     }
 
     /**
-     * 查询列表
+     * 查询列表.
      *
      * @param bo 社会化关系业务对象
      */
@@ -60,7 +60,7 @@ public class RemoteSocialServiceImpl implements RemoteSocialService {
     }
 
     /**
-     * 保存社会化关系
+     * 保存社会化关系.
      *
      * @param bo 社会化关系业务对象
      */
@@ -70,7 +70,7 @@ public class RemoteSocialServiceImpl implements RemoteSocialService {
     }
 
     /**
-     * 更新社会化关系
+     * 更新社会化关系.
      *
      * @param bo 社会化关系业务对象
      */
@@ -80,7 +80,7 @@ public class RemoteSocialServiceImpl implements RemoteSocialService {
     }
 
     /**
-     * 删除社会化关系
+     * 删除社会化关系.
      *
      * @param socialId 社会化关系ID
      * @return 结果
@@ -89,5 +89,4 @@ public class RemoteSocialServiceImpl implements RemoteSocialService {
     public Boolean deleteWithValidById(Long socialId) {
         return sysSocialService.deleteWithValidById(socialId);
     }
-
 }

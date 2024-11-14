@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 流程分类
+ * 流程分类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -45,7 +45,7 @@ public class WfCategoryController extends BaseController {
     private final IWfCategoryService wfCategoryService;
 
     /**
-     * 查询流程分类列表
+     * 查询流程分类列表.
      */
     @SaCheckPermission("workflow:category:list")
     @GetMapping("/list")
@@ -56,7 +56,7 @@ public class WfCategoryController extends BaseController {
     }
 
     /**
-     * 导出流程分类列表
+     * 导出流程分类列表.
      */
     @SaCheckPermission("workflow:category:export")
     @Log(title = "流程分类", businessType = BusinessType.EXPORT)
@@ -67,7 +67,7 @@ public class WfCategoryController extends BaseController {
     }
 
     /**
-     * 获取流程分类详细信息
+     * 获取流程分类详细信息.
      *
      * @param id 主键
      */
@@ -79,7 +79,7 @@ public class WfCategoryController extends BaseController {
     }
 
     /**
-     * 新增流程分类
+     * 新增流程分类.
      */
     @SaCheckPermission("workflow:category:add")
     @Log(title = "流程分类", businessType = BusinessType.INSERT)
@@ -90,7 +90,7 @@ public class WfCategoryController extends BaseController {
     }
 
     /**
-     * 修改流程分类
+     * 修改流程分类.
      */
     @SaCheckPermission("workflow:category:edit")
     @Log(title = "流程分类", businessType = BusinessType.UPDATE)
@@ -101,7 +101,7 @@ public class WfCategoryController extends BaseController {
     }
 
     /**
-     * 删除流程分类
+     * 删除流程分类.
      *
      * @param ids 主键串
      */

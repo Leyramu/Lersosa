@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.system.domain.SysClient;
 import leyramu.framework.lersosa.system.domain.vo.SysClientVo;
 
 /**
- * 授权管理Mapper接口
+ * 授权管理Mapper接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

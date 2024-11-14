@@ -18,7 +18,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 流程实例对象 act_hi_procinst
+ * 流程实例对象 act_hi_procinst.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -156,6 +156,4 @@ public class ActHiProcinst implements Serializable {
      */
     @TableField(value = "BUSINESS_STATUS_")
     private String businessStatus;
-
-
 }

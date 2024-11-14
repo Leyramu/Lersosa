@@ -17,7 +17,7 @@ import org.flowable.engine.impl.util.CommandContextUtil;
 import java.io.Serializable;
 
 /**
- * 删除执行数据
+ * 删除执行数据.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,7 +26,7 @@ import java.io.Serializable;
 public class DeleteExecutionCmd implements Command<Void>, Serializable {
 
     /**
-     * 执行id
+     * 执行id.
      */
     private final String executionId;
 

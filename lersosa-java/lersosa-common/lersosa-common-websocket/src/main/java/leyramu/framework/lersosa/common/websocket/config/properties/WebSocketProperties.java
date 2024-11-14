@@ -12,7 +12,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * WebSocket 配置项
+ * WebSocket 配置项.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,12 +25,12 @@ public class WebSocketProperties {
     private Boolean enabled;
 
     /**
-     * 路径
+     * 路径.
      */
     private String path;
 
     /**
-     * 设置访问源地址
+     * 设置访问源地址.
      */
     private String allowedOrigins;
 }

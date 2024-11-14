@@ -61,7 +61,6 @@ import org.flowable.task.api.TaskQuery;
 import org.flowable.task.api.history.HistoricTaskInstance;
 import org.flowable.task.service.impl.persistence.entity.TaskEntity;
 import org.flowable.variable.api.persistence.entity.VariableInstance;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,7 +71,7 @@ import java.util.stream.Collectors;
 import static leyramu.framework.lersosa.workflow.common.constant.FlowConstant.*;
 
 /**
- * 任务 服务层实现
+ * 任务 服务层实现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -89,23 +88,23 @@ public class ActTaskServiceImpl implements IActTaskService {
     private final IWfNodeConfigService wfNodeConfigService;
     private final IWfDefinitionConfigService wfDefinitionConfigService;
     private final FlowProcessEventHandler flowProcessEventHandler;
-    @Autowired(required = false)
-    private RuntimeService runtimeService;
-    @Autowired(required = false)
-    private TaskService taskService;
-    @Autowired(required = false)
-    private HistoryService historyService;
-    @Autowired(required = false)
-    private IdentityService identityService;
-    @Autowired(required = false)
-    private ManagementService managementService;
+
+    private final RuntimeService runtimeService;
+
+    private final TaskService taskService;
+
+    private final HistoryService historyService;
+
+    private final IdentityService identityService;
+
+    private final ManagementService managementService;
     @DubboReference
     private RemoteUserService remoteUserService;
     @DubboReference
     private RemoteFileService remoteFileService;
 
     /**
-     * 启动任务
+     * 启动任务.
      *
      * @param startProcessBo 启动流程参数
      */
@@ -125,10 +124,10 @@ public class ActTaskServiceImpl implements IActTaskService {
         List<Task> taskResult = QueryUtils.taskQuery().processInstanceBusinessKey(startProcessBo.getBusinessKey()).list();
         if (CollUtil.isNotEmpty(taskResult)) {
             if (CollUtil.isNotEmpty(startProcessBo.getVariables())) {
-                taskService.setVariables(taskResult.get(0).getId(), startProcessBo.getVariables());
+                taskService.setVariables(taskResult.getFirst().getId(), startProcessBo.getVariables());
             }
-            map.put(PROCESS_INSTANCE_ID, taskResult.get(0).getProcessInstanceId());
-            map.put("taskId", taskResult.get(0).getId());
+            map.put(PROCESS_INSTANCE_ID, taskResult.getFirst().getProcessInstanceId());
+            map.put("taskId", taskResult.getFirst().getId());
             return map;
         }
         WfDefinitionConfigVo wfDefinitionConfigVo = wfDefinitionConfigService.getByTableNameLastVersion(startProcessBo.getTableName());
@@ -163,16 +162,16 @@ public class ActTaskServiceImpl implements IActTaskService {
         }
 
         runtimeService.updateBusinessStatus(pi.getProcessInstanceId(), BusinessStatusEnum.DRAFT.getStatus());
-        taskService.setAssignee(taskList.get(0).getId(), LoginHelper.getUserId().toString());
-        taskService.setVariable(taskList.get(0).getId(), PROCESS_INSTANCE_ID, pi.getProcessInstanceId());
-        taskService.setVariable(taskList.get(0).getId(), BUSINESS_KEY, pi.getBusinessKey());
+        taskService.setAssignee(taskList.getFirst().getId(), LoginHelper.getUserId().toString());
+        taskService.setVariable(taskList.getFirst().getId(), PROCESS_INSTANCE_ID, pi.getProcessInstanceId());
+        taskService.setVariable(taskList.getFirst().getId(), BUSINESS_KEY, pi.getBusinessKey());
         map.put("processInstanceId", pi.getProcessInstanceId());
-        map.put("taskId", taskList.get(0).getId());
+        map.put("taskId", taskList.getFirst().getId());
         return map;
     }
 
     /**
-     * 办理任务
+     * 办理任务.
      *
      * @param completeTaskBo 办理任务参数
      */
@@ -239,7 +238,7 @@ public class ActTaskServiceImpl implements IActTaskService {
 
                 if (CollUtil.isNotEmpty(list) && CollUtil.isNotEmpty(completeTaskBo.getWfCopyList())) {
                     TaskEntity newTask = WorkflowUtils.createNewTask(task);
-                    taskService.addComment(newTask.getId(), task.getProcessInstanceId(), TaskStatusEnum.COPY.getStatus(), LoginHelper.getLoginUser().getNickname() + "【抄送】给" + String.join(",", StreamUtils.toList(completeTaskBo.getWfCopyList(), WfCopy::getUserName)));
+                    taskService.addComment(newTask.getId(), task.getProcessInstanceId(), TaskStatusEnum.COPY.getStatus(), Objects.requireNonNull(LoginHelper.getLoginUser()).getNickname() + "【抄送】给" + String.join(",", StreamUtils.toList(completeTaskBo.getWfCopyList(), WfCopy::getUserName)));
                     taskService.complete(newTask.getId());
                     List<Task> taskList = QueryUtils.taskQuery(task.getProcessInstanceId()).list();
                     WorkflowUtils.createCopyTask(taskList, StreamUtils.toList(completeTaskBo.getWfCopyList(), WfCopy::getUserId));
@@ -254,7 +253,7 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 发送消息
+     * 发送消息.
      *
      * @param list        任务
      * @param name        流程名称
@@ -267,14 +266,14 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 查询当前用户的待办任务
+     * 查询当前用户的待办任务.
      *
      * @param taskBo 参数
      */
     @Override
     public TableDataInfo<TaskVo> getPageByTaskWait(TaskBo taskBo, PageQuery pageQuery) {
         QueryWrapper<TaskVo> queryWrapper = new QueryWrapper<>();
-        List<RoleDTO> roles = LoginHelper.getLoginUser().getRoles();
+        List<RoleDTO> roles = Objects.requireNonNull(LoginHelper.getLoginUser()).getRoles();
         List<String> roleIds = StreamUtils.toList(roles, e -> String.valueOf(e.getRoleId()));
         String userId = String.valueOf(LoginHelper.getUserId());
         queryWrapper.eq("t.business_status_", BusinessStatusEnum.WAITING.getStatus());
@@ -311,7 +310,7 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 查询当前租户所有待办任务
+     * 查询当前租户所有待办任务.
      *
      * @param taskBo 参数
      */
@@ -368,7 +367,7 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 查询当前用户的已办任务
+     * 查询当前用户的已办任务.
      *
      * @param taskBo 参数
      */
@@ -398,7 +397,7 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 查询当前用户的抄送
+     * 查询当前用户的抄送.
      *
      * @param taskBo 参数
      */
@@ -434,7 +433,7 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 查询当前租户所有已办任务
+     * 查询当前租户所有已办任务.
      *
      * @param taskBo 参数
      */
@@ -462,7 +461,7 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 委派任务
+     * 委派任务.
      *
      * @param delegateBo 参数
      */
@@ -479,7 +478,7 @@ public class ActTaskServiceImpl implements IActTaskService {
         }
         try {
             TaskEntity newTask = WorkflowUtils.createNewTask(task);
-            taskService.addComment(newTask.getId(), task.getProcessInstanceId(), TaskStatusEnum.PENDING.getStatus(), "【" + LoginHelper.getLoginUser().getNickname() + "】委派给【" + delegateBo.getNickName() + "】");
+            taskService.addComment(newTask.getId(), task.getProcessInstanceId(), TaskStatusEnum.PENDING.getStatus(), "【" + Objects.requireNonNull(LoginHelper.getLoginUser()).getNickname() + "】委派给【" + delegateBo.getNickName() + "】");
             //委托任务
             taskService.delegateTask(delegateBo.getTaskId(), delegateBo.getUserId());
             //办理生成的任务记录
@@ -492,7 +491,7 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 终止任务
+     * 终止任务.
      *
      * @param terminationBo 参数
      */
@@ -512,9 +511,9 @@ public class ActTaskServiceImpl implements IActTaskService {
         BusinessStatusEnum.checkInvalidStatus(historicProcessInstance.getBusinessStatus());
         try {
             if (StringUtils.isBlank(terminationBo.getComment())) {
-                terminationBo.setComment(LoginHelper.getLoginUser().getNickname() + "终止了申请");
+                terminationBo.setComment(Objects.requireNonNull(LoginHelper.getLoginUser()).getNickname() + "终止了申请");
             } else {
-                terminationBo.setComment(LoginHelper.getLoginUser().getNickname() + "终止了申请：" + terminationBo.getComment());
+                terminationBo.setComment(Objects.requireNonNull(LoginHelper.getLoginUser()).getNickname() + "终止了申请：" + terminationBo.getComment());
             }
             taskService.addComment(task.getId(), task.getProcessInstanceId(), TaskStatusEnum.TERMINATION.getStatus(), terminationBo.getComment());
             List<Task> list = QueryUtils.taskQuery(task.getProcessInstanceId()).list();
@@ -536,7 +535,7 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 转办任务
+     * 转办任务.
      *
      * @param transmitBo 参数
      */
@@ -562,7 +561,7 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 会签任务加签
+     * 会签任务加签.
      *
      * @param addMultiBo 参数
      */
@@ -610,7 +609,7 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 会签任务减签
+     * 会签任务减签.
      *
      * @param deleteMultiBo 参数
      */
@@ -660,7 +659,7 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 驳回审批
+     * 驳回审批.
      *
      * @param backProcessBo 参数
      */
@@ -712,9 +711,7 @@ public class ActTaskServiceImpl implements IActTaskService {
             List<HistoricTaskInstance> instanceList = QueryUtils.hisTaskInstanceQuery(processInstanceId).finished().orderByHistoricTaskInstanceEndTime().desc().list();
             List<Task> list = QueryUtils.taskQuery(processInstanceId).list();
             for (Task t : list) {
-                instanceList.stream().filter(e -> e.getTaskDefinitionKey().equals(t.getTaskDefinitionKey())).findFirst().ifPresent(e -> {
-                    taskService.setAssignee(t.getId(), e.getAssignee());
-                });
+                instanceList.stream().filter(e -> e.getTaskDefinitionKey().equals(t.getTaskDefinitionKey())).findFirst().ifPresent(e -> taskService.setAssignee(t.getId(), e.getAssignee()));
             }
             //发送消息
             String message = "您的【" + processInstance.getName() + "】单据已经被驳回，请您注意查收。";
@@ -741,7 +738,7 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 修改任务办理人
+     * 修改任务办理人.
      *
      * @param taskIds 任务id
      * @param userId  办理人id
@@ -762,7 +759,7 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 查询流程变量
+     * 查询流程变量.
      *
      * @param taskId 任务id
      */
@@ -782,10 +779,9 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 查询工作流任务用户选择加签人员
+     * 查询工作流任务用户选择加签人员.
      *
      * @param taskId 任务id
-     * @return
      */
     @Override
     @SuppressWarnings("unchecked")
@@ -809,7 +805,7 @@ public class ActTaskServiceImpl implements IActTaskService {
     }
 
     /**
-     * 查询工作流选择减签人员
+     * 查询工作流选择减签人员.
      *
      * @param taskId 任务id 任务id
      */

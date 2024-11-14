@@ -17,9 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Console default http param extractor.
+ * 控制台默认 http 参数提取器.
  *
  * @author zhuoguang
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 1.0.0
+ * @since 2024/11/13
  */
 public class ConsoleDefaultHttpParamExtractor extends AbstractHttpParamExtractor {
 
@@ -42,7 +45,6 @@ public class ConsoleDefaultHttpParamExtractor extends AbstractHttpParamExtractor
     }
 
     private String getAliasNamespaceShowName(HttpServletRequest request) {
-        String namespaceShowName = request.getParameter("namespaceName");
-        return namespaceShowName;
+        return request.getParameter("namespaceName");
     }
 }

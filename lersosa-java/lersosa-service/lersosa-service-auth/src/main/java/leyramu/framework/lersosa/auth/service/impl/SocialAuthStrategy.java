@@ -11,9 +11,6 @@ package leyramu.framework.lersosa.auth.service.impl;
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.map.MapUtil;
-import cn.hutool.http.HttpUtil;
-import cn.hutool.http.Method;
 import leyramu.framework.lersosa.auth.domain.vo.LoginVo;
 import leyramu.framework.lersosa.auth.form.SocialLoginBody;
 import leyramu.framework.lersosa.auth.service.IAuthStrategy;
@@ -38,10 +35,11 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
- * 第三方授权策略
+ * 第三方授权策略.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -60,7 +58,7 @@ public class SocialAuthStrategy implements IAuthStrategy {
     private RemoteUserService remoteUserService;
 
     /**
-     * 登录-第三方授权登录
+     * 登录-第三方授权登录.
      *
      * @param body   登录信息
      * @param client 客户端信息
@@ -70,21 +68,12 @@ public class SocialAuthStrategy implements IAuthStrategy {
         SocialLoginBody loginBody = JsonUtils.parseObject(body, SocialLoginBody.class);
         ValidatorUtils.validate(loginBody);
         AuthResponse<AuthUser> response = SocialUtils.loginAuth(
-            loginBody.getSource(), loginBody.getSocialCode(),
+            Objects.requireNonNull(loginBody).getSource(), loginBody.getSocialCode(),
             loginBody.getSocialState(), socialProperties);
         if (!response.ok()) {
             throw new ServiceException(response.getMsg());
         }
         AuthUser authUserData = response.getData();
-        if ("GITEE".equals(authUserData.getSource())) {
-            // 如用户使用 gitee 登录顺手 star 给作者一点支持 拒绝白嫖
-            HttpUtil.createRequest(Method.PUT, "https://github.com/Leyramu/Lersosa")
-                .formStr(MapUtil.of("access_token", authUserData.getToken().getAccessToken()))
-                .executeAsync();
-            HttpUtil.createRequest(Method.PUT, "https://github.com/Leyramu/Lersosa")
-                .formStr(MapUtil.of("access_token", authUserData.getToken().getAccessToken()))
-                .executeAsync();
-        }
 
         List<RemoteSocialVo> list = remoteSocialService.selectByAuthId(authUserData.getSource() + authUserData.getUuid());
         if (CollUtil.isEmpty(list)) {
@@ -98,7 +87,7 @@ public class SocialAuthStrategy implements IAuthStrategy {
             }
             socialVo = opt.get();
         } else {
-            socialVo = list.get(0);
+            socialVo = list.getFirst();
         }
 
         LoginUser loginUser = remoteUserService.getUserInfo(socialVo.getUserId(), socialVo.getTenantId());
@@ -120,5 +109,4 @@ public class SocialAuthStrategy implements IAuthStrategy {
         loginVo.setClientId(client.getClientId());
         return loginVo;
     }
-
 }

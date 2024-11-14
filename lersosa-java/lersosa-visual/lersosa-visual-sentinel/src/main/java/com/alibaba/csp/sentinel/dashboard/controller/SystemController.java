@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.controller;
 
 import com.alibaba.csp.sentinel.dashboard.auth.AuthAction;
@@ -16,32 +17,53 @@ import com.alibaba.csp.sentinel.dashboard.discovery.MachineInfo;
 import com.alibaba.csp.sentinel.dashboard.domain.Result;
 import com.alibaba.csp.sentinel.dashboard.repository.rule.RuleRepository;
 import com.alibaba.csp.sentinel.util.StringUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
+ * 系统规则.
+ *
  * @author leyou(lihao)
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/system")
 public class SystemController {
 
-    private final Logger logger = LoggerFactory.getLogger(SystemController.class);
+    /**
+     * 规则存储.
+     */
+    private final RuleRepository<SystemRuleEntity, Long> repository;
 
-    @Autowired
-    private RuleRepository<SystemRuleEntity, Long> repository;
-    @Autowired
-    private SentinelApiClient sentinelApiClient;
-    @Autowired
-    private AppManagement appManagement;
+    /**
+     * Sentinel API 客户端.
+     */
+    private final SentinelApiClient sentinelApiClient;
 
+    /**
+     * 应用管理.
+     */
+    private final AppManagement appManagement;
+
+    /**
+     * 检查基本参数的通用方法.
+     *
+     * @param app  应用名称
+     * @param ip   服务器IP
+     * @param port 服务器端口
+     * @return 如果参数无效，返回错误结果；否则返回null
+     */
     private <R> Result<R> checkBasicParams(String app, String ip, Integer port) {
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app can't be null or empty");
@@ -52,7 +74,7 @@ public class SystemController {
         if (port == null) {
             return Result.ofFail(-1, "port can't be null");
         }
-        if (!appManagement.isValidMachineOfApp(app, ip)) {
+        if (appManagement.isValidMachineOfApp(app, ip)) {
             return Result.ofFail(-1, "given ip does not belong to given app");
         }
         if (port <= 0 || port > 65535) {
@@ -61,10 +83,17 @@ public class SystemController {
         return null;
     }
 
+    /**
+     * 查询机器的系统规则接口.
+     *
+     * @param app  应用名称
+     * @param ip   服务器IP
+     * @param port 服务器端口
+     * @return 系统规则列表的结果对象
+     */
     @GetMapping("/rules.json")
     @AuthAction(PrivilegeType.READ_RULE)
-    public Result<List<SystemRuleEntity>> apiQueryMachineRules(String app, String ip,
-                                                               Integer port) {
+    public Result<List<SystemRuleEntity>> apiQueryMachineRules(String app, String ip, Integer port) {
         Result<List<SystemRuleEntity>> checkResult = checkBasicParams(app, ip, port);
         if (checkResult != null) {
             return checkResult;
@@ -74,26 +103,45 @@ public class SystemController {
             rules = repository.saveAll(rules);
             return Result.ofSuccess(rules);
         } catch (Throwable throwable) {
-            logger.error("Query machine system rules error", throwable);
+            log.error("Query machine system rules error", throwable);
             return Result.ofThrowable(-1, throwable);
         }
     }
 
+    /**
+     * 计算非空且非负数的参数数量.
+     *
+     * @param values 参数数组
+     * @return 非空且非负数的参数数量
+     */
     private int countNotNullAndNotNegative(Number... values) {
         int notNullCount = 0;
-        for (int i = 0; i < values.length; i++) {
-            if (values[i] != null && values[i].doubleValue() >= 0) {
+        for (Number value : values) {
+            if (value != null && value.doubleValue() >= 0) {
                 notNullCount++;
             }
         }
         return notNullCount;
     }
 
+    /**
+     * 添加系统规则的接口.
+     *
+     * @param app               应用名称
+     * @param ip                服务器IP
+     * @param port              服务器端口
+     * @param highestSystemLoad 最高系统负载
+     * @param highestCpuUsage   最高CPU使用率
+     * @param avgRt             平均响应时间
+     * @param maxThread         最大线程数
+     * @param qps               最大QPS
+     * @return 新增系统规则的结果对象
+     */
     @RequestMapping("/new.json")
     @AuthAction(PrivilegeType.WRITE_RULE)
-    public Result<SystemRuleEntity> apiAdd(String app, String ip, Integer port,
-                                           Double highestSystemLoad, Double highestCpuUsage, Long avgRt,
-                                           Long maxThread, Double qps) {
+    public Result<SystemRuleEntity> apiAdd(
+        String app, String ip, Integer port, Double highestSystemLoad,
+        Double highestCpuUsage, Long avgRt, Long maxThread, Double qps) {
 
         Result<SystemRuleEntity> checkResult = checkBasicParams(app, ip, port);
         if (checkResult != null) {
@@ -112,53 +160,45 @@ public class SystemController {
         entity.setApp(app.trim());
         entity.setIp(ip.trim());
         entity.setPort(port);
-        // -1 is a fake value
-        if (null != highestSystemLoad) {
-            entity.setHighestSystemLoad(highestSystemLoad);
-        } else {
-            entity.setHighestSystemLoad(-1D);
-        }
+        entity.setHighestSystemLoad(Objects.requireNonNullElse(highestSystemLoad, -1D));
 
-        if (null != highestCpuUsage) {
-            entity.setHighestCpuUsage(highestCpuUsage);
-        } else {
-            entity.setHighestCpuUsage(-1D);
-        }
+        entity.setHighestCpuUsage(Objects.requireNonNullElse(highestCpuUsage, -1D));
 
-        if (avgRt != null) {
-            entity.setAvgRt(avgRt);
-        } else {
-            entity.setAvgRt(-1L);
-        }
-        if (maxThread != null) {
-            entity.setMaxThread(maxThread);
-        } else {
-            entity.setMaxThread(-1L);
-        }
-        if (qps != null) {
-            entity.setQps(qps);
-        } else {
-            entity.setQps(-1D);
-        }
+        entity.setAvgRt(Objects.requireNonNullElse(avgRt, -1L));
+        entity.setMaxThread(Objects.requireNonNullElse(maxThread, -1L));
+        entity.setQps(Objects.requireNonNullElse(qps, -1D));
         Date date = new Date();
         entity.setGmtCreate(date);
         entity.setGmtModified(date);
         try {
             entity = repository.save(entity);
         } catch (Throwable throwable) {
-            logger.error("Add SystemRule error", throwable);
+            log.error("Add SystemRule error", throwable);
             return Result.ofThrowable(-1, throwable);
         }
-        if (!publishRules(app, ip, port)) {
-            logger.warn("Publish system rules fail after rule add");
+        if (publishRules(app, ip, port)) {
+            log.warn("Publish system rules fail after rule add");
         }
         return Result.ofSuccess(entity);
     }
 
+    /**
+     * 修改系统规则的接口.
+     *
+     * @param id                规则ID
+     * @param app               应用名称
+     * @param highestSystemLoad 最高系统负载
+     * @param highestCpuUsage   最高CPU使用率
+     * @param avgRt             平均响应时间
+     * @param maxThread         最大线程数
+     * @param qps               最大QPS
+     * @return 修改后的系统规则的结果对象
+     */
     @GetMapping("/save.json")
     @AuthAction(PrivilegeType.WRITE_RULE)
-    public Result<SystemRuleEntity> apiUpdateIfNotNull(Long id, String app, Double highestSystemLoad,
-                                                       Double highestCpuUsage, Long avgRt, Long maxThread, Double qps) {
+    public Result<SystemRuleEntity> apiUpdateIfNotNull(
+        Long id, String app, Double highestSystemLoad,
+        Double highestCpuUsage, Long avgRt, Long maxThread, Double qps) {
         if (id == null) {
             return Result.ofFail(-1, "id can't be null");
         }
@@ -208,15 +248,21 @@ public class SystemController {
         try {
             entity = repository.save(entity);
         } catch (Throwable throwable) {
-            logger.error("save error:", throwable);
+            log.error("save error:", throwable);
             return Result.ofThrowable(-1, throwable);
         }
-        if (!publishRules(entity.getApp(), entity.getIp(), entity.getPort())) {
-            logger.info("publish system rules fail after rule update");
+        if (publishRules(entity.getApp(), entity.getIp(), entity.getPort())) {
+            log.info("publish system rules fail after rule update");
         }
         return Result.ofSuccess(entity);
     }
 
+    /**
+     * 删除系统规则的接口.
+     *
+     * @param id 规则ID
+     * @return 删除结果对象
+     */
     @RequestMapping("/delete.json")
     @AuthAction(PrivilegeType.DELETE_RULE)
     public Result<?> delete(Long id) {
@@ -230,17 +276,25 @@ public class SystemController {
         try {
             repository.delete(id);
         } catch (Throwable throwable) {
-            logger.error("delete error:", throwable);
+            log.error("delete error:", throwable);
             return Result.ofThrowable(-1, throwable);
         }
-        if (!publishRules(oldEntity.getApp(), oldEntity.getIp(), oldEntity.getPort())) {
-            logger.info("publish system rules fail after rule delete");
+        if (publishRules(oldEntity.getApp(), oldEntity.getIp(), oldEntity.getPort())) {
+            log.info("publish system rules fail after rule delete");
         }
         return Result.ofSuccess(id);
     }
 
+    /**
+     * 发布规则到sentinel-dashboard.
+     *
+     * @param app  应用名称
+     * @param ip   应用IP地址
+     * @param port 应用端口
+     * @return 发布结果
+     */
     private boolean publishRules(String app, String ip, Integer port) {
         List<SystemRuleEntity> rules = repository.findAllByMachine(MachineInfo.of(app, ip, port));
-        return sentinelApiClient.setSystemRuleOfMachine(app, ip, port, rules);
+        return !sentinelApiClient.setSystemRuleOfMachine(app, ip, port, rules);
     }
 }

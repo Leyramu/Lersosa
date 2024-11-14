@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 操作日志记录
+ * 操作日志记录.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -42,7 +42,7 @@ public class SysOperlogController extends BaseController {
     private final ISysOperLogService operLogService;
 
     /**
-     * 获取操作日志记录列表
+     * 获取操作日志记录列表.
      */
     @SaCheckPermission("monitor:operlog:list")
     @GetMapping("/list")
@@ -51,7 +51,7 @@ public class SysOperlogController extends BaseController {
     }
 
     /**
-     * 导出操作日志记录列表
+     * 导出操作日志记录列表.
      */
     @Log(title = "操作日志", businessType = BusinessType.EXPORT)
     @SaCheckPermission("monitor:operlog:export")
@@ -62,7 +62,7 @@ public class SysOperlogController extends BaseController {
     }
 
     /**
-     * 批量删除操作日志记录
+     * 批量删除操作日志记录.
      *
      * @param operIds 日志ids
      */
@@ -74,7 +74,7 @@ public class SysOperlogController extends BaseController {
     }
 
     /**
-     * 清理操作日志记录
+     * 清理操作日志记录.
      */
     @SaCheckPermission("monitor:operlog:remove")
     @Log(title = "操作日志", businessType = BusinessType.CLEAN)

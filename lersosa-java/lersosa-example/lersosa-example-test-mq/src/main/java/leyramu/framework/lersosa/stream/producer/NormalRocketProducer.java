@@ -17,7 +17,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
 /**
- * 普通消息生产者
+ * 普通消息生产者.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 public class NormalRocketProducer {
 
     @Autowired
-    private RocketMQTemplate rocketMQTemplate;
+    private RocketMQTemplate rocketMqTemplate;
 
     public void sendMessage() {
         // 发送普通消息
@@ -36,14 +36,14 @@ public class NormalRocketProducer {
 
         // 发送带tag的消息
         Message<String> message = MessageBuilder.withPayload("test").setHeader(RocketMQHeaders.TAGS, "test-tag").build();
-        rocketMQTemplate.send("test-topic", message);
+        rocketMqTemplate.send("test-topic", message);
 
         // 延迟消息
         // RocketMQ预定义了一些延迟等级，每个等级对应不同的延迟时间范围。这些等级从1到18，分别对应1s、5s、10s、30s、1m、2m、3m、4m、5m、6m、7m、8m、9m、10m、20m、30m、1h、2h的延迟时间。
         org.apache.rocketmq.common.message.Message msg = new org.apache.rocketmq.common.message.Message();
         msg.setDelayTimeLevel(3);
         try {
-            rocketMQTemplate.getProducer().send(msg);
+            rocketMqTemplate.getProducer().send(msg);
         } catch (Exception e) {
             e.printStackTrace();
         }

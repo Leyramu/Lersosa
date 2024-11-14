@@ -36,8 +36,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 /**
- * 密码认证策略
+ * 密码认证策略.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -59,7 +61,7 @@ public class PasswordAuthStrategy implements IAuthStrategy {
     public LoginVo login(String body, RemoteClientVo client) {
         PasswordLoginBody loginBody = JsonUtils.parseObject(body, PasswordLoginBody.class);
         ValidatorUtils.validate(loginBody);
-        String tenantId = loginBody.getTenantId();
+        String tenantId = Objects.requireNonNull(loginBody).getTenantId();
         String username = loginBody.getUsername();
         String password = loginBody.getPassword();
         String code = loginBody.getCode();
@@ -94,7 +96,7 @@ public class PasswordAuthStrategy implements IAuthStrategy {
     }
 
     /**
-     * 校验验证码
+     * 校验验证码.
      *
      * @param username 用户名
      * @param code     验证码
@@ -113,5 +115,4 @@ public class PasswordAuthStrategy implements IAuthStrategy {
             throw new CaptchaException();
         }
     }
-
 }

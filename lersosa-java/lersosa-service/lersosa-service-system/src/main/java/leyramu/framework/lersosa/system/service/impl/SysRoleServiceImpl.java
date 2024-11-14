@@ -47,7 +47,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 
 /**
- * 角色 业务层处理
+ * 角色 业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -69,7 +69,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 根据条件分页查询角色数据
+     * 根据条件分页查询角色数据.
      *
      * @param role 角色信息
      * @return 角色数据集合信息
@@ -94,7 +94,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 根据用户ID查询角色
+     * 根据用户ID查询角色.
      *
      * @param userId 用户ID
      * @return 角色列表
@@ -105,7 +105,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 根据用户ID查询角色列表(包含被授权状态)
+     * 根据用户ID查询角色列表(包含被授权状态).
      *
      * @param userId 用户ID
      * @return 角色列表
@@ -125,7 +125,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 根据用户ID查询权限
+     * 根据用户ID查询权限.
      *
      * @param userId 用户ID
      * @return 权限列表
@@ -143,7 +143,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 查询所有角色
+     * 查询所有角色.
      *
      * @return 角色列表
      */
@@ -153,7 +153,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 根据用户ID获取角色选择框列表
+     * 根据用户ID获取角色选择框列表.
      *
      * @param userId 用户ID
      * @return 选中角色ID列表
@@ -165,7 +165,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 通过角色ID查询角色
+     * 通过角色ID查询角色.
      *
      * @param roleId 角色ID
      * @return 角色对象信息
@@ -176,7 +176,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 通过角色ID串查询角色
+     * 通过角色ID串查询角色.
      *
      * @param roleIds 角色ID串
      * @return 角色列表信息
@@ -189,7 +189,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 校验角色名称是否唯一
+     * 校验角色名称是否唯一.
      *
      * @param role 角色信息
      * @return 结果
@@ -199,11 +199,11 @@ public class SysRoleServiceImpl implements ISysRoleService {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysRole>()
             .eq(SysRole::getRoleName, role.getRoleName())
             .ne(ObjectUtil.isNotNull(role.getRoleId()), SysRole::getRoleId, role.getRoleId()));
-        return !exist;
+        return exist;
     }
 
     /**
-     * 校验角色权限是否唯一
+     * 校验角色权限是否唯一.
      *
      * @param role 角色信息
      * @return 结果
@@ -213,11 +213,11 @@ public class SysRoleServiceImpl implements ISysRoleService {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysRole>()
             .eq(SysRole::getRoleKey, role.getRoleKey())
             .ne(ObjectUtil.isNotNull(role.getRoleId()), SysRole::getRoleId, role.getRoleId()));
-        return !exist;
+        return exist;
     }
 
     /**
-     * 校验角色是否允许操作
+     * 校验角色是否允许操作.
      *
      * @param role 角色信息
      */
@@ -247,7 +247,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 校验角色是否有数据权限
+     * 校验角色是否有数据权限.
      *
      * @param roleId 角色id
      */
@@ -267,7 +267,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 通过角色ID查询角色使用数量
+     * 通过角色ID查询角色使用数量.
      *
      * @param roleId 角色ID
      * @return 结果
@@ -278,7 +278,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 新增保存角色信息
+     * 新增保存角色信息.
      *
      * @param bo 角色信息
      * @return 结果
@@ -289,12 +289,12 @@ public class SysRoleServiceImpl implements ISysRoleService {
         SysRole role = MapstructUtils.convert(bo, SysRole.class);
         // 新增角色信息
         baseMapper.insert(role);
-        bo.setRoleId(role.getRoleId());
+        bo.setRoleId(Objects.requireNonNull(role).getRoleId());
         return insertRoleMenu(bo);
     }
 
     /**
-     * 修改保存角色信息
+     * 修改保存角色信息.
      *
      * @param bo 角色信息
      * @return 结果
@@ -304,7 +304,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     public int updateRole(SysRoleBo bo) {
         SysRole role = MapstructUtils.convert(bo, SysRole.class);
 
-        if (UserConstants.ROLE_DISABLE.equals(role.getStatus()) && this.countUserRoleByRoleId(role.getRoleId()) > 0) {
+        if (UserConstants.ROLE_DISABLE.equals(Objects.requireNonNull(role).getStatus()) && this.countUserRoleByRoleId(role.getRoleId()) > 0) {
             throw new ServiceException("角色已分配，不能禁用!");
         }
         // 修改角色信息
@@ -315,7 +315,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 修改角色状态
+     * 修改角色状态.
      *
      * @param roleId 角色ID
      * @param status 角色状态
@@ -333,7 +333,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 修改数据权限信息
+     * 修改数据权限信息.
      *
      * @param bo 角色信息
      * @return 结果
@@ -345,55 +345,55 @@ public class SysRoleServiceImpl implements ISysRoleService {
         // 修改角色信息
         baseMapper.updateById(role);
         // 删除角色与部门关联
-        roleDeptMapper.delete(new LambdaQueryWrapper<SysRoleDept>().eq(SysRoleDept::getRoleId, role.getRoleId()));
+        roleDeptMapper.delete(new LambdaQueryWrapper<SysRoleDept>().eq(SysRoleDept::getRoleId, Objects.requireNonNull(role).getRoleId()));
         // 新增角色和部门信息（数据权限）
         return insertRoleDept(bo);
     }
 
     /**
-     * 新增角色菜单信息
+     * 新增角色菜单信息.
      *
      * @param role 角色对象
      */
     private int insertRoleMenu(SysRoleBo role) {
         int rows = 1;
         // 新增用户与角色管理
-        List<SysRoleMenu> list = new ArrayList<SysRoleMenu>();
+        List<SysRoleMenu> list = new ArrayList<>();
         for (Long menuId : role.getMenuIds()) {
             SysRoleMenu rm = new SysRoleMenu();
             rm.setRoleId(role.getRoleId());
             rm.setMenuId(menuId);
             list.add(rm);
         }
-        if (list.size() > 0) {
+        if (!list.isEmpty()) {
             rows = roleMenuMapper.insertBatch(list) ? list.size() : 0;
         }
         return rows;
     }
 
     /**
-     * 新增角色部门信息(数据权限)
+     * 新增角色部门信息(数据权限).
      *
      * @param role 角色对象
      */
     private int insertRoleDept(SysRoleBo role) {
         int rows = 1;
         // 新增角色与部门（数据权限）管理
-        List<SysRoleDept> list = new ArrayList<SysRoleDept>();
+        List<SysRoleDept> list = new ArrayList<>();
         for (Long deptId : role.getDeptIds()) {
             SysRoleDept rd = new SysRoleDept();
             rd.setRoleId(role.getRoleId());
             rd.setDeptId(deptId);
             list.add(rd);
         }
-        if (list.size() > 0) {
+        if (!list.isEmpty()) {
             rows = roleDeptMapper.insertBatch(list) ? list.size() : 0;
         }
         return rows;
     }
 
     /**
-     * 通过角色ID删除角色
+     * 通过角色ID删除角色.
      *
      * @param roleId 角色ID
      * @return 结果
@@ -409,7 +409,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 批量删除角色信息
+     * 批量删除角色信息.
      *
      * @param roleIds 需要删除的角色ID
      * @return 结果
@@ -434,7 +434,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 取消授权用户角色
+     * 取消授权用户角色.
      *
      * @param userRole 用户和角色关联信息
      * @return 结果
@@ -451,7 +451,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 批量取消授权用户角色
+     * 批量取消授权用户角色.
      *
      * @param roleId  角色ID
      * @param userIds 需要取消授权的用户数据ID
@@ -469,7 +469,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     /**
-     * 批量选择授权用户角色
+     * 批量选择授权用户角色.
      *
      * @param roleId  角色ID
      * @param userIds 需要授权的用户数据ID
@@ -513,7 +513,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
                 return;
             }
             LoginUser loginUser = LoginHelper.getLoginUser(token);
-            if (loginUser.getRoles().stream().anyMatch(r -> r.getRoleId().equals(roleId))) {
+            if (Objects.requireNonNull(loginUser).getRoles().stream().anyMatch(r -> r.getRoleId().equals(roleId))) {
                 try {
                     StpUtil.logoutByTokenValue(token);
                 } catch (NotLoginException ignored) {

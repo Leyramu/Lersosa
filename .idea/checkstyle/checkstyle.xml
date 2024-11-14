@@ -21,12 +21,16 @@
 
     <!-- 检查协议头 https://checkstyle.sourceforge.io/checks/header/regexpheader.html -->
     <module name="RegexpHeader">
-        <property name="headerFile" value="checkstyle/checkstyle-header.txt" />
+        <property name="headerFile" value="../.idea/checkstyle/checkstyle-header.txt" />
         <property name="fileExtensions" value="java" />
     </module>
 
-    <module name="TreeWalker">
+    <!-- 排除文件 https://checkstyle.sourceforge.io/config_filefilters.html -->
+    <module name="BeforeExecutionExclusionFileFilter">
+        <property name="fileNamePattern" value="^.*[/\\]target[/\\].*$" />
+    </module>
 
+    <module name="TreeWalker">
         <!-- 匹配句子末尾的格式 https://checkstyle.sourceforge.io/checks/javadoc/javadocstyle.html#JavadocStyle -->
         <module name="JavadocStyleCheck">
             <property name="endOfSentenceFormat" value="([.?!。？！][ \t\n\r\f&lt;])|([.?!。？！]$)" />
@@ -37,7 +41,5 @@
             <!-- true忽略文档依赖，false不忽略文档依赖 -->
             <property name="processJavadoc" value="true" />
         </module>
-
     </module>
-
 </module>

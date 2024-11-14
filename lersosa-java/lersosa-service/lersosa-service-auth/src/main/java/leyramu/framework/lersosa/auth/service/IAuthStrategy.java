@@ -14,7 +14,7 @@ import leyramu.framework.lersosa.common.core.utils.SpringUtils;
 import leyramu.framework.lersosa.system.api.domain.vo.RemoteClientVo;
 
 /**
- * 授权策略
+ * 授权策略.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,7 +25,7 @@ public interface IAuthStrategy {
     String BASE_NAME = "AuthStrategy";
 
     /**
-     * 登录
+     * 登录.
      *
      * @param body      登录对象
      * @param client    授权管理视图对象
@@ -43,12 +43,11 @@ public interface IAuthStrategy {
     }
 
     /**
-     * 登录
+     * 登录.
      *
      * @param body   登录对象
      * @param client 授权管理视图对象
      * @return 登录验证信息
      */
     LoginVo login(String body, RemoteClientVo client);
-
 }

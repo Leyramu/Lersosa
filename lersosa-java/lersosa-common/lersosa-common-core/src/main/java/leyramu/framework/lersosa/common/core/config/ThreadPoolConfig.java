@@ -20,7 +20,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * 线程池配置
+ * 线程池配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,14 +31,14 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class ThreadPoolConfig {
 
     /**
-     * 核心线程数 = cpu 核心数 + 1
+     * 核心线程数 = cpu 核心数 + 1.
      */
     private final int core = Runtime.getRuntime().availableProcessors() + 1;
 
     private ScheduledExecutorService scheduledExecutorService;
 
     /**
-     * 执行周期性或定时任务
+     * 执行周期性或定时任务.
      */
     @Bean(name = "scheduledExecutorService")
     protected ScheduledExecutorService scheduledExecutorService() {
@@ -56,7 +56,7 @@ public class ThreadPoolConfig {
     }
 
     /**
-     * 销毁事件
+     * 销毁事件.
      */
     @PreDestroy
     public void destroy() {
@@ -67,5 +67,4 @@ public class ThreadPoolConfig {
             log.error(e.getMessage(), e);
         }
     }
-
 }

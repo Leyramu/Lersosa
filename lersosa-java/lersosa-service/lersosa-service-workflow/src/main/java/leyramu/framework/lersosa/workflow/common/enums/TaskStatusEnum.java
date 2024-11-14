@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Arrays;
 
 /**
- * 任务状态枚举
+ * 任务状态枚举.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,66 +26,66 @@ import java.util.Arrays;
 @AllArgsConstructor
 public enum TaskStatusEnum {
     /**
-     * 撤销
+     * 撤销.
      */
     CANCEL("cancel", "撤销"),
     /**
-     * 通过
+     * 通过.
      */
     PASS("pass", "通过"),
     /**
-     * 待审核
+     * 待审核.
      */
     WAITING("waiting", "待审核"),
     /**
-     * 作废
+     * 作废.
      */
     INVALID("invalid", "作废"),
     /**
-     * 退回
+     * 退回.
      */
     BACK("back", "退回"),
     /**
-     * 终止
+     * 终止.
      */
     TERMINATION("termination", "终止"),
     /**
-     * 转办
+     * 转办.
      */
     TRANSFER("transfer", "转办"),
     /**
-     * 委托
+     * 委托.
      */
     PENDING("pending", "委托"),
     /**
-     * 抄送
+     * 抄送.
      */
     COPY("copy", "抄送"),
     /**
-     * 加签
+     * 加签.
      */
     SIGN("sign", "加签"),
     /**
-     * 减签
+     * 减签.
      */
     SIGN_OFF("sign_off", "减签"),
     /**
-     * 超时
+     * 超时.
      */
     TIMEOUT("timeout", "超时");
 
     /**
-     * 状态
+     * 状态.
      */
     private final String status;
 
     /**
-     * 描述
+     * 描述.
      */
     private final String desc;
 
     /**
-     * 任务业务状态
+     * 任务业务状态.
      *
      * @param status 状态
      */
@@ -101,4 +101,3 @@ public enum TaskStatusEnum {
             .orElse(StrUtil.EMPTY);
     }
 }
-

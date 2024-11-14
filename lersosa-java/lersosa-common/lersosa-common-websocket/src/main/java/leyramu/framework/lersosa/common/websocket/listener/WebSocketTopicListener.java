@@ -17,7 +17,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.Ordered;
 
 /**
- * WebSocket 主题订阅监听器
+ * WebSocket 主题订阅监听器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,13 +27,12 @@ import org.springframework.core.Ordered;
 public class WebSocketTopicListener implements ApplicationRunner, Ordered {
 
     /**
-     * 在Spring Boot应用程序启动时初始化WebSocket主题订阅监听器
+     * 在Spring Boot应用程序启动时初始化WebSocket主题订阅监听器.
      *
      * @param args 应用程序参数
-     * @throws Exception 初始化过程中可能抛出的异常
      */
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         // 订阅WebSocket消息
         WebSocketUtils.subscribeMessage((message) -> {
             log.info("WebSocket主题订阅收到消息session keys={} message={}", message.getSessionKeys(), message.getMessage());
@@ -45,9 +44,7 @@ public class WebSocketTopicListener implements ApplicationRunner, Ordered {
                     }
                 });
             } else {
-                WebSocketSessionHolder.getSessionsAll().forEach(key -> {
-                    WebSocketUtils.sendMessage(key, message.getMessage());
-                });
+                WebSocketSessionHolder.getSessionsAll().forEach(key -> WebSocketUtils.sendMessage(key, message.getMessage()));
             }
         });
         log.info("初始化WebSocket主题订阅监听器成功");

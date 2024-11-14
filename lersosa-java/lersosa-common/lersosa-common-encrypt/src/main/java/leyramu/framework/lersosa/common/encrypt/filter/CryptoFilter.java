@@ -28,7 +28,7 @@ import java.io.IOException;
 
 
 /**
- * Crypto 过滤器
+ * Crypto 过滤器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -92,7 +92,7 @@ public class CryptoFilter implements Filter {
     }
 
     /**
-     * 获取 ApiEncrypt 注解
+     * 获取 ApiEncrypt 注解.
      */
     private ApiEncrypt getApiEncryptAnnotation(HttpServletRequest servletRequest) {
         RequestMappingHandlerMapping handlerMapping = SpringUtils.getBean("requestMappingHandlerMapping", RequestMappingHandlerMapping.class);
@@ -116,5 +116,6 @@ public class CryptoFilter implements Filter {
 
     @Override
     public void destroy() {
+        Filter.super.destroy();
     }
 }

@@ -20,7 +20,7 @@ import org.apache.commons.lang3.RegExUtils;
 import java.util.Arrays;
 
 /**
- * 代码生成器 工具类
+ * 代码生成器 工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,7 +30,7 @@ import java.util.Arrays;
 public class GenUtils {
 
     /**
-     * 初始化表信息
+     * 初始化表信息.
      */
     public static void initTable(GenTable genTable, Long operId) {
         genTable.setClassName(convertClassName(genTable.getTableName()));
@@ -43,7 +43,7 @@ public class GenUtils {
     }
 
     /**
-     * 初始化列属性字段
+     * 初始化列属性字段.
      */
     public static void initColumnField(GenTableColumn column, GenTable table) {
         String dataType = getDbType(column.getColumnType());
@@ -131,7 +131,7 @@ public class GenUtils {
     }
 
     /**
-     * 校验数组是否包含指定值
+     * 校验数组是否包含指定值.
      *
      * @param arr         数组
      * @param targetValue 值
@@ -142,7 +142,7 @@ public class GenUtils {
     }
 
     /**
-     * 获取模块名
+     * 获取模块名.
      *
      * @param packageName 包名
      * @return 模块名
@@ -154,7 +154,7 @@ public class GenUtils {
     }
 
     /**
-     * 获取业务名
+     * 获取业务名.
      *
      * @param tableName 表名
      * @return 业务名
@@ -168,7 +168,7 @@ public class GenUtils {
     }
 
     /**
-     * 表名转换成Java类名
+     * 表名转换成Java类名.
      *
      * @param tableName 表名称
      * @return 类名
@@ -184,7 +184,7 @@ public class GenUtils {
     }
 
     /**
-     * 批量替换前缀
+     * 批量替换前缀.
      *
      * @param replacementm 替换值
      * @param searchList   替换列表
@@ -201,7 +201,7 @@ public class GenUtils {
     }
 
     /**
-     * 关键字替换
+     * 关键字替换.
      *
      * @param text 需要被替换的名字
      * @return 替换后的名字
@@ -211,7 +211,7 @@ public class GenUtils {
     }
 
     /**
-     * 获取数据库类型字段
+     * 获取数据库类型字段.
      *
      * @param columnType 列类型
      * @return 截取后的列类型
@@ -225,7 +225,7 @@ public class GenUtils {
     }
 
     /**
-     * 获取字段长度
+     * 获取字段长度.
      *
      * @param columnType 列类型
      * @return 截取后的列类型

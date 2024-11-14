@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.system.domain.SysSocial;
 import leyramu.framework.lersosa.system.domain.vo.SysSocialVo;
 
 /**
- * 社会化关系Mapper接口
+ * 社会化关系Mapper接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

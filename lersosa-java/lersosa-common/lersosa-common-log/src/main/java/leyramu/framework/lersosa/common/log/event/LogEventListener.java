@@ -28,8 +28,10 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 /**
- * 异步调用日志服务
+ * 异步调用日志服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -45,7 +47,7 @@ public class LogEventListener {
     private RemoteClientService remoteClientService;
 
     /**
-     * 保存系统日志记录
+     * 保存系统日志记录.
      */
     @EventListener
     public void saveLog(OperLogEvent operLogEvent) {
@@ -54,13 +56,13 @@ public class LogEventListener {
     }
 
     /**
-     * 保存系统访问记录
+     * 保存系统访问记录.
      */
     @EventListener
     public void saveLogininfor(LogininforEvent logininforEvent) {
         HttpServletRequest request = ServletUtils.getRequest();
-        final UserAgent userAgent = UserAgentUtil.parse(request.getHeader("User-Agent"));
-        final String ip = ServletUtils.getClientIP(request);
+        UserAgent userAgent = UserAgentUtil.parse(Objects.requireNonNull(request).getHeader("User-Agent"));
+        String ip = ServletUtils.getClientIP(request);
         // 客户端信息
         String clientId = request.getHeader(LoginHelper.CLIENT_KEY);
         RemoteClientVo clientVo = null;
@@ -68,15 +70,14 @@ public class LogEventListener {
             clientVo = remoteClientService.queryByClientId(clientId);
         }
 
-        String address = AddressUtils.getRealAddressByIP(ip);
-        StringBuilder s = new StringBuilder();
-        s.append(getBlock(ip));
-        s.append(address);
-        s.append(getBlock(logininforEvent.getUsername()));
-        s.append(getBlock(logininforEvent.getStatus()));
-        s.append(getBlock(logininforEvent.getMessage()));
+        String address = AddressUtils.getRealAddressByIp(ip);
+        String s = getBlock(ip) +
+            address +
+            getBlock(logininforEvent.getUsername()) +
+            getBlock(logininforEvent.getStatus()) +
+            getBlock(logininforEvent.getMessage());
         // 打印信息到日志
-        log.info(s.toString(), logininforEvent.getArgs());
+        log.info(s, logininforEvent.getArgs());
         // 获取客户端操作系统
         String os = userAgent.getOs().getName();
         // 获取客户端浏览器
@@ -109,5 +110,4 @@ public class LogEventListener {
         }
         return "[" + msg + "]";
     }
-
 }

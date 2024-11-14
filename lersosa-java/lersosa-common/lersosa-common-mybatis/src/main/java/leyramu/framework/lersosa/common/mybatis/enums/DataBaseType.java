@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 数据库类型
+ * 数据库类型.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -24,32 +24,32 @@ import lombok.Getter;
 public enum DataBaseType {
 
     /**
-     * MySQL
+     * MySQL.
      */
     MY_SQL("MySQL"),
 
     /**
-     * Oracle
+     * Oracle.
      */
     ORACLE("Oracle"),
 
     /**
-     * PostgreSQL
+     * PostgreSQL.
      */
     POSTGRE_SQL("PostgreSQL"),
 
     /**
-     * SQL Server
+     * SQL Server.
      */
     SQL_SERVER("Microsoft SQL Server");
 
     /**
-     * 数据库类型
+     * 数据库类型.
      */
     private final String type;
 
     /**
-     * 根据数据库产品名称查找对应的数据库类型
+     * 根据数据库产品名称查找对应的数据库类型.
      *
      * @param databaseProductName 数据库产品名称
      * @return 对应的数据库类型枚举值，如果未找到则返回 null

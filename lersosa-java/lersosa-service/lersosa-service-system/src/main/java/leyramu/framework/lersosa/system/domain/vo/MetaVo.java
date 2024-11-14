@@ -15,7 +15,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 路由显示信息
+ * 路由显示信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,22 +28,22 @@ public class MetaVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 设置该路由在侧边栏和面包屑中展示的名字
+     * 设置该路由在侧边栏和面包屑中展示的名字.
      */
     private String title;
 
     /**
-     * 设置该路由的图标，对应路径src/assets/icons/svg
+     * 设置该路由的图标，对应路径src/assets/icons/svg.
      */
     private String icon;
 
     /**
-     * 设置为true，则不会被 <keep-alive>缓存
+     * 设置为true，则不会被 <keep-alive>缓存.
      */
     private boolean noCache;
 
     /**
-     * 内链地址（http(s)://开头）
+     * 内链地址（http(s)://开头）.
      */
     private String link;
 
@@ -52,6 +52,7 @@ public class MetaVo implements Serializable {
         this.icon = icon;
     }
 
+    @SuppressWarnings("unused")
     public MetaVo(String title, String icon, boolean noCache) {
         this.title = title;
         this.icon = icon;
@@ -72,5 +73,4 @@ public class MetaVo implements Serializable {
             this.link = link;
         }
     }
-
 }

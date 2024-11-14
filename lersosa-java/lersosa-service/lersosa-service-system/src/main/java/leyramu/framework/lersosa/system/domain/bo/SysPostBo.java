@@ -18,7 +18,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 岗位信息业务对象 sys_post
+ * 岗位信息业务对象 sys_post.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,56 +30,54 @@ import lombok.EqualsAndHashCode;
 public class SysPostBo extends BaseEntity {
 
     /**
-     * 岗位ID
+     * 岗位ID.
      */
     private Long postId;
 
     /**
-     * 部门id（单部门）
+     * 部门id（单部门）.
      */
     @NotNull(message = "部门id不能为空")
     private Long deptId;
 
     /**
-     * 归属部门id（部门树）
+     * 归属部门id（部门树）.
      */
     private Long belongDeptId;
 
     /**
-     * 岗位编码
+     * 岗位编码.
      */
     @NotBlank(message = "岗位编码不能为空")
-    @Size(min = 0, max = 64, message = "岗位编码长度不能超过{max}个字符")
+    @Size(max = 64, message = "岗位编码长度不能超过{max}个字符")
     private String postCode;
 
     /**
-     * 岗位名称
+     * 岗位名称.
      */
     @NotBlank(message = "岗位名称不能为空")
-    @Size(min = 0, max = 50, message = "岗位名称长度不能超过{max}个字符")
+    @Size(max = 50, message = "岗位名称长度不能超过{max}个字符")
     private String postName;
 
     /**
-     * 岗位类别编码
+     * 岗位类别编码.
      */
-    @Size(min = 0, max = 100, message = "类别编码长度不能超过{max}个字符")
+    @Size(max = 100, message = "类别编码长度不能超过{max}个字符")
     private String postCategory;
 
     /**
-     * 显示顺序
+     * 显示顺序.
      */
     @NotNull(message = "显示顺序不能为空")
     private Integer postSort;
 
     /**
-     * 状态（0正常 1停用）
+     * 状态（0正常 1停用）.
      */
     private String status;
 
     /**
-     * 备注
+     * 备注.
      */
     private String remark;
-
-
 }

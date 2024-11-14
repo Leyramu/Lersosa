@@ -13,9 +13,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * 断言单元测试案例
+ * 断言单元测试案例.
  *
- * @author Lion Li
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 1.0.0
+ * @since 2024/11/6
  */
 @DisplayName("断言单元测试案例")
 public class AssertUnitTest {
@@ -23,17 +25,16 @@ public class AssertUnitTest {
     @DisplayName("测试 assertEquals 方法")
     @Test
     public void testAssertEquals() {
-        Assertions.assertEquals("666", new String("666"));
-        Assertions.assertNotEquals("666", new String("666"));
+        Assertions.assertEquals("666", "666");
+        Assertions.assertNotEquals("666", "666");
     }
 
     @DisplayName("测试 assertSame 方法")
     @Test
     public void testAssertSame() {
         Object obj = new Object();
-        Object obj1 = obj;
-        Assertions.assertSame(obj, obj1);
-        Assertions.assertNotSame(obj, obj1);
+        Assertions.assertSame(obj, obj);
+        Assertions.assertNotSame(obj, obj);
     }
 
     @DisplayName("测试 assertTrue 方法")
@@ -49,5 +50,4 @@ public class AssertUnitTest {
         Assertions.assertNull(null);
         Assertions.assertNotNull(null);
     }
-
 }

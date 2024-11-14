@@ -26,7 +26,6 @@ import leyramu.framework.lersosa.workflow.service.IActModelService;
 import lombok.RequiredArgsConstructor;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.repository.Model;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +34,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 模型管理 控制层
+ * 模型管理 控制层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -47,12 +46,11 @@ import java.util.List;
 @RequestMapping("/model")
 public class ActModelController extends BaseController {
 
-    @Autowired(required = false)
-    private RepositoryService repositoryService;
+    private final RepositoryService repositoryService;
     private final IActModelService actModelService;
 
     /**
-     * 分页查询模型
+     * 分页查询模型.
      *
      * @param modelBo 模型参数
      */
@@ -62,7 +60,7 @@ public class ActModelController extends BaseController {
     }
 
     /**
-     * 新增模型
+     * 新增模型.
      *
      * @param modelBo 模型请求对象
      */
@@ -74,7 +72,7 @@ public class ActModelController extends BaseController {
     }
 
     /**
-     * 查询模型
+     * 查询模型.
      *
      * @param id 模型id
      */
@@ -84,7 +82,7 @@ public class ActModelController extends BaseController {
     }
 
     /**
-     * 修改模型信息
+     * 修改模型信息.
      *
      * @param modelBo 模型数据
      */
@@ -96,7 +94,7 @@ public class ActModelController extends BaseController {
     }
 
     /**
-     * 编辑XMl模型
+     * 编辑XMl模型.
      *
      * @param modelBo 模型数据
      */
@@ -108,7 +106,7 @@ public class ActModelController extends BaseController {
     }
 
     /**
-     * 删除流程模型
+     * 删除流程模型.
      *
      * @param ids 模型id
      */
@@ -122,7 +120,7 @@ public class ActModelController extends BaseController {
     }
 
     /**
-     * 模型部署
+     * 模型部署.
      *
      * @param id 模型id
      */
@@ -134,7 +132,7 @@ public class ActModelController extends BaseController {
     }
 
     /**
-     * 导出模型zip压缩包
+     * 导出模型zip压缩包.
      *
      * @param modelIds 模型id
      * @param response 相应
@@ -146,7 +144,7 @@ public class ActModelController extends BaseController {
     }
 
     /**
-     * 复制模型
+     * 复制模型.
      *
      * @param modelBo 模型数据
      */

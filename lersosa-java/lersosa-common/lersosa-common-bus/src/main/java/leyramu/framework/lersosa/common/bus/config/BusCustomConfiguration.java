@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.cloud.bus.jackson.RemoteApplicationEventScan;
 
 /**
- * bus 配置
+ * bus 配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -21,5 +21,4 @@ import org.springframework.cloud.bus.jackson.RemoteApplicationEventScan;
 @AutoConfiguration
 @RemoteApplicationEventScan(basePackages = "${spring.cloud.bus.base-packages}")
 public class BusCustomConfiguration {
-
 }

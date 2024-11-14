@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.system.domain.SysTenantPackage;
 import leyramu.framework.lersosa.system.domain.vo.SysTenantPackageVo;
 
 /**
- * 租户套餐Mapper接口
+ * 租户套餐Mapper接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

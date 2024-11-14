@@ -9,7 +9,7 @@
 package leyramu.framework.lersosa.common.encrypt.enumd;
 
 /**
- * 编码类型
+ * 编码类型.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -18,18 +18,17 @@ package leyramu.framework.lersosa.common.encrypt.enumd;
 public enum EncodeType {
 
     /**
-     * 默认使用yml配置
+     * 默认使用yml配置.
      */
     DEFAULT,
 
     /**
-     * base64编码
+     * base64编码.
      */
     BASE64,
 
     /**
-     * 16进制编码
+     * 16进制编码.
      */
     HEX
-
 }

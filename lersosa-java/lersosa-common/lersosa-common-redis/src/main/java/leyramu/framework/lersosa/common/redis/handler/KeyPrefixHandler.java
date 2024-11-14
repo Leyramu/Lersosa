@@ -12,7 +12,7 @@ import leyramu.framework.lersosa.common.core.utils.StringUtils;
 import org.redisson.api.NameMapper;
 
 /**
- * redis缓存key前缀处理
+ * redis缓存key前缀处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,7 +28,7 @@ public class KeyPrefixHandler implements NameMapper {
     }
 
     /**
-     * 增加前缀
+     * 增加前缀.
      */
     @Override
     public String map(String name) {
@@ -42,7 +42,7 @@ public class KeyPrefixHandler implements NameMapper {
     }
 
     /**
-     * 去除前缀
+     * 去除前缀.
      */
     @Override
     public String unmap(String name) {
@@ -54,5 +54,4 @@ public class KeyPrefixHandler implements NameMapper {
         }
         return name;
     }
-
 }

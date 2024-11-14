@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 短信登录对象
+ * 短信登录对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,15 +25,14 @@ import lombok.EqualsAndHashCode;
 public class SmsLoginBody extends LoginBody {
 
     /**
-     * 手机号
+     * 手机号.
      */
     @NotBlank(message = "{user.phonenumber.not.blank}")
     private String phonenumber;
 
     /**
-     * 短信code
+     * 短信code.
      */
     @NotBlank(message = "{sms.code.not.blank}")
     private String smsCode;
-
 }

@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.common.dubbo.enumd;
 import lombok.AllArgsConstructor;
 
 /**
- * 请求日志泛型
+ * 请求日志泛型.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -21,18 +21,17 @@ import lombok.AllArgsConstructor;
 public enum RequestLogEnum {
 
     /**
-     * info 基础信息
+     * info 基础信息.
      */
     INFO,
 
     /**
-     * param 参数信息
+     * param 参数信息.
      */
     PARAM,
 
     /**
-     * full 全部
+     * full 全部.
      */
-    FULL;
-
+    FULL
 }

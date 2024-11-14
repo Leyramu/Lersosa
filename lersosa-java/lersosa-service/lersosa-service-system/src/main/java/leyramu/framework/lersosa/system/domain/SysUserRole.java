@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
- * 用户和角色关联 sys_user_role
+ * 用户和角色关联 sys_user_role.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,14 +25,13 @@ import lombok.Data;
 public class SysUserRole {
 
     /**
-     * 用户ID
+     * 用户ID.
      */
     @TableId(type = IdType.INPUT)
     private Long userId;
 
     /**
-     * 角色ID
+     * 角色ID.
      */
     private Long roleId;
-
 }

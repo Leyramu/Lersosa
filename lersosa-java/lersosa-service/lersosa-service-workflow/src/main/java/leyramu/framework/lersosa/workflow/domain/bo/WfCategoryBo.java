@@ -19,7 +19,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 流程分类业务对象 wf_category
+ * 流程分类业务对象 wf_category.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,33 +31,31 @@ import lombok.EqualsAndHashCode;
 public class WfCategoryBo extends BaseEntity {
 
     /**
-     * 主键
+     * 主键.
      */
     @NotNull(message = "主键不能为空", groups = {EditGroup.class})
     private Long id;
 
     /**
-     * 分类名称
+     * 分类名称.
      */
     @NotBlank(message = "分类名称不能为空", groups = {AddGroup.class, EditGroup.class})
     private String categoryName;
 
     /**
-     * 分类编码
+     * 分类编码.
      */
     @NotBlank(message = "分类编码不能为空", groups = {AddGroup.class, EditGroup.class})
     private String categoryCode;
 
     /**
-     * 父级id
+     * 父级id.
      */
     @NotNull(message = "父级id不能为空", groups = {AddGroup.class, EditGroup.class})
     private Long parentId;
 
     /**
-     * 排序
+     * 排序.
      */
     private Long sortNum;
-
-
 }

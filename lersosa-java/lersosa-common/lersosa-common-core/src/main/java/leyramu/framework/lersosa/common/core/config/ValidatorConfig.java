@@ -18,7 +18,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import java.util.Properties;
 
 /**
- * 校验框架配置类
+ * 校验框架配置类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,7 +28,7 @@ import java.util.Properties;
 public class ValidatorConfig {
 
     /**
-     * 配置校验框架 快速返回模式
+     * 配置校验框架 快速返回模式.
      */
     @Bean
     public Validator validator(MessageSource messageSource) {
@@ -46,5 +46,4 @@ public class ValidatorConfig {
             return factoryBean.getValidator();
         }
     }
-
 }

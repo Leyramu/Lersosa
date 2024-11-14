@@ -16,7 +16,7 @@ import leyramu.framework.lersosa.common.encrypt.utils.EncryptUtils;
 
 
 /**
- * RSA算法实现
+ * RSA算法实现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -37,7 +37,7 @@ public class RsaEncryptor extends AbstractEncryptor {
     }
 
     /**
-     * 获得当前算法
+     * 获得当前算法.
      */
     @Override
     public AlgorithmType algorithm() {
@@ -45,7 +45,7 @@ public class RsaEncryptor extends AbstractEncryptor {
     }
 
     /**
-     * 加密
+     * 加密.
      *
      * @param value      待加密字符串
      * @param encodeType 加密后的编码格式
@@ -60,7 +60,7 @@ public class RsaEncryptor extends AbstractEncryptor {
     }
 
     /**
-     * 解密
+     * 解密.
      *
      * @param value 待加密字符串
      */

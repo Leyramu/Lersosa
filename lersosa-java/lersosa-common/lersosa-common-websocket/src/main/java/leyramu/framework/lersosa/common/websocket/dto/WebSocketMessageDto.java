@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 消息的dto
+ * 消息的dto.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,12 +28,12 @@ public class WebSocketMessageDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 需要推送到的session key 列表
+     * 需要推送到的session key 列表.
      */
     private List<Long> sessionKeys;
 
     /**
-     * 需要发送的消息
+     * 需要发送的消息.
      */
     private String message;
 }

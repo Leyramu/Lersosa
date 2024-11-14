@@ -12,7 +12,7 @@ import leyramu.framework.lersosa.common.encrypt.core.EncryptContext;
 import leyramu.framework.lersosa.common.encrypt.core.IEncryptor;
 
 /**
- * 所有加密执行者的基类
+ * 所有加密执行者的基类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -20,8 +20,7 @@ import leyramu.framework.lersosa.common.encrypt.core.IEncryptor;
  */
 public abstract class AbstractEncryptor implements IEncryptor {
 
-    public AbstractEncryptor(EncryptContext context) {
+    public AbstractEncryptor(EncryptContext ignoredContext) {
         // 用户配置校验与配置注入
     }
-
 }

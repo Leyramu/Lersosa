@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.system.api;
 import leyramu.framework.lersosa.system.api.domain.vo.RemoteClientVo;
 
 /**
- * 客户端服务
+ * 客户端服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -20,11 +20,10 @@ import leyramu.framework.lersosa.system.api.domain.vo.RemoteClientVo;
 public interface RemoteClientService {
 
     /**
-     * 根据客户端id获取客户端详情
+     * 根据客户端id获取客户端详情.
      *
      * @param clientId 客户端id
      * @return 客户端对象
      */
     RemoteClientVo queryByClientId(String clientId);
-
 }

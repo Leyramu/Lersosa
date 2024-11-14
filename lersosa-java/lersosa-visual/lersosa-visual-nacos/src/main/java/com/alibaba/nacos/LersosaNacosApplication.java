@@ -8,36 +8,26 @@
 
 package com.alibaba.nacos;
 
-import com.alibaba.nacos.sys.filter.NacosTypeExcludeFilter;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.AutoConfigurationExcludeFilter;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.TypeExcludeFilter;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
- * Nacos 注册中心 启动类
+ * Nacos 注册中心 启动类.
  *
  * @author nacos
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.2.0
  * @since 2024/7/31
  */
-@SpringBootApplication
-@ComponentScan(basePackages = "com.alibaba.nacos", excludeFilters = {
-    @Filter(type = FilterType.CUSTOM, classes = {NacosTypeExcludeFilter.class}),
-    @Filter(type = FilterType.CUSTOM, classes = {TypeExcludeFilter.class}),
-    @Filter(type = FilterType.CUSTOM, classes = {AutoConfigurationExcludeFilter.class})})
-@ServletComponentScan
 @EnableScheduling
+@SpringBootApplication
+@ServletComponentScan
 public class LersosaNacosApplication {
 
     /**
-     * 启动 Nacos 注册中心 模块
+     * 启动 Nacos 注册中心 模块.
      *
      * @param args 命令行参数
      */

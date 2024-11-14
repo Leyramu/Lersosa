@@ -28,8 +28,8 @@ import leyramu.framework.lersosa.workflow.service.IActTaskService;
 import leyramu.framework.lersosa.workflow.service.IWfTaskBackNodeService;
 import leyramu.framework.lersosa.workflow.utils.QueryUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.flowable.engine.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,12 +37,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 任务管理 控制层
+ * 任务管理 控制层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@Slf4j
 @Validated
 @RequiredArgsConstructor
 @RestController
@@ -50,12 +51,13 @@ import java.util.Map;
 public class ActTaskController extends BaseController {
 
     private final IActTaskService actTaskService;
+
     private final IWfTaskBackNodeService wfTaskBackNodeService;
-    @Autowired(required = false)
-    private TaskService taskService;
+
+    private final TaskService taskService;
 
     /**
-     * 启动任务
+     * 启动任务.
      *
      * @param startProcessBo 启动流程参数
      */
@@ -68,7 +70,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 办理任务
+     * 办理任务.
      *
      * @param completeTaskBo 办理任务参数
      */
@@ -80,7 +82,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 查询当前用户的待办任务
+     * 查询当前用户的待办任务.
      *
      * @param taskBo 参数
      */
@@ -90,7 +92,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 查询当前租户所有待办任务
+     * 查询当前租户所有待办任务.
      *
      * @param taskBo 参数
      */
@@ -100,7 +102,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 查询当前用户的已办任务
+     * 查询当前用户的已办任务.
      *
      * @param taskBo 参数
      */
@@ -110,7 +112,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 查询当前用户的抄送
+     * 查询当前用户的抄送.
      *
      * @param taskBo 参数
      */
@@ -120,7 +122,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 查询当前租户所有已办任务
+     * 查询当前租户所有已办任务.
      *
      * @param taskBo 参数
      */
@@ -130,7 +132,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 签收（拾取）任务
+     * 签收（拾取）任务.
      *
      * @param taskId 任务id
      */
@@ -142,13 +144,13 @@ public class ActTaskController extends BaseController {
             taskService.claim(taskId, Convert.toStr(LoginHelper.getUserId()));
             return R.ok();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("签收任务失败", e);
             return R.fail("签收任务失败：" + e.getMessage());
         }
     }
 
     /**
-     * 归还（拾取的）任务
+     * 归还（拾取的）任务.
      *
      * @param taskId 任务id
      */
@@ -160,13 +162,13 @@ public class ActTaskController extends BaseController {
             taskService.setAssignee(taskId, null);
             return R.ok();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("归还任务失败", e);
             return R.fail("归还任务失败：" + e.getMessage());
         }
     }
 
     /**
-     * 委派任务
+     * 委派任务.
      *
      * @param delegateBo 参数
      */
@@ -178,7 +180,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 终止任务
+     * 终止任务.
      *
      * @param terminationBo 参数
      */
@@ -190,7 +192,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 转办任务
+     * 转办任务.
      *
      * @param transmitBo 参数
      */
@@ -202,7 +204,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 会签任务加签
+     * 会签任务加签.
      *
      * @param addMultiBo 参数
      */
@@ -214,7 +216,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 会签任务减签
+     * 会签任务减签.
      *
      * @param deleteMultiBo 参数
      */
@@ -226,7 +228,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 驳回审批
+     * 驳回审批.
      *
      * @param backProcessBo 参数
      */
@@ -238,7 +240,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 获取当前任务
+     * 获取当前任务.
      *
      * @param taskId 任务id
      */
@@ -249,7 +251,7 @@ public class ActTaskController extends BaseController {
 
 
     /**
-     * 修改任务办理人
+     * 修改任务办理人.
      *
      * @param taskIds 任务id
      * @param userId  办理人id
@@ -262,7 +264,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 查询流程变量
+     * 查询流程变量.
      *
      * @param taskId 任务id
      */
@@ -272,7 +274,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 获取可驳回得任务节点
+     * 获取可驳回得任务节点.
      *
      * @param processInstanceId 流程实例id
      */
@@ -282,7 +284,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 查询工作流任务用户选择加签人员
+     * 查询工作流任务用户选择加签人员.
      *
      * @param taskId 任务id
      */
@@ -292,7 +294,7 @@ public class ActTaskController extends BaseController {
     }
 
     /**
-     * 查询工作流选择减签人员
+     * 查询工作流选择减签人员.
      *
      * @param taskId 任务id
      */
@@ -300,5 +302,4 @@ public class ActTaskController extends BaseController {
     public R<List<TaskVo>> getListByDeleteMultiInstance(@PathVariable String taskId) {
         return R.ok(actTaskService.getListByDeleteMultiInstance(taskId));
     }
-
 }

@@ -19,7 +19,7 @@ import java.io.Serializable;
 
 
 /**
- * 流程分类视图对象 wf_category
+ * 流程分类视图对象 wf_category.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -34,34 +34,32 @@ public class WfCategoryVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * 主键.
      */
     @ExcelProperty(value = "主键")
     private Long id;
 
     /**
-     * 分类名称
+     * 分类名称.
      */
     @ExcelProperty(value = "分类名称")
     private String categoryName;
 
     /**
-     * 分类编码
+     * 分类编码.
      */
     @ExcelProperty(value = "分类编码")
     private String categoryCode;
 
     /**
-     * 父级id
+     * 父级id.
      */
     @ExcelProperty(value = "父级id")
     private Long parentId;
 
     /**
-     * 排序
+     * 排序.
      */
     @ExcelProperty(value = "排序")
     private Long sortNum;
-
-
 }

@@ -17,7 +17,7 @@ import leyramu.framework.lersosa.common.core.utils.StringUtils;
 import java.io.Serial;
 
 /**
- * 无符号计算生成器
+ * 无符号计算生成器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,19 +31,20 @@ public class UnsignedMathGenerator implements CodeGenerator {
     private static final String OPERATORS = "+-*";
 
     /**
-     * 参与计算数字最大长度
+     * 参与计算数字最大长度.
      */
     private final int numberLength;
 
     /**
-     * 构造
+     * 构造.
      */
+    @SuppressWarnings("unused")
     public UnsignedMathGenerator() {
         this(2);
     }
 
     /**
-     * 构造
+     * 构造.
      *
      * @param numberLength 参与计算最大数字位数
      */
@@ -79,16 +80,17 @@ public class UnsignedMathGenerator implements CodeGenerator {
     }
 
     /**
-     * 获取验证码长度
+     * 获取验证码长度.
      *
      * @return 验证码长度
      */
+    @SuppressWarnings("unused")
     public int getLength() {
         return this.numberLength * 2 + 2;
     }
 
     /**
-     * 根据长度获取参与计算数字最大值
+     * 根据长度获取参与计算数字最大值.
      *
      * @return 最大值
      */

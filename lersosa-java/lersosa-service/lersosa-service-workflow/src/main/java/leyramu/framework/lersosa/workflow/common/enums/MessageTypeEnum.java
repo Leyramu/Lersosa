@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 消息类型枚举
+ * 消息类型枚举.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,15 +25,15 @@ import java.util.concurrent.ConcurrentHashMap;
 @AllArgsConstructor
 public enum MessageTypeEnum {
     /**
-     * 站内信
+     * 站内信.
      */
     SYSTEM_MESSAGE("1", "站内信"),
     /**
-     * 邮箱
+     * 邮箱.
      */
     EMAIL_MESSAGE("2", "邮箱"),
     /**
-     * 短信
+     * 短信.
      */
     SMS_MESSAGE("3", "短信");
 
@@ -49,7 +49,7 @@ public enum MessageTypeEnum {
     private final String desc;
 
     /**
-     * 根据消息类型 code 获取 MessageTypeEnum
+     * 根据消息类型 code 获取 MessageTypeEnum.
      *
      * @param code 消息类型code
      * @return MessageTypeEnum
@@ -58,4 +58,3 @@ public enum MessageTypeEnum {
         return MESSAGE_TYPE_ENUM_MAP.get(code);
     }
 }
-

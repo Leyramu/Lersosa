@@ -33,8 +33,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 /**
- * 邮件认证策略
+ * 邮件认证策略.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -54,7 +56,7 @@ public class EmailAuthStrategy implements IAuthStrategy {
     public LoginVo login(String body, RemoteClientVo client) {
         EmailLoginBody loginBody = JsonUtils.parseObject(body, EmailLoginBody.class);
         ValidatorUtils.validate(loginBody);
-        String tenantId = loginBody.getTenantId();
+        String tenantId = Objects.requireNonNull(loginBody).getTenantId();
         String email = loginBody.getEmail();
         String emailCode = loginBody.getEmailCode();
         LoginUser loginUser = TenantHelper.dynamic(tenantId, () -> {
@@ -82,7 +84,7 @@ public class EmailAuthStrategy implements IAuthStrategy {
     }
 
     /**
-     * 校验邮箱验证码
+     * 校验邮箱验证码.
      */
     private boolean validateEmailCode(String tenantId, String email, String emailCode) {
         String code = RedisUtils.getCacheObject(GlobalConstants.CAPTCHA_CODE_KEY + email);
@@ -92,5 +94,4 @@ public class EmailAuthStrategy implements IAuthStrategy {
         }
         return code.equals(emailCode);
     }
-
 }

@@ -40,14 +40,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * 文件上传 服务层实现
+ * 文件上传 服务层实现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -60,7 +57,7 @@ public class SysOssServiceImpl implements ISysOssService {
     private final SysOssMapper baseMapper;
 
     /**
-     * 查询OSS对象存储列表
+     * 查询OSS对象存储列表.
      *
      * @param bo        OSS对象存储分页查询对象
      * @param pageQuery 分页查询实体类
@@ -76,7 +73,7 @@ public class SysOssServiceImpl implements ISysOssService {
     }
 
     /**
-     * 根据一组 ossIds 获取对应的 SysOssVo 列表
+     * 根据一组 ossIds 获取对应的 SysOssVo 列表.
      *
      * @param ossIds 一组文件在数据库中的唯一标识集合
      * @return 包含 SysOssVo 对象的列表
@@ -100,7 +97,7 @@ public class SysOssServiceImpl implements ISysOssService {
     }
 
     /**
-     * 根据一组 ossIds 获取对应文件的 URL 列表
+     * 根据一组 ossIds 获取对应文件的 URL 列表.
      *
      * @param ossIds 以逗号分隔的 ossId 字符串
      * @return 以逗号分隔的文件 URL 字符串
@@ -139,7 +136,7 @@ public class SysOssServiceImpl implements ISysOssService {
     }
 
     /**
-     * 根据 ossId 从缓存或数据库中获取 SysOssVo 对象
+     * 根据 ossId 从缓存或数据库中获取 SysOssVo 对象.
      *
      * @param ossId 文件在数据库中的唯一标识
      * @return SysOssVo 对象，包含文件信息
@@ -151,7 +148,7 @@ public class SysOssServiceImpl implements ISysOssService {
     }
 
     /**
-     * 文件下载方法，支持一次性下载完整文件
+     * 文件下载方法，支持一次性下载完整文件.
      *
      * @param ossId    OSS对象ID
      * @param response HttpServletResponse对象，用于设置响应头和向客户端发送文件内容
@@ -170,7 +167,7 @@ public class SysOssServiceImpl implements ISysOssService {
     }
 
     /**
-     * 上传 MultipartFile 到对象存储服务，并保存文件信息到数据库
+     * 上传 MultipartFile 到对象存储服务，并保存文件信息到数据库.
      *
      * @param file 要上传的 MultipartFile 对象
      * @return 上传成功后的 SysOssVo 对象，包含文件信息
@@ -179,7 +176,7 @@ public class SysOssServiceImpl implements ISysOssService {
     @Override
     public SysOssVo upload(MultipartFile file) {
         String originalfileName = file.getOriginalFilename();
-        String suffix = StringUtils.substring(originalfileName, originalfileName.lastIndexOf("."), originalfileName.length());
+        String suffix = StringUtils.substring(originalfileName, Objects.requireNonNull(originalfileName).lastIndexOf("."), originalfileName.length());
         OssClient storage = OssFactory.instance();
         UploadResult uploadResult;
         try {
@@ -192,7 +189,7 @@ public class SysOssServiceImpl implements ISysOssService {
     }
 
     /**
-     * 上传文件到对象存储服务，并保存文件信息到数据库
+     * 上传文件到对象存储服务，并保存文件信息到数据库.
      *
      * @param file 要上传的文件对象
      * @return 上传成功后的 SysOssVo 对象，包含文件信息
@@ -216,27 +213,25 @@ public class SysOssServiceImpl implements ISysOssService {
         oss.setService(configKey);
         baseMapper.insert(oss);
         SysOssVo sysOssVo = MapstructUtils.convert(oss, SysOssVo.class);
-        return this.matchingUrl(sysOssVo);
+        return this.matchingUrl(Objects.requireNonNull(sysOssVo));
     }
 
     /**
-     * 新增OSS对象存储
+     * 新增OSS对象存储.
      *
      * @param bo SysOssBo 对象，包含待插入的数据
-     * @return 插入操作是否成功的布尔值
      */
     @Override
-    public Boolean insertByBo(SysOssBo bo) {
+    public void insertByBo(SysOssBo bo) {
         SysOss oss = BeanUtil.toBean(bo, SysOss.class);
         boolean flag = baseMapper.insert(oss) > 0;
         if (flag) {
             bo.setOssId(oss.getOssId());
         }
-        return flag;
     }
 
     /**
-     * 删除OSS对象存储
+     * 删除OSS对象存储.
      *
      * @param ids     OSS对象ID串
      * @param isValid 判断是否需要校验
@@ -246,6 +241,7 @@ public class SysOssServiceImpl implements ISysOssService {
     public Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid) {
         if (isValid) {
             // 做一些业务上的校验,判断是否需要校验
+            throw new ServiceException("您没有删除权限!");
         }
         List<SysOss> list = baseMapper.selectByIds(ids);
         for (SysOss sysOss : list) {
@@ -256,7 +252,7 @@ public class SysOssServiceImpl implements ISysOssService {
     }
 
     /**
-     * 桶类型为 private 的URL 修改为临时URL时长为120s
+     * 桶类型为 private 的URL 修改为临时URL时长为120s.
      *
      * @param oss OSS对象
      * @return oss 匹配Url的OSS对象
@@ -269,5 +265,4 @@ public class SysOssServiceImpl implements ISysOssService {
         }
         return oss;
     }
-
 }

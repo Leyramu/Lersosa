@@ -13,12 +13,11 @@ import leyramu.framework.lersosa.system.domain.SysDictType;
 import leyramu.framework.lersosa.system.domain.vo.SysDictTypeVo;
 
 /**
- * 字典表 数据层
+ * 字典表 数据层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
 public interface SysDictTypeMapper extends BaseMapperPlus<SysDictType, SysDictTypeVo> {
-
 }

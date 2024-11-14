@@ -16,12 +16,13 @@ import leyramu.framework.lersosa.common.tenant.helper.TenantHelper;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 多租户redis缓存key前缀处理
+ * 多租户redis缓存key前缀处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@SuppressWarnings("all")
 @Slf4j
 public class TenantKeyPrefixHandler extends KeyPrefixHandler {
 
@@ -30,7 +31,7 @@ public class TenantKeyPrefixHandler extends KeyPrefixHandler {
     }
 
     /**
-     * 增加前缀
+     * 增加前缀.
      */
     @Override
     public String map(String name) {
@@ -48,7 +49,7 @@ public class TenantKeyPrefixHandler extends KeyPrefixHandler {
             log.debug("无法获取有效的租户id -> Null");
             return super.map(name);
         }
-        if (StringUtils.startsWith(name, tenantId + "")) {
+        if (StringUtils.startsWith(name, tenantId)) {
             // 如果存在则直接返回
             return super.map(name);
         }
@@ -56,7 +57,7 @@ public class TenantKeyPrefixHandler extends KeyPrefixHandler {
     }
 
     /**
-     * 去除前缀
+     * 去除前缀.
      */
     @Override
     public String unmap(String name) {
@@ -75,11 +76,10 @@ public class TenantKeyPrefixHandler extends KeyPrefixHandler {
             log.debug("无法获取有效的租户id -> Null");
             return super.unmap(name);
         }
-        if (StringUtils.startsWith(unmap, tenantId + "")) {
+        if (StringUtils.startsWith(unmap, tenantId)) {
             // 如果存在则删除
             return unmap.substring((tenantId + ":").length());
         }
         return unmap;
     }
-
 }

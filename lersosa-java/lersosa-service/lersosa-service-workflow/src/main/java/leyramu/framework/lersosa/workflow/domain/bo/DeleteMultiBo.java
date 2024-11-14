@@ -18,7 +18,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 减签参数请求
+ * 减签参数请求.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,31 +31,31 @@ public class DeleteMultiBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 任务ID
+     * 任务ID.
      */
     @NotBlank(message = "任务ID不能为空", groups = AddGroup.class)
     private String taskId;
 
     /**
-     * 减签人员
+     * 减签人员.
      */
     @NotEmpty(message = "减签人员不能为空", groups = AddGroup.class)
     private List<String> taskIds;
 
     /**
-     * 执行id
+     * 执行id.
      */
     @NotEmpty(message = "执行id不能为空", groups = AddGroup.class)
     private List<String> executionIds;
 
     /**
-     * 人员id
+     * 人员id.
      */
     @NotEmpty(message = "减签人员id不能为空", groups = AddGroup.class)
     private List<Long> assigneeIds;
 
     /**
-     * 人员名称
+     * 人员名称.
      */
     @NotEmpty(message = "减签人员不能为空", groups = AddGroup.class)
     private List<String> assigneeNames;

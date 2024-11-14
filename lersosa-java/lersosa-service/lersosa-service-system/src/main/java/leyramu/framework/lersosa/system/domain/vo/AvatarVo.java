@@ -14,7 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 用户头像信息
+ * 用户头像信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,8 +27,7 @@ public class AvatarVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 头像地址
+     * 头像地址.
      */
     private String imgUrl;
-
 }

@@ -35,7 +35,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 文件上传 控制层
+ * 文件上传 控制层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -50,7 +50,7 @@ public class SysOssController extends BaseController {
     private final ISysOssService iSysOssService;
 
     /**
-     * 查询OSS对象存储列表
+     * 查询OSS对象存储列表.
      */
     @SaCheckPermission("system:oss:list")
     @GetMapping("/list")
@@ -59,7 +59,7 @@ public class SysOssController extends BaseController {
     }
 
     /**
-     * 查询OSS对象基于id串
+     * 查询OSS对象基于id串.
      *
      * @param ossIds OSS对象ID串
      */
@@ -71,7 +71,7 @@ public class SysOssController extends BaseController {
     }
 
     /**
-     * 上传OSS对象存储
+     * 上传OSS对象存储.
      *
      * @param file 文件
      */
@@ -91,7 +91,7 @@ public class SysOssController extends BaseController {
     }
 
     /**
-     * 下载OSS对象存储
+     * 下载OSS对象存储.
      *
      * @param ossId OSS对象ID
      */
@@ -102,7 +102,7 @@ public class SysOssController extends BaseController {
     }
 
     /**
-     * 删除OSS对象存储
+     * 删除OSS对象存储.
      *
      * @param ossIds OSS对象ID串
      */
@@ -112,5 +112,4 @@ public class SysOssController extends BaseController {
     public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ossIds) {
         return toAjax(iSysOssService.deleteWithValidByIds(Arrays.asList(ossIds), true));
     }
-
 }

@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 客户端管理
+ * 客户端管理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -47,7 +47,7 @@ public class SysClientController extends BaseController {
     private final ISysClientService sysClientService;
 
     /**
-     * 查询客户端管理列表
+     * 查询客户端管理列表.
      */
     @SaCheckPermission("system:client:list")
     @GetMapping("/list")
@@ -56,7 +56,7 @@ public class SysClientController extends BaseController {
     }
 
     /**
-     * 导出客户端管理列表
+     * 导出客户端管理列表.
      */
     @SaCheckPermission("system:client:export")
     @Log(title = "客户端管理", businessType = BusinessType.EXPORT)
@@ -67,7 +67,7 @@ public class SysClientController extends BaseController {
     }
 
     /**
-     * 获取客户端管理详细信息
+     * 获取客户端管理详细信息.
      *
      * @param id 主键
      */
@@ -79,7 +79,7 @@ public class SysClientController extends BaseController {
     }
 
     /**
-     * 新增客户端管理
+     * 新增客户端管理.
      */
     @SaCheckPermission("system:client:add")
     @Log(title = "客户端管理", businessType = BusinessType.INSERT)
@@ -90,7 +90,7 @@ public class SysClientController extends BaseController {
     }
 
     /**
-     * 修改客户端管理
+     * 修改客户端管理.
      */
     @SaCheckPermission("system:client:edit")
     @Log(title = "客户端管理", businessType = BusinessType.UPDATE)
@@ -101,7 +101,7 @@ public class SysClientController extends BaseController {
     }
 
     /**
-     * 状态修改
+     * 状态修改.
      */
     @SaCheckPermission("system:client:edit")
     @Log(title = "客户端管理", businessType = BusinessType.UPDATE)
@@ -111,7 +111,7 @@ public class SysClientController extends BaseController {
     }
 
     /**
-     * 删除客户端管理
+     * 删除客户端管理.
      *
      * @param ids 主键串
      */

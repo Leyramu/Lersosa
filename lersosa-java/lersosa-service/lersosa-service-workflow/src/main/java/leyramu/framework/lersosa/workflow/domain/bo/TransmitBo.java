@@ -16,7 +16,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 终转办务请求对象
+ * 终转办务请求对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,19 +29,19 @@ public class TransmitBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 任务id
+     * 任务id.
      */
     @NotBlank(message = "任务id为空", groups = AddGroup.class)
     private String taskId;
 
     /**
-     * 转办人id
+     * 转办人id.
      */
     @NotBlank(message = "转办人不能为空", groups = AddGroup.class)
     private String userId;
 
     /**
-     * 审批意见
+     * 审批意见.
      */
     private String comment;
 }

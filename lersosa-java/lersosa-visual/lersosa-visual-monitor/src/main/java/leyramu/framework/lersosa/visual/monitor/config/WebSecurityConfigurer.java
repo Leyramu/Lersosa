@@ -21,22 +21,37 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
- * admin 监控 安全配置
+ * admin 监控 安全配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
 public class WebSecurityConfigurer {
 
+    /**
+     * admin 监控路径.
+     */
     private final String adminContextPath;
 
+    /**
+     * 构造函数.
+     *
+     * @param adminServerProperties admin 监控路径
+     */
     public WebSecurityConfigurer(AdminServerProperties adminServerProperties) {
         this.adminContextPath = adminServerProperties.getContextPath();
     }
 
+    /**
+     * 配置过滤器链.
+     *
+     * @param httpSecurity http 安全配置
+     * @return 过滤器链
+     * @throws Exception 异常
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
@@ -60,5 +75,4 @@ public class WebSecurityConfigurer {
             .csrf(AbstractHttpConfigurer::disable)
             .build();
     }
-
 }

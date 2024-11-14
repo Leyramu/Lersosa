@@ -13,7 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 监控中心
+ * 监控中心.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -24,7 +24,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LersosaMonitorApplication {
 
     /**
-     * 启动 监控中心 模块
+     * 启动 监控中心 模块.
      *
      * @param args 命令行参数
      */

@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Duration;
 
 /**
- * 验证码操作处理
+ * 验证码操作处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -50,9 +50,9 @@ public class CaptchaController {
     private final CaptchaProperties captchaProperties;
 
     /**
-     * 生成验证码
+     * 生成验证码.
      */
-    @RateLimiter(time = 60, count = 10, limitType = LimitType.IP)
+    @RateLimiter(count = 10, limitType = LimitType.IP)
     @GetMapping("/code")
     public R<CaptchaVo> getCode() {
         CaptchaVo captchaVo = new CaptchaVo();
@@ -84,5 +84,4 @@ public class CaptchaController {
         captchaVo.setImg(captcha.getImageBase64());
         return R.ok(captchaVo);
     }
-
 }

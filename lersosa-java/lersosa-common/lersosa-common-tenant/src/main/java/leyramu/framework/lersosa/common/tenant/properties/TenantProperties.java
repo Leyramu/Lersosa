@@ -14,7 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.util.List;
 
 /**
- * 租户 配置属性
+ * 租户 配置属性.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,13 +25,12 @@ import java.util.List;
 public class TenantProperties {
 
     /**
-     * 是否启用
+     * 是否启用.
      */
     private Boolean enable;
 
     /**
-     * 排除表
+     * 排除表.
      */
     private List<String> excludes;
-
 }

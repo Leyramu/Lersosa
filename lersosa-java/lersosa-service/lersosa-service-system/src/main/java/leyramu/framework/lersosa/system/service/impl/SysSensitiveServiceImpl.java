@@ -16,9 +16,7 @@ import leyramu.framework.lersosa.common.tenant.helper.TenantHelper;
 import org.springframework.stereotype.Service;
 
 /**
- * 脱敏服务
- * 默认管理员不过滤
- * 需自行根据业务重写实现
+ * 脱敏服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,11 +26,11 @@ import org.springframework.stereotype.Service;
 public class SysSensitiveServiceImpl implements SensitiveService {
 
     /**
-     * 是否脱敏
+     * 是否脱敏.
      */
     @Override
     public boolean isSensitive(String roleKey, String perms) {
-        if (!LoginHelper.isLogin()) {
+        if (LoginHelper.isLogin()) {
             return true;
         }
         boolean roleExist = StringUtils.isNotEmpty(roleKey);
@@ -52,5 +50,4 @@ public class SysSensitiveServiceImpl implements SensitiveService {
         }
         return !LoginHelper.isSuperAdmin();
     }
-
 }

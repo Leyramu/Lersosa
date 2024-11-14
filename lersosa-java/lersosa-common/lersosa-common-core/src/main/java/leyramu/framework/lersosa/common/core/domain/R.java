@@ -16,7 +16,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 响应信息主体
+ * 响应信息主体.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,27 +27,33 @@ import java.io.Serializable;
 public class R<T> implements Serializable {
 
     /**
-     * 成功
+     * 序列化号.
      */
-    public static final int SUCCESS = 200;
-    /**
-     * 失败
-     */
-    public static final int FAIL = 500;
     @Serial
     private static final long serialVersionUID = 1L;
+
     /**
-     * 消息状态码
+     * 成功.
+     */
+    public static final int SUCCESS = 200;
+
+    /**
+     * 失败.
+     */
+    public static final int FAIL = 500;
+
+    /**
+     * 消息状态码.
      */
     private int code;
 
     /**
-     * 消息内容
+     * 消息内容.
      */
     private String msg;
 
     /**
-     * 数据对象
+     * 数据对象.
      */
     private T data;
 
@@ -88,7 +94,7 @@ public class R<T> implements Serializable {
     }
 
     /**
-     * 返回警告消息
+     * 返回警告消息.
      *
      * @param msg 返回内容
      * @return 警告消息
@@ -98,7 +104,7 @@ public class R<T> implements Serializable {
     }
 
     /**
-     * 返回警告消息
+     * 返回警告消息.
      *
      * @param msg  返回内容
      * @param data 数据对象
@@ -116,6 +122,7 @@ public class R<T> implements Serializable {
         return r;
     }
 
+    @SuppressWarnings("unused")
     public static <T> Boolean isError(R<T> ret) {
         return !isSuccess(ret);
     }
@@ -123,5 +130,4 @@ public class R<T> implements Serializable {
     public static <T> Boolean isSuccess(R<T> ret) {
         return R.SUCCESS == ret.getCode();
     }
-
 }

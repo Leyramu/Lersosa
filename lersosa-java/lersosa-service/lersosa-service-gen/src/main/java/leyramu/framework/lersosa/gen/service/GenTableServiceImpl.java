@@ -59,7 +59,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * 业务 服务层实现
+ * 业务 服务层实现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -86,7 +86,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 获取代码生成地址
+     * 获取代码生成地址.
      *
      * @param table    业务表信息
      * @param template 模板文件路径
@@ -101,7 +101,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 查询业务字段列表
+     * 查询业务字段列表.
      *
      * @param tableId 业务字段编号
      * @return 业务字段集合
@@ -114,7 +114,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 查询业务信息
+     * 查询业务信息.
      *
      * @param id 业务ID
      * @return 业务信息
@@ -145,7 +145,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 查询数据库列表
+     * 查询数据库列表.
      *
      * @param genTable  包含查询条件的GenTable对象
      * @param pageQuery 包含分页信息的PageQuery对象
@@ -209,7 +209,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 查询据库列表
+     * 查询据库列表.
      *
      * @param tableNames 表名称组
      * @param dataName   数据源名称
@@ -244,7 +244,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 查询所有表信息
+     * 查询所有表信息.
      *
      * @return 表信息集合
      */
@@ -254,7 +254,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 修改业务
+     * 修改业务.
      *
      * @param genTable 业务信息
      */
@@ -272,7 +272,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 删除业务对象
+     * 删除业务对象.
      *
      * @param tableIds 需要删除的数据ID
      */
@@ -285,7 +285,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 导入表结构
+     * 导入表结构.
      *
      * @param tableList 导入表列表
      * @param dataName  数据源名称
@@ -319,7 +319,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 根据表名称查询列信息
+     * 根据表名称查询列信息.
      *
      * @param tableName 表名称
      * @param dataName  数据源名称
@@ -330,7 +330,7 @@ public class GenTableServiceImpl implements IGenTableService {
     public List<GenTableColumn> selectDbTableColumnsByName(String tableName, String dataName) {
         LinkedHashMap<String, Column> columns = ServiceProxy.metadata().columns(tableName);
         List<GenTableColumn> tableColumns = new ArrayList<>();
-        columns.forEach((columnName, column) -> {
+        columns.forEach((_, column) -> {
             GenTableColumn tableColumn = new GenTableColumn();
             tableColumn.setIsPk(String.valueOf(column.isPrimaryKey()));
             tableColumn.setColumnName(column.getName());
@@ -345,7 +345,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 预览代码
+     * 预览代码.
      *
      * @param tableId 表编号
      * @return 预览数据列表
@@ -379,7 +379,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 生成代码（下载方式）
+     * 生成代码（下载方式）.
      *
      * @param tableId 表名称
      * @return 数据
@@ -394,7 +394,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 生成代码（自定义路径）
+     * 生成代码（自定义路径）.
      *
      * @param tableId 表名称
      */
@@ -428,7 +428,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 同步数据库
+     * 同步数据库.
      *
      * @param tableId 表名称
      */
@@ -458,7 +458,7 @@ public class GenTableServiceImpl implements IGenTableService {
                 }
                 if (StringUtils.isNotEmpty(prevColumn.getIsRequired()) && !column.isPk()
                     && (column.isInsert() || column.isEdit())
-                    && ((column.isUsableColumn()) || (!column.isSuperColumn()))) {
+                    && ((column.isUsableColumn()) || (column.isSuperColumn()))) {
                     // 如果是(新增/修改&非主键/非忽略及父属性)，继续保留必填/显示类型选项
                     column.setIsRequired(prevColumn.getIsRequired());
                     column.setHtmlType(prevColumn.getHtmlType());
@@ -479,7 +479,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 批量生成代码（下载方式）
+     * 批量生成代码（下载方式）.
      *
      * @param tableIds 表ID数组
      * @return 数据
@@ -496,7 +496,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 查询表信息并生成代码
+     * 查询表信息并生成代码.
      */
     private void generatorCode(Long tableId, ZipOutputStream zip) {
         // 查询表信息
@@ -534,7 +534,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 修改保存参数校验
+     * 修改保存参数校验.
      *
      * @param genTable 业务信息
      */
@@ -543,7 +543,7 @@ public class GenTableServiceImpl implements IGenTableService {
         if (GenConstants.TPL_TREE.equals(genTable.getTplCategory())) {
             String options = JsonUtils.toJsonString(genTable.getParams());
             Dict paramsObj = JsonUtils.parseMap(options);
-            if (StringUtils.isEmpty(paramsObj.getStr(GenConstants.TREE_CODE))) {
+            if (StringUtils.isEmpty(Objects.requireNonNull(paramsObj).getStr(GenConstants.TREE_CODE))) {
                 throw new ServiceException("树编码字段不能为空");
             } else if (StringUtils.isEmpty(paramsObj.getStr(GenConstants.TREE_PARENT_CODE))) {
                 throw new ServiceException("树父编码字段不能为空");
@@ -554,7 +554,7 @@ public class GenTableServiceImpl implements IGenTableService {
     }
 
     /**
-     * 设置主键列信息
+     * 设置主键列信息.
      *
      * @param table 业务表信息
      */
@@ -566,13 +566,13 @@ public class GenTableServiceImpl implements IGenTableService {
             }
         }
         if (ObjectUtil.isNull(table.getPkColumn())) {
-            table.setPkColumn(table.getColumns().get(0));
+            table.setPkColumn(table.getColumns().getFirst());
         }
 
     }
 
     /**
-     * 设置代码生成其他选项值
+     * 设置代码生成其他选项值.
      *
      * @param genTable 设置后的生成对象
      */

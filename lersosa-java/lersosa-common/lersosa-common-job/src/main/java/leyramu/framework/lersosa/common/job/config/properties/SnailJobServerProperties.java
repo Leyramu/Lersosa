@@ -12,7 +12,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * SnailTob 服务器配置
+ * SnailTob 服务器配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,5 +25,4 @@ public class SnailJobServerProperties {
     private String serverName;
 
     private String port;
-
 }

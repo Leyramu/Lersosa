@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConfiguration;
 
 /**
- * 限流配置
+ * 限流配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,5 +27,4 @@ public class RateLimiterConfig {
     public RateLimiterAspect rateLimiterAspect() {
         return new RateLimiterAspect();
     }
-
 }

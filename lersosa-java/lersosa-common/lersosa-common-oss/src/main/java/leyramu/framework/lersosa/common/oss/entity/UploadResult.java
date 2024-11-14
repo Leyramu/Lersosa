@@ -12,7 +12,7 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * 上传返回体
+ * 上传返回体.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -23,18 +23,17 @@ import lombok.Data;
 public class UploadResult {
 
     /**
-     * 文件路径
+     * 文件路径.
      */
     private String url;
 
     /**
-     * 文件名
+     * 文件名.
      */
     private String filename;
 
     /**
-     * 已上传对象的实体标记（用来校验文件）
+     * 已上传对象的实体标记（用来校验文件）.
      */
     private String eTag;
-
 }

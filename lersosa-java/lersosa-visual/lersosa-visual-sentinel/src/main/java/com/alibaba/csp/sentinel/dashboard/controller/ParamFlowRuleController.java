@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.controller;
 
 import com.alibaba.csp.sentinel.dashboard.auth.AuthAction;
@@ -20,9 +21,8 @@ import com.alibaba.csp.sentinel.dashboard.repository.rule.RuleRepository;
 import com.alibaba.csp.sentinel.dashboard.util.VersionUtils;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.util.StringUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -32,22 +32,47 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 /**
+ * 参数流规则控制层.
+ *
  * @author Eric Zhao
- * @since 0.2.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Slf4j
 @RestController
-@RequestMapping(value = "/paramFlow")
+@RequiredArgsConstructor
+@RequestMapping("/paramFlow")
 public class ParamFlowRuleController {
 
-    private final Logger logger = LoggerFactory.getLogger(ParamFlowRuleController.class);
+    /**
+     * Sentinel 2.0 API 前缀.
+     */
     private final SentinelVersion version020 = new SentinelVersion().setMinorVersion(2);
-    @Autowired
-    private SentinelApiClient sentinelApiClient;
-    @Autowired
-    private AppManagement appManagement;
-    @Autowired
-    private RuleRepository<ParamFlowRuleEntity, Long> repository;
 
+    /**
+     * Sentinel API 客户端.
+     */
+    private final SentinelApiClient sentinelApiClient;
+
+    /**
+     * 应用管理.
+     */
+    private final AppManagement appManagement;
+
+    /**
+     * 规则存储库.
+     */
+    private final RuleRepository<ParamFlowRuleEntity, Long> repository;
+
+    /**
+     * 检查给定的应用程序、IP和端口是否支持当前操作.
+     *
+     * @param app  应用程序名称
+     * @param ip   机器IP地址
+     * @param port 机器端口号
+     * @return 如果支持则返回true，否则返回false
+     */
     private boolean checkIfSupported(String app, String ip, int port) {
         try {
             return Optional.ofNullable(appManagement.getDetailApp(app))
@@ -55,17 +80,25 @@ public class ParamFlowRuleController {
                 .flatMap(m -> VersionUtils.parseVersion(m.getVersion())
                     .map(v -> v.greaterOrEqual(version020)))
                 .orElse(true);
-            // If error occurred or cannot retrieve machine info, return true.
         } catch (Exception ex) {
-            return true;
+            return false;
         }
     }
 
+    /**
+     * 处理API请求，查询指定机器的所有规则.
+     *
+     * @param app  应用程序名称
+     * @param ip   机器IP地址
+     * @param port 机器端口号
+     * @return 查询结果封装在Result对象中
+     */
     @GetMapping("/rules")
     @AuthAction(PrivilegeType.READ_RULE)
-    public Result<List<ParamFlowRuleEntity>> apiQueryAllRulesForMachine(@RequestParam String app,
-                                                                        @RequestParam String ip,
-                                                                        @RequestParam Integer port) {
+    public Result<List<ParamFlowRuleEntity>> apiQueryAllRulesForMachine(
+        @RequestParam String app,
+        @RequestParam String ip,
+        @RequestParam Integer port) {
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app cannot be null or empty");
         }
@@ -75,10 +108,10 @@ public class ParamFlowRuleController {
         if (port == null || port <= 0) {
             return Result.ofFail(-1, "Invalid parameter: port");
         }
-        if (!appManagement.isValidMachineOfApp(app, ip)) {
+        if (appManagement.isValidMachineOfApp(app, ip)) {
             return Result.ofFail(-1, "given ip does not belong to given app");
         }
-        if (!checkIfSupported(app, ip, port)) {
+        if (checkIfSupported(app, ip, port)) {
             return unsupportedVersion();
         }
         try {
@@ -87,22 +120,34 @@ public class ParamFlowRuleController {
                 .thenApply(Result::ofSuccess)
                 .get();
         } catch (ExecutionException ex) {
-            logger.error("Error when querying parameter flow rules", ex.getCause());
+            log.error("Error when querying parameter flow rules", ex.getCause());
             if (isNotSupported(ex.getCause())) {
                 return unsupportedVersion();
             } else {
                 return Result.ofThrowable(-1, ex.getCause());
             }
         } catch (Throwable throwable) {
-            logger.error("Error when querying parameter flow rules", throwable);
+            log.error("Error when querying parameter flow rules", throwable);
             return Result.ofFail(-1, throwable.getMessage());
         }
     }
 
+    /**
+     * 检查异常是否表示不支持的操作.
+     *
+     * @param ex 异常对象
+     * @return 如果异常表示不支持则返回true，否则返回false
+     */
     private boolean isNotSupported(Throwable ex) {
         return ex instanceof CommandNotFoundException;
     }
 
+    /**
+     * 处理API请求，添加新的参数流规则.
+     *
+     * @param entity 新规则实体
+     * @return 添加结果封装在Result对象中
+     */
     @PostMapping("/rule")
     @AuthAction(PrivilegeType.WRITE_RULE)
     public Result<ParamFlowRuleEntity> apiAddParamFlowRule(@RequestBody ParamFlowRuleEntity entity) {
@@ -110,7 +155,7 @@ public class ParamFlowRuleController {
         if (checkResult != null) {
             return checkResult;
         }
-        if (!checkIfSupported(entity.getApp(), entity.getIp(), entity.getPort())) {
+        if (checkIfSupported(entity.getApp(), entity.getIp(), entity.getPort())) {
             return unsupportedVersion();
         }
         entity.setId(null);
@@ -123,18 +168,24 @@ public class ParamFlowRuleController {
             publishRules(entity.getApp(), entity.getIp(), entity.getPort()).get();
             return Result.ofSuccess(entity);
         } catch (ExecutionException ex) {
-            logger.error("Error when adding new parameter flow rules", ex.getCause());
+            log.error("Error when adding new parameter flow rules", ex.getCause());
             if (isNotSupported(ex.getCause())) {
                 return unsupportedVersion();
             } else {
                 return Result.ofThrowable(-1, ex.getCause());
             }
         } catch (Throwable throwable) {
-            logger.error("Error when adding new parameter flow rules", throwable);
+            log.error("Error when adding new parameter flow rules", throwable);
             return Result.ofFail(-1, throwable.getMessage());
         }
     }
 
+    /**
+     * 内部方法，用于验证规则实体的有效性.
+     *
+     * @param entity 规则实体
+     * @return 如果验证失败则返回错误结果，否则返回null
+     */
     private <R> Result<R> checkEntityInternal(ParamFlowRuleEntity entity) {
         if (entity == null) {
             return Result.ofFail(-1, "bad rule body");
@@ -172,10 +223,18 @@ public class ParamFlowRuleController {
         return null;
     }
 
+    /**
+     * 更新参数流规则的API接口.
+     *
+     * @param id     规则的唯一标识符
+     * @param entity 包含更新后规则信息的实体
+     * @return 更新后的规则实体
+     */
     @PutMapping("/rule/{id}")
     @AuthAction(PrivilegeType.WRITE_RULE)
-    public Result<ParamFlowRuleEntity> apiUpdateParamFlowRule(@PathVariable("id") Long id,
-                                                              @RequestBody ParamFlowRuleEntity entity) {
+    public Result<ParamFlowRuleEntity> apiUpdateParamFlowRule(
+        @PathVariable("id") Long id,
+        @RequestBody ParamFlowRuleEntity entity) {
         if (id == null || id <= 0) {
             return Result.ofFail(-1, "Invalid id");
         }
@@ -188,7 +247,7 @@ public class ParamFlowRuleController {
         if (checkResult != null) {
             return checkResult;
         }
-        if (!checkIfSupported(entity.getApp(), entity.getIp(), entity.getPort())) {
+        if (checkIfSupported(entity.getApp(), entity.getIp(), entity.getPort())) {
             return unsupportedVersion();
         }
         entity.setId(id);
@@ -200,18 +259,24 @@ public class ParamFlowRuleController {
             publishRules(entity.getApp(), entity.getIp(), entity.getPort()).get();
             return Result.ofSuccess(entity);
         } catch (ExecutionException ex) {
-            logger.error("Error when updating parameter flow rules, id=" + id, ex.getCause());
+            log.error("Error when updating parameter flow rules, id={}", id, ex.getCause());
             if (isNotSupported(ex.getCause())) {
                 return unsupportedVersion();
             } else {
                 return Result.ofThrowable(-1, ex.getCause());
             }
         } catch (Throwable throwable) {
-            logger.error("Error when updating parameter flow rules, id=" + id, throwable);
+            log.error("Error when updating parameter flow rules, id={}", id, throwable);
             return Result.ofFail(-1, throwable.getMessage());
         }
     }
 
+    /**
+     * 删除规则的API接口.
+     *
+     * @param id 规则的唯一标识符
+     * @return 删除操作的结果
+     */
     @DeleteMapping("/rule/{id}")
     @AuthAction(PrivilegeType.DELETE_RULE)
     public Result<Long> apiDeleteRule(@PathVariable("id") Long id) {
@@ -228,23 +293,36 @@ public class ParamFlowRuleController {
             publishRules(oldEntity.getApp(), oldEntity.getIp(), oldEntity.getPort()).get();
             return Result.ofSuccess(id);
         } catch (ExecutionException ex) {
-            logger.error("Error when deleting parameter flow rules", ex.getCause());
+            log.error("Error when deleting parameter flow rules", ex.getCause());
             if (isNotSupported(ex.getCause())) {
                 return unsupportedVersion();
             } else {
                 return Result.ofThrowable(-1, ex.getCause());
             }
         } catch (Throwable throwable) {
-            logger.error("Error when deleting parameter flow rules", throwable);
+            log.error("Error when deleting parameter flow rules", throwable);
             return Result.ofFail(-1, throwable.getMessage());
         }
     }
 
+    /**
+     * 发布指定应用、IP和端口的参数流规则到 Sentinel.
+     *
+     * @param app  应用名称
+     * @param ip   机器IP
+     * @param port 机器端口
+     * @return 发布操作的CompletableFuture
+     */
     private CompletableFuture<Void> publishRules(String app, String ip, Integer port) {
         List<ParamFlowRuleEntity> rules = repository.findAllByMachine(MachineInfo.of(app, ip, port));
         return sentinelApiClient.setParamFlowRuleOfMachine(app, ip, port, rules);
     }
 
+    /**
+     * 返回不支持的版本结果.
+     *
+     * @return 不支持的版本结果
+     */
     private <R> Result<R> unsupportedVersion() {
         return Result.ofFail(4041,
             "Sentinel client not supported for parameter flow control (unsupported version or dependency absent)");

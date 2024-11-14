@@ -15,7 +15,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 岗位表 sys_post
+ * 岗位表 sys_post.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,44 +27,43 @@ import lombok.EqualsAndHashCode;
 public class SysPost extends TenantEntity {
 
     /**
-     * 岗位序号
+     * 岗位序号.
      */
     @TableId(value = "post_id")
     private Long postId;
 
     /**
-     * 部门id
+     * 部门id.
      */
     private Long deptId;
 
     /**
-     * 岗位编码
+     * 岗位编码.
      */
     private String postCode;
 
     /**
-     * 岗位名称
+     * 岗位名称.
      */
     private String postName;
 
     /**
-     * 岗位类别编码
+     * 岗位类别编码.
      */
     private String postCategory;
 
     /**
-     * 岗位排序
+     * 岗位排序.
      */
     private Integer postSort;
 
     /**
-     * 状态（0正常 1停用）
+     * 状态（0正常 1停用）.
      */
     private String status;
 
     /**
-     * 备注
+     * 备注.
      */
     private String remark;
-
 }

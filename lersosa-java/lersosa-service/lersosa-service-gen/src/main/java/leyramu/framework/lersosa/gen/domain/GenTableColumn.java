@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 import org.apache.ibatis.type.JdbcType;
 
 /**
- * 代码生成业务字段表 gen_table_column
+ * 代码生成业务字段表 gen_table_column.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -32,102 +32,102 @@ import org.apache.ibatis.type.JdbcType;
 public class GenTableColumn extends BaseEntity {
 
     /**
-     * 编号
+     * 编号.
      */
     @TableId(value = "column_id")
     private Long columnId;
 
     /**
-     * 归属表编号
+     * 归属表编号.
      */
     private Long tableId;
 
     /**
-     * 列名称
+     * 列名称.
      */
     private String columnName;
 
     /**
-     * 列描述
+     * 列描述.
      */
     @TableField(updateStrategy = FieldStrategy.ALWAYS, jdbcType = JdbcType.VARCHAR)
     private String columnComment;
 
     /**
-     * 列类型
+     * 列类型.
      */
     private String columnType;
 
     /**
-     * JAVA类型
+     * JAVA类型.
      */
     private String javaType;
 
     /**
-     * JAVA字段名
+     * JAVA字段名.
      */
     @NotBlank(message = "Java属性不能为空")
     private String javaField;
 
     /**
-     * 是否主键（1是）
+     * 是否主键（1是）.
      */
     @TableField(updateStrategy = FieldStrategy.ALWAYS, jdbcType = JdbcType.VARCHAR)
     private String isPk;
 
     /**
-     * 是否自增（1是）
+     * 是否自增（1是）.
      */
     @TableField(updateStrategy = FieldStrategy.ALWAYS, jdbcType = JdbcType.VARCHAR)
     private String isIncrement;
 
     /**
-     * 是否必填（1是）
+     * 是否必填（1是）.
      */
     @TableField(updateStrategy = FieldStrategy.ALWAYS, jdbcType = JdbcType.VARCHAR)
     private String isRequired;
 
     /**
-     * 是否为插入字段（1是）
+     * 是否为插入字段（1是）.
      */
     @TableField(updateStrategy = FieldStrategy.ALWAYS, jdbcType = JdbcType.VARCHAR)
     private String isInsert;
 
     /**
-     * 是否编辑字段（1是）
+     * 是否编辑字段（1是）.
      */
     @TableField(updateStrategy = FieldStrategy.ALWAYS, jdbcType = JdbcType.VARCHAR)
     private String isEdit;
 
     /**
-     * 是否列表字段（1是）
+     * 是否列表字段（1是）.
      */
     @TableField(updateStrategy = FieldStrategy.ALWAYS, jdbcType = JdbcType.VARCHAR)
     private String isList;
 
     /**
-     * 是否查询字段（1是）
+     * 是否查询字段（1是）.
      */
     @TableField(updateStrategy = FieldStrategy.ALWAYS, jdbcType = JdbcType.VARCHAR)
     private String isQuery;
 
     /**
-     * 查询方式（EQ等于、NE不等于、GT大于、LT小于、LIKE模糊、BETWEEN范围）
+     * 查询方式（EQ等于、NE不等于、GT大于、LT小于、LIKE模糊、BETWEEN范围）.
      */
     private String queryType;
 
     /**
-     * 显示类型（input文本框、textarea文本域、select下拉框、checkbox复选框、radio单选框、datetime日期控件、image图片上传控件、upload文件上传控件、editor富文本控件）
+     * 显示类型（input文本框、textarea文本域、select下拉框、checkbox复选框、radio单选框、datetime日期控件、image图片上传控件、upload文件上传控件、editor富文本控件）.
      */
     private String htmlType;
 
     /**
-     * 字典类型
+     * 字典类型.
      */
     private String dictType;
 
     /**
-     * 排序
+     * 排序.
      */
     private Integer sort;
 
@@ -144,6 +144,7 @@ public class GenTableColumn extends BaseEntity {
         return StringUtils.equalsAnyIgnoreCase(javaField, "parentId", "orderNum", "remark");
     }
 
+    @SuppressWarnings("unused")
     public String getCapJavaField() {
         return StringUtils.capitalize(javaField);
     }
@@ -156,6 +157,7 @@ public class GenTableColumn extends BaseEntity {
         return isPk != null && StringUtils.equals("1", isPk);
     }
 
+    @SuppressWarnings("unused")
     public boolean isIncrement() {
         return isIncrement(this.isIncrement);
     }
@@ -164,6 +166,7 @@ public class GenTableColumn extends BaseEntity {
         return isIncrement != null && StringUtils.equals("1", isIncrement);
     }
 
+    @SuppressWarnings("unused")
     public boolean isRequired() {
         return isRequired(this.isRequired);
     }
@@ -184,6 +187,7 @@ public class GenTableColumn extends BaseEntity {
         return isInsert(this.isEdit);
     }
 
+    @SuppressWarnings("unused")
     public boolean isEdit(String isEdit) {
         return isEdit != null && StringUtils.equals("1", isEdit);
     }
@@ -205,16 +209,17 @@ public class GenTableColumn extends BaseEntity {
     }
 
     public boolean isSuperColumn() {
-        return isSuperColumn(this.javaField);
+        return !isSuperColumn(this.javaField);
     }
 
     public boolean isUsableColumn() {
         return isUsableColumn(javaField);
     }
 
+    @SuppressWarnings("unused")
     public String readConverterExp() {
         String remarks = StringUtils.substringBetween(this.columnComment, "（", "）");
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (StringUtils.isNotEmpty(remarks)) {
             for (String value : remarks.split(" ")) {
                 if (StringUtils.isNotEmpty(value)) {

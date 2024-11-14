@@ -18,7 +18,7 @@ import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.stereotype.Service;
 
 /**
- * 客户端服务
+ * 客户端服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -32,7 +32,7 @@ public class RemoteClientServiceImpl implements RemoteClientService {
     private final ISysClientService sysClientService;
 
     /**
-     * 根据客户端id获取客户端详情
+     * 根据客户端id获取客户端详情.
      */
     @Override
     public RemoteClientVo queryByClientId(String clientId) {

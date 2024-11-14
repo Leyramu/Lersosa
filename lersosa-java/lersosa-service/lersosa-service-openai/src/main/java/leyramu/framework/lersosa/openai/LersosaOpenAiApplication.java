@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
- * OpenAi 模块 应用层
+ * OpenAi 模块 应用层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,7 +25,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 public class LersosaOpenAiApplication {
 
     /**
-     * 启动 OpenAi 服务
+     * 启动 OpenAi 服务.
      *
      * @param args 命令行参数
      */

@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.LinkedHashMap;
 
 /**
- * 短信演示案例
- * 请先阅读文档 否则无法使用
+ * 短信演示案例.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -34,7 +33,7 @@ import java.util.LinkedHashMap;
 @RequestMapping("/sms")
 public class SmsController {
     /**
-     * 发送短信Aliyun
+     * 发送短信Aliyun.
      *
      * @param phones     电话号
      * @param templateId 模板ID
@@ -49,7 +48,7 @@ public class SmsController {
     }
 
     /**
-     * 发送短信Tencent
+     * 发送短信Tencent.
      *
      * @param phones     电话号
      * @param templateId 模板ID
@@ -65,7 +64,7 @@ public class SmsController {
     }
 
     /**
-     * 添加黑名单
+     * 添加黑名单.
      *
      * @param phone 手机号
      */
@@ -77,7 +76,7 @@ public class SmsController {
     }
 
     /**
-     * 移除黑名单
+     * 移除黑名单.
      *
      * @param phone 手机号
      */
@@ -87,5 +86,4 @@ public class SmsController {
         smsBlend.removeFromBlacklist(phone);
         return R.ok();
     }
-
 }

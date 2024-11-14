@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package org.apache.dubbo.metadata.report.support;
 
 import org.apache.dubbo.common.URL;
@@ -41,12 +42,13 @@ import static org.apache.dubbo.common.utils.StringUtils.replace;
 import static org.apache.dubbo.metadata.report.support.Constants.*;
 
 /**
- * 摘要元数据报告
+ * 摘要元数据报告.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@SuppressWarnings("all")
 public abstract class AbstractMetadataReport implements MetadataReport {
 
     protected static final String DEFAULT_ROOT = "dubbo";
@@ -423,11 +425,6 @@ public abstract class AbstractMetadataReport implements MetadataReport {
         this.doHandleMetadataCollection(allMetadataReports);
     }
 
-    /**
-     * between 2:00 am to 6:00 am, the time is random.
-     *
-     * @return
-     */
     long calculateStartTime() {
         Calendar calendar = Calendar.getInstance();
         long nowMill = calendar.getTimeInMillis();
@@ -561,9 +558,6 @@ public abstract class AbstractMetadataReport implements MetadataReport {
             cancelRetryTask();
         }
 
-        /**
-         * @deprecated only for test
-         */
         @Deprecated
         ScheduledExecutorService getRetryExecutor() {
             return retryExecutor;

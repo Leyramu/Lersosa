@@ -15,7 +15,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 字典类型表 sys_dict_type
+ * 字典类型表 sys_dict_type.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,24 +27,23 @@ import lombok.EqualsAndHashCode;
 public class SysDictType extends TenantEntity {
 
     /**
-     * 字典主键
+     * 字典主键.
      */
     @TableId(value = "dict_id")
     private Long dictId;
 
     /**
-     * 字典名称
+     * 字典名称.
      */
     private String dictName;
 
     /**
-     * 字典类型
+     * 字典类型.
      */
     private String dictType;
 
     /**
-     * 备注
+     * 备注.
      */
     private String remark;
-
 }

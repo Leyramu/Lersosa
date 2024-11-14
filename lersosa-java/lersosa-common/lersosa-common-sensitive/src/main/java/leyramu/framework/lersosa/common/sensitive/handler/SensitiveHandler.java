@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * 数据脱敏json序列化工具
+ * 数据脱敏json序列化工具.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

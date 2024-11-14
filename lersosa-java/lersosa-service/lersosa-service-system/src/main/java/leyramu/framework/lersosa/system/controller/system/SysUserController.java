@@ -45,9 +45,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * 用户信息
+ * 用户信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -66,7 +67,7 @@ public class SysUserController extends BaseController {
     private final ISysTenantService tenantService;
 
     /**
-     * 获取用户列表
+     * 获取用户列表.
      */
     @SaCheckPermission("system:user:list")
     @GetMapping("/list")
@@ -75,7 +76,7 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * 导出用户列表
+     * 导出用户列表.
      */
     @Log(title = "用户管理", businessType = BusinessType.EXPORT)
     @SaCheckPermission("system:user:export")
@@ -86,7 +87,7 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * 导入数据
+     * 导入数据.
      *
      * @param file          导入文件
      * @param updateSupport 是否更新已存在数据
@@ -100,7 +101,7 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * 获取导入模板
+     * 获取导入模板.
      */
     @PostMapping("/importTemplate")
     public void importTemplate(HttpServletResponse response) {
@@ -108,7 +109,7 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * 获取用户信息
+     * 获取用户信息.
      *
      * @return 用户信息
      */
@@ -120,7 +121,7 @@ public class SysUserController extends BaseController {
             // 超级管理员 如果重新加载用户信息需清除动态租户
             TenantHelper.clearDynamic();
         }
-        SysUserVo user = userService.selectUserById(loginUser.getUserId());
+        SysUserVo user = userService.selectUserById(Objects.requireNonNull(loginUser).getUserId());
         if (ObjectUtil.isNull(user)) {
             return R.fail("没有权限访问用户数据!");
         }
@@ -132,7 +133,7 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * 根据用户编号获取详细信息
+     * 根据用户编号获取详细信息.
      *
      * @param userId 用户ID
      */
@@ -161,18 +162,18 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * 新增用户
+     * 新增用户.
      */
     @SaCheckPermission("system:user:add")
     @Log(title = "用户管理", businessType = BusinessType.INSERT)
     @PostMapping
     public R<Void> add(@Validated @RequestBody SysUserBo user) {
         deptService.checkDeptDataScope(user.getDeptId());
-        if (!userService.checkUserNameUnique(user)) {
+        if (userService.checkUserNameUnique(user)) {
             return R.fail("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
-        } else if (StringUtils.isNotEmpty(user.getPhonenumber()) && !userService.checkPhoneUnique(user)) {
+        } else if (StringUtils.isNotEmpty(user.getPhonenumber()) && userService.checkPhoneUnique(user)) {
             return R.fail("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
-        } else if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(user)) {
+        } else if (StringUtils.isNotEmpty(user.getEmail()) && userService.checkEmailUnique(user)) {
             return R.fail("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
         if (TenantHelper.isEnable()) {
@@ -185,7 +186,7 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * 修改用户
+     * 修改用户.
      */
     @SaCheckPermission("system:user:edit")
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
@@ -194,18 +195,18 @@ public class SysUserController extends BaseController {
         userService.checkUserAllowed(user.getUserId());
         userService.checkUserDataScope(user.getUserId());
         deptService.checkDeptDataScope(user.getDeptId());
-        if (!userService.checkUserNameUnique(user)) {
+        if (userService.checkUserNameUnique(user)) {
             return R.fail("修改用户'" + user.getUserName() + "'失败，登录账号已存在");
-        } else if (StringUtils.isNotEmpty(user.getPhonenumber()) && !userService.checkPhoneUnique(user)) {
+        } else if (StringUtils.isNotEmpty(user.getPhonenumber()) && userService.checkPhoneUnique(user)) {
             return R.fail("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
-        } else if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(user)) {
+        } else if (StringUtils.isNotEmpty(user.getEmail()) && userService.checkEmailUnique(user)) {
             return R.fail("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
         return toAjax(userService.updateUser(user));
     }
 
     /**
-     * 删除用户
+     * 删除用户.
      *
      * @param userIds 角色ID串
      */
@@ -220,7 +221,7 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * 根据用户ID串批量获取用户基础信息
+     * 根据用户ID串批量获取用户基础信息.
      *
      * @param userIds 用户ID串
      * @param deptId  部门ID
@@ -233,7 +234,7 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * 重置密码
+     * 重置密码.
      */
     @ApiEncrypt
     @SaCheckPermission("system:user:resetPwd")
@@ -247,7 +248,7 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * 状态修改
+     * 状态修改.
      */
     @SaCheckPermission("system:user:edit")
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
@@ -259,7 +260,7 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * 根据用户编号获取授权角色
+     * 根据用户编号获取授权角色.
      *
      * @param userId 用户ID
      */
@@ -276,7 +277,7 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * 用户授权角色
+     * 用户授权角色.
      *
      * @param userId  用户Id
      * @param roleIds 角色ID串
@@ -291,7 +292,7 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * 获取部门树列表
+     * 获取部门树列表.
      */
     @SaCheckPermission("system:user:list")
     @GetMapping("/deptTree")
@@ -300,12 +301,11 @@ public class SysUserController extends BaseController {
     }
 
     /**
-     * 获取部门下的所有用户信息
+     * 获取部门下的所有用户信息.
      */
     @SaCheckPermission("system:user:list")
     @GetMapping("/list/dept/{deptId}")
     public R<List<SysUserVo>> listByDept(@PathVariable @NotNull Long deptId) {
         return R.ok(userService.selectUserListByDept(deptId));
     }
-
 }

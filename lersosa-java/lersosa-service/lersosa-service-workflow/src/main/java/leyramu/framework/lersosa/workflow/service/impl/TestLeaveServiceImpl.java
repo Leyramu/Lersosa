@@ -35,9 +35,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * 请假Service业务层处理
+ * 请假Service业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -53,7 +54,7 @@ public class TestLeaveServiceImpl implements ITestLeaveService {
     private final RemoteWorkflowService workflowService;
 
     /**
-     * 查询请假
+     * 查询请假.
      */
     @Override
     public TestLeaveVo queryById(Long id) {
@@ -61,7 +62,7 @@ public class TestLeaveServiceImpl implements ITestLeaveService {
     }
 
     /**
-     * 查询请假列表
+     * 查询请假列表.
      */
     @Override
     public TableDataInfo<TestLeaveVo> queryPageList(TestLeaveBo bo, PageQuery pageQuery) {
@@ -71,7 +72,7 @@ public class TestLeaveServiceImpl implements ITestLeaveService {
     }
 
     /**
-     * 查询请假列表
+     * 查询请假列表.
      */
     @Override
     public List<TestLeaveVo> queryList(TestLeaveBo bo) {
@@ -89,12 +90,12 @@ public class TestLeaveServiceImpl implements ITestLeaveService {
     }
 
     /**
-     * 新增请假
+     * 新增请假.
      */
     @Override
     public TestLeaveVo insertByBo(TestLeaveBo bo) {
         TestLeave add = MapstructUtils.convert(bo, TestLeave.class);
-        if (StringUtils.isBlank(add.getStatus())) {
+        if (StringUtils.isBlank(Objects.requireNonNull(add).getStatus())) {
             add.setStatus(BusinessStatusEnum.DRAFT.getStatus());
         }
         boolean flag = baseMapper.insert(add) > 0;
@@ -105,7 +106,7 @@ public class TestLeaveServiceImpl implements ITestLeaveService {
     }
 
     /**
-     * 修改请假
+     * 修改请假.
      */
     @Override
     public TestLeaveVo updateByBo(TestLeaveBo bo) {
@@ -115,7 +116,7 @@ public class TestLeaveServiceImpl implements ITestLeaveService {
     }
 
     /**
-     * 批量删除请假
+     * 批量删除请假.
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -126,9 +127,7 @@ public class TestLeaveServiceImpl implements ITestLeaveService {
     }
 
     /**
-     * 总体流程监听(例如: 提交 退回 撤销 终止 作废等)
-     * 正常使用只需#processEvent.key=='leave1'
-     * 示例为了方便则使用startsWith匹配了全部示例key
+     * 总体流程监听(例如: 提交 退回 撤销 终止 作废等).
      *
      * @param processEvent 参数
      */
@@ -144,11 +143,7 @@ public class TestLeaveServiceImpl implements ITestLeaveService {
     }
 
     /**
-     * 执行办理任务监听
-     * 示例：也可通过  @EventListener(condition = "#processTaskEvent.key=='leave1'")进行判断
-     * 在方法中判断流程节点key
-     * if ("xxx".equals(processTaskEvent.getTaskDefinitionKey())) {
-     * //执行业务逻辑
+     * 执行办理任务监听.
      * }
      *
      * @param processTaskEvent 参数
@@ -159,7 +154,7 @@ public class TestLeaveServiceImpl implements ITestLeaveService {
         String[] ids = {"Activity_14633hx", "Activity_19b1i4j", "Activity_0uscrk3",
             "Activity_0uscrk3", "Activity_0x6b71j", "Activity_0zy3g6j", "Activity_06a55t0"};
         if (StringUtils.equalsAny(processTaskEvent.getTaskDefinitionKey(), ids)) {
-            log.info("当前任务执行了{}", processTaskEvent.toString());
+            log.info("当前任务执行了{}", processTaskEvent);
             TestLeave testLeave = baseMapper.selectById(Long.valueOf(processTaskEvent.getBusinessKey()));
             testLeave.setStatus(BusinessStatusEnum.WAITING.getStatus());
             baseMapper.updateById(testLeave);

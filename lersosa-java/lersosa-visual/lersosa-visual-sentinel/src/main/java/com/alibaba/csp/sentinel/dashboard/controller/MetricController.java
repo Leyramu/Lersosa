@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.controller;
 
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.MetricEntity;
@@ -12,9 +13,8 @@ import com.alibaba.csp.sentinel.dashboard.domain.Result;
 import com.alibaba.csp.sentinel.dashboard.domain.vo.MetricVo;
 import com.alibaba.csp.sentinel.dashboard.repository.metric.MetricsRepository;
 import com.alibaba.csp.sentinel.util.StringUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,24 +24,51 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 公制控制器.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
+@Slf4j
 @Controller
+@RequiredArgsConstructor
 @RequestMapping(value = "/metric", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MetricController {
 
-    private static final long maxQueryIntervalMs = 1000 * 60 * 60;
-    private static Logger logger = LoggerFactory.getLogger(MetricController.class);
-    @Autowired
-    private MetricsRepository<MetricEntity> metricStore;
+    /**
+     * 最大查询时间间隔.
+     */
+    private static final long MAX_QUERY_INTERVAL_MS = 1000 * 60 * 60;
 
+    /**
+     * 存储.
+     */
+    private final MetricsRepository<MetricEntity> metricStore;
+
+    /**
+     * 查询Top资源.
+     *
+     * @param app       应用名称
+     * @param pageIndex 页码
+     * @param pageSize  每页大小
+     * @param desc      是否降序
+     * @param startTime 开始时间
+     * @param endTime   结束时间
+     * @param searchKey 搜索关键字
+     * @return Result
+     */
     @ResponseBody
     @RequestMapping("/queryTopResourceMetric.json")
-    public Result<?> queryTopResourceMetric(final String app,
-                                            Integer pageIndex,
-                                            Integer pageSize,
-                                            Boolean desc,
-                                            Long startTime, Long endTime, String searchKey) {
+    public Result<?> queryTopResourceMetric(
+        final String app,
+        Integer pageIndex,
+        Integer pageSize,
+        Boolean desc,
+        Long startTime,
+        Long endTime,
+        String searchKey) {
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app can't be null or empty");
         }
@@ -63,13 +90,13 @@ public class MetricController {
         if (startTime == null) {
             startTime = endTime - 1000 * 60 * 5;
         }
-        if (endTime - startTime > maxQueryIntervalMs) {
+        if (endTime - startTime > MAX_QUERY_INTERVAL_MS) {
             return Result.ofFail(-1, "time intervalMs is too big, must <= 1h");
         }
         List<String> resources = metricStore.listResourcesOfApp(app);
-        logger.debug("queryTopResourceMetric(), resources.size()={}", resources.size());
+        log.debug("queryTopResourceMetric(), resources.size()={}", resources.size());
 
-        if (resources == null || resources.isEmpty()) {
+        if (resources.isEmpty()) {
             return Result.ofSuccess(null);
         }
         if (!desc) {
@@ -91,17 +118,17 @@ public class MetricController {
                 Math.min(pageIndex * pageSize, resources.size()));
         }
         final Map<String, Iterable<MetricVo>> map = new ConcurrentHashMap<>();
-        logger.debug("topResource={}", topResource);
+        log.debug("topResource={}", topResource);
         long time = System.currentTimeMillis();
         for (final String resource : topResource) {
             List<MetricEntity> entities = metricStore.queryByAppAndResourceBetween(
                 app, resource, startTime, endTime);
-            logger.debug("resource={}, entities.size()={}", resource, entities == null ? "null" : entities.size());
+            log.debug("resource={}, entities.size()={}", resource, entities == null ? "null" : entities.size());
             List<MetricVo> vos = MetricVo.fromMetricEntities(entities, resource);
             Iterable<MetricVo> vosSorted = sortMetricVoAndDistinct(vos);
             map.put(resource, vosSorted);
         }
-        logger.debug("queryTopResourceMetric() total query time={} ms", System.currentTimeMillis() - time);
+        log.debug("queryTopResourceMetric() total query time={} ms", System.currentTimeMillis() - time);
         Map<String, Object> resultMap = new HashMap<>(16);
         resultMap.put("totalCount", resources.size());
         resultMap.put("totalPage", totalPage);
@@ -109,7 +136,6 @@ public class MetricController {
         resultMap.put("pageSize", pageSize);
 
         Map<String, Iterable<MetricVo>> map2 = new LinkedHashMap<>();
-        // order matters.
         for (String identity : topResource) {
             map2.put(identity, map.get(identity));
         }
@@ -117,6 +143,15 @@ public class MetricController {
         return Result.ofSuccess(resultMap);
     }
 
+    /**
+     * 根据应用和资源查询.
+     *
+     * @param app       应用名称
+     * @param identity  资源标识
+     * @param startTime 开始时间
+     * @param endTime   结束时间
+     * @return Result
+     */
     @ResponseBody
     @RequestMapping("/queryByAppAndResource.json")
     public Result<?> queryByAppAndResource(String app, String identity, Long startTime, Long endTime) {
@@ -132,7 +167,7 @@ public class MetricController {
         if (startTime == null) {
             startTime = endTime - 1000 * 60;
         }
-        if (endTime - startTime > maxQueryIntervalMs) {
+        if (endTime - startTime > MAX_QUERY_INTERVAL_MS) {
             return Result.ofFail(-1, "time intervalMs is too big, must <= 1h");
         }
         List<MetricEntity> entities = metricStore.queryByAppAndResourceBetween(
@@ -141,6 +176,12 @@ public class MetricController {
         return Result.ofSuccess(sortMetricVoAndDistinct(vos));
     }
 
+    /**
+     * 排序并去重.
+     *
+     * @param vos 待排序的vo集合
+     * @return 排序好的vo集合
+     */
     private Iterable<MetricVo> sortMetricVoAndDistinct(List<MetricVo> vos) {
         if (vos == null) {
             return null;

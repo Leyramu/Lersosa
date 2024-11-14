@@ -31,6 +31,7 @@
     <properties>
         <java.version>17</java.version>
         <nacos.version>2.4.3</nacos.version>
+        <lombok.version>1.18.34</lombok.version>
         <spring-boot.version>2.7.18</spring-boot.version>
         <spring-boot-admin.version>2.7.11</spring-boot-admin.version>
     </properties>
@@ -72,6 +73,13 @@
             <groupId>io.xuxiaowei.nacos</groupId>
             <artifactId>nacos-config</artifactId>
             <version>${nacos.version}</version>
+        </dependency>
+
+        <!--      Lombok      -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
 
         <!--        <dependency>-->
@@ -156,6 +164,7 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
+            <!--      打包插件      -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -167,6 +176,13 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!--      Docker 插件      -->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker-maven-plugin.version}</version>
             </plugin>
         </plugins>
     </build>

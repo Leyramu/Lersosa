@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 
 /**
- * SpringBoot-MQ 案例项目
+ * SpringBoot-MQ 案例项目.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,7 +25,7 @@ import org.springframework.boot.context.metrics.buffering.BufferingApplicationSt
 public class LersosaTestMqApplication {
 
     /**
-     * MQ案例 服务
+     * MQ案例 服务.
      *
      * @param args 命令行参数
      */

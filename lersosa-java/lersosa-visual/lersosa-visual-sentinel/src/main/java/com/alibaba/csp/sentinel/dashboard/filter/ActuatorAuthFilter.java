@@ -15,6 +15,14 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+/**
+ * Actuator 认证过滤器.
+ *
+ * @author Sentinel
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
+ */
 public class ActuatorAuthFilter implements Filter {
 
     private final String username;
@@ -66,6 +74,6 @@ public class ActuatorAuthFilter implements Filter {
 
     @Override
     public void destroy() {
+        Filter.super.destroy();
     }
-
 }

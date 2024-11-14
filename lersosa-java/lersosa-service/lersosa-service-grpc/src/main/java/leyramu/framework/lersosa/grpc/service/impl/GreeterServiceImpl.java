@@ -20,7 +20,7 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 
 /**
- * RemoteGreeterServiceImpl 类
+ * RemoteGreeterServiceImpl 类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -33,13 +33,13 @@ import org.apache.dubbo.config.annotation.DubboService;
 public class GreeterServiceImpl extends GreeterGrpc.GreeterImplBase implements GreeterService {
 
     /**
-     * RemoteUserService 远程用户服务
+     * RemoteUserService 远程用户服务.
      */
     @DubboReference
     private final RemoteUserService remoteUserService;
 
     /**
-     * sayHello 远程调用
+     * sayHello 远程调用.
      *
      * @param request          请求
      * @param responseObserver 响应观察者

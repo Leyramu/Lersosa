@@ -16,7 +16,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 /**
- * Social 配置属性
+ * Social 配置属性.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,5 +30,4 @@ public class SocialAutoConfiguration {
     public AuthStateCache authStateCache() {
         return new AuthRedisStateCache();
     }
-
 }

@@ -9,7 +9,7 @@
 package leyramu.framework.lersosa.common.websocket.constant;
 
 /**
- * websocket的常量配置
+ * websocket的常量配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -18,22 +18,24 @@ package leyramu.framework.lersosa.common.websocket.constant;
 public interface WebSocketConstants {
 
     /**
-     * websocketSession中的参数的key
+     * websocketSession中的参数的key.
      */
     String LOGIN_USER_KEY = "loginUser";
 
     /**
-     * 订阅的频道
+     * 订阅的频道.
      */
     String WEB_SOCKET_TOPIC = "global:websocket";
 
     /**
-     * 前端心跳检查的命令
+     * 前端心跳检查的命令.
      */
+    @SuppressWarnings("unused")
     String PING = "ping";
 
     /**
-     * 服务端心跳恢复的字符串
+     * 服务端心跳恢复的字符串.
      */
+    @SuppressWarnings("unused")
     String PONG = "pong";
 }

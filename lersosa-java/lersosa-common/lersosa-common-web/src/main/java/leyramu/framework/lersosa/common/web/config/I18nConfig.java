@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.LocaleResolver;
 
 /**
- * 国际化配置
+ * 国际化配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,5 +28,4 @@ public class I18nConfig {
     public LocaleResolver localeResolver() {
         return new I18nLocaleResolver();
     }
-
 }

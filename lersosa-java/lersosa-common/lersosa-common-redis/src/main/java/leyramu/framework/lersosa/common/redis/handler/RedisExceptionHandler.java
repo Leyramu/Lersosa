@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
- * Redis异常处理器
+ * Redis异常处理器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,13 +28,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class RedisExceptionHandler {
 
     /**
-     * 分布式锁Lock4j异常
+     * 分布式锁Lock4j异常.
      */
     @ExceptionHandler(LockFailureException.class)
     public R<Void> handleLockFailureException(LockFailureException e, HttpServletRequest request) {
-        String requestURI = request.getRequestURI();
-        log.error("获取锁失败了'{}',发生Lock4j异常.", requestURI, e);
+        String requestUri = request.getRequestURI();
+        log.error("获取锁失败了'{}',发生Lock4j异常.", requestUri, e);
         return R.fail(HttpStatus.HTTP_UNAVAILABLE, "业务处理中，请稍后再试...");
     }
-
 }

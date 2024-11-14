@@ -5,82 +5,123 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.cluster.state;
 
+import lombok.Data;
+
 /**
+ * 集群服务器状态的包装器.
+ *
  * @author Eric Zhao
- * @since 1.4.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class AppClusterServerStateWrapVO {
 
     /**
-     * {ip}@{transport_command_port}.
+     * 集群服务器唯一标识.
      */
     private String id;
 
+    /**
+     * 集群服务器IP.
+     */
     private String ip;
+
+    /**
+     * 集群服务器端口.
+     */
     private Integer port;
 
+    /**
+     * 当前连接数.
+     */
     private Integer connectedCount;
 
+    /**
+     * 是否属于当前应用.
+     */
     private Boolean belongToApp;
 
+    /**
+     * 集群服务器状态.
+     */
     private ClusterServerStateVO state;
 
-    public String getId() {
-        return id;
-    }
-
+    /**
+     * 设置集群服务器唯一标识.
+     *
+     * @param id 集群服务器唯一标识
+     * @return 包装器自身
+     */
     public AppClusterServerStateWrapVO setId(String id) {
         this.id = id;
         return this;
     }
 
-    public String getIp() {
-        return ip;
-    }
-
+    /**
+     * 设置集群服务器IP.
+     *
+     * @param ip 集群服务器IP
+     * @return 包装器自身
+     */
     public AppClusterServerStateWrapVO setIp(String ip) {
         this.ip = ip;
         return this;
     }
 
-    public Integer getPort() {
-        return port;
-    }
-
+    /**
+     * 设置集群服务器端口.
+     *
+     * @param port 集群服务器端口
+     * @return 包装器自身
+     */
     public AppClusterServerStateWrapVO setPort(Integer port) {
         this.port = port;
         return this;
     }
 
-    public Boolean getBelongToApp() {
-        return belongToApp;
-    }
-
+    /**
+     * 设置是否属于当前应用.
+     *
+     * @param belongToApp 是否属于当前应用
+     * @return 包装器自身
+     */
     public AppClusterServerStateWrapVO setBelongToApp(Boolean belongToApp) {
         this.belongToApp = belongToApp;
         return this;
     }
 
-    public Integer getConnectedCount() {
-        return connectedCount;
-    }
-
+    /**
+     * 设置当前连接数.
+     *
+     * @param connectedCount 当前连接数
+     * @return 包装器自身
+     */
     public AppClusterServerStateWrapVO setConnectedCount(Integer connectedCount) {
         this.connectedCount = connectedCount;
         return this;
     }
 
-    public ClusterServerStateVO getState() {
-        return state;
-    }
-
+    /**
+     * 设置集群服务器状态.
+     *
+     * @param state 集群服务器状态
+     * @return 包装器自身
+     */
     public AppClusterServerStateWrapVO setState(ClusterServerStateVO state) {
         this.state = state;
         return this;
     }
 
+    /**
+     * 重写toString方法.
+     *
+     * @return 包装器信息
+     */
     @Override
     public String toString() {
         return "AppClusterServerStateWrapVO{" +

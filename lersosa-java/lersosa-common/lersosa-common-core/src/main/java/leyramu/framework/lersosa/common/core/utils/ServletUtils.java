@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 import org.springframework.web.context.request.RequestAttributes;
@@ -27,65 +28,64 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
- * 客户端工具类
+ * 客户端工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@Slf4j
+@SuppressWarnings("unused")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ServletUtils extends JakartaServletUtil {
 
     /**
-     * 获取String参数
+     * 获取String参数.
      */
     public static String getParameter(String name) {
-        return getRequest().getParameter(name);
+        return Objects.requireNonNull(getRequest()).getParameter(name);
     }
 
     /**
-     * 获取String参数
+     * 获取String参数.
      */
     public static String getParameter(String name, String defaultValue) {
-        return Convert.toStr(getRequest().getParameter(name), defaultValue);
+        return Convert.toStr(Objects.requireNonNull(getRequest()).getParameter(name), defaultValue);
     }
 
     /**
-     * 获取Integer参数
+     * 获取Integer参数.
      */
     public static Integer getParameterToInt(String name) {
-        return Convert.toInt(getRequest().getParameter(name));
+        return Convert.toInt(Objects.requireNonNull(getRequest()).getParameter(name));
     }
 
     /**
-     * 获取Integer参数
+     * 获取Integer参数.
      */
     public static Integer getParameterToInt(String name, Integer defaultValue) {
-        return Convert.toInt(getRequest().getParameter(name), defaultValue);
+        return Convert.toInt(Objects.requireNonNull(getRequest()).getParameter(name), defaultValue);
     }
 
     /**
-     * 获取Boolean参数
+     * 获取Boolean参数.
      */
     public static Boolean getParameterToBool(String name) {
-        return Convert.toBool(getRequest().getParameter(name));
+        return Convert.toBool(Objects.requireNonNull(getRequest()).getParameter(name));
     }
 
     /**
-     * 获取Boolean参数
+     * 获取Boolean参数.
      */
     public static Boolean getParameterToBool(String name, Boolean defaultValue) {
-        return Convert.toBool(getRequest().getParameter(name), defaultValue);
+        return Convert.toBool(Objects.requireNonNull(getRequest()).getParameter(name), defaultValue);
     }
 
     /**
-     * 获得所有请求参数
+     * 获得所有请求参数.
      *
      * @param request 请求对象{@link ServletRequest}
      * @return Map
@@ -96,7 +96,7 @@ public class ServletUtils extends JakartaServletUtil {
     }
 
     /**
-     * 获得所有请求参数
+     * 获得所有请求参数.
      *
      * @param request 请求对象{@link ServletRequest}
      * @return Map
@@ -110,32 +110,32 @@ public class ServletUtils extends JakartaServletUtil {
     }
 
     /**
-     * 获取request
+     * 获取request.
      */
     public static HttpServletRequest getRequest() {
         try {
-            return getRequestAttributes().getRequest();
+            return Objects.requireNonNull(getRequestAttributes()).getRequest();
         } catch (Exception e) {
             return null;
         }
     }
 
     /**
-     * 获取response
+     * 获取response.
      */
     public static HttpServletResponse getResponse() {
         try {
-            return getRequestAttributes().getResponse();
+            return Objects.requireNonNull(getRequestAttributes()).getResponse();
         } catch (Exception e) {
             return null;
         }
     }
 
     /**
-     * 获取session
+     * 获取session.
      */
     public static HttpSession getSession() {
-        return getRequest().getSession();
+        return Objects.requireNonNull(getRequest()).getSession();
     }
 
     public static ServletRequestAttributes getRequestAttributes() {
@@ -169,7 +169,7 @@ public class ServletUtils extends JakartaServletUtil {
     }
 
     /**
-     * 将字符串渲染到客户端
+     * 将字符串渲染到客户端.
      *
      * @param response 渲染对象
      * @param string   待渲染的字符串
@@ -181,14 +181,14 @@ public class ServletUtils extends JakartaServletUtil {
             response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
             response.getWriter().print(string);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
     }
 
     /**
-     * 是否是Ajax异步请求
+     * 是否是Ajax异步请求.
      *
-     * @param request
+     * @param request 请求对象
      */
     public static boolean isAjaxRequest(HttpServletRequest request) {
 
@@ -211,12 +211,12 @@ public class ServletUtils extends JakartaServletUtil {
         return StringUtils.equalsAnyIgnoreCase(ajax, "json", "xml");
     }
 
-    public static String getClientIP() {
-        return getClientIP(getRequest());
+    public static String getClientIp() {
+        return getClientIP(Objects.requireNonNull(getRequest()));
     }
 
     /**
-     * 内容编码
+     * 内容编码.
      *
      * @param str 内容
      * @return 编码后的内容
@@ -226,7 +226,7 @@ public class ServletUtils extends JakartaServletUtil {
     }
 
     /**
-     * 内容解码
+     * 内容解码.
      *
      * @param str 内容
      * @return 解码后的内容
@@ -234,5 +234,4 @@ public class ServletUtils extends JakartaServletUtil {
     public static String urlDecode(String str) {
         return URLDecoder.decode(str, StandardCharsets.UTF_8);
     }
-
 }

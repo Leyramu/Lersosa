@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * 测试国际化
+ * 测试国际化.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -33,10 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestI18nController {
 
     /**
-     * 通过code获取国际化内容
-     * code为 messages.properties 中的 key
-     * <p>
-     * 测试使用 user.register.success
+     * 通过code获取国际化内容.
      *
      * @param code 国际化code
      */
@@ -46,10 +43,7 @@ public class TestI18nController {
     }
 
     /**
-     * Validator 校验国际化
-     * 不传值 分别查看异常返回
-     * <p>
-     * 测试使用 not.null
+     * Validator 校验国际化.
      */
     @GetMapping("/test1")
     public R<Void> test1(@NotBlank(message = "{not.null}") String str) {
@@ -57,10 +51,7 @@ public class TestI18nController {
     }
 
     /**
-     * Bean 校验国际化
-     * 不传值 分别查看异常返回
-     * <p>
-     * 测试使用 not.null
+     * Bean 校验国际化.
      */
     @GetMapping("/test2")
     public R<TestI18nBo> test2(@Validated TestI18nBo bo) {

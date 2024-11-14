@@ -14,7 +14,7 @@ import leyramu.framework.lersosa.system.api.domain.vo.RemoteSocialVo;
 import java.util.List;
 
 /**
- * 社会化关系服务
+ * 社会化关系服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -23,7 +23,7 @@ import java.util.List;
 public interface RemoteSocialService {
 
     /**
-     * 根据 authId 查询用户授权信息
+     * 根据 authId 查询用户授权信息.
      *
      * @param authId 认证id
      * @return 授权信息
@@ -31,32 +31,31 @@ public interface RemoteSocialService {
     List<RemoteSocialVo> selectByAuthId(String authId);
 
     /**
-     * 查询列表
+     * 查询列表.
      *
      * @param bo 社会化关系业务对象
      */
     List<RemoteSocialVo> queryList(RemoteSocialBo bo);
 
     /**
-     * 保存社会化关系
+     * 保存社会化关系.
      *
      * @param bo 社会化关系业务对象
      */
     void insertByBo(RemoteSocialBo bo);
 
     /**
-     * 更新社会化关系
+     * 更新社会化关系.
      *
      * @param bo 社会化关系业务对象
      */
     void updateByBo(RemoteSocialBo bo);
 
     /**
-     * 删除社会化关系
+     * 删除社会化关系.
      *
      * @param socialId 社会化关系ID
      * @return 结果
      */
     Boolean deleteWithValidById(Long socialId);
-
 }

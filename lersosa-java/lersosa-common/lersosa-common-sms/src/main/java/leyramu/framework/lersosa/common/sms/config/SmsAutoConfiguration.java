@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 
 /**
- * 短信配置类
+ * 短信配置类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -33,11 +33,10 @@ public class SmsAutoConfiguration {
     }
 
     /**
-     * 异常处理器
+     * 异常处理器.
      */
     @Bean
     public SmsExceptionHandler smsExceptionHandler() {
         return new SmsExceptionHandler();
     }
-
 }

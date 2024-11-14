@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 测试树表对象 test_tree
+ * 测试树表对象 test_tree.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -35,41 +35,40 @@ public class TestTree extends BaseEntity {
 
 
     /**
-     * 主键
+     * 主键.
      */
     @TableId(value = "id")
     private Long id;
 
     /**
-     * 父ID
+     * 父ID.
      */
     private Long parentId;
 
     /**
-     * 部门id
+     * 部门id.
      */
     private Long deptId;
 
     /**
-     * 用户id
+     * 用户id.
      */
     private Long userId;
 
     /**
-     * 树节点名
+     * 树节点名.
      */
     private String treeName;
 
     /**
-     * 版本
+     * 版本.
      */
     @Version
     private Long version;
 
     /**
-     * 删除标志
+     * 删除标志.
      */
     @TableLogic
     private Long delFlag;
-
 }

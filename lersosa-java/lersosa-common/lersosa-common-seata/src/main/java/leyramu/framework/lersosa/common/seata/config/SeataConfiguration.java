@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.PropertySource;
 
 /**
- * seata 配置
+ * seata 配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -22,5 +22,4 @@ import org.springframework.context.annotation.PropertySource;
 @AutoConfiguration
 @PropertySource(value = "classpath:common-seata.yml", factory = YmlPropertySourceFactory.class)
 public class SeataConfiguration {
-
 }

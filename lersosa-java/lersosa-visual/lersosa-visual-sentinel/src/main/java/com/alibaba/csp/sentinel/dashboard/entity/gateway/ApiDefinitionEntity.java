@@ -5,14 +5,16 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.entity.gateway;
 
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiDefinition;
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPathPredicateItem;
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPredicateItem;
-import com.alibaba.csp.sentinel.dashboard.datasource.entity.gateway.ApiPredicateItemEntity;
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.RuleEntity;
 import com.alibaba.csp.sentinel.slots.block.Rule;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -20,11 +22,16 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Entity for {@link ApiDefinition}.
+ * {@link ApiDefinition} 的实体.
  *
  * @author cdfive
- * @since 1.7.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@NoArgsConstructor
+@SuppressWarnings("unused")
 public class ApiDefinitionEntity implements RuleEntity {
 
     private Long id;
@@ -37,10 +44,6 @@ public class ApiDefinitionEntity implements RuleEntity {
 
     private String apiName;
     private Set<com.alibaba.csp.sentinel.dashboard.datasource.entity.gateway.ApiPredicateItemEntity> predicateItems;
-
-    public ApiDefinitionEntity() {
-
-    }
 
     public ApiDefinitionEntity(String apiName, Set<com.alibaba.csp.sentinel.dashboard.datasource.entity.gateway.ApiPredicateItemEntity> predicateItems) {
         this.apiName = apiName;
@@ -90,22 +93,6 @@ public class ApiDefinitionEntity implements RuleEntity {
         return apiDefinition;
     }
 
-    public String getApiName() {
-        return apiName;
-    }
-
-    public void setApiName(String apiName) {
-        this.apiName = apiName;
-    }
-
-    public Set<com.alibaba.csp.sentinel.dashboard.datasource.entity.gateway.ApiPredicateItemEntity> getPredicateItems() {
-        return predicateItems;
-    }
-
-    public void setPredicateItems(Set<ApiPredicateItemEntity> predicateItems) {
-        this.predicateItems = predicateItems;
-    }
-
     @Override
     public Long getId() {
         return id;
@@ -121,17 +108,9 @@ public class ApiDefinitionEntity implements RuleEntity {
         return app;
     }
 
-    public void setApp(String app) {
-        this.app = app;
-    }
-
     @Override
     public String getIp() {
         return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
     }
 
     @Override
@@ -139,25 +118,9 @@ public class ApiDefinitionEntity implements RuleEntity {
         return port;
     }
 
-    public void setPort(Integer port) {
-        this.port = port;
-    }
-
     @Override
     public Date getGmtCreate() {
         return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
     }
 
     @Override

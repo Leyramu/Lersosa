@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * 测试单表Mapper接口
+ * 测试单表Mapper接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -33,14 +33,14 @@ import java.util.List;
 public interface TestDemoMapper extends BaseMapperPlus<TestDemo, TestDemoVo> {
 
     @DataPermission({
-        @DataColumn(key = "deptName", value = "dept_id"),
+        @DataColumn(),
         @DataColumn(key = "userName", value = "user_id")
     })
     Page<TestDemoVo> customPageList(@Param("page") Page<TestDemo> page, @Param("ew") Wrapper<TestDemo> wrapper);
 
     @Override
     @DataPermission({
-        @DataColumn(key = "deptName", value = "dept_id"),
+        @DataColumn(),
         @DataColumn(key = "userName", value = "user_id")
     })
     List<TestDemo> selectList(IPage<TestDemo> page, @Param(Constants.WRAPPER) Wrapper<TestDemo> queryWrapper);
@@ -48,23 +48,22 @@ public interface TestDemoMapper extends BaseMapperPlus<TestDemo, TestDemoVo> {
 
     @Override
     @DataPermission({
-        @DataColumn(key = "deptName", value = "dept_id"),
+        @DataColumn(),
         @DataColumn(key = "userName", value = "user_id")
     })
     List<TestDemo> selectList(@Param(Constants.WRAPPER) Wrapper<TestDemo> queryWrapper);
 
     @Override
     @DataPermission(value = {
-        @DataColumn(key = "deptName", value = "dept_id"),
+        @DataColumn(),
         @DataColumn(key = "userName", value = "user_id")
     }, joinStr = "AND")
     List<TestDemo> selectByIds(@Param(Constants.COLL) Collection<? extends Serializable> idList);
 
     @Override
     @DataPermission({
-        @DataColumn(key = "deptName", value = "dept_id"),
+        @DataColumn(),
         @DataColumn(key = "userName", value = "user_id")
     })
     int updateById(@Param(Constants.ENTITY) TestDemo entity);
-
 }

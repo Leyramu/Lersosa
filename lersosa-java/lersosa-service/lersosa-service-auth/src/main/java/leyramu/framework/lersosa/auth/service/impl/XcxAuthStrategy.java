@@ -25,8 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 /**
- * 邮件认证策略
+ * 邮件认证策略.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -37,17 +39,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class XcxAuthStrategy implements IAuthStrategy {
 
+    @SuppressWarnings("unused")
     private final SysLoginService loginService;
 
     @DubboReference
     private RemoteUserService remoteUserService;
 
     @Override
+    @SuppressWarnings("unused")
     public LoginVo login(String body, RemoteClientVo client) {
         XcxLoginBody loginBody = JsonUtils.parseObject(body, XcxLoginBody.class);
         ValidatorUtils.validate(loginBody);
         // xcxCode 为 小程序调用 wx.login 授权后获取
-        String xcxCode = loginBody.getXcxCode();
+        String xcxCode = Objects.requireNonNull(loginBody).getXcxCode();
         // 多个小程序识别使用
         String appid = loginBody.getAppid();
 
@@ -75,5 +79,4 @@ public class XcxAuthStrategy implements IAuthStrategy {
         loginVo.setOpenid(openid);
         return loginVo;
     }
-
 }

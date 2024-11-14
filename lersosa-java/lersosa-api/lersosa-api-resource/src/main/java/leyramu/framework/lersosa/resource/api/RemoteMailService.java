@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.resource.api;
 import leyramu.framework.lersosa.common.core.exception.ServiceException;
 
 /**
- * 邮件服务
+ * 邮件服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -20,12 +20,12 @@ import leyramu.framework.lersosa.common.core.exception.ServiceException;
 public interface RemoteMailService {
 
     /**
-     * 发送邮件
+     * 发送邮件.
      *
      * @param to      接收人
      * @param subject 标题
      * @param text    内容
      */
+    @SuppressWarnings("unused")
     void send(String to, String subject, String text) throws ServiceException;
-
 }

@@ -14,7 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 流程定义请求对象
+ * 流程定义请求对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,18 +27,17 @@ public class ProcessDefinitionBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 流程定义名称key
+     * 流程定义名称key.
      */
     private String key;
 
     /**
-     * 流程定义名称
+     * 流程定义名称.
      */
     private String name;
 
     /**
-     * 模型分类
+     * 模型分类.
      */
     private String categoryCode;
-
 }

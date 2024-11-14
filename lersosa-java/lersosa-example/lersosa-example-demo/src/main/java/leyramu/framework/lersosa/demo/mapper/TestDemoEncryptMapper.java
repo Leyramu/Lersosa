@@ -12,7 +12,7 @@ import leyramu.framework.lersosa.common.mybatis.core.mapper.BaseMapperPlus;
 import leyramu.framework.lersosa.demo.domain.TestDemoEncrypt;
 
 /**
- * 测试加密功能
+ * 测试加密功能.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

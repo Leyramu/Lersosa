@@ -24,10 +24,12 @@ import me.zhyd.oauth.request.AuthDefaultRequest;
 import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
+import java.util.Objects;
+
 import static leyramu.framework.lersosa.common.social.topiam.AuthTopiamSource.TOPIAM;
 
 /**
- * TopIAM 认证请求
+ * TopIAM 认证请求.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -39,8 +41,9 @@ public class AuthTopIamRequest extends AuthDefaultRequest {
     public static final String SERVER_URL = SpringUtils.getProperty("justauth.type.topiam.server-url");
 
     /**
-     * 设定归属域
+     * 设定归属域.
      */
+    @SuppressWarnings("unused")
     public AuthTopIamRequest(AuthConfig config) {
         super(config, TOPIAM);
     }
@@ -64,7 +67,7 @@ public class AuthTopIamRequest extends AuthDefaultRequest {
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         String body = doPostAuthorizationCode(authCallback.getCode());
         Dict object = JsonUtils.parseMap(body);
-        checkResponse(object);
+        checkResponse(Objects.requireNonNull(object));
         return AuthToken.builder()
             .accessToken(object.getStr("access_token"))
             .refreshToken(object.getStr("refresh_token"))
@@ -78,7 +81,7 @@ public class AuthTopIamRequest extends AuthDefaultRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         String body = doGetUserInfo(authToken);
         Dict object = JsonUtils.parseMap(body);
-        checkResponse(object);
+        checkResponse(Objects.requireNonNull(object));
         return AuthUser.builder()
             .uuid(object.getStr("sub"))
             .username(object.getStr("preferred_username"))
@@ -103,5 +106,4 @@ public class AuthTopIamRequest extends AuthDefaultRequest {
             .queryParam("scope", StrUtil.join("%20", config.getScopes()))
             .build();
     }
-
 }

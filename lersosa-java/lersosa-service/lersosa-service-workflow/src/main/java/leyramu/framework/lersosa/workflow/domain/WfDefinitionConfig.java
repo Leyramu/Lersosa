@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 流程定义配置对象 wf_definition_config
+ * 流程定义配置对象 wf_definition_config.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -32,35 +32,33 @@ public class WfDefinitionConfig extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * 主键.
      */
     @TableId(value = "id")
     private Long id;
 
     /**
-     * 表名
+     * 表名.
      */
     private String tableName;
 
     /**
-     * 流程定义ID
+     * 流程定义ID.
      */
     private String definitionId;
 
     /**
-     * 流程KEY
+     * 流程KEY.
      */
     private String processKey;
 
     /**
-     * 流程版本
+     * 流程版本.
      */
     private Integer version;
 
     /**
-     * 备注
+     * 备注.
      */
     private String remark;
-
-
 }

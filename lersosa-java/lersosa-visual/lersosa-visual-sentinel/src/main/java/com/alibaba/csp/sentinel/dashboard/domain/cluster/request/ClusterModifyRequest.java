@@ -5,19 +5,44 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.cluster.request;
 
 /**
+ * 集群修改请求.
+ *
  * @author Eric Zhao
- * @since 1.4.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
 public interface ClusterModifyRequest {
 
+    /**
+     * 获取应用名称.
+     *
+     * @return 应用名称
+     */
     String getApp();
 
+    /**
+     * 获取IP地址.
+     *
+     * @return IP地址
+     */
     String getIp();
 
+    /**
+     * 获取端口号.
+     *
+     * @return 端口号
+     */
     Integer getPort();
 
+    /**
+     * 获取集群模式.
+     *
+     * @return 集群模式
+     */
     Integer getMode();
 }

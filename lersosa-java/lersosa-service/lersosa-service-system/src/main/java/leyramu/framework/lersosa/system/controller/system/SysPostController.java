@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 岗位信息操作处理
+ * 岗位信息操作处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -45,7 +45,7 @@ public class SysPostController extends BaseController {
     private final ISysPostService postService;
 
     /**
-     * 获取岗位列表
+     * 获取岗位列表.
      */
     @SaCheckPermission("system:post:list")
     @GetMapping("/list")
@@ -54,7 +54,7 @@ public class SysPostController extends BaseController {
     }
 
     /**
-     * 导出岗位列表
+     * 导出岗位列表.
      */
     @Log(title = "岗位管理", businessType = BusinessType.EXPORT)
     @SaCheckPermission("system:post:export")
@@ -65,7 +65,7 @@ public class SysPostController extends BaseController {
     }
 
     /**
-     * 根据岗位编号获取详细信息
+     * 根据岗位编号获取详细信息.
      *
      * @param postId 岗位ID
      */
@@ -76,30 +76,30 @@ public class SysPostController extends BaseController {
     }
 
     /**
-     * 新增岗位
+     * 新增岗位.
      */
     @SaCheckPermission("system:post:add")
     @Log(title = "岗位管理", businessType = BusinessType.INSERT)
     @PostMapping
     public R<Void> add(@Validated @RequestBody SysPostBo post) {
-        if (!postService.checkPostNameUnique(post)) {
+        if (postService.checkPostNameUnique(post)) {
             return R.fail("新增岗位'" + post.getPostName() + "'失败，岗位名称已存在");
-        } else if (!postService.checkPostCodeUnique(post)) {
+        } else if (postService.checkPostCodeUnique(post)) {
             return R.fail("新增岗位'" + post.getPostName() + "'失败，岗位编码已存在");
         }
         return toAjax(postService.insertPost(post));
     }
 
     /**
-     * 修改岗位
+     * 修改岗位.
      */
     @SaCheckPermission("system:post:edit")
     @Log(title = "岗位管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public R<Void> edit(@Validated @RequestBody SysPostBo post) {
-        if (!postService.checkPostNameUnique(post)) {
+        if (postService.checkPostNameUnique(post)) {
             return R.fail("修改岗位'" + post.getPostName() + "'失败，岗位名称已存在");
-        } else if (!postService.checkPostCodeUnique(post)) {
+        } else if (postService.checkPostCodeUnique(post)) {
             return R.fail("修改岗位'" + post.getPostName() + "'失败，岗位编码已存在");
         } else if (UserConstants.POST_DISABLE.equals(post.getStatus())
             && postService.countUserPostById(post.getPostId()) > 0) {
@@ -109,7 +109,7 @@ public class SysPostController extends BaseController {
     }
 
     /**
-     * 删除岗位
+     * 删除岗位.
      *
      * @param postIds 岗位ID串
      */
@@ -121,7 +121,7 @@ public class SysPostController extends BaseController {
     }
 
     /**
-     * 获取岗位选择框列表
+     * 获取岗位选择框列表.
      *
      * @param postIds 岗位ID串
      * @param deptId  部门id
@@ -139,5 +139,4 @@ public class SysPostController extends BaseController {
         }
         return R.ok(list);
     }
-
 }

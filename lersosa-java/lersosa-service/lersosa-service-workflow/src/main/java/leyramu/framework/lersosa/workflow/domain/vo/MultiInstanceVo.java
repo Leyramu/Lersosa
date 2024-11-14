@@ -14,7 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 多实例信息
+ * 多实例信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,17 +27,17 @@ public class MultiInstanceVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 会签类型（串行，并行）
+     * 会签类型（串行，并行）.
      */
     private Object type;
 
     /**
-     * 会签人员KEY
+     * 会签人员KEY.
      */
     private String assignee;
 
     /**
-     * 会签人员集合KEY
+     * 会签人员集合KEY.
      */
     private String assigneeList;
 }

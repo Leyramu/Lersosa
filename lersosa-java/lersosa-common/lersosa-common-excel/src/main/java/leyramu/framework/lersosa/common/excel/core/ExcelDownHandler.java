@@ -36,10 +36,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 /**
- * <h1>Excel表格下拉选操作</h1>
- * 考虑到下拉选过多可能导致Excel打开缓慢的问题，只校验前1000行
- * <p>
- * 即只有前1000行的数据可以用下拉框，超出的自行通过限制数据量的形式，第二次输出
+ * Excel表格下拉选操作.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -49,29 +46,28 @@ import java.util.*;
 public class ExcelDownHandler implements SheetWriteHandler {
 
     /**
-     * Excel表格中的列名英文
-     * 仅为了解析列英文，禁止修改
+     * Excel表格中的列名英文.
      */
     private static final String EXCEL_COLUMN_NAME = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     /**
-     * 单选数据Sheet名
+     * 单选数据Sheet名.
      */
     private static final String OPTIONS_SHEET_NAME = "options";
     /**
-     * 联动选择数据Sheet名的头
+     * 联动选择数据Sheet名的头.
      */
     private static final String LINKED_OPTIONS_SHEET_NAME = "linkedOptions";
     /**
-     * 下拉可选项
+     * 下拉可选项.
      */
     private final List<DropDownOptions> dropDownOptions;
     private final DictService dictService;
     /**
-     * 当前单选进度
+     * 当前单选进度.
      */
     private int currentOptionsColumnIndex;
     /**
-     * 当前联动选择进度
+     * 当前联动选择进度.
      */
     private int currentLinkedOptionsSheetIndex;
 
@@ -83,13 +79,7 @@ public class ExcelDownHandler implements SheetWriteHandler {
     }
 
     /**
-     * <h2>开始创建下拉数据</h2>
-     * 1.通过解析传入的@ExcelProperty同级是否标注有@DropDown选项
-     * 如果有且设置了value值，则将其直接置为下拉可选项
-     * <p>
-     * 2.或者在调用ExcelUtil时指定了可选项，将依据传入的可选项做下拉
-     * <p>
-     * 3.二者并存，注意调用方式
+     * 开始创建下拉数据.
      */
     @Override
     public void afterSheetCreate(WriteWorkbookHolder writeWorkbookHolder, WriteSheetHolder writeSheetHolder) {
@@ -149,7 +139,7 @@ public class ExcelDownHandler implements SheetWriteHandler {
             } else if (everyOptions.getOptions().size() > 10) {
                 // 当一级选项参数个数大于10，使用额外表的形式
                 dropDownWithSheet(helper, workbook, sheet, everyOptions.getIndex(), everyOptions.getOptions());
-            } else if (everyOptions.getOptions().size() != 0) {
+            } else if (!everyOptions.getOptions().isEmpty()) {
                 // 当一级选项个数不为空，使用默认形式
                 dropDownWithSimple(helper, sheet, everyOptions.getIndex(), everyOptions.getOptions());
             }
@@ -157,8 +147,7 @@ public class ExcelDownHandler implements SheetWriteHandler {
     }
 
     /**
-     * <h2>简单下拉框</h2>
-     * 直接将可选项拼接为指定列的数据校验值
+     * 简单下拉框.
      *
      * @param celIndex 列index
      * @param value    下拉选可选值
@@ -171,7 +160,7 @@ public class ExcelDownHandler implements SheetWriteHandler {
     }
 
     /**
-     * <h2>额外表格形式的级联下拉框</h2>
+     * 额外表格形式的级联下拉框.
      *
      * @param options 额外表格形式存储的下拉可选项
      */
@@ -268,8 +257,7 @@ public class ExcelDownHandler implements SheetWriteHandler {
     }
 
     /**
-     * <h2>额外表格形式的普通下拉框</h2>
-     * 由于下拉框可选值数量过多，为提升Excel打开效率，使用额外表格形式做下拉
+     * 额外表格形式的普通下拉框.
      *
      * @param celIndex 下拉选
      * @param value    下拉选可选值
@@ -312,7 +300,7 @@ public class ExcelDownHandler implements SheetWriteHandler {
     }
 
     /**
-     * 挂载下拉的列，仅限一级选项
+     * 挂载下拉的列，仅限一级选项.
      */
     private void markOptionsToSheet(DataValidationHelper helper, Sheet sheet, Integer celIndex,
                                     DataValidationConstraint constraint) {
@@ -322,17 +310,19 @@ public class ExcelDownHandler implements SheetWriteHandler {
     }
 
     /**
-     * 挂载下拉的列，仅限二级选项
+     * 挂载下拉的列，仅限二级选项.
      */
-    private void markLinkedOptionsToSheet(DataValidationHelper helper, Sheet sheet, Integer rowIndex,
-                                          Integer celIndex, DataValidationConstraint constraint) {
+    private void markLinkedOptionsToSheet(
+        DataValidationHelper helper,
+        Sheet sheet, Integer rowIndex,
+        Integer celIndex, DataValidationConstraint constraint) {
         // 设置数据有效性加载在哪个单元格上,四个参数分别是：起始行、终止行、起始列、终止列
         CellRangeAddressList addressList = new CellRangeAddressList(rowIndex, rowIndex, celIndex, celIndex);
         markDataValidationToSheet(helper, sheet, constraint, addressList);
     }
 
     /**
-     * 应用数据校验
+     * 应用数据校验.
      */
     private void markDataValidationToSheet(DataValidationHelper helper, Sheet sheet,
                                            DataValidationConstraint constraint, CellRangeAddressList addressList) {
@@ -357,11 +347,7 @@ public class ExcelDownHandler implements SheetWriteHandler {
     }
 
     /**
-     * <h2>依据列index获取列名英文</h2>
-     * 依据列index转换为Excel中的列名英文
-     * <p>例如第1列，index为0，解析出来为A列</p>
-     * 第27列，index为26，解析为AA列
-     * <p>第28列，index为27，解析为AB列</p>
+     * 依据列index获取列名英文.
      *
      * @param columnIndex 列index
      * @return 列index所在得英文名

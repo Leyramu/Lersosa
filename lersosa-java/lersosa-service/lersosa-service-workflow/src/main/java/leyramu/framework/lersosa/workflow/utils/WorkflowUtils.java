@@ -49,7 +49,7 @@ import org.flowable.task.service.impl.persistence.entity.TaskEntity;
 import java.util.*;
 
 /**
- * 工作流工具
+ * 工作流工具.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -62,7 +62,7 @@ public class WorkflowUtils {
     private static final ActHiTaskinstMapper ACT_HI_TASKINST_MAPPER = SpringUtils.getBean(ActHiTaskinstMapper.class);
 
     /**
-     * 创建一个新任务
+     * 创建一个新任务.
      *
      * @param currentTask 参数
      */
@@ -90,7 +90,7 @@ public class WorkflowUtils {
     }
 
     /**
-     * 抄送任务
+     * 抄送任务.
      *
      * @param parentTaskList 父级任务
      * @param userIds        人员id
@@ -113,8 +113,8 @@ public class WorkflowUtils {
         }
         PROCESS_ENGINE.getTaskService().bulkSaveTasks(list);
         if (CollUtil.isNotEmpty(list) && CollUtil.isNotEmpty(parentTaskList)) {
-            String processInstanceId = parentTaskList.get(0).getProcessInstanceId();
-            String processDefinitionId = parentTaskList.get(0).getProcessDefinitionId();
+            String processInstanceId = parentTaskList.getFirst().getProcessInstanceId();
+            String processDefinitionId = parentTaskList.getFirst().getProcessDefinitionId();
             List<String> taskIds = StreamUtils.toList(list, Task::getId);
             ActHiTaskinst actHiTaskinst = new ActHiTaskinst();
             actHiTaskinst.setProcDefId(processDefinitionId);
@@ -131,7 +131,7 @@ public class WorkflowUtils {
     }
 
     /**
-     * 获取当前任务参与者
+     * 获取当前任务参与者.
      *
      * @param taskId 任务id
      */
@@ -184,7 +184,7 @@ public class WorkflowUtils {
     }
 
     /**
-     * 判断当前节点是否为会签节点
+     * 判断当前节点是否为会签节点.
      *
      * @param processDefinitionId 流程定义id
      * @param taskDefinitionKey   流程定义id
@@ -216,7 +216,7 @@ public class WorkflowUtils {
     }
 
     /**
-     * 获取当前流程状态
+     * 获取当前流程状态.
      *
      * @param taskId 任务id
      */
@@ -227,7 +227,7 @@ public class WorkflowUtils {
     }
 
     /**
-     * 获取当前流程状态
+     * 获取当前流程状态.
      *
      * @param businessKey 业务id
      */
@@ -237,7 +237,7 @@ public class WorkflowUtils {
     }
 
     /**
-     * 发送消息
+     * 发送消息.
      *
      * @param list        任务
      * @param name        流程名称
@@ -287,7 +287,7 @@ public class WorkflowUtils {
     }
 
     /**
-     * 根据任务id查询 当前用户的任务，检查 当前人员 是否是该 taskId 的办理人
+     * 根据任务id查询 当前用户的任务，检查 当前人员 是否是该 taskId 的办理人.
      *
      * @param taskId 任务id
      * @return 结果
@@ -296,7 +296,7 @@ public class WorkflowUtils {
         TaskQuery taskQuery = QueryUtils.taskQuery();
         taskQuery.taskId(taskId).taskCandidateOrAssigned(String.valueOf(LoginHelper.getUserId()));
 
-        List<RoleDTO> roles = LoginHelper.getLoginUser().getRoles();
+        List<RoleDTO> roles = Objects.requireNonNull(LoginHelper.getLoginUser()).getRoles();
         if (CollUtil.isNotEmpty(roles)) {
             List<String> groupIds = StreamUtils.toList(roles, e -> String.valueOf(e.getRoleId()));
             taskQuery.taskCandidateGroupIn(groupIds);

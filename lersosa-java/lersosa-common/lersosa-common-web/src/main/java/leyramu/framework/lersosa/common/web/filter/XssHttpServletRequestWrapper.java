@@ -25,7 +25,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
- * XSS过滤处理
+ * XSS过滤处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -33,7 +33,7 @@ import java.util.Map;
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     /**
-     * @param request
+     * @param request 原始HttpServletRequest
      */
     public XssHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
@@ -45,7 +45,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         if (value != null) {
             return HtmlUtil.cleanHtmlTag(value).trim();
         }
-        return value;
+        return null;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
             }
             return escapseValues;
         }
-        return values;
+        return null;
     }
 
     @Override
@@ -110,7 +110,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
             }
 
             @Override
-            public int available() throws IOException {
+            public int available() {
                 return jsonBytes.length;
             }
 
@@ -119,14 +119,14 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
             }
 
             @Override
-            public int read() throws IOException {
+            public int read() {
                 return bis.read();
             }
         };
     }
 
     /**
-     * 是否是Json请求
+     * 是否是Json请求.
      */
     public boolean isJsonRequest() {
         String header = super.getHeader(HttpHeaders.CONTENT_TYPE);

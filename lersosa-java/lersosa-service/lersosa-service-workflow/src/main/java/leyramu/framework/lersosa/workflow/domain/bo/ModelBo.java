@@ -19,7 +19,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 模型请求对象
+ * 模型请求对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -32,45 +32,44 @@ public class ModelBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 模型id
+     * 模型id.
      */
     @NotBlank(message = "模型ID不能为空", groups = {EditGroup.class})
     private String id;
 
     /**
-     * 模型名称
+     * 模型名称.
      */
     @NotBlank(message = "模型名称不能为空", groups = {AddGroup.class})
     private String name;
 
     /**
-     * 模型标识key
+     * 模型标识key.
      */
     @NotBlank(message = "模型标识key不能为空", groups = {AddGroup.class})
     @Pattern(regexp = FlowConstant.MODEL_KEY_PATTERN, message = "模型标识key只能字符或者下划线开头", groups = {AddGroup.class})
     private String key;
 
     /**
-     * 模型分类
+     * 模型分类.
      */
     @NotBlank(message = "模型分类不能为空", groups = {AddGroup.class})
     private String categoryCode;
 
     /**
-     * 模型XML
+     * 模型XML.
      */
     @NotBlank(message = "模型XML不能为空", groups = {AddGroup.class})
     private String xml;
 
     /**
-     * 模型SVG图片
+     * 模型SVG图片.
      */
     @NotBlank(message = "模型SVG不能为空", groups = {EditGroup.class})
     private String svg;
 
     /**
-     * 备注
+     * 备注.
      */
     private String description;
-
 }

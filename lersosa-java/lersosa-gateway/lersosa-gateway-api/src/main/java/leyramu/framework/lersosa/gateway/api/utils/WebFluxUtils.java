@@ -12,7 +12,6 @@ import cn.hutool.core.util.ObjectUtil;
 import leyramu.framework.lersosa.common.core.domain.R;
 import leyramu.framework.lersosa.common.core.utils.StringUtils;
 import leyramu.framework.lersosa.common.json.utils.JsonUtils;
-import leyramu.framework.lersosa.gateway.api.filter.GlobalCacheRequestFilter;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
@@ -30,13 +29,13 @@ import java.net.URI;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Function;
 
 import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_ORIGINAL_REQUEST_URL_ATTR;
 
 /**
- * WebFlux 工具类
+ * WebFlux 工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -45,7 +44,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.G
 public class WebFluxUtils {
 
     /**
-     * 获取原请求路径
+     * 获取原请求路径.
      */
     public static String getOriginalRequestUrl(ServerWebExchange exchange) {
         ServerHttpRequest request = exchange.getRequest();
@@ -55,7 +54,7 @@ public class WebFluxUtils {
     }
 
     /**
-     * 是否是Json请求
+     * 是否是Json请求.
      *
      * @param exchange HTTP请求
      */
@@ -65,9 +64,7 @@ public class WebFluxUtils {
     }
 
     /**
-     * 读取request内的body
-     * <p>
-     * 注意一个request只能读取一次 读取之后需要重新包装
+     * 读取request内的body.
      */
     public static String resolveBodyFromRequest(ServerHttpRequest serverHttpRequest) {
         // 获取请求体
@@ -84,10 +81,7 @@ public class WebFluxUtils {
     }
 
     /**
-     * 从缓存中读取request内的body
-     * <p>
-     * 注意要求经过 {@link ServerWebExchangeUtils#cacheRequestBody(ServerWebExchange, Function)} 此方法创建缓存
-     * 框架内已经使用 {@link GlobalCacheRequestFilter} 全局创建了body缓存
+     * 从缓存中读取request内的body.
      *
      * @return body
      */
@@ -104,7 +98,7 @@ public class WebFluxUtils {
     }
 
     /**
-     * 设置webflux模型响应
+     * 设置webflux模型响应.
      *
      * @param response ServerHttpResponse
      * @param value    响应内容
@@ -115,7 +109,7 @@ public class WebFluxUtils {
     }
 
     /**
-     * 设置webflux模型响应
+     * 设置webflux模型响应.
      *
      * @param response ServerHttpResponse
      * @param code     响应状态码
@@ -127,7 +121,7 @@ public class WebFluxUtils {
     }
 
     /**
-     * 设置webflux模型响应
+     * 设置webflux模型响应.
      *
      * @param response ServerHttpResponse
      * @param status   http状态码
@@ -140,7 +134,7 @@ public class WebFluxUtils {
     }
 
     /**
-     * 设置webflux模型响应
+     * 设置webflux模型响应.
      *
      * @param response    ServerHttpResponse
      * @param contentType content-type
@@ -153,7 +147,7 @@ public class WebFluxUtils {
         response.setStatusCode(status);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, contentType);
         R<?> result = R.fail(code, value.toString());
-        DataBuffer dataBuffer = response.bufferFactory().wrap(JsonUtils.toJsonString(result).getBytes());
+        DataBuffer dataBuffer = response.bufferFactory().wrap(Objects.requireNonNull(JsonUtils.toJsonString(result)).getBytes());
         return response.writeWith(Mono.just(dataBuffer));
     }
 }

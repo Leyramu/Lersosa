@@ -26,9 +26,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 /**
- * 全局日志过滤器
- * <p>
- * 用于打印请求执行参数与响应时间等等
+ * 全局日志过滤器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -89,5 +87,4 @@ public class GlobalLogFilter implements GlobalFilter, Ordered {
         // return ReactiveLoadBalancerClientFilter.LOAD_BALANCER_CLIENT_FILTER_ORDER - 1;
         return Ordered.LOWEST_PRECEDENCE;
     }
-
 }

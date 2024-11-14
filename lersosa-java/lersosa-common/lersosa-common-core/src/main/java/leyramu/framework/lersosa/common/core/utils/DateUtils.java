@@ -19,12 +19,13 @@ import java.time.*;
 import java.util.Date;
 
 /**
- * 时间工具类
+ * 时间工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@SuppressWarnings("unused")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
@@ -44,7 +45,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         "yyyy.MM.dd", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm", "yyyy.MM"};
 
     /**
-     * 获取当前Date型日期
+     * 获取当前Date型日期.
      *
      * @return Date() 当前日期
      */
@@ -53,7 +54,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     }
 
     /**
-     * 获取当前日期, 默认格式为yyyy-MM-dd
+     * 获取当前日期, 默认格式为yyyy-MM-dd.
      *
      * @return String
      */
@@ -90,7 +91,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     }
 
     /**
-     * 日期路径 即年/月/日 如2018/08/08
+     * 日期路径 即年/月/日 如2018/08/08.
      */
     public static String datePath() {
         Date now = new Date();
@@ -98,7 +99,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     }
 
     /**
-     * 日期路径 即年/月/日 如20180808
+     * 日期路径 即年/月/日 如20180808.
      */
     public static String dateTime() {
         Date now = new Date();
@@ -106,7 +107,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     }
 
     /**
-     * 日期型字符串转化为日期 格式
+     * 日期型字符串转化为日期 格式.
      */
     public static Date parseDate(Object str) {
         if (str == null) {
@@ -120,7 +121,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     }
 
     /**
-     * 获取服务器启动时间
+     * 获取服务器启动时间.
      */
     public static Date getServerStartDate() {
         long time = ManagementFactory.getRuntimeMXBean().getStartTime();
@@ -128,14 +129,14 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     }
 
     /**
-     * 计算相差天数
+     * 计算相差天数.
      */
     public static int differentDaysByMillisecond(Date date1, Date date2) {
         return Math.abs((int) ((date2.getTime() - date1.getTime()) / (1000 * 3600 * 24)));
     }
 
     /**
-     * 计算两个时间差
+     * 计算两个时间差.
      */
     public static String getDatePoor(Date endDate, Date nowDate) {
         long nd = 1000 * 24 * 60 * 60;
@@ -156,7 +157,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     }
 
     /**
-     * 增加 LocalDateTime ==> Date
+     * 增加 LocalDateTime ==> Date.
      */
     public static Date toDate(LocalDateTime temporalAccessor) {
         ZonedDateTime zdt = temporalAccessor.atZone(ZoneId.systemDefault());
@@ -164,11 +165,10 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     }
 
     /**
-     * 增加 LocalDate ==> Date
+     * 增加 LocalDate ==> Date.
      */
     public static Date toDate(LocalDate temporalAccessor) {
         LocalDateTime localDateTime = LocalDateTime.of(temporalAccessor, LocalTime.of(0, 0, 0));
-        ZonedDateTime zdt = localDateTime.atZone(ZoneId.systemDefault());
-        return Date.from(zdt.toInstant());
+        return toDate(localDateTime);
     }
 }

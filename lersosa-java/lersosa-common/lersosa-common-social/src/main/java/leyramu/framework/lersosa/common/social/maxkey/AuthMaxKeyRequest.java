@@ -19,8 +19,10 @@ import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.request.AuthDefaultRequest;
 
+import java.util.Objects;
+
 /**
- * MaxKey 认证
+ * MaxKey 认证.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,7 +33,7 @@ public class AuthMaxKeyRequest extends AuthDefaultRequest {
     public static final String SERVER_URL = SpringUtils.getProperty("justauth.type.maxkey.server-url");
 
     /**
-     * 设定归属域
+     * 设定归属域.
      */
     public AuthMaxKeyRequest(AuthConfig config) {
         super(config, AuthMaxKeySource.MAXKEY);
@@ -46,7 +48,7 @@ public class AuthMaxKeyRequest extends AuthDefaultRequest {
         String body = doPostAuthorizationCode(authCallback.getCode());
         Dict object = JsonUtils.parseMap(body);
         // oauth/token 验证异常
-        if (object.containsKey("error")) {
+        if (Objects.requireNonNull(object).containsKey("error")) {
             throw new AuthException(object.getStr("error_description"));
         }
         // user 验证异常
@@ -67,7 +69,7 @@ public class AuthMaxKeyRequest extends AuthDefaultRequest {
         String body = doGetUserInfo(authToken);
         Dict object = JsonUtils.parseMap(body);
         // oauth/token 验证异常
-        if (object.containsKey("error")) {
+        if (Objects.requireNonNull(object).containsKey("error")) {
             throw new AuthException(object.getStr("error_description"));
         }
         // user 验证异常
@@ -88,5 +90,4 @@ public class AuthMaxKeyRequest extends AuthDefaultRequest {
             .source(source.toString())
             .build();
     }
-
 }

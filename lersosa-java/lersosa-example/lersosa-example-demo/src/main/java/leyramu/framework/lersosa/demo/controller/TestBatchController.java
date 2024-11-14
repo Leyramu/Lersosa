@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 测试批量方法
+ * 测试批量方法.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -35,14 +35,12 @@ import java.util.List;
 public class TestBatchController extends BaseController {
 
     /**
-     * 为了便于测试 直接引入mapper
+     * 为了便于测试 直接引入mapper.
      */
     private final TestDemoMapper testDemoMapper;
 
     /**
-     * 新增批量方法 可完美替代 saveBatch 秒级插入上万数据 (对mysql负荷较大)
-     * <p>
-     * 3.5.0 版本 增加 rewriteBatchedStatements=true 批处理参数 使 MP 原生批处理可以达到同样的速度
+     * 新增批量方法 可完美替代 saveBatch 秒级插入上万数据 (对mysql负荷较大).
      */
     @PostMapping("/add")
 //    @DS("slave")
@@ -59,9 +57,7 @@ public class TestBatchController extends BaseController {
     }
 
     /**
-     * 新增或更新 可完美替代 saveOrUpdateBatch 高性能
-     * <p>
-     * 3.5.0 版本 增加 rewriteBatchedStatements=true 批处理参数 使 MP 原生批处理可以达到同样的速度
+     * 新增或更新 可完美替代 saveOrUpdateBatch 高性能.
      */
     @PostMapping("/addOrUpdate")
 //    @DS("slave")
@@ -87,7 +83,7 @@ public class TestBatchController extends BaseController {
     }
 
     /**
-     * 删除批量方法
+     * 删除批量方法.
      */
     @DeleteMapping()
 //    @DS("slave")
@@ -95,5 +91,4 @@ public class TestBatchController extends BaseController {
         return toAjax(testDemoMapper.delete(new LambdaQueryWrapper<TestDemo>()
             .eq(TestDemo::getOrderNum, -1L)));
     }
-
 }

@@ -12,7 +12,7 @@ import leyramu.framework.lersosa.common.encrypt.enumd.AlgorithmType;
 import leyramu.framework.lersosa.common.encrypt.enumd.EncodeType;
 
 /**
- * 加解者
+ * 加解者.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -21,12 +21,12 @@ import leyramu.framework.lersosa.common.encrypt.enumd.EncodeType;
 public interface IEncryptor {
 
     /**
-     * 获得当前算法
+     * 获得当前算法.
      */
     AlgorithmType algorithm();
 
     /**
-     * 加密
+     * 加密.
      *
      * @param value      待加密字符串
      * @param encodeType 加密后的编码格式
@@ -35,7 +35,7 @@ public interface IEncryptor {
     String encrypt(String value, EncodeType encodeType);
 
     /**
-     * 解密
+     * 解密.
      *
      * @param value 待加密字符串
      * @return 解密后的字符串

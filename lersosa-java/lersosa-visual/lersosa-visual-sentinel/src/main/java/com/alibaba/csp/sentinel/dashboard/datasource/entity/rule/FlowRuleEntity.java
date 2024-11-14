@@ -5,53 +5,120 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.datasource.entity.rule;
 
 import com.alibaba.csp.sentinel.slots.block.flow.ClusterFlowConfig;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
+import lombok.Data;
 
 import java.util.Date;
 
 /**
+ * 流规则实体.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class FlowRuleEntity implements RuleEntity {
 
-    private Long id;
-    private String app;
-    private String ip;
-    private Integer port;
-    private String limitApp;
-    private String resource;
     /**
-     * 0为线程数;1为qps
+     * 规则ID.
+     */
+    private Long id;
+
+    /**
+     * 应用名称.
+     */
+    private String app;
+
+    /**
+     * IP地址.
+     */
+    private String ip;
+
+    /**
+     * 端口号.
+     */
+    private Integer port;
+
+    /**
+     * 限流应用.
+     */
+    private String limitApp;
+
+    /**
+     * 资源名称.
+     */
+    private String resource;
+
+    /**
+     * 0为线程数;1为qps.
      */
     private Integer grade;
+
+    /**
+     * 限流阈值.
+     */
     private Double count;
+
     /**
-     * 0为直接限流;1为关联限流;2为链路限流
-     ***/
+     * 0为直接限流;1为关联限流;2为链路限流.
+     */
     private Integer strategy;
-    private String refResource;
+
     /**
-     * 0. default, 1. warm up, 2. rate limiter
+     * 被关联的资源.
+     */
+    private String refResource;
+
+    /**
+     * 0. default， 1.热身，2.速率限制器.
      */
     private Integer controlBehavior;
-    private Integer warmUpPeriodSec;
+
     /**
-     * max queueing time in rate limiter behavior
+     * 热身时长，单位为秒.
+     */
+    private Integer warmUpPeriodSec;
+
+    /**
+     * Rate Limiter 行为中的最大排队时间.
      */
     private Integer maxQueueingTimeMs;
 
-    private boolean clusterMode;
     /**
-     * Flow rule config for cluster mode.
+     * 是否开启集群模式.
+     */
+    private boolean clusterMode;
+
+    /**
+     * 集群模式的流规则配置.
      */
     private ClusterFlowConfig clusterConfig;
 
+    /**
+     * 创建时间.
+     */
     private Date gmtCreate;
+
+    /**
+     * 修改时间.
+     */
     private Date gmtModified;
 
+    /**
+     * 从流规则对象创建流规则实体.
+     *
+     * @param app  应用名称
+     * @param ip   IP地址
+     * @param port 端口号
+     * @param rule 流规则对象
+     * @return 流规则实体
+     */
     public static FlowRuleEntity fromFlowRule(String app, String ip, Integer port, FlowRule rule) {
         FlowRuleEntity entity = new FlowRuleEntity();
         entity.setApp(app);
@@ -71,150 +138,71 @@ public class FlowRuleEntity implements RuleEntity {
         return entity;
     }
 
+    /**
+     * 获取IP地址.
+     *
+     * @return IP地址
+     */
     @Override
     public String getIp() {
         return ip;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
+    /**
+     * 获取端口号.
+     *
+     * @return 端口号
+     */
     @Override
     public Integer getPort() {
         return port;
     }
 
-    public void setPort(Integer port) {
-        this.port = port;
-    }
-
+    /**
+     * 获取应用名称.
+     *
+     * @return 应用名称
+     */
     @Override
     public String getApp() {
         return app;
     }
 
-    public void setApp(String app) {
-        this.app = app;
-    }
-
+    /**
+     * 获取规则ID.
+     *
+     * @return 规则ID
+     */
     @Override
     public Long getId() {
         return id;
     }
 
+    /**
+     * 设置规则ID.
+     *
+     * @param id 规则ID
+     */
     @Override
     public void setId(Long id) {
         this.id = id;
     }
 
-    public String getLimitApp() {
-        return limitApp;
-    }
-
-    public void setLimitApp(String limitApp) {
-        this.limitApp = limitApp;
-    }
-
-    public String getResource() {
-        return resource;
-    }
-
-    public void setResource(String resource) {
-        this.resource = resource;
-    }
-
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
-
-    public Double getCount() {
-        return count;
-    }
-
-    public void setCount(Double count) {
-        this.count = count;
-    }
-
-    public Integer getStrategy() {
-        return strategy;
-    }
-
-    public void setStrategy(Integer strategy) {
-        this.strategy = strategy;
-    }
-
-    public String getRefResource() {
-        return refResource;
-    }
-
-    public void setRefResource(String refResource) {
-        this.refResource = refResource;
-    }
-
-    public Integer getControlBehavior() {
-        return controlBehavior;
-    }
-
-    public void setControlBehavior(Integer controlBehavior) {
-        this.controlBehavior = controlBehavior;
-    }
-
-    public Integer getWarmUpPeriodSec() {
-        return warmUpPeriodSec;
-    }
-
-    public void setWarmUpPeriodSec(Integer warmUpPeriodSec) {
-        this.warmUpPeriodSec = warmUpPeriodSec;
-    }
-
-    public Integer getMaxQueueingTimeMs() {
-        return maxQueueingTimeMs;
-    }
-
-    public void setMaxQueueingTimeMs(Integer maxQueueingTimeMs) {
-        this.maxQueueingTimeMs = maxQueueingTimeMs;
-    }
-
-    public boolean isClusterMode() {
-        return clusterMode;
-    }
-
-    public FlowRuleEntity setClusterMode(boolean clusterMode) {
-        this.clusterMode = clusterMode;
-        return this;
-    }
-
-    public ClusterFlowConfig getClusterConfig() {
-        return clusterConfig;
-    }
-
-    public FlowRuleEntity setClusterConfig(ClusterFlowConfig clusterConfig) {
-        this.clusterConfig = clusterConfig;
-        return this;
-    }
-
+    /**
+     * 获取创建时间.
+     *
+     * @return 创建时间
+     */
     @Override
     public Date getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
+    /**
+     * 转换为规则对象.
+     *
+     * @return 规则对象
+     */
     @Override
     public FlowRule toRule() {
         FlowRule flowRule = new FlowRule();
@@ -237,5 +225,4 @@ public class FlowRuleEntity implements RuleEntity {
         flowRule.setClusterConfig(clusterConfig);
         return flowRule;
     }
-
 }

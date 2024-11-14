@@ -31,9 +31,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * 客户端管理Service业务层处理
+ * 客户端管理Service业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -47,7 +48,7 @@ public class SysClientServiceImpl implements ISysClientService {
     private final SysClientMapper baseMapper;
 
     /**
-     * 查询客户端管理
+     * 查询客户端管理.
      */
     @Override
     public SysClientVo queryById(Long id) {
@@ -58,7 +59,7 @@ public class SysClientServiceImpl implements ISysClientService {
 
 
     /**
-     * 查询客户端管理
+     * 查询客户端管理.
      */
     @Cacheable(cacheNames = CacheNames.SYS_CLIENT, key = "#clientId")
     @Override
@@ -67,7 +68,7 @@ public class SysClientServiceImpl implements ISysClientService {
     }
 
     /**
-     * 查询客户端管理列表
+     * 查询客户端管理列表.
      */
     @Override
     public TableDataInfo<SysClientVo> queryPageList(SysClientBo bo, PageQuery pageQuery) {
@@ -78,7 +79,7 @@ public class SysClientServiceImpl implements ISysClientService {
     }
 
     /**
-     * 查询客户端管理列表
+     * 查询客户端管理列表.
      */
     @Override
     public List<SysClientVo> queryList(SysClientBo bo) {
@@ -97,13 +98,13 @@ public class SysClientServiceImpl implements ISysClientService {
     }
 
     /**
-     * 新增客户端管理
+     * 新增客户端管理.
      */
     @Override
     public Boolean insertByBo(SysClientBo bo) {
         SysClient add = MapstructUtils.convert(bo, SysClient.class);
         validEntityBeforeSave(add);
-        add.setGrantType(String.join(",", bo.getGrantTypeList()));
+        Objects.requireNonNull(add).setGrantType(String.join(",", bo.getGrantTypeList()));
         // 生成clientId
         String clientKey = bo.getClientKey();
         String clientSecret = bo.getClientSecret();
@@ -116,19 +117,19 @@ public class SysClientServiceImpl implements ISysClientService {
     }
 
     /**
-     * 修改客户端管理
+     * 修改客户端管理.
      */
     @CacheEvict(cacheNames = CacheNames.SYS_CLIENT, key = "#bo.clientId")
     @Override
     public Boolean updateByBo(SysClientBo bo) {
         SysClient update = MapstructUtils.convert(bo, SysClient.class);
         validEntityBeforeSave(update);
-        update.setGrantType(String.join(",", bo.getGrantTypeList()));
+        Objects.requireNonNull(update).setGrantType(String.join(",", bo.getGrantTypeList()));
         return baseMapper.updateById(update) > 0;
     }
 
     /**
-     * 修改状态
+     * 修改状态.
      */
     @CacheEvict(cacheNames = CacheNames.SYS_CLIENT, key = "#clientId")
     @Override
@@ -140,20 +141,21 @@ public class SysClientServiceImpl implements ISysClientService {
     }
 
     /**
-     * 保存前的数据校验
+     * 保存前的数据校验.
      */
-    private void validEntityBeforeSave(SysClient entity) {
+    private void validEntityBeforeSave(SysClient ignoredEntity) {
         //TODO 做一些数据校验,如唯一约束
     }
 
     /**
-     * 批量删除客户端管理
+     * 批量删除客户端管理.
      */
     @CacheEvict(cacheNames = CacheNames.SYS_CLIENT, allEntries = true)
     @Override
     public Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid) {
         if (isValid) {
             //TODO 做一些业务上的校验,判断是否需要校验
+            log.info("未实现");
         }
         return baseMapper.deleteByIds(ids) > 0;
     }

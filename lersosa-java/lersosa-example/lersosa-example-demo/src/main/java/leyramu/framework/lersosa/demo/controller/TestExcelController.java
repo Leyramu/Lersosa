@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 测试Excel功能
+ * 测试Excel功能.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -42,7 +42,7 @@ public class TestExcelController {
     private final IExportExcelService exportExcelService;
 
     /**
-     * 单列表多数据
+     * 单列表多数据.
      */
     @GetMapping("/exportTemplateOne")
     public void exportTemplateOne(HttpServletResponse response) {
@@ -61,7 +61,7 @@ public class TestExcelController {
     }
 
     /**
-     * 多列表多数据
+     * 多列表多数据.
      */
     @GetMapping("/exportTemplateMuliti")
     public void exportTemplateMuliti(HttpServletResponse response) {
@@ -95,7 +95,7 @@ public class TestExcelController {
     }
 
     /**
-     * 导出下拉框
+     * 导出下拉框.
      *
      * @param response /
      */
@@ -105,7 +105,7 @@ public class TestExcelController {
     }
 
     /**
-     * 多个sheet导出
+     * 多个sheet导出.
      */
     @GetMapping("/exportTemplateMultiSheet")
     public void exportTemplateMultiSheet(HttpServletResponse response) {
@@ -140,7 +140,7 @@ public class TestExcelController {
     }
 
     /**
-     * 导入表格
+     * 导入表格.
      */
     @PostMapping(value = "/importWithOptions", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public List<ExportDemoVo> importWithOptions(@RequestPart("file") MultipartFile file) throws Exception {
@@ -166,5 +166,4 @@ public class TestExcelController {
         private String list3;
         private String list4;
     }
-
 }

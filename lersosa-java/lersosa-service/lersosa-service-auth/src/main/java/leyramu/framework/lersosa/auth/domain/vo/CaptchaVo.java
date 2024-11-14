@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.auth.domain.vo;
 import lombok.Data;
 
 /**
- * 验证码信息
+ * 验证码信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -21,15 +21,14 @@ import lombok.Data;
 public class CaptchaVo {
 
     /**
-     * 是否开启验证码
+     * 是否开启验证码.
      */
     private Boolean captchaEnabled = true;
 
     private String uuid;
 
     /**
-     * 验证码图片
+     * 验证码图片.
      */
     private String img;
-
 }

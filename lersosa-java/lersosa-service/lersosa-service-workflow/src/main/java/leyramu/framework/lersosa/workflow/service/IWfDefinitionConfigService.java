@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * 流程定义配置Service接口
+ * 流程定义配置Service接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -24,7 +24,7 @@ import java.util.List;
 public interface IWfDefinitionConfigService {
 
     /**
-     * 查询流程定义配置
+     * 查询流程定义配置.
      *
      * @param definitionId 流程定义id
      * @return 结果
@@ -32,7 +32,7 @@ public interface IWfDefinitionConfigService {
     WfDefinitionConfigVo getByDefId(String definitionId);
 
     /**
-     * 查询流程定义配置
+     * 查询流程定义配置.
      *
      * @param tableName 表名
      * @return 结果
@@ -40,16 +40,17 @@ public interface IWfDefinitionConfigService {
     WfDefinitionConfigVo getByTableNameLastVersion(String tableName);
 
     /**
-     * 查询流程定义配置
+     * 查询流程定义配置.
      *
      * @param definitionId 流程定义id
      * @param tableName    表名
      * @return 结果
      */
+    @SuppressWarnings("unused")
     WfDefinitionConfigVo getByDefIdAndTableName(String definitionId, String tableName);
 
     /**
-     * 查询流程定义配置排除当前查询的流程定义
+     * 查询流程定义配置排除当前查询的流程定义.
      *
      * @param definitionId 流程定义id
      * @param tableName    表名
@@ -58,7 +59,7 @@ public interface IWfDefinitionConfigService {
     List<WfDefinitionConfigVo> getByTableNameNotDefId(String tableName, String definitionId);
 
     /**
-     * 查询流程定义配置列表
+     * 查询流程定义配置列表.
      *
      * @param definitionIds 流程定义id
      * @return 结果
@@ -67,7 +68,7 @@ public interface IWfDefinitionConfigService {
 
 
     /**
-     * 新增流程定义配置
+     * 新增流程定义配置.
      *
      * @param bo 参数
      * @return 结果
@@ -75,7 +76,7 @@ public interface IWfDefinitionConfigService {
     Boolean saveOrUpdate(WfDefinitionConfigBo bo);
 
     /**
-     * 删除
+     * 删除.
      *
      * @param ids id
      * @return 结果
@@ -83,10 +84,9 @@ public interface IWfDefinitionConfigService {
     Boolean deleteByIds(Collection<Long> ids);
 
     /**
-     * 按照流程定义id删除
+     * 按照流程定义id删除.
      *
      * @param ids 流程定义id
-     * @return 结果
      */
-    Boolean deleteByDefIds(Collection<String> ids);
+    void deleteByDefIds(Collection<String> ids);
 }

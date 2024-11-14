@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 用户信息
+ * 用户信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,117 +31,117 @@ public class LoginUser implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 租户ID
+     * 租户ID.
      */
     private String tenantId;
 
     /**
-     * 用户ID
+     * 用户ID.
      */
     private Long userId;
 
     /**
-     * 部门ID
+     * 部门ID.
      */
     private Long deptId;
 
     /**
-     * 部门类别编码
+     * 部门类别编码.
      */
     private String deptCategory;
 
     /**
-     * 部门名
+     * 部门名.
      */
     private String deptName;
 
     /**
-     * 用户唯一标识
+     * 用户唯一标识.
      */
     private String token;
 
     /**
-     * 用户类型
+     * 用户类型.
      */
     private String userType;
 
     /**
-     * 登录时间
+     * 登录时间.
      */
     private Long loginTime;
 
     /**
-     * 过期时间
+     * 过期时间.
      */
     private Long expireTime;
 
     /**
-     * 登录IP地址
+     * 登录IP地址.
      */
     private String ipaddr;
 
     /**
-     * 登录地点
+     * 登录地点.
      */
     private String loginLocation;
 
     /**
-     * 浏览器类型
+     * 浏览器类型.
      */
     private String browser;
 
     /**
-     * 操作系统
+     * 操作系统.
      */
     private String os;
 
     /**
-     * 菜单权限
+     * 菜单权限.
      */
     private Set<String> menuPermission;
 
     /**
-     * 角色权限
+     * 角色权限.
      */
     private Set<String> rolePermission;
 
     /**
-     * 用户名
+     * 用户名.
      */
     private String username;
 
     /**
-     * 用户昵称
+     * 用户昵称.
      */
     private String nickname;
 
     /**
-     * 密码
+     * 密码.
      */
     private String password;
 
     /**
-     * 角色对象
+     * 角色对象.
      */
     private List<RoleDTO> roles;
 
     /**
-     * 数据权限 当前角色ID
+     * 数据权限 当前角色ID.
      */
     private Long roleId;
 
     /**
-     * 客户端
+     * 客户端.
      */
     private String clientKey;
 
     /**
-     * 设备类型
+     * 设备类型.
      */
     private String deviceType;
 
     /**
-     * 获取登录id
+     * 获取登录id.
      */
     public String getLoginId() {
         if (userType == null) {
@@ -152,5 +152,4 @@ public class LoginUser implements Serializable {
         }
         return userType + ":" + userId;
     }
-
 }

@@ -16,7 +16,7 @@ import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 /**
- * 交易回调
+ * 交易回调.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -51,5 +51,4 @@ public class TransactionRocketListener implements RocketMQLocalTransactionListen
         log.info("【监听器】检查本地交易===>{}", message);
         return RocketMQLocalTransactionState.COMMIT;
     }
-
 }

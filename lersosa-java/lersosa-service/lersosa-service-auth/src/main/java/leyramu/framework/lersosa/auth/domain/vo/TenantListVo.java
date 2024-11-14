@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.auth.domain.vo;
 import lombok.Data;
 
 /**
- * 租户列表
+ * 租户列表.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -21,18 +21,17 @@ import lombok.Data;
 public class TenantListVo {
 
     /**
-     * 租户编号
+     * 租户编号.
      */
     private String tenantId;
 
     /**
-     * 企业名称
+     * 企业名称.
      */
     private String companyName;
 
     /**
-     * 域名
+     * 域名.
      */
     private String domain;
-
 }

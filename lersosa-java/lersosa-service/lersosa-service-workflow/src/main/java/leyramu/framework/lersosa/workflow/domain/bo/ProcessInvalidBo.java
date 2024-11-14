@@ -16,7 +16,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 流程实例作废请求对象
+ * 流程实例作废请求对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,13 +29,13 @@ public class ProcessInvalidBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 业务id
+     * 业务id.
      */
     @NotBlank(message = "业务id不能为空", groups = {AddGroup.class})
     private String businessKey;
 
     /**
-     * 作废原因
+     * 作废原因.
      */
     private String deleteReason;
 }

@@ -42,7 +42,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * 个人信息 业务处理
+ * 个人信息 业务处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -60,7 +60,7 @@ public class SysProfileController extends BaseController {
     private RemoteFileService remoteFileService;
 
     /**
-     * 个人信息
+     * 个人信息.
      */
     @GetMapping
     public R<ProfileVo> profile() {
@@ -73,7 +73,7 @@ public class SysProfileController extends BaseController {
     }
 
     /**
-     * 修改用户信息
+     * 修改用户信息.
      */
     @RepeatSubmit
     @Log(title = "个人信息", businessType = BusinessType.UPDATE)
@@ -82,10 +82,10 @@ public class SysProfileController extends BaseController {
         SysUserBo user = BeanUtil.toBean(profile, SysUserBo.class);
         user.setUserId(LoginHelper.getUserId());
         String username = LoginHelper.getUsername();
-        if (StringUtils.isNotEmpty(user.getPhonenumber()) && !userService.checkPhoneUnique(user)) {
+        if (StringUtils.isNotEmpty(user.getPhonenumber()) && userService.checkPhoneUnique(user)) {
             return R.fail("修改用户'" + username + "'失败，手机号码已存在");
         }
-        if (StringUtils.isNotEmpty(user.getEmail()) && !userService.checkEmailUnique(user)) {
+        if (StringUtils.isNotEmpty(user.getEmail()) && userService.checkEmailUnique(user)) {
             return R.fail("修改用户'" + username + "'失败，邮箱账号已存在");
         }
         int rows = DataPermissionHelper.ignore(() -> userService.updateUserProfile(user));
@@ -96,7 +96,7 @@ public class SysProfileController extends BaseController {
     }
 
     /**
-     * 重置密码
+     * 重置密码.
      *
      * @param bo 新旧密码
      */
@@ -121,7 +121,7 @@ public class SysProfileController extends BaseController {
     }
 
     /**
-     * 头像上传
+     * 头像上传.
      *
      * @param avatarfile 用户头像
      */

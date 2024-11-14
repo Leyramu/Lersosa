@@ -9,7 +9,7 @@
 package leyramu.framework.lersosa.common.core.constant;
 
 /**
- * 缓存的key 常量
+ * 缓存的key 常量.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -18,23 +18,23 @@ package leyramu.framework.lersosa.common.core.constant;
 public interface CacheConstants {
 
     /**
-     * 在线用户 redis key
+     * 在线用户 redis key.
      */
     String ONLINE_TOKEN_KEY = "online_tokens:";
 
     /**
-     * 参数管理 cache key
+     * 参数管理 cache key.
      */
+    @SuppressWarnings("unused")
     String SYS_CONFIG_KEY = "sys_config:";
 
     /**
-     * 字典管理 cache key
+     * 字典管理 cache key.
      */
     String SYS_DICT_KEY = "sys_dict:";
 
     /**
-     * 登录账户密码错误次数 redis key
+     * 登录账户密码错误次数 redis key.
      */
     String PWD_ERR_CNT_KEY = "pwd_err_cnt:";
-
 }

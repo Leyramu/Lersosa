@@ -17,7 +17,7 @@ import org.apache.dubbo.rpc.*;
 import java.util.Map;
 
 /**
- * dubbo 数据权限参数传递
+ * dubbo 数据权限参数传递.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -34,5 +34,4 @@ public class DubboDataPermissionFilter implements Filter {
         context.setObjectAttachment(DataPermissionHelper.DATA_PERMISSION_KEY, dataPermissionContext);
         return invoker.invoke(invocation);
     }
-
 }

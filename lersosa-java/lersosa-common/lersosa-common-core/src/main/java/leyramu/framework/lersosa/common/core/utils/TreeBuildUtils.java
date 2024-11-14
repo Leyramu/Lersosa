@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * 扩展 hutool TreeUtil 封装系统树构建
+ * 扩展 hutool TreeUtil 封装系统树构建.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -32,12 +32,12 @@ import java.util.stream.Stream;
 public class TreeBuildUtils extends TreeUtil {
 
     /**
-     * 根据前端定制差异化字段
+     * 根据前端定制差异化字段.
      */
     public static final TreeNodeConfig DEFAULT_CONFIG = TreeNodeConfig.DEFAULT_CONFIG.setNameKey("label");
 
     /**
-     * 构建树形结构
+     * 构建树形结构.
      *
      * @param <T>        输入节点的类型
      * @param <K>        节点ID的类型
@@ -49,17 +49,18 @@ public class TreeBuildUtils extends TreeUtil {
         if (CollUtil.isEmpty(list)) {
             return CollUtil.newArrayList();
         }
-        K k = ReflectUtils.invokeGetter(list.get(0), "parentId");
+        K k = ReflectUtils.invokeGetter(list.getFirst(), "parentId");
         return TreeUtil.build(list, k, DEFAULT_CONFIG, nodeParser);
     }
 
     /**
-     * 获取节点列表中所有节点的叶子节点
+     * 获取节点列表中所有节点的叶子节点.
      *
      * @param <K>   节点ID的类型
      * @param nodes 节点列表
      * @return 包含所有叶子节点的列表
      */
+    @SuppressWarnings("unused")
     public static <K> List<Tree<K>> getLeafNodes(List<Tree<K>> nodes) {
         if (CollUtil.isEmpty(nodes)) {
             return CollUtil.newArrayList();
@@ -70,7 +71,7 @@ public class TreeBuildUtils extends TreeUtil {
     }
 
     /**
-     * 获取指定节点下的所有叶子节点
+     * 获取指定节点下的所有叶子节点.
      *
      * @param <K>  节点ID的类型
      * @param node 要查找叶子节点的根节点
@@ -85,5 +86,4 @@ public class TreeBuildUtils extends TreeUtil {
                 .flatMap(TreeBuildUtils::extractLeafNodes);
         }
     }
-
 }

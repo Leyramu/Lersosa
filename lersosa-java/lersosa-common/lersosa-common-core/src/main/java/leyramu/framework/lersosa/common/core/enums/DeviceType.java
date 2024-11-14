@@ -12,8 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 设备类型
- * 针对一套 用户体系
+ * 设备类型.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -21,20 +20,21 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
+@SuppressWarnings("unused")
 public enum DeviceType {
 
     /**
-     * pc端
+     * pc端.
      */
     PC("pc"),
 
     /**
-     * app端
+     * app端.
      */
     APP("app"),
 
     /**
-     * 小程序端
+     * 小程序端.
      */
     XCX("xcx");
 

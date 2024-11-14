@@ -31,7 +31,7 @@ import java.sql.PreparedStatement;
 import java.util.*;
 
 /**
- * 入参加密拦截器
+ * 入参加密拦截器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -50,7 +50,7 @@ public class MybatisEncryptInterceptor implements Interceptor {
     private final EncryptorProperties defaultProperties;
 
     @Override
-    public Object intercept(Invocation invocation) throws Throwable {
+    public Object intercept(Invocation invocation) {
         return invocation;
     }
 
@@ -67,7 +67,7 @@ public class MybatisEncryptInterceptor implements Interceptor {
     }
 
     /**
-     * 加密对象
+     * 加密对象.
      *
      * @param sourceObject 待加密对象
      */
@@ -84,7 +84,7 @@ public class MybatisEncryptInterceptor implements Interceptor {
                 return;
             }
             // 判断第一个元素是否含有注解。如果没有直接返回，提高效率
-            Object firstItem = list.get(0);
+            Object firstItem = list.getFirst();
             if (ObjectUtil.isNull(firstItem) || CollUtil.isEmpty(encryptorManager.getFieldCache(firstItem.getClass()))) {
                 return;
             }
@@ -106,7 +106,7 @@ public class MybatisEncryptInterceptor implements Interceptor {
     }
 
     /**
-     * 字段值进行加密。通过字段的批注注册新的加密算法
+     * 字段值进行加密。通过字段的批注注册新的加密算法.
      *
      * @param value 待加密的值
      * @param field 待加密字段

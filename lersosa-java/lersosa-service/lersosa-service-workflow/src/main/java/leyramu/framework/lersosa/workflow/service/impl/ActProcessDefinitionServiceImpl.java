@@ -45,7 +45,6 @@ import org.flowable.engine.RepositoryService;
 import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.engine.impl.bpmn.deployer.ResourceNameUtil;
 import org.flowable.engine.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -61,7 +60,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
- * 流程定义 服务层实现
+ * 流程定义 服务层实现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -73,16 +72,19 @@ import java.util.zip.ZipInputStream;
 public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionService {
 
     private final IWfCategoryService wfCategoryService;
+
     private final IWfDefinitionConfigService wfDefinitionConfigService;
+
     private final WfDefinitionConfigMapper wfDefinitionConfigMapper;
+
     private final IWfNodeConfigService wfNodeConfigService;
-    @Autowired(required = false)
-    private RepositoryService repositoryService;
-    @Autowired(required = false)
-    private ProcessMigrationService processMigrationService;
+
+    private final RepositoryService repositoryService;
+
+    private final ProcessMigrationService processMigrationService;
 
     /**
-     * 分页查询
+     * 分页查询.
      *
      * @param bo 参数
      * @return 返回分页列表
@@ -115,9 +117,7 @@ public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionSer
                 ProcessDefinitionVo processDefinitionVo = BeanUtil.toBean(processDefinition, ProcessDefinitionVo.class);
                 if (CollUtil.isNotEmpty(deploymentList)) {
                     // 部署时间
-                    deploymentList.stream().filter(e -> e.getId().equals(processDefinition.getDeploymentId())).findFirst().ifPresent(e -> {
-                        processDefinitionVo.setDeploymentTime(e.getDeploymentTime());
-                    });
+                    deploymentList.stream().filter(e -> e.getId().equals(processDefinition.getDeploymentId())).findFirst().ifPresent(e -> processDefinitionVo.setDeploymentTime(e.getDeploymentTime()));
                 }
                 if (CollUtil.isNotEmpty(wfDefinitionConfigVos)) {
                     wfDefinitionConfigVos.stream().filter(e -> e.getDefinitionId().equals(processDefinition.getId())).findFirst().ifPresent(processDefinitionVo::setWfDefinitionConfigVo);
@@ -134,7 +134,7 @@ public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionSer
     }
 
     /**
-     * 查询历史流程定义列表
+     * 查询历史流程定义列表.
      *
      * @param key 流程定义key
      */
@@ -155,9 +155,7 @@ public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionSer
                 ProcessDefinitionVo processDefinitionVo = BeanUtil.toBean(processDefinition, ProcessDefinitionVo.class);
                 if (CollUtil.isNotEmpty(deploymentList)) {
                     // 部署时间
-                    deploymentList.stream().filter(e -> e.getId().equals(processDefinition.getDeploymentId())).findFirst().ifPresent(e -> {
-                        processDefinitionVo.setDeploymentTime(e.getDeploymentTime());
-                    });
+                    deploymentList.stream().filter(e -> e.getId().equals(processDefinition.getDeploymentId())).findFirst().ifPresent(e -> processDefinitionVo.setDeploymentTime(e.getDeploymentTime()));
                     if (CollUtil.isNotEmpty(wfDefinitionConfigVos)) {
                         wfDefinitionConfigVos.stream().filter(e -> e.getDefinitionId().equals(processDefinition.getId())).findFirst().ifPresent(processDefinitionVo::setWfDefinitionConfigVo);
                     }
@@ -169,7 +167,7 @@ public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionSer
     }
 
     /**
-     * 查看流程定义图片
+     * 查看流程定义图片.
      *
      * @param processDefinitionId 流程定义id
      */
@@ -181,7 +179,7 @@ public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionSer
     }
 
     /**
-     * 查看流程定义xml文件
+     * 查看流程定义xml文件.
      *
      * @param processDefinitionId 流程定义id
      */
@@ -195,7 +193,7 @@ public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionSer
     }
 
     /**
-     * 删除流程定义
+     * 删除流程定义.
      *
      * @param deploymentIds        部署id
      * @param processDefinitionIds 流程定义id
@@ -229,7 +227,7 @@ public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionSer
     }
 
     /**
-     * 激活或者挂起流程定义
+     * 激活或者挂起流程定义.
      *
      * @param processDefinitionId 流程定义id
      */
@@ -254,7 +252,7 @@ public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionSer
     }
 
     /**
-     * 迁移流程定义
+     * 迁移流程定义.
      *
      * @param currentProcessDefinitionId 当前流程定义id
      * @param fromProcessDefinitionId    需要迁移到的流程定义id
@@ -283,7 +281,7 @@ public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionSer
     }
 
     /**
-     * 流程定义转换为模型
+     * 流程定义转换为模型.
      *
      * @param processDefinitionId 流程定义id
      */
@@ -314,7 +312,7 @@ public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionSer
     }
 
     /**
-     * 通过zip或xml部署流程定义
+     * 通过zip或xml部署流程定义.
      *
      * @param file         文件
      * @param categoryCode 分类
@@ -332,9 +330,7 @@ public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionSer
         String suffix = FileUtil.extName(file.getOriginalFilename());
         InputStream inputStream = file.getInputStream();
         if (FlowConstant.ZIP.equalsIgnoreCase(suffix)) {
-            ZipInputStream zipInputStream = null;
-            try {
-                zipInputStream = new ZipInputStream(inputStream);
+            try (ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
                 ZipEntry zipEntry;
                 while ((zipEntry = zipInputStream.getNextEntry()) != null) {
                     String filename = zipEntry.getName();
@@ -355,10 +351,6 @@ public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionSer
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            } finally {
-                if (zipInputStream != null) {
-                    zipInputStream.close();
-                }
             }
             //初始化配置数据（demo使用，不用可删除）
             initWfDefConfig();
@@ -391,7 +383,7 @@ public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionSer
     }
 
     /**
-     * 初始化配置数据（demo使用，不用可删除）
+     * 初始化配置数据（demo使用，不用可删除）.
      */
     private void initWfDefConfig() {
         List<WfDefinitionConfig> wfDefinitionConfigs = wfDefinitionConfigMapper.selectList();
@@ -406,11 +398,10 @@ public class ActProcessDefinitionServiceImpl implements IActProcessDefinitionSer
                 wfDefinitionConfigService.saveOrUpdate(wfDefinitionConfigBo);
             }
         }
-
     }
 
     /**
-     * 设置表单内容
+     * 设置表单内容.
      *
      * @param oldProcessDefinition 部署前最新流程定义
      * @param definition           部署后最新流程定义

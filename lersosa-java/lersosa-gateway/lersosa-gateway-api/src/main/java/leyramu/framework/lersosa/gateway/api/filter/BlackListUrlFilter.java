@@ -9,6 +9,7 @@
 package leyramu.framework.lersosa.gateway.api.filter;
 
 import leyramu.framework.lersosa.gateway.api.utils.WebFluxUtils;
+import lombok.Getter;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * 黑名单过滤器
+ * 黑名单过滤器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -44,25 +45,19 @@ public class BlackListUrlFilter extends AbstractGatewayFilterFactory<BlackListUr
     }
 
     public static class Config {
+        @Getter
         private List<String> blacklistUrl;
 
-        private List<Pattern> blacklistUrlPattern = new ArrayList<>();
+        private final List<Pattern> blacklistUrlPattern = new ArrayList<>();
 
         public boolean matchBlacklist(String url) {
             return !blacklistUrlPattern.isEmpty() && blacklistUrlPattern.stream().anyMatch(p -> p.matcher(url).find());
         }
 
-        public List<String> getBlacklistUrl() {
-            return blacklistUrl;
-        }
-
         public void setBlacklistUrl(List<String> blacklistUrl) {
             this.blacklistUrl = blacklistUrl;
             this.blacklistUrlPattern.clear();
-            this.blacklistUrl.forEach(url -> {
-                this.blacklistUrlPattern.add(Pattern.compile(url.replaceAll("\\*\\*", "(.*?)"), Pattern.CASE_INSENSITIVE));
-            });
+            this.blacklistUrl.forEach(url -> this.blacklistUrlPattern.add(Pattern.compile(url.replaceAll("\\*\\*", "(.*?)"), Pattern.CASE_INSENSITIVE)));
         }
     }
-
 }

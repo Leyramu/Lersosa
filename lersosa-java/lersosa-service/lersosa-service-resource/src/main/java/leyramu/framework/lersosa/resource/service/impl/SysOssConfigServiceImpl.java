@@ -38,7 +38,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * 对象存储配置Service业务层处理
+ * 对象存储配置Service业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -52,7 +52,7 @@ public class SysOssConfigServiceImpl implements ISysOssConfigService {
     private final SysOssConfigMapper baseMapper;
 
     /**
-     * 项目启动时，初始化参数到缓存，加载配置类
+     * 项目启动时，初始化参数到缓存，加载配置类.
      */
     @Override
     public void init() {
@@ -122,7 +122,7 @@ public class SysOssConfigServiceImpl implements ISysOssConfigService {
     }
 
     /**
-     * 保存前的数据校验
+     * 保存前的数据校验.
      */
     private void validEntityBeforeSave(SysOssConfig entity) {
         if (StringUtils.isNotEmpty(entity.getConfigKey()) && !checkConfigKeyUnique(entity)) {
@@ -151,21 +151,18 @@ public class SysOssConfigServiceImpl implements ISysOssConfigService {
     }
 
     /**
-     * 判断configKey是否唯一
+     * 判断configKey是否唯一.
      */
     private boolean checkConfigKeyUnique(SysOssConfig sysOssConfig) {
         long ossConfigId = ObjectUtil.isNull(sysOssConfig.getOssConfigId()) ? -1L : sysOssConfig.getOssConfigId();
         SysOssConfig info = baseMapper.selectOne(new LambdaQueryWrapper<SysOssConfig>()
             .select(SysOssConfig::getOssConfigId, SysOssConfig::getConfigKey)
             .eq(SysOssConfig::getConfigKey, sysOssConfig.getConfigKey()));
-        if (ObjectUtil.isNotNull(info) && info.getOssConfigId() != ossConfigId) {
-            return false;
-        }
-        return true;
+        return !ObjectUtil.isNotNull(info) || info.getOssConfigId() == ossConfigId;
     }
 
     /**
-     * 启用禁用状态
+     * 启用禁用状态.
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -179,5 +176,4 @@ public class SysOssConfigServiceImpl implements ISysOssConfigService {
         }
         return row;
     }
-
 }

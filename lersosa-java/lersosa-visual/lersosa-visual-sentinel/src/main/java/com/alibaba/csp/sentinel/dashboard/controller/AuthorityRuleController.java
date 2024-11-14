@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.controller;
 
 import com.alibaba.csp.sentinel.dashboard.auth.AuthAction;
@@ -17,36 +18,56 @@ import com.alibaba.csp.sentinel.dashboard.domain.Result;
 import com.alibaba.csp.sentinel.dashboard.repository.rule.RuleRepository;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.util.StringUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 
 /**
+ * 权限规则控制器.
+ *
  * @author Eric Zhao
- * @since 0.2.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
+@Slf4j
 @RestController
-@RequestMapping(value = "/authority")
+@RequiredArgsConstructor
+@RequestMapping("/authority")
 public class AuthorityRuleController {
 
-    private final Logger logger = LoggerFactory.getLogger(AuthorityRuleController.class);
+    /**
+     * Sentinel API客户端.
+     */
+    private final SentinelApiClient sentinelApiClient;
 
-    @Autowired
-    private SentinelApiClient sentinelApiClient;
-    @Autowired
-    private RuleRepository<AuthorityRuleEntity, Long> repository;
-    @Autowired
-    private AppManagement appManagement;
+    /**
+     * 规则存储库.
+     */
+    private final RuleRepository<AuthorityRuleEntity, Long> repository;
 
+    /**
+     * 应用管理器.
+     */
+    private final AppManagement appManagement;
+
+    /**
+     * 查询指定机器的所有权限规则.
+     *
+     * @param app  应用名称
+     * @param ip   机器IP
+     * @param port 机器端口
+     * @return 权限规则列表的结果
+     */
     @GetMapping("/rules")
     @AuthAction(PrivilegeType.READ_RULE)
-    public Result<List<AuthorityRuleEntity>> apiQueryAllRulesForMachine(@RequestParam String app,
-                                                                        @RequestParam String ip,
-                                                                        @RequestParam Integer port) {
+    public Result<List<AuthorityRuleEntity>> apiQueryAllRulesForMachine(
+        @RequestParam String app,
+        @RequestParam String ip,
+        @RequestParam Integer port) {
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app cannot be null or empty");
         }
@@ -56,7 +77,7 @@ public class AuthorityRuleController {
         if (port == null || port <= 0) {
             return Result.ofFail(-1, "Invalid parameter: port");
         }
-        if (!appManagement.isValidMachineOfApp(app, ip)) {
+        if (appManagement.isValidMachineOfApp(app, ip)) {
             return Result.ofFail(-1, "given ip does not belong to given app");
         }
         try {
@@ -64,11 +85,17 @@ public class AuthorityRuleController {
             rules = repository.saveAll(rules);
             return Result.ofSuccess(rules);
         } catch (Throwable throwable) {
-            logger.error("Error when querying authority rules", throwable);
+            log.error("Error when querying authority rules", throwable);
             return Result.ofFail(-1, throwable.getMessage());
         }
     }
 
+    /**
+     * 内部方法，用于检查权限规则实体的合法性.
+     *
+     * @param entity 权限规则实体
+     * @return 如果实体不合法，则返回错误结果；否则返回null
+     */
     private <R> Result<R> checkEntityInternal(AuthorityRuleEntity entity) {
         if (entity == null) {
             return Result.ofFail(-1, "bad rule body");
@@ -98,6 +125,12 @@ public class AuthorityRuleController {
         return null;
     }
 
+    /**
+     * 添加权限规则.
+     *
+     * @param entity 权限规则实体
+     * @return 添加结果
+     */
     @PostMapping("/rule")
     @AuthAction(PrivilegeType.WRITE_RULE)
     public Result<AuthorityRuleEntity> apiAddAuthorityRule(@RequestBody AuthorityRuleEntity entity) {
@@ -112,19 +145,27 @@ public class AuthorityRuleController {
         try {
             entity = repository.save(entity);
         } catch (Throwable throwable) {
-            logger.error("Failed to add authority rule", throwable);
+            log.error("Failed to add authority rule", throwable);
             return Result.ofThrowable(-1, throwable);
         }
-        if (!publishRules(entity.getApp(), entity.getIp(), entity.getPort())) {
-            logger.info("Publish authority rules failed after rule add");
+        if (publishRules(entity.getApp(), entity.getIp(), entity.getPort())) {
+            log.info("Publish authority rules failed after rule add");
         }
         return Result.ofSuccess(entity);
     }
 
+    /**
+     * 更新权限规则.
+     *
+     * @param id     权限规则ID
+     * @param entity 权限规则实体
+     * @return 更新结果
+     */
     @PutMapping("/rule/{id}")
     @AuthAction(PrivilegeType.WRITE_RULE)
-    public Result<AuthorityRuleEntity> apiUpdateParamFlowRule(@PathVariable("id") Long id,
-                                                              @RequestBody AuthorityRuleEntity entity) {
+    public Result<AuthorityRuleEntity> apiUpdateParamFlowRule(
+        @PathVariable("id") Long id,
+        @RequestBody AuthorityRuleEntity entity) {
         if (id == null || id <= 0) {
             return Result.ofFail(-1, "Invalid id");
         }
@@ -142,15 +183,21 @@ public class AuthorityRuleController {
                 return Result.ofFail(-1, "Failed to save authority rule");
             }
         } catch (Throwable throwable) {
-            logger.error("Failed to save authority rule", throwable);
+            log.error("Failed to save authority rule", throwable);
             return Result.ofThrowable(-1, throwable);
         }
-        if (!publishRules(entity.getApp(), entity.getIp(), entity.getPort())) {
-            logger.info("Publish authority rules failed after rule update");
+        if (publishRules(entity.getApp(), entity.getIp(), entity.getPort())) {
+            log.info("Publish authority rules failed after rule update");
         }
         return Result.ofSuccess(entity);
     }
 
+    /**
+     * 删除权限规则.
+     *
+     * @param id 权限规则ID
+     * @return 删除结果
+     */
     @DeleteMapping("/rule/{id}")
     @AuthAction(PrivilegeType.DELETE_RULE)
     public Result<Long> apiDeleteRule(@PathVariable("id") Long id) {
@@ -166,14 +213,22 @@ public class AuthorityRuleController {
         } catch (Exception e) {
             return Result.ofFail(-1, e.getMessage());
         }
-        if (!publishRules(oldEntity.getApp(), oldEntity.getIp(), oldEntity.getPort())) {
-            logger.error("Publish authority rules failed after rule delete");
+        if (publishRules(oldEntity.getApp(), oldEntity.getIp(), oldEntity.getPort())) {
+            log.error("Publish authority rules failed after rule delete");
         }
         return Result.ofSuccess(id);
     }
 
+    /**
+     * 发布规则.
+     *
+     * @param app  应用名称
+     * @param ip   应用IP地址
+     * @param port 应用端口
+     * @return 发布结果
+     */
     private boolean publishRules(String app, String ip, Integer port) {
         List<AuthorityRuleEntity> rules = repository.findAllByMachine(MachineInfo.of(app, ip, port));
-        return sentinelApiClient.setAuthorityRuleOfMachine(app, ip, port, rules);
+        return !sentinelApiClient.setAuthorityRuleOfMachine(app, ip, port, rules);
     }
 }

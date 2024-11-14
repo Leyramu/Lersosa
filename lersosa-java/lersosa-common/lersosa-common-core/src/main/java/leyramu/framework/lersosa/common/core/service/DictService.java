@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.common.core.utils.StringUtils;
 import java.util.Map;
 
 /**
- * 字典服务服务
+ * 字典服务服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -22,7 +22,7 @@ import java.util.Map;
 public interface DictService {
 
     /**
-     * 根据字典类型和字典值获取字典标签
+     * 根据字典类型和字典值获取字典标签.
      *
      * @param dictType  字典类型
      * @param dictValue 字典值
@@ -33,18 +33,19 @@ public interface DictService {
     }
 
     /**
-     * 根据字典类型和字典标签获取字典值
+     * 根据字典类型和字典标签获取字典值.
      *
      * @param dictType  字典类型
      * @param dictLabel 字典标签
      * @return 字典值
      */
+    @SuppressWarnings("unused")
     default String getDictValue(String dictType, String dictLabel) {
         return getDictValue(dictType, dictLabel, StringUtils.SEPARATOR);
     }
 
     /**
-     * 根据字典类型和字典值获取字典标签
+     * 根据字典类型和字典值获取字典标签.
      *
      * @param dictType  字典类型
      * @param dictValue 字典值
@@ -54,7 +55,7 @@ public interface DictService {
     String getDictLabel(String dictType, String dictValue, String separator);
 
     /**
-     * 根据字典类型和字典标签获取字典值
+     * 根据字典类型和字典标签获取字典值.
      *
      * @param dictType  字典类型
      * @param dictLabel 字典标签
@@ -64,7 +65,7 @@ public interface DictService {
     String getDictValue(String dictType, String dictLabel, String separator);
 
     /**
-     * 获取字典下所有的字典值与标签
+     * 获取字典下所有的字典值与标签.
      *
      * @param dictType 字典类型
      * @return dictValue为key，dictLabel为值组成的Map

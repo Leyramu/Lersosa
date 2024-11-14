@@ -27,7 +27,7 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 翻译处理器
+ * 翻译处理器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -37,7 +37,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TranslationHandler extends JsonSerializer<Object> implements ContextualSerializer {
 
     /**
-     * 全局翻译实现类映射器
+     * 全局翻译实现类映射器.
      */
     public static final Map<String, TranslationInterface<?>> TRANSLATION_MAPPER = new ConcurrentHashMap<>();
 
@@ -49,7 +49,7 @@ public class TranslationHandler extends JsonSerializer<Object> implements Contex
         if (ObjectUtil.isNotNull(trans)) {
             // 如果映射字段不为空 则取映射字段的值
             if (StringUtils.isNotBlank(translation.mapper())) {
-                value = ReflectUtils.invokeGetter(gen.getCurrentValue(), translation.mapper());
+                value = ReflectUtils.invokeGetter(gen.currentValue(), translation.mapper());
             }
             // 如果为 null 直接写出
             if (ObjectUtil.isNull(value)) {

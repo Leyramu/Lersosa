@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.common.translation.core;
 import leyramu.framework.lersosa.common.translation.annotation.TranslationType;
 
 /**
- * 翻译接口 (实现类需标注 {@link TranslationType} 注解标明翻译类型)
+ * 翻译接口 (实现类需标注 {@link TranslationType} 注解标明翻译类型).
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -20,7 +20,7 @@ import leyramu.framework.lersosa.common.translation.annotation.TranslationType;
 public interface TranslationInterface<T> {
 
     /**
-     * 翻译
+     * 翻译.
      *
      * @param key   需要被翻译的键(不为空)
      * @param other 其他参数

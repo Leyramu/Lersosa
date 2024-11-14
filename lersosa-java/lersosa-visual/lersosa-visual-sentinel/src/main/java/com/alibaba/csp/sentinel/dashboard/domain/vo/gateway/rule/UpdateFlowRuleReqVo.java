@@ -5,14 +5,20 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.vo.gateway.rule;
 
+import lombok.Data;
+
 /**
- * Value Object for update gateway flow rule.
+ * 更新网关流规则的 限流规则值对象.
  *
  * @author cdfive
- * @since 1.7.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class UpdateFlowRuleReqVo {
 
     private Long id;
@@ -34,84 +40,4 @@ public class UpdateFlowRuleReqVo {
     private Integer maxQueueingTimeoutMs;
 
     private GatewayParamFlowItemVo paramItem;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getApp() {
-        return app;
-    }
-
-    public void setApp(String app) {
-        this.app = app;
-    }
-
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
-
-    public Double getCount() {
-        return count;
-    }
-
-    public void setCount(Double count) {
-        this.count = count;
-    }
-
-    public Long getInterval() {
-        return interval;
-    }
-
-    public void setInterval(Long interval) {
-        this.interval = interval;
-    }
-
-    public Integer getIntervalUnit() {
-        return intervalUnit;
-    }
-
-    public void setIntervalUnit(Integer intervalUnit) {
-        this.intervalUnit = intervalUnit;
-    }
-
-    public Integer getControlBehavior() {
-        return controlBehavior;
-    }
-
-    public void setControlBehavior(Integer controlBehavior) {
-        this.controlBehavior = controlBehavior;
-    }
-
-    public Integer getBurst() {
-        return burst;
-    }
-
-    public void setBurst(Integer burst) {
-        this.burst = burst;
-    }
-
-    public Integer getMaxQueueingTimeoutMs() {
-        return maxQueueingTimeoutMs;
-    }
-
-    public void setMaxQueueingTimeoutMs(Integer maxQueueingTimeoutMs) {
-        this.maxQueueingTimeoutMs = maxQueueingTimeoutMs;
-    }
-
-    public GatewayParamFlowItemVo getParamItem() {
-        return paramItem;
-    }
-
-    public void setParamItem(GatewayParamFlowItemVo paramItem) {
-        this.paramItem = paramItem;
-    }
 }

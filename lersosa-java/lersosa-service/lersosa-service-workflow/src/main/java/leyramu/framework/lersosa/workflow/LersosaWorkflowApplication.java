@@ -15,7 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 
 /**
- * 工作流模块
+ * 工作流模块.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,7 +27,7 @@ import org.springframework.boot.context.metrics.buffering.BufferingApplicationSt
 public class LersosaWorkflowApplication {
 
     /**
-     * 启动 工作流 服务
+     * 启动 工作流 服务.
      *
      * @param args 命令行参数
      */

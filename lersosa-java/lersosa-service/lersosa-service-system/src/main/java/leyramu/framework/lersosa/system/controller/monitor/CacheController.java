@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 
 /**
- * 缓存监控
+ * 缓存监控.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -36,7 +36,7 @@ public class CacheController {
     private final RedissonConnectionFactory connectionFactory;
 
     /**
-     * 获取缓存监控列表
+     * 获取缓存监控列表.
      */
     @SaCheckPermission("monitor:cache:list")
     @GetMapping()

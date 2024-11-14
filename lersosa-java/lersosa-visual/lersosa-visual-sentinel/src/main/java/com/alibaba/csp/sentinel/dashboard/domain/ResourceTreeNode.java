@@ -5,9 +5,11 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain;
 
 import com.alibaba.csp.sentinel.command.vo.NodeVo;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +17,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 树形结构节点.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class ResourceTreeNode {
     private String id;
     private String parentId;
@@ -47,13 +55,10 @@ public class ResourceTreeNode {
         for (NodeVo vo : nodeVos) {
             ResourceTreeNode node = fromNodeVo(vo);
             map.put(node.id, node);
-            // real root
             if (node.parentId == null || node.parentId.isEmpty()) {
                 root = node;
             } else if (map.containsKey(node.parentId)) {
                 map.get(node.parentId).children.add(node);
-            } else {
-                // impossible
             }
         }
         return root;
@@ -82,18 +87,9 @@ public class ResourceTreeNode {
         search(this, searchKey);
     }
 
-    /**
-     * This node is visible only when searchKey matches this.resource or at least
-     * one of this's children is visible
-     */
     private boolean search(ResourceTreeNode node, String searchKey) {
-        // empty matches all
-        if (searchKey == null || searchKey.isEmpty() ||
-            node.resource.toLowerCase().contains(searchKey.toLowerCase())) {
-            node.visible = true;
-        } else {
-            node.visible = false;
-        }
+        node.visible = searchKey == null || searchKey.isEmpty() ||
+            node.resource.toLowerCase().contains(searchKey.toLowerCase());
 
         boolean found = false;
         for (ResourceTreeNode c : node.children) {
@@ -101,134 +97,6 @@ public class ResourceTreeNode {
         }
         node.visible |= found;
         return node.visible;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getResource() {
-        return resource;
-    }
-
-    public void setResource(String resource) {
-        this.resource = resource;
-    }
-
-    public Integer getThreadNum() {
-        return threadNum;
-    }
-
-    public void setThreadNum(Integer threadNum) {
-        this.threadNum = threadNum;
-    }
-
-    public Long getPassQps() {
-        return passQps;
-    }
-
-    public void setPassQps(Long passQps) {
-        this.passQps = passQps;
-    }
-
-    public Long getBlockQps() {
-        return blockQps;
-    }
-
-    public void setBlockQps(Long blockQps) {
-        this.blockQps = blockQps;
-    }
-
-    public Long getTotalQps() {
-        return totalQps;
-    }
-
-    public void setTotalQps(Long totalQps) {
-        this.totalQps = totalQps;
-    }
-
-    public Long getAverageRt() {
-        return averageRt;
-    }
-
-    public void setAverageRt(Long averageRt) {
-        this.averageRt = averageRt;
-    }
-
-    public Long getSuccessQps() {
-        return successQps;
-    }
-
-    public void setSuccessQps(Long successQps) {
-        this.successQps = successQps;
-    }
-
-    public Long getExceptionQps() {
-        return exceptionQps;
-    }
-
-    public void setExceptionQps(Long exceptionQps) {
-        this.exceptionQps = exceptionQps;
-    }
-
-    public Long getOneMinutePass() {
-        return oneMinutePass;
-    }
-
-    public void setOneMinutePass(Long oneMinutePass) {
-        this.oneMinutePass = oneMinutePass;
-    }
-
-    public Long getOneMinuteBlock() {
-        return oneMinuteBlock;
-    }
-
-    public void setOneMinuteBlock(Long oneMinuteBlock) {
-        this.oneMinuteBlock = oneMinuteBlock;
-    }
-
-    public Long getOneMinuteException() {
-        return oneMinuteException;
-    }
-
-    public void setOneMinuteException(Long oneMinuteException) {
-        this.oneMinuteException = oneMinuteException;
-    }
-
-    public Long getOneMinuteTotal() {
-        return oneMinuteTotal;
-    }
-
-    public void setOneMinuteTotal(Long oneMinuteTotal) {
-        this.oneMinuteTotal = oneMinuteTotal;
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
-    }
-
-    public List<ResourceTreeNode> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<ResourceTreeNode> children) {
-        this.children = children;
     }
 }
 

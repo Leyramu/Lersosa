@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * 文件请求处理
+ * 文件请求处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -44,7 +44,7 @@ public class RemoteFileServiceImpl implements RemoteFileService {
     private final ISysOssService sysOssService;
 
     /**
-     * 文件上传请求
+     * 文件上传请求.
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -75,7 +75,7 @@ public class RemoteFileServiceImpl implements RemoteFileService {
     }
 
     /**
-     * 通过ossId查询对应的url
+     * 通过ossId查询对应的url.
      *
      * @param ossIds ossId串逗号分隔
      * @return url串逗号分隔
@@ -86,7 +86,7 @@ public class RemoteFileServiceImpl implements RemoteFileService {
     }
 
     /**
-     * 通过ossId查询列表
+     * 通过ossId查询列表.
      *
      * @param ossIds ossId串逗号分隔
      * @return 列表

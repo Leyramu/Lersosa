@@ -12,7 +12,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * api解密属性配置类
+ * api解密属性配置类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -23,23 +23,22 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class ApiDecryptProperties {
 
     /**
-     * 加密开关
+     * 加密开关.
      */
     private Boolean enabled;
 
     /**
-     * 头部标识
+     * 头部标识.
      */
     private String headerFlag;
 
     /**
-     * 响应加密公钥
+     * 响应加密公钥.
      */
     private String publicKey;
 
     /**
-     * 请求解密私钥
+     * 请求解密私钥.
      */
     private String privateKey;
-
 }

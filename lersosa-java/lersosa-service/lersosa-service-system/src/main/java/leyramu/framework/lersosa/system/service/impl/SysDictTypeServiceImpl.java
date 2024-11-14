@@ -35,13 +35,10 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
- * 字典 业务层处理
+ * 字典 业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -62,7 +59,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     }
 
     /**
-     * 根据条件分页查询字典类型
+     * 根据条件分页查询字典类型.
      *
      * @param dictType 字典类型信息
      * @return 字典类型集合信息
@@ -85,7 +82,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     }
 
     /**
-     * 根据所有字典类型
+     * 根据所有字典类型.
      *
      * @return 字典类型集合信息
      */
@@ -95,7 +92,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     }
 
     /**
-     * 根据字典类型查询字典数据
+     * 根据字典类型查询字典数据.
      *
      * @param dictType 字典类型
      * @return 字典数据集合信息
@@ -111,7 +108,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     }
 
     /**
-     * 根据字典类型ID查询信息
+     * 根据字典类型ID查询信息.
      *
      * @param dictId 字典类型ID
      * @return 字典类型
@@ -122,7 +119,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     }
 
     /**
-     * 根据字典类型查询信息
+     * 根据字典类型查询信息.
      *
      * @param dictType 字典类型
      * @return 字典类型
@@ -133,7 +130,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     }
 
     /**
-     * 批量删除字典类型信息
+     * 批量删除字典类型信息.
      *
      * @param dictIds 需要删除的字典ID
      */
@@ -151,7 +148,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     }
 
     /**
-     * 重置字典缓存数据
+     * 重置字典缓存数据.
      */
     @Override
     public void resetDictCache() {
@@ -159,48 +156,47 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     }
 
     /**
-     * 新增保存字典类型信息
+     * 新增保存字典类型信息.
      *
      * @param bo 字典类型信息
-     * @return 结果
      */
     @CachePut(cacheNames = CacheNames.SYS_DICT, key = "#bo.dictType")
     @Override
-    public List<SysDictDataVo> insertDictType(SysDictTypeBo bo) {
+    public void insertDictType(SysDictTypeBo bo) {
         SysDictType dict = MapstructUtils.convert(bo, SysDictType.class);
         int row = baseMapper.insert(dict);
         if (row > 0) {
             // 新增 type 下无 data 数据 返回空防止缓存穿透
-            return new ArrayList<>();
+            return;
         }
         throw new ServiceException("操作失败");
     }
 
     /**
-     * 修改保存字典类型信息
+     * 修改保存字典类型信息.
      *
      * @param bo 字典类型信息
-     * @return 结果
      */
     @CachePut(cacheNames = CacheNames.SYS_DICT, key = "#bo.dictType")
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<SysDictDataVo> updateDictType(SysDictTypeBo bo) {
+    public void updateDictType(SysDictTypeBo bo) {
         SysDictType dict = MapstructUtils.convert(bo, SysDictType.class);
-        SysDictType oldDict = baseMapper.selectById(dict.getDictId());
+        SysDictType oldDict = baseMapper.selectById(Objects.requireNonNull(dict).getDictId());
         dictDataMapper.update(null, new LambdaUpdateWrapper<SysDictData>()
             .set(SysDictData::getDictType, dict.getDictType())
             .eq(SysDictData::getDictType, oldDict.getDictType()));
         int row = baseMapper.updateById(dict);
         if (row > 0) {
             CacheUtils.evict(CacheNames.SYS_DICT, oldDict.getDictType());
-            return dictDataMapper.selectDictDataByType(dict.getDictType());
+            dictDataMapper.selectDictDataByType(dict.getDictType());
+            return;
         }
         throw new ServiceException("操作失败");
     }
 
     /**
-     * 校验字典类型称是否唯一
+     * 校验字典类型称是否唯一.
      *
      * @param dictType 字典类型
      * @return 结果
@@ -210,7 +206,6 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysDictType>()
             .eq(SysDictType::getDictType, dictType.getDictType())
             .ne(ObjectUtil.isNotNull(dictType.getDictId()), SysDictType::getDictId, dictType.getDictId()));
-        return !exist;
+        return exist;
     }
-
 }

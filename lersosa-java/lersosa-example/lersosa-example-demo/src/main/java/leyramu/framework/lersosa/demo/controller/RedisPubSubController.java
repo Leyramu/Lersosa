@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Redis 发布订阅 演示案例
+ * Redis 发布订阅 演示案例.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RedisPubSubController {
 
     /**
-     * 发布消息
+     * 发布消息.
      *
      * @param key   通道Key
      * @param value 发送内容
@@ -42,7 +42,7 @@ public class RedisPubSubController {
     }
 
     /**
-     * 订阅消息
+     * 订阅消息.
      *
      * @param key 通道Key
      */
@@ -53,5 +53,4 @@ public class RedisPubSubController {
         });
         return R.ok("操作成功");
     }
-
 }

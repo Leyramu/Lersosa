@@ -16,7 +16,7 @@ import org.apache.velocity.app.Velocity;
 import java.util.Properties;
 
 /**
- * VelocityEngine工厂
+ * VelocityEngine工厂.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,7 +26,7 @@ import java.util.Properties;
 public class VelocityInitializer {
 
     /**
-     * 初始化vm方法
+     * 初始化vm方法.
      */
     public static void initVelocity() {
         Properties p = new Properties();
@@ -41,5 +41,4 @@ public class VelocityInitializer {
             throw new RuntimeException(e);
         }
     }
-
 }

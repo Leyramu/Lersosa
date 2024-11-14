@@ -5,16 +5,25 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.entity.rule;
 
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.RuleEntity;
 import com.alibaba.csp.sentinel.slots.system.SystemRule;
+import lombok.Data;
 
 import java.util.Date;
 
 /**
+ * 系统规则.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@SuppressWarnings("unused")
 public class SystemRuleEntity implements RuleEntity {
 
     private Long id;
@@ -49,17 +58,9 @@ public class SystemRuleEntity implements RuleEntity {
         return ip;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
     @Override
     public Integer getPort() {
         return port;
-    }
-
-    public void setPort(Integer port) {
-        this.port = port;
     }
 
     @Override
@@ -77,65 +78,9 @@ public class SystemRuleEntity implements RuleEntity {
         return app;
     }
 
-    public void setApp(String app) {
-        this.app = app;
-    }
-
-    public Double getHighestSystemLoad() {
-        return highestSystemLoad;
-    }
-
-    public void setHighestSystemLoad(Double highestSystemLoad) {
-        this.highestSystemLoad = highestSystemLoad;
-    }
-
-    public Long getAvgRt() {
-        return avgRt;
-    }
-
-    public void setAvgRt(Long avgRt) {
-        this.avgRt = avgRt;
-    }
-
-    public Long getMaxThread() {
-        return maxThread;
-    }
-
-    public void setMaxThread(Long maxThread) {
-        this.maxThread = maxThread;
-    }
-
-    public Double getQps() {
-        return qps;
-    }
-
-    public void setQps(Double qps) {
-        this.qps = qps;
-    }
-
-    public Double getHighestCpuUsage() {
-        return highestCpuUsage;
-    }
-
-    public void setHighestCpuUsage(Double highestCpuUsage) {
-        this.highestCpuUsage = highestCpuUsage;
-    }
-
     @Override
     public Date getGmtCreate() {
         return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
     }
 
     @Override

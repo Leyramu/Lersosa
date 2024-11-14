@@ -16,7 +16,7 @@ import leyramu.framework.lersosa.common.translation.core.TranslationInterface;
 import lombok.AllArgsConstructor;
 
 /**
- * 字典翻译实现
+ * 字典翻译实现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

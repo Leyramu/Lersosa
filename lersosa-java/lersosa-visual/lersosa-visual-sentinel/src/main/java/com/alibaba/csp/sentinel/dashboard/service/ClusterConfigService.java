@@ -5,12 +5,14 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.service;
 
 import com.alibaba.csp.sentinel.cluster.ClusterStateManager;
 import com.alibaba.csp.sentinel.dashboard.client.SentinelApiClient;
 import com.alibaba.csp.sentinel.dashboard.discovery.AppInfo;
 import com.alibaba.csp.sentinel.dashboard.discovery.AppManagement;
+import com.alibaba.csp.sentinel.dashboard.discovery.MachineInfo;
 import com.alibaba.csp.sentinel.dashboard.domain.cluster.ClusterGroupEntity;
 import com.alibaba.csp.sentinel.dashboard.domain.cluster.config.ClusterClientConfig;
 import com.alibaba.csp.sentinel.dashboard.domain.cluster.config.ServerFlowConfig;
@@ -23,7 +25,7 @@ import com.alibaba.csp.sentinel.dashboard.domain.cluster.state.ClusterUniversalS
 import com.alibaba.csp.sentinel.dashboard.util.AsyncUtils;
 import com.alibaba.csp.sentinel.dashboard.util.ClusterEntityUtils;
 import com.alibaba.csp.sentinel.util.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,16 +35,20 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
+ * 集群配置服务.
+ *
  * @author Eric Zhao
- * @since 1.4.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
 @Service
+@RequiredArgsConstructor
 public class ClusterConfigService {
 
-    @Autowired
-    private SentinelApiClient sentinelApiClient;
-    @Autowired
-    private AppManagement appManagement;
+    private final SentinelApiClient sentinelApiClient;
+
+    private final AppManagement appManagement;
 
     public CompletableFuture<Void> modifyClusterClientConfig(ClusterClientModifyRequest request) {
         if (notClientRequestValid(request)) {
@@ -55,7 +61,7 @@ public class ClusterConfigService {
             .thenCompose(v -> sentinelApiClient.modifyClusterMode(ip, port, ClusterStateManager.CLUSTER_CLIENT));
     }
 
-    private boolean notClientRequestValid(/*@NonNull */ ClusterClientModifyRequest request) {
+    private boolean notClientRequestValid(ClusterClientModifyRequest request) {
         ClusterClientConfig config = request.getClientConfig();
         return config == null || StringUtil.isEmpty(config.getServerHost())
             || config.getServerPort() == null || config.getServerPort() <= 0
@@ -85,11 +91,10 @@ public class ClusterConfigService {
     }
 
     /**
-     * Get cluster state list of all available machines of provided application.
+     * 获取所提供应用程序的所有可用计算机的集群状态列表.
      *
-     * @param app application name
-     * @return cluster state list of all available machines of the application
-     * @since 1.4.1
+     * @param app 应用程序名称
+     * @return 应用程序的所有可用计算机的 cluster state 列表
      */
     public CompletableFuture<List<ClusterUniversalStatePairVO>> getClusterUniversalState(String app) {
         if (StringUtil.isBlank(app)) {
@@ -101,7 +106,7 @@ public class ClusterConfigService {
         }
 
         List<CompletableFuture<ClusterUniversalStatePairVO>> futures = appInfo.getMachines().stream()
-            .filter(e -> e.isHealthy())
+            .filter(MachineInfo::isHealthy)
             .map(machine -> getClusterUniversalState(app, machine.getIp(), machine.getPort())
                 .thenApply(e -> new ClusterUniversalStatePairVO(machine.getIp(), machine.getPort(), e)))
             .collect(Collectors.toList());
@@ -119,7 +124,7 @@ public class ClusterConfigService {
         }
 
         boolean machineOk = appInfo.getMachines().stream()
-            .filter(e -> e.isHealthy())
+            .filter(MachineInfo::isHealthy)
             .map(e -> e.getIp() + '@' + e.getPort())
             .anyMatch(e -> e.equals(machineId));
         if (!machineOk) {
@@ -136,7 +141,7 @@ public class ClusterConfigService {
             );
     }
 
-    public CompletableFuture<ClusterUniversalStateVO> getClusterUniversalState(String app, String ip, int port) {
+    public CompletableFuture<ClusterUniversalStateVO> getClusterUniversalState(String ignoredApp, String ip, int port) {
         return sentinelApiClient.fetchClusterMode(ip, port)
             .thenApply(e -> new ClusterUniversalStateVO().setStateInfo(e))
             .thenCompose(vo -> {

@@ -57,7 +57,6 @@ import org.flowable.engine.task.Comment;
 import org.flowable.task.api.Task;
 import org.flowable.task.api.history.HistoricTaskInstance;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,7 +69,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * 流程实例 服务层实现
+ * 流程实例 服务层实现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -82,21 +81,26 @@ import java.util.stream.Collectors;
 public class ActProcessInstanceServiceImpl implements IActProcessInstanceService {
 
     private final IActHiProcinstService actHiProcinstService;
+
     private final IWfTaskBackNodeService wfTaskBackNodeService;
+
     private final IWfNodeConfigService wfNodeConfigService;
+
     private final FlowProcessEventHandler flowProcessEventHandler;
+
     @DubboReference
     private final RemoteUserService remoteUserService;
-    @Autowired(required = false)
-    private RepositoryService repositoryService;
-    @Autowired(required = false)
-    private RuntimeService runtimeService;
-    @Autowired(required = false)
-    private HistoryService historyService;
-    @Autowired(required = false)
-    private TaskService taskService;
-    @Autowired(required = false)
-    private ManagementService managementService;
+
+    private final RepositoryService repositoryService;
+
+    private final RuntimeService runtimeService;
+
+    private final HistoryService historyService;
+
+    private final TaskService taskService;
+
+    private final ManagementService managementService;
+
     @Value("${flowable.activity-font-name}")
     private String activityFontName;
 
@@ -107,7 +111,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
     private String annotationFontName;
 
     /**
-     * 分页查询正在运行的流程实例
+     * 分页查询正在运行的流程实例.
      *
      * @param bo 参数
      */
@@ -155,7 +159,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
     }
 
     /**
-     * 分页查询已结束的流程实例
+     * 分页查询已结束的流程实例.
      *
      * @param bo 参数
      */
@@ -202,7 +206,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
     }
 
     /**
-     * 通过业务id获取历史流程图
+     * 通过业务id获取历史流程图.
      *
      * @param businessKey 业务id
      */
@@ -258,7 +262,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
     }
 
     /**
-     * 通过业务id获取历史流程图运行中，历史等节点
+     * 通过业务id获取历史流程图运行中，历史等节点.
      *
      * @param businessKey 业务id
      */
@@ -296,7 +300,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
             Iterator<Map<String, Object>> iterator = taskList.iterator();
             while (iterator.hasNext()) {
                 Map<String, Object> next = iterator.next();
-                runtimeNodeList.stream().filter(t -> t.get("key").equals(next.get("key")) && (Boolean) next.get("completed")).findFirst().ifPresent(t -> iterator.remove());
+                runtimeNodeList.stream().filter(t -> t.get("key").equals(next.get("key")) && (Boolean) next.get("completed")).findFirst().ifPresent(_ -> iterator.remove());
             }
         }
         map.put("taskList", taskList);
@@ -309,7 +313,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
     }
 
     /**
-     * 获取历史任务节点信息
+     * 获取历史任务节点信息.
      *
      * @param processInstanceId 流程实例id
      * @param version           版本
@@ -336,7 +340,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
             if (entry.getValue().size() > 1) {
                 List<ActHistoryInfoVo> historyInfoVos = StreamUtils.filter(entry.getValue(), e -> StringUtils.isNotBlank(e.getAssignee()));
                 if (CollUtil.isNotEmpty(historyInfoVos)) {
-                    ActHistoryInfoVo infoVo = historyInfoVos.get(0);
+                    ActHistoryInfoVo infoVo = historyInfoVos.getFirst();
                     BeanUtils.copyProperties(infoVo, historyInfoVo);
                     historyInfoVo.setStatus(infoVo.getEndTime() == null ? "待处理" : "已处理");
                     historyInfoVo.setStartTime(infoVo.getStartTime());
@@ -364,7 +368,6 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
                             }
                         }
                     });
-
             }
             historyInfoVoList.add(historyInfoVo);
 
@@ -373,7 +376,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
     }
 
     /**
-     * 获取审批记录
+     * 获取审批记录.
      *
      * @param businessKey 业务id
      */
@@ -424,7 +427,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
         // 审批记录
         Map<String, List<ActHistoryInfoVo>> groupByKey = StreamUtils.groupByKey(actHistoryInfoVoList, ActHistoryInfoVo::getTaskDefinitionKey);
         for (Map.Entry<String, List<ActHistoryInfoVo>> entry : groupByKey.entrySet()) {
-            ActHistoryInfoVo actHistoryInfoVo = BeanUtil.toBean(entry.getValue().get(0), ActHistoryInfoVo.class);
+            ActHistoryInfoVo actHistoryInfoVo = BeanUtil.toBean(entry.getValue().getFirst(), ActHistoryInfoVo.class);
             actHistoryInfoVoList.stream().filter(e -> e.getTaskDefinitionKey().equals(entry.getKey()) && e.getEndTime() != null).findFirst()
                 .ifPresent(e -> {
                     actHistoryInfoVo.setStatus("已处理");
@@ -448,7 +451,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
     }
 
     /**
-     * 任务完成时间处理
+     * 任务完成时间处理.
      *
      * @param time 时间
      */
@@ -476,7 +479,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
     }
 
     /**
-     * 作废流程实例，不会删除历史记录(删除运行中的实例)
+     * 作废流程实例，不会删除历史记录(删除运行中的实例).
      *
      * @param processInvalidBo 参数
      */
@@ -485,12 +488,12 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
     public boolean deleteRunInstance(ProcessInvalidBo processInvalidBo) {
         try {
             List<Task> list = QueryUtils.taskQuery().processInstanceBusinessKey(processInvalidBo.getBusinessKey()).list();
-            String processInstanceId = list.get(0).getProcessInstanceId();
+            String processInstanceId = list.getFirst().getProcessInstanceId();
             List<Task> subTasks = StreamUtils.filter(list, e -> StringUtils.isNotBlank(e.getParentTaskId()));
             if (CollUtil.isNotEmpty(subTasks)) {
                 subTasks.forEach(e -> taskService.deleteTask(e.getId()));
             }
-            String deleteReason = LoginHelper.getLoginUser().getNickname() + "作废了当前申请！";
+            String deleteReason = Objects.requireNonNull(LoginHelper.getLoginUser()).getNickname() + "作废了当前申请！";
             if (StringUtils.isNotBlank(processInvalidBo.getDeleteReason())) {
                 deleteReason = LoginHelper.getLoginUser().getNickname() + "作废理由:" + processInvalidBo.getDeleteReason();
             }
@@ -512,7 +515,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
     }
 
     /**
-     * 运行中的实例 删除程实例，删除历史记录，删除业务与流程关联信息
+     * 运行中的实例 删除程实例，删除历史记录，删除业务与流程关联信息.
      *
      * @param businessKeys 业务id
      */
@@ -547,7 +550,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
     }
 
     /**
-     * 已完成的实例 删除程实例，删除历史记录，删除业务与流程关联信息
+     * 已完成的实例 删除程实例，删除历史记录，删除业务与流程关联信息.
      *
      * @param businessKeys 业务id
      */
@@ -571,7 +574,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
     }
 
     /**
-     * 撤销流程申请
+     * 撤销流程申请.
      *
      * @param businessKey 业务id
      */
@@ -592,14 +595,14 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
             List<Task> taskList = QueryUtils.taskQuery(processInstanceId).list();
             for (Task task : taskList) {
                 taskService.setAssignee(task.getId(), null);
-                taskService.addComment(task.getId(), processInstanceId, TaskStatusEnum.CANCEL.getStatus(), LoginHelper.getLoginUser().getNickname() + "：撤销申请");
+                taskService.addComment(task.getId(), processInstanceId, TaskStatusEnum.CANCEL.getStatus(), Objects.requireNonNull(LoginHelper.getLoginUser()).getNickname() + "：撤销申请");
             }
-            HistoricTaskInstance historicTaskInstance = QueryUtils.hisTaskInstanceQuery(processInstanceId).finished().orderByHistoricTaskInstanceEndTime().asc().list().get(0);
+            HistoricTaskInstance historicTaskInstance = QueryUtils.hisTaskInstanceQuery(processInstanceId).finished().orderByHistoricTaskInstanceEndTime().asc().list().getFirst();
             List<String> nodeIds = StreamUtils.toList(taskList, Task::getTaskDefinitionKey);
             runtimeService.createChangeActivityStateBuilder()
                 .processInstanceId(processInstanceId)
                 .moveActivityIdsToSingleActivityId(nodeIds, historicTaskInstance.getTaskDefinitionKey()).changeState();
-            Task task = QueryUtils.taskQuery(processInstanceId).list().get(0);
+            Task task = QueryUtils.taskQuery(processInstanceId).list().getFirst();
             taskService.setAssignee(task.getId(), historicTaskInstance.getAssignee());
             //获取并行网关执行后保留的执行实例数据
             ExecutionChildByExecutionIdCmd childByExecutionIdCmd = new ExecutionChildByExecutionIdCmd(task.getExecutionId());
@@ -621,7 +624,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
     }
 
     /**
-     * 分页查询当前登录人单据
+     * 分页查询当前登录人单据.
      *
      * @param bo 参数
      */
@@ -678,7 +681,7 @@ public class ActProcessInstanceServiceImpl implements IActProcessInstanceService
     }
 
     /**
-     * 任务催办(给当前任务办理人发送站内信，邮件，短信等)
+     * 任务催办(给当前任务办理人发送站内信，邮件，短信等).
      *
      * @param taskUrgingBo 任务催办
      */

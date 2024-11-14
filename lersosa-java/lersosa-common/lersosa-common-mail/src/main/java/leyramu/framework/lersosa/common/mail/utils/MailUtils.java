@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * 邮件工具类
+ * 邮件工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -43,18 +43,19 @@ public class MailUtils {
     private static final MailAccount ACCOUNT = SpringUtils.getBean(MailAccount.class);
 
     /**
-     * 获取邮件发送实例
+     * 获取邮件发送实例.
      */
     public static MailAccount getMailAccount() {
         return ACCOUNT;
     }
 
     /**
-     * 获取邮件发送实例 (自定义发送人以及授权码)
+     * 获取邮件发送实例 (自定义发送人以及授权码).
      *
      * @param user 发送人
      * @param pass 授权码
      */
+    @SuppressWarnings("unused")
     public static MailAccount getMailAccount(String from, String user, String pass) {
         ACCOUNT.setFrom(StringUtils.blankToDefault(from, ACCOUNT.getFrom()));
         ACCOUNT.setUser(StringUtils.blankToDefault(user, ACCOUNT.getUser()));
@@ -63,23 +64,20 @@ public class MailUtils {
     }
 
     /**
-     * 使用配置文件中设置的账户发送文本邮件，发送给单个或多个收件人<br>
-     * 多个收件人可以使用逗号“,”分隔，也可以通过分号“;”分隔
+     * 使用配置文件中设置的账户发送文本邮件，发送给单个或多个收件人.
      *
      * @param to      收件人
      * @param subject 标题
      * @param content 正文
      * @param files   附件列表
-     * @return message-id
      * @since 3.2.0
      */
-    public static String sendText(String to, String subject, String content, File... files) {
-        return send(to, subject, content, false, files);
+    public static void sendText(String to, String subject, String content, File... files) {
+        send(to, subject, content, false, files);
     }
 
     /**
-     * 使用配置文件中设置的账户发送HTML邮件，发送给单个或多个收件人<br>
-     * 多个收件人可以使用逗号“,”分隔，也可以通过分号“;”分隔
+     * 使用配置文件中设置的账户发送HTML邮件，发送给单个或多个收件人.
      *
      * @param to      收件人
      * @param subject 标题
@@ -88,13 +86,13 @@ public class MailUtils {
      * @return message-id
      * @since 3.2.0
      */
+    @SuppressWarnings("unused")
     public static String sendHtml(String to, String subject, String content, File... files) {
         return send(to, subject, content, true, files);
     }
 
     /**
-     * 使用配置文件中设置的账户发送邮件，发送单个或多个收件人<br>
-     * 多个收件人可以使用逗号“,”分隔，也可以通过分号“;”分隔
+     * 使用配置文件中设置的账户发送邮件，发送单个或多个收件人.
      *
      * @param to      收件人
      * @param subject 标题
@@ -108,8 +106,7 @@ public class MailUtils {
     }
 
     /**
-     * 使用配置文件中设置的账户发送邮件，发送单个或多个收件人<br>
-     * 多个收件人、抄送人、密送人可以使用逗号“,”分隔，也可以通过分号“;”分隔
+     * 使用配置文件中设置的账户发送邮件，发送单个或多个收件人.
      *
      * @param to      收件人，可以使用逗号“,”分隔，也可以通过分号“;”分隔
      * @param cc      抄送人，可以使用逗号“,”分隔，也可以通过分号“;”分隔
@@ -121,12 +118,13 @@ public class MailUtils {
      * @return message-id
      * @since 4.0.3
      */
+    @SuppressWarnings("unused")
     public static String send(String to, String cc, String bcc, String subject, String content, boolean isHtml, File... files) {
         return send(splitAddress(to), splitAddress(cc), splitAddress(bcc), subject, content, isHtml, files);
     }
 
     /**
-     * 使用配置文件中设置的账户发送文本邮件，发送给多人
+     * 使用配置文件中设置的账户发送文本邮件，发送给多人.
      *
      * @param tos     收件人列表
      * @param subject 标题
@@ -134,12 +132,13 @@ public class MailUtils {
      * @param files   附件列表
      * @return message-id
      */
+    @SuppressWarnings("unused")
     public static String sendText(Collection<String> tos, String subject, String content, File... files) {
         return send(tos, subject, content, false, files);
     }
 
     /**
-     * 使用配置文件中设置的账户发送HTML邮件，发送给多人
+     * 使用配置文件中设置的账户发送HTML邮件，发送给多人.
      *
      * @param tos     收件人列表
      * @param subject 标题
@@ -148,12 +147,13 @@ public class MailUtils {
      * @return message-id
      * @since 3.2.0
      */
+    @SuppressWarnings("unused")
     public static String sendHtml(Collection<String> tos, String subject, String content, File... files) {
         return send(tos, subject, content, true, files);
     }
 
     /**
-     * 使用配置文件中设置的账户发送邮件，发送给多人
+     * 使用配置文件中设置的账户发送邮件，发送给多人.
      *
      * @param tos     收件人列表
      * @param subject 标题
@@ -167,7 +167,7 @@ public class MailUtils {
     }
 
     /**
-     * 使用配置文件中设置的账户发送邮件，发送给多人
+     * 使用配置文件中设置的账户发送邮件，发送给多人.
      *
      * @param tos     收件人列表
      * @param ccs     抄送人列表，可以为null或空
@@ -186,7 +186,7 @@ public class MailUtils {
     // ------------------------------------------------------------------------------------------------------------------------------- Custom MailAccount
 
     /**
-     * 发送邮件给多人
+     * 发送邮件给多人.
      *
      * @param mailAccount 邮件认证对象
      * @param to          收件人，多个收件人逗号或者分号隔开
@@ -197,12 +197,13 @@ public class MailUtils {
      * @return message-id
      * @since 3.2.0
      */
+    @SuppressWarnings("unused")
     public static String send(MailAccount mailAccount, String to, String subject, String content, boolean isHtml, File... files) {
         return send(mailAccount, splitAddress(to), subject, content, isHtml, files);
     }
 
     /**
-     * 发送邮件给多人
+     * 发送邮件给多人.
      *
      * @param mailAccount 邮件帐户信息
      * @param tos         收件人列表
@@ -217,7 +218,7 @@ public class MailUtils {
     }
 
     /**
-     * 发送邮件给多人
+     * 发送邮件给多人.
      *
      * @param mailAccount 邮件帐户信息
      * @param tos         收件人列表
@@ -235,8 +236,7 @@ public class MailUtils {
     }
 
     /**
-     * 使用配置文件中设置的账户发送HTML邮件，发送给单个或多个收件人<br>
-     * 多个收件人可以使用逗号“,”分隔，也可以通过分号“;”分隔
+     * 使用配置文件中设置的账户发送HTML邮件，发送给单个或多个收件人.
      *
      * @param to       收件人
      * @param subject  标题
@@ -246,13 +246,13 @@ public class MailUtils {
      * @return message-id
      * @since 3.2.0
      */
+    @SuppressWarnings("unused")
     public static String sendHtml(String to, String subject, String content, Map<String, InputStream> imageMap, File... files) {
         return send(to, subject, content, imageMap, true, files);
     }
 
     /**
-     * 使用配置文件中设置的账户发送邮件，发送单个或多个收件人<br>
-     * 多个收件人可以使用逗号“,”分隔，也可以通过分号“;”分隔
+     * 使用配置文件中设置的账户发送邮件，发送单个或多个收件人.
      *
      * @param to       收件人
      * @param subject  标题
@@ -267,8 +267,7 @@ public class MailUtils {
     }
 
     /**
-     * 使用配置文件中设置的账户发送邮件，发送单个或多个收件人<br>
-     * 多个收件人、抄送人、密送人可以使用逗号“,”分隔，也可以通过分号“;”分隔
+     * 使用配置文件中设置的账户发送邮件，发送单个或多个收件人.
      *
      * @param to       收件人，可以使用逗号“,”分隔，也可以通过分号“;”分隔
      * @param cc       抄送人，可以使用逗号“,”分隔，也可以通过分号“;”分隔
@@ -281,12 +280,13 @@ public class MailUtils {
      * @return message-id
      * @since 4.0.3
      */
+    @SuppressWarnings("unused")
     public static String send(String to, String cc, String bcc, String subject, String content, Map<String, InputStream> imageMap, boolean isHtml, File... files) {
         return send(splitAddress(to), splitAddress(cc), splitAddress(bcc), subject, content, imageMap, isHtml, files);
     }
 
     /**
-     * 使用配置文件中设置的账户发送HTML邮件，发送给多人
+     * 使用配置文件中设置的账户发送HTML邮件，发送给多人.
      *
      * @param tos      收件人列表
      * @param subject  标题
@@ -296,12 +296,13 @@ public class MailUtils {
      * @return message-id
      * @since 3.2.0
      */
+    @SuppressWarnings("unused")
     public static String sendHtml(Collection<String> tos, String subject, String content, Map<String, InputStream> imageMap, File... files) {
         return send(tos, subject, content, imageMap, true, files);
     }
 
     /**
-     * 使用配置文件中设置的账户发送邮件，发送给多人
+     * 使用配置文件中设置的账户发送邮件，发送给多人.
      *
      * @param tos      收件人列表
      * @param subject  标题
@@ -316,7 +317,7 @@ public class MailUtils {
     }
 
     /**
-     * 使用配置文件中设置的账户发送邮件，发送给多人
+     * 使用配置文件中设置的账户发送邮件，发送给多人.
      *
      * @param tos      收件人列表
      * @param ccs      抄送人列表，可以为null或空
@@ -336,7 +337,7 @@ public class MailUtils {
     // ------------------------------------------------------------------------------------------------------------------------------- Custom MailAccount
 
     /**
-     * 发送邮件给多人
+     * 发送邮件给多人.
      *
      * @param mailAccount 邮件认证对象
      * @param to          收件人，多个收件人逗号或者分号隔开
@@ -348,12 +349,13 @@ public class MailUtils {
      * @return message-id
      * @since 3.2.0
      */
+    @SuppressWarnings("unused")
     public static String send(MailAccount mailAccount, String to, String subject, String content, Map<String, InputStream> imageMap, boolean isHtml, File... files) {
         return send(mailAccount, splitAddress(to), subject, content, imageMap, isHtml, files);
     }
 
     /**
-     * 发送邮件给多人
+     * 发送邮件给多人.
      *
      * @param mailAccount 邮件帐户信息
      * @param tos         收件人列表
@@ -370,7 +372,7 @@ public class MailUtils {
     }
 
     /**
-     * 发送邮件给多人
+     * 发送邮件给多人.
      *
      * @param mailAccount 邮件帐户信息
      * @param tos         收件人列表
@@ -390,27 +392,28 @@ public class MailUtils {
     }
 
     /**
-     * 根据配置文件，获取邮件客户端会话
+     * 根据配置文件，获取邮件客户端会话.
      *
      * @param mailAccount 邮件账户配置
      * @param isSingleton 是否单例（全局共享会话）
      * @return {@link Session}
      * @since 5.5.7
      */
+    @SuppressWarnings("unused")
     public static Session getSession(MailAccount mailAccount, boolean isSingleton) {
         Authenticator authenticator = null;
         if (mailAccount.isAuth()) {
             authenticator = new JakartaUserPassAuthenticator(mailAccount.getUser(), mailAccount.getPass());
         }
 
-        return isSingleton ? Session.getDefaultInstance(mailAccount.getSmtpProps(), authenticator) //
+        return isSingleton ? Session.getDefaultInstance(mailAccount.getSmtpProps(), authenticator)
             : Session.getInstance(mailAccount.getSmtpProps(), authenticator);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------ Private method start
 
     /**
-     * 发送邮件给多人
+     * 发送邮件给多人.
      *
      * @param mailAccount      邮件帐户信息
      * @param useGlobalSession 是否全局共享Session
@@ -457,7 +460,7 @@ public class MailUtils {
     }
 
     /**
-     * 将多个联系人转为列表，分隔符为逗号或者分号
+     * 将多个联系人转为列表，分隔符为逗号或者分号.
      *
      * @param addresses 多个联系人，如果为空返回null
      * @return 联系人列表

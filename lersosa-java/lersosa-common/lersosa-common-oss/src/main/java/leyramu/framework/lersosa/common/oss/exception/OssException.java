@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.common.oss.exception;
 import java.io.Serial;
 
 /**
- * OSS异常类
+ * OSS异常类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,5 +25,4 @@ public class OssException extends RuntimeException {
     public OssException(String msg) {
         super(msg);
     }
-
 }

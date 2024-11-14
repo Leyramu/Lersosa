@@ -8,11 +8,12 @@
 
 package leyramu.framework.lersosa.gen.config;
 
+import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * 代码生成相关配置
+ * 代码生成相关配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -23,35 +24,30 @@ import org.springframework.stereotype.Component;
 public class GenConfig {
 
     /**
-     * 作者
+     * 作者.
      */
+    @Getter
     public static String author;
 
     /**
-     * 生成包路径
+     * 生成包路径.
      */
+    @Getter
     public static String packageName;
 
     /**
-     * 自动去除表前缀，默认是false
+     * 自动去除表前缀，默认是false.
      */
     public static boolean autoRemovePre;
 
     /**
-     * 表前缀(类名不会包含表前缀)
+     * 表前缀(类名不会包含表前缀).
      */
+    @Getter
     public static String tablePrefix;
-
-    public static String getAuthor() {
-        return author;
-    }
 
     public void setAuthor(String author) {
         GenConfig.author = author;
-    }
-
-    public static String getPackageName() {
-        return packageName;
     }
 
     public void setPackageName(String packageName) {
@@ -64,10 +60,6 @@ public class GenConfig {
 
     public void setAutoRemovePre(boolean autoRemovePre) {
         GenConfig.autoRemovePre = autoRemovePre;
-    }
-
-    public static String getTablePrefix() {
-        return tablePrefix;
     }
 
     public void setTablePrefix(String tablePrefix) {

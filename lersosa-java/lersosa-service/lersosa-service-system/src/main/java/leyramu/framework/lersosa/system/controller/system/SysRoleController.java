@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 角色信息
+ * 角色信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -51,7 +51,7 @@ public class SysRoleController extends BaseController {
     private final ISysDeptService deptService;
 
     /**
-     * 获取角色信息列表
+     * 获取角色信息列表.
      */
     @SaCheckPermission("system:role:list")
     @GetMapping("/list")
@@ -60,7 +60,7 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 导出角色信息列表
+     * 导出角色信息列表.
      */
     @Log(title = "角色管理", businessType = BusinessType.EXPORT)
     @SaCheckPermission("system:role:export")
@@ -71,7 +71,7 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 根据角色编号获取详细信息
+     * 根据角色编号获取详细信息.
      *
      * @param roleId 角色ID
      */
@@ -83,16 +83,16 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 新增角色
+     * 新增角色.
      */
     @SaCheckPermission("system:role:add")
     @Log(title = "角色管理", businessType = BusinessType.INSERT)
     @PostMapping
     public R<Void> add(@Validated @RequestBody SysRoleBo role) {
         roleService.checkRoleAllowed(role);
-        if (!roleService.checkRoleNameUnique(role)) {
+        if (roleService.checkRoleNameUnique(role)) {
             return R.fail("新增角色'" + role.getRoleName() + "'失败，角色名称已存在");
-        } else if (!roleService.checkRoleKeyUnique(role)) {
+        } else if (roleService.checkRoleKeyUnique(role)) {
             return R.fail("新增角色'" + role.getRoleName() + "'失败，角色权限已存在");
         }
         return toAjax(roleService.insertRole(role));
@@ -100,7 +100,7 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 修改保存角色
+     * 修改保存角色.
      */
     @SaCheckPermission("system:role:edit")
     @Log(title = "角色管理", businessType = BusinessType.UPDATE)
@@ -108,9 +108,9 @@ public class SysRoleController extends BaseController {
     public R<Void> edit(@Validated @RequestBody SysRoleBo role) {
         roleService.checkRoleAllowed(role);
         roleService.checkRoleDataScope(role.getRoleId());
-        if (!roleService.checkRoleNameUnique(role)) {
+        if (roleService.checkRoleNameUnique(role)) {
             return R.fail("修改角色'" + role.getRoleName() + "'失败，角色名称已存在");
-        } else if (!roleService.checkRoleKeyUnique(role)) {
+        } else if (roleService.checkRoleKeyUnique(role)) {
             return R.fail("修改角色'" + role.getRoleName() + "'失败，角色权限已存在");
         }
 
@@ -122,7 +122,7 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 修改保存数据权限
+     * 修改保存数据权限.
      */
     @SaCheckPermission("system:role:edit")
     @Log(title = "角色管理", businessType = BusinessType.UPDATE)
@@ -134,7 +134,7 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 状态修改
+     * 状态修改.
      */
     @SaCheckPermission("system:role:edit")
     @Log(title = "角色管理", businessType = BusinessType.UPDATE)
@@ -146,7 +146,7 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 删除角色
+     * 删除角色.
      *
      * @param roleIds 角色ID串
      */
@@ -158,7 +158,7 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 获取角色选择框列表
+     * 获取角色选择框列表.
      *
      * @param roleIds 角色ID串
      */
@@ -169,7 +169,7 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 查询已分配用户角色列表
+     * 查询已分配用户角色列表.
      */
     @SaCheckPermission("system:role:list")
     @GetMapping("/authUser/allocatedList")
@@ -178,7 +178,7 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 查询未分配用户角色列表
+     * 查询未分配用户角色列表.
      */
     @SaCheckPermission("system:role:list")
     @GetMapping("/authUser/unallocatedList")
@@ -187,7 +187,7 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 取消授权用户
+     * 取消授权用户.
      */
     @SaCheckPermission("system:role:edit")
     @Log(title = "角色管理", businessType = BusinessType.GRANT)
@@ -197,7 +197,7 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 批量取消授权用户
+     * 批量取消授权用户.
      *
      * @param roleId  角色ID
      * @param userIds 用户ID串
@@ -210,7 +210,7 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 批量选择用户授权
+     * 批量选择用户授权.
      *
      * @param roleId  角色ID
      * @param userIds 用户ID串
@@ -224,7 +224,7 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 获取对应角色部门树列表
+     * 获取对应角色部门树列表.
      *
      * @param roleId 角色ID
      */

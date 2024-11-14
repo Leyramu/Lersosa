@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * XSS跨站脚本配置
+ * XSS跨站脚本配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,13 +28,12 @@ import java.util.List;
 public class XssProperties {
 
     /**
-     * Xss开关
+     * Xss开关.
      */
     private Boolean enabled;
 
     /**
-     * 排除路径
+     * 排除路径.
      */
     private List<String> excludeUrls = new ArrayList<>();
-
 }

@@ -14,7 +14,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 /**
- * 自定义xss校验注解实现
+ * 自定义xss校验注解实现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,5 +26,4 @@ public class XssValidator implements ConstraintValidator<Xss, String> {
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
         return !ReUtil.contains(HtmlUtil.RE_HTML_MARK, value);
     }
-
 }

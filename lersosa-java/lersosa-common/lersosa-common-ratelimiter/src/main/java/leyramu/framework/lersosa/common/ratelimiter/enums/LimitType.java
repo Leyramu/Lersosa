@@ -9,7 +9,7 @@
 package leyramu.framework.lersosa.common.ratelimiter.enums;
 
 /**
- * 限流类型
+ * 限流类型.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -17,17 +17,17 @@ package leyramu.framework.lersosa.common.ratelimiter.enums;
  */
 public enum LimitType {
     /**
-     * 默认策略全局限流
+     * 默认策略全局限流.
      */
     DEFAULT,
 
     /**
-     * 根据请求者IP进行限流
+     * 根据请求者IP进行限流.
      */
     IP,
 
     /**
-     * 实例限流(集群多后端实例)
+     * 实例限流(集群多后端实例).
      */
     CLUSTER
 }

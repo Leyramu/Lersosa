@@ -19,7 +19,7 @@ import java.util.List;
 
 
 /**
- * 模型管理 服务层
+ * 模型管理 服务层.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,7 +27,7 @@ import java.util.List;
  */
 public interface IActModelService {
     /**
-     * 分页查询模型
+     * 分页查询模型.
      *
      * @param modelBo   模型参数
      * @param pageQuery 参数
@@ -36,7 +36,7 @@ public interface IActModelService {
     TableDataInfo<Model> page(ModelBo modelBo, PageQuery pageQuery);
 
     /**
-     * 新增模型
+     * 新增模型.
      *
      * @param modelBo 模型请求对象
      * @return 结果
@@ -44,7 +44,7 @@ public interface IActModelService {
     boolean saveNewModel(ModelBo modelBo);
 
     /**
-     * 查询模型
+     * 查询模型.
      *
      * @param modelId 模型id
      * @return 模型数据
@@ -52,7 +52,7 @@ public interface IActModelService {
     ModelVo getInfo(String modelId);
 
     /**
-     * 修改模型信息
+     * 修改模型信息.
      *
      * @param modelBo 模型数据
      * @return 结果
@@ -60,7 +60,7 @@ public interface IActModelService {
     boolean update(ModelBo modelBo);
 
     /**
-     * 编辑模型XML
+     * 编辑模型XML.
      *
      * @param modelBo 模型数据
      * @return 结果
@@ -68,7 +68,7 @@ public interface IActModelService {
     boolean editModelXml(ModelBo modelBo);
 
     /**
-     * 模型部署
+     * 模型部署.
      *
      * @param id 模型id
      * @return 结果
@@ -76,7 +76,7 @@ public interface IActModelService {
     boolean modelDeploy(String id);
 
     /**
-     * 导出模型zip压缩包
+     * 导出模型zip压缩包.
      *
      * @param modelIds 模型id
      * @param response 响应
@@ -84,7 +84,7 @@ public interface IActModelService {
     void exportZip(List<String> modelIds, HttpServletResponse response);
 
     /**
-     * 复制模型
+     * 复制模型.
      *
      * @param modelBo 模型数据
      * @return 结果

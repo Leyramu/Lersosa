@@ -33,9 +33,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * 租户套餐Service业务层处理
+ * 租户套餐Service业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -49,7 +50,7 @@ public class SysTenantPackageServiceImpl implements ISysTenantPackageService {
     private final SysTenantMapper tenantMapper;
 
     /**
-     * 查询租户套餐
+     * 查询租户套餐.
      */
     @Override
     public SysTenantPackageVo queryById(Long packageId) {
@@ -57,7 +58,7 @@ public class SysTenantPackageServiceImpl implements ISysTenantPackageService {
     }
 
     /**
-     * 查询租户套餐列表
+     * 查询租户套餐列表.
      */
     @Override
     public TableDataInfo<SysTenantPackageVo> queryPageList(SysTenantPackageBo bo, PageQuery pageQuery) {
@@ -73,7 +74,7 @@ public class SysTenantPackageServiceImpl implements ISysTenantPackageService {
     }
 
     /**
-     * 查询租户套餐列表
+     * 查询租户套餐列表.
      */
     @Override
     public List<SysTenantPackageVo> queryList(SysTenantPackageBo bo) {
@@ -90,7 +91,7 @@ public class SysTenantPackageServiceImpl implements ISysTenantPackageService {
     }
 
     /**
-     * 新增租户套餐
+     * 新增租户套餐.
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -99,9 +100,9 @@ public class SysTenantPackageServiceImpl implements ISysTenantPackageService {
         // 保存菜单id
         List<Long> menuIds = Arrays.asList(bo.getMenuIds());
         if (CollUtil.isNotEmpty(menuIds)) {
-            add.setMenuIds(StringUtils.join(menuIds, ", "));
+            Objects.requireNonNull(add).setMenuIds(StringUtils.join(menuIds, ", "));
         } else {
-            add.setMenuIds("");
+            Objects.requireNonNull(add).setMenuIds("");
         }
         boolean flag = baseMapper.insert(add) > 0;
         if (flag) {
@@ -111,7 +112,7 @@ public class SysTenantPackageServiceImpl implements ISysTenantPackageService {
     }
 
     /**
-     * 修改租户套餐
+     * 修改租户套餐.
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -120,26 +121,26 @@ public class SysTenantPackageServiceImpl implements ISysTenantPackageService {
         // 保存菜单id
         List<Long> menuIds = Arrays.asList(bo.getMenuIds());
         if (CollUtil.isNotEmpty(menuIds)) {
-            update.setMenuIds(StringUtils.join(menuIds, ", "));
+            Objects.requireNonNull(update).setMenuIds(StringUtils.join(menuIds, ", "));
         } else {
-            update.setMenuIds("");
+            Objects.requireNonNull(update).setMenuIds("");
         }
         return baseMapper.updateById(update) > 0;
     }
 
     /**
-     * 校验套餐名称是否唯一
+     * 校验套餐名称是否唯一.
      */
     @Override
     public boolean checkPackageNameUnique(SysTenantPackageBo bo) {
         boolean exist = baseMapper.exists(new LambdaQueryWrapper<SysTenantPackage>()
             .eq(SysTenantPackage::getPackageName, bo.getPackageName())
             .ne(ObjectUtil.isNotNull(bo.getPackageId()), SysTenantPackage::getPackageId, bo.getPackageId()));
-        return !exist;
+        return exist;
     }
 
     /**
-     * 修改套餐状态
+     * 修改套餐状态.
      *
      * @param bo 套餐信息
      * @return 结果
@@ -151,7 +152,7 @@ public class SysTenantPackageServiceImpl implements ISysTenantPackageService {
     }
 
     /**
-     * 批量删除租户套餐
+     * 批量删除租户套餐.
      */
     @Override
     @Transactional(rollbackFor = Exception.class)

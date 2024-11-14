@@ -5,45 +5,78 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.cluster.state;
 
+import lombok.Data;
+
 /**
+ * 集群请求限制视图对象.
+ *
  * @author Eric Zhao
- * @since 1.4.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class ClusterRequestLimitVO {
 
+    /**
+     * 集群命名空间.
+     */
     private String namespace;
+
+    /**
+     * 当前QPS.
+     */
     private Double currentQps;
+
+    /**
+     * 最大允许QPS.
+     */
     private Double maxAllowedQps;
 
-    public String getNamespace() {
-        return namespace;
-    }
-
+    /**
+     * 设置命名空间.
+     *
+     * @param namespace 命名空间
+     * @return this
+     */
+    @SuppressWarnings("unused")
     public ClusterRequestLimitVO setNamespace(String namespace) {
         this.namespace = namespace;
         return this;
     }
 
-    public Double getCurrentQps() {
-        return currentQps;
-    }
-
+    /**
+     * 设置当前QPS.
+     *
+     * @param currentQps 当前QPS
+     * @return this
+     */
+    @SuppressWarnings("unused")
     public ClusterRequestLimitVO setCurrentQps(Double currentQps) {
         this.currentQps = currentQps;
         return this;
     }
 
-    public Double getMaxAllowedQps() {
-        return maxAllowedQps;
-    }
-
+    /**
+     * 设置最大允许QPS.
+     *
+     * @param maxAllowedQps 最大允许QPS
+     * @return this
+     */
+    @SuppressWarnings("unused")
     public ClusterRequestLimitVO setMaxAllowedQps(Double maxAllowedQps) {
         this.maxAllowedQps = maxAllowedQps;
         return this;
     }
 
+    /**
+     * 输出字符串.
+     *
+     * @return 输出字符串
+     */
     @Override
     public String toString() {
         return "ClusterRequestLimitVO{" +

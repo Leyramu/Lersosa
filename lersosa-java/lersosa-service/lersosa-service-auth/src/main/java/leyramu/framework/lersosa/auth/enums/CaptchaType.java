@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 验证码类型
+ * 验证码类型.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,12 +26,12 @@ import lombok.Getter;
 public enum CaptchaType {
 
     /**
-     * 数字
+     * 数字.
      */
     MATH(UnsignedMathGenerator.class),
 
     /**
-     * 字符
+     * 字符.
      */
     CHAR(RandomGenerator.class);
 

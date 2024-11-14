@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * 字典服务
+ * 字典服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -34,7 +34,7 @@ public class RemoteDictServiceImpl implements RemoteDictService {
     private final ISysDictTypeService sysDictTypeService;
 
     /**
-     * 根据字典类型查询字典数据
+     * 根据字典类型查询字典数据.
      *
      * @param dictType 字典类型
      * @return 字典数据集合信息
@@ -44,5 +44,4 @@ public class RemoteDictServiceImpl implements RemoteDictService {
         List<SysDictDataVo> list = sysDictTypeService.selectDictDataByType(dictType);
         return MapstructUtils.convert(list, RemoteDictDataVo.class);
     }
-
 }

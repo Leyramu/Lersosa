@@ -5,25 +5,28 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package io.seata.server;
 
 import io.seata.common.aot.NativeUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Seata 分布式事务服务
+ * Seata 分布式事务服务.
  *
  * @author spilledyear@outlook.com
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@Slf4j
 @SpringBootApplication(scanBasePackages = {"io.seata"})
 public class LersosaSeataApplication {
 
     /**
-     * 启动 Seata 分布式事务服务 模块
+     * 启动 Seata 分布式事务服务 模块.
      *
      * @param args 命令行参数
      */
@@ -35,7 +38,7 @@ public class LersosaSeataApplication {
                 throw t;
             }
             if (NativeUtils.inNativeImage()) {
-                t.printStackTrace();
+                log.error("Failed to start Seata server.", t);
                 Thread.sleep(20000);
             }
             throw t;

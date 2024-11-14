@@ -16,7 +16,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 委派任务请求对象
+ * 委派任务请求对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,19 +29,19 @@ public class DelegateBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 委派人id
+     * 委派人id.
      */
     @NotBlank(message = "委派人id不能为空", groups = {AddGroup.class})
     private String userId;
 
     /**
-     * 委派人名称
+     * 委派人名称.
      */
     @NotBlank(message = "委派人名称不能为空", groups = {AddGroup.class})
     private String nickName;
 
     /**
-     * 任务id
+     * 任务id.
      */
     @NotBlank(message = "任务id不能为空", groups = {AddGroup.class})
     private String taskId;

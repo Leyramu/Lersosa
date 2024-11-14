@@ -14,7 +14,7 @@ import leyramu.framework.lersosa.demo.domain.ShardingOrder;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 分片订单Mapper接口
+ * 分片订单Mapper接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

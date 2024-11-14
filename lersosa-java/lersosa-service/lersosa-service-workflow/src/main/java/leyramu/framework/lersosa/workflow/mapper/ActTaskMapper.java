@@ -19,7 +19,7 @@ import org.apache.ibatis.annotations.Param;
 
 
 /**
- * 任务信息Mapper接口
+ * 任务信息Mapper接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,7 +28,7 @@ import org.apache.ibatis.annotations.Param;
 @InterceptorIgnore(tenantLine = "true")
 public interface ActTaskMapper extends BaseMapperPlus<TaskVo, TaskVo> {
     /**
-     * 获取待办信息
+     * 获取待办信息.
      *
      * @param page         分页
      * @param queryWrapper 条件
@@ -37,7 +37,7 @@ public interface ActTaskMapper extends BaseMapperPlus<TaskVo, TaskVo> {
     Page<TaskVo> getTaskWaitByPage(@Param("page") Page<TaskVo> page, @Param(Constants.WRAPPER) Wrapper<TaskVo> queryWrapper);
 
     /**
-     * 获取已办
+     * 获取已办.
      *
      * @param page         分页
      * @param queryWrapper 条件
@@ -46,7 +46,7 @@ public interface ActTaskMapper extends BaseMapperPlus<TaskVo, TaskVo> {
     Page<TaskVo> getTaskFinishByPage(@Param("page") Page<TaskVo> page, @Param(Constants.WRAPPER) Wrapper<TaskVo> queryWrapper);
 
     /**
-     * 查询当前用户的抄送
+     * 查询当前用户的抄送.
      *
      * @param page         分页
      * @param queryWrapper 条件

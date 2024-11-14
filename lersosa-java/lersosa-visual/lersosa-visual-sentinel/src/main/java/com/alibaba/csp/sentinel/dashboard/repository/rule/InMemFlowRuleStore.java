@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.repository.rule;
 
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.FlowRuleEntity;
@@ -14,18 +15,21 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Store {@link FlowRuleEntity} in memory.
+ * 将 {@link FlowRuleEntity} 存储在内存中.
  *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
 @Component
 public class InMemFlowRuleStore extends InMemoryRuleRepositoryAdapter<FlowRuleEntity> {
 
-    private static AtomicLong ids = new AtomicLong(0);
+    private static final AtomicLong IDS = new AtomicLong(0);
 
     @Override
     protected long nextId() {
-        return ids.incrementAndGet();
+        return IDS.incrementAndGet();
     }
 
     @Override
@@ -36,7 +40,6 @@ public class InMemFlowRuleStore extends InMemoryRuleRepositoryAdapter<FlowRuleEn
                 config = new ClusterFlowConfig();
                 entity.setClusterConfig(config);
             }
-            // Set cluster rule id.
             config.setFlowId(entity.getId());
         }
         return entity;

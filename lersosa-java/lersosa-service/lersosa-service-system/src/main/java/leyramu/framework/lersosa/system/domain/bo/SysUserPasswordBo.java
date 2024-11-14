@@ -15,7 +15,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 用户密码修改bo
+ * 用户密码修改bo.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,13 +28,13 @@ public class SysUserPasswordBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 旧密码
+     * 旧密码.
      */
     @NotBlank(message = "旧密码不能为空")
     private String oldPassword;
 
     /**
-     * 新密码
+     * 新密码.
      */
     @NotBlank(message = "新密码不能为空")
     private String newPassword;

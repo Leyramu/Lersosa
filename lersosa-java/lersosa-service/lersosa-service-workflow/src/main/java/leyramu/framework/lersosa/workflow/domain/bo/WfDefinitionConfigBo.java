@@ -19,7 +19,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 流程定义配置业务对象 wf_form_definition
+ * 流程定义配置业务对象 wf_form_definition.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,39 +31,37 @@ import lombok.EqualsAndHashCode;
 public class WfDefinitionConfigBo extends BaseEntity {
 
     /**
-     * 主键
+     * 主键.
      */
     @NotNull(message = "主键不能为空", groups = {EditGroup.class})
     private Long id;
 
     /**
-     * 表名
+     * 表名.
      */
     @NotBlank(message = "表名不能为空", groups = {AddGroup.class})
     private String tableName;
 
     /**
-     * 流程定义ID
+     * 流程定义ID.
      */
     @NotBlank(message = "流程定义ID不能为空", groups = {AddGroup.class})
     private String definitionId;
 
     /**
-     * 流程KEY
+     * 流程KEY.
      */
     @NotBlank(message = "流程KEY不能为空", groups = {AddGroup.class})
     private String processKey;
 
     /**
-     * 流程版本
+     * 流程版本.
      */
     @NotNull(message = "流程版本不能为空", groups = {AddGroup.class})
     private Integer version;
 
     /**
-     * 备注
+     * 备注.
      */
     private String remark;
-
-
 }

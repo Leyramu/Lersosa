@@ -15,24 +15,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 默认excel返回对象
+ * 默认excel返回对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@Setter
 public class DefaultExcelResult<T> implements ExcelResult<T> {
 
     /**
-     * 数据对象list
+     * 数据对象list.
      */
-    @Setter
     private List<T> list;
 
     /**
-     * 错误信息列表
+     * 错误信息列表.
      */
-    @Setter
     private List<String> errorList;
 
     public DefaultExcelResult() {
@@ -40,11 +39,13 @@ public class DefaultExcelResult<T> implements ExcelResult<T> {
         this.errorList = new ArrayList<>();
     }
 
+    @SuppressWarnings("unused")
     public DefaultExcelResult(List<T> list, List<String> errorList) {
         this.list = list;
         this.errorList = errorList;
     }
 
+    @SuppressWarnings("unused")
     public DefaultExcelResult(ExcelResult<T> excelResult) {
         this.list = excelResult.getList();
         this.errorList = excelResult.getErrorList();
@@ -61,7 +62,7 @@ public class DefaultExcelResult<T> implements ExcelResult<T> {
     }
 
     /**
-     * 获取导入回执
+     * 获取导入回执.
      *
      * @return 导入回执
      */

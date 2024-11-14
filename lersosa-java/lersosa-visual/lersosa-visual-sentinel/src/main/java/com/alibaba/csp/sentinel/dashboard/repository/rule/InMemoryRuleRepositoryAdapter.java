@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.repository.rule;
 
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.RuleEntity;
@@ -17,17 +18,23 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 存储规则的抽象类，用于实现规则的持久化存储.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
 public abstract class InMemoryRuleRepositoryAdapter<T extends RuleEntity> implements RuleRepository<T, Long> {
 
+    @SuppressWarnings("unused")
     private static final int MAX_RULES_SIZE = 10000;
     /**
-     * {@code <machine, <id, rule>>}
+     * {@code <machine, <id, rule>>}.
      */
-    private Map<MachineInfo, Map<Long, T>> machineRules = new ConcurrentHashMap<>(16);
-    private Map<Long, T> allRules = new ConcurrentHashMap<>(16);
-    private Map<String, Map<Long, T>> appRules = new ConcurrentHashMap<>(16);
+    private final Map<MachineInfo, Map<Long, T>> machineRules = new ConcurrentHashMap<>(16);
+    private final Map<Long, T> allRules = new ConcurrentHashMap<>(16);
+    private final Map<String, Map<Long, T>> appRules = new ConcurrentHashMap<>(16);
 
     @Override
     public T save(T entity) {
@@ -100,6 +107,7 @@ public abstract class InMemoryRuleRepositoryAdapter<T extends RuleEntity> implem
         return new ArrayList<>(entities.values());
     }
 
+    @SuppressWarnings("unused")
     public void clearAll() {
         allRules.clear();
         machineRules.clear();
@@ -111,9 +119,9 @@ public abstract class InMemoryRuleRepositoryAdapter<T extends RuleEntity> implem
     }
 
     /**
-     * Get next unused id.
+     * 获取下一个未使用的 ID.
      *
-     * @return next unused id
+     * @return 下一个未使用的 ID
      */
     abstract protected long nextId();
 }

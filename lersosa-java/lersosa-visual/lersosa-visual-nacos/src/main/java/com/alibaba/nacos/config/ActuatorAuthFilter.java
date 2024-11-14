@@ -8,6 +8,8 @@
 
 package com.alibaba.nacos.config;
 
+import lombok.AllArgsConstructor;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,21 +18,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 /**
- * 认证过滤器
+ * 认证过滤器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@AllArgsConstructor
 public class ActuatorAuthFilter implements Filter {
 
     private final String username;
     private final String password;
-
-    public ActuatorAuthFilter(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -73,6 +71,6 @@ public class ActuatorAuthFilter implements Filter {
 
     @Override
     public void destroy() {
+        Filter.super.destroy();
     }
-
 }

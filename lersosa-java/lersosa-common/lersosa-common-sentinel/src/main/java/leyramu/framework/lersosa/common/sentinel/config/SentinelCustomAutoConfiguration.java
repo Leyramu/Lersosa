@@ -14,7 +14,7 @@ import com.alibaba.cloud.sentinel.custom.SentinelAutoConfiguration;
 import com.alibaba.csp.sentinel.init.InitExecutor;
 import com.alibaba.csp.sentinel.transport.config.TransportConfig;
 import leyramu.framework.lersosa.common.core.utils.StreamUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.ServiceInstance;
@@ -24,20 +24,22 @@ import org.springframework.context.annotation.Bean;
 import java.util.List;
 
 /**
+ * 自定义 sentinel 配置.
+ *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@RequiredArgsConstructor
 @AutoConfiguration(before = SentinelAutoConfiguration.class)
 @EnableConfigurationProperties({SentinelProperties.class, SentinelCustomProperties.class})
 public class SentinelCustomAutoConfiguration {
 
-    @Autowired
-    private SentinelProperties properties;
-    @Autowired
-    private SentinelCustomProperties customProperties;
-    @Autowired
-    private DiscoveryClient discoveryClient;
+    private final SentinelProperties properties;
+
+    private final SentinelCustomProperties customProperties;
+
+    private final DiscoveryClient discoveryClient;
 
     @Bean
     public void sentinelInit() {
@@ -56,6 +58,4 @@ public class SentinelCustomAutoConfiguration {
         // 手动初始化 sentinel
         InitExecutor.doInit();
     }
-
-
 }

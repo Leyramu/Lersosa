@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 导出下拉框Excel示例
+ * 导出下拉框Excel示例.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -115,7 +115,7 @@ public class ExportExcelServiceImpl implements IExportExcelService {
         Map<Integer, List<DemoCityData>> groupByIdMap =
             cityDataList.stream().collect(Collectors.groupingBy(DemoCityData::getId));
         if (groupByIdMap.containsKey(id)) {
-            DemoCityData demoCityData = groupByIdMap.get(id).get(0);
+            DemoCityData demoCityData = groupByIdMap.get(id).getFirst();
             return DropDownOptions.createOptionValue(demoCityData.getName(), demoCityData.getId());
         } else {
             return StrUtil.EMPTY;
@@ -123,7 +123,7 @@ public class ExportExcelServiceImpl implements IExportExcelService {
     }
 
     /**
-     * 模拟查询数据库操作
+     * 模拟查询数据库操作.
      *
      * @return /
      */
@@ -138,7 +138,7 @@ public class ExportExcelServiceImpl implements IExportExcelService {
     }
 
     /**
-     * 模拟查找数据库操作，需要连带查询出省的数据
+     * 模拟查找数据库操作，需要连带查询出省的数据.
      *
      * @param provinceList 模拟的父省数据
      * @return /
@@ -159,7 +159,7 @@ public class ExportExcelServiceImpl implements IExportExcelService {
     }
 
     /**
-     * 模拟查找数据库操作，需要连带查询出市的数据
+     * 模拟查找数据库操作，需要连带查询出市的数据.
      *
      * @param cityList 模拟的父市数据
      * @return /
@@ -185,7 +185,7 @@ public class ExportExcelServiceImpl implements IExportExcelService {
     }
 
     /**
-     * 模拟数据库的查询父数据操作
+     * 模拟数据库的查询父数据操作.
      *
      * @param parentList /
      * @param sonList    /
@@ -196,30 +196,30 @@ public class ExportExcelServiceImpl implements IExportExcelService {
 
         sonList.forEach(everySon -> {
             if (parentGroupByIdMap.containsKey(everySon.getPid())) {
-                everySon.setPData(parentGroupByIdMap.get(everySon.getPid()).get(0));
+                everySon.setPData(parentGroupByIdMap.get(everySon.getPid()).getFirst());
             }
         });
     }
 
     /**
-     * 模拟的数据库省市县
+     * 模拟的数据库省市县.
      */
     @Data
     private static class DemoCityData {
         /**
-         * 数据库id字段
+         * 数据库id字段.
          */
         private Integer id;
         /**
-         * 数据库pid字段
+         * 数据库pid字段.
          */
         private Integer pid;
         /**
-         * 数据库name字段
+         * 数据库name字段.
          */
         private String name;
         /**
-         * MyBatisPlus连带查询父数据
+         * MyBatisPlus连带查询父数据.
          */
         private DemoCityData pData;
 

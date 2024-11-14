@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * 缓存监控列表信息
+ * 缓存监控列表信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -34,5 +34,4 @@ public class CacheListInfoVo implements Serializable {
     private Long dbSize;
 
     private List<Map<String, String>> commandStats;
-
 }

@@ -16,14 +16,13 @@ import leyramu.framework.lersosa.workflow.service.WorkflowService;
 import leyramu.framework.lersosa.workflow.utils.WorkflowUtils;
 import lombok.RequiredArgsConstructor;
 import org.flowable.engine.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * 通用 工作流服务实现
+ * 通用 工作流服务实现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -35,22 +34,20 @@ public class WorkflowServiceImpl implements WorkflowService {
 
     private final IActProcessInstanceService actProcessInstanceService;
     private final IActHiProcinstService actHiProcinstService;
-    @Autowired(required = false)
-    private TaskService taskService;
+    private final TaskService taskService;
 
     /**
-     * 运行中的实例 删除程实例，删除历史记录，删除业务与流程关联信息
+     * 运行中的实例 删除程实例，删除历史记录，删除业务与流程关联信息.
      *
      * @param businessKeys 业务id
-     * @return 结果
      */
     @Override
-    public boolean deleteRunAndHisInstance(List<String> businessKeys) {
-        return actProcessInstanceService.deleteRunAndHisInstance(businessKeys);
+    public void deleteRunAndHisInstance(List<String> businessKeys) {
+        actProcessInstanceService.deleteRunAndHisInstance(businessKeys);
     }
 
     /**
-     * 获取当前流程状态
+     * 获取当前流程状态.
      *
      * @param taskId 任务id
      */
@@ -60,7 +57,7 @@ public class WorkflowServiceImpl implements WorkflowService {
     }
 
     /**
-     * 获取当前流程状态
+     * 获取当前流程状态.
      *
      * @param businessKey 业务id
      */
@@ -70,7 +67,7 @@ public class WorkflowServiceImpl implements WorkflowService {
     }
 
     /**
-     * 设置流程变量(全局变量)
+     * 设置流程变量(全局变量).
      *
      * @param taskId       任务id
      * @param variableName 变量名称
@@ -82,7 +79,7 @@ public class WorkflowServiceImpl implements WorkflowService {
     }
 
     /**
-     * 设置流程变量(全局变量)
+     * 设置流程变量(全局变量).
      *
      * @param taskId    任务id
      * @param variables 流程变量
@@ -93,7 +90,7 @@ public class WorkflowServiceImpl implements WorkflowService {
     }
 
     /**
-     * 设置流程变量(本地变量,非全局变量)
+     * 设置流程变量(本地变量,非全局变量).
      *
      * @param taskId       任务id
      * @param variableName 变量名称
@@ -105,7 +102,7 @@ public class WorkflowServiceImpl implements WorkflowService {
     }
 
     /**
-     * 设置流程变量(本地变量,非全局变量)
+     * 设置流程变量(本地变量,非全局变量).
      *
      * @param taskId    任务id
      * @param variables 流程变量
@@ -116,7 +113,7 @@ public class WorkflowServiceImpl implements WorkflowService {
     }
 
     /**
-     * 按照业务id查询流程实例id
+     * 按照业务id查询流程实例id.
      *
      * @param businessKey 业务id
      * @return 结果

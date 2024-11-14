@@ -6,4 +6,7 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
+/**
+ * 演示示例的Mapper接口.
+ */
 package leyramu.framework.lersosa.demo.mapper;

@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.workflow.domain.TestLeave;
 import leyramu.framework.lersosa.workflow.domain.vo.TestLeaveVo;
 
 /**
- * 请假Mapper接口
+ * 请假Mapper接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

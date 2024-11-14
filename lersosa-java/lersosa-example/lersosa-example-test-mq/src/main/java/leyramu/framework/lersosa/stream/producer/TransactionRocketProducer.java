@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 交易消息生产者
+ * 交易消息生产者.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -33,14 +33,14 @@ import java.util.List;
 public class TransactionRocketProducer {
 
     @Autowired
-    private RocketMQTemplate rocketMQTemplate;
+    private RocketMQTemplate rocketMqTemplate;
 
     public void sendTransactionMessage() {
         List<String> tags = Arrays.asList("TAG-1", "TAG-2", "TAG-3");
         for (int i = 0; i < 3; i++) {
             Message<String> message = MessageBuilder.withPayload("===>事务消息-" + i).build();
             // destination formats: `topicName:tags` message – message Message arg – ext arg
-            TransactionSendResult res = rocketMQTemplate.sendMessageInTransaction("transaction-topic:" + tags.get(i), message, i + 1);
+            TransactionSendResult res = rocketMqTemplate.sendMessageInTransaction("transaction-topic:" + tags.get(i), message, i + 1);
             if (res.getLocalTransactionState().equals(LocalTransactionState.COMMIT_MESSAGE) && res.getSendStatus().equals(SendStatus.SEND_OK)) {
                 log.info("【生产者】事物消息发送成功；成功结果：{}", res);
             } else {
@@ -48,5 +48,4 @@ public class TransactionRocketProducer {
             }
         }
     }
-
 }

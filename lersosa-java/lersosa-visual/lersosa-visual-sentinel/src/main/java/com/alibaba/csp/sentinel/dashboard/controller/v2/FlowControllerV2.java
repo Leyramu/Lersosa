@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.controller.v2;
 
 import com.alibaba.csp.sentinel.dashboard.auth.AuthAction;
@@ -15,8 +16,7 @@ import com.alibaba.csp.sentinel.dashboard.repository.rule.InMemoryRuleRepository
 import com.alibaba.csp.sentinel.dashboard.rule.DynamicRuleProvider;
 import com.alibaba.csp.sentinel.dashboard.rule.DynamicRulePublisher;
 import com.alibaba.csp.sentinel.util.StringUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -25,27 +25,58 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Flow rule controller (v2).
+ * 流规则控制器 （v2）.
  *
  * @author Eric Zhao
- * @since 1.4.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
+@Slf4j
 @RestController
-@RequestMapping(value = "/v2/flow")
+@RequestMapping("/v2/flow")
 public class FlowControllerV2 {
 
-    private final Logger logger = LoggerFactory.getLogger(FlowControllerV2.class);
+    /**
+     * 规则存储库.
+     */
+    private final InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository;
 
-    @Autowired
-    private InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository;
-
-    @Autowired
+    /**
+     * 动态规则提供者.
+     */
     @Qualifier("flowRuleDefaultProvider")
-    private DynamicRuleProvider<List<FlowRuleEntity>> ruleProvider;
-    @Autowired
-    @Qualifier("flowRuleDefaultPublisher")
-    private DynamicRulePublisher<List<FlowRuleEntity>> rulePublisher;
+    private final DynamicRuleProvider<List<FlowRuleEntity>> ruleProvider;
 
+    /**
+     * 动态规则发布者.
+     */
+    @Qualifier("flowRuleDefaultPublisher")
+    private final DynamicRulePublisher<List<FlowRuleEntity>> rulePublisher;
+
+    /**
+     * 构造函数.
+     *
+     * @param repository    规则存储库
+     * @param ruleProvider  规则提供者
+     * @param rulePublisher 规则发布者
+     */
+    @Autowired
+    public FlowControllerV2(
+        InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository,
+        DynamicRuleProvider<List<FlowRuleEntity>> ruleProvider,
+        DynamicRulePublisher<List<FlowRuleEntity>> rulePublisher) {
+        this.repository = repository;
+        this.ruleProvider = ruleProvider;
+        this.rulePublisher = rulePublisher;
+    }
+
+    /**
+     * 处理规则查询请求.
+     *
+     * @param app 应用名称，用于查询对应的流控规则
+     * @return 返回查询到的流控规则列表，如果查询失败或参数无效，则返回相应的错误信息
+     */
     @GetMapping("/rules")
     @AuthAction(PrivilegeType.READ_RULE)
     public Result<List<FlowRuleEntity>> apiQueryMachineRules(@RequestParam String app) {
@@ -66,11 +97,17 @@ public class FlowControllerV2 {
             rules = repository.saveAll(rules);
             return Result.ofSuccess(rules);
         } catch (Throwable throwable) {
-            logger.error("Error when querying flow rules", throwable);
+            log.error("Error when querying flow rules", throwable);
             return Result.ofThrowable(-1, throwable);
         }
     }
 
+    /**
+     * 检查规则实体的有效性.
+     *
+     * @param entity 待检查的规则实体
+     * @return 如果实体无效，则返回包含错误信息的结果对象；如果实体有效，则返回null
+     */
     private <R> Result<R> checkEntityInternal(FlowRuleEntity entity) {
         if (entity == null) {
             return Result.ofFail(-1, "invalid body");
@@ -115,6 +152,12 @@ public class FlowControllerV2 {
         return null;
     }
 
+    /**
+     * 处理添加规则请求.
+     *
+     * @param entity 新增的规则实体
+     * @return 返回添加规则的结果，包括成功添加的规则或错误信息
+     */
     @PostMapping("/rule")
     @AuthAction(value = PrivilegeType.WRITE_RULE)
     public Result<FlowRuleEntity> apiAddFlowRule(@RequestBody FlowRuleEntity entity) {
@@ -133,15 +176,21 @@ public class FlowControllerV2 {
             entity = repository.save(entity);
             publishRules(entity.getApp());
         } catch (Throwable throwable) {
-            logger.error("Failed to add flow rule", throwable);
+            log.error("Failed to add flow rule", throwable);
             return Result.ofThrowable(-1, throwable);
         }
         return Result.ofSuccess(entity);
     }
 
+    /**
+     * 更新流量规则的API接口.
+     *
+     * @param id     要更新的规则的ID，必须是有效的正整数
+     * @param entity 包含更新后规则信息的实体对象，不能为空
+     * @return 更新后的规则实体对象如果ID无效、规则实体为空或数据库中找不到对应的规则，则返回相应的错误信息
+     */
     @PutMapping("/rule/{id}")
     @AuthAction(PrivilegeType.WRITE_RULE)
-
     public Result<FlowRuleEntity> apiUpdateFlowRule(@PathVariable("id") Long id,
                                                     @RequestBody FlowRuleEntity entity) {
         if (id == null || id <= 0) {
@@ -174,12 +223,18 @@ public class FlowControllerV2 {
             }
             publishRules(oldEntity.getApp());
         } catch (Throwable throwable) {
-            logger.error("Failed to update flow rule", throwable);
+            log.error("Failed to update flow rule", throwable);
             return Result.ofThrowable(-1, throwable);
         }
         return Result.ofSuccess(entity);
     }
 
+    /**
+     * 删除规则的API接口.
+     *
+     * @param id 要删除的规则的ID，必须是有效的正整数
+     * @return 如果删除成功，返回被删除规则的ID；如果ID无效或规则不存在，返回相应的错误信息
+     */
     @DeleteMapping("/rule/{id}")
     @AuthAction(PrivilegeType.DELETE_RULE)
     public Result<Long> apiDeleteRule(@PathVariable("id") Long id) {
@@ -200,7 +255,13 @@ public class FlowControllerV2 {
         return Result.ofSuccess(id);
     }
 
-    private void publishRules(/*@NonNull*/ String app) throws Exception {
+    /**
+     * 发布指定应用的所有规则.
+     *
+     * @param app 应用名称，用于查找和发布规则
+     * @throws Exception 如果发布过程中出现异常，则抛出此异常
+     */
+    private void publishRules(String app) throws Exception {
         List<FlowRuleEntity> rules = repository.findAllByApp(app);
         rulePublisher.publish(app, rules);
     }

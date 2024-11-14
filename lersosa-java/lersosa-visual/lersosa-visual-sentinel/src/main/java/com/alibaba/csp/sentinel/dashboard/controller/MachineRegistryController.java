@@ -5,37 +5,60 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.controller;
 
 import com.alibaba.csp.sentinel.dashboard.discovery.AppManagement;
 import com.alibaba.csp.sentinel.dashboard.discovery.MachineInfo;
 import com.alibaba.csp.sentinel.dashboard.domain.Result;
 import com.alibaba.csp.sentinel.util.StringUtil;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.conn.util.InetAddressUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * 设备注册控制器.
+ *
+ * @author Sentinel
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
+ */
+@Slf4j
 @Controller
+@RequiredArgsConstructor
 @RequestMapping(value = "/registry", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MachineRegistryController {
 
-    private final Logger logger = LoggerFactory.getLogger(MachineRegistryController.class);
+    /**
+     * 应用管理.
+     */
+    private final AppManagement appManagement;
 
-    @Autowired
-    private AppManagement appManagement;
-
+    /**
+     * 接收心跳.
+     *
+     * @param app      应用名称
+     * @param appType  应用类型
+     * @param version  版本
+     * @param v        版本号
+     * @param hostname 主机名
+     * @param ip       ip地址
+     * @param port     端口
+     * @return 请求处理结果
+     */
     @ResponseBody
     @RequestMapping("/machine")
-    public Result<?> receiveHeartBeat(String app,
-                                      @RequestParam(value = "app_type", required = false, defaultValue = "0")
-                                      Integer appType, Long version, String v, String hostname, String ip,
-                                      Integer port) {
+    public Result<?> receiveHeartBeat(
+        String app,
+        @RequestParam(value = "app_type", required = false, defaultValue = "0")
+        Integer appType, Long version, String v, String hostname, String ip,
+        Integer port) {
         if (StringUtil.isBlank(app) || app.length() > 256) {
             return Result.ofFail(-1, "invalid appName");
         }
@@ -52,7 +75,7 @@ public class MachineRegistryController {
             return Result.ofFail(-1, "hostname too long");
         }
         if (port == -1) {
-            logger.warn("Receive heartbeat from " + ip + " but port not set yet");
+            log.warn("Receive heartbeat from {} but port not set yet", ip);
             return Result.ofFail(-1, "your port not set yet");
         }
         String sentinelVersion = StringUtil.isBlank(v) ? "unknown" : v;
@@ -71,7 +94,7 @@ public class MachineRegistryController {
             appManagement.addMachine(machineInfo);
             return Result.ofSuccessMsg("success");
         } catch (Exception e) {
-            logger.error("Receive heartbeat error", e);
+            log.error("Receive heartbeat error", e);
             return Result.ofFail(-1, e.getMessage());
         }
     }

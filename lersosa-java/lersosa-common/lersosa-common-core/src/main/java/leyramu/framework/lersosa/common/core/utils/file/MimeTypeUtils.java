@@ -9,12 +9,13 @@
 package leyramu.framework.lersosa.common.core.utils.file;
 
 /**
- * 媒体类型工具类
+ * 媒体类型工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@SuppressWarnings("unused")
 public class MimeTypeUtils {
     public static final String IMAGE_PNG = "image/png";
 
@@ -46,5 +47,4 @@ public class MimeTypeUtils {
         "mp4", "avi", "rmvb",
         // pdf
         "pdf"};
-
 }

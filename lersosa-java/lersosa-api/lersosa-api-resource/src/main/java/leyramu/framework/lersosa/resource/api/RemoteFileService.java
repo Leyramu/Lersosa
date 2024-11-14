@@ -14,7 +14,7 @@ import leyramu.framework.lersosa.resource.api.domain.RemoteFile;
 import java.util.List;
 
 /**
- * 文件服务
+ * 文件服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -23,7 +23,7 @@ import java.util.List;
 public interface RemoteFileService {
 
     /**
-     * 上传文件
+     * 上传文件.
      *
      * @param file 文件信息
      * @return 结果
@@ -31,7 +31,7 @@ public interface RemoteFileService {
     RemoteFile upload(String name, String originalFilename, String contentType, byte[] file) throws ServiceException;
 
     /**
-     * 通过ossId查询对应的url
+     * 通过ossId查询对应的url.
      *
      * @param ossIds ossId串逗号分隔
      * @return url串逗号分隔
@@ -39,7 +39,7 @@ public interface RemoteFileService {
     String selectUrlByIds(String ossIds);
 
     /**
-     * 通过ossId查询列表
+     * 通过ossId查询列表.
      *
      * @param ossIds ossId串逗号分隔
      * @return 列表

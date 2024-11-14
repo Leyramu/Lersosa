@@ -10,28 +10,28 @@ package leyramu.framework.lersosa.workflow.flowable.config;
 
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import leyramu.framework.lersosa.workflow.flowable.handler.TaskTimeoutJobHandler;
+import lombok.RequiredArgsConstructor;
 import org.flowable.spring.SpringProcessEngineConfiguration;
 import org.flowable.spring.boot.EngineConfigurationConfigurer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Collections;
 
 
 /**
- * flowable配置
+ * flowable配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
 @Configuration
+@RequiredArgsConstructor
 public class FlowableConfig implements EngineConfigurationConfigurer<SpringProcessEngineConfiguration> {
 
-    @Autowired
-    private GlobalFlowableListener globalFlowableListener;
-    @Autowired
-    private IdentifierGenerator identifierGenerator;
+    private final GlobalFlowableListener globalFlowableListener;
+
+    private final IdentifierGenerator identifierGenerator;
 
     @Override
     public void configure(SpringProcessEngineConfiguration processEngineConfiguration) {

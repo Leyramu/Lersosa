@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 /**
- * 系统用户自定义导入
+ * 系统用户自定义导入.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -109,7 +109,7 @@ public class SysUserImportListener extends AnalysisEventListener<SysUserImportVo
 
     @Override
     public ExcelResult<SysUserImportVo> getExcelResult() {
-        return new ExcelResult<SysUserImportVo>() {
+        return new ExcelResult<>() {
 
             @Override
             public String getAnalysis() {

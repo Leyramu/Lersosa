@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * swagger3 用法示例
+ * swagger3 用法示例.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,8 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class Swagger3DemoController {
 
     /**
-     * 上传请求
-     * 必须使用 @RequestPart 注解标注为文件
+     * 上传请求.
      *
      * @param file 文件
      */
@@ -37,5 +36,4 @@ public class Swagger3DemoController {
     public R<String> upload(@RequestPart("file") MultipartFile file) {
         return R.ok("操作成功", file.getOriginalFilename());
     }
-
 }

@@ -13,8 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 设备类型
- * 针对多套 用户体系
+ * 设备类型.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,12 +24,12 @@ import lombok.Getter;
 public enum UserType {
 
     /**
-     * pc端
+     * pc端.
      */
     SYS_USER("sys_user"),
 
     /**
-     * app端
+     * app端.
      */
     APP_USER("app_user");
 

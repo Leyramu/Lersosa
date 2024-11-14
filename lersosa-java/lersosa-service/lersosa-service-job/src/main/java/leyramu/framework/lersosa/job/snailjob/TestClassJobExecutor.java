@@ -14,7 +14,7 @@ import com.aizuda.snailjob.client.model.ExecuteResult;
 import org.springframework.stereotype.Component;
 
 /**
- * 测试类
+ * 测试类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

@@ -5,31 +5,89 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.datasource.entity.rule;
 
 import com.alibaba.csp.sentinel.slots.system.SystemRule;
+import lombok.Data;
 
 import java.util.Date;
 
 /**
+ * 系统规则实体.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class SystemRuleEntity implements RuleEntity {
 
+    /**
+     * 规则ID.
+     */
     private Long id;
 
+    /**
+     * 应用名称.
+     */
     private String app;
+
+    /**
+     * IP地址.
+     */
     private String ip;
+
+    /**
+     * 端口号.
+     */
     private Integer port;
+
+    /**
+     * 系统负载.
+     */
     private Double highestSystemLoad;
+
+    /**
+     * 平均响应时间.
+     */
     private Long avgRt;
+
+    /**
+     * 最大线程数.
+     */
     private Long maxThread;
+
+    /**
+     * QPS.
+     */
     private Double qps;
+
+    /**
+     * CPU使用率.
+     */
     private Double highestCpuUsage;
 
+    /**
+     * 创建时间.
+     */
     private Date gmtCreate;
+
+    /**
+     * 修改时间.
+     */
     private Date gmtModified;
 
+    /**
+     * 从系统规则转换成实体.
+     *
+     * @param app  应用名称
+     * @param ip   IP地址
+     * @param port 端口号
+     * @param rule 规则
+     * @return 规则实体
+     */
     public static SystemRuleEntity fromSystemRule(String app, String ip, Integer port, SystemRule rule) {
         SystemRuleEntity entity = new SystemRuleEntity();
         entity.setApp(app);
@@ -43,100 +101,71 @@ public class SystemRuleEntity implements RuleEntity {
         return entity;
     }
 
+    /**
+     * 获取IP地址.
+     *
+     * @return IP地址
+     */
     @Override
     public String getIp() {
         return ip;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
+    /**
+     * 获取端口号.
+     *
+     * @return 端口号
+     */
     @Override
     public Integer getPort() {
         return port;
     }
 
-    public void setPort(Integer port) {
-        this.port = port;
-    }
-
+    /**
+     * 获取规则ID.
+     *
+     * @return 规则ID
+     */
     @Override
     public Long getId() {
         return id;
     }
 
+    /**
+     * 设置规则ID.
+     *
+     * @param id 规则ID
+     */
     @Override
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * 获取应用名称.
+     *
+     * @return 应用名称
+     */
     @Override
     public String getApp() {
         return app;
     }
 
-    public void setApp(String app) {
-        this.app = app;
-    }
-
-    public Double getHighestSystemLoad() {
-        return highestSystemLoad;
-    }
-
-    public void setHighestSystemLoad(Double highestSystemLoad) {
-        this.highestSystemLoad = highestSystemLoad;
-    }
-
-    public Long getAvgRt() {
-        return avgRt;
-    }
-
-    public void setAvgRt(Long avgRt) {
-        this.avgRt = avgRt;
-    }
-
-    public Long getMaxThread() {
-        return maxThread;
-    }
-
-    public void setMaxThread(Long maxThread) {
-        this.maxThread = maxThread;
-    }
-
-    public Double getQps() {
-        return qps;
-    }
-
-    public void setQps(Double qps) {
-        this.qps = qps;
-    }
-
-    public Double getHighestCpuUsage() {
-        return highestCpuUsage;
-    }
-
-    public void setHighestCpuUsage(Double highestCpuUsage) {
-        this.highestCpuUsage = highestCpuUsage;
-    }
-
+    /**
+     * 获取创建时间.
+     *
+     * @return 创建时间
+     */
     @Override
     public Date getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
+    /**
+     * 转换为规则对象.
+     *
+     * @return 规则对象
+     */
     @Override
     public SystemRule toRule() {
         SystemRule rule = new SystemRule();

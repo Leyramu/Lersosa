@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * 办理任务请求对象
+ * 办理任务请求对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -34,33 +34,33 @@ public class CompleteTaskBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 任务id
+     * 任务id.
      */
     @NotBlank(message = "任务id不能为空", groups = {AddGroup.class})
     private String taskId;
 
     /**
-     * 附件id
+     * 附件id.
      */
     private String fileId;
 
     /**
-     * 抄送人员
+     * 抄送人员.
      */
     private List<WfCopy> wfCopyList;
 
     /**
-     * 消息类型
+     * 消息类型.
      */
     private List<String> messageType;
 
     /**
-     * 办理意见
+     * 办理意见.
      */
     private String message;
 
     /**
-     * 流程变量
+     * 流程变量.
      */
     private Map<String, Object> variables;
 
@@ -71,5 +71,4 @@ public class CompleteTaskBo implements Serializable {
         variables.entrySet().removeIf(entry -> Objects.isNull(entry.getValue()));
         return variables;
     }
-
 }

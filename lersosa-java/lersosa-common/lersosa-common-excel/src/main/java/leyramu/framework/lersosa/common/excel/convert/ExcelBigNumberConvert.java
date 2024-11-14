@@ -21,8 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.math.BigDecimal;
 
 /**
- * 大数值转换
- * Excel 数值长度位15位 大于15位的数值转换位字符串
+ * 大数值转换.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -58,5 +57,4 @@ public class ExcelBigNumberConvert implements Converter<Long> {
         cellData.setType(CellDataTypeEnum.NUMBER);
         return cellData;
     }
-
 }

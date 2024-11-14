@@ -1,13 +1,16 @@
 /*
- * Copyright (c) 2013-2024 Leyramu. All rights reserved.
+ * Copyright (c) 2024 Leyramu. All rights reserved.
  * This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
  * For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package leyramu.framework.lersosa.common.redis.manager;
 
 import leyramu.framework.lersosa.common.redis.utils.RedisUtils;
+import lombok.NonNull;
+import lombok.Setter;
 import org.redisson.api.RMap;
 import org.redisson.api.RMapCache;
 import org.redisson.spring.cache.CacheConfig;
@@ -25,11 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * A {@link org.springframework.cache.CacheManager} implementation
- * backed by Redisson instance.
- * <p>
- * 修改 RedissonSpringCacheManager 源码
- * 重写 cacheName 处理方法 支持多参数
+ * 重写 cacheName 处理方法 支持多参数.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -41,41 +40,19 @@ public class PlusSpringCacheManager implements CacheManager {
     Map<String, CacheConfig> configMap = new ConcurrentHashMap<>();
     ConcurrentMap<String, Cache> instanceMap = new ConcurrentHashMap<>();
     private boolean dynamic = true;
+    @Setter
     private boolean allowNullValues = true;
+    @Setter
     private boolean transactionAware = true;
 
     /**
-     * Creates CacheManager supplied by Redisson instance
+     * Creates CacheManager supplied by Redisson instance.
      */
     public PlusSpringCacheManager() {
     }
 
-
     /**
-     * Defines possibility of storing {@code null} values.
-     * <p>
-     * Default is <code>true</code>
-     *
-     * @param allowNullValues stores if <code>true</code>
-     */
-    public void setAllowNullValues(boolean allowNullValues) {
-        this.allowNullValues = allowNullValues;
-    }
-
-    /**
-     * Defines if cache aware of Spring-managed transactions.
-     * If {@code true} put/evict operations are executed only for successful transaction in after-commit phase.
-     * <p>
-     * Default is <code>false</code>
-     *
-     * @param transactionAware cache is transaction aware if <code>true</code>
-     */
-    public void setTransactionAware(boolean transactionAware) {
-        this.transactionAware = transactionAware;
-    }
-
-    /**
-     * Set cache config mapped by cache name
+     * Set cache config mapped by cache name.
      *
      * @param config object
      */
@@ -88,6 +65,7 @@ public class PlusSpringCacheManager implements CacheManager {
     }
 
     @Override
+    @SuppressWarnings("all")
     public Cache getCache(String name) {
         // 重写 cacheName 支持多参数
         String[] array = StringUtils.delimitedListToStringArray(name, "#");
@@ -124,7 +102,7 @@ public class PlusSpringCacheManager implements CacheManager {
         return createMapCache(name, config);
     }
 
-    private Cache createMap(String name, CacheConfig config) {
+    private Cache createMap(String name, CacheConfig ignoredConfig) {
         RMap<Object, Object> map = RedisUtils.getClient().getMap(name);
 
         Cache cache = new CaffeineCacheDecorator(name, new RedissonCache(map, allowNullValues));
@@ -155,15 +133,13 @@ public class PlusSpringCacheManager implements CacheManager {
     }
 
     @Override
+    @NonNull
     public Collection<String> getCacheNames() {
         return Collections.unmodifiableSet(configMap.keySet());
     }
 
     /**
      * Defines 'fixed' cache names.
-     * A new cache instance will not be created in dynamic for non-defined names.
-     * <p>
-     * `null` parameter setups dynamic mode
      *
      * @param names of caches
      */
@@ -177,6 +153,4 @@ public class PlusSpringCacheManager implements CacheManager {
             dynamic = true;
         }
     }
-
-
 }

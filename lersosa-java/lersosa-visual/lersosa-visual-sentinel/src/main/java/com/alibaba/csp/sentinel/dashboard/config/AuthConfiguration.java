@@ -5,9 +5,11 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.config;
 
 import com.alibaba.csp.sentinel.dashboard.auth.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -15,16 +17,29 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 认证配置.
+ *
+ * @author sentinel
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
+ */
 @Configuration
+@RequiredArgsConstructor
 @EnableConfigurationProperties(AuthProperties.class)
 public class AuthConfiguration {
 
+    /**
+     * 注入配置属性，用于控制认证服务的行为.
+     */
     private final AuthProperties authProperties;
 
-    public AuthConfiguration(AuthProperties authProperties) {
-        this.authProperties = authProperties;
-    }
-
+    /**
+     * 根据配置提供适当的认证服务实现.
+     *
+     * @return AuthService<HttpServletRequest>的实现，具体取决于认证功能是否已启用
+     */
     @Bean
     @ConditionalOnMissingBean
     public AuthService<HttpServletRequest> httpServletRequestAuthService() {
@@ -34,16 +49,27 @@ public class AuthConfiguration {
         return new FakeAuthServiceImpl();
     }
 
+    /**
+     * 创建并配置登录认证过滤器.
+     *
+     * @param httpServletRequestAuthService 认证服务，用于处理登录请求
+     * @return 初始化并配置好的登录认证过滤器
+     */
     @Bean
     @ConditionalOnMissingBean
     public LoginAuthenticationFilter loginAuthenticationFilter(AuthService<HttpServletRequest> httpServletRequestAuthService) {
         return new DefaultLoginAuthenticationFilter(httpServletRequestAuthService);
     }
 
+    /**
+     * 创建并配置授权拦截器.
+     *
+     * @param httpServletRequestAuthService 认证服务，用于请求的授权检查
+     * @return 初始化并配置好的授权拦截器
+     */
     @Bean
     @ConditionalOnMissingBean
     public AuthorizationInterceptor authorizationInterceptor(AuthService<HttpServletRequest> httpServletRequestAuthService) {
         return new DefaultAuthorizationInterceptor(httpServletRequestAuthService);
     }
-
 }

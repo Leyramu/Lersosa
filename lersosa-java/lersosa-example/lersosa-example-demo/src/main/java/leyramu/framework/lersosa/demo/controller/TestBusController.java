@@ -8,16 +8,16 @@
 
 package leyramu.framework.lersosa.demo.controller;
 
+import leyramu.framework.lersosa.workflow.api.domain.event.ProcessEvent;
+import leyramu.framework.lersosa.workflow.api.domain.event.ProcessTaskEvent;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * 测试消息总线
- * <p>
- * 需要在pom引入 lersosa-api-workflow 模块 并解除下方代码注释
- * 然后提交请假申请即可看到监听器输出日志
+ * 测试消息总线.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,14 +28,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/bus")
 public class TestBusController {
 
-//    @EventListener(condition = "#processEvent.key.startsWith('leave')")
-//    public void processHandler(ProcessEvent processEvent) {
-//        log.info(processEvent.toString());
-//    }
-//
-//    @EventListener(condition = "#processTaskEvent.key=='leave1' && #processTaskEvent.taskDefinitionKey=='Activity_14633hx'")
-//    public void processTaskHandler(ProcessTaskEvent processTaskEvent) {
-//        log.info(processTaskEvent.toString());
-//    }
+    @EventListener(condition = "#processEvent.key.startsWith('leave')")
+    public void processHandler(ProcessEvent processEvent) {
+        log.info(processEvent.toString());
+    }
 
+    @EventListener(condition = "#processTaskEvent.key=='leave1' && #processTaskEvent.taskDefinitionKey=='Activity_14633hx'")
+    public void processTaskHandler(ProcessTaskEvent processTaskEvent) {
+        log.info(processTaskEvent.toString());
+    }
 }

@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Excel相关处理
+ * Excel相关处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -46,18 +46,18 @@ import java.util.Map;
 public class ExcelUtil {
 
     /**
-     * 同步导入(适用于小数据量)
+     * 同步导入(适用于小数据量).
      *
      * @param is 输入流
      * @return 转换后集合
      */
+    @SuppressWarnings("unused")
     public static <T> List<T> importExcel(InputStream is, Class<T> clazz) {
         return EasyExcel.read(is).head(clazz).autoCloseStream(false).sheet().doReadSync();
     }
 
-
     /**
-     * 使用校验监听器 异步导入 同步返回
+     * 使用校验监听器 异步导入 同步返回.
      *
      * @param is         输入流
      * @param clazz      对象类型
@@ -71,7 +71,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 使用自定义监听器 异步导入 自定义返回
+     * 使用自定义监听器 异步导入 自定义返回.
      *
      * @param is       输入流
      * @param clazz    对象类型
@@ -84,7 +84,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 导出excel
+     * 导出excel.
      *
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -102,7 +102,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 导出excel
+     * 导出excel.
      *
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -121,7 +121,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 导出excel
+     * 导出excel.
      *
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -140,7 +140,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 导出excel
+     * 导出excel.
      *
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -160,7 +160,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 导出excel
+     * 导出excel.
      *
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -172,7 +172,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 导出excel
+     * 导出excel.
      *
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -185,7 +185,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 导出excel
+     * 导出excel.
      *
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -193,8 +193,10 @@ public class ExcelUtil {
      * @param merge     是否合并单元格
      * @param os        输出流
      */
-    public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz, boolean merge,
-                                       OutputStream os, List<DropDownOptions> options) {
+    public static <T> void exportExcel(
+        List<T> list, String sheetName,
+        Class<T> clazz, boolean merge,
+        OutputStream os, List<DropDownOptions> options) {
         ExcelWriterSheetBuilder builder = EasyExcel.write(os, clazz)
             .autoCloseStream(false)
             // 自动适配
@@ -212,7 +214,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 单表多数据模板导出 模板格式为 {.属性}
+     * 单表多数据模板导出 模板格式为 {.属性}.
      *
      * @param filename     文件名
      * @param templatePath 模板路径 resource 目录下的路径包括模板文件名
@@ -232,7 +234,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 单表多数据模板导出 模板格式为 {.属性}
+     * 单表多数据模板导出 模板格式为 {.属性}.
      *
      * @param templatePath 模板路径 resource 目录下的路径包括模板文件名
      *                     例如: excel/temp.xlsx
@@ -260,7 +262,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 多表多数据模板导出 模板格式为 {key.属性}
+     * 多表多数据模板导出 模板格式为 {key.属性}.
      *
      * @param filename     文件名
      * @param templatePath 模板路径 resource 目录下的路径包括模板文件名
@@ -280,7 +282,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 多sheet模板导出 模板格式为 {key.属性}
+     * 多sheet模板导出 模板格式为 {key.属性}.
      *
      * @param filename     文件名
      * @param templatePath 模板路径 resource 目录下的路径包括模板文件名
@@ -300,7 +302,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 多表多数据模板导出 模板格式为 {key.属性}
+     * 多表多数据模板导出 模板格式为 {key.属性}.
      *
      * @param templatePath 模板路径 resource 目录下的路径包括模板文件名
      *                     例如: excel/temp.xlsx
@@ -334,7 +336,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 多sheet模板导出 模板格式为 {key.属性}
+     * 多sheet模板导出 模板格式为 {key.属性}.
      *
      * @param templatePath 模板路径 resource 目录下的路径包括模板文件名
      *                     例如: excel/temp.xlsx
@@ -370,7 +372,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 重置响应体
+     * 重置响应体.
      */
     private static void resetResponse(String sheetName, HttpServletResponse response) throws UnsupportedEncodingException {
         String filename = encodingFilename(sheetName);
@@ -379,7 +381,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 解析导出值 0=男,1=女,2=未知
+     * 解析导出值 0=男,1=女,2=未知.
      *
      * @param propertyValue 参数值
      * @param converterExp  翻译注解
@@ -394,7 +396,7 @@ public class ExcelUtil {
             if (StringUtils.containsAny(propertyValue, separator)) {
                 for (String value : propertyValue.split(separator)) {
                     if (itemArray[0].equals(value)) {
-                        propertyString.append(itemArray[1] + separator);
+                        propertyString.append(itemArray[1]).append(separator);
                         break;
                     }
                 }
@@ -408,7 +410,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 反向解析值 男=0,女=1,未知=2
+     * 反向解析值 男=0,女=1,未知=2.
      *
      * @param propertyValue 参数值
      * @param converterExp  翻译注解
@@ -423,7 +425,7 @@ public class ExcelUtil {
             if (StringUtils.containsAny(propertyValue, separator)) {
                 for (String value : propertyValue.split(separator)) {
                     if (itemArray[1].equals(value)) {
-                        propertyString.append(itemArray[0] + separator);
+                        propertyString.append(itemArray[0]).append(separator);
                         break;
                     }
                 }
@@ -437,10 +439,9 @@ public class ExcelUtil {
     }
 
     /**
-     * 编码文件名
+     * 编码文件名.
      */
     public static String encodingFilename(String filename) {
         return IdUtil.fastSimpleUUID() + "_" + filename + ".xlsx";
     }
-
 }

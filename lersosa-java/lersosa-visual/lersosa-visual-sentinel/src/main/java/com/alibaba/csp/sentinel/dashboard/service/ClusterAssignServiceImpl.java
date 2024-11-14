@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.service;
 
 import com.alibaba.csp.sentinel.cluster.ClusterStateManager;
@@ -19,9 +20,8 @@ import com.alibaba.csp.sentinel.dashboard.domain.cluster.state.ClusterUniversalS
 import com.alibaba.csp.sentinel.dashboard.util.MachineUtils;
 import com.alibaba.csp.sentinel.util.AssertUtil;
 import com.alibaba.csp.sentinel.util.function.Tuple2;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -31,20 +31,23 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
+ * 集群分配服务实现.
+ *
  * @author Eric Zhao
- * @since 1.4.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class ClusterAssignServiceImpl implements ClusterAssignService {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(ClusterAssignServiceImpl.class);
+    private final SentinelApiClient sentinelApiClient;
 
-    @Autowired
-    private SentinelApiClient sentinelApiClient;
-    @Autowired
-    private ClusterConfigService clusterConfigService;
+    private final ClusterConfigService clusterConfigService;
 
-    private boolean isMachineInApp(/*@NonEmpty*/ String machineId) {
+    private boolean isMachineInApp(String machineId) {
         return machineId.contains(":");
     }
 
@@ -59,11 +62,10 @@ public class ClusterAssignServiceImpl implements ClusterAssignService {
                     e.getState().getClient().getClientConfig().getServerPort()))
                 .map(e -> e.getIp() + '@' + e.getCommandPort())
                 .collect(Collectors.toSet());
-            // Modify mode to NOT-STARTED for all associated token clients.
             modifyToNonStarted(toModifySet, failedSet);
         } catch (Exception ex) {
             Throwable e = ex instanceof ExecutionException ? ex.getCause() : ex;
-            LOGGER.error("Failed to unbind machine <{}>", machineId, e);
+            log.error("Failed to unbind machine <{}>", machineId, e);
             failedSet.add(machineId);
         }
         return new ClusterAppAssignResultVO()
@@ -100,11 +102,10 @@ public class ClusterAssignServiceImpl implements ClusterAssignService {
             if (entity.getClientSet() != null) {
                 toModifySet.addAll(entity.getClientSet());
             }
-            // Modify mode to NOT-STARTED for all chosen token servers and associated token clients.
             modifyToNonStarted(toModifySet, failedSet);
         } catch (Exception ex) {
             Throwable e = ex instanceof ExecutionException ? ex.getCause() : ex;
-            LOGGER.error("Failed to unbind machine <{}>", machineId, e);
+            log.error("Failed to unbind machine <{}>", machineId, e);
             failedSet.add(machineId);
         }
         return new ClusterAppAssignResultVO()
@@ -128,14 +129,15 @@ public class ClusterAssignServiceImpl implements ClusterAssignService {
     }
 
     @Override
-    public ClusterAppAssignResultVO applyAssignToApp(String app, List<ClusterAppAssignMap> clusterMap,
-                                                     Set<String> remainingSet) {
+    public ClusterAppAssignResultVO applyAssignToApp(
+        String app,
+        List<ClusterAppAssignMap> clusterMap,
+        Set<String> remainingSet) {
         AssertUtil.assertNotBlank(app, "app cannot be blank");
         AssertUtil.notNull(clusterMap, "clusterMap cannot be null");
         Set<String> failedServerSet = new HashSet<>();
         Set<String> failedClientSet = new HashSet<>();
 
-        // Assign server and apply config.
         clusterMap.stream()
             .filter(Objects::nonNull)
             .filter(ClusterAppAssignMap::getBelongToApp)
@@ -148,12 +150,10 @@ public class ClusterAssignServiceImpl implements ClusterAssignService {
             })
             .forEach(t -> handleFutureSync(t, failedServerSet));
 
-        // Assign client of servers and apply config.
         clusterMap.parallelStream()
             .filter(Objects::nonNull)
             .forEach(e -> applyAllClientConfigChange(app, e, failedClientSet));
 
-        // Unbind remaining (unassigned) machines.
         applyAllRemainingMachineSet(app, remainingSet, failedClientSet);
 
         return new ClusterAppAssignResultVO()
@@ -161,7 +161,7 @@ public class ClusterAssignServiceImpl implements ClusterAssignService {
             .setFailedServerSet(failedServerSet);
     }
 
-    private void applyAllRemainingMachineSet(String app, Set<String> remainingSet, Set<String> failedSet) {
+    private void applyAllRemainingMachineSet(String ignoredApp, Set<String> remainingSet, Set<String> failedSet) {
         if (remainingSet == null || remainingSet.isEmpty()) {
             return;
         }
@@ -209,9 +209,9 @@ public class ClusterAssignServiceImpl implements ClusterAssignService {
             t.r2.get(10, TimeUnit.SECONDS);
         } catch (Exception ex) {
             if (ex instanceof ExecutionException) {
-                LOGGER.error("Request for <{}> failed", t.r1, ex.getCause());
+                log.error("Request for <{}> failed", t.r1, ex.getCause());
             } else {
-                LOGGER.error("Request for <{}> failed", t.r1, ex);
+                log.error("Request for <{}> failed", t.r1, ex);
             }
             failedSet.add(t.r1);
         }

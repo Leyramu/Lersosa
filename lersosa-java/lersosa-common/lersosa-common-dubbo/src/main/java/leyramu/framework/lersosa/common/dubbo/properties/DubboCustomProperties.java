@@ -14,7 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
- * 自定义配置
+ * 自定义配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,13 +26,12 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 public class DubboCustomProperties {
 
     /**
-     * 是否开启请求日志记录
+     * 是否开启请求日志记录.
      */
     private Boolean requestLog;
 
     /**
-     * 日志级别
+     * 日志级别.
      */
     private RequestLogEnum logLevel;
-
 }

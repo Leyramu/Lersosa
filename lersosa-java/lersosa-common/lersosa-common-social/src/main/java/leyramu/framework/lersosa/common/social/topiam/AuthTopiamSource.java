@@ -12,7 +12,7 @@ import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.request.AuthDefaultRequest;
 
 /**
- * Oauth2 默认接口说明
+ * Oauth2 默认接口说明.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -21,11 +21,11 @@ import me.zhyd.oauth.request.AuthDefaultRequest;
 public enum AuthTopiamSource implements AuthSource {
 
     /**
-     * 测试
+     * 测试.
      */
     TOPIAM {
         /**
-         * 授权的api
+         * 授权的api.
          */
         @Override
         public String authorize() {
@@ -33,7 +33,7 @@ public enum AuthTopiamSource implements AuthSource {
         }
 
         /**
-         * 获取accessToken的api
+         * 获取accessToken的api.
          */
         @Override
         public String accessToken() {
@@ -41,7 +41,7 @@ public enum AuthTopiamSource implements AuthSource {
         }
 
         /**
-         * 获取用户信息的api
+         * 获取用户信息的api.
          */
         @Override
         public String userInfo() {
@@ -49,12 +49,11 @@ public enum AuthTopiamSource implements AuthSource {
         }
 
         /**
-         * 平台对应的 AuthRequest 实现类，必须继承自 {@link AuthDefaultRequest}
+         * 平台对应的 AuthRequest 实现类，必须继承自 {@link AuthDefaultRequest}.
          */
         @Override
         public Class<? extends AuthDefaultRequest> getTargetClass() {
             return AuthTopIamRequest.class;
         }
-
     }
 }

@@ -18,7 +18,7 @@ import leyramu.framework.lersosa.system.api.model.XcxLoginUser;
 import java.util.List;
 
 /**
- * 用户服务
+ * 用户服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,7 +27,7 @@ import java.util.List;
 public interface RemoteUserService {
 
     /**
-     * 通过用户名查询用户信息
+     * 通过用户名查询用户信息.
      *
      * @param username 用户名
      * @param tenantId 租户id
@@ -36,7 +36,7 @@ public interface RemoteUserService {
     LoginUser getUserInfo(String username, String tenantId) throws UserException;
 
     /**
-     * 通过用户id查询用户信息
+     * 通过用户id查询用户信息.
      *
      * @param userId   用户id
      * @param tenantId 租户id
@@ -45,7 +45,7 @@ public interface RemoteUserService {
     LoginUser getUserInfo(Long userId, String tenantId) throws UserException;
 
     /**
-     * 通过手机号查询用户信息
+     * 通过手机号查询用户信息.
      *
      * @param phonenumber 手机号
      * @param tenantId    租户id
@@ -54,7 +54,7 @@ public interface RemoteUserService {
     LoginUser getUserInfoByPhonenumber(String phonenumber, String tenantId) throws UserException;
 
     /**
-     * 通过邮箱查询用户信息
+     * 通过邮箱查询用户信息.
      *
      * @param email    邮箱
      * @param tenantId 租户id
@@ -63,7 +63,7 @@ public interface RemoteUserService {
     LoginUser getUserInfoByEmail(String email, String tenantId) throws UserException;
 
     /**
-     * 通过openid查询用户信息
+     * 通过openid查询用户信息.
      *
      * @param openid openid
      * @return 结果
@@ -71,7 +71,7 @@ public interface RemoteUserService {
     XcxLoginUser getUserInfoByOpenid(String openid) throws UserException;
 
     /**
-     * 注册用户信息
+     * 注册用户信息.
      *
      * @param remoteUserBo 用户信息
      * @return 结果
@@ -79,7 +79,7 @@ public interface RemoteUserService {
     Boolean registerUserInfo(RemoteUserBo remoteUserBo) throws UserException, ServiceException;
 
     /**
-     * 通过userId查询用户账户
+     * 通过userId查询用户账户.
      *
      * @param userId 用户id
      * @return 结果
@@ -87,15 +87,16 @@ public interface RemoteUserService {
     String selectUserNameById(Long userId);
 
     /**
-     * 通过用户ID查询用户昵称
+     * 通过用户ID查询用户昵称.
      *
      * @param userId 用户id
      * @return 结果
      */
+    @SuppressWarnings("unused")
     String selectNicknameById(Long userId);
 
     /**
-     * 通过用户ID查询用户账户
+     * 通过用户ID查询用户账户.
      *
      * @param userIds 用户ID 多个用逗号隔开
      * @return 用户名称
@@ -103,23 +104,25 @@ public interface RemoteUserService {
     String selectNicknameByIds(String userIds);
 
     /**
-     * 通过用户ID查询用户手机号
+     * 通过用户ID查询用户手机号.
      *
      * @param userId 用户id
      * @return 用户手机号
      */
+    @SuppressWarnings("unused")
     String selectPhonenumberById(Long userId);
 
     /**
-     * 通过用户ID查询用户邮箱
+     * 通过用户ID查询用户邮箱.
      *
      * @param userId 用户id
      * @return 用户邮箱
      */
+    @SuppressWarnings("unused")
     String selectEmailById(Long userId);
 
     /**
-     * 更新用户信息
+     * 更新用户信息.
      *
      * @param userId 用户ID
      * @param ip     IP地址
@@ -127,7 +130,7 @@ public interface RemoteUserService {
     void recordLoginInfo(Long userId, String ip);
 
     /**
-     * 通过用户ID查询用户列表
+     * 通过用户ID查询用户列表.
      *
      * @param userIds 用户ids
      * @return 用户列表
@@ -135,7 +138,7 @@ public interface RemoteUserService {
     List<RemoteUserVo> selectListByIds(List<Long> userIds);
 
     /**
-     * 通过角色ID查询用户ID
+     * 通过角色ID查询用户ID.
      *
      * @param roleIds 角色ids
      * @return 用户ids

@@ -5,60 +5,91 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.cluster.state;
 
+import lombok.Data;
+
 /**
+ * App 集群客户端.
+ *
  * @author Eric Zhao
- * @since 1.4.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class AppClusterClientStateWrapVO {
 
     /**
-     * {ip}@{transport_command_port}.
+     * 客户端 ID.
      */
     private String id;
 
+    /**
+     * 命令端口.
+     */
     private Integer commandPort;
+
+    /**
+     * 客户端 IP.
+     */
     private String ip;
 
+    /**
+     * 客户端状态.
+     */
     private ClusterClientStateVO state;
 
-    public String getId() {
-        return id;
-    }
-
+    /**
+     * 设置客户端 ID.
+     *
+     * @param id 客户端 ID
+     * @return 客户端状态包装对象
+     */
     public AppClusterClientStateWrapVO setId(String id) {
         this.id = id;
         return this;
     }
 
-    public String getIp() {
-        return ip;
-    }
-
+    /**
+     * 设置客户端 IP.
+     *
+     * @param ip 客户端 IP
+     * @return 客户端状态包装对象
+     */
     public AppClusterClientStateWrapVO setIp(String ip) {
         this.ip = ip;
         return this;
     }
 
-    public ClusterClientStateVO getState() {
-        return state;
-    }
-
+    /**
+     * 设置客户端状态.
+     *
+     * @param state 客户端状态
+     * @return 客户端状态包装对象
+     */
     public AppClusterClientStateWrapVO setState(ClusterClientStateVO state) {
         this.state = state;
         return this;
     }
 
-    public Integer getCommandPort() {
-        return commandPort;
-    }
-
+    /**
+     * 设置命令端口.
+     *
+     * @param commandPort 命令端口
+     * @return 客户端状态包装对象
+     */
     public AppClusterClientStateWrapVO setCommandPort(Integer commandPort) {
         this.commandPort = commandPort;
         return this;
     }
 
+    /**
+     * 重写 toString 方法.
+     *
+     * @return 客户端状态包装对象的字符串表示形式
+     */
     @Override
     public String toString() {
         return "AppClusterClientStateWrapVO{" +

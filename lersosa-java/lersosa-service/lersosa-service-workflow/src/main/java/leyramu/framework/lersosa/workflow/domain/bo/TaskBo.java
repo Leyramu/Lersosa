@@ -14,7 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 任务请求对象
+ * 任务请求对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,17 +27,17 @@ public class TaskBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 任务名称
+     * 任务名称.
      */
     private String name;
 
     /**
-     * 流程定义名称
+     * 流程定义名称.
      */
     private String processDefinitionName;
 
     /**
-     * 流程定义key
+     * 流程定义key.
      */
     private String processDefinitionKey;
 }

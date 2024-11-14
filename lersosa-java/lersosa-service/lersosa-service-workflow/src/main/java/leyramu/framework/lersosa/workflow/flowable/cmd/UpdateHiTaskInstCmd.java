@@ -20,7 +20,7 @@ import java.util.List;
 
 
 /**
- * 修改流程历史
+ * 修改流程历史.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

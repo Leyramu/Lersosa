@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.util;
 
 import com.alibaba.csp.sentinel.cluster.ClusterStateManager;
@@ -12,17 +13,20 @@ import com.alibaba.csp.sentinel.dashboard.domain.cluster.ClusterGroupEntity;
 import com.alibaba.csp.sentinel.dashboard.domain.cluster.ConnectionGroupVO;
 import com.alibaba.csp.sentinel.dashboard.domain.cluster.state.*;
 import com.alibaba.csp.sentinel.util.StringUtil;
+import lombok.NoArgsConstructor;
 
 import java.util.*;
 
 /**
+ * 集群实体实用程序.
+ *
  * @author Eric Zhao
- * @since 1.4.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@NoArgsConstructor
 public final class ClusterEntityUtils {
-
-    private ClusterEntityUtils() {
-    }
 
     public static List<AppClusterServerStateWrapVO> wrapToAppClusterServerState(
         List<ClusterUniversalStatePairVO> list) {
@@ -31,7 +35,6 @@ public final class ClusterEntityUtils {
         }
         Map<String, AppClusterServerStateWrapVO> map = new HashMap<>();
         Set<String> tokenServerSet = new HashSet<>();
-        // Handle token servers that belong to current app.
         for (ClusterUniversalStatePairVO stateVO : list) {
             int mode = stateVO.getState().getStateInfo().getMode();
 
@@ -53,7 +56,6 @@ public final class ClusterEntityUtils {
                 tokenServerSet.add(ip + ":" + serverStateVO.getPort());
             }
         }
-        // Handle token servers from other app.
         for (ClusterUniversalStatePairVO stateVO : list) {
             int mode = stateVO.getState().getStateInfo().getMode();
 
@@ -67,7 +69,6 @@ public final class ClusterEntityUtils {
                 if (tokenServerSet.contains(serverIp + ":" + serverPort)) {
                     continue;
                 }
-                // We are not able to get the commandPort of foreign token server directly.
                 String serverId = String.format("%s:%d", serverIp, serverPort);
                 map.computeIfAbsent(serverId, v -> new AppClusterServerStateWrapVO()
                     .setId(serverId)

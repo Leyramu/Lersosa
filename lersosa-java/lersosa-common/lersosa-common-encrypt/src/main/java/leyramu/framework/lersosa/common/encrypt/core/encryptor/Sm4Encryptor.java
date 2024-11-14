@@ -14,7 +14,7 @@ import leyramu.framework.lersosa.common.encrypt.enumd.EncodeType;
 import leyramu.framework.lersosa.common.encrypt.utils.EncryptUtils;
 
 /**
- * sm4算法实现
+ * sm4算法实现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,7 +30,7 @@ public class Sm4Encryptor extends AbstractEncryptor {
     }
 
     /**
-     * 获得当前算法
+     * 获得当前算法.
      */
     @Override
     public AlgorithmType algorithm() {
@@ -38,7 +38,7 @@ public class Sm4Encryptor extends AbstractEncryptor {
     }
 
     /**
-     * 加密
+     * 加密.
      *
      * @param value      待加密字符串
      * @param encodeType 加密后的编码格式
@@ -53,7 +53,7 @@ public class Sm4Encryptor extends AbstractEncryptor {
     }
 
     /**
-     * 解密
+     * 解密.
      *
      * @param value 待加密字符串
      */

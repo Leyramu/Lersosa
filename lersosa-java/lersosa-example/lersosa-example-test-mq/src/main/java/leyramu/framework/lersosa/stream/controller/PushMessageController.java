@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 推送消息
+ * 推送消息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -39,7 +39,7 @@ public class PushMessageController {
     private KafkaNormalProducer normalKafkaProducer;
 
     /**
-     * rabbitmq 普通消息
+     * rabbitmq 普通消息.
      */
     @GetMapping("/rabbit/send")
     public void rabbitSend() {
@@ -47,7 +47,7 @@ public class PushMessageController {
     }
 
     /**
-     * rabbitmq 延迟队列消息
+     * rabbitmq 延迟队列消息.
      */
     @GetMapping("/rabbit/sendDelay")
     public void rabbitSendDelay(long delay) {
@@ -55,8 +55,7 @@ public class PushMessageController {
     }
 
     /**
-     * rocketmq 发送消息
-     * 需要手动创建相关的Topic和group
+     * rocketmq 发送消息.
      */
     @GetMapping("/rocket/send")
     public void rocketSend() {
@@ -64,7 +63,7 @@ public class PushMessageController {
     }
 
     /**
-     * rocketmq 事务消息
+     * rocketmq 事务消息.
      */
     @GetMapping("/rocket/transaction")
     public void rocketTransaction() {
@@ -72,7 +71,7 @@ public class PushMessageController {
     }
 
     /**
-     * kafka 发送消息
+     * kafka 发送消息.
      */
     @GetMapping("/kafka/send")
     public void kafkaSend() {

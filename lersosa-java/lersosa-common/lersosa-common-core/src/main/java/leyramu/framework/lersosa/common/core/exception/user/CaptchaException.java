@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.common.core.exception.user;
 import java.io.Serial;
 
 /**
- * 验证码错误异常类
+ * 验证码错误异常类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,6 +25,7 @@ public class CaptchaException extends UserException {
         super("user.jcaptcha.error");
     }
 
+    @SuppressWarnings("unused")
     public CaptchaException(String msg) {
         super(msg);
     }

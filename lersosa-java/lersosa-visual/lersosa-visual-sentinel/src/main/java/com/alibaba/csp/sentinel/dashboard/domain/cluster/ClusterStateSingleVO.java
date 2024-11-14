@@ -5,38 +5,35 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.cluster;
 
+import lombok.Data;
+
 /**
+ * 集群状态单 VO.
+ *
  * @author Eric Zhao
- * @since 1.4.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@SuppressWarnings("unused")
 public class ClusterStateSingleVO {
 
     private String address;
     private Integer mode;
     private String target;
 
-    public String getAddress() {
-        return address;
-    }
-
     public ClusterStateSingleVO setAddress(String address) {
         this.address = address;
         return this;
     }
 
-    public Integer getMode() {
-        return mode;
-    }
-
     public ClusterStateSingleVO setMode(Integer mode) {
         this.mode = mode;
         return this;
-    }
-
-    public String getTarget() {
-        return target;
     }
 
     public ClusterStateSingleVO setTarget(String target) {

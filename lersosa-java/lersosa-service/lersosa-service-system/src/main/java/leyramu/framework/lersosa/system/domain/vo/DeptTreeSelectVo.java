@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 角色部门列表树信息
+ * 角色部门列表树信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,13 +29,12 @@ public class DeptTreeSelectVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 选中部门列表
+     * 选中部门列表.
      */
     private List<Long> checkedKeys;
 
     /**
-     * 下拉树结构列表
+     * 下拉树结构列表.
      */
     private List<Tree<Long>> depts;
-
 }

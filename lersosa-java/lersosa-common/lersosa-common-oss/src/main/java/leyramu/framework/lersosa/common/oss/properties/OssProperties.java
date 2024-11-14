@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.common.oss.properties;
 import lombok.Data;
 
 /**
- * OSS对象存储 配置属性
+ * OSS对象存储 配置属性.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -21,53 +21,52 @@ import lombok.Data;
 public class OssProperties {
 
     /**
-     * 租户id
+     * 租户id.
      */
     private String tenantId;
 
     /**
-     * 访问站点
+     * 访问站点.
      */
     private String endpoint;
 
     /**
-     * 自定义域名
+     * 自定义域名.
      */
     private String domain;
 
     /**
-     * 前缀
+     * 前缀.
      */
     private String prefix;
 
     /**
-     * ACCESS_KEY
+     * ACCESS_KEY.
      */
     private String accessKey;
 
     /**
-     * SECRET_KEY
+     * SECRET_KEY.
      */
     private String secretKey;
 
     /**
-     * 存储空间名
+     * 存储空间名.
      */
     private String bucketName;
 
     /**
-     * 存储区域
+     * 存储区域.
      */
     private String region;
 
     /**
-     * 是否https（Y=是,N=否）
+     * 是否https（Y=是,N=否）.
      */
     private String isHttps;
 
     /**
-     * 桶权限类型(0private 1public 2custom)
+     * 桶权限类型(0private 1public 2custom).
      */
     private String accessPolicy;
-
 }

@@ -5,100 +5,101 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.auth;
 
 /**
- * Interface for authentication and authorization.
+ * 用于身份验证和授权的接口.
  *
  * @author Carpenter Lee
- * @since 1.5.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
 public interface AuthService<R> {
 
     /**
-     * Get the authentication user.
+     * 获取鉴权用户.
      *
-     * @param request the request contains the user information
-     * @return the auth user represent the current user, when the user is illegal, a null value will return.
+     * @param request 请求包含用户信息
+     * @return auth 用户代表当前用户，当用户不合法时，会返回 null 值.
      */
     AuthUser getAuthUser(R request);
 
     /**
-     * Privilege type.
+     * 权限类型.
      */
     enum PrivilegeType {
         /**
-         * Read rule
+         * 读取规则.
          */
         READ_RULE,
+
         /**
-         * Create or modify rule
+         * 创建或修改规则.
          */
         WRITE_RULE,
+
         /**
-         * Delete rule
+         * 删除规则.
          */
         DELETE_RULE,
+
         /**
-         * Read metrics
+         * 读取指标.
          */
         READ_METRIC,
+
         /**
-         * Add machine
+         * 添加机器.
          */
         ADD_MACHINE,
+
         /**
-         * All privileges above are granted.
+         * 授予以上所有权限.
          */
         ALL
     }
 
     /**
-     * Represents the current user.
+     * 表示当前用户.
      */
     interface AuthUser {
 
         /**
-         * Query whether current user has the specific privilege to the target, the target
-         * may be an app name or an ip address, or other destination.
-         * <p>
-         * This method will use return value to represent  whether user has the specific
-         * privileges to the target, but to throw a RuntimeException to represent no auth
-         * is also a good way.
-         * </p>
+         * 查询当前用户是否对 target 有特定的权限.
          *
-         * @param target        the target to check
-         * @param privilegeType the privilege type to check
-         * @return if current user has the specific privileges to the target, return true,
-         * otherwise return false.
+         * @param target        要检查的目标
+         * @param privilegeType 要检查的权限类型
+         * @return 如果当前用户具有目标的特定权限，则返回 true，否则返回 false
          */
         boolean authTarget(String target, PrivilegeType privilegeType);
 
         /**
-         * Check whether current user is a super-user.
+         * 检查当前用户是否为超级用户.
          *
-         * @return if current user is super user return true, else return false.
+         * @return 如果当前用户是超级用户，则返回 true，否则返回 false
          */
         boolean isSuperUser();
 
         /**
-         * Get current user's nick name.
+         * 获取当前用户的昵称.
          *
-         * @return current user's nick name.
+         * @return 当前用户的昵称
          */
         String getNickName();
 
         /**
-         * Get current user's login name.
+         * 获取当前用户的登录名.
          *
-         * @return current user's login name.
+         * @return 当前用户的登录名
          */
         String getLoginName();
 
         /**
-         * Get current user's ID.
+         * 获取当前用户的 ID.
          *
-         * @return ID of current user
+         * @return 当前用户的 ID
          */
         String getId();
     }

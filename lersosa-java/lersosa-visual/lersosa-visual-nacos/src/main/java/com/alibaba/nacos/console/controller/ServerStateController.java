@@ -29,9 +29,12 @@ import java.util.Map;
 import static com.alibaba.nacos.common.utils.StringUtils.*;
 
 /**
- * Server state controller.
+ * 服务器状态控制器.
  *
- * @author xingxuechao on:2019/2/27 11:17 AM
+ * @author xingxuechao
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 1.0.0
+ * @since 2024/11/13
  */
 @RestController
 @RequestMapping("/v1/console/server")
@@ -43,9 +46,9 @@ public class ServerStateController {
     private static final String GUIDE_FILE = "console-guide.conf";
 
     /**
-     * Get server state of current server.
+     * 获取当前服务器的服务器状态.
      *
-     * @return state json.
+     * @return 状态 JSON
      */
     @GetMapping("/state")
     public ResponseEntity<Map<String, String>> serverState() {

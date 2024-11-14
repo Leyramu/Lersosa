@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.common.excel.core;
 import com.alibaba.excel.read.listener.ReadListener;
 
 /**
- * Excel 导入监听
+ * Excel 导入监听.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -20,5 +20,4 @@ import com.alibaba.excel.read.listener.ReadListener;
 public interface ExcelListener<T> extends ReadListener<T> {
 
     ExcelResult<T> getExcelResult();
-
 }

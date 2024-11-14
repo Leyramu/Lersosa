@@ -15,7 +15,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * OSS对象存储分页查询对象 sys_oss
+ * OSS对象存储分页查询对象 sys_oss.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,33 +27,32 @@ import lombok.EqualsAndHashCode;
 public class SysOssBo extends BaseEntity {
 
     /**
-     * ossId
+     * ossId.
      */
     private Long ossId;
 
     /**
-     * 文件名
+     * 文件名.
      */
     private String fileName;
 
     /**
-     * 原名
+     * 原名.
      */
     private String originalName;
 
     /**
-     * 文件后缀名
+     * 文件后缀名.
      */
     private String fileSuffix;
 
     /**
-     * URL地址
+     * URL地址.
      */
     private String url;
 
     /**
-     * 服务商
+     * 服务商.
      */
     private String service;
-
 }

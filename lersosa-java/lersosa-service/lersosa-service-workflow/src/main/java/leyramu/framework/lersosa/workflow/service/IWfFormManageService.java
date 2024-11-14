@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * 表单管理Service接口
+ * 表单管理Service接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,7 +26,7 @@ import java.util.List;
 public interface IWfFormManageService {
 
     /**
-     * 查询表单管理
+     * 查询表单管理.
      *
      * @param id 主键
      * @return 结果
@@ -34,7 +34,7 @@ public interface IWfFormManageService {
     WfFormManageVo queryById(Long id);
 
     /**
-     * 查询表单管理
+     * 查询表单管理.
      *
      * @param ids 主键
      * @return 结果
@@ -42,7 +42,7 @@ public interface IWfFormManageService {
     List<WfFormManageVo> queryByIds(List<Long> ids);
 
     /**
-     * 查询表单管理列表
+     * 查询表单管理列表.
      *
      * @param bo        参数
      * @param pageQuery 分页
@@ -51,14 +51,14 @@ public interface IWfFormManageService {
     TableDataInfo<WfFormManageVo> queryPageList(WfFormManageBo bo, PageQuery pageQuery);
 
     /**
-     * 查询表单管理列表
+     * 查询表单管理列表.
      *
      * @return 结果
      */
     List<WfFormManageVo> selectList();
 
     /**
-     * 查询表单管理列表
+     * 查询表单管理列表.
      *
      * @param bo 参数
      * @return 结果
@@ -66,7 +66,7 @@ public interface IWfFormManageService {
     List<WfFormManageVo> queryList(WfFormManageBo bo);
 
     /**
-     * 新增表单管理
+     * 新增表单管理.
      *
      * @param bo 参数
      * @return 结果
@@ -74,7 +74,7 @@ public interface IWfFormManageService {
     Boolean insertByBo(WfFormManageBo bo);
 
     /**
-     * 修改表单管理
+     * 修改表单管理.
      *
      * @param bo 参数
      * @return 结果
@@ -82,7 +82,7 @@ public interface IWfFormManageService {
     Boolean updateByBo(WfFormManageBo bo);
 
     /**
-     * 批量删除表单管理信息
+     * 批量删除表单管理信息.
      *
      * @param ids 主键
      * @return 结果

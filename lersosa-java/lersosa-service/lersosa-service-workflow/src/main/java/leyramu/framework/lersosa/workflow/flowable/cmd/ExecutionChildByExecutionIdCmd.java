@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 获取并行网关执行后保留的执行实例数据
+ * 获取并行网关执行后保留的执行实例数据.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,7 +28,7 @@ import java.util.List;
 public class ExecutionChildByExecutionIdCmd implements Command<List<ExecutionEntity>>, Serializable {
 
     /**
-     * 当前任务执行实例id
+     * 当前任务执行实例id.
      */
     private final String executionId;
 

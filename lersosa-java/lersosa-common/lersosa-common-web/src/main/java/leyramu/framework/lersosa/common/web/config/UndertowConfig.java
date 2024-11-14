@@ -17,7 +17,7 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.core.task.VirtualThreadTaskExecutor;
 
 /**
- * Undertow 自定义配置
+ * Undertow 自定义配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -41,5 +41,4 @@ public class UndertowConfig implements WebServerFactoryCustomizer<UndertowServle
             }
         });
     }
-
 }

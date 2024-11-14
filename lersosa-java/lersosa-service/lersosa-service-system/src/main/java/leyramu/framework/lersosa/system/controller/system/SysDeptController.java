@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 部门信息
+ * 部门信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -43,7 +43,7 @@ public class SysDeptController extends BaseController {
     private final ISysPostService postService;
 
     /**
-     * 获取部门列表
+     * 获取部门列表.
      */
     @SaCheckPermission("system:dept:list")
     @GetMapping("/list")
@@ -53,7 +53,7 @@ public class SysDeptController extends BaseController {
     }
 
     /**
-     * 查询部门列表（排除节点）
+     * 查询部门列表（排除节点）.
      *
      * @param deptId 部门ID
      */
@@ -67,7 +67,7 @@ public class SysDeptController extends BaseController {
     }
 
     /**
-     * 根据部门编号获取详细信息
+     * 根据部门编号获取详细信息.
      *
      * @param deptId 部门ID
      */
@@ -79,20 +79,20 @@ public class SysDeptController extends BaseController {
     }
 
     /**
-     * 新增部门
+     * 新增部门.
      */
     @SaCheckPermission("system:dept:add")
     @Log(title = "部门管理", businessType = BusinessType.INSERT)
     @PostMapping
     public R<Void> add(@Validated @RequestBody SysDeptBo dept) {
-        if (!deptService.checkDeptNameUnique(dept)) {
+        if (deptService.checkDeptNameUnique(dept)) {
             return R.fail("新增部门'" + dept.getDeptName() + "'失败，部门名称已存在");
         }
         return toAjax(deptService.insertDept(dept));
     }
 
     /**
-     * 修改部门
+     * 修改部门.
      */
     @SaCheckPermission("system:dept:edit")
     @Log(title = "部门管理", businessType = BusinessType.UPDATE)
@@ -100,7 +100,7 @@ public class SysDeptController extends BaseController {
     public R<Void> edit(@Validated @RequestBody SysDeptBo dept) {
         Long deptId = dept.getDeptId();
         deptService.checkDeptDataScope(deptId);
-        if (!deptService.checkDeptNameUnique(dept)) {
+        if (deptService.checkDeptNameUnique(dept)) {
             return R.fail("修改部门'" + dept.getDeptName() + "'失败，部门名称已存在");
         } else if (dept.getParentId().equals(deptId)) {
             return R.fail("修改部门'" + dept.getDeptName() + "'失败，上级部门不能是自己");
@@ -115,7 +115,7 @@ public class SysDeptController extends BaseController {
     }
 
     /**
-     * 删除部门
+     * 删除部门.
      *
      * @param deptId 部门ID
      */
@@ -137,7 +137,7 @@ public class SysDeptController extends BaseController {
     }
 
     /**
-     * 获取部门选择框列表
+     * 获取部门选择框列表.
      *
      * @param deptIds 部门ID串
      */
@@ -146,5 +146,4 @@ public class SysDeptController extends BaseController {
     public R<List<SysDeptVo>> optionselect(@RequestParam(required = false) Long[] deptIds) {
         return R.ok(deptService.selectDeptByIds(deptIds == null ? null : List.of(deptIds)));
     }
-
 }

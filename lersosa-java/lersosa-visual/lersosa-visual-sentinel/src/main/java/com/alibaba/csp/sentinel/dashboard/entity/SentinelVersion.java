@@ -5,12 +5,23 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.entity;
 
+import lombok.Data;
+
+import java.util.Objects;
+
 /**
+ * Sentinel 版本实体类。
+ *
  * @author Eric Zhao
- * @since 0.2.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@SuppressWarnings("unused")
 public class SentinelVersion {
     private int majorVersion;
     private int minorVersion;
@@ -32,15 +43,8 @@ public class SentinelVersion {
         this.postfix = postfix;
     }
 
-    /**
-     * 000, 000, 000
-     */
     public int getFullVersion() {
         return majorVersion * 1000000 + minorVersion * 1000 + fixVersion;
-    }
-
-    public int getMajorVersion() {
-        return majorVersion;
     }
 
     public SentinelVersion setMajorVersion(int majorVersion) {
@@ -48,26 +52,14 @@ public class SentinelVersion {
         return this;
     }
 
-    public int getMinorVersion() {
-        return minorVersion;
-    }
-
     public SentinelVersion setMinorVersion(int minorVersion) {
         this.minorVersion = minorVersion;
         return this;
     }
 
-    public int getFixVersion() {
-        return fixVersion;
-    }
-
     public SentinelVersion setFixVersion(int fixVersion) {
         this.fixVersion = fixVersion;
         return this;
-    }
-
-    public String getPostfix() {
-        return postfix;
     }
 
     public SentinelVersion setPostfix(String postfix) {
@@ -103,7 +95,7 @@ public class SentinelVersion {
         if (getFullVersion() != that.getFullVersion()) {
             return false;
         }
-        return postfix != null ? postfix.equals(that.postfix) : that.postfix == null;
+        return Objects.equals(postfix, that.postfix);
     }
 
     @Override

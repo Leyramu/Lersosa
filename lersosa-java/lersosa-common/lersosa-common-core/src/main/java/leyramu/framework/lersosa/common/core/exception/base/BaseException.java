@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serial;
 
 /**
- * 基础异常
+ * 基础异常.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,41 +29,46 @@ import java.io.Serial;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BaseException extends RuntimeException {
+
     @Serial
     private static final long serialVersionUID = 1L;
 
     /**
-     * 所属模块
+     * 所属模块.
      */
     private String module;
 
     /**
-     * 错误码
+     * 错误码.
      */
     private String code;
 
     /**
-     * 错误码对应的参数
+     * 错误码对应的参数.
      */
     private Object[] args;
 
     /**
-     * 错误消息
+     * 错误消息.
      */
     private String defaultMessage;
 
+    @SuppressWarnings("unused")
     public BaseException(String module, String code, Object[] args) {
         this(module, code, args, null);
     }
 
+    @SuppressWarnings("unused")
     public BaseException(String module, String defaultMessage) {
         this(module, null, null, defaultMessage);
     }
 
+    @SuppressWarnings("unused")
     public BaseException(String code, Object[] args) {
         this(null, code, args, null);
     }
 
+    @SuppressWarnings("unused")
     public BaseException(String defaultMessage) {
         this(null, null, null, defaultMessage);
     }
@@ -79,5 +84,4 @@ public class BaseException extends RuntimeException {
         }
         return message;
     }
-
 }

@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 代码生成 操作处理
+ * 代码生成 操作处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -47,7 +47,7 @@ public class GenController extends BaseController {
     private final IGenTableService genTableService;
 
     /**
-     * 查询代码生成列表
+     * 查询代码生成列表.
      */
     @SaCheckPermission("tool:gen:list")
     @GetMapping("/list")
@@ -56,7 +56,7 @@ public class GenController extends BaseController {
     }
 
     /**
-     * 修改代码生成业务
+     * 修改代码生成业务.
      *
      * @param tableId 表ID
      */
@@ -74,7 +74,7 @@ public class GenController extends BaseController {
     }
 
     /**
-     * 查询数据库列表
+     * 查询数据库列表.
      */
     @SaCheckPermission("tool:gen:list")
     @GetMapping("/db/list")
@@ -83,7 +83,7 @@ public class GenController extends BaseController {
     }
 
     /**
-     * 查询数据表字段列表
+     * 查询数据表字段列表.
      *
      * @param tableId 表ID
      */
@@ -98,7 +98,7 @@ public class GenController extends BaseController {
     }
 
     /**
-     * 导入表结构（保存）
+     * 导入表结构（保存）.
      *
      * @param tables 表名串
      */
@@ -114,7 +114,7 @@ public class GenController extends BaseController {
     }
 
     /**
-     * 修改保存代码生成业务
+     * 修改保存代码生成业务.
      */
     @SaCheckPermission("tool:gen:edit")
     @Log(title = "代码生成", businessType = BusinessType.UPDATE)
@@ -126,7 +126,7 @@ public class GenController extends BaseController {
     }
 
     /**
-     * 删除代码生成
+     * 删除代码生成.
      *
      * @param tableIds 表ID串
      */
@@ -139,19 +139,19 @@ public class GenController extends BaseController {
     }
 
     /**
-     * 预览代码
+     * 预览代码.
      *
      * @param tableId 表ID
      */
     @SaCheckPermission("tool:gen:preview")
     @GetMapping("/preview/{tableId}")
-    public R<Map<String, String>> preview(@PathVariable("tableId") Long tableId) throws IOException {
+    public R<Map<String, String>> preview(@PathVariable("tableId") Long tableId) {
         Map<String, String> dataMap = genTableService.previewCode(tableId);
         return R.ok(dataMap);
     }
 
     /**
-     * 生成代码（下载方式）
+     * 生成代码（下载方式）.
      *
      * @param tableId 表ID
      */
@@ -164,7 +164,7 @@ public class GenController extends BaseController {
     }
 
     /**
-     * 生成代码（自定义路径）
+     * 生成代码（自定义路径）.
      *
      * @param tableId 表ID
      */
@@ -177,7 +177,7 @@ public class GenController extends BaseController {
     }
 
     /**
-     * 同步数据库
+     * 同步数据库.
      *
      * @param tableId 表ID
      */
@@ -190,7 +190,7 @@ public class GenController extends BaseController {
     }
 
     /**
-     * 批量生成代码
+     * 批量生成代码.
      *
      * @param tableIdStr 表ID串
      */
@@ -204,7 +204,7 @@ public class GenController extends BaseController {
     }
 
     /**
-     * 生成zip文件
+     * 生成zip文件.
      */
     private void genCode(HttpServletResponse response, byte[] data) throws IOException {
         response.reset();
@@ -217,7 +217,7 @@ public class GenController extends BaseController {
     }
 
     /**
-     * 查询数据源名称列表
+     * 查询数据源名称列表.
      */
     @SaCheckPermission("tool:gen:list")
     @GetMapping(value = "/getDataNames")

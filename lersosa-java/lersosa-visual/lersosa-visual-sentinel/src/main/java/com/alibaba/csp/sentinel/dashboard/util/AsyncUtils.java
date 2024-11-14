@@ -5,10 +5,11 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,15 +18,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
+ * 异步工具类.
+ *
  * @author Eric Zhao
- * @since 1.4.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Slf4j
+@NoArgsConstructor
 public final class AsyncUtils {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AsyncUtils.class);
-
-    private AsyncUtils() {
-    }
 
     public static <R> CompletableFuture<R> newFailedFuture(Throwable ex) {
         CompletableFuture<R> future = new CompletableFuture<>();
@@ -33,6 +35,7 @@ public final class AsyncUtils {
         return future;
     }
 
+    @SuppressWarnings("unused")
     public static <R> CompletableFuture<List<R>> sequenceFuture(List<CompletableFuture<R>> futures) {
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
             .thenApply(v -> futures.stream()
@@ -54,12 +57,13 @@ public final class AsyncUtils {
         try {
             return future.get(10, TimeUnit.SECONDS);
         } catch (Exception ex) {
-            LOG.error("getValue for async result failed", ex);
+            log.error("getValue for async result failed", ex);
         }
         return null;
     }
 
-    public static boolean isSuccessFuture(CompletableFuture future) {
+    @SuppressWarnings("unused")
+    public static boolean isSuccessFuture(CompletableFuture<?> future) {
         return future.isDone() && !future.isCompletedExceptionally() && !future.isCancelled();
     }
 }

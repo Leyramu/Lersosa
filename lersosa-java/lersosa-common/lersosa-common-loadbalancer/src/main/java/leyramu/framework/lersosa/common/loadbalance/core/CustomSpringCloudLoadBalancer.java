@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * 自定义 SpringCloud 负载均衡算法
+ * 自定义 SpringCloud 负载均衡算法.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -47,8 +47,9 @@ public class CustomSpringCloudLoadBalancer implements ReactorServiceInstanceLoad
         return supplier.get(request).next().map(serviceInstances -> processInstanceResponse(supplier, serviceInstances));
     }
 
-    private Response<ServiceInstance> processInstanceResponse(ServiceInstanceListSupplier supplier,
-                                                              List<ServiceInstance> serviceInstances) {
+    private Response<ServiceInstance> processInstanceResponse(
+        ServiceInstanceListSupplier supplier,
+        List<ServiceInstance> serviceInstances) {
         Response<ServiceInstance> serviceInstanceResponse = getInstanceResponse(serviceInstances);
         if (supplier instanceof SelectedInstanceCallback && serviceInstanceResponse.hasServer()) {
             ((SelectedInstanceCallback) supplier).selectedServiceInstance(serviceInstanceResponse.getServer());
@@ -59,7 +60,7 @@ public class CustomSpringCloudLoadBalancer implements ReactorServiceInstanceLoad
     private Response<ServiceInstance> getInstanceResponse(List<ServiceInstance> instances) {
         if (instances.isEmpty()) {
             if (log.isWarnEnabled()) {
-                log.warn("No servers available for service: " + serviceId);
+                log.warn("No servers available for service: {}", serviceId);
             }
             return new EmptyResponse();
         }
@@ -70,5 +71,4 @@ public class CustomSpringCloudLoadBalancer implements ReactorServiceInstanceLoad
         }
         return new DefaultResponse(instances.get(ThreadLocalRandom.current().nextInt(instances.size())));
     }
-
 }

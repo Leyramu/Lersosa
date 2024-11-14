@@ -16,7 +16,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.RoundRectangle2D;
 
 /**
- * 自定义流程图
+ * 自定义流程图.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,8 +31,9 @@ public class CustomDefaultProcessDiagramCanvas extends DefaultProcessDiagramCanv
     }
 
     /**
-     * 画线颜色设置
+     * 画线颜色设置.
      */
+    @Override
     public void drawConnection(int[] xPoints, int[] yPoints, boolean conditional, boolean isDefault, String connectionType,
                                AssociationDirection associationDirection, boolean highLighted, double scaleFactor) {
 
@@ -40,7 +41,7 @@ public class CustomDefaultProcessDiagramCanvas extends DefaultProcessDiagramCanv
         Stroke originalStroke = g.getStroke();
 
         g.setPaint(CONNECTION_COLOR);
-        if (connectionType.equals("association")) {
+        if ("association".equals(connectionType)) {
             g.setStroke(ASSOCIATION_STROKE);
         } else if (highLighted) {
             //设置线的颜色
@@ -49,10 +50,10 @@ public class CustomDefaultProcessDiagramCanvas extends DefaultProcessDiagramCanv
         }
 
         for (int i = 1; i < xPoints.length; i++) {
-            Integer sourceX = xPoints[i - 1];
-            Integer sourceY = yPoints[i - 1];
-            Integer targetX = xPoints[i];
-            Integer targetY = yPoints[i];
+            int sourceX = xPoints[i - 1];
+            int sourceY = yPoints[i - 1];
+            int targetX = xPoints[i];
+            int targetY = yPoints[i];
             Line2D.Double line = new Line2D.Double(sourceX, sourceY, targetX, targetY);
             g.draw(line);
         }
@@ -80,8 +81,9 @@ public class CustomDefaultProcessDiagramCanvas extends DefaultProcessDiagramCanv
     }
 
     /**
-     * 高亮节点设置
+     * 高亮节点设置.
      */
+    @Override
     public void drawHighLight(int x, int y, int width, int height) {
         Paint originalPaint = g.getPaint();
         Stroke originalStroke = g.getStroke();
@@ -96,16 +98,6 @@ public class CustomDefaultProcessDiagramCanvas extends DefaultProcessDiagramCanv
         g.setStroke(originalStroke);
     }
 
-    /**
-     * @description: 高亮节点红色
-     * @param: x
-     * @param: y
-     * @param: width
-     * @param: height
-     * @return: void
-     * @author: gssong
-     * @date: 2022/4/12
-     */
     public void drawHighLightRed(int x, int y, int width, int height) {
         Paint originalPaint = g.getPaint();
         Stroke originalStroke = g.getStroke();
@@ -119,5 +111,4 @@ public class CustomDefaultProcessDiagramCanvas extends DefaultProcessDiagramCanv
         g.setPaint(originalPaint);
         g.setStroke(originalStroke);
     }
-
 }

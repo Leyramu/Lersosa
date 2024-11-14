@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 测试单表对象 test_demo
+ * 测试单表对象 test_demo.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,49 +30,47 @@ public class TestDemo extends BaseEntity {
     @Serial
     private static final long serialVersionUID = 1L;
 
-
     /**
-     * 主键
+     * 主键.
      */
     @TableId(value = "id")
     private Long id;
 
     /**
-     * 部门id
+     * 部门id.
      */
     private Long deptId;
 
     /**
-     * 用户id
+     * 用户id.
      */
     private Long userId;
 
     /**
-     * 排序号
+     * 排序号.
      */
-    @OrderBy(asc = false, sort = 1)
+    @OrderBy(sort = 1)
     private Integer orderNum;
 
     /**
-     * key键
+     * key键.
      */
     private String testKey;
 
     /**
-     * 值
+     * 值.
      */
     private String value;
 
     /**
-     * 版本
+     * 版本.
      */
     @Version
     private Long version;
 
     /**
-     * 删除标志
+     * 删除标志.
      */
     @TableLogic
     private Long delFlag;
-
 }

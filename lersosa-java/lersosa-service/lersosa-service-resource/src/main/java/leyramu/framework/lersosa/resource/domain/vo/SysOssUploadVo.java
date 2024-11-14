@@ -14,7 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 上传对象信息
+ * 上传对象信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,18 +27,17 @@ public class SysOssUploadVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * URL地址
+     * URL地址.
      */
     private String url;
 
     /**
-     * 文件名
+     * 文件名.
      */
     private String fileName;
 
     /**
-     * 对象存储主键
+     * 对象存储主键.
      */
     private String ossId;
-
 }

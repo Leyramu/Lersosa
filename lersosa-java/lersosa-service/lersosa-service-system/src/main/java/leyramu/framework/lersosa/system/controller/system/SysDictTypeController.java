@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 数据字典信息
+ * 数据字典信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -42,7 +42,7 @@ public class SysDictTypeController extends BaseController {
     private final ISysDictTypeService dictTypeService;
 
     /**
-     * 查询字典类型列表
+     * 查询字典类型列表.
      */
     @SaCheckPermission("system:dict:list")
     @GetMapping("/list")
@@ -51,7 +51,7 @@ public class SysDictTypeController extends BaseController {
     }
 
     /**
-     * 导出字典类型列表
+     * 导出字典类型列表.
      */
     @Log(title = "字典类型", businessType = BusinessType.EXPORT)
     @SaCheckPermission("system:dict:export")
@@ -62,7 +62,7 @@ public class SysDictTypeController extends BaseController {
     }
 
     /**
-     * 查询字典类型详细
+     * 查询字典类型详细.
      *
      * @param dictId 字典ID
      */
@@ -73,13 +73,13 @@ public class SysDictTypeController extends BaseController {
     }
 
     /**
-     * 新增字典类型
+     * 新增字典类型.
      */
     @SaCheckPermission("system:dict:add")
     @Log(title = "字典类型", businessType = BusinessType.INSERT)
     @PostMapping
     public R<Void> add(@Validated @RequestBody SysDictTypeBo dict) {
-        if (!dictTypeService.checkDictTypeUnique(dict)) {
+        if (dictTypeService.checkDictTypeUnique(dict)) {
             return R.fail("新增字典'" + dict.getDictName() + "'失败，字典类型已存在");
         }
         dictTypeService.insertDictType(dict);
@@ -87,13 +87,13 @@ public class SysDictTypeController extends BaseController {
     }
 
     /**
-     * 修改字典类型
+     * 修改字典类型.
      */
     @SaCheckPermission("system:dict:edit")
     @Log(title = "字典类型", businessType = BusinessType.UPDATE)
     @PutMapping
     public R<Void> edit(@Validated @RequestBody SysDictTypeBo dict) {
-        if (!dictTypeService.checkDictTypeUnique(dict)) {
+        if (dictTypeService.checkDictTypeUnique(dict)) {
             return R.fail("修改字典'" + dict.getDictName() + "'失败，字典类型已存在");
         }
         dictTypeService.updateDictType(dict);
@@ -101,7 +101,7 @@ public class SysDictTypeController extends BaseController {
     }
 
     /**
-     * 删除字典类型
+     * 删除字典类型.
      *
      * @param dictIds 字典ID串
      */
@@ -114,7 +114,7 @@ public class SysDictTypeController extends BaseController {
     }
 
     /**
-     * 刷新字典缓存
+     * 刷新字典缓存.
      */
     @SaCheckPermission("system:dict:remove")
     @Log(title = "字典类型", businessType = BusinessType.CLEAN)
@@ -125,7 +125,7 @@ public class SysDictTypeController extends BaseController {
     }
 
     /**
-     * 获取字典选择框列表
+     * 获取字典选择框列表.
      */
     @GetMapping("/optionselect")
     public R<List<SysDictTypeVo>> optionselect() {

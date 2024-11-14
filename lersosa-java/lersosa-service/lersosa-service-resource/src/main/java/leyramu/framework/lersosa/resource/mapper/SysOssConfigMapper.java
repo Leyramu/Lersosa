@@ -14,12 +14,11 @@ import leyramu.framework.lersosa.resource.domain.SysOssConfig;
 import leyramu.framework.lersosa.resource.domain.vo.SysOssConfigVo;
 
 /**
- * 对象存储配置Mapper接口
+ * 对象存储配置Mapper接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
 public interface SysOssConfigMapper extends BaseMapperPlus<SysOssConfig, SysOssConfigVo> {
-
 }

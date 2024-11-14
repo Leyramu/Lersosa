@@ -10,7 +10,7 @@ package leyramu.framework.lersosa.workflow.service;
 
 
 /**
- * 流程历史任务Service接口
+ * 流程历史任务Service接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

@@ -23,13 +23,10 @@ import leyramu.framework.lersosa.system.service.ISysOperLogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
- * 操作日志 服务层处理
+ * 操作日志 服务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -73,19 +70,19 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
     }
 
     /**
-     * 新增操作日志
+     * 新增操作日志.
      *
      * @param bo 操作日志对象
      */
     @Override
     public void insertOperlog(SysOperLogBo bo) {
         SysOperLog operLog = MapstructUtils.convert(bo, SysOperLog.class);
-        operLog.setOperTime(new Date());
+        Objects.requireNonNull(operLog).setOperTime(new Date());
         baseMapper.insert(operLog);
     }
 
     /**
-     * 查询系统操作日志集合
+     * 查询系统操作日志集合.
      *
      * @param operLog 操作日志对象
      * @return 操作日志集合
@@ -97,7 +94,7 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
     }
 
     /**
-     * 批量删除系统操作日志
+     * 批量删除系统操作日志.
      *
      * @param operIds 需要删除的操作日志ID
      * @return 结果
@@ -108,7 +105,7 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
     }
 
     /**
-     * 查询操作日志详细
+     * 查询操作日志详细.
      *
      * @param operId 操作ID
      * @return 操作日志对象
@@ -119,7 +116,7 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
     }
 
     /**
-     * 清空操作日志
+     * 清空操作日志.
      */
     @Override
     public void cleanOperLog() {

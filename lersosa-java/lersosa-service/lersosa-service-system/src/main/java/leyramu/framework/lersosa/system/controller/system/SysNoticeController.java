@@ -26,7 +26,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 公告 信息操作处理
+ * 公告 信息操作处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -45,7 +45,7 @@ public class SysNoticeController extends BaseController {
     private final RemoteMessageService remoteMessageService;
 
     /**
-     * 获取通知公告列表
+     * 获取通知公告列表.
      */
     @SaCheckPermission("system:notice:list")
     @GetMapping("/list")
@@ -54,7 +54,7 @@ public class SysNoticeController extends BaseController {
     }
 
     /**
-     * 根据通知公告编号获取详细信息
+     * 根据通知公告编号获取详细信息.
      *
      * @param noticeId 公告ID
      */
@@ -65,7 +65,7 @@ public class SysNoticeController extends BaseController {
     }
 
     /**
-     * 新增通知公告
+     * 新增通知公告.
      */
     @SaCheckPermission("system:notice:add")
     @Log(title = "通知公告", businessType = BusinessType.INSERT)
@@ -81,7 +81,7 @@ public class SysNoticeController extends BaseController {
     }
 
     /**
-     * 修改通知公告
+     * 修改通知公告.
      */
     @SaCheckPermission("system:notice:edit")
     @Log(title = "通知公告", businessType = BusinessType.UPDATE)
@@ -91,7 +91,7 @@ public class SysNoticeController extends BaseController {
     }
 
     /**
-     * 删除通知公告
+     * 删除通知公告.
      *
      * @param noticeIds 公告ID串
      */

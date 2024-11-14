@@ -17,7 +17,7 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
 /**
- * 用户信息转换器
+ * 用户信息转换器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,5 +29,4 @@ public interface SysOssVoConvert extends BaseMapper<SysOssVo, RemoteFile> {
     @Override
     @Mapping(target = "name", source = "fileName")
     RemoteFile convert(SysOssVo sysOssVo);
-
 }

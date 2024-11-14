@@ -15,8 +15,8 @@ import leyramu.framework.lersosa.common.core.utils.StreamUtils;
 import leyramu.framework.lersosa.common.core.utils.StringUtils;
 import leyramu.framework.lersosa.system.api.RemoteDictService;
 import leyramu.framework.lersosa.system.api.domain.vo.RemoteDictDataVo;
+import lombok.RequiredArgsConstructor;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -25,23 +25,23 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 字典服务服务
+ * 字典服务服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
 @Service
+@RequiredArgsConstructor
 public class DictServiceImpl implements DictService {
 
-    @Autowired
-    private Cache<Object, Object> ceffeine;
+    private final Cache<Object, Object> ceffeine;
 
     @DubboReference
     private RemoteDictService remoteDictService;
 
     /**
-     * 根据字典类型和字典值获取字典标签
+     * 根据字典类型和字典值获取字典标签.
      *
      * @param dictType  字典类型
      * @param dictValue 字典值
@@ -52,9 +52,7 @@ public class DictServiceImpl implements DictService {
     @Override
     public String getDictLabel(String dictType, String dictValue, String separator) {
         // 优先从本地缓存获取
-        List<RemoteDictDataVo> datas = (List<RemoteDictDataVo>) ceffeine.get(CacheConstants.SYS_DICT_KEY + "remote:" + dictType, k -> {
-            return remoteDictService.selectDictDataByType(dictType);
-        });
+        List<RemoteDictDataVo> datas = (List<RemoteDictDataVo>) ceffeine.get(CacheConstants.SYS_DICT_KEY + "remote:" + dictType, _ -> remoteDictService.selectDictDataByType(dictType));
         Map<String, String> map = StreamUtils.toMap(datas, RemoteDictDataVo::getDictValue, RemoteDictDataVo::getDictLabel);
         if (StringUtils.containsAny(dictValue, separator)) {
             return Arrays.stream(dictValue.split(separator))
@@ -66,7 +64,7 @@ public class DictServiceImpl implements DictService {
     }
 
     /**
-     * 根据字典类型和字典标签获取字典值
+     * 根据字典类型和字典标签获取字典值.
      *
      * @param dictType  字典类型
      * @param dictLabel 字典标签
@@ -77,9 +75,7 @@ public class DictServiceImpl implements DictService {
     @Override
     public String getDictValue(String dictType, String dictLabel, String separator) {
         // 优先从本地缓存获取
-        List<RemoteDictDataVo> datas = (List<RemoteDictDataVo>) ceffeine.get(CacheConstants.SYS_DICT_KEY + "remote:" + dictType, k -> {
-            return remoteDictService.selectDictDataByType(dictType);
-        });
+        List<RemoteDictDataVo> datas = (List<RemoteDictDataVo>) ceffeine.get(CacheConstants.SYS_DICT_KEY + "remote:" + dictType, _ -> remoteDictService.selectDictDataByType(dictType));
         Map<String, String> map = StreamUtils.toMap(datas, RemoteDictDataVo::getDictLabel, RemoteDictDataVo::getDictValue);
         if (StringUtils.containsAny(dictLabel, separator)) {
             return Arrays.stream(dictLabel.split(separator))
@@ -95,5 +91,4 @@ public class DictServiceImpl implements DictService {
         List<RemoteDictDataVo> list = remoteDictService.selectDictDataByType(dictType);
         return StreamUtils.toMap(list, RemoteDictDataVo::getDictValue, RemoteDictDataVo::getDictLabel);
     }
-
 }

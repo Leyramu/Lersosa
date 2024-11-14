@@ -20,7 +20,7 @@ import java.io.File;
 
 
 /**
- * 邮件发送案例
+ * 邮件发送案例.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -33,7 +33,7 @@ import java.io.File;
 public class MailController {
 
     /**
-     * 发送邮件
+     * 发送邮件.
      *
      * @param to      接收人
      * @param subject 标题
@@ -46,7 +46,7 @@ public class MailController {
     }
 
     /**
-     * 发送邮件（带附件）
+     * 发送邮件（带附件）.
      *
      * @param to       接收人
      * @param subject  标题
@@ -58,5 +58,4 @@ public class MailController {
         MailUtils.sendText(to, subject, text, new File(filePath));
         return R.ok();
     }
-
 }

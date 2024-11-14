@@ -17,7 +17,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 /**
- * SSE 自动装配
+ * SSE 自动装配.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -35,12 +35,11 @@ public class SseAutoConfiguration {
 
     @Bean
     public SseTopicListener sseTopicListener() {
-        return new SseTopicListener();
+        return new SseTopicListener(new SseEmitterManager());
     }
 
     @Bean
     public SseController sseController(SseEmitterManager sseEmitterManager) {
         return new SseController(sseEmitterManager);
     }
-
 }

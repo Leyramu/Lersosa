@@ -14,7 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 节点图形信息
+ * 节点图形信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,32 +26,32 @@ public class GraphicInfoVo implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     /**
-     * x坐标
+     * x坐标.
      */
     private double x;
 
     /**
-     * y坐标
+     * y坐标.
      */
     private double y;
 
     /**
-     * 节点高度
+     * 节点高度.
      */
     private double height;
 
     /**
-     * 节点宽度
+     * 节点宽度.
      */
     private double width;
 
     /**
-     * 节点id
+     * 节点id.
      */
     private String nodeId;
 
     /**
-     * 节点名称
+     * 节点名称.
      */
     private String nodeName;
 }

@@ -26,7 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.TimeZone;
 
 /**
- * jackson 配置
+ * jackson 配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -53,5 +53,4 @@ public class JacksonConfig {
             log.info("初始化 jackson 配置");
         };
     }
-
 }

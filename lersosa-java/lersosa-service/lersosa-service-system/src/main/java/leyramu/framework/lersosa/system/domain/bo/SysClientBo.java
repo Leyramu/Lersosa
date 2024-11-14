@@ -21,7 +21,7 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 
 /**
- * 授权管理业务对象 sys_client
+ * 授权管理业务对象 sys_client.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -33,58 +33,56 @@ import java.util.List;
 public class SysClientBo extends BaseEntity {
 
     /**
-     * id
+     * id.
      */
     @NotNull(message = "id不能为空", groups = {EditGroup.class})
     private Long id;
 
     /**
-     * 客户端id
+     * 客户端id.
      */
     private String clientId;
 
     /**
-     * 客户端key
+     * 客户端key.
      */
     @NotBlank(message = "客户端key不能为空", groups = {AddGroup.class, EditGroup.class})
     private String clientKey;
 
     /**
-     * 客户端秘钥
+     * 客户端秘钥.
      */
     @NotBlank(message = "客户端秘钥不能为空", groups = {AddGroup.class, EditGroup.class})
     private String clientSecret;
 
     /**
-     * 授权类型
+     * 授权类型.
      */
     @NotNull(message = "授权类型不能为空", groups = {AddGroup.class, EditGroup.class})
     private List<String> grantTypeList;
 
     /**
-     * 授权类型
+     * 授权类型.
      */
     private String grantType;
 
     /**
-     * 设备类型
+     * 设备类型.
      */
     private String deviceType;
 
     /**
-     * token活跃超时时间
+     * token活跃超时时间.
      */
     private Long activeTimeout;
 
     /**
-     * token固定超时时间
+     * token固定超时时间.
      */
     private Long timeout;
 
     /**
-     * 状态（0正常 1停用）
+     * 状态（0正常 1停用）.
      */
     private String status;
-
-
 }

@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.workflow.domain.WfCategory;
 import leyramu.framework.lersosa.workflow.domain.vo.WfCategoryVo;
 
 /**
- * 流程分类Mapper接口
+ * 流程分类Mapper接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

@@ -14,7 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 抄送
+ * 抄送.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,13 +27,12 @@ public class WfCopy implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户id
+     * 用户id.
      */
     private Long userId;
 
     /**
-     * 用户名称
+     * 用户名称.
      */
     private String userName;
-
 }

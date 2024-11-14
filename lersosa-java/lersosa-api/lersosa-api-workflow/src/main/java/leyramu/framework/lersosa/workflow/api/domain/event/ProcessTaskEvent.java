@@ -16,7 +16,7 @@ import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 import java.io.Serial;
 
 /**
- * 流程办理监听
+ * 流程办理监听.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -30,22 +30,22 @@ public class ProcessTaskEvent extends RemoteApplicationEvent {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 流程定义key
+     * 流程定义key.
      */
     private String key;
 
     /**
-     * 审批节点key
+     * 审批节点key.
      */
     private String taskDefinitionKey;
 
     /**
-     * 任务id
+     * 任务id.
      */
     private String taskId;
 
     /**
-     * 业务id
+     * 业务id.
      */
     private String businessKey;
 

@@ -5,56 +5,92 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.cluster.config;
 
+import lombok.Data;
+
 /**
+ * 集群客户端配置.
+ *
  * @author Eric Zhao
- * @since 1.4.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class ClusterClientConfig {
 
+    /**
+     * 服务器主机.
+     */
     private String serverHost;
+
+    /**
+     * 服务器端口.
+     */
     private Integer serverPort;
 
+    /**
+     * 请求超时时间.
+     */
     private Integer requestTimeout;
+
+    /**
+     * 连接超时时间.
+     */
     private Integer connectTimeout;
 
-    public String getServerHost() {
-        return serverHost;
-    }
-
+    /**
+     * 设置服务器主机.
+     *
+     * @param serverHost 服务器主机
+     * @return this
+     */
     public ClusterClientConfig setServerHost(String serverHost) {
         this.serverHost = serverHost;
         return this;
     }
 
-    public Integer getServerPort() {
-        return serverPort;
-    }
-
+    /**
+     * 设置服务器端口.
+     *
+     * @param serverPort 服务器端口
+     * @return this
+     */
     public ClusterClientConfig setServerPort(Integer serverPort) {
         this.serverPort = serverPort;
         return this;
     }
 
-    public Integer getRequestTimeout() {
-        return requestTimeout;
-    }
-
+    /**
+     * 设置请求超时时间.
+     *
+     * @param requestTimeout 请求超时时间
+     * @return this
+     */
     public ClusterClientConfig setRequestTimeout(Integer requestTimeout) {
         this.requestTimeout = requestTimeout;
         return this;
     }
 
-    public Integer getConnectTimeout() {
-        return connectTimeout;
-    }
-
+    /**
+     * 设置连接超时时间.
+     *
+     * @param connectTimeout 连接超时时间
+     * @return this
+     */
+    @SuppressWarnings("unused")
     public ClusterClientConfig setConnectTimeout(Integer connectTimeout) {
         this.connectTimeout = connectTimeout;
         return this;
     }
 
+    /**
+     * 获取客户端配置.
+     *
+     * @return 客户端配置
+     */
     @Override
     public String toString() {
         return "ClusterClientConfig{" +

@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.config;
 
 import com.alibaba.csp.sentinel.adapter.servlet.CommonFilter;
@@ -12,9 +13,8 @@ import com.alibaba.csp.sentinel.adapter.servlet.callback.WebCallbackManager;
 import com.alibaba.csp.sentinel.dashboard.auth.AuthorizationInterceptor;
 import com.alibaba.csp.sentinel.dashboard.auth.LoginAuthenticationFilter;
 import com.alibaba.csp.sentinel.util.StringUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,59 +30,84 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Web MVC 配置.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
+@Slf4j
 @Configuration
+@RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 
-    private final Logger logger = LoggerFactory.getLogger(WebConfig.class);
+    /**
+     * 登录认证过滤器.
+     */
+    private final LoginAuthenticationFilter loginAuthenticationFilter;
 
-    @Autowired
-    private LoginAuthenticationFilter loginAuthenticationFilter;
+    /**
+     * 授权拦截器.
+     */
+    private final AuthorizationInterceptor authorizationInterceptor;
 
-    @Autowired
-    private AuthorizationInterceptor authorizationInterceptor;
-
+    /**
+     * 添加拦截器，用于拦截请求并进行权限验证.
+     *
+     * @param registry 拦截器注册对象
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authorizationInterceptor).addPathPatterns("/**");
     }
 
+    /**
+     * 添加静态资源处理器，用于处理静态资源请求.
+     *
+     * @param registry 资源处理器注册对象
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("classpath:/resources/");
     }
 
+    /**
+     * 添加默认视图控制器，用于重定向到首页.
+     *
+     * @param registry 视图控制器注册对象
+     */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("forward:/index.htm");
     }
 
     /**
-     * Add {@link CommonFilter} to the server, this is the simplest way to use Sentinel
-     * for Web application.
+     * 注册 Sentinel 过滤器，用于 Web 应用程序的流量控制.
+     *
+     * @return Sentinel 过滤器注册对象
      */
     @Bean
-    public FilterRegistrationBean sentinelFilterRegistration() {
+    public FilterRegistrationBean<Filter> sentinelFilterRegistration() {
         FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>();
         registration.setFilter(new CommonFilter());
         registration.addUrlPatterns("/*");
         registration.setName("sentinelFilter");
         registration.setOrder(1);
-        // If this is enabled, the entrance of all Web URL resources will be unified as a single context name.
-        // In most scenarios that's enough, and it could reduce the memory footprint.
         registration.addInitParameter(CommonFilter.WEB_CONTEXT_UNIFY, "true");
 
-        logger.info("Sentinel servlet CommonFilter registered");
+        log.info("Sentinel servlet CommonFilter registered");
 
         return registration;
     }
 
+    /**
+     * 初始化白名单.
+     */
     @PostConstruct
     public void doInit() {
         Set<String> suffixSet = new HashSet<>(Arrays.asList(".js", ".css", ".html", ".ico", ".txt",
             ".woff", ".woff2"));
-        // Example: register a UrlCleaner to exclude URLs of common static resources.
         WebCallbackManager.setUrlCleaner(url -> {
             if (StringUtil.isEmpty(url)) {
                 return url;
@@ -94,8 +119,13 @@ public class WebConfig implements WebMvcConfigurer {
         });
     }
 
+    /**
+     * 注册登录认证过滤器.
+     *
+     * @return 认证过滤器注册对象
+     */
     @Bean
-    public FilterRegistrationBean authenticationFilterRegistration() {
+    public FilterRegistrationBean<Filter> authenticationFilterRegistration() {
         FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>();
         registration.setFilter(loginAuthenticationFilter);
         registration.addUrlPatterns("/*");

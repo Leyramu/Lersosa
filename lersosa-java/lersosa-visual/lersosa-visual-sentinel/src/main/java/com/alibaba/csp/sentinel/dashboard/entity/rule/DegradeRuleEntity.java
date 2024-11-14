@@ -5,16 +5,24 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.entity.rule;
 
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.RuleEntity;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule;
+import lombok.Data;
 
 import java.util.Date;
 
 /**
+ * 降级规则实体.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
 public class DegradeRuleEntity implements RuleEntity {
 
     private Long id;
@@ -35,6 +43,7 @@ public class DegradeRuleEntity implements RuleEntity {
     private Date gmtCreate;
     private Date gmtModified;
 
+    @SuppressWarnings("unused")
     public static DegradeRuleEntity fromDegradeRule(String app, String ip, Integer port, DegradeRule rule) {
         DegradeRuleEntity entity = new DegradeRuleEntity();
         entity.setApp(app);
@@ -56,17 +65,9 @@ public class DegradeRuleEntity implements RuleEntity {
         return ip;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
     @Override
     public Integer getPort() {
         return port;
-    }
-
-    public void setPort(Integer port) {
-        this.port = port;
     }
 
     @Override
@@ -84,92 +85,9 @@ public class DegradeRuleEntity implements RuleEntity {
         return app;
     }
 
-    public void setApp(String app) {
-        this.app = app;
-    }
-
-    public String getResource() {
-        return resource;
-    }
-
-    public void setResource(String resource) {
-        this.resource = resource;
-    }
-
-    public String getLimitApp() {
-        return limitApp;
-    }
-
-    public void setLimitApp(String limitApp) {
-        this.limitApp = limitApp;
-    }
-
-    public Double getCount() {
-        return count;
-    }
-
-    public void setCount(Double count) {
-        this.count = count;
-    }
-
-    public Integer getTimeWindow() {
-        return timeWindow;
-    }
-
-    public void setTimeWindow(Integer timeWindow) {
-        this.timeWindow = timeWindow;
-    }
-
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
-
-    public Integer getMinRequestAmount() {
-        return minRequestAmount;
-    }
-
-    public DegradeRuleEntity setMinRequestAmount(Integer minRequestAmount) {
-        this.minRequestAmount = minRequestAmount;
-        return this;
-    }
-
-    public Double getSlowRatioThreshold() {
-        return slowRatioThreshold;
-    }
-
-    public DegradeRuleEntity setSlowRatioThreshold(Double slowRatioThreshold) {
-        this.slowRatioThreshold = slowRatioThreshold;
-        return this;
-    }
-
-    public Integer getStatIntervalMs() {
-        return statIntervalMs;
-    }
-
-    public DegradeRuleEntity setStatIntervalMs(Integer statIntervalMs) {
-        this.statIntervalMs = statIntervalMs;
-        return this;
-    }
-
     @Override
     public Date getGmtCreate() {
         return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
     }
 
     @Override

@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 菜单信息
+ * 菜单信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -48,7 +48,7 @@ public class SysMenuController extends BaseController {
     private final ISysMenuService menuService;
 
     /**
-     * 获取路由信息
+     * 获取路由信息.
      *
      * @return 路由信息
      */
@@ -59,7 +59,7 @@ public class SysMenuController extends BaseController {
     }
 
     /**
-     * 获取菜单列表
+     * 获取菜单列表.
      */
     @SaCheckRole(value = {
         TenantConstants.SUPER_ADMIN_ROLE_KEY,
@@ -73,7 +73,7 @@ public class SysMenuController extends BaseController {
     }
 
     /**
-     * 根据菜单编号获取详细信息
+     * 根据菜单编号获取详细信息.
      *
      * @param menuId 菜单ID
      */
@@ -88,7 +88,7 @@ public class SysMenuController extends BaseController {
     }
 
     /**
-     * 获取菜单下拉树列表
+     * 获取菜单下拉树列表.
      */
     @SaCheckPermission("system:menu:query")
     @GetMapping("/treeselect")
@@ -98,7 +98,7 @@ public class SysMenuController extends BaseController {
     }
 
     /**
-     * 加载对应角色菜单列表树
+     * 加载对应角色菜单列表树.
      *
      * @param roleId 角色ID
      */
@@ -113,7 +113,7 @@ public class SysMenuController extends BaseController {
     }
 
     /**
-     * 加载对应租户套餐菜单列表树
+     * 加载对应租户套餐菜单列表树.
      *
      * @param packageId 租户套餐ID
      */
@@ -129,14 +129,14 @@ public class SysMenuController extends BaseController {
     }
 
     /**
-     * 新增菜单
+     * 新增菜单.
      */
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
     @SaCheckPermission("system:menu:add")
     @Log(title = "菜单管理", businessType = BusinessType.INSERT)
     @PostMapping
     public R<Void> add(@Validated @RequestBody SysMenuBo menu) {
-        if (!menuService.checkMenuNameUnique(menu)) {
+        if (menuService.checkMenuNameUnique(menu)) {
             return R.fail("新增菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
         } else if (UserConstants.YES_FRAME.equals(menu.getIsFrame()) && !StringUtils.ishttp(menu.getPath())) {
             return R.fail("新增菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
@@ -145,14 +145,14 @@ public class SysMenuController extends BaseController {
     }
 
     /**
-     * 修改菜单
+     * 修改菜单.
      */
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
     @SaCheckPermission("system:menu:edit")
     @Log(title = "菜单管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public R<Void> edit(@Validated @RequestBody SysMenuBo menu) {
-        if (!menuService.checkMenuNameUnique(menu)) {
+        if (menuService.checkMenuNameUnique(menu)) {
             return R.fail("修改菜单'" + menu.getMenuName() + "'失败，菜单名称已存在");
         } else if (UserConstants.YES_FRAME.equals(menu.getIsFrame()) && !StringUtils.ishttp(menu.getPath())) {
             return R.fail("修改菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
@@ -163,7 +163,7 @@ public class SysMenuController extends BaseController {
     }
 
     /**
-     * 删除菜单
+     * 删除菜单.
      *
      * @param menuId 菜单ID
      */
@@ -180,5 +180,4 @@ public class SysMenuController extends BaseController {
         }
         return toAjax(menuService.deleteMenuById(menuId));
     }
-
 }

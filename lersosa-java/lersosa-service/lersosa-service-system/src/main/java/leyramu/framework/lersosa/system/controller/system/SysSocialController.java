@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 社会化关系
+ * 社会化关系.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -37,11 +37,10 @@ public class SysSocialController extends BaseController {
     private final ISysSocialService socialUserService;
 
     /**
-     * 查询社会化关系列表
+     * 查询社会化关系列表.
      */
     @GetMapping("/list")
     public R<List<SysSocialVo>> list() {
         return R.ok(socialUserService.queryListByUserId(LoginHelper.getUserId()));
     }
-
 }

@@ -5,6 +5,7 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.entity.gateway;
 
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayFlowRule;
@@ -12,33 +13,37 @@ import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayParamFlowItem
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.gateway.GatewayParamFlowItemEntity;
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.RuleEntity;
 import com.alibaba.csp.sentinel.slots.block.Rule;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.Objects;
 
 /**
- * Entity for {@link GatewayFlowRule}.
+ * {@link GatewayFlowRule} 的实体.
  *
  * @author cdfive
- * @since 1.7.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@SuppressWarnings("unused")
 public class GatewayFlowRuleEntity implements RuleEntity {
 
-    /**间隔单位*/
     /**
-     * 0-秒
+     * 间隔单位 0-秒.
      */
     public static final int INTERVAL_UNIT_SECOND = 0;
     /**
-     * 1-分
+     * 1-分.
      */
     public static final int INTERVAL_UNIT_MINUTE = 1;
     /**
-     * 2-时
+     * 2-时.
      */
     public static final int INTERVAL_UNIT_HOUR = 2;
     /**
-     * 3-天
+     * 3-天.
      */
     public static final int INTERVAL_UNIT_DAY = 3;
 
@@ -66,20 +71,14 @@ public class GatewayFlowRuleEntity implements RuleEntity {
     private GatewayParamFlowItemEntity paramItem;
 
     public static Long calIntervalSec(Long interval, Integer intervalUnit) {
-        switch (intervalUnit) {
-            case INTERVAL_UNIT_SECOND:
-                return interval;
-            case INTERVAL_UNIT_MINUTE:
-                return interval * 60;
-            case INTERVAL_UNIT_HOUR:
-                return interval * 60 * 60;
-            case INTERVAL_UNIT_DAY:
-                return interval * 60 * 60 * 24;
-            default:
-                break;
-        }
+        return switch (intervalUnit) {
+            case INTERVAL_UNIT_SECOND -> interval;
+            case INTERVAL_UNIT_MINUTE -> interval * 60;
+            case INTERVAL_UNIT_HOUR -> interval * 60 * 60;
+            case INTERVAL_UNIT_DAY -> interval * 60 * 60 * 24;
+            default -> throw new IllegalArgumentException("Invalid intervalUnit: " + intervalUnit);
+        };
 
-        throw new IllegalArgumentException("Invalid intervalUnit: " + intervalUnit);
     }
 
     public static Object[] parseIntervalSec(Long intervalSec) {
@@ -179,17 +178,9 @@ public class GatewayFlowRuleEntity implements RuleEntity {
         return app;
     }
 
-    public void setApp(String app) {
-        this.app = app;
-    }
-
     @Override
     public String getIp() {
         return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
     }
 
     @Override
@@ -197,110 +188,14 @@ public class GatewayFlowRuleEntity implements RuleEntity {
         return port;
     }
 
-    public void setPort(Integer port) {
-        this.port = port;
-    }
-
     @Override
     public Date getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
     @Override
     public Rule toRule() {
         return null;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    public GatewayParamFlowItemEntity getParamItem() {
-        return paramItem;
-    }
-
-    public void setParamItem(GatewayParamFlowItemEntity paramItem) {
-        this.paramItem = paramItem;
-    }
-
-    public String getResource() {
-        return resource;
-    }
-
-    public void setResource(String resource) {
-        this.resource = resource;
-    }
-
-    public Integer getResourceMode() {
-        return resourceMode;
-    }
-
-    public void setResourceMode(Integer resourceMode) {
-        this.resourceMode = resourceMode;
-    }
-
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
-
-    public Double getCount() {
-        return count;
-    }
-
-    public void setCount(Double count) {
-        this.count = count;
-    }
-
-    public Long getInterval() {
-        return interval;
-    }
-
-    public void setInterval(Long interval) {
-        this.interval = interval;
-    }
-
-    public Integer getIntervalUnit() {
-        return intervalUnit;
-    }
-
-    public void setIntervalUnit(Integer intervalUnit) {
-        this.intervalUnit = intervalUnit;
-    }
-
-    public Integer getControlBehavior() {
-        return controlBehavior;
-    }
-
-    public void setControlBehavior(Integer controlBehavior) {
-        this.controlBehavior = controlBehavior;
-    }
-
-    public Integer getBurst() {
-        return burst;
-    }
-
-    public void setBurst(Integer burst) {
-        this.burst = burst;
-    }
-
-    public Integer getMaxQueueingTimeoutMs() {
-        return maxQueueingTimeoutMs;
-    }
-
-    public void setMaxQueueingTimeoutMs(Integer maxQueueingTimeoutMs) {
-        this.maxQueueingTimeoutMs = maxQueueingTimeoutMs;
     }
 
     @Override

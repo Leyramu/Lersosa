@@ -18,7 +18,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 表格分页数据对象
+ * 表格分页数据对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -32,27 +32,27 @@ public class TableDataInfo<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 总记录数
+     * 总记录数.
      */
     private long total;
 
     /**
-     * 列表数据
+     * 列表数据.
      */
     private List<T> rows;
 
     /**
-     * 消息状态码
+     * 消息状态码.
      */
     private int code;
 
     /**
-     * 消息内容
+     * 消息内容.
      */
     private String msg;
 
     /**
-     * 分页
+     * 分页.
      *
      * @param list  列表数据
      * @param total 总记录数
@@ -63,7 +63,7 @@ public class TableDataInfo<T> implements Serializable {
     }
 
     /**
-     * 根据分页对象构建表格分页数据对象
+     * 根据分页对象构建表格分页数据对象.
      */
     public static <T> TableDataInfo<T> build(IPage<T> page) {
         TableDataInfo<T> rspData = new TableDataInfo<>();
@@ -75,7 +75,7 @@ public class TableDataInfo<T> implements Serializable {
     }
 
     /**
-     * 根据数据列表构建表格分页数据对象
+     * 根据数据列表构建表格分页数据对象.
      */
     public static <T> TableDataInfo<T> build(List<T> list) {
         TableDataInfo<T> rspData = new TableDataInfo<>();
@@ -87,7 +87,7 @@ public class TableDataInfo<T> implements Serializable {
     }
 
     /**
-     * 构建表格分页数据对象
+     * 构建表格分页数据对象.
      */
     public static <T> TableDataInfo<T> build() {
         TableDataInfo<T> rspData = new TableDataInfo<>();
@@ -95,5 +95,4 @@ public class TableDataInfo<T> implements Serializable {
         rspData.setMsg("查询成功");
         return rspData;
     }
-
 }

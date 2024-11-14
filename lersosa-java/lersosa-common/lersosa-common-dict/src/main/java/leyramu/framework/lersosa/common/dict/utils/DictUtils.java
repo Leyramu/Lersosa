@@ -15,15 +15,17 @@ import leyramu.framework.lersosa.system.api.domain.vo.RemoteDictDataVo;
 import java.util.List;
 
 /**
- * 字典工具类
+ * 字典工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@SuppressWarnings("unused")
 public class DictUtils {
+
     /**
-     * 设置字典缓存
+     * 设置字典缓存.
      *
      * @param key       参数键
      * @param dictDatas 字典数据列表
@@ -33,7 +35,7 @@ public class DictUtils {
     }
 
     /**
-     * 获取字典缓存
+     * 获取字典缓存.
      *
      * @param key 参数键
      * @return dictDatas 字典数据列表
@@ -43,7 +45,7 @@ public class DictUtils {
     }
 
     /**
-     * 删除指定字典缓存
+     * 删除指定字典缓存.
      *
      * @param key 字典键
      */
@@ -52,10 +54,9 @@ public class DictUtils {
     }
 
     /**
-     * 清空字典缓存
+     * 清空字典缓存.
      */
     public static void clearDictCache() {
         CacheUtils.clear(CacheNames.SYS_DICT);
     }
-
 }

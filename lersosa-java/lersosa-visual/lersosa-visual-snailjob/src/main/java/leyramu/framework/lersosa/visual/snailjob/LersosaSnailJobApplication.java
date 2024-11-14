@@ -13,7 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * SnailJob 任务调度模块
+ * SnailJob 任务调度模块.
  *
  * @author opensnail
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
@@ -25,7 +25,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LersosaSnailJobApplication {
 
     /**
-     * 启动 SnailJob 模块
+     * 启动 SnailJob 模块.
      *
      * @param args 命令行参数
      */

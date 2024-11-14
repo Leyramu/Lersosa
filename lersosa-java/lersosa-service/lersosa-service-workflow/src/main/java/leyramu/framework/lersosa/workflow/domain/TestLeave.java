@@ -18,7 +18,7 @@ import java.io.Serial;
 import java.util.Date;
 
 /**
- * 请假对象 test_leave
+ * 请假对象 test_leave.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -33,39 +33,38 @@ public class TestLeave extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * 主键.
      */
     @TableId(value = "id")
     private Long id;
 
     /**
-     * 请假类型
+     * 请假类型.
      */
     private String leaveType;
 
     /**
-     * 开始时间
+     * 开始时间.
      */
     private Date startDate;
 
     /**
-     * 结束时间
+     * 结束时间.
      */
     private Date endDate;
 
     /**
-     * 请假天数
+     * 请假天数.
      */
     private Integer leaveDays;
 
     /**
-     * 请假原因
+     * 请假原因.
      */
     private String remark;
 
     /**
-     * 状态
+     * 状态.
      */
     private String status;
-
 }

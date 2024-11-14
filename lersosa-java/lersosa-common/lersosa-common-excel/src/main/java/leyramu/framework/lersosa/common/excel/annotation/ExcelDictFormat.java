@@ -13,7 +13,7 @@ import leyramu.framework.lersosa.common.core.utils.StringUtils;
 import java.lang.annotation.*;
 
 /**
- * 字典格式化
+ * 字典格式化.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -25,17 +25,17 @@ import java.lang.annotation.*;
 public @interface ExcelDictFormat {
 
     /**
-     * 如果是字典类型，请设置字典的type值 (如: sys_user_sex)
+     * 如果是字典类型，请设置字典的type值 (如: sys_user_sex).
      */
     String dictType() default "";
 
     /**
-     * 读取内容转表达式 (如: 0=男,1=女,2=未知)
+     * 读取内容转表达式 (如: 0=男,1=女,2=未知).
      */
     String readConverterExp() default "";
 
     /**
-     * 分隔符，读取字符串组内容
+     * 分隔符，读取字符串组内容.
      */
     String separator() default StringUtils.SEPARATOR;
 

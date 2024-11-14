@@ -40,7 +40,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 租户管理
+ * 租户管理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -56,7 +56,7 @@ public class SysTenantController extends BaseController {
     private final ISysTenantService tenantService;
 
     /**
-     * 查询租户列表
+     * 查询租户列表.
      */
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
     @SaCheckPermission("system:tenant:list")
@@ -66,7 +66,7 @@ public class SysTenantController extends BaseController {
     }
 
     /**
-     * 导出租户列表
+     * 导出租户列表.
      */
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
     @SaCheckPermission("system:tenant:export")
@@ -78,7 +78,7 @@ public class SysTenantController extends BaseController {
     }
 
     /**
-     * 获取租户详细信息
+     * 获取租户详细信息.
      *
      * @param id 主键
      */
@@ -91,7 +91,7 @@ public class SysTenantController extends BaseController {
     }
 
     /**
-     * 新增租户
+     * 新增租户.
      */
     @ApiEncrypt
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
@@ -101,14 +101,14 @@ public class SysTenantController extends BaseController {
     @RepeatSubmit()
     @PostMapping()
     public R<Void> add(@Validated(AddGroup.class) @RequestBody SysTenantBo bo) {
-        if (!tenantService.checkCompanyNameUnique(bo)) {
+        if (tenantService.checkCompanyNameUnique(bo)) {
             return R.fail("新增租户'" + bo.getCompanyName() + "'失败，企业名称已存在");
         }
         return toAjax(TenantHelper.ignore(() -> tenantService.insertByBo(bo)));
     }
 
     /**
-     * 修改租户
+     * 修改租户.
      */
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
     @SaCheckPermission("system:tenant:edit")
@@ -117,14 +117,14 @@ public class SysTenantController extends BaseController {
     @PutMapping()
     public R<Void> edit(@Validated(EditGroup.class) @RequestBody SysTenantBo bo) {
         tenantService.checkTenantAllowed(bo.getTenantId());
-        if (!tenantService.checkCompanyNameUnique(bo)) {
+        if (tenantService.checkCompanyNameUnique(bo)) {
             return R.fail("修改租户'" + bo.getCompanyName() + "'失败，公司名称已存在");
         }
         return toAjax(tenantService.updateByBo(bo));
     }
 
     /**
-     * 状态修改
+     * 状态修改.
      */
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
     @SaCheckPermission("system:tenant:edit")
@@ -136,7 +136,7 @@ public class SysTenantController extends BaseController {
     }
 
     /**
-     * 删除租户
+     * 删除租户.
      *
      * @param ids 主键串
      */
@@ -150,7 +150,7 @@ public class SysTenantController extends BaseController {
     }
 
     /**
-     * 动态切换租户
+     * 动态切换租户.
      *
      * @param tenantId 租户ID
      */
@@ -162,7 +162,7 @@ public class SysTenantController extends BaseController {
     }
 
     /**
-     * 清除动态租户
+     * 清除动态租户.
      */
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
     @GetMapping("/dynamic/clear")
@@ -173,7 +173,7 @@ public class SysTenantController extends BaseController {
 
 
     /**
-     * 同步租户套餐
+     * 同步租户套餐.
      *
      * @param tenantId  租户id
      * @param packageId 套餐id
@@ -188,7 +188,7 @@ public class SysTenantController extends BaseController {
     }
 
     /**
-     * 同步租户字典
+     * 同步租户字典.
      */
     @SaCheckRole(TenantConstants.SUPER_ADMIN_ROLE_KEY)
     @Log(title = "同步租户字典", businessType = BusinessType.INSERT)
@@ -200,5 +200,4 @@ public class SysTenantController extends BaseController {
         tenantService.syncTenantDict();
         return R.ok("同步租户字典成功");
     }
-
 }

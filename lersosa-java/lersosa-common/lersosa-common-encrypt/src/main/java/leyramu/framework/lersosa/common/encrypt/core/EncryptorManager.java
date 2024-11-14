@@ -33,7 +33,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
- * 加密管理类
+ * 加密管理类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -44,17 +44,17 @@ import java.util.stream.Collectors;
 public class EncryptorManager {
 
     /**
-     * 缓存加密器
+     * 缓存加密器.
      */
     Map<Integer, IEncryptor> encryptorMap = new ConcurrentHashMap<>();
 
     /**
-     * 类加密字段缓存
+     * 类加密字段缓存.
      */
     Map<Class<?>, Set<Field>> fieldCache = new ConcurrentHashMap<>();
 
     /**
-     * 构造方法传入类加密字段缓存
+     * 构造方法传入类加密字段缓存.
      *
      * @param typeAliasesPackage 实体类包
      */
@@ -64,7 +64,7 @@ public class EncryptorManager {
 
 
     /**
-     * 获取类加密字段缓存
+     * 获取类加密字段缓存.
      */
     public Set<Field> getFieldCache(Class<?> sourceClazz) {
         if (ObjectUtil.isNotNull(fieldCache)) {
@@ -74,7 +74,7 @@ public class EncryptorManager {
     }
 
     /**
-     * 注册加密执行者到缓存
+     * 注册加密执行者到缓存.
      *
      * @param encryptContext 加密执行者需要的相关配置参数
      */
@@ -89,16 +89,17 @@ public class EncryptorManager {
     }
 
     /**
-     * 移除缓存中的加密执行者
+     * 移除缓存中的加密执行者.
      *
      * @param encryptContext 加密执行者需要的相关配置参数
      */
+    @SuppressWarnings("unused")
     public void removeEncryptor(EncryptContext encryptContext) {
         this.encryptorMap.remove(encryptContext.hashCode());
     }
 
     /**
-     * 根据配置进行加密。会进行本地缓存对应的算法和对应的秘钥信息。
+     * 根据配置进行加密。会进行本地缓存对应的算法和对应的秘钥信息.
      *
      * @param value          待加密的值
      * @param encryptContext 加密相关的配置信息
@@ -109,7 +110,7 @@ public class EncryptorManager {
     }
 
     /**
-     * 根据配置进行解密
+     * 根据配置进行解密.
      *
      * @param value          待解密的值
      * @param encryptContext 加密相关的配置信息
@@ -120,7 +121,7 @@ public class EncryptorManager {
     }
 
     /**
-     * 通过 typeAliasesPackage 设置的扫描包 扫描缓存实体
+     * 通过 typeAliasesPackage 设置的扫描包 扫描缓存实体.
      */
     private void scanEncryptClasses(String typeAliasesPackage) {
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
@@ -146,7 +147,7 @@ public class EncryptorManager {
     }
 
     /**
-     * 获得一个类的加密字段集合
+     * 获得一个类的加密字段集合.
      */
     private Set<Field> getEncryptFieldSetFromClazz(Class<?> clazz) {
         Set<Field> fieldSet = new HashSet<>();
@@ -167,5 +168,4 @@ public class EncryptorManager {
         }
         return fieldSet;
     }
-
 }

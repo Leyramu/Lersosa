@@ -22,7 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
- * 短信服务
+ * 短信服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -35,7 +35,7 @@ import java.util.List;
 public class RemoteSmsServiceImpl implements RemoteSmsService {
 
     /**
-     * 获取特定供应商类型的 SmsBlend 实例
+     * 获取特定供应商类型的 SmsBlend 实例.
      *
      * @return SmsBlend 实例，代表指定供应商类型
      */
@@ -45,7 +45,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 根据给定的 SmsResponse 对象创建并返回一个 RemoteSms 对象，封装短信发送的响应信息
+     * 根据给定的 SmsResponse 对象创建并返回一个 RemoteSms 对象，封装短信发送的响应信息.
      *
      * @param smsResponse 短信发送的响应信息
      * @return 封装了短信发送结果的 RemoteSms 对象
@@ -60,7 +60,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 同步方法：发送简单文本短信
+     * 同步方法：发送简单文本短信.
      *
      * @param phone   目标手机号
      * @param message 短信内容
@@ -74,7 +74,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 同步方法：发送固定消息模板多模板参数短信
+     * 同步方法：发送固定消息模板多模板参数短信.
      *
      * @param phone    目标手机号
      * @param messages 短信模板参数，使用 LinkedHashMap 以保持参数顺序
@@ -87,7 +87,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 同步方法：发送带参数的短信
+     * 同步方法：发送带参数的短信.
      *
      * @param phone      目标手机号
      * @param templateId 短信模板ID
@@ -102,7 +102,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 同步方法：群发简单文本短信
+     * 同步方法：群发简单文本短信.
      *
      * @param phones  目标手机号列表
      * @param message 短信内容
@@ -116,7 +116,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 同步方法：群发带参数的短信
+     * 同步方法：群发带参数的短信.
      *
      * @param phones     目标手机号列表
      * @param templateId 短信模板ID
@@ -131,7 +131,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 异步方法：发送简单文本短信
+     * 异步方法：发送简单文本短信.
      *
      * @param phone   目标手机号
      * @param message 短信内容
@@ -142,7 +142,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 异步方法：发送带参数的短信
+     * 异步方法：发送带参数的短信.
      *
      * @param phone      目标手机号
      * @param templateId 短信模板ID
@@ -154,7 +154,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 延迟发送简单文本短信
+     * 延迟发送简单文本短信.
      *
      * @param phone       目标手机号
      * @param message     短信内容
@@ -166,7 +166,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 延迟发送带参数的短信
+     * 延迟发送带参数的短信.
      *
      * @param phone       目标手机号
      * @param templateId  短信模板ID
@@ -179,7 +179,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 延迟群发简单文本短信
+     * 延迟群发简单文本短信.
      *
      * @param phones      目标手机号列表
      * @param message     短信内容
@@ -191,7 +191,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 延迟批量发送带参数的短信
+     * 延迟批量发送带参数的短信.
      *
      * @param phones      目标手机号列表
      * @param templateId  短信模板ID
@@ -204,7 +204,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 加入黑名单
+     * 加入黑名单.
      *
      * @param phone 手机号
      */
@@ -214,7 +214,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 加入黑名单
+     * 加入黑名单.
      *
      * @param phones 手机号列表
      */
@@ -224,7 +224,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 移除黑名单
+     * 移除黑名单.
      *
      * @param phone 手机号
      */
@@ -234,7 +234,7 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     }
 
     /**
-     * 移除黑名单
+     * 移除黑名单.
      *
      * @param phones 手机号
      */
@@ -242,5 +242,4 @@ public class RemoteSmsServiceImpl implements RemoteSmsService {
     public void removeBlacklist(List<String> phones) {
         getSmsBlend().batchRemovalFromBlacklist(phones);
     }
-
 }

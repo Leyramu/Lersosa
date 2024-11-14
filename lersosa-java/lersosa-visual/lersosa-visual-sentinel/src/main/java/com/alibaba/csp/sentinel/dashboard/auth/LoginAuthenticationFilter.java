@@ -5,27 +5,19 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.auth;
 
 import javax.servlet.Filter;
 
 /**
- * <p>The Servlet filter for authentication.</p>
- *
- * <p>Note: some urls are excluded as they needn't auth, such as:</p>
- * <ul>
- * <li>index url: {@code /}</li>
- * <li>authentication request url: {@code /login}, {@code /logout}</li>
- * <li>machine registry: {@code /registry/machine}</li>
- * <li>static resources</li>
- * </ul>
- * <p>
- * The excluded urls and urlSuffixes could be configured in {@code application.properties} file.
+ * 用于身份验证的 Servlet 过滤器.
  *
  * @author cdfive
  * @author wxq
- * @since 1.6.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
 public interface LoginAuthenticationFilter extends Filter {
-
 }

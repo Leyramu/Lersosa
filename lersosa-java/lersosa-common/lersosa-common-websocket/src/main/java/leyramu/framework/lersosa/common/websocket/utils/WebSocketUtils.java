@@ -28,7 +28,7 @@ import java.util.function.Consumer;
 import static leyramu.framework.lersosa.common.websocket.constant.WebSocketConstants.WEB_SOCKET_TOPIC;
 
 /**
- * WebSocket工具类
+ * WebSocket工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -39,7 +39,7 @@ import static leyramu.framework.lersosa.common.websocket.constant.WebSocketConst
 public class WebSocketUtils {
 
     /**
-     * 向指定的WebSocket会话发送消息
+     * 向指定的WebSocket会话发送消息.
      *
      * @param sessionKey 要发送消息的用户id
      * @param message    要发送的消息内容
@@ -50,7 +50,7 @@ public class WebSocketUtils {
     }
 
     /**
-     * 订阅WebSocket消息主题，并提供一个消费者函数来处理接收到的消息
+     * 订阅WebSocket消息主题，并提供一个消费者函数来处理接收到的消息.
      *
      * @param consumer 处理WebSocket消息的消费者函数
      */
@@ -59,7 +59,7 @@ public class WebSocketUtils {
     }
 
     /**
-     * 发布WebSocket订阅消息
+     * 发布WebSocket订阅消息.
      *
      * @param webSocketMessage 要发布的WebSocket消息对象
      */
@@ -78,28 +78,25 @@ public class WebSocketUtils {
             WebSocketMessageDto broadcastMessage = new WebSocketMessageDto();
             broadcastMessage.setMessage(webSocketMessage.getMessage());
             broadcastMessage.setSessionKeys(unsentSessionKeys);
-            RedisUtils.publish(WEB_SOCKET_TOPIC, broadcastMessage, consumer -> {
-                log.info("WebSocket发送主题订阅消息topic:{} session keys:{} message:{}",
-                    WEB_SOCKET_TOPIC, unsentSessionKeys, webSocketMessage.getMessage());
-            });
+            RedisUtils.publish(WEB_SOCKET_TOPIC, broadcastMessage, _ -> log.info("WebSocket发送主题订阅消息topic:{} session keys:{} message:{}",
+                WEB_SOCKET_TOPIC, unsentSessionKeys, webSocketMessage.getMessage()));
         }
     }
 
     /**
-     * 向所有的WebSocket会话发布订阅的消息(群发)
+     * 向所有的WebSocket会话发布订阅的消息(群发).
      *
      * @param message 要发布的消息内容
      */
+    @SuppressWarnings("unused")
     public static void publishAll(String message) {
         WebSocketMessageDto broadcastMessage = new WebSocketMessageDto();
         broadcastMessage.setMessage(message);
-        RedisUtils.publish(WEB_SOCKET_TOPIC, broadcastMessage, consumer -> {
-            log.info("WebSocket发送主题订阅消息topic:{} message:{}", WEB_SOCKET_TOPIC, message);
-        });
+        RedisUtils.publish(WEB_SOCKET_TOPIC, broadcastMessage, _ -> log.info("WebSocket发送主题订阅消息topic:{} message:{}", WEB_SOCKET_TOPIC, message));
     }
 
     /**
-     * 向指定的WebSocket会话发送Pong消息
+     * 向指定的WebSocket会话发送Pong消息.
      *
      * @param session 要发送Pong消息的WebSocket会话
      */
@@ -108,7 +105,7 @@ public class WebSocketUtils {
     }
 
     /**
-     * 向指定的WebSocket会话发送文本消息
+     * 向指定的WebSocket会话发送文本消息.
      *
      * @param session WebSocket会话
      * @param message 要发送的文本消息内容
@@ -118,7 +115,7 @@ public class WebSocketUtils {
     }
 
     /**
-     * 向指定的WebSocket会话发送WebSocket消息对象
+     * 向指定的WebSocket会话发送WebSocket消息对象.
      *
      * @param session WebSocket会话
      * @param message 要发送的WebSocket消息对象

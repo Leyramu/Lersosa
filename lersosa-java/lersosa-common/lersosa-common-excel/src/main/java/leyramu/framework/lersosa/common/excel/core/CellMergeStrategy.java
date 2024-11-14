@@ -20,6 +20,7 @@ import leyramu.framework.lersosa.common.core.utils.reflect.ReflectUtils;
 import leyramu.framework.lersosa.common.excel.annotation.CellMerge;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
@@ -30,7 +31,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 /**
- * 列值重复合并策略
+ * 列值重复合并策略.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -40,6 +41,7 @@ import java.util.*;
 public class CellMergeStrategy extends AbstractMergeStrategy implements WorkbookWriteHandler {
 
     private final List<CellRangeAddress> cellList;
+    @Getter
     private final boolean hasTitle;
     private int rowIndex;
 
@@ -80,7 +82,7 @@ public class CellMergeStrategy extends AbstractMergeStrategy implements Workbook
         if (CollUtil.isEmpty(list)) {
             return cellList;
         }
-        Field[] fields = ReflectUtils.getFields(list.get(0).getClass(), field -> !"serialVersionUID".equals(field.getName()));
+        Field[] fields = ReflectUtils.getFields(list.getFirst().getClass(), field -> !"serialVersionUID".equals(field.getName()));
 
         // 有注解的字段
         List<Field> mergeFields = new ArrayList<>();

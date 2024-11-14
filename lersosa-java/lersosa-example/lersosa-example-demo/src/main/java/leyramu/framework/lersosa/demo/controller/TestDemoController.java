@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 测试单表Controller
+ * 测试单表Controller.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -57,7 +57,7 @@ public class TestDemoController extends BaseController {
     private final ITestDemoService iTestDemoService;
 
     /**
-     * 查询测试单表列表
+     * 查询测试单表列表.
      */
     @SaCheckPermission("demo:demo:list")
     @GetMapping("/list")
@@ -66,7 +66,7 @@ public class TestDemoController extends BaseController {
     }
 
     /**
-     * 自定义分页查询
+     * 自定义分页查询.
      */
     @SaCheckPermission("demo:demo:list")
     @GetMapping("/page")
@@ -75,7 +75,7 @@ public class TestDemoController extends BaseController {
     }
 
     /**
-     * 导入测试-校验
+     * 导入测试-校验.
      *
      * @param file 导入文件
      */
@@ -91,7 +91,7 @@ public class TestDemoController extends BaseController {
     }
 
     /**
-     * 导出测试单表列表
+     * 导出测试单表列表.
      */
     @SaCheckPermission("demo:demo:export")
     @Log(title = "测试单表", businessType = BusinessType.EXPORT)
@@ -106,7 +106,7 @@ public class TestDemoController extends BaseController {
     }
 
     /**
-     * 获取测试单表详细信息
+     * 获取测试单表详细信息.
      *
      * @param id 测试ID
      */
@@ -117,11 +117,11 @@ public class TestDemoController extends BaseController {
     }
 
     /**
-     * 新增测试单表
+     * 新增测试单表.
      */
     @SaCheckPermission("demo:demo:add")
     @Log(title = "测试单表", businessType = BusinessType.INSERT)
-    @RepeatSubmit(interval = 2, timeUnit = TimeUnit.SECONDS, message = "{repeat.submit.message}")
+    @RepeatSubmit(interval = 2, timeUnit = TimeUnit.SECONDS)
     @PostMapping()
     public R<Void> add(@RequestBody TestDemoBo bo) {
         // 使用校验工具对标 @Validated(AddGroup.class) 注解
@@ -131,7 +131,7 @@ public class TestDemoController extends BaseController {
     }
 
     /**
-     * 修改测试单表
+     * 修改测试单表.
      */
     @SaCheckPermission("demo:demo:edit")
     @Log(title = "测试单表", businessType = BusinessType.UPDATE)
@@ -142,7 +142,7 @@ public class TestDemoController extends BaseController {
     }
 
     /**
-     * 删除测试单表
+     * 删除测试单表.
      *
      * @param ids 测试ID串
      */

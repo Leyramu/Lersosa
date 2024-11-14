@@ -34,9 +34,10 @@ import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 /**
- * 限流处理
+ * 限流处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -47,15 +48,15 @@ import java.lang.reflect.Method;
 public class RateLimiterAspect {
 
     /**
-     * 定义spel表达式解析器
+     * 定义spel表达式解析器.
      */
     private final ExpressionParser parser = new SpelExpressionParser();
     /**
-     * 定义spel解析模版
+     * 定义spel解析模版.
      */
     private final ParserContext parserContext = new TemplateParserContext();
     /**
-     * 方法参数解析器
+     * 方法参数解析器.
      */
     private final ParameterNameDiscoverer pnd = new DefaultParameterNameDiscoverer();
 
@@ -88,6 +89,7 @@ public class RateLimiterAspect {
         }
     }
 
+    @SuppressWarnings("all")
     private String getCombineKey(RateLimiter rateLimiter, JoinPoint point) {
         String key = rateLimiter.key();
         // 判断 key 不为空 和 不是表达式
@@ -108,10 +110,10 @@ public class RateLimiterAspect {
             key = expression.getValue(context, String.class);
         }
         StringBuilder stringBuffer = new StringBuilder(GlobalConstants.RATE_LIMIT_KEY);
-        stringBuffer.append(ServletUtils.getRequest().getRequestURI()).append(":");
+        stringBuffer.append(Objects.requireNonNull(ServletUtils.getRequest()).getRequestURI()).append(":");
         if (rateLimiter.limitType() == LimitType.IP) {
             // 获取请求ip
-            stringBuffer.append(ServletUtils.getClientIP()).append(":");
+            stringBuffer.append(ServletUtils.getClientIp()).append(":");
         } else if (rateLimiter.limitType() == LimitType.CLUSTER) {
             // 获取客户端实例id
             stringBuffer.append(RedisUtils.getClient().getId()).append(":");

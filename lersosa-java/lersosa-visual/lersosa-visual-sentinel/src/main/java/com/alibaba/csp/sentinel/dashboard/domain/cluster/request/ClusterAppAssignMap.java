@@ -5,90 +5,142 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.domain.cluster.request;
+
+import lombok.Data;
 
 import java.util.Set;
 
 /**
+ * 集群应用程序分配映射.
+ *
  * @author Eric Zhao
- * @since 1.4.1
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@SuppressWarnings("unused")
 public class ClusterAppAssignMap {
 
+    /**
+     * 集群机器ID.
+     */
     private String machineId;
+
+    /**
+     * 集群机器IP.
+     */
     private String ip;
+
+    /**
+     * 集群机器端口.
+     */
     private Integer port;
 
+    /**
+     * 所属应用.
+     */
     private Boolean belongToApp;
 
+    /**
+     * 客户端集合.
+     */
     private Set<String> clientSet;
 
+    /**
+     * 命名空间集合.
+     */
     private Set<String> namespaceSet;
+
+    /**
+     * 最大允许QPS.
+     */
     private Double maxAllowedQps;
 
-    public String getMachineId() {
-        return machineId;
-    }
-
+    /**
+     * 设置集群机器ID.
+     *
+     * @param machineId 集群机器ID
+     * @return 集群应用程序分配映射
+     */
     public ClusterAppAssignMap setMachineId(String machineId) {
         this.machineId = machineId;
         return this;
     }
 
-    public String getIp() {
-        return ip;
-    }
-
+    /**
+     * 设置集群机器IP.
+     *
+     * @param ip 集群机器IP
+     * @return 集群应用程序分配映射
+     */
     public ClusterAppAssignMap setIp(String ip) {
         this.ip = ip;
         return this;
     }
 
-    public Integer getPort() {
-        return port;
-    }
-
+    /**
+     * 设置集群机器端口.
+     *
+     * @param port 集群机器端口
+     * @return 集群应用程序分配映射
+     */
     public ClusterAppAssignMap setPort(Integer port) {
         this.port = port;
         return this;
     }
 
-    public Set<String> getClientSet() {
-        return clientSet;
-    }
-
+    /**
+     * 设置客户端集合.
+     *
+     * @param clientSet 客户端集合
+     * @return 集群应用程序分配映射
+     */
     public ClusterAppAssignMap setClientSet(Set<String> clientSet) {
         this.clientSet = clientSet;
         return this;
     }
 
-    public Set<String> getNamespaceSet() {
-        return namespaceSet;
-    }
-
+    /**
+     * 设置命名空间集合.
+     *
+     * @param namespaceSet 命名空间集合
+     * @return 集群应用程序分配映射
+     */
     public ClusterAppAssignMap setNamespaceSet(Set<String> namespaceSet) {
         this.namespaceSet = namespaceSet;
         return this;
     }
 
-    public Boolean getBelongToApp() {
-        return belongToApp;
-    }
-
+    /**
+     * 设置是否属于应用.
+     *
+     * @param belongToApp 是否属于应用
+     * @return 集群应用程序分配映射
+     */
     public ClusterAppAssignMap setBelongToApp(Boolean belongToApp) {
         this.belongToApp = belongToApp;
         return this;
     }
 
-    public Double getMaxAllowedQps() {
-        return maxAllowedQps;
-    }
-
+    /**
+     * 设置最大允许QPS.
+     *
+     * @param maxAllowedQps 最大允许QPS
+     * @return 集群应用程序分配映射
+     */
     public ClusterAppAssignMap setMaxAllowedQps(Double maxAllowedQps) {
         this.maxAllowedQps = maxAllowedQps;
         return this;
     }
 
+    /**
+     * 获取集群应用程序分配映射.
+     *
+     * @return 集群应用程序分配映射
+     */
     @Override
     public String toString() {
         return "ClusterAppAssignMap{" +

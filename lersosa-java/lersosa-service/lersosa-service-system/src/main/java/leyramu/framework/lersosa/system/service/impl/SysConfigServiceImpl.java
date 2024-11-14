@@ -36,9 +36,10 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
- * 参数配置 服务层实现
+ * 参数配置 服务层实现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -58,7 +59,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
     }
 
     /**
-     * 查询参数配置信息
+     * 查询参数配置信息.
      *
      * @param configId 参数配置ID
      * @return 参数配置信息
@@ -70,7 +71,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
     }
 
     /**
-     * 根据键名查询参数配置信息
+     * 根据键名查询参数配置信息.
      *
      * @param configKey 参数key
      * @return 参数键值
@@ -87,17 +88,15 @@ public class SysConfigServiceImpl implements ISysConfigService {
     }
 
     /**
-     * 获取注册开关
+     * 获取注册开关.
      *
      * @param tenantId 租户id
      * @return true开启，false关闭
      */
     @Override
     public boolean selectRegisterEnabled(String tenantId) {
-        SysConfig retConfig = TenantHelper.dynamic(tenantId, () -> {
-            return baseMapper.selectOne(new LambdaQueryWrapper<SysConfig>()
-                .eq(SysConfig::getConfigKey, "sys.account.registerUser"));
-        });
+        SysConfig retConfig = TenantHelper.dynamic(tenantId, () -> baseMapper.selectOne(new LambdaQueryWrapper<SysConfig>()
+            .eq(SysConfig::getConfigKey, "sys.account.registerUser")));
         if (ObjectUtil.isNull(retConfig)) {
             return false;
         }
@@ -105,7 +104,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
     }
 
     /**
-     * 查询参数配置列表
+     * 查询参数配置列表.
      *
      * @param config 参数配置信息
      * @return 参数配置集合
@@ -129,34 +128,33 @@ public class SysConfigServiceImpl implements ISysConfigService {
     }
 
     /**
-     * 新增参数配置
+     * 新增参数配置.
      *
      * @param bo 参数配置信息
-     * @return 结果
      */
     @CachePut(cacheNames = CacheNames.SYS_CONFIG, key = "#bo.configKey")
     @Override
-    public String insertConfig(SysConfigBo bo) {
+    public void insertConfig(SysConfigBo bo) {
         SysConfig config = MapstructUtils.convert(bo, SysConfig.class);
         int row = baseMapper.insert(config);
         if (row > 0) {
-            return config.getConfigValue();
+            Objects.requireNonNull(config);
+            return;
         }
         throw new ServiceException("操作失败");
     }
 
     /**
-     * 修改参数配置
+     * 修改参数配置.
      *
      * @param bo 参数配置信息
-     * @return 结果
      */
     @CachePut(cacheNames = CacheNames.SYS_CONFIG, key = "#bo.configKey")
     @Override
-    public String updateConfig(SysConfigBo bo) {
-        int row = 0;
+    public void updateConfig(SysConfigBo bo) {
+        int row;
         SysConfig config = MapstructUtils.convert(bo, SysConfig.class);
-        if (config.getConfigId() != null) {
+        if (Objects.requireNonNull(config).getConfigId() != null) {
             SysConfig temp = baseMapper.selectById(config.getConfigId());
             if (!StringUtils.equals(temp.getConfigKey(), config.getConfigKey())) {
                 CacheUtils.evict(CacheNames.SYS_CONFIG, temp.getConfigKey());
@@ -168,13 +166,13 @@ public class SysConfigServiceImpl implements ISysConfigService {
                 .eq(SysConfig::getConfigKey, config.getConfigKey()));
         }
         if (row > 0) {
-            return config.getConfigValue();
+            return;
         }
         throw new ServiceException("操作失败");
     }
 
     /**
-     * 批量删除参数信息
+     * 批量删除参数信息.
      *
      * @param configIds 需要删除的参数ID
      */
@@ -191,7 +189,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
     }
 
     /**
-     * 重置参数缓存数据
+     * 重置参数缓存数据.
      */
     @Override
     public void resetConfigCache() {
@@ -199,7 +197,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
     }
 
     /**
-     * 校验参数键名是否唯一
+     * 校验参数键名是否唯一.
      *
      * @param config 参数配置信息
      * @return 结果
@@ -208,10 +206,6 @@ public class SysConfigServiceImpl implements ISysConfigService {
     public boolean checkConfigKeyUnique(SysConfigBo config) {
         long configId = ObjectUtil.isNull(config.getConfigId()) ? -1L : config.getConfigId();
         SysConfig info = baseMapper.selectOne(new LambdaQueryWrapper<SysConfig>().eq(SysConfig::getConfigKey, config.getConfigKey()));
-        if (ObjectUtil.isNotNull(info) && info.getConfigId() != configId) {
-            return false;
-        }
-        return true;
+        return ObjectUtil.isNotNull(info) && info.getConfigId() != configId;
     }
-
 }

@@ -39,7 +39,7 @@
         <logback-adapter.version>1.0.0</logback-adapter.version>
         <dubbo.seata.filter.version>1.0.1</dubbo.seata.filter.version>
         <spring-boot-admin.version>3.3.5</spring-boot-admin.version>
-        <spring-cloud-alibaba.version>2023.0.1.3</spring-cloud-alibaba.version>
+        <spring-cloud-alibaba.version>2023.0.1.2</spring-cloud-alibaba.version>
         <spring.context.support.version>1.0.11</spring.context.support.version>
     </properties>
 

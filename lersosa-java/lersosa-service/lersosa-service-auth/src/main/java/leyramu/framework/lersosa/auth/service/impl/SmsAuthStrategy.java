@@ -33,8 +33,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 /**
- * 短信认证策略
+ * 短信认证策略.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -54,7 +56,7 @@ public class SmsAuthStrategy implements IAuthStrategy {
     public LoginVo login(String body, RemoteClientVo client) {
         SmsLoginBody loginBody = JsonUtils.parseObject(body, SmsLoginBody.class);
         ValidatorUtils.validate(loginBody);
-        String tenantId = loginBody.getTenantId();
+        String tenantId = Objects.requireNonNull(loginBody).getTenantId();
         String phonenumber = loginBody.getPhonenumber();
         String smsCode = loginBody.getSmsCode();
         LoginUser loginUser = TenantHelper.dynamic(tenantId, () -> {
@@ -82,7 +84,7 @@ public class SmsAuthStrategy implements IAuthStrategy {
     }
 
     /**
-     * 校验短信验证码
+     * 校验短信验证码.
      */
     private boolean validateSmsCode(String tenantId, String phonenumber, String smsCode) {
         String code = RedisUtils.getCacheObject(GlobalConstants.CAPTCHA_CODE_KEY + phonenumber);
@@ -92,5 +94,4 @@ public class SmsAuthStrategy implements IAuthStrategy {
         }
         return code.equals(smsCode);
     }
-
 }

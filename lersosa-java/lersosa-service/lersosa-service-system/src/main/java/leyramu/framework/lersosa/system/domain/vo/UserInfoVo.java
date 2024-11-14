@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * 登录用户信息
+ * 登录用户信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,17 +28,17 @@ public class UserInfoVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户基本信息
+     * 用户基本信息.
      */
     private SysUserVo user;
 
     /**
-     * 菜单权限
+     * 菜单权限.
      */
     private Set<String> permissions;
 
     /**
-     * 角色权限
+     * 角色权限.
      */
     private Set<String> roles;
 }

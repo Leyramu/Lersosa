@@ -16,7 +16,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 验证码配置
+ * 验证码配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -29,28 +29,27 @@ import org.springframework.context.annotation.Configuration;
 public class CaptchaProperties {
 
     /**
-     * 验证码类型
+     * 验证码类型.
      */
     private CaptchaType type;
 
     /**
-     * 验证码类别
+     * 验证码类别.
      */
     private CaptchaCategory category;
 
     /**
-     * 数字验证码位数
+     * 数字验证码位数.
      */
     private Integer numberLength;
 
     /**
-     * 字符验证码长度
+     * 字符验证码长度.
      */
     private Integer charLength;
 
     /**
-     * 验证码开关
+     * 验证码开关.
      */
     private Boolean enabled;
-
 }

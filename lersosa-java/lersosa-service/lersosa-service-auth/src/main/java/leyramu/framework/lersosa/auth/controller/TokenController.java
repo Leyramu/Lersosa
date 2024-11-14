@@ -47,16 +47,17 @@ import me.zhyd.oauth.utils.AuthStateUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URL;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
- * token 控制
+ * token 控制.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -83,7 +84,7 @@ public class TokenController {
     private final RemoteMessageService remoteMessageService;
 
     /**
-     * 登录方法
+     * 登录方法.
      *
      * @param body 登录信息
      * @return 结果
@@ -94,7 +95,7 @@ public class TokenController {
         LoginBody loginBody = JsonUtils.parseObject(body, LoginBody.class);
         ValidatorUtils.validate(loginBody);
         // 授权类型和客户端id
-        String clientId = loginBody.getClientId();
+        String clientId = Objects.requireNonNull(loginBody).getClientId();
         String grantType = loginBody.getGrantType();
         RemoteClientVo clientVo = remoteClientService.queryByClientId(clientId);
 
@@ -111,14 +112,12 @@ public class TokenController {
         LoginVo loginVo = IAuthStrategy.login(body, clientVo, grantType);
 
         Long userId = LoginHelper.getUserId();
-        scheduledExecutorService.schedule(() -> {
-            remoteMessageService.publishMessage(userId, "欢迎登录 Lersosa 微服务管理系统");
-        }, 3, TimeUnit.SECONDS);
+        scheduledExecutorService.schedule(() -> remoteMessageService.publishMessage(userId, "欢迎登录 Lersosa 微服务管理系统"), 3, TimeUnit.SECONDS);
         return R.ok(loginVo);
     }
 
     /**
-     * 第三方登录请求
+     * 第三方登录请求.
      *
      * @param source 登录来源
      * @return 结果
@@ -140,7 +139,7 @@ public class TokenController {
     }
 
     /**
-     * 第三方登录回调业务处理 绑定授权
+     * 第三方登录回调业务处理 绑定授权.
      *
      * @param loginBody 请求体
      * @return 结果
@@ -162,7 +161,7 @@ public class TokenController {
 
 
     /**
-     * 取消授权
+     * 取消授权.
      *
      * @param socialId socialId
      */
@@ -173,7 +172,7 @@ public class TokenController {
     }
 
     /**
-     * 登出方法
+     * 登出方法.
      */
     @PostMapping("logout")
     public R<Void> logout() {
@@ -182,7 +181,7 @@ public class TokenController {
     }
 
     /**
-     * 用户注册
+     * 用户注册.
      */
     @ApiEncrypt
     @PostMapping("register")
@@ -196,7 +195,7 @@ public class TokenController {
     }
 
     /**
-     * 登录页面租户下拉框
+     * 登录页面租户下拉框.
      *
      * @return 租户列表
      */
@@ -229,7 +228,7 @@ public class TokenController {
             // 这里从referer中取值是为了本地使用hosts添加虚拟域名，方便本地环境调试
             host = referer.split("//")[1].split("/")[0];
         } else {
-            host = new URL(request.getRequestURL().toString()).getHost();
+            host = new URI(request.getRequestURL().toString()).getHost();
         }
         // 根据域名进行筛选
         List<TenantListVo> list = StreamUtils.filter(voList, vo ->
@@ -237,5 +236,4 @@ public class TokenController {
         result.setVoList(CollUtil.isNotEmpty(list) ? list : voList);
         return R.ok(result);
     }
-
 }

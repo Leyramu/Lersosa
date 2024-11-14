@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * minio策略配置
+ * minio策略配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -23,23 +23,22 @@ import lombok.Getter;
 public enum PolicyType {
 
     /**
-     * 只读
+     * 只读.
      */
     READ("read-only"),
 
     /**
-     * 只写
+     * 只写.
      */
     WRITE("write-only"),
 
     /**
-     * 读写
+     * 读写.
      */
     READ_WRITE("read-write");
 
     /**
-     * 类型
+     * 类型.
      */
     private final String type;
-
 }

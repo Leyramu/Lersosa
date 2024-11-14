@@ -14,7 +14,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 自定义gateway参数配置
+ * 自定义gateway参数配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,8 +27,7 @@ import org.springframework.context.annotation.Configuration;
 public class CustomGatewayProperties {
 
     /**
-     * 请求日志
+     * 请求日志.
      */
     private Boolean requestLog;
-
 }

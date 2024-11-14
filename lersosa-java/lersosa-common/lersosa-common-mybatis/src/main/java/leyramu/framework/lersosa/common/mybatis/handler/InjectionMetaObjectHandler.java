@@ -21,7 +21,7 @@ import org.apache.ibatis.reflection.MetaObject;
 import java.util.Date;
 
 /**
- * MP注入处理器
+ * MP注入处理器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,7 +31,7 @@ import java.util.Date;
 public class InjectionMetaObjectHandler implements MetaObjectHandler {
 
     /**
-     * 插入填充方法，用于在插入数据时自动填充实体对象中的创建时间、更新时间、创建人、更新人等信息
+     * 插入填充方法，用于在插入数据时自动填充实体对象中的创建时间、更新时间、创建人、更新人等信息.
      *
      * @param metaObject 元对象，用于获取原始对象并进行填充
      */
@@ -68,7 +68,7 @@ public class InjectionMetaObjectHandler implements MetaObjectHandler {
     }
 
     /**
-     * 更新填充方法，用于在更新数据时自动填充实体对象中的更新时间和更新人信息
+     * 更新填充方法，用于在更新数据时自动填充实体对象中的更新时间和更新人信息.
      *
      * @param metaObject 元对象，用于获取原始对象并进行填充
      */
@@ -94,7 +94,7 @@ public class InjectionMetaObjectHandler implements MetaObjectHandler {
     }
 
     /**
-     * 获取当前登录用户信息
+     * 获取当前登录用户信息.
      *
      * @return 当前登录用户的信息，如果用户未登录则返回 null
      */
@@ -108,5 +108,4 @@ public class InjectionMetaObjectHandler implements MetaObjectHandler {
         }
         return loginUser;
     }
-
 }

@@ -5,8 +5,8 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
-package com.alibaba.csp.sentinel.dashboard.controller.gateway;
 
+package com.alibaba.csp.sentinel.dashboard.controller.gateway;
 
 import com.alibaba.csp.sentinel.dashboard.auth.AuthAction;
 import com.alibaba.csp.sentinel.dashboard.auth.AuthService;
@@ -20,9 +20,8 @@ import com.alibaba.csp.sentinel.dashboard.domain.vo.gateway.rule.GatewayParamFlo
 import com.alibaba.csp.sentinel.dashboard.domain.vo.gateway.rule.UpdateFlowRuleReqVo;
 import com.alibaba.csp.sentinel.dashboard.repository.gateway.InMemGatewayFlowRuleStore;
 import com.alibaba.csp.sentinel.util.StringUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -34,27 +33,40 @@ import static com.alibaba.csp.sentinel.dashboard.datasource.entity.gateway.Gatew
 import static com.alibaba.csp.sentinel.slots.block.RuleConstant.*;
 
 /**
- * Gateway flow rule Controller for manage gateway flow rules.
+ * 网关流规则 用于管理网关流规则的控制器.
  *
  * @author cdfive
- * @since 1.7.0
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/12
  */
+@Slf4j
 @RestController
-@RequestMapping(value = "/gateway/flow")
+@RequiredArgsConstructor
+@RequestMapping("/gateway/flow")
 public class GatewayFlowRuleController {
 
-    private final Logger logger = LoggerFactory.getLogger(GatewayFlowRuleController.class);
+    /**
+     * 用于存储网关流量规则的内存存储器.
+     */
+    private final InMemGatewayFlowRuleStore repository;
 
-    @Autowired
-    private InMemGatewayFlowRuleStore repository;
+    /**
+     * 用于与Sentinel API通信的客户端.
+     */
+    private final SentinelApiClient sentinelApiClient;
 
-    @Autowired
-    private SentinelApiClient sentinelApiClient;
-
+    /**
+     * 查询流量规则列表.
+     *
+     * @param app  应用名称，用于筛选流量规则
+     * @param ip   IP地址，用于筛选流量规则
+     * @param port 端口号，用于筛选流量规则
+     * @return 返回流量规则列表的查询结果
+     */
     @GetMapping("/list.json")
     @AuthAction(AuthService.PrivilegeType.READ_RULE)
     public Result<List<GatewayFlowRuleEntity>> queryFlowRules(String app, String ip, Integer port) {
-
         if (StringUtil.isEmpty(app)) {
             return Result.ofFail(-1, "app can't be null or empty");
         }
@@ -70,15 +82,20 @@ public class GatewayFlowRuleController {
             repository.saveAll(rules);
             return Result.ofSuccess(rules);
         } catch (Throwable throwable) {
-            logger.error("query gateway flow rules error:", throwable);
+            log.error("query gateway flow rules error:", throwable);
             return Result.ofThrowable(-1, throwable);
         }
     }
 
+    /**
+     * 添加新的流量规则.
+     *
+     * @param reqVo 添加流量规则的请求对象，包含规则的相关参数
+     * @return 返回添加流量规则的操作结果
+     */
     @PostMapping("/new.json")
     @AuthAction(AuthService.PrivilegeType.WRITE_RULE)
     public Result<GatewayFlowRuleEntity> addFlowRule(@RequestBody AddFlowRuleReqVo reqVo) {
-
         String app = reqVo.getApp();
         if (StringUtil.isBlank(app)) {
             return Result.ofFail(-1, "app can't be null or empty");
@@ -99,7 +116,6 @@ public class GatewayFlowRuleController {
         }
         entity.setPort(port);
 
-        // API类型, Route ID或API分组
         Integer resourceMode = reqVo.getResourceMode();
         if (resourceMode == null) {
             return Result.ofFail(-1, "resourceMode can't be null");
@@ -109,20 +125,16 @@ public class GatewayFlowRuleController {
         }
         entity.setResourceMode(resourceMode);
 
-        // API名称
         String resource = reqVo.getResource();
         if (StringUtil.isBlank(resource)) {
             return Result.ofFail(-1, "resource can't be null or empty");
         }
         entity.setResource(resource.trim());
-
-        // 针对请求属性
         GatewayParamFlowItemVo paramItem = reqVo.getParamItem();
         if (paramItem != null) {
             GatewayParamFlowItemEntity itemEntity = new GatewayParamFlowItemEntity();
             entity.setParamItem(itemEntity);
 
-            // 参数属性 0-ClientIP 1-Remote Host 2-Header 3-URL参数 4-Cookie
             Integer parseStrategy = paramItem.getParseStrategy();
             if (!Arrays.asList(PARAM_PARSE_STRATEGY_CLIENT_IP, PARAM_PARSE_STRATEGY_HOST, PARAM_PARSE_STRATEGY_HEADER
                 , PARAM_PARSE_STRATEGY_URL_PARAM, PARAM_PARSE_STRATEGY_COOKIE).contains(parseStrategy)) {
@@ -130,9 +142,7 @@ public class GatewayFlowRuleController {
             }
             itemEntity.setParseStrategy(paramItem.getParseStrategy());
 
-            // 当参数属性为2-Header 3-URL参数 4-Cookie时，参数名称必填
             if (Arrays.asList(PARAM_PARSE_STRATEGY_HEADER, PARAM_PARSE_STRATEGY_URL_PARAM, PARAM_PARSE_STRATEGY_COOKIE).contains(parseStrategy)) {
-                // 参数名称
                 String fieldName = paramItem.getFieldName();
                 if (StringUtil.isBlank(fieldName)) {
                     return Result.ofFail(-1, "fieldName can't be null or empty");
@@ -141,7 +151,6 @@ public class GatewayFlowRuleController {
             }
 
             String pattern = paramItem.getPattern();
-            // 如果匹配串不为空，验证匹配模式
             if (StringUtil.isNotEmpty(pattern)) {
                 itemEntity.setPattern(pattern);
                 Integer matchStrategy = paramItem.getMatchStrategy();
@@ -152,7 +161,6 @@ public class GatewayFlowRuleController {
             }
         }
 
-        // 阈值类型 0-线程数 1-QPS
         Integer grade = reqVo.getGrade();
         if (grade == null) {
             return Result.ofFail(-1, "grade can't be null");
@@ -162,7 +170,6 @@ public class GatewayFlowRuleController {
         }
         entity.setGrade(grade);
 
-        // QPS阈值
         Double count = reqVo.getCount();
         if (count == null) {
             return Result.ofFail(-1, "count can't be null");
@@ -172,7 +179,6 @@ public class GatewayFlowRuleController {
         }
         entity.setCount(count);
 
-        // 间隔
         Long interval = reqVo.getInterval();
         if (interval == null) {
             return Result.ofFail(-1, "interval can't be null");
@@ -182,7 +188,6 @@ public class GatewayFlowRuleController {
         }
         entity.setInterval(interval);
 
-        // 间隔单位
         Integer intervalUnit = reqVo.getIntervalUnit();
         if (intervalUnit == null) {
             return Result.ofFail(-1, "intervalUnit can't be null");
@@ -192,7 +197,6 @@ public class GatewayFlowRuleController {
         }
         entity.setIntervalUnit(intervalUnit);
 
-        // 流控方式 0-快速失败 2-匀速排队
         Integer controlBehavior = reqVo.getControlBehavior();
         if (controlBehavior == null) {
             return Result.ofFail(-1, "controlBehavior can't be null");
@@ -203,7 +207,6 @@ public class GatewayFlowRuleController {
         entity.setControlBehavior(controlBehavior);
 
         if (CONTROL_BEHAVIOR_DEFAULT == controlBehavior) {
-            // 0-快速失败, 则Burst size必填
             Integer burst = reqVo.getBurst();
             if (burst == null) {
                 return Result.ofFail(-1, "burst can't be null");
@@ -213,7 +216,6 @@ public class GatewayFlowRuleController {
             }
             entity.setBurst(burst);
         } else if (CONTROL_BEHAVIOR_RATE_LIMITER == controlBehavior) {
-            // 1-匀速排队, 则超时时间必填
             Integer maxQueueingTimeoutMs = reqVo.getMaxQueueingTimeoutMs();
             if (maxQueueingTimeoutMs == null) {
                 return Result.ofFail(-1, "maxQueueingTimeoutMs can't be null");
@@ -231,17 +233,23 @@ public class GatewayFlowRuleController {
         try {
             entity = repository.save(entity);
         } catch (Throwable throwable) {
-            logger.error("add gateway flow rule error:", throwable);
+            log.error("add gateway flow rule error:", throwable);
             return Result.ofThrowable(-1, throwable);
         }
 
-        if (!publishRules(app, ip, port)) {
-            logger.warn("publish gateway flow rules fail after add");
+        if (publishRules(app, ip, port)) {
+            log.warn("publish gateway flow rules fail after add");
         }
 
         return Result.ofSuccess(entity);
     }
 
+    /**
+     * 更新网关流量规则.
+     *
+     * @param reqVo 更新流量规则的请求对象
+     * @return 更新后的网关流量规则实体
+     */
     @PostMapping("/save.json")
     @AuthAction(AuthService.PrivilegeType.WRITE_RULE)
     public Result<GatewayFlowRuleEntity> updateFlowRule(@RequestBody UpdateFlowRuleReqVo reqVo) {
@@ -261,13 +269,11 @@ public class GatewayFlowRuleController {
             return Result.ofFail(-1, "gateway flow rule does not exist, id=" + id);
         }
 
-        // 针对请求属性
         GatewayParamFlowItemVo paramItem = reqVo.getParamItem();
         if (paramItem != null) {
             GatewayParamFlowItemEntity itemEntity = new GatewayParamFlowItemEntity();
             entity.setParamItem(itemEntity);
 
-            // 参数属性 0-ClientIP 1-Remote Host 2-Header 3-URL参数 4-Cookie
             Integer parseStrategy = paramItem.getParseStrategy();
             if (!Arrays.asList(PARAM_PARSE_STRATEGY_CLIENT_IP, PARAM_PARSE_STRATEGY_HOST, PARAM_PARSE_STRATEGY_HEADER
                 , PARAM_PARSE_STRATEGY_URL_PARAM, PARAM_PARSE_STRATEGY_COOKIE).contains(parseStrategy)) {
@@ -275,9 +281,7 @@ public class GatewayFlowRuleController {
             }
             itemEntity.setParseStrategy(paramItem.getParseStrategy());
 
-            // 当参数属性为2-Header 3-URL参数 4-Cookie时，参数名称必填
             if (Arrays.asList(PARAM_PARSE_STRATEGY_HEADER, PARAM_PARSE_STRATEGY_URL_PARAM, PARAM_PARSE_STRATEGY_COOKIE).contains(parseStrategy)) {
-                // 参数名称
                 String fieldName = paramItem.getFieldName();
                 if (StringUtil.isBlank(fieldName)) {
                     return Result.ofFail(-1, "fieldName can't be null or empty");
@@ -286,7 +290,6 @@ public class GatewayFlowRuleController {
             }
 
             String pattern = paramItem.getPattern();
-            // 如果匹配串不为空，验证匹配模式
             if (StringUtil.isNotEmpty(pattern)) {
                 itemEntity.setPattern(pattern);
                 Integer matchStrategy = paramItem.getMatchStrategy();
@@ -299,7 +302,6 @@ public class GatewayFlowRuleController {
             entity.setParamItem(null);
         }
 
-        // 阈值类型 0-线程数 1-QPS
         Integer grade = reqVo.getGrade();
         if (grade == null) {
             return Result.ofFail(-1, "grade can't be null");
@@ -309,7 +311,6 @@ public class GatewayFlowRuleController {
         }
         entity.setGrade(grade);
 
-        // QPS阈值
         Double count = reqVo.getCount();
         if (count == null) {
             return Result.ofFail(-1, "count can't be null");
@@ -319,7 +320,6 @@ public class GatewayFlowRuleController {
         }
         entity.setCount(count);
 
-        // 间隔
         Long interval = reqVo.getInterval();
         if (interval == null) {
             return Result.ofFail(-1, "interval can't be null");
@@ -329,7 +329,6 @@ public class GatewayFlowRuleController {
         }
         entity.setInterval(interval);
 
-        // 间隔单位
         Integer intervalUnit = reqVo.getIntervalUnit();
         if (intervalUnit == null) {
             return Result.ofFail(-1, "intervalUnit can't be null");
@@ -339,7 +338,6 @@ public class GatewayFlowRuleController {
         }
         entity.setIntervalUnit(intervalUnit);
 
-        // 流控方式 0-快速失败 2-匀速排队
         Integer controlBehavior = reqVo.getControlBehavior();
         if (controlBehavior == null) {
             return Result.ofFail(-1, "controlBehavior can't be null");
@@ -350,7 +348,6 @@ public class GatewayFlowRuleController {
         entity.setControlBehavior(controlBehavior);
 
         if (CONTROL_BEHAVIOR_DEFAULT == controlBehavior) {
-            // 0-快速失败, 则Burst size必填
             Integer burst = reqVo.getBurst();
             if (burst == null) {
                 return Result.ofFail(-1, "burst can't be null");
@@ -360,7 +357,6 @@ public class GatewayFlowRuleController {
             }
             entity.setBurst(burst);
         } else if (CONTROL_BEHAVIOR_RATE_LIMITER == controlBehavior) {
-            // 2-匀速排队, 则超时时间必填
             Integer maxQueueingTimeoutMs = reqVo.getMaxQueueingTimeoutMs();
             if (maxQueueingTimeoutMs == null) {
                 return Result.ofFail(-1, "maxQueueingTimeoutMs can't be null");
@@ -377,18 +373,23 @@ public class GatewayFlowRuleController {
         try {
             entity = repository.save(entity);
         } catch (Throwable throwable) {
-            logger.error("update gateway flow rule error:", throwable);
+            log.error("update gateway flow rule error:", throwable);
             return Result.ofThrowable(-1, throwable);
         }
 
-        if (!publishRules(app, entity.getIp(), entity.getPort())) {
-            logger.warn("publish gateway flow rules fail after update");
+        if (publishRules(app, entity.getIp(), entity.getPort())) {
+            log.warn("publish gateway flow rules fail after update");
         }
 
         return Result.ofSuccess(entity);
     }
 
-
+    /**
+     * 删除网关流量规则的接口.
+     *
+     * @param id 要删除的规则的ID
+     * @return 返回一个Result对象，包含删除操作的结果
+     */
     @PostMapping("/delete.json")
     @AuthAction(AuthService.PrivilegeType.DELETE_RULE)
     public Result<Long> deleteFlowRule(Long id) {
@@ -405,19 +406,27 @@ public class GatewayFlowRuleController {
         try {
             repository.delete(id);
         } catch (Throwable throwable) {
-            logger.error("delete gateway flow rule error:", throwable);
+            log.error("delete gateway flow rule error:", throwable);
             return Result.ofThrowable(-1, throwable);
         }
 
-        if (!publishRules(oldEntity.getApp(), oldEntity.getIp(), oldEntity.getPort())) {
-            logger.warn("publish gateway flow rules fail after delete");
+        if (publishRules(oldEntity.getApp(), oldEntity.getIp(), oldEntity.getPort())) {
+            log.warn("publish gateway flow rules fail after delete");
         }
 
         return Result.ofSuccess(id);
     }
 
+    /**
+     * 发布网关流量规则的方法.
+     *
+     * @param app  应用名称
+     * @param ip   机器IP地址
+     * @param port 机器端口号
+     * @return 如果发布失败则返回true，否则返回false
+     */
     private boolean publishRules(String app, String ip, Integer port) {
         List<GatewayFlowRuleEntity> rules = repository.findAllByMachine(MachineInfo.of(app, ip, port));
-        return sentinelApiClient.modifyGatewayFlowRules(app, ip, port, rules);
+        return !sentinelApiClient.modifyGatewayFlowRules(app, ip, port, rules);
     }
 }

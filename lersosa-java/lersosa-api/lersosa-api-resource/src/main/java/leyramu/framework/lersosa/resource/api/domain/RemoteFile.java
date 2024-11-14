@@ -14,7 +14,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 文件信息
+ * 文件信息.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -27,27 +27,27 @@ public class RemoteFile implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * oss主键
+     * oss主键.
      */
     private Long ossId;
 
     /**
-     * 文件名称
+     * 文件名称.
      */
     private String name;
 
     /**
-     * 文件地址
+     * 文件地址.
      */
     private String url;
 
     /**
-     * 原名
+     * 原名.
      */
     private String originalName;
 
     /**
-     * 文件后缀名
+     * 文件后缀名.
      */
     private String fileSuffix;
 }

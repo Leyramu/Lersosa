@@ -5,17 +5,26 @@
  * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
+
 package com.alibaba.csp.sentinel.dashboard.entity.rule;
 
 import com.alibaba.csp.sentinel.dashboard.datasource.entity.rule.RuleEntity;
 import com.alibaba.csp.sentinel.slots.block.flow.ClusterFlowConfig;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
+import lombok.Data;
 
 import java.util.Date;
 
 /**
+ * 流规则实体.
+ *
  * @author leyou
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 2.0.0
+ * @since 2024/11/13
  */
+@Data
+@SuppressWarnings("unused")
 public class FlowRuleEntity implements RuleEntity {
 
     private Long id;
@@ -25,28 +34,28 @@ public class FlowRuleEntity implements RuleEntity {
     private String limitApp;
     private String resource;
     /**
-     * 0为线程数;1为qps
+     * 0为线程数;1为qps.
      */
     private Integer grade;
     private Double count;
     /**
-     * 0为直接限流;1为关联限流;2为链路限流
-     ***/
+     * 0为直接限流;1为关联限流;2为链路限流.
+     */
     private Integer strategy;
     private String refResource;
     /**
-     * 0. default, 1. warm up, 2. rate limiter
+     * 0. default， 1.热身，2.速率限制器.
      */
     private Integer controlBehavior;
     private Integer warmUpPeriodSec;
     /**
-     * max queueing time in rate limiter behavior
+     * Rate Limiter 行为中的最大排队时间.
      */
     private Integer maxQueueingTimeMs;
 
     private boolean clusterMode;
     /**
-     * Flow rule config for cluster mode.
+     * 集群模式的流规则配置.
      */
     private ClusterFlowConfig clusterConfig;
 
@@ -77,26 +86,14 @@ public class FlowRuleEntity implements RuleEntity {
         return ip;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
     @Override
     public Integer getPort() {
         return port;
     }
 
-    public void setPort(Integer port) {
-        this.port = port;
-    }
-
     @Override
     public String getApp() {
         return app;
-    }
-
-    public void setApp(String app) {
-        this.app = app;
     }
 
     @Override
@@ -109,89 +106,9 @@ public class FlowRuleEntity implements RuleEntity {
         this.id = id;
     }
 
-    public String getLimitApp() {
-        return limitApp;
-    }
-
-    public void setLimitApp(String limitApp) {
-        this.limitApp = limitApp;
-    }
-
-    public String getResource() {
-        return resource;
-    }
-
-    public void setResource(String resource) {
-        this.resource = resource;
-    }
-
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
-
-    public Double getCount() {
-        return count;
-    }
-
-    public void setCount(Double count) {
-        this.count = count;
-    }
-
-    public Integer getStrategy() {
-        return strategy;
-    }
-
-    public void setStrategy(Integer strategy) {
-        this.strategy = strategy;
-    }
-
-    public String getRefResource() {
-        return refResource;
-    }
-
-    public void setRefResource(String refResource) {
-        this.refResource = refResource;
-    }
-
-    public Integer getControlBehavior() {
-        return controlBehavior;
-    }
-
-    public void setControlBehavior(Integer controlBehavior) {
-        this.controlBehavior = controlBehavior;
-    }
-
-    public Integer getWarmUpPeriodSec() {
-        return warmUpPeriodSec;
-    }
-
-    public void setWarmUpPeriodSec(Integer warmUpPeriodSec) {
-        this.warmUpPeriodSec = warmUpPeriodSec;
-    }
-
-    public Integer getMaxQueueingTimeMs() {
-        return maxQueueingTimeMs;
-    }
-
-    public void setMaxQueueingTimeMs(Integer maxQueueingTimeMs) {
-        this.maxQueueingTimeMs = maxQueueingTimeMs;
-    }
-
-    public boolean isClusterMode() {
-        return clusterMode;
-    }
-
     public FlowRuleEntity setClusterMode(boolean clusterMode) {
         this.clusterMode = clusterMode;
         return this;
-    }
-
-    public ClusterFlowConfig getClusterConfig() {
-        return clusterConfig;
     }
 
     public FlowRuleEntity setClusterConfig(ClusterFlowConfig clusterConfig) {
@@ -202,18 +119,6 @@ public class FlowRuleEntity implements RuleEntity {
     @Override
     public Date getGmtCreate() {
         return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
     }
 
     @Override
@@ -238,5 +143,4 @@ public class FlowRuleEntity implements RuleEntity {
         flowRule.setClusterConfig(clusterConfig);
         return flowRule;
     }
-
 }

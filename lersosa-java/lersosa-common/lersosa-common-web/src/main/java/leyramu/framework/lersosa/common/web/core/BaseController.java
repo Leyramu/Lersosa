@@ -11,7 +11,7 @@ package leyramu.framework.lersosa.common.web.core;
 import leyramu.framework.lersosa.common.core.domain.R;
 
 /**
- * web层通用数据处理
+ * web层通用数据处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -20,7 +20,7 @@ import leyramu.framework.lersosa.common.core.domain.R;
 public class BaseController {
 
     /**
-     * 响应返回结果
+     * 响应返回结果.
      *
      * @param rows 影响行数
      * @return 操作结果
@@ -30,7 +30,7 @@ public class BaseController {
     }
 
     /**
-     * 响应返回结果
+     * 响应返回结果.
      *
      * @param result 结果
      * @return 操作结果
@@ -38,5 +38,4 @@ public class BaseController {
     protected R<Void> toAjax(boolean result) {
         return result ? R.ok() : R.fail();
     }
-
 }

@@ -53,7 +53,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 /**
- * 数据权限过滤
+ * 数据权限过滤.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -63,22 +63,22 @@ import java.util.function.Function;
 public class PlusDataPermissionHandler {
 
     /**
-     * 方法或类(名称) 与 注解的映射关系缓存
+     * 方法或类(名称) 与 注解的映射关系缓存.
      */
     private final Map<String, DataPermission> dataPermissionCacheMap = new ConcurrentHashMap<>();
 
     /**
-     * spel 解析器
+     * spel 解析器.
      */
     private final ExpressionParser parser = new SpelExpressionParser();
     private final ParserContext parserContext = new TemplateParserContext();
     /**
-     * bean解析器 用于处理 spel 表达式中对 bean 的调用
+     * bean解析器 用于处理 spel 表达式中对 bean 的调用.
      */
     private final BeanResolver beanResolver = new BeanFactoryResolver(SpringUtils.getBeanFactory());
 
     /**
-     * 构造方法，扫描指定包下的 Mapper 类并初始化缓存
+     * 构造方法，扫描指定包下的 Mapper 类并初始化缓存.
      *
      * @param mapperPackage Mapper 类所在的包路径
      */
@@ -87,7 +87,7 @@ public class PlusDataPermissionHandler {
     }
 
     /**
-     * 获取数据过滤条件的 SQL 片段
+     * 获取数据过滤条件的 SQL 片段.
      *
      * @param where             原始的查询条件表达式
      * @param mappedStatementId Mapper 方法的 ID
@@ -127,7 +127,7 @@ public class PlusDataPermissionHandler {
     }
 
     /**
-     * 构建数据过滤条件的 SQL 语句
+     * 构建数据过滤条件的 SQL 语句.
      *
      * @param dataPermission 数据权限注解
      * @param isSelect       标志当前操作是否为查询操作，查询操作和更新或删除操作在处理过滤条件时会有不同的处理方式
@@ -198,7 +198,7 @@ public class PlusDataPermissionHandler {
     }
 
     /**
-     * 扫描指定包下的 Mapper 类，并查找其中带有特定注解的方法或类
+     * 扫描指定包下的 Mapper 类，并查找其中带有特定注解的方法或类.
      *
      * @param mapperPackage Mapper 类所在的包路径
      */
@@ -230,7 +230,7 @@ public class PlusDataPermissionHandler {
     }
 
     /**
-     * 在指定的类中查找特定的注解 DataPermission，并将带有这个注解的方法或类存储到 dataPermissionCacheMap 中
+     * 在指定的类中查找特定的注解 DataPermission，并将带有这个注解的方法或类存储到 dataPermissionCacheMap 中.
      *
      * @param clazz 要查找的类
      */
@@ -253,7 +253,7 @@ public class PlusDataPermissionHandler {
     }
 
     /**
-     * 根据映射语句 ID 或类名获取对应的 DataPermission 注解对象
+     * 根据映射语句 ID 或类名获取对应的 DataPermission 注解对象.
      *
      * @param mapperId 映射语句 ID
      * @return DataPermission 注解对象，如果不存在则返回 null
@@ -272,7 +272,7 @@ public class PlusDataPermissionHandler {
     }
 
     /**
-     * 检查给定的映射语句 ID 是否有效，即是否能够找到对应的 DataPermission 注解对象
+     * 检查给定的映射语句 ID 是否有效，即是否能够找到对应的 DataPermission 注解对象.
      *
      * @param mapperId 映射语句 ID
      * @return 如果找到对应的 DataPermission 注解对象，则返回 false；否则返回 true

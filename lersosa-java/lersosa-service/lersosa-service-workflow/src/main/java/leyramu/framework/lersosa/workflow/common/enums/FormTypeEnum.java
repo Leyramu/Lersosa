@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Arrays;
 
 /**
- * 任务状态枚举
+ * 任务状态枚举.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -26,26 +26,26 @@ import java.util.Arrays;
 @AllArgsConstructor
 public enum FormTypeEnum {
     /**
-     * 自定义表单
+     * 自定义表单.
      */
     STATIC("static", "自定义表单"),
     /**
-     * 动态表单
+     * 动态表单.
      */
     DYNAMIC("dynamic", "动态表单");
 
     /**
-     * 类型
+     * 类型.
      */
     private final String type;
 
     /**
-     * 描述
+     * 描述.
      */
     private final String desc;
 
     /**
-     * 表单类型
+     * 表单类型.
      *
      * @param formType 表单类型
      */
@@ -61,4 +61,3 @@ public enum FormTypeEnum {
             .orElse(StrUtil.EMPTY);
     }
 }
-

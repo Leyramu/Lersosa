@@ -19,34 +19,36 @@ import leyramu.framework.lersosa.workflow.mapper.WfCategoryMapper;
 import leyramu.framework.lersosa.workflow.service.IWfCategoryService;
 import leyramu.framework.lersosa.workflow.utils.QueryUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.Model;
 import org.flowable.engine.repository.ProcessDefinition;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * 流程分类Service业务层处理
+ * 流程分类Service业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class WfCategoryServiceImpl implements IWfCategoryService {
 
     private final WfCategoryMapper baseMapper;
-    @Autowired(required = false)
-    private RepositoryService repositoryService;
+
+    private final RepositoryService repositoryService;
 
     /**
-     * 查询流程分类
+     * 查询流程分类.
      */
     @Override
     public WfCategoryVo queryById(Long id) {
@@ -55,7 +57,7 @@ public class WfCategoryServiceImpl implements IWfCategoryService {
 
 
     /**
-     * 查询流程分类列表
+     * 查询流程分类列表.
      */
     @Override
     public List<WfCategoryVo> queryList(WfCategoryBo bo) {
@@ -71,7 +73,7 @@ public class WfCategoryServiceImpl implements IWfCategoryService {
     }
 
     /**
-     * 新增流程分类
+     * 新增流程分类.
      */
     @Override
     public Boolean insertByBo(WfCategoryBo bo) {
@@ -79,13 +81,13 @@ public class WfCategoryServiceImpl implements IWfCategoryService {
         validEntityBeforeSave(add);
         boolean flag = baseMapper.insert(add) > 0;
         if (flag) {
-            bo.setId(add.getId());
+            bo.setId(Objects.requireNonNull(add).getId());
         }
         return flag;
     }
 
     /**
-     * 修改流程分类
+     * 修改流程分类.
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -110,25 +112,26 @@ public class WfCategoryServiceImpl implements IWfCategoryService {
     }
 
     /**
-     * 保存前的数据校验
+     * 保存前的数据校验.
      */
-    private void validEntityBeforeSave(WfCategory entity) {
+    private void validEntityBeforeSave(WfCategory ignoredEntity) {
         //TODO 做一些数据校验,如唯一约束
     }
 
     /**
-     * 批量删除流程分类
+     * 批量删除流程分类.
      */
     @Override
     public Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid) {
         if (isValid) {
             //TODO 做一些业务上的校验,判断是否需要校验
+            log.info("未实现");
         }
         return baseMapper.deleteByIds(ids) > 0;
     }
 
     /**
-     * 按照类别编码查询
+     * 按照类别编码查询.
      *
      * @param categoryCode 分类比吗
      */

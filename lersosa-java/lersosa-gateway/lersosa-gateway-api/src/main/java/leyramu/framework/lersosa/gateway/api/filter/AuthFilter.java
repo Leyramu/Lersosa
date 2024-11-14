@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 
 /**
- * [Sa-Token 权限认证] 拦截器
+ * [Sa-Token 权限认证] 拦截器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -36,7 +36,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 public class AuthFilter {
 
     /**
-     * 注册 Sa-Token 全局过滤器
+     * 注册 Sa-Token 全局过滤器.
      */
     @Bean
     public SaReactorFilter getSaReactorFilter(IgnoreWhiteProperties ignoreWhite) {
@@ -45,11 +45,11 @@ public class AuthFilter {
             .addInclude("/**")
             .addExclude("/favicon.ico", "/actuator", "/actuator/**")
             // 鉴权方法：每次访问进入
-            .setAuth(obj -> {
+            .setAuth(_ -> {
                 // 登录校验 -- 拦截所有路由
                 SaRouter.match("/**")
                     .notMatch(ignoreWhite.getWhites())
-                    .check(r -> {
+                    .check(_ -> {
                         ServerHttpRequest request = SaReactorSyncHolder.getContext().getRequest();
                         // 检查是否登录 是否有token
                         try {
@@ -88,7 +88,7 @@ public class AuthFilter {
     }
 
     /**
-     * 对 actuator 健康检查接口 做账号密码鉴权
+     * 对 actuator 健康检查接口 做账号密码鉴权.
      */
     @Bean
     public SaReactorFilter actuatorFilter() {
@@ -96,10 +96,7 @@ public class AuthFilter {
         String password = SpringUtils.getProperty("spring.cloud.nacos.discovery.metadata.userpassword");
         return new SaReactorFilter()
             .addInclude("/actuator", "/actuator/**")
-            .setAuth(obj -> {
-                SaHttpBasicUtil.check(username + ":" + password);
-            })
+            .setAuth(_ -> SaHttpBasicUtil.check(username + ":" + password))
             .setError(e -> SaResult.error(e.getMessage()).setCode(HttpStatus.UNAUTHORIZED));
     }
-
 }

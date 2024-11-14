@@ -12,7 +12,7 @@ import leyramu.framework.lersosa.common.mybatis.core.mapper.BaseMapperPlus;
 import leyramu.framework.lersosa.workflow.domain.WfTaskBackNode;
 
 /**
- * 节点驳回记录Mapper接口
+ * 节点驳回记录Mapper接口.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0

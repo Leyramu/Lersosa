@@ -24,6 +24,7 @@ import com.alibaba.nacos.core.service.NamespaceOperationService;
 import com.alibaba.nacos.plugin.auth.constant.ActionTypes;
 import com.alibaba.nacos.plugin.auth.constant.SignType;
 import com.alibaba.nacos.plugin.auth.impl.constant.AuthConstants;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,13 +33,16 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
- * NamespaceControllerV2.
+ * 命名空间控制器 V 2.
  *
  * @author dongyafei
- * @date 2022/8/16
+ * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
+ * @version 1.0.0
+ * @since 2024/11/13
  */
 @NacosApi
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/v2/console/namespace")
 @ExtractorManager.Extractor(httpExtractor = ConsoleDefaultHttpParamExtractor.class)
 public class NamespaceControllerV2 {
@@ -47,17 +51,14 @@ public class NamespaceControllerV2 {
     private final NamespaceOperationService namespaceOperationService;
     private final Pattern namespaceIdCheckPattern = Pattern.compile("^[\\w-]+");
     private final Pattern namespaceNameCheckPattern = Pattern.compile("^[^@#$%^&*]+$");
-    private NamespacePersistService namespacePersistService;
+    @SuppressWarnings("all")
+    private final NamespacePersistService namespacePersistService;
 
-    public NamespaceControllerV2(NamespaceOperationService namespaceOperationService, NamespacePersistService namespacePersistService) {
-        this.namespaceOperationService = namespaceOperationService;
-        this.namespacePersistService = namespacePersistService;
-    }
 
     /**
-     * Get namespace list.
+     * 获取命名空间列表.
      *
-     * @return namespace list
+     * @return 命名空间列表
      */
     @GetMapping("/list")
     public Result<List<Namespace>> getNamespaceList() {
@@ -65,10 +66,10 @@ public class NamespaceControllerV2 {
     }
 
     /**
-     * get namespace all info by namespace id.
+     * 按命名空间 ID 获取命名空间所有信息.
      *
-     * @param namespaceId namespaceId
-     * @return namespace all info
+     * @param namespaceId 命名空间 ID
+     * @return 命名空间 所有信息
      */
     @GetMapping()
     @Secured(resource = AuthConstants.CONSOLE_RESOURCE_NAME_PREFIX
@@ -78,10 +79,10 @@ public class NamespaceControllerV2 {
     }
 
     /**
-     * create namespace.
+     * 创建命名空间.
      *
-     * @param namespaceForm namespaceForm.
-     * @return whether create ok
+     * @param namespaceForm 命名空间形式
+     * @return 是否创建成功
      */
     @PostMapping
     @Secured(resource = AuthConstants.CONSOLE_RESOURCE_NAME_PREFIX
@@ -106,13 +107,11 @@ public class NamespaceControllerV2 {
                 throw new NacosApiException(HttpStatus.BAD_REQUEST.value(), ErrorCode.ILLEGAL_NAMESPACE,
                     "too long namespaceId, over " + NAMESPACE_ID_MAX_LENGTH);
             }
-            // check unique
             if (namespacePersistService.tenantInfoCountByTenantId(namespaceId) > 0) {
                 throw new NacosApiException(HttpStatus.BAD_REQUEST.value(), ErrorCode.ILLEGAL_NAMESPACE,
                     "the namespaceId is existed, namespaceId: " + namespaceForm.getNamespaceId());
             }
         }
-        // contains illegal chars
         if (!namespaceNameCheckPattern.matcher(namespaceName).matches()) {
             throw new NacosApiException(HttpStatus.BAD_REQUEST.value(), ErrorCode.ILLEGAL_NAMESPACE,
                 "namespaceName [" + namespaceName + "] contains illegal char");
@@ -121,17 +120,16 @@ public class NamespaceControllerV2 {
     }
 
     /**
-     * edit namespace.
+     * 编辑命名空间.
      *
-     * @param namespaceForm namespace params
-     * @return whether edit ok
+     * @param namespaceForm 命名空间参数
+     * @return 是否编辑确定
      */
     @PutMapping
     @Secured(resource = AuthConstants.CONSOLE_RESOURCE_NAME_PREFIX
         + "namespaces", action = ActionTypes.WRITE, signType = SignType.CONSOLE)
     public Result<Boolean> editNamespace(NamespaceForm namespaceForm) throws NacosException {
         namespaceForm.validate();
-        // contains illegal chars
         if (!namespaceNameCheckPattern.matcher(namespaceForm.getNamespaceName()).matches()) {
             throw new NacosApiException(HttpStatus.BAD_REQUEST.value(), ErrorCode.ILLEGAL_NAMESPACE,
                 "namespaceName [" + namespaceForm.getNamespaceName() + "] contains illegal char");
@@ -142,10 +140,10 @@ public class NamespaceControllerV2 {
     }
 
     /**
-     * delete namespace by id.
+     * 按 ID 删除命名空间.
      *
-     * @param namespaceId namespace ID
-     * @return whether delete ok
+     * @param namespaceId 命名空间 ID
+     * @return 是否删除 OK
      */
     @DeleteMapping
     @Secured(resource = AuthConstants.CONSOLE_RESOURCE_NAME_PREFIX

@@ -9,6 +9,7 @@
 package leyramu.framework.lersosa.common.dubbo.config;
 
 import leyramu.framework.lersosa.common.core.utils.StringUtils;
+import lombok.NonNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -19,7 +20,7 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 
 /**
- * dubbo自定义IP注入(避免IP不正确问题)
+ * dubbo自定义IP注入(避免IP不正确问题).
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -28,7 +29,7 @@ import java.net.InetAddress;
 public class CustomBeanFactoryPostProcessor implements BeanFactoryPostProcessor, Ordered {
 
     /**
-     * 获取该 BeanFactoryPostProcessor 的顺序，确保它在容器初始化过程中具有最高优先级
+     * 获取该 BeanFactoryPostProcessor 的顺序，确保它在容器初始化过程中具有最高优先级.
      *
      * @return 优先级顺序值，越小优先级越高
      */
@@ -38,13 +39,13 @@ public class CustomBeanFactoryPostProcessor implements BeanFactoryPostProcessor,
     }
 
     /**
-     * 在 Spring 容器初始化过程中对 Bean 工厂进行后置处理
+     * 在 Spring 容器初始化过程中对 Bean 工厂进行后置处理.
      *
      * @param beanFactory 可配置的 Bean 工厂
      * @throws BeansException 如果在处理过程中发生错误
      */
     @Override
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+    public void postProcessBeanFactory(@NonNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
         String property = System.getProperty("DUBBO_IP_TO_REGISTRY");
         if (StringUtils.isNotBlank(property)) {
             return;

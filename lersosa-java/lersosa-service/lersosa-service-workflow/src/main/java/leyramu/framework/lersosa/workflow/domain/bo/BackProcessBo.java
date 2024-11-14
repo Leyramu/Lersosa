@@ -18,7 +18,7 @@ import java.util.List;
 
 
 /**
- * 驳回参数请求
+ * 驳回参数请求.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,24 +31,24 @@ public class BackProcessBo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 任务ID
+     * 任务ID.
      */
     @NotBlank(message = "任务ID不能为空", groups = AddGroup.class)
     private String taskId;
 
     /**
-     * 消息类型
+     * 消息类型.
      */
     private List<String> messageType;
 
     /**
-     * 驳回的节点id(目前未使用，直接驳回到申请人)
+     * 驳回的节点id(目前未使用，直接驳回到申请人).
      */
     @NotBlank(message = "驳回的节点不能为空", groups = AddGroup.class)
     private String targetActivityId;
 
     /**
-     * 办理意见
+     * 办理意见.
      */
     private String message;
 }

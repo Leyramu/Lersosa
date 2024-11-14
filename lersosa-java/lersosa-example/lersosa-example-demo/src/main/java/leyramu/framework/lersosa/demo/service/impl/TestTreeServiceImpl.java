@@ -18,6 +18,7 @@ import leyramu.framework.lersosa.demo.domain.vo.TestTreeVo;
 import leyramu.framework.lersosa.demo.mapper.TestTreeMapper;
 import leyramu.framework.lersosa.demo.service.ITestTreeService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -25,12 +26,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 测试树表Service业务层处理
+ * 测试树表Service业务层处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@Slf4j
 // @DS("slave") // 切换从库查询
 @RequiredArgsConstructor
 @Service
@@ -79,11 +81,11 @@ public class TestTreeServiceImpl implements ITestTreeService {
     }
 
     /**
-     * 保存前的数据校验
+     * 保存前的数据校验.
      *
-     * @param entity 实体类数据
+     * @param ignoredEntity 实体类数据
      */
-    private void validEntityBeforeSave(TestTree entity) {
+    private void validEntityBeforeSave(TestTree ignoredEntity) {
         //TODO 做一些数据校验,如唯一约束
     }
 
@@ -91,6 +93,7 @@ public class TestTreeServiceImpl implements ITestTreeService {
     public Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid) {
         if (isValid) {
             //TODO 做一些业务上的校验,判断是否需要校验
+            log.info("未实现");
         }
         return baseMapper.deleteByIds(ids) > 0;
     }

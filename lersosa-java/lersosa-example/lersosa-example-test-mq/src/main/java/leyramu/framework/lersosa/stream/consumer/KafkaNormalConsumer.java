@@ -14,7 +14,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 /**
- * Kafka 消费者
+ * Kafka 消费者.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -31,5 +31,4 @@ public class KafkaNormalConsumer {
         Object value = record.value();
         log.info("【消费者】received the message key {}，value：{}", key, value);
     }
-
 }
