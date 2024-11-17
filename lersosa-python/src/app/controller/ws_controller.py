@@ -5,4 +5,22 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
-from .base_controller import BaseController, Get, Put, Post, Delete, WebSocket
+from fastapi.websockets import WebSocket as WebSocketRequest
+
+from app.base import BaseController, WebSocket
+
+
+class WsController(BaseController):
+    def __init__(self):
+        super().__init__(
+            prefix="/ws",
+            tags=["ws"],
+            responses={404: {"description": "Not found"}},
+        )
+
+    @WebSocket("/test")
+    async def ws(self, websocket: WebSocketRequest):
+        await websocket.accept()
+        while True:
+            data = await websocket.receive_text()
+            await websocket.send_text(f"Message text was: {data}")

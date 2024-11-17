@@ -1,4 +1,5 @@
 fastapi~=0.115.4
+websockets~=14.1
 nacos-sdk-python~=1.0.0
 uvicorn~=0.32.0
 pydantic~=2.9.2

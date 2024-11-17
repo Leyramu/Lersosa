@@ -36,6 +36,7 @@ class App(FastAPI):
             allow_credentials=True,
             allow_methods=["*"],
             allow_headers=["*"],
+            expose_headers=["*"],
         )
 
     # 添加异常处理器

@@ -27,6 +27,7 @@ class TestController(BaseController):
             tags=["test"],
             responses={404: {"description": "Not found"}},
         )
+
     @Get("")
     async def read_items(self, param: TestRequest = None):
         """

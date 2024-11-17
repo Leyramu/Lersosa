@@ -10,7 +10,7 @@ from inspect import iscoroutinefunction
 from fastapi import APIRouter
 
 
-#  路由控制器
+# 路由控制器
 class BaseController(APIRouter):
 
     # 初始化
@@ -18,44 +18,51 @@ class BaseController(APIRouter):
         super().__init__(*args, **kwargs)
         self.register_routes()
 
-    # Get 装饰器
-    @staticmethod
-    def get(path, *args, **kwargs):
-        def decorator(func):
-            func.__router_method__ = ('get', path, args, kwargs)
-            return func
+    # 装饰器工厂方法
+    @classmethod
+    def _create_decorator(cls, method_type):
+        def decorator(path, *args, **kwargs):
+            def wrapper(func):
+                func.__router_method__ = (method_type, path, args, kwargs)
+                return func
+
+            return wrapper
 
         return decorator
+
+    # Get 装饰器
+    @classmethod
+    def get(cls, path, *args, **kwargs):
+        """装饰器用于定义 GET 请求的路由"""
+        return cls._create_decorator('get')(path, *args, **kwargs)
 
     # Post 装饰器
-    @staticmethod
-    def post(path, *args, **kwargs):
-        def decorator(func):
-            func.__router_method__ = ('post', path, args, kwargs)
-            return func
-
-        return decorator
+    @classmethod
+    def post(cls, path, *args, **kwargs):
+        """装饰器用于定义 POST 请求的路由"""
+        return cls._create_decorator('post')(path, *args, **kwargs)
 
     # Put 装饰器
-    @staticmethod
-    def put(path, *args, **kwargs):
-        def decorator(func):
-            func.__router_method__ = ('put', path, args, kwargs)
-            return func
-
-        return decorator
+    @classmethod
+    def put(cls, path, *args, **kwargs):
+        """装饰器用于定义 PUT 请求的路由"""
+        return cls._create_decorator('put')(path, *args, **kwargs)
 
     # Delete 装饰器
-    @staticmethod
-    def delete(path, *args, **kwargs):
-        def decorator(func):
-            func.__router_method__ = ('delete', path, args, kwargs)
-            return func
+    @classmethod
+    def delete(cls, path, *args, **kwargs):
+        """装饰器用于定义 DELETE 请求的路由"""
+        return cls._create_decorator('delete')(path, *args, **kwargs)
 
-        return decorator
+    # WebSocket 装饰器
+    @classmethod
+    def websocket(cls, path, *args, **kwargs):
+        """装饰器用于定义 WebSocket 路由"""
+        return cls._create_decorator('websocket')(path, *args, **kwargs)
 
     # 路由注册
     def register_routes(self):
+        """注册所有带有装饰器的方法为路由"""
         for name in dir(self):
             method = getattr(self, name)
             if iscoroutinefunction(method) and hasattr(method, '__router_method__'):
@@ -68,9 +75,13 @@ class BaseController(APIRouter):
                     self.add_api_route(path, method, methods=["PUT"], **kwargs)
                 elif route_method == 'delete':
                     self.add_api_route(path, method, methods=["DELETE"], **kwargs)
+                elif route_method == 'websocket':
+                    self.add_api_websocket_route(path, method, **kwargs)
 
 
+# 导出装饰器
 Get = BaseController.get
 Post = BaseController.post
 Put = BaseController.put
 Delete = BaseController.delete
+WebSocket = BaseController.websocket
