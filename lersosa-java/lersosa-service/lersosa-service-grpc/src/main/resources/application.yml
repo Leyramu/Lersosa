@@ -3,10 +3,12 @@ spring:
     name: @pom.artifactId@
   profiles:
     active: @PROFILE-ACTIVE@
+  main:
+    lazy-initialization: true
 
 server:
   port: ${SERVER_PORT:6000}
 
 grpc:
   server:
-    port: 6001
+    port: ${SERVER_GRPC_PORT:6001}

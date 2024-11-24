@@ -29,7 +29,7 @@
 
     <!--      属性      -->
     <properties>
-        <revision>2.0.0</revision>
+        <revision>2.1.0</revision>
         <jedis.version>5.1.0</jedis.version>
         <batik.version>1.17</batik.version>
         <mica.version>2.7.6</mica.version>
@@ -42,7 +42,7 @@
         <velocity.version>2.3</velocity.version>
         <snailjob.version>1.1.2</snailjob.version>
         <aws.crt.version>0.31.3</aws.crt.version>
-        <lombok.version>1.18.34</lombok.version>
+        <lombok.version>1.18.36</lombok.version>
         <fastjson.version>1.2.83</fastjson.version>
         <satoken.version>1.39.0</satoken.version>
         <flowable.version>7.0.1</flowable.version>

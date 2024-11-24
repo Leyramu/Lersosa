@@ -32,7 +32,7 @@
         <java.version>17</java.version>
         <jedis.version>3.8.0</jedis.version>
         <seata.version>1.7.1</seata.version>
-        <lombok.version>1.18.34</lombok.version>
+        <lombok.version>1.18.36</lombok.version>
         <spring-boot.version>2.7.18</spring-boot.version>
         <logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
     </properties>
@@ -63,6 +63,13 @@
                     <groupId>org.apache.logging.log4j</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!--      Spring Context Indexed      -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-indexer</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <!--     Seata Server      -->

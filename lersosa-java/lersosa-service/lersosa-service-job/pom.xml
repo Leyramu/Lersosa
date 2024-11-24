@@ -92,6 +92,13 @@
             <groupId>leyramu.framework</groupId>
             <artifactId>lersosa-api-system</artifactId>
         </dependency>
+
+        <!--      Spring Context Indexed      -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-indexer</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <!--      构建插件      -->
@@ -101,7 +108,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
                 <executions>
                     <execution>
                         <goals>

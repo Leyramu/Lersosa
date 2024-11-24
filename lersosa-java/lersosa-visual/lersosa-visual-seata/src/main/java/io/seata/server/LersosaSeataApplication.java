@@ -12,6 +12,7 @@ import io.seata.common.aot.NativeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Indexed;
 
 /**
  * Seata 分布式事务服务.
@@ -22,8 +23,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2024/11/6
  */
 @Slf4j
+@Indexed
 @SpringBootApplication(scanBasePackages = {"io.seata"})
 public class LersosaSeataApplication {
+
+    /**
+     * 启动异常类名.
+     */
+    private static final String ABANDONED_RUN_EXCEPTION_CLASS_NAME = "org.springframework.boot.SpringApplication$AbandonedRunException";
 
     /**
      * 启动 Seata 分布式事务服务 模块.
@@ -34,7 +41,7 @@ public class LersosaSeataApplication {
         try {
             SpringApplication.run(LersosaSeataApplication.class, args);
         } catch (Throwable t) {
-            if ("org.springframework.boot.SpringApplication$AbandonedRunException".equals(t.getClass().getName())) {
+            if (ABANDONED_RUN_EXCEPTION_CLASS_NAME.equals(t.getClass().getName())) {
                 throw t;
             }
             if (NativeUtils.inNativeImage()) {

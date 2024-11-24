@@ -87,6 +87,13 @@
             <artifactId>spring-ai-core</artifactId>
         </dependency>
 
+        <!--      Spring Context Indexed      -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-indexer</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!--      JUnit Engine      -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -109,7 +116,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
                 <executions>
                     <execution>
                         <goals>

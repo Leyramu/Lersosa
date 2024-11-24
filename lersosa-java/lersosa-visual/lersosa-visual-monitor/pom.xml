@@ -69,6 +69,13 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <!--      Spring Context Indexed      -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-indexer</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!--      Lombok      -->
         <dependency>
             <groupId>org.projectlombok</groupId>

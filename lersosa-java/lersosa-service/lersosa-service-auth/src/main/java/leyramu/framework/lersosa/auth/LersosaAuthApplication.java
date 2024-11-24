@@ -14,6 +14,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
+import org.springframework.stereotype.Indexed;
 
 /**
  * 认证授权中心.
@@ -23,6 +24,7 @@ import org.springframework.boot.context.metrics.buffering.BufferingApplicationSt
  * @since 2024/11/6
  */
 @Slf4j
+@Indexed
 @EnableDubbo
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class LersosaAuthApplication {

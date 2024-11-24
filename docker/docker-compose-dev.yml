@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   mysql:
@@ -75,3 +75,249 @@ services:
     command: server --address ':9000' --console-address ':9001' /data  # 指定容器中的目录 /data
     privileged: true
     network_mode: bridge
+
+  elasticsearch:
+    image: elasticsearch:8.16.0
+    container_name: elasticsearch
+    build:
+      context: ./elk/elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      # 设置集群名称
+      cluster.name: elasticsearch
+      # 以单一节点模式启动
+      discovery.type: single-node
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    volumes:
+      - ./elk/elasticsearch/plugins:/usr/share/elasticsearch/plugins
+      - ./elk/elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elk/elasticsearch/logs:/usr/share/elasticsearch/logs
+    network_mode: bridge
+
+  kibana:
+    image: kibana:8.16.0
+    container_name: kibana
+    build:
+      context: ./elk/kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      # kibana在elasticsearch启动之后再启动
+      - elasticsearch
+    environment:
+      #设置系统语言文中文
+      I18N_LOCALE: zh-CN
+      # 访问域名
+      # SERVER_PUBLICBASEURL: https://kibana.cloud.com
+    volumes:
+      - ./elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+    network_mode: bridge
+
+  logstash:
+    image: logstash:8.16.0
+    container_name: logstash
+    build:
+      context: ./elk/logstash
+    ports:
+      - "4560:4560"
+    volumes:
+      - ./elk/logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+    depends_on:
+      - elasticsearch
+    network_mode: bridge
+
+  rmqnamesrv:
+    image: apache/rocketmq:5.3.1
+    container_name: rmqnamesrv
+    build:
+      context: ./rocketmq
+    ports:
+      - "9876:9876"
+    environment:
+      JAVA_OPT: -server -Xms512m -Xmx512m
+    command: sh mqnamesrv
+    volumes:
+      - ./rocketmq/namesrv/logs:/home/rocketmq/logs/rocketmqlogs
+    network_mode: bridge
+
+  rmqbroker1:
+    image: apache/rocketmq:5.3.1
+    container_name: rmqbroker1
+    build:
+      context: ./rocketmq
+    ports:
+      - "10911:10911"
+      - "10909:10909"
+      - "10912:10912"
+    environment:
+      JAVA_OPT: -server -Xms512M -Xmx512M
+      NAMESRV_ADDR: 127.0.0.1:9876
+    # --enable-proxy 开启broker与proxy共用模式 生产部署建议将proxy单独部署
+    command: sh mqbroker --enable-proxy -c /home/rocketmq/rocketmq-5.3.1/conf/broker.conf
+    depends_on:
+      - rmqnamesrv
+    volumes:
+      - ./rocketmq/broker1/conf/broker.conf:/home/rocketmq/rocketmq-5.3.1/conf/broker.conf
+      - ./rocketmq/broker1/logs:/home/rocketmq/logs/rocketmqlogs
+      - ./rocketmq/broker1/store:/home/rocketmq/store
+    privileged: true
+    network_mode: bridge
+
+  rmqconsole:
+    image: apacherocketmq/rocketmq-dashboard:latest
+    container_name: rmqconsole
+    ports:
+      - "19876:19876"
+    environment:
+      JAVA_OPTS: -Dserver.port=19876 -Drocketmq.namesrv.addr=127.0.0.1:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false
+    depends_on:
+      - rmqnamesrv
+    network_mode: bridge
+
+  rabbitmq:
+    image: rabbitmq:4.0.4
+    container_name: rabbitmq
+    build:
+      context: ./rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: lersosa
+      RABBITMQ_DEFAULT_PASS: Zcx@223852//
+    ports:
+      - "15672:15672" # 管理界面端口
+      - "5672:5672"   # api 端口
+    volumes:
+      - ./rabbitmq/log:/var/log/rabbitmq
+      - ./rabbitmq/data:/var/lib/rabbitmq
+    network_mode: bridge
+
+  zookeeper:
+    image: bitnami/zookeeper:3.8.4
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      TZ: Asia/Shanghai
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+      ZOO_SERVER_ID: 1
+      ZOO_PORT_NUMBER: 2181
+      # 自带的控制台 一般用不上可自行开启
+      ZOO_ENABLE_ADMIN_SERVER: "no"
+      # 自带控制台的端口
+      ZOO_ADMIN_SERVER_PORT_NUMBER: 8080
+    network_mode: bridge
+
+  kafka:
+    image: bitnami/kafka:3.9.0
+    container_name: kafka
+    build:
+      context: ./kafka
+    ports:
+      - "9092:9092"
+    environment:
+      TZ: Asia/Shanghai
+      # 更多变量 查看文档 https://github.com/bitnami/bitnami-docker-kafka/blob/master/README.md
+      KAFKA_BROKER_ID: 1
+      # 监听端口
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
+      # 实际访问ip 本地用 127 内网用 192 外网用 外网ip
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://192.168.31.165:9092
+      KAFKA_CFG_ZOOKEEPER_CONNECT: 127.0.0.1:2181
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+    volumes:
+      - ./kafka/data:/bitnami/kafka/data
+    depends_on:
+      - zookeeper
+    network_mode: bridge
+
+  kafka-manager:
+    image: sheepkiller/kafka-manager:latest
+    container_name: kafka-manager
+    ports:
+      - "19092:19092"
+    environment:
+      ZK_HOSTS: 127.0.0.1:2181
+      APPLICATION_SECRET: letmein
+      KAFKA_MANAGER_USERNAME: lersosa
+      KAFKA_MANAGER_PASSWORD: Zcx@223852//
+      KM_ARGS: -Dhttp.port=19092
+    depends_on:
+      - kafka
+    network_mode: bridge
+
+  sky-oap:
+    image: apache/skywalking-oap-server:10.1.0
+    container_name: sky-oap
+    ports:
+      - "11800:11800"
+      - "12800:12800"
+    environment:
+      JAVA_OPTS: -Xms1G -Xmx2G
+      #记录数据的有效期，单位天
+      SW_CORE_RECORD_DATA_TTL: 7
+      #分析指标数据的有效期，单位天
+      SW_CORE_METRICS_DATA_TTL: 7
+      SW_STORAGE: elasticsearch
+      SW_STORAGE_ES_CLUSTER_NODES: 127.0.0.1:9200
+      TZ: Asia/Shanghai
+    network_mode: bridge
+
+  sky-ui:
+    image: apache/skywalking-ui:10.1.0
+    container_name: sky-ui
+    ports:
+      - "18080:18080"
+    environment:
+      SW_SERVER_PORT: 18080
+      SW_OAP_ADDRESS: http://127.0.0.1:12800
+      TZ: Asia/Shanghai
+    depends_on:
+      - sky-oap
+    network_mode: bridge
+
+  prometheus:
+    image: prom/prometheus:v3.0.0
+    container_name: prometheus
+    build:
+      context: ./prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    network_mode: bridge
+
+  grafana:
+    image: grafana/grafana:11.3.1
+    container_name: grafana
+    build:
+      context: ./grafana
+    environment:
+      TZ: Asia/Shanghai
+      # 服务地址 用于指定外网ip或域名
+      GF_SERVER_ROOT_URL: ""
+      # admin 管理员密码
+      GF_SECURITY_ADMIN_PASSWORD: Zcx@223852//
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ./grafana:/var/lib/grafana
+    network_mode: bridge
+
+  shardingproxy:
+    image: apache/shardingsphere-proxy:5.5.1
+    container_name: shardingsphere-proxy
+    build:
+      context: ./shardingproxy
+    command: server /data
+    ports:
+      - "3307:3307"
+    volumes:
+      - ./shardingproxy/conf:/opt/shardingsphere-proxy/conf
+      - ./shardingproxy/ext-lib:/opt/shardingsphere-proxy/ext-lib
+    environment:
+      - JVM_OPTS="-Djava.awt.headless=true"
+    network_mode: bridge
+

@@ -11,6 +11,7 @@ package leyramu.framework.lersosa.visual.monitor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Indexed;
 
 /**
  * 监控中心.
@@ -20,6 +21,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2024/11/6
  */
 @Slf4j
+@Indexed
 @SpringBootApplication
 public class LersosaMonitorApplication {
 

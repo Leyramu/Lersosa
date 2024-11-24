@@ -11,6 +11,7 @@ package leyramu.framework.lersosa.visual.snailjob;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Indexed;
 
 /**
  * SnailJob 任务调度模块.
@@ -21,6 +22,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2024/11/6
  */
 @Slf4j
+@Indexed
 @SpringBootApplication
 public class LersosaSnailJobApplication {
 

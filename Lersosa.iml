@@ -11,6 +11,15 @@
       <excludeFolder url="file://$MODULE_DIR$/docker/redis" />
       <excludeFolder url="file://$MODULE_DIR$/sessionStore" />
       <excludeFolder url="file://$MODULE_DIR$/.conda" />
+      <excludeFolder url="file://$MODULE_DIR$/docker/elk" />
+      <excludeFolder url="file://$MODULE_DIR$/docker/grafana" />
+      <excludeFolder url="file://$MODULE_DIR$/docker/kafka" />
+      <excludeFolder url="file://$MODULE_DIR$/docker/prometheus" />
+      <excludeFolder url="file://$MODULE_DIR$/docker/rabbitmq" />
+      <excludeFolder url="file://$MODULE_DIR$/docker/rocketmq" />
+      <excludeFolder url="file://$MODULE_DIR$/docker/shardingproxy" />
+      <excludeFolder url="file://$MODULE_DIR$/docker/skywalking" />
+      <excludeFolder url="file://$MODULE_DIR$/mlruns" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

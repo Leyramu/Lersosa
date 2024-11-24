@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.stereotype.Indexed;
 
 /**
  * Nacos 注册中心 启动类.
@@ -21,6 +22,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @version 1.2.0
  * @since 2024/7/31
  */
+@Indexed
 @EnableScheduling
 @SpringBootApplication
 @ServletComponentScan

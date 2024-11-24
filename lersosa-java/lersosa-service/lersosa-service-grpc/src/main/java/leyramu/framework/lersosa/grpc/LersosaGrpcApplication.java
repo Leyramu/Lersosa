@@ -9,8 +9,10 @@
 package leyramu.framework.lersosa.grpc;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Indexed;
 
 /**
  * Grpc 服务模块 启动类.
@@ -20,11 +22,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2024/11/8
  */
 @Slf4j
+@Indexed
+@EnableDubbo
 @SpringBootApplication
 public class LersosaGrpcApplication {
 
     /**
-     * Grpc 服务.
+     * 启动 Grpc 服务.
      *
      * @param args 命令行参数
      */

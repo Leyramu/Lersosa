@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
+import org.springframework.stereotype.Indexed;
 
 /**
  * SpringBoot-MQ 案例项目.
@@ -21,6 +22,7 @@ import org.springframework.boot.context.metrics.buffering.BufferingApplicationSt
  * @since 2024/11/6
  */
 @Slf4j
+@Indexed
 @SpringBootApplication
 public class LersosaTestMqApplication {
 

@@ -105,17 +105,24 @@
             <artifactId>lersosa-api-resource</artifactId>
         </dependency>
 
+        <!--      Lersosa Common LoadBalancer      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-loadbalancer</artifactId>
+        </dependency>
+
+        <!--      Spring Context Indexed      -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-indexer</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!--      Hutool Captcha      -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-captcha</artifactId>
         </dependency>
-
-        <!-- 自定义负载均衡(多团队开发使用) -->
-        <!--        <dependency>-->
-        <!--            <groupId>leyramu.framework</groupId>-->
-        <!--            <artifactId>lersosa-common-loadbalancer</artifactId>-->
-        <!--        </dependency>-->
 
         <!-- ELK 日志收集 -->
         <!--        <dependency>-->
@@ -143,7 +150,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
                 <executions>
                     <execution>
                         <goals>

@@ -3,10 +3,10 @@ name: Build Spring Cloud Project
 on:
   push:
     branches:
-      - v2.0.0
+      - v2.0.0-stop
   pull_request:
     branches:
-      - v2.0.0
+      - v2.0.0-stop
 
 jobs:
   build:

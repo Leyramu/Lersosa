@@ -18,3 +18,5 @@ spring:
     name: @pom.artifactId@
   profiles:
     active: @PROFILE-ACTIVE@
+  main:
+    lazy-initialization: true

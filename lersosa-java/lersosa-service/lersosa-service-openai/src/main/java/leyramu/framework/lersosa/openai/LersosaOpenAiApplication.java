@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.stereotype.Indexed;
 
 /**
  * OpenAi 模块 应用层.
@@ -21,6 +22,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * @since 2024/6/23
  */
 @Slf4j
+@Indexed
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class LersosaOpenAiApplication {
 

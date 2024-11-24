@@ -57,10 +57,29 @@
             </exclusions>
         </dependency>
 
+        <!--      Lersosa Common Sentinel      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-sentinel</artifactId>
+        </dependency>
+
+        <!--      Lersosa Common Security      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-security</artifactId>
+        </dependency>
+
         <!--      Spring Boot AMQP      -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+        <!--      Spring Context Indexed      -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-indexer</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <!--      RocketMQ      -->
@@ -74,19 +93,6 @@
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
         </dependency>
-
-        <!--      Sentinel      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-sentinel</artifactId>
-        </dependency>
-
-        <!--      Security      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-security</artifactId>
-        </dependency>
-
     </dependencies>
 
     <!--      构建插件      -->
