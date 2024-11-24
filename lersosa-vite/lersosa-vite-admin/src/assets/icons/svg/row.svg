@@ -1,1 +1,24 @@
-<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1579339929870" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1182" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path d="M152 854.856875h325.7146875V237.715625H134.856875v600q0 6.99375 5.0746875 12.0684375T152 854.856875z m737.143125-17.1421875v-600H546.284375v617.1421875H872q6.99375 0 12.0684375-5.07375t5.0746875-12.0684375z m68.5715625-651.429375V837.715625q0 35.3821875-25.16625 60.5484375T872 923.4284375H152q-35.383125 0-60.5484375-25.1653125T66.284375 837.7146875V186.284375q0-35.3821875 25.16625-60.5484375T152 100.5715625h720q35.383125 0 60.5484375 25.1653125t25.16625 60.5484375z" p-id="1183"></path></svg>
+<?xml version="1.0" standalone="no"?><!--
+  - Copyright (c) 2024 Leyramu Group. All rights reserved.
+  - Licensed under the Apache License, Version 2.0 (the "License");
+  - you may not use this file except in compliance with the License.
+  - You may obtain a copy of the License at
+  -
+  -      http://www.apache.org/licenses/LICENSE-2.0
+  -
+  - Unless required by applicable law or agreed to in writing, software
+  - distributed under the License is distributed on an "AS IS" BASIS,
+  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  - See the License for the specific language governing permissions and
+  - limitations under the License.
+  -
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  -
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  -
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  -
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1579339929870" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1182" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path d="M152 854.856875h325.7146875V237.715625H134.856875v600q0 6.99375 5.0746875 12.0684375T152 854.856875z m737.143125-17.1421875v-600H546.284375v617.1421875H872q6.99375 0 12.0684375-5.07375t5.0746875-12.0684375z m68.5715625-651.429375V837.715625q0 35.3821875-25.16625 60.5484375T872 923.4284375H152q-35.383125 0-60.5484375-25.1653125T66.284375 837.7146875V186.284375q0-35.3821875 25.16625-60.5484375T152 100.5715625h720q35.383125 0 60.5484375 25.1653125t25.16625 60.5484375z" p-id="1183"></path></svg>

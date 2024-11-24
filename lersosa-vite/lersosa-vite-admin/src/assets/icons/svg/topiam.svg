@@ -1,3 +1,26 @@
+<!--
+  - Copyright (c) 2024 Leyramu Group. All rights reserved.
+  - Licensed under the Apache License, Version 2.0 (the "License");
+  - you may not use this file except in compliance with the License.
+  - You may obtain a copy of the License at
+  -
+  -      http://www.apache.org/licenses/LICENSE-2.0
+  -
+  - Unless required by applicable law or agreed to in writing, software
+  - distributed under the License is distributed on an "AS IS" BASIS,
+  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  - See the License for the specific language governing permissions and
+  - limitations under the License.
+  -
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  -
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  -
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  -
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
 <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_446_540)">
 <path d="M113.069 160.072C103.717 170.743 93.0453 180.216 81.5345 188.609C61.5105 174.46 44.3642 156.595 30.9349 135.971C23.5009 124.46 17.2659 112.11 12.4697 99.0407C9.592 91.3668 7.19392 83.3332 5.27545 75.2996C2.03803 61.3907 0.359375 47.0022 0.359375 32.1341C0.359375 30.6953 0.359375 29.1365 0.359375 27.6977C6.35459 23.9806 12.7095 20.7432 19.0644 17.7456C20.7431 32.1341 24.1004 46.043 28.8966 59.3524C31.6544 66.9063 34.7719 74.3404 38.4889 81.4147C44.604 93.5251 52.0381 104.796 60.4314 115.228C75.1796 133.093 92.9254 148.321 113.069 160.072Z" fill="url(#paint0_linear_446_540)"/>

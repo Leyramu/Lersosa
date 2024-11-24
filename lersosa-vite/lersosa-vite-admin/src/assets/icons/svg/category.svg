@@ -1,1 +1,24 @@
+<!--
+  - Copyright (c) 2024 Leyramu Group. All rights reserved.
+  - Licensed under the Apache License, Version 2.0 (the "License");
+  - you may not use this file except in compliance with the License.
+  - You may obtain a copy of the License at
+  -
+  -      http://www.apache.org/licenses/LICENSE-2.0
+  -
+  - Unless required by applicable law or agreed to in writing, software
+  - distributed under the License is distributed on an "AS IS" BASIS,
+  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  - See the License for the specific language governing permissions and
+  - limitations under the License.
+  -
+  - This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+  -
+  - For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+  -
+  - The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+  -
+  - By using this project, users acknowledge and agree to abide by these terms and conditions.
+  -->
+
 <svg t="1715954426124" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3305" width="200" height="200"><path d="M664.081597 1023.943114a78.246037 78.246037 0 0 1-78.985549-76.795456v-284.996471a78.27448 78.27448 0 0 1 78.985549-76.93767h280.843828A78.189152 78.189152 0 0 1 1023.939417 662.151187v284.996471a78.246037 78.246037 0 0 1-79.013992 76.795456z m-585.067605 0a78.246037 78.246037 0 0 1-78.985549-76.795456v-284.996471a78.160709 78.160709 0 0 1 78.985549-76.93767h280.786942a78.302923 78.302923 0 0 1 79.042434 76.93767v284.996471h-0.170656a78.246037 78.246037 0 0 1-78.985549 76.795456z m0-585.096048a78.217594 78.217594 0 0 1-78.985549-76.93767V76.912925a78.189152 78.189152 0 0 1 78.957106-76.795456h280.786942a78.27448 78.27448 0 0 1 79.042435 76.93767v284.996471a78.27448 78.27448 0 0 1-79.013992 76.795456z m589.675333-5.688552a77.193655 77.193655 0 0 1-77.990052-75.885288V75.888985a77.25054 77.25054 0 0 1 77.990052-75.942173h277.26004a77.25054 77.25054 0 0 1 77.961609 75.942173v281.384241a77.421197 77.421197 0 0 1-78.132266 75.885288z" p-id="3306" fill="currentColor"></path></svg>
