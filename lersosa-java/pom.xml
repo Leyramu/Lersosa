@@ -92,6 +92,7 @@
         <revision>2.1.0</revision>
         <java.version>23</java.version>
         <lombok.version>1.18.36</lombok.version>
+        <encrypt.password>Zcx@223852//</encrypt.password>
         <spring-ai.version>1.0.0-M1</spring-ai.version>
         <spring-boot.version>3.3.5</spring-boot.version>
         <spring-cloud.version>2023.0.3</spring-cloud.version>
@@ -104,6 +105,7 @@
         <mapstruct-plus.lombok.version>0.2.0</mapstruct-plus.lombok.version>
         <maven-compiler-plugin.verison>3.13.0</maven-compiler-plugin.verison>
         <maven-checkstyle-plugin.version>3.5.0</maven-checkstyle-plugin.version>
+        <class-winter-maven-plugin.version>2.9.6</class-winter-maven-plugin.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-javaformat-maven-plugin.version>0.0.43</spring-javaformat-maven-plugin.version>
     </properties>
@@ -228,61 +230,68 @@
 
     <!--      构建插件      -->
     <build>
-
+        <!--      插件管理      -->
         <pluginManagement>
             <plugins>
-                <!--    格式化插件    -->
+                <!--      格式化插件      -->
                 <plugin>
                     <groupId>io.spring.javaformat</groupId>
                     <artifactId>spring-javaformat-maven-plugin</artifactId>
                     <version>${spring-javaformat-maven-plugin.version}</version>
                 </plugin>
 
-                <!--    代码检查插件    -->
+                <!--      代码检查插件      -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>${maven-checkstyle-plugin.version}</version>
                 </plugin>
 
-                <!--    编译插件    -->
+                <!--      编译插件      -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.verison}</version>
                 </plugin>
 
-                <!--    单元测试插件    -->
+                <!--      单元测试插件      -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                 </plugin>
 
-                <!--    扁平化 pom 插件    -->
+                <!--      扁平化 pom 插件      -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>flatten-maven-plugin</artifactId>
                     <version>${flatten-maven-plugin.version}</version>
                 </plugin>
 
-                <!--    打包插件    -->
+                <!--      打包插件      -->
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring-boot.version}</version>
                 </plugin>
+
+                <!--      混淆插件      -->
+                <plugin>
+                    <groupId>com.idea-aedi</groupId>
+                    <artifactId>class-winter-maven-plugin</artifactId>
+                    <version>${class-winter-maven-plugin.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
 
         <plugins>
-            <!--    格式化插件    -->
+            <!--      格式化插件      -->
             <plugin>
                 <groupId>io.spring.javaformat</groupId>
                 <artifactId>spring-javaformat-maven-plugin</artifactId>
             </plugin>
 
-            <!--    代码检查插件    -->
+            <!--      代码检查插件      -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -306,7 +315,7 @@
                 </executions>
             </plugin>
 
-            <!--    编译插件    -->
+            <!--      编译插件      -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -348,7 +357,7 @@
                 </configuration>
             </plugin>
 
-            <!--    单元测试插件    -->
+            <!--      单元测试插件      -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -361,7 +370,7 @@
                 </configuration>
             </plugin>
 
-            <!--    扁平化 pom 插件    -->
+            <!--      扁平化 pom 插件       -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
@@ -388,9 +397,9 @@
             </plugin>
         </plugins>
 
-        <!--    资源过滤    -->
+        <!--       资源过滤      -->
         <resources>
-            <!--     添加需要排除的文件     -->
+            <!--      添加需要排除的文件      -->
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
@@ -414,7 +423,7 @@
 
     <!--      仓库      -->
     <repositories>
-        <!--    华为云仓库    -->
+        <!--      华为云仓库      -->
         <repository>
             <id>huawei</id>
             <name>huawei nexus</name>
@@ -424,7 +433,7 @@
             </releases>
         </repository>
 
-        <!--    Spring Milestones    -->
+        <!--      Spring Milestones      -->
         <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
@@ -437,7 +446,7 @@
             </snapshots>
         </repository>
 
-        <!--    阿里云仓库    -->
+        <!--      阿里云仓库      -->
         <repository>
             <id>aliyun nexus</id>
             <name>aliyun nexus</name>
@@ -450,7 +459,7 @@
             </snapshots>
         </repository>
 
-        <!--    Maven 仓库    -->
+        <!--      Maven 仓库      -->
         <repository>
             <id>central</id>
             <name>Maven Central</name>
@@ -464,8 +473,9 @@
         </repository>
     </repositories>
 
+    <!--      插件仓库      -->
     <pluginRepositories>
-        <!--    华为云仓库    -->
+        <!--      华为云仓库      -->
         <pluginRepository>
             <id>huawei</id>
             <name>huawei nexus</name>
@@ -478,7 +488,7 @@
             </snapshots>
         </pluginRepository>
 
-        <!--    Spring Milestones    -->
+        <!--      Spring Milestones      -->
         <pluginRepository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
@@ -491,7 +501,7 @@
             </snapshots>
         </pluginRepository>
 
-        <!--    阿里云仓库    -->
+        <!--      阿里云仓库      -->
         <pluginRepository>
             <id>aliyun nexus</id>
             <name>aliyun nexus</name>
@@ -504,7 +514,7 @@
             </snapshots>
         </pluginRepository>
 
-        <!--    Maven 仓库    -->
+        <!--      Maven 仓库      -->
         <pluginRepository>
             <id>central</id>
             <name>Maven Central</name>

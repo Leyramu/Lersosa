@@ -90,48 +90,6 @@
             <version>${nacos.version}</version>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.security</groupId>-->
-        <!--            <artifactId>spring-security-core</artifactId>-->
-        <!--            <version>6.3.3</version>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.tomcat.embed</groupId>-->
-        <!--            <artifactId>tomcat-embed-core</artifactId>-->
-        <!--            <version>10.1.31</version>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.derby</groupId>-->
-        <!--            <artifactId>derby</artifactId>-->
-        <!--            <version>10.17.1.0</version>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>com.mysql</groupId>-->
-        <!--            <artifactId>mysql-connector-j</artifactId>-->
-        <!--            <version>9.0.0</version>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>com.alipay.sofa</groupId>-->
-        <!--            <artifactId>hessian</artifactId>-->
-        <!--            <version>4.0.4</version>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>ch.qos.logback</groupId>-->
-        <!--            <artifactId>logback-classic</artifactId>-->
-        <!--            <version>1.5.8</version>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>ch.qos.logback</groupId>-->
-        <!--            <artifactId>logback-core</artifactId>-->
-        <!--            <version>1.5.8</version>-->
-        <!--        </dependency>-->
-
         <!--    XueXiaowei Nacos Naming    -->
         <dependency>
             <groupId>io.xuxiaowei.nacos</groupId>
@@ -200,11 +158,22 @@
                 </executions>
             </plugin>
 
-            <!--      Docker 插件      -->
+            <!--      混淆插件      -->
             <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>${docker-maven-plugin.version}</version>
+                <groupId>com.idea-aedi</groupId>
+                <artifactId>class-winter-maven-plugin</artifactId>
+                <configuration>
+                    <password>${encrypt.password}</password>
+                    <includePrefix>${groupId}</includePrefix>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>class-winter</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
