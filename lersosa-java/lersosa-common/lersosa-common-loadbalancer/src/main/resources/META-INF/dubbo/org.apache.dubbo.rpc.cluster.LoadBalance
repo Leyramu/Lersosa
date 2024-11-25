@@ -1,1 +1,1 @@
-customDubboLoadBalancer=core.leyramu.framework.lersosa.common.loadbalance.CustomDubboLoadBalancer
+customDubboLoadBalancer=leyramu.framework.lersosa.common.loadbalance.core.CustomDubboLoadBalancer

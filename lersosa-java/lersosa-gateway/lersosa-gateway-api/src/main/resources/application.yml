@@ -12,5 +12,3 @@ spring:
   profiles:
     # 环境配置
     active: @PROFILE-ACTIVE@
-  main:
-    lazy-initialization: true
