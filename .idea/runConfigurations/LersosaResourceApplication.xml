@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="LersosaResourceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="lersosa-service" nameIsGenerated="true">
-    <module name="lersosa-service-resource" />
+    <module name="lersosa-service-resource-start" />
     <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="leyramu.framework.lersosa.resource.LersosaResourceApplication" />
     <method v="2">

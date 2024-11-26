@@ -1,6 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="LersosaAuthApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="lersosa-service" nameIsGenerated="true">
-    <module name="lersosa-service-auth" />
+    <module name="lersosa-service-auth-start" />
+    <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="leyramu.framework.lersosa.auth.LersosaAuthApplication" />
     <method v="2">
       <option name="Make" enabled="true" />

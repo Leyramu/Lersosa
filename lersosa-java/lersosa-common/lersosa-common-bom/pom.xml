@@ -50,6 +50,10 @@
     <!--     Spring Cloud 依赖管理     -->
     <dependencyManagement>
         <dependencies>
+            <!--      =====================================================      -->
+            <!--                                                    通用层依赖                                            -->
+            <!--      =====================================================      -->
+
             <!--      核心模块      -->
             <dependency>
                 <groupId>leyramu.framework</groupId>
@@ -281,17 +285,241 @@
                 <version>${revision}</version>
             </dependency>
 
-            <!--      sse      -->
+            <!--      SSE 信息推送模块      -->
             <dependency>
                 <groupId>leyramu.framework</groupId>
                 <artifactId>lersosa-common-sse</artifactId>
                 <version>${revision}</version>
             </dependency>
 
-            <!--      grpc      -->
+            <!--      Grpc 通信模块      -->
             <dependency>
                 <groupId>leyramu.framework</groupId>
                 <artifactId>lersosa-common-grpc</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      =====================================================      -->
+            <!--                                                    业务层依赖                                            -->
+            <!--      =====================================================      -->
+
+            <!--      认证授权中心模块 适配器层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-auth-adapter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      认证授权中心模块 应用层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-auth-app</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      认证授权中心模块 客户端层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-auth-client</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      认证授权中心模块 领域层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-auth-domain</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      认证授权中心模块 基础设施层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-auth-infrastructure</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      =====================================================      -->
+
+            <!--      代码生成模块 适配器层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-gen-adapter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      代码生成模块 应用层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-gen-app</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      代码生成模块 客户端层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-gen-client</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      代码生成模块 领域层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-gen-domain</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      代码生成模块 基础设施层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-gen-infrastructure</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      =====================================================      -->
+
+            <!--      OpenAi 服务模块 适配器层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-openai-adapter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      OpenAi 服务模块 应用层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-openai-app</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      OpenAi 服务模块 客户端层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-openai-client</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      OpenAi 服务模块 领域层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-openai-domain</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      OpenAi 服务模块 基础设施层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-openai-infrastructure</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      =====================================================      -->
+
+            <!--      资源服务模块 适配器层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-resource-adapter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      资源服务模块 应用层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-resource-app</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      资源服务模块 客户端层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-resource-client</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      资源服务模块 领域层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-resource-domain</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      资源服务模块 基础设施层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-resource-infrastructure</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      =====================================================      -->
+
+            <!--      系统模块 适配器层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-system-adapter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      系统模块 应用层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-system-app</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      系统模块 客户端层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-system-client</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      系统模块 领域层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-system-domain</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      系统模块 基础设施层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-system-infrastructure</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      =====================================================      -->
+
+            <!--      工作流模块 适配器层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-workflow-adapter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      工作流模块 应用层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-workflow-app</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      工作流模块 客户端层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-workflow-client</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      工作流模块 领域层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-workflow-domain</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      工作流模块 基础设施层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-workflow-infrastructure</artifactId>
                 <version>${revision}</version>
             </dependency>
         </dependencies>

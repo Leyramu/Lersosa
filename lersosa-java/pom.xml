@@ -85,6 +85,7 @@
         <module>lersosa-common</module>
         <module>lersosa-example</module>
         <module>lersosa-gateway</module>
+        <module>lersosa-tool</module>
     </modules>
 
     <!--      属性      -->

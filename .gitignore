@@ -31,17 +31,7 @@
 /derby.log
 
 # docker 环境文件
-/docker/mysql/
-/docker/redis/
-/docker/minio/
-/docker/elk/
-/docker/prometheus/
-/docker/rabbitmq/
-/docker/kafka/
-/docker/grafana/
-/docker/skywalking/
-/docker/rocketmq/
-/docker/shardingproxy/
+/docker/**/
 
 # mlflow 运行环境
 /mlruns/
