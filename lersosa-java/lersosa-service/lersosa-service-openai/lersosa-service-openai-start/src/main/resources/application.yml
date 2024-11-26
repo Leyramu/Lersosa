@@ -1,0 +1,20 @@
+# =========================== 服务器配置 ===========================
+server:
+  port: ${SERVER_PORT:8085}
+  ssl:
+    enabled: @SSL-ENABLED@
+    key-store: classpath:scg-keystore.p12
+    key-alias: ${spring.application.name}
+    key-store-type: PKCS12
+    key-store-password: Zcx@223852//
+  http2:
+    enabled: @SSL-ENABLED@
+  forward-headers-strategy: framework
+  shutdown: graceful
+
+# =========================== spring 配置 ===========================
+spring:
+  application:
+    name: @pom.parent.artifactId@
+  profiles:
+    active: @PROFILE-ACTIVE@

@@ -1,0 +1,9 @@
+server:
+  port: ${SERVER-PORT:9201}
+
+spring:
+  application:
+    name: @pom.parent.artifactId@
+  profiles:
+    active: @PROFILE-ACTIVE@
+

@@ -112,7 +112,7 @@
                 <artifactId>class-winter-maven-plugin</artifactId>
                 <configuration>
                     <password>${encrypt.password}</password>
-                    <includePrefix>${groupId}</includePrefix>
+                    <includePrefix>${project.groupId}</includePrefix>
                 </configuration>
                 <executions>
                     <execution>
