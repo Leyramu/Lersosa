@@ -46,18 +46,6 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
-          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
-          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/2.7.18/spring-boot-configuration-processor-2.7.18.jar" />
-          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
-          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
-          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-object-convert/1.4.5/mapstruct-plus-object-convert-1.4.5.jar" />
-          <entry name="$MAVEN_REPOSITORY$/com/baidu/lbsyun/javapoet/1.9.0/javapoet-1.9.0.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
         </processorPath>
         <module name="lersosa-visual-seata" />
       </profile>
@@ -66,18 +54,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
-          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/2.7.18/spring-boot-configuration-processor-2.7.18.jar" />
-          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
-          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
-          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-object-convert/1.4.5/mapstruct-plus-object-convert-1.4.5.jar" />
-          <entry name="$MAVEN_REPOSITORY$/com/baidu/lbsyun/javapoet/1.9.0/javapoet-1.9.0.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
           <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
           <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
@@ -110,70 +86,84 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
-          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
-          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.5/spring-boot-configuration-processor-3.3.5.jar" />
-          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
-          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
-          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-object-convert/1.4.5/mapstruct-plus-object-convert-1.4.5.jar" />
-          <entry name="$MAVEN_REPOSITORY$/com/baidu/lbsyun/javapoet/1.9.0/javapoet-1.9.0.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
         </processorPath>
+        <module name="lersosa-service-gen-adapter" />
         <module name="lersosa-common-job" />
+        <module name="lersosa-tool" />
         <module name="lersosa-common-doc" />
         <module name="lersosa-common-loadbalancer" />
         <module name="lersosa-common-core" />
+        <module name="lersosa-service-workflow-app" />
         <module name="lersosa-common-log" />
+        <module name="lersosa-service-auth-domain" />
         <module name="lersosa-common-mail" />
-        <module name="lersosa-service-gen" />
+        <module name="lersosa-service-workflow-domain" />
         <module name="lersosa-common-excel" />
-        <module name="lersosa-service-openai" />
+        <module name="lersosa-service-auth-infrastructure" />
+        <module name="lersosa-service-openai-app" />
         <module name="lersosa-common-elasticsearch" />
         <module name="lersosa-api-workflow" />
         <module name="lersosa-common-dubbo" />
         <module name="lersosa-common-web" />
+        <module name="lersosa-service-gen-app" />
         <module name="lersosa-visual-monitor" />
-        <module name="lersosa-service-workflow" />
+        <module name="lersosa-service-auth-start" />
         <module name="lersosa-visual-snailjob" />
         <module name="lersosa-service-job" />
         <module name="lersosa-common-encrypt" />
+        <module name="lersosa-service-openai-client" />
+        <module name="lersosa-service-resource-domain" />
         <module name="lersosa-common-seata" />
+        <module name="lersosa-service-resource-infrastructure" />
         <module name="lersosa-common-websocket" />
-        <module name="lersosa-service-system" />
+        <module name="lersosa-service-openai-infrastructure" />
+        <module name="lersosa-service-openai-start" />
+        <module name="lersosa-service-resource-adapter" />
         <module name="lersosa-common-skylog" />
         <module name="lersosa-common-prometheus" />
+        <module name="lersosa-service-gen-domain" />
+        <module name="lersosa-service-resource-start" />
+        <module name="lersosa-gateway-api" />
         <module name="lersosa-example-demo" />
+        <module name="lersosa-service-gen-infrastructure" />
+        <module name="lersosa-service-workflow-infrastructure" />
         <module name="lersosa-common-json" />
+        <module name="lersosa-service-resource-client" />
+        <module name="lersosa-service-workflow-start" />
         <module name="lersosa-common-sse" />
         <module name="lersosa-common-tenant" />
         <module name="lersosa-common-ratelimiter" />
         <module name="lersosa-common-bus" />
         <module name="lersosa-common-oss" />
+        <module name="lersosa-service-openai-adapter" />
+        <module name="lersosa-service-gen-client" />
         <module name="lersosa-service-grpc" />
+        <module name="lersosa-service-resource-app" />
         <module name="lersosa-common-redis" />
         <module name="lersosa-common-social" />
-        <module name="lersosa-service-auth" />
         <module name="lersosa-common-translation" />
         <module name="lersosa-common-nacos" />
         <module name="lersosa-common-sentinel" />
         <module name="lersosa-example-test-mq" />
         <module name="lersosa-api-system" />
-        <module name="lersosa-service-resource" />
+        <module name="lersosa-service-workflow-adapter" />
+        <module name="lersosa-service-gen-start" />
+        <module name="lersosa-service-auth-client" />
         <module name="lersosa-common-sms" />
         <module name="lersosa-common-satoken" />
+        <module name="lersosa-service-workflow-client" />
+        <module name="lersosa-service-auth-app" />
         <module name="lersosa-common-logstash" />
         <module name="lersosa-common-dict" />
+        <module name="lersosa-service-openai-domain" />
+        <module name="lersosa-service-auth-adapter" />
         <module name="lersosa-common-security" />
         <module name="lersosa-common-sensitive" />
         <module name="lersosa-common-idempotent" />
         <module name="lersosa-api-resource" />
         <module name="lersosa-common-mybatis" />
       </profile>
-      <profile name="Annotation profile for lersosa-gateway-api" enabled="true">
+      <profile name="Annotation profile for lersosa-service-system-adapter" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -190,8 +180,180 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.5/spring-boot-configuration-processor-3.3.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-object-convert/1.4.5/mapstruct-plus-object-convert-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/baidu/lbsyun/javapoet/1.9.0/javapoet-1.9.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
         </processorPath>
-        <module name="lersosa-gateway-api" />
+        <module name="lersosa-service-system-adapter" />
+      </profile>
+      <profile name="Annotation profile for lersosa-service-system-app" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.5/spring-boot-configuration-processor-3.3.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-object-convert/1.4.5/mapstruct-plus-object-convert-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/baidu/lbsyun/javapoet/1.9.0/javapoet-1.9.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.5/spring-boot-configuration-processor-3.3.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-object-convert/1.4.5/mapstruct-plus-object-convert-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/baidu/lbsyun/javapoet/1.9.0/javapoet-1.9.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+        </processorPath>
+        <module name="lersosa-service-system-app" />
+      </profile>
+      <profile name="Annotation profile for lersosa-service-system-client" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.5/spring-boot-configuration-processor-3.3.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-object-convert/1.4.5/mapstruct-plus-object-convert-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/baidu/lbsyun/javapoet/1.9.0/javapoet-1.9.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.5/spring-boot-configuration-processor-3.3.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-object-convert/1.4.5/mapstruct-plus-object-convert-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/baidu/lbsyun/javapoet/1.9.0/javapoet-1.9.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+        </processorPath>
+        <module name="lersosa-service-system-client" />
+      </profile>
+      <profile name="Annotation profile for lersosa-service-system-domain" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.5/spring-boot-configuration-processor-3.3.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-object-convert/1.4.5/mapstruct-plus-object-convert-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/baidu/lbsyun/javapoet/1.9.0/javapoet-1.9.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.5/spring-boot-configuration-processor-3.3.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-object-convert/1.4.5/mapstruct-plus-object-convert-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/baidu/lbsyun/javapoet/1.9.0/javapoet-1.9.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+        </processorPath>
+        <module name="lersosa-service-system-domain" />
+      </profile>
+      <profile name="Annotation profile for lersosa-service-system-infrastructure" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.5/spring-boot-configuration-processor-3.3.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-object-convert/1.4.5/mapstruct-plus-object-convert-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/baidu/lbsyun/javapoet/1.9.0/javapoet-1.9.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.5/spring-boot-configuration-processor-3.3.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-object-convert/1.4.5/mapstruct-plus-object-convert-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/baidu/lbsyun/javapoet/1.9.0/javapoet-1.9.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+        </processorPath>
+        <module name="lersosa-service-system-infrastructure" />
+      </profile>
+      <profile name="Annotation profile for lersosa-service-system-start" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.5/spring-boot-configuration-processor-3.3.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-object-convert/1.4.5/mapstruct-plus-object-convert-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/baidu/lbsyun/javapoet/1.9.0/javapoet-1.9.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc-scribe/0.15.0/therapi-runtime-javadoc-scribe-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/github/therapi/therapi-runtime-javadoc/0.15.0/therapi-runtime-javadoc-0.15.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/3.3.5/spring-boot-configuration-processor-3.3.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-processor/1.4.5/mapstruct-plus-processor-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus/1.4.5/mapstruct-plus-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.5.Final/mapstruct-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/io/github/linpeilie/mapstruct-plus-object-convert/1.4.5/mapstruct-plus-object-convert-1.4.5.jar" />
+          <entry name="$MAVEN_REPOSITORY$/com/baidu/lbsyun/javapoet/1.9.0/javapoet-1.9.0.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.5.Final/mapstruct-processor-1.5.5.Final.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/mapstruct/tools/gem/gem-api/1.0.0.Alpha3/gem-api-1.0.0.Alpha3.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+        </processorPath>
+        <module name="lersosa-service-system-start" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -253,13 +415,50 @@
       <module name="lersosa-java" options="-Xlint:-options -parameters" />
       <module name="lersosa-service" options="-Xlint:-options -parameters" />
       <module name="lersosa-service-auth" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-auth-adapter" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-auth-app" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-auth-client" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-auth-domain" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-auth-infrastructure" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-auth-start" options="-Xlint:-options -parameters" />
       <module name="lersosa-service-gen" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-gen-adapter" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-gen-app" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-gen-client" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-gen-domain" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-gen-infrastructure" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-gen-start" options="-Xlint:-options -parameters" />
       <module name="lersosa-service-grpc" options="-Xlint:-options -parameters" />
       <module name="lersosa-service-job" options="-Xlint:-options -parameters" />
       <module name="lersosa-service-openai" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-openai-adapter" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-openai-app" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-openai-client" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-openai-domain" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-openai-infrastructure" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-openai-start" options="-Xlint:-options -parameters" />
       <module name="lersosa-service-resource" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-resource-adapter" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-resource-app" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-resource-client" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-resource-domain" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-resource-infrastructure" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-resource-start" options="-Xlint:-options -parameters" />
       <module name="lersosa-service-system" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-system-adapter" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-system-app" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-system-client" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-system-domain" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-system-infrastructure" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-system-start" options="-Xlint:-options -parameters" />
       <module name="lersosa-service-workflow" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-workflow-adapter" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-workflow-app" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-workflow-client" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-workflow-domain" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-workflow-infrastructure" options="-Xlint:-options -parameters" />
+      <module name="lersosa-service-workflow-start" options="-Xlint:-options -parameters" />
+      <module name="lersosa-tool" options="-Xlint:-options -parameters" />
       <module name="lersosa-visual" options="-Xlint:-options -parameters" />
       <module name="lersosa-visual-monitor" options="-Xlint:-options -parameters" />
       <module name="lersosa-visual-nacos" options="-Xlint:-options -parameters" />

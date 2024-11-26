@@ -51,6 +51,7 @@
         <sms4j.version>3.3.3</sms4j.version>
         <p6spy.version>3.9.1</p6spy.version>
         <lock4j.version>2.2.7</lock4j.version>
+        <jasypt.version>3.0.5</jasypt.version>
         <hutool.version>5.8.31</hutool.version>
         <easy-es.version>2.0.0</easy-es.version>
         <logstash.version>7.4</logstash.version>
@@ -447,6 +448,13 @@
                 <groupId>org.apache.xmlgraphics</groupId>
                 <artifactId>batik-all</artifactId>
                 <version>${batik.version}</version>
+            </dependency>
+
+            <!--      Jasypt      -->
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
