@@ -90,7 +90,7 @@
 
     <!--      属性      -->
     <properties>
-        <revision>2.1.0</revision>
+        <revision>3.0.0</revision>
         <java.version>23</java.version>
         <lombok.version>1.18.36</lombok.version>
         <encrypt.password>Zcx@223852//</encrypt.password>

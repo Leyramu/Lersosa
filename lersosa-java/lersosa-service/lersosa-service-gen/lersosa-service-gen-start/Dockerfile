@@ -15,4 +15,4 @@ EXPOSE ${SERVER_PORT}
 
 ADD ./target/lersosa-service-gen-encrypted.jar ./app.jar
 
-ENTRYPOINT java -javaagent:app.jar="password=******" -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT} ${JAVA_OPTS} -jar app.jar
+ENTRYPOINT java -javaagent:app.jar="password=***" -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT} ${JAVA_OPTS} -jar app.jar

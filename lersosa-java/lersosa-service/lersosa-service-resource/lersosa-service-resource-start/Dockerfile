@@ -5,19 +5,19 @@ FROM bellsoft/liberica-openjdk-debian:17.0.11-cds
 
 LABEL maintainer="Miraitowa_zcx"
 
-RUN mkdir -p /lersosa/resource/logs \
-    /lersosa/resource/temp \
+RUN mkdir -p /lersosa/service/resource/logs \
+    /lersosa/service/resource/temp \
     /lersosa/skywalking/agent
 
-WORKDIR /lersosa/resource
+WORKDIR /lersosa/service/resource
 
 ENV SERVER_PORT=9204 LANG=C.UTF-8 LC_ALL=C.UTF-8 JAVA_OPTS=""
 
 EXPOSE ${SERVER_PORT}
 
-ADD ./target/lersosa-resource.jar ./app.jar
+ADD ./target/lersosa-service-resource-encrypted.jar ./app.jar
 
-ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT} \
+ENTRYPOINT java -javaagent:app.jar="password=***" -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT} \
            #-Dskywalking.agent.service_name=lersosa-resource \
            #-javaagent:/lersosa/skywalking/agent/skywalking-agent.jar \
            -XX:+HeapDumpOnOutOfMemoryError -XX:+UseZGC ${JAVA_OPTS} \

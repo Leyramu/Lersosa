@@ -74,6 +74,8 @@
         <module>lersosa-common-web</module>
         <module>lersosa-common-websocket</module>
         <module>lersosa-common-grpc</module>
+        <module>lersosa-common-i18n</module>
+        <module>lersosa-common-test</module>
     </modules>
 
     <!--      打包方式      -->

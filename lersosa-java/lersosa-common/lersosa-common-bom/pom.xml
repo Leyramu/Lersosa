@@ -44,7 +44,7 @@
 
     <!--      属性      -->
     <properties>
-        <revision>2.1.0</revision>
+        <revision>3.0.0</revision>
     </properties>
 
     <!--     Spring Cloud 依赖管理     -->
@@ -299,6 +299,20 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!--      测试模块      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-common-test</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      国际化模块      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-common-i18n</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <!--      =====================================================      -->
             <!--                                                    业务层依赖                                            -->
             <!--      =====================================================      -->
@@ -372,6 +386,31 @@
             <dependency>
                 <groupId>leyramu.framework</groupId>
                 <artifactId>lersosa-service-gen-infrastructure</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      =====================================================      -->
+
+            <!--      Grpc 服务模块 应用层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-grpc-app</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      Grpc 服务模块 客户端层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-grpc-client</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!--      =====================================================      -->
+
+            <!--      任务调度模块 基础设施层      -->
+            <dependency>
+                <groupId>leyramu.framework</groupId>
+                <artifactId>lersosa-service-job-infrastructure</artifactId>
                 <version>${revision}</version>
             </dependency>
 

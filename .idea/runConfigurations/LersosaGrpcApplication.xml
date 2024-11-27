@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="LersosaGrpcApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="lersosa-service" nameIsGenerated="true">
-    <module name="lersosa-service-grpc" />
+    <module name="lersosa-service-grpc-start" />
     <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="leyramu.framework.lersosa.grpc.LersosaGrpcApplication" />
     <extension name="coverage">

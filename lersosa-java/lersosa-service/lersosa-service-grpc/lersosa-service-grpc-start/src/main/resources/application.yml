@@ -1,0 +1,12 @@
+server:
+  port: ${SERVER_PORT:9207}
+
+grpc:
+  server:
+    port: ${SERVER_GRPC_PORT:6001}
+
+spring:
+  application:
+    name: @pom.parent.artifactId@
+  profiles:
+    active: @PROFILE-ACTIVE@

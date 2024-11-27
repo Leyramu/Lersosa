@@ -1,6 +1,6 @@
 # =========================== 服务器配置 ===========================
 server:
-  port: ${SERVER_PORT:8085}
+  port: ${SERVER_PORT:9206}
   ssl:
     enabled: @SSL-ENABLED@
     key-store: classpath:scg-keystore.p12
