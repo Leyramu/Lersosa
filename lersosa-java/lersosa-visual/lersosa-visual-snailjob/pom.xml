@@ -87,6 +87,12 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
         </dependency>
+
+        <!--      Jasypt      -->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 
     <!--      构建插件      -->
@@ -120,6 +126,72 @@
                         <goals>
                             <goal>class-winter</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--      Docker 插件      -->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <registry>${docker.registry}</registry>
+                    <authConfig>
+                        <push>
+                            <username>${docker.username}</username>
+                            <password>${docker.password}</password>
+                        </push>
+                    </authConfig>
+                    <images>
+                        <image>
+                            <name>
+                                ${docker.registry}/${docker.namespace}/${project.artifactId}:${project.version}
+                            </name>
+                            <alias>${project.artifactId}</alias>
+                            <build>
+                                <from>findepi/graalvm:java17-native</from>
+                                <tags>
+                                    <tag>${project.version}</tag>
+                                </tags>
+                                <assembly>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                                <cmd>
+                                    java -jar /maven/${project.artifactId}.jar
+                                </cmd>
+                            </build>
+                            <run>
+                                <containerNamePattern>%a-%i</containerNamePattern>
+                                <ports>
+                                    <port>8800:8800</port>
+                                </ports>
+                                <wait>
+                                    <http>
+                                        <url>http://localhost:8800/snail-job/#/login</url>
+                                    </http>
+                                    <time>10000</time>
+                                </wait>
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>build</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>push</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${DOCKER-PUSH-DISABLE}</skip>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

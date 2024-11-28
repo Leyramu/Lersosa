@@ -1,6 +1,10 @@
+lersosa-version: ${lersosa.version}
+spring-cloud-version: ${spring-cloud.version}
+spring-cloud-alibaba-version: ${spring-cloud-alibaba.version}
+
 # Tomcat
 server:
-  port: 8718
+  port: ${SERVER-PORT:8718}
 
 # Spring
 spring:

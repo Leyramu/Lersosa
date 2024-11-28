@@ -1,5 +1,14 @@
+lersosa-version: ${lersosa.version}
+spring-cloud-version: ${spring-cloud.version}
+spring-cloud-alibaba-version: ${spring-cloud-alibaba.version}
+
+jasypt:
+  encryptor:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    password: @JASYPT-ENCRYPTOR-PASSWORD@
+
 server:
-  port: 7091
+  port: ${SERVER-PORT:7091}
 
 spring:
   application:
@@ -21,8 +30,8 @@ logging:
 
 console:
   user:
-    username: seata
-    password: seata
+    username: ${SEATA-USERNAME}
+    password: ${SEATA-PASSWORD}
 
 seata:
   config:

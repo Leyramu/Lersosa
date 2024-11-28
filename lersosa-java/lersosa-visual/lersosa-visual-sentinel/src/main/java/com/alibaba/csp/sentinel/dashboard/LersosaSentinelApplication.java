@@ -24,6 +24,7 @@
 package com.alibaba.csp.sentinel.dashboard;
 
 import com.alibaba.csp.sentinel.init.InitExecutor;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -41,6 +42,7 @@ import org.springframework.stereotype.Indexed;
 @Slf4j
 @Indexed
 @SpringBootApplication
+@EnableEncryptableProperties
 public class LersosaSentinelApplication {
 
     /**

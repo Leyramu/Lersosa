@@ -23,6 +23,7 @@
 
 package io.seata.server;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import io.seata.common.aot.NativeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -39,6 +40,7 @@ import org.springframework.stereotype.Indexed;
  */
 @Slf4j
 @Indexed
+@EnableEncryptableProperties
 @SpringBootApplication(scanBasePackages = {"io.seata"})
 public class LersosaSeataApplication {
 

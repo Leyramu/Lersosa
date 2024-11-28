@@ -23,6 +23,7 @@
 
 package leyramu.framework.lersosa.auth;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
@@ -41,6 +42,7 @@ import org.springframework.stereotype.Indexed;
 @Slf4j
 @Indexed
 @EnableDubbo
+@EnableEncryptableProperties
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class LersosaAuthApplication {
 

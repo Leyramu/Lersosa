@@ -1,5 +1,9 @@
+lersosa-version: ${lersosa.version}
+spring-cloud-version: ${spring-cloud.version}
+spring-cloud-alibaba-version: ${spring-cloud-alibaba.version}
+
 server:
-  port: 8800
+  port: ${SERVER-PORT:8800}
   servlet:
     context-path: /snail-job
 

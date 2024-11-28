@@ -1,0 +1,115 @@
+version: '3.8'
+
+services:
+  lersosa-mysql:
+    image: mysql:latest
+    container_name: lersosa-mysql
+    build:
+      context: ./mysql
+    networks:
+      lersosa-network:
+        ipv4_address: 176.17.0.2
+        aliases:
+          - lersosa-mysql
+    ports:
+      - "3307:3306"
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      # root 密码
+      MYSQL_ROOT_PASSWORD: Zcx@223852//
+      # 初始化数据库
+      MYSQL_DATABASE: lersosa-cloud
+    volumes:
+      - ./mysql/conf:/etc/mysql/conf.d
+      - ./mysql/logs:/logs
+      - ./mysql/data:/var/lib/mysql
+    privileged: true
+
+  lersosa-nacos:
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-nacos:3.0.0
+    container_name: lersosa-nacos
+    networks:
+      lersosa-network:
+        ipv4_address: 176.17.0.3
+        aliases:
+          - lersosa-nacos
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "9849:9849"
+    environment:
+      TZ: Asia/Shanghai
+      JAVA_OPTS: "-Xms256m -Xmx512m"
+      DATASOURCE_URL_NACOS: jdbc:mysql://lersosa-mysql:3306/lersosa-config?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    volumes:
+      # 日志目录 注意集群模式下 日志目录不能一致 需要区分例如 nacos1 nacos2
+      - ./nacos/logs/:/root/nacos/logs
+    depends_on:
+      - lersosa-mysql
+
+  lersosa-sentinel:
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-sentinel:3.0.0
+    container_name: lersosa-sentinel
+    networks:
+      lersosa-network:
+        ipv4_address: 176.17.0.4
+        aliases:
+          - lersosa-sentinel
+    ports:
+      - "8718:8718"
+    environment:
+      JAVA_OPTS: "-Xms256m -Xmx512m"
+
+  lersosa-seata:
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-seata:3.0.0
+    container_name: lersosa-seata
+    networks:
+      lersosa-network:
+        ipv4_address: 176.17.0.5
+        aliases:
+          - lersosa-seata
+    ports:
+      - "8091:8091"
+      - "7091:7091"
+    environment:
+      JAVA_OPTS: "-Xms256m -Xmx512m"
+    depends_on:
+      - lersosa-mysql
+
+  lersosa-snailjob:
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-snailjob:3.0.0
+    container_name: lersosa-snailjob
+    networks:
+      lersosa-network:
+        ipv4_address: 176.17.0.6
+        aliases:
+          - lersosa-snailjob
+    ports:
+      - "8800:8800"
+    environment:
+      JAVA_OPTS: "-Xms256m -Xmx512m"
+    depends_on:
+      - lersosa-mysql
+
+  lersosa-monitor:
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-monitor:3.0.0
+    container_name: lersosa-monitor
+    networks:
+      lersosa-network:
+        ipv4_address: 176.17.0.7
+        aliases:
+          - lersosa-monitor
+    ports:
+      - "9120:9120"
+    environment:
+      JAVA_OPTS: "-Xms256m -Xmx512m"
+
+networks:
+  lersosa-network:
+    name: lersosa-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 176.17.0.0/16
+          gateway: 176.17.0.1

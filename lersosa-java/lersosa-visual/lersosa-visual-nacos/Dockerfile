@@ -17,3 +17,4 @@ ADD ./target/lersosa-visual-nacos.jar ./app.jar
 
 ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom ${JAVA_OPTS} -jar app.jar
 
+t

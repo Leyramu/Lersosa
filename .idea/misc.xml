@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Black">
     <option name="sdkName" value="Python 3.11 Conda (LeyramuLersosa)" />
@@ -16,6 +17,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-crypto/pom.xml" />
         <option value="$PROJECT_DIR$/lersosa-java/lersosa-example/lersosa-example-grpc/pom.xml" />
       </set>
     </option>

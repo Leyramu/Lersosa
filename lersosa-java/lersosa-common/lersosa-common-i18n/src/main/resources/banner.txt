@@ -14,6 +14,8 @@ ${AnsiColor.DEFAULT}      佛祖保佑       永不宕机      永无BUG
 作者：Miraitowa_zcx
 GitHub：https://github.com/Leyramu/Lersosa
 
+版本：${lersosa-version}
+
 ${AnsiColor.CYAN}端口：${server.port}，PID：${PID}，启动环境：${spring.profiles.active}
 
 ${AnsiColor.BRIGHT_RED}操作系统：${os.name}-${os.version}-${os.arch}
