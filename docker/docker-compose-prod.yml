@@ -1,6 +1,10 @@
 version: '3.8'
 
 services:
+  #####################################################################
+  ###################                       基础组件                       ###################
+  #####################################################################
+
   lersosa-mysql:
     image: mysql:latest
     container_name: lersosa-mysql
@@ -8,17 +12,13 @@ services:
       context: ./mysql
     networks:
       lersosa-network:
-        ipv4_address: 176.17.0.2
         aliases:
           - lersosa-mysql
     ports:
       - "3307:3306"
     environment:
-      # 时区上海
       TZ: Asia/Shanghai
-      # root 密码
       MYSQL_ROOT_PASSWORD: Zcx@223852//
-      # 初始化数据库
       MYSQL_DATABASE: lersosa-cloud
     volumes:
       - ./mysql/conf:/etc/mysql/conf.d
@@ -26,12 +26,85 @@ services:
       - ./mysql/data:/var/lib/mysql
     privileged: true
 
+  lersosa-redis:
+    image: redis:latest
+    container_name: lersosa-redis
+    build:
+      context: ./redis
+    networks:
+      lersosa-network:
+        aliases:
+          - lersosa-redis
+    ports:
+      - "6379:6379"
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./redis/conf:/redis/config
+      - ./redis/data/:/redis/data/
+    command: "redis-server /redis/config/redis.conf"
+    privileged: true
+
+  lersosa-minio:
+    image: minio/minio:latest
+    container_name: lersosa-minio
+    build:
+      context: ./minio
+    networks:
+      lersosa-network:
+        aliases:
+          - lersosa-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      TZ: Asia/Shanghai
+      MINIO_ROOT_USER: lersosa
+      MINIO_ROOT_PASSWORD: Zcx@223852//
+      MINIO_COMPRESS: "o"
+      MINIO_COMPRESS_EXTENSIONS: ""
+      MINIO_COMPRESS_MIME_TYPES: ""
+    volumes:
+      - ./minio/data:/data
+      - ./minio/config:/root/.minio/
+    command: server --address ':9000' --console-address ':9001' /data
+    privileged: true
+
+  #####################################################################
+  ###################                       界面模块                       ###################
+  #####################################################################
+
+  lersosa-nginx:
+    image: nginx:latest
+    container_name: lersosa-nginx
+    build:
+      context: ./nginx
+    networks:
+      lersosa-network:
+        aliases:
+          - lersosa-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/logs:/var/log/nginx
+      - ./nginx/cert:/etc/nginx/cert
+      - ./nginx/html:/usr/share/nginx/html
+    depends_on:
+      - lersosa-gateway
+    links:
+      - lersosa-gateway
+
+  #####################################################################
+  ###################                       管理模块                       ###################
+  #####################################################################
+
   lersosa-nacos:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-nacos:3.0.0
     container_name: lersosa-nacos
     networks:
       lersosa-network:
-        ipv4_address: 176.17.0.3
         aliases:
           - lersosa-nacos
     ports:
@@ -41,9 +114,7 @@ services:
     environment:
       TZ: Asia/Shanghai
       JAVA_OPTS: "-Xms256m -Xmx512m"
-      DATASOURCE_URL_NACOS: jdbc:mysql://lersosa-mysql:3306/lersosa-config?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     volumes:
-      # 日志目录 注意集群模式下 日志目录不能一致 需要区分例如 nacos1 nacos2
       - ./nacos/logs/:/root/nacos/logs
     depends_on:
       - lersosa-mysql
@@ -53,27 +124,33 @@ services:
     container_name: lersosa-sentinel
     networks:
       lersosa-network:
-        ipv4_address: 176.17.0.4
         aliases:
           - lersosa-sentinel
     ports:
       - "8718:8718"
     environment:
-      JAVA_OPTS: "-Xms256m -Xmx512m"
+      TZ: Asia/Shanghai
+    volumes:
+      - ./lersosa/logs/:/lersosa/sentinel/logs
+      - ./skywalking/agent/:/lersosa/skywalking/agent
 
   lersosa-seata:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-seata:3.0.0
     container_name: lersosa-seata
     networks:
       lersosa-network:
-        ipv4_address: 176.17.0.5
         aliases:
           - lersosa-seata
     ports:
       - "8091:8091"
       - "7091:7091"
     environment:
-      JAVA_OPTS: "-Xms256m -Xmx512m"
+      TZ: Asia/Shanghai
+      SEATA_PORT: 8091
+    volumes:
+      - ./lersosa/logs/:/lersosa/seata/logs
+      - ./skywalking/agent/:/lersosa/skywalking/agent
+    privileged: true
     depends_on:
       - lersosa-mysql
 
@@ -82,13 +159,12 @@ services:
     container_name: lersosa-snailjob
     networks:
       lersosa-network:
-        ipv4_address: 176.17.0.6
         aliases:
           - lersosa-snailjob
     ports:
       - "8800:8800"
     environment:
-      JAVA_OPTS: "-Xms256m -Xmx512m"
+      TZ: Asia/Shanghai
     depends_on:
       - lersosa-mysql
 
@@ -97,13 +173,96 @@ services:
     container_name: lersosa-monitor
     networks:
       lersosa-network:
-        ipv4_address: 176.17.0.7
         aliases:
           - lersosa-monitor
     ports:
       - "9120:9120"
-    environment:
-      JAVA_OPTS: "-Xms256m -Xmx512m"
+    volumes:
+      - ./lersosa/logs/:/lersosa/monitor/logs
+      - ./skywalking/agent/:/lersosa/skywalking/agent
+    privileged: true
+
+  #####################################################################
+  ###################                       网关模块                       ###################
+  #####################################################################
+
+  lersosa-gateway:
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-gateway-api:3.0.0
+    container_name: lersosa-gateway
+    networks:
+      lersosa-network:
+        aliases:
+          - lersosa-gateway
+    ports:
+      - "8080:8080"
+
+  #####################################################################
+  ###################                       业务模块                       ###################
+  #####################################################################
+
+  lersosa-auth:
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-auth:3.0.0
+    container_name: lersosa-auth
+    networks:
+      lersosa-network:
+        aliases:
+          - lersosa-auth
+    ports:
+      - "9310:9310"
+
+  lersosa-system:
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-system:3.0.0
+    container_name: lersosa-system
+    networks:
+      lersosa-network:
+        aliases:
+          - lersosa-system
+    ports:
+      - "9201:9201"
+
+  lersosa-gen:
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-gen:3.0.0
+    container_name: lersosa-gen
+    networks:
+      lersosa-network:
+        aliases:
+          - lersosa-gen
+    ports:
+      - "9202:9202"
+
+  lersosa-job:
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-job:3.0.0
+    container_name: lersosa-job
+    networks:
+      lersosa-network:
+        aliases:
+          - lersosa-job
+    ports:
+      - "9203:9203"
+
+  lersosa-resource:
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-resource:3.0.0
+    container_name: lersosa-resource
+    networks:
+      lersosa-network:
+        aliases:
+          - lersosa-resource
+    ports:
+      - "9204:9204"
+
+  lersosa-workflow:
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-workflow:3.0.0
+    container_name: lersosa-workflow
+    networks:
+      lersosa-network:
+        aliases:
+          - lersosa-workflow
+    ports:
+      - "9205:9205"
+
+#####################################################################
+###################                       环境网络                       ###################
+#####################################################################
 
 networks:
   lersosa-network:

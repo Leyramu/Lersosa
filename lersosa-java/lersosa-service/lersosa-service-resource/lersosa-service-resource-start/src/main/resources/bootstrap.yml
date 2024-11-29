@@ -1,3 +1,8 @@
+jasypt:
+  encryptor:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    password: @JASYPT-ENCRYPTOR-PASSWORD@
+
 spring:
   cloud:
     nacos:
@@ -15,8 +20,8 @@ spring:
         refresh-enabled: true
         extension-configs:
           - data-id: application-common.${spring.cloud.nacos.config.file-extension}
-            group: DEFAULT_GROUP
+            group: ${NACOS-DEFAULT-GROUP}
             refresh: true
           - data-id: datasource.${spring.cloud.nacos.config.file-extension}
-            group: DEFAULT_GROUP
+            group: ${NACOS-DEFAULT-GROUP}
             refresh: true

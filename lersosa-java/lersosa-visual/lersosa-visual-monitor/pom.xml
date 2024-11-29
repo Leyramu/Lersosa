@@ -104,105 +104,29 @@
         </dependency>
     </dependencies>
 
-    <!--      构建插件      -->
+    <!--      构建      -->
     <build>
+        <!--      最终名称      -->
         <finalName>${project.artifactId}</finalName>
+
+        <!--      插件      -->
         <plugins>
             <!--      打包插件      -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <!--      混淆插件      -->
             <plugin>
                 <groupId>com.idea-aedi</groupId>
                 <artifactId>class-winter-maven-plugin</artifactId>
-                <configuration>
-                    <password>${encrypt.password}</password>
-                    <includePrefix>${project.groupId}</includePrefix>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>class-winter</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <!--      Docker 插件      -->
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <configuration>
-                    <registry>${docker.registry}</registry>
-                    <authConfig>
-                        <push>
-                            <username>${docker.username}</username>
-                            <password>${docker.password}</password>
-                        </push>
-                    </authConfig>
-                    <images>
-                        <image>
-                            <name>
-                                ${docker.registry}/${docker.namespace}/${project.artifactId}:${project.version}
-                            </name>
-                            <alias>${project.artifactId}</alias>
-                            <build>
-                                <from>findepi/graalvm:java17-native</from>
-                                <tags>
-                                    <tag>${project.version}</tag>
-                                </tags>
-                                <assembly>
-                                    <descriptorRef>artifact</descriptorRef>
-                                </assembly>
-                                <cmd>
-                                    java -jar /maven/${project.artifactId}.jar
-                                </cmd>
-                            </build>
-                            <run>
-                                <containerNamePattern>%a-%i</containerNamePattern>
-                                <ports>
-                                    <port>9120:9120</port>
-                                </ports>
-                                <wait>
-                                    <http>
-                                        <url>http://localhost:9120/login</url>
-                                    </http>
-                                    <time>10000</time>
-                                </wait>
-                            </run>
-                        </image>
-                    </images>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>build</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>push</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>push</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${DOCKER-PUSH-DISABLE}</skip>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

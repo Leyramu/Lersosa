@@ -157,6 +157,12 @@
             <artifactId>sa-token-reactor-spring-boot3-starter</artifactId>
         </dependency>
 
+        <!--      Jasypt      -->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+        </dependency>
+
         <!-- ELK 日志收集 -->
         <!--        <dependency>-->
         <!--            <groupId>leyramu.framework</groupId>-->
@@ -176,39 +182,29 @@
         <!--        </dependency>-->
     </dependencies>
 
-    <!--      构建插件      -->
+    <!--      构建      -->
     <build>
+        <!--      最终名称      -->
         <finalName>${project.artifactId}</finalName>
+
+        <!--      插件      -->
         <plugins>
             <!--      打包插件      -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <!--      混淆插件      -->
             <plugin>
                 <groupId>com.idea-aedi</groupId>
                 <artifactId>class-winter-maven-plugin</artifactId>
-                <configuration>
-                    <password>${encrypt.password}</password>
-                    <includePrefix>${project.groupId}</includePrefix>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>class-winter</goal>
-                        </goals>
-                    </execution>
-                </executions>
+            </plugin>
+
+            <!--      Docker 插件      -->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

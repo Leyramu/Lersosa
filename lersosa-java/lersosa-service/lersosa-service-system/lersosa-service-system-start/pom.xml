@@ -85,31 +85,18 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <!--      混淆插件      -->
             <plugin>
                 <groupId>com.idea-aedi</groupId>
                 <artifactId>class-winter-maven-plugin</artifactId>
-                <configuration>
-                    <password>${encrypt.password}</password>
-                    <includePrefix>${project.groupId}</includePrefix>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>class-winter</goal>
-                        </goals>
-                    </execution>
-                </executions>
+            </plugin>
+
+            <!--      Docker 插件      -->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

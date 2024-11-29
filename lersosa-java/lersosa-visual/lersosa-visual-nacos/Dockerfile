@@ -1,20 +1,17 @@
-# 贝尔实验室 Spring 官方推荐镜像 JDK下载地址 https://bell-sw.com/pages/downloads/
-FROM bellsoft/liberica-openjdk-debian:17.0.11-cds
-#FROM bellsoft/liberica-openjdk-debian:21.0.3-cds
-#FROM findepi/graalvm:java17-native
+FROM bellsoft/liberica-openjdk-alpine:23.0.1-cds
 
 LABEL maintainer="Miraitowa_zcx"
 
-RUN mkdir -p /lersosa/nacos
+RUN mkdir -p /lersosa/visual/nacos
 
-WORKDIR /lersosa/nacos
+WORKDIR /lersosa/visual/nacos
+
+ENV TZ=Asia/Shanghai JAVA_OPTS="-Xms512m -Xmx1024m"
 
 EXPOSE 8848
 
-ENV TZ=Asia/Shanghai LANG=C.UTF-8 LC_ALL=C.UTF-8 JAVA_OPTS="-Xms512m -Xmx1024m"
-
 ADD ./target/lersosa-visual-nacos.jar ./app.jar
 
-ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom ${JAVA_OPTS} -jar app.jar
-
-t
+ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom \
+            ${JAVA_OPTS} \
+            -jar app.jar
