@@ -1,4 +1,4 @@
-FROM bellsoft/liberica-openjdk-alpine:23.0.1-cds
+FROM bellsoft/liberica-openjdk-debian:23.0.1-cds
 
 LABEL maintainer="Miraitowa_zcx"
 
@@ -6,7 +6,14 @@ RUN mkdir -p /lersosa/service/auth/logs  \
     /lersosa/service/auth/temp  \
     /lersosa/skywalking/agent
 
-RUN apk update && apk add fontconfig
+# 安装字体包
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    fontconfig \
+    fonts-dejavu \
+    && rm -rf /var/lib/apt/lists/*
+
+# 更新 Fontconfig 配置
+RUN fc-cache -f -v
 
 WORKDIR /lersosa/service/auth
 
