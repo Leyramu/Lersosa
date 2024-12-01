@@ -1,6 +1,6 @@
 import request from '@/utils/request';
 import { AxiosPromise } from 'axios';
-import { ${BusinessName}Form, ${BusinessName}Query, ${BusinessName}VO } from '@/api/';
+import { ${BusinessName}VO, ${BusinessName}Form, ${BusinessName}Query } from '@/api/${moduleName}/${businessName}/types';
 
 /**
  * 查询${functionName}列表
@@ -9,11 +9,11 @@ import { ${BusinessName}Form, ${BusinessName}Query, ${BusinessName}VO } from '@/
  */
 
 export const list${BusinessName} = (query?: ${BusinessName}Query): AxiosPromise<${BusinessName}VO[]> => {
-    return request({
-        url: '/${moduleName}/${businessName}/list',
-        method: 'get',
-        params: query
-    });
+  return request({
+    url: '/${moduleName}/${businessName}/list',
+    method: 'get',
+    params: query
+  });
 };
 
 /**
@@ -21,10 +21,10 @@ export const list${BusinessName} = (query?: ${BusinessName}Query): AxiosPromise<
  * @param ${pkColumn.javaField}
  */
 export const get${BusinessName} = (${pkColumn.javaField}: string | number): AxiosPromise<${BusinessName}VO> => {
-    return request({
-        url: '/${moduleName}/${businessName}/' + ${pkColumn.javaField},
-        method: 'get'
-    });
+  return request({
+    url: '/${moduleName}/${businessName}/' + ${pkColumn.javaField},
+    method: 'get'
+  });
 };
 
 /**
@@ -32,11 +32,11 @@ export const get${BusinessName} = (${pkColumn.javaField}: string | number): Axio
  * @param data
  */
 export const add${BusinessName} = (data: ${BusinessName}Form) => {
-    return request({
-        url: '/${moduleName}/${businessName}',
-        method: 'post',
-        data: data
-    });
+  return request({
+    url: '/${moduleName}/${businessName}',
+    method: 'post',
+    data: data
+  });
 };
 
 /**
@@ -44,11 +44,11 @@ export const add${BusinessName} = (data: ${BusinessName}Form) => {
  * @param data
  */
 export const update${BusinessName} = (data: ${BusinessName}Form) => {
-    return request({
-        url: '/${moduleName}/${businessName}',
-        method: 'put',
-        data: data
-    });
+  return request({
+    url: '/${moduleName}/${businessName}',
+    method: 'put',
+    data: data
+  });
 };
 
 /**
@@ -56,8 +56,8 @@ export const update${BusinessName} = (data: ${BusinessName}Form) => {
  * @param ${pkColumn.javaField}
  */
 export const del${BusinessName} = (${pkColumn.javaField}: string | number | Array<string | number>) => {
-    return request({
-        url: '/${moduleName}/${businessName}/' + ${pkColumn.javaField},
-        method: 'delete'
-    });
+  return request({
+    url: '/${moduleName}/${businessName}/' + ${pkColumn.javaField},
+    method: 'delete'
+  });
 };

@@ -7,11 +7,11 @@ services:
 
   lersosa-mysql:
     image: mysql:latest
-    container_name: lersosa-mysql
+    container_name: lersosa-mysql-prod
     build:
-      context: ./mysql
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-mysql
     ports:
@@ -21,37 +21,37 @@ services:
       MYSQL_ROOT_PASSWORD: Zcx@223852//
       MYSQL_DATABASE: lersosa-cloud
     volumes:
-      - ./mysql/conf:/etc/mysql/conf.d
-      - ./mysql/logs:/logs
-      - ./mysql/data:/var/lib/mysql
+      - ./lersosa/mysql/conf:/etc/mysql/conf.d
+      - ./lersosa/mysql/logs:/logs
+      - ./lersosa/mysql/data:/var/lib/mysql
     privileged: true
 
   lersosa-redis:
     image: redis:latest
-    container_name: lersosa-redis
+    container_name: lersosa-redis-prod
     build:
-      context: ./redis
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-redis
     ports:
-      - "6379:6379"
+      - "6380:6379"
     environment:
       TZ: Asia/Shanghai
     volumes:
-      - ./redis/conf:/redis/config
-      - ./redis/data/:/redis/data/
+      - ./lersosa/redis/conf:/redis/config
+      - ./lersosa/redis/data/:/redis/data/
     command: "redis-server /redis/config/redis.conf"
     privileged: true
 
   lersosa-minio:
     image: minio/minio:latest
-    container_name: lersosa-minio
+    container_name: lersosa-minio-prod
     build:
-      context: ./minio
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-minio
     ports:
@@ -65,8 +65,8 @@ services:
       MINIO_COMPRESS_EXTENSIONS: ""
       MINIO_COMPRESS_MIME_TYPES: ""
     volumes:
-      - ./minio/data:/data
-      - ./minio/config:/root/.minio/
+      - ./lersosa/minio/data:/data
+      - ./lersosa/minio/config:/root/.minio/
     command: server --address ':9000' --console-address ':9001' /data
     privileged: true
 
@@ -76,21 +76,22 @@ services:
 
   lersosa-nginx:
     image: nginx:latest
-    container_name: lersosa-nginx
+    container_name: lersosa-nginx-prod
     build:
-      context: ./nginx
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-nginx
     ports:
-      - "80:80"
+      - "85:80"
       - "443:443"
     volumes:
-      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/logs:/var/log/nginx
-      - ./nginx/cert:/etc/nginx/cert
-      - ./nginx/html:/usr/share/nginx/html
+      - ./lersosa/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./lersosa/nginx/logs:/var/log/nginx
+      - ./lersosa/nginx/cert:/etc/nginx/cert
+      - ./lersosa/nginx/html:/usr/share/nginx/html
+    privileged: true
     depends_on:
       - lersosa-gateway
     links:
@@ -102,9 +103,11 @@ services:
 
   lersosa-nacos:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-nacos:3.0.0
-    container_name: lersosa-nacos
+    container_name: lersosa-nacos-prod
+    build:
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-nacos
     ports:
@@ -115,15 +118,17 @@ services:
       TZ: Asia/Shanghai
       JAVA_OPTS: "-Xms256m -Xmx512m"
     volumes:
-      - ./nacos/logs/:/root/nacos/logs
+      - ./lersosa/lersosa-visual-nacos/logs/:/root/nacos/logs
     depends_on:
       - lersosa-mysql
 
   lersosa-sentinel:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-sentinel:3.0.0
-    container_name: lersosa-sentinel
+    container_name: lersosa-sentinel-prod
+    build:
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-sentinel
     ports:
@@ -131,14 +136,17 @@ services:
     environment:
       TZ: Asia/Shanghai
     volumes:
-      - ./lersosa/logs/:/lersosa/sentinel/logs
+      - ./lersosa/lersosa-visual-sentinel/logs/:/lersosa/sentinel/visual/logs
       - ./skywalking/agent/:/lersosa/skywalking/agent
+    restart: always
 
   lersosa-seata:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-seata:3.0.0
-    container_name: lersosa-seata
+    container_name: lersosa-seata-prod
+    build:
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-seata
     ports:
@@ -148,7 +156,7 @@ services:
       TZ: Asia/Shanghai
       SEATA_PORT: 8091
     volumes:
-      - ./lersosa/logs/:/lersosa/seata/logs
+      - ./lersosa/lersosa-visual-seata/logs/:/lersosa/visual/seata/logs
       - ./skywalking/agent/:/lersosa/skywalking/agent
     privileged: true
     depends_on:
@@ -156,29 +164,38 @@ services:
 
   lersosa-snailjob:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-snailjob:3.0.0
-    container_name: lersosa-snailjob
+    container_name: lersosa-snailjob-prod
+    build:
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-snailjob
     ports:
       - "8800:8800"
+      - "17888:17888"
     environment:
       TZ: Asia/Shanghai
+    volumes:
+      - ./lersosa/lersosa-visual-snailjob/logs/:/lersosa/visual/snailjob/logs
     depends_on:
       - lersosa-mysql
 
   lersosa-monitor:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-monitor:3.0.0
-    container_name: lersosa-monitor
+    container_name: lersosa-monitor-prod
+    build:
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-monitor
     ports:
       - "9120:9120"
+    environment:
+      TZ: Asia/Shanghai
     volumes:
-      - ./lersosa/logs/:/lersosa/monitor/logs
+      - ./lersosa/lersosa-visual-monitor/logs/:/lersosa/visual/monitor/logs
       - ./skywalking/agent/:/lersosa/skywalking/agent
     privileged: true
 
@@ -188,13 +205,21 @@ services:
 
   lersosa-gateway:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-gateway-api:3.0.0
-    container_name: lersosa-gateway
+    container_name: lersosa-gateway-prod
+    build:
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-gateway
     ports:
-      - "8080:8080"
+      - "8980:8080"
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./lersosa/lersosa-gateway-api/logs/:/lersosa/gateway/api/logs
+      - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    privileged: true
 
   #####################################################################
   ###################                       业务模块                       ###################
@@ -202,71 +227,119 @@ services:
 
   lersosa-auth:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-auth:3.0.0
-    container_name: lersosa-auth
+    container_name: lersosa-auth-prod
+    build:
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-auth
     ports:
       - "9310:9310"
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./lersosa/lersosa-service-auth/logs/:/lersosa/service/auth/logs
+      - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    privileged: true
 
   lersosa-system:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-system:3.0.0
-    container_name: lersosa-system
+    container_name: lersosa-system-prod
+    build:
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-system
     ports:
       - "9201:9201"
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./lersosa/lersosa-service-system/logs/:/lersosa/service/system/logs
+      - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    privileged: true
 
   lersosa-gen:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-gen:3.0.0
-    container_name: lersosa-gen
+    container_name: lersosa-gen-prod
+    build:
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-gen
     ports:
       - "9202:9202"
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./lersosa/lersosa-service-gen/logs/:/lersosa/service/gen/logs
+      - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    privileged: true
 
   lersosa-job:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-job:3.0.0
-    container_name: lersosa-job
+    container_name: lersosa-job-prod
+    build:
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-job
     ports:
       - "9203:9203"
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./lersosa/lersosa-service-job/logs/:/lersosa/service/job/logs
+      - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    privileged: true
 
   lersosa-resource:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-resource:3.0.0
-    container_name: lersosa-resource
+    container_name: lersosa-resource-prod
+    build:
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-resource
     ports:
       - "9204:9204"
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./lersosa/lersosa-service-resource/logs/:/lersosa/service/resource/logs
+      - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    privileged: true
 
   lersosa-workflow:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-workflow:3.0.0
-    container_name: lersosa-workflow
+    container_name: lersosa-workflow-prod
+    build:
+      context: ./lersosa
     networks:
-      lersosa-network:
+      lersosa-network-prod:
         aliases:
           - lersosa-workflow
     ports:
       - "9205:9205"
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./lersosa/lersosa-service-workflow/logs/:/lersosa/service/workflow/logs
+      - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    privileged: true
 
 #####################################################################
 ###################                       环境网络                       ###################
 #####################################################################
 
 networks:
-  lersosa-network:
-    name: lersosa-network
+  lersosa-network-prod:
+    name: lersosa-network-prod
     driver: bridge
     ipam:
       config:

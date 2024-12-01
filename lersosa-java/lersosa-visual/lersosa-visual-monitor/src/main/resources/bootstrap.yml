@@ -11,6 +11,9 @@ spring:
       password: ${NACOS-PASSWORD}
       discovery:
         group: ${NACOS-VISUAL-GROUP}
+        extension-group:
+          - ${NACOS-GATEWAY-GROUP}
+          - ${NACOS-SERVICE-GROUP}
         namespace: ${NACOS-NAMESPACE}
         cluster-name: ${pom.artifactId}
       config:

@@ -83,7 +83,7 @@
     </el-form>
     <!--  底部  -->
     <div class="el-register-footer">
-      <span>Copyright © 2018-2024 疯狂的狮子Li All Rights Reserved.</span>
+      <span>Copyright © 2024 Leyramu All Rights Reserved.</span>
     </div>
   </div>
 </template>

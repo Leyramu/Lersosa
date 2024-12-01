@@ -6,18 +6,16 @@ RUN mkdir -p /lersosa/service/auth/logs  \
     /lersosa/service/auth/temp  \
     /lersosa/skywalking/agent
 
-# 安装字体包
 RUN apt-get update && apt-get install -y --no-install-recommends \
     fontconfig \
     fonts-dejavu \
     && rm -rf /var/lib/apt/lists/*
 
-# 更新 Fontconfig 配置
 RUN fc-cache -f -v
 
 WORKDIR /lersosa/service/auth
 
-ENV SERVER_PORT=9210 JAVA_OPTS=""
+ENV SERVER_PORT=9310 JAVA_OPTS=""
 
 EXPOSE ${SERVER_PORT}
 
