@@ -114,6 +114,12 @@
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
 
+        <!--    SpringDoc Web Flux    -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+        </dependency>
+
         <!--      Spring Context Indexed      -->
         <dependency>
             <groupId>org.springframework</groupId>

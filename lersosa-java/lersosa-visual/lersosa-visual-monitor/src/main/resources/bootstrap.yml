@@ -11,7 +11,7 @@ spring:
       password: ${NACOS-PASSWORD}
       discovery:
         group: ${NACOS-VISUAL-GROUP}
-        extension-group:
+        extension-groups:
           - ${NACOS-GATEWAY-GROUP}
           - ${NACOS-SERVICE-GROUP}
         namespace: ${NACOS-NAMESPACE}

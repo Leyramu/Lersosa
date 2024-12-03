@@ -31,7 +31,7 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.alibaba.nacos.api.naming.pojo.ListView;
-import leyramu.framework.lersosa.visual.monitor.config.properties.CustomDiscoveryProperties;
+import leyramu.framework.lersosa.visual.monitor.config.properties.CustomNacosDiscoveryProperties;
 import org.springframework.cloud.client.ServiceInstance;
 
 import java.util.ArrayList;
@@ -61,23 +61,24 @@ public class NacosServiceDiscoveryV2 extends NacosServiceDiscovery {
     /**
      * 自定义服务发现属性
      */
-    private final CustomDiscoveryProperties customDiscoveryProperties;
+    private final CustomNacosDiscoveryProperties customNacosDiscoveryProperties;
 
     /**
      * 构造函数
      *
      * @param nacosServiceManager       Nacos 服务管理器
      * @param discoveryProperties       Nacos 发现属性
-     * @param customDiscoveryProperties 自定义服务发现属性
+     * @param customNacosDiscoveryProperties 自定义 Nacos 服务发现属性
      */
     public NacosServiceDiscoveryV2(
         NacosServiceManager nacosServiceManager,
         NacosDiscoveryProperties discoveryProperties,
-        CustomDiscoveryProperties customDiscoveryProperties) {
+        CustomNacosDiscoveryProperties customNacosDiscoveryProperties) {
+
         super(discoveryProperties, nacosServiceManager);
         this.nacosServiceManager = nacosServiceManager;
         this.discoveryProperties = discoveryProperties;
-        this.customDiscoveryProperties = customDiscoveryProperties;
+        this.customNacosDiscoveryProperties = customNacosDiscoveryProperties;
     }
 
     /**
@@ -92,7 +93,7 @@ public class NacosServiceDiscoveryV2 extends NacosServiceDiscovery {
         String group = this.discoveryProperties.getGroup();
         List<Instance> instances = this.namingService().selectInstances(serviceId, group, true);
         if (instances.isEmpty()) {
-            for (String g : customDiscoveryProperties.getExtensionGroup()) {
+            for (String g : customNacosDiscoveryProperties.getExtensionGroups()) {
                 List<Instance> instance = this.namingService().selectInstances(serviceId, g, true);
                 if (!instance.isEmpty()) {
                     instances.addAll(instance);
@@ -110,7 +111,7 @@ public class NacosServiceDiscoveryV2 extends NacosServiceDiscovery {
      */
     @Override
     public List<String> getServices() throws NacosException {
-        List<String> group = customDiscoveryProperties.getExtensionGroup();
+        List<String> group = customNacosDiscoveryProperties.getExtensionGroups();
         group.add(this.discoveryProperties.getGroup());
         ListView<String> allServices = null;
         for (String g : group) {

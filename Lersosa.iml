@@ -20,6 +20,8 @@
       <excludeFolder url="file://$MODULE_DIR$/docker/shardingproxy" />
       <excludeFolder url="file://$MODULE_DIR$/docker/skywalking" />
       <excludeFolder url="file://$MODULE_DIR$/mlruns" />
+      <excludeFolder url="file://$MODULE_DIR$/docker/lersosa" />
+      <excludeFolder url="file://$MODULE_DIR$/docker/nginx" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

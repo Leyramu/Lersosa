@@ -12,11 +12,9 @@ setlocal enabledelayedexpansion
 cd /d %~dp0/../..
 set rootDir=%cd%
 
-set "destDir1=!rootDir!\docker\lersosa"
-set "destDir2=!rootDir!\docker\nginx"
+set "destDir1=!rootDir!\docker\nginx"
 
 rmdir /s /q "!destDir1!"
-rmdir /s /q "!destDir2!"
 
 echo Done
 pause

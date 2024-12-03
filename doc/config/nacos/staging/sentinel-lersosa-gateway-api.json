@@ -1,0 +1,26 @@
+[
+  {
+    "resource": "lersosa-service-auth",
+    "count": 500,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 0
+  },
+  {
+    "resource": "lersosa-service-system",
+    "count": 1000,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 0
+  },
+  {
+    "resource": "lersosa-service-resource",
+    "count": 500,
+    "grade": 1,
+    "limitApp": "default",
+    "strategy": 0,
+    "controlBehavior": 0
+  }
+]

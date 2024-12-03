@@ -28,7 +28,7 @@ import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import com.alibaba.cloud.nacos.NacosServiceManager;
 import com.alibaba.cloud.nacos.discovery.NacosDiscoveryAutoConfiguration;
 import com.alibaba.cloud.nacos.discovery.NacosServiceDiscovery;
-import leyramu.framework.lersosa.visual.monitor.config.properties.CustomDiscoveryProperties;
+import leyramu.framework.lersosa.visual.monitor.config.properties.CustomNacosDiscoveryProperties;
 import leyramu.framework.lersosa.visual.monitor.service.NacosServiceDiscoveryV2;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -54,7 +54,7 @@ public class NacosDiscoveryAutoConfigurationV2 {
      *
      * @param nacosServiceManager       Nacos 服务管理器
      * @param nacosDiscoveryProperties  Nacos 发现属性
-     * @param customDiscoveryProperties 自定义服务发现属性
+     * @param customNacosDiscoveryProperties 自定义 Nacos 服务发现属性
      * @return Nacos 服务发现配置
      */
     @Bean
@@ -62,8 +62,9 @@ public class NacosDiscoveryAutoConfigurationV2 {
     public NacosServiceDiscovery nacosServiceDiscovery(
         NacosServiceManager nacosServiceManager,
         NacosDiscoveryProperties nacosDiscoveryProperties,
-        CustomDiscoveryProperties customDiscoveryProperties) {
-        return new NacosServiceDiscoveryV2(nacosServiceManager, nacosDiscoveryProperties, customDiscoveryProperties);
+        CustomNacosDiscoveryProperties customNacosDiscoveryProperties) {
+
+        return new NacosServiceDiscoveryV2(nacosServiceManager,
+            nacosDiscoveryProperties, customNacosDiscoveryProperties);
     }
 }
-

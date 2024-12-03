@@ -12,7 +12,7 @@ spring:
       discovery:
         group: ${NACOS-SERVICE-GROUP}
         namespace: ${NACOS-NAMESPACE}
-        cluster-name: ${pom.artifactId}
+        cluster-name: ${pom.parent.artifactId}
       config:
         group: ${NACOS-GATEWAY-GROUP}
         namespace: ${NACOS-NAMESPACE}
@@ -22,6 +22,6 @@ spring:
           - data-id: application-common.${spring.cloud.nacos.config.file-extension}
             group: ${NACOS-DEFAULT-GROUP}
             refresh: true
-          - data-id: ${pom.artifactId}.${spring.cloud.nacos.config.file-extension}
+          - data-id: ${pom.parent.artifactId}.${spring.cloud.nacos.config.file-extension}
             group: ${NACOS-DEFAULT-GROUP}
             refresh: true

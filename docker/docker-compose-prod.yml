@@ -9,7 +9,7 @@ services:
     image: mysql:latest
     container_name: lersosa-mysql-prod
     build:
-      context: ./lersosa
+      context: ./mysql
     networks:
       lersosa-network-prod:
         aliases:
@@ -21,16 +21,16 @@ services:
       MYSQL_ROOT_PASSWORD: Zcx@223852//
       MYSQL_DATABASE: lersosa-cloud
     volumes:
-      - ./lersosa/mysql/conf:/etc/mysql/conf.d
-      - ./lersosa/mysql/logs:/logs
-      - ./lersosa/mysql/data:/var/lib/mysql
+      - ./mysql/conf:/etc/mysql/conf.d
+      - ./mysql/logs:/logs
+      - ./mysql/data:/var/lib/mysql
     privileged: true
 
   lersosa-redis:
     image: redis:latest
     container_name: lersosa-redis-prod
     build:
-      context: ./lersosa
+      context: ./redis
     networks:
       lersosa-network-prod:
         aliases:
@@ -40,8 +40,8 @@ services:
     environment:
       TZ: Asia/Shanghai
     volumes:
-      - ./lersosa/redis/conf:/redis/config
-      - ./lersosa/redis/data/:/redis/data/
+      - ./redis/conf:/redis/config
+      - ./redis/data/:/redis/data/
     command: "redis-server /redis/config/redis.conf"
     privileged: true
 
@@ -49,7 +49,7 @@ services:
     image: minio/minio:latest
     container_name: lersosa-minio-prod
     build:
-      context: ./lersosa
+      context: ./minio
     networks:
       lersosa-network-prod:
         aliases:
@@ -65,10 +65,55 @@ services:
       MINIO_COMPRESS_EXTENSIONS: ""
       MINIO_COMPRESS_MIME_TYPES: ""
     volumes:
-      - ./lersosa/minio/data:/data
-      - ./lersosa/minio/config:/root/.minio/
+      - ./minio/data:/data
+      - ./minio/config:/root/.minio/
     command: server --address ':9000' --console-address ':9001' /data
     privileged: true
+
+  lersosa-elasticsearch:
+    image: elasticsearch:8.16.0
+    container_name: lersosa-elasticsearch-prod
+    build:
+      context: ./elk
+    networks:
+      lersosa-network-prod:
+        aliases:
+          - lersosa-elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      cluster.name: elasticsearch
+      discovery.type: single-node
+      xpack.security.enabled: true
+      ELASTIC_PASSWORD: Zcx@223852//
+      KIBANA_PASSWORD: Zcx@223852//
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      ES_JAVA_LOCALE: zh_CN
+    volumes:
+      - ./elk/elasticsearch/plugins:/usr/share/elasticsearch/plugins
+      - ./elk/elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elk/elasticsearch/logs:/usr/share/elasticsearch/logs
+      - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+
+  lersosa-rabbitmq:
+    image: rabbitmq:4.0.4-management
+    container_name: lersosa-rabbitmq-prod
+    build:
+      context: ./rabbitmq
+    networks:
+      lersosa-network-prod:
+        aliases:
+          - lersosa-rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: lersosa
+      RABBITMQ_DEFAULT_PASS: Zcx@223852//
+    volumes:
+      - ./rabbitmq/log:/var/log/rabbitmq
+      - ./rabbitmq/data:/var/lib/rabbitmq
 
   #####################################################################
   ###################                       界面模块                       ###################
@@ -78,24 +123,99 @@ services:
     image: nginx:latest
     container_name: lersosa-nginx-prod
     build:
-      context: ./lersosa
+      context: ./nginx
     networks:
       lersosa-network-prod:
         aliases:
           - lersosa-nginx
     ports:
-      - "85:80"
+      - "80:80"
       - "443:443"
     volumes:
-      - ./lersosa/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
-      - ./lersosa/nginx/logs:/var/log/nginx
-      - ./lersosa/nginx/cert:/etc/nginx/cert
-      - ./lersosa/nginx/html:/usr/share/nginx/html
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/logs:/var/log/nginx
+      - ./nginx/cert:/etc/nginx/cert
+      - ./nginx/html:/usr/share/nginx/html
     privileged: true
     depends_on:
       - lersosa-gateway
     links:
       - lersosa-gateway
+
+  #####################################################################
+  ###################                       监控模块                       ###################
+  #####################################################################
+
+  lersosa-kibana:
+    image: kibana:8.16.0
+    container_name: lersosa-kibana-prod
+    build:
+      context: ./elk
+    networks:
+      lersosa-network-prod:
+        aliases:
+          - lersosa-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      I18N_LOCALE: zh-CN
+    volumes:
+      - ./elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+    depends_on:
+      - lersosa-elasticsearch
+
+  lersosa-logstash:
+    image: logstash:8.16.0
+    container_name: lersosa-logstash-prod
+    build:
+      context: ./elk
+    networks:
+      lersosa-network-prod:
+        aliases:
+          - lersosa-logstash
+    ports:
+      - "4560:4560"
+    volumes:
+      - ./elk/logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+    depends_on:
+      - lersosa-elasticsearch
+
+  lersosa-sky-oap:
+    image: apache/skywalking-oap-server:10.1.0
+    container_name: lersosa-sky-oap-prod
+    networks:
+      lersosa-network-prod:
+        aliases:
+          - lersosa-sky-oap
+    ports:
+      - "11800:11800"
+      - "12800:12800"
+    environment:
+      JAVA_OPTS: -Xms1G -Xmx2G
+      SW_CORE_RECORD_DATA_TTL: 7
+      SW_CORE_METRICS_DATA_TTL: 7
+      SW_STORAGE: elasticsearch
+      SW_STORAGE_ES_CLUSTER_NODES: lersosa-elasticsearch:9200
+      SW_ES_USER: elastic
+      SW_ES_PASSWORD: Zcx@223852//
+      TZ: Asia/Shanghai
+
+  lersosa-sky-ui:
+    image: apache/skywalking-ui:10.1.0
+    container_name: lersosa-sky-ui-prod
+    networks:
+      lersosa-network-prod:
+        aliases:
+          - lersosa-sky-ui
+    ports:
+      - "18080:18080"
+    environment:
+      SW_SERVER_PORT: 18080
+      SW_OAP_ADDRESS: http://lersosa-sky-oap:12800
+      TZ: Asia/Shanghai
+    depends_on:
+      - lersosa-sky-oap
 
   #####################################################################
   ###################                       管理模块                       ###################
@@ -118,7 +238,7 @@ services:
       TZ: Asia/Shanghai
       JAVA_OPTS: "-Xms256m -Xmx512m"
     volumes:
-      - ./lersosa/lersosa-visual-nacos/logs/:/root/nacos/logs
+      - ./lersosa/logs/:/root/nacos/logs
     depends_on:
       - lersosa-mysql
 
@@ -135,8 +255,9 @@ services:
       - "8718:8718"
     environment:
       TZ: Asia/Shanghai
+      JAVA_OPTS: "-Xms256m -Xmx512m"
     volumes:
-      - ./lersosa/lersosa-visual-sentinel/logs/:/lersosa/sentinel/visual/logs
+      - ./lersosa/logs/:/lersosa/sentinel/visual/logs
       - ./skywalking/agent/:/lersosa/skywalking/agent
     restart: always
 
@@ -155,8 +276,9 @@ services:
     environment:
       TZ: Asia/Shanghai
       SEATA_PORT: 8091
+      JAVA_OPTS: "-Xms256m -Xmx512m"
     volumes:
-      - ./lersosa/lersosa-visual-seata/logs/:/lersosa/visual/seata/logs
+      - ./lersosa/logs/:/lersosa/visual/seata/logs
       - ./skywalking/agent/:/lersosa/skywalking/agent
     privileged: true
     depends_on:
@@ -176,8 +298,9 @@ services:
       - "17888:17888"
     environment:
       TZ: Asia/Shanghai
+      JAVA_OPTS: "-Xms256m -Xmx512m"
     volumes:
-      - ./lersosa/lersosa-visual-snailjob/logs/:/lersosa/visual/snailjob/logs
+      - ./lersosa/logs/:/lersosa/visual/snailjob/logs
     depends_on:
       - lersosa-mysql
 
@@ -194,10 +317,13 @@ services:
       - "9120:9120"
     environment:
       TZ: Asia/Shanghai
+      JAVA_OPTS: "-Xms256m -Xmx512m"
     volumes:
-      - ./lersosa/lersosa-visual-monitor/logs/:/lersosa/visual/monitor/logs
+      - ./lersosa/logs/:/lersosa/visual/monitor/logs
       - ./skywalking/agent/:/lersosa/skywalking/agent
     privileged: true
+
+
 
   #####################################################################
   ###################                       网关模块                       ###################
@@ -213,11 +339,12 @@ services:
         aliases:
           - lersosa-gateway
     ports:
-      - "8980:8080"
+      - "8080:8080"
     environment:
       TZ: Asia/Shanghai
+      JAVA_OPTS: "-Xms256m -Xmx1024m"
     volumes:
-      - ./lersosa/lersosa-gateway-api/logs/:/lersosa/gateway/api/logs
+      - ./lersosa/logs/:/lersosa/gateway/api/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
     privileged: true
 
@@ -238,8 +365,9 @@ services:
       - "9310:9310"
     environment:
       TZ: Asia/Shanghai
+      JAVA_OPTS: "-Xms256m -Xmx1024m"
     volumes:
-      - ./lersosa/lersosa-service-auth/logs/:/lersosa/service/auth/logs
+      - ./lersosa/logs/:/lersosa/service/auth/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
     privileged: true
 
@@ -256,8 +384,9 @@ services:
       - "9201:9201"
     environment:
       TZ: Asia/Shanghai
+      JAVA_OPTS: "-Xms256m -Xmx1024m"
     volumes:
-      - ./lersosa/lersosa-service-system/logs/:/lersosa/service/system/logs
+      - ./lersosa/logs/:/lersosa/service/system/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
     privileged: true
 
@@ -274,8 +403,9 @@ services:
       - "9202:9202"
     environment:
       TZ: Asia/Shanghai
+      JAVA_OPTS: "-Xms256m -Xmx1024m"
     volumes:
-      - ./lersosa/lersosa-service-gen/logs/:/lersosa/service/gen/logs
+      - ./lersosa/logs/:/lersosa/service/gen/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
     privileged: true
 
@@ -292,8 +422,9 @@ services:
       - "9203:9203"
     environment:
       TZ: Asia/Shanghai
+      JAVA_OPTS: "-Xms256m -Xmx1024m"
     volumes:
-      - ./lersosa/lersosa-service-job/logs/:/lersosa/service/job/logs
+      - ./lersosa/logs/:/lersosa/service/job/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
     privileged: true
 
@@ -310,8 +441,9 @@ services:
       - "9204:9204"
     environment:
       TZ: Asia/Shanghai
+      JAVA_OPTS: "-Xms256m -Xmx1024m"
     volumes:
-      - ./lersosa/lersosa-service-resource/logs/:/lersosa/service/resource/logs
+      - ./lersosa/logs/:/lersosa/service/resource/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
     privileged: true
 
@@ -328,8 +460,9 @@ services:
       - "9205:9205"
     environment:
       TZ: Asia/Shanghai
+      JAVA_OPTS: "-Xms256m -Xmx1024m"
     volumes:
-      - ./lersosa/lersosa-service-workflow/logs/:/lersosa/service/workflow/logs
+      - ./lersosa/logs/:/lersosa/service/workflow/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
     privileged: true
 
