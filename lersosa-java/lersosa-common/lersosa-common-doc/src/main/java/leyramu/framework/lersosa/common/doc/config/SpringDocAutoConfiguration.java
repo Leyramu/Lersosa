@@ -23,10 +23,13 @@
 
 package leyramu.framework.lersosa.common.doc.config;
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
 import leyramu.framework.lersosa.common.core.utils.StringUtils;
 import leyramu.framework.lersosa.common.doc.config.properties.SpringDocProperties;
 import leyramu.framework.lersosa.common.doc.handler.OpenApiHandler;
@@ -36,6 +39,7 @@ import org.springdoc.core.customizers.OpenApiBuilderCustomizer;
 import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springdoc.core.customizers.ServerBaseUrlCustomizer;
 import org.springdoc.core.properties.SpringDocConfigProperties;
+import org.springdoc.core.properties.SwaggerUiConfigProperties;
 import org.springdoc.core.providers.JavadocProvider;
 import org.springdoc.core.service.OpenAPIService;
 import org.springdoc.core.service.SecurityService;
@@ -51,7 +55,6 @@ import org.springframework.context.annotation.Bean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * Swagger 文档配置.
@@ -62,7 +65,7 @@ import java.util.Set;
  */
 @RequiredArgsConstructor
 @AutoConfiguration(before = SpringDocConfiguration.class)
-@EnableConfigurationProperties(SpringDocProperties.class)
+@EnableConfigurationProperties({SpringDocProperties.class, SwaggerUiConfigProperties.class})
 @ConditionalOnProperty(name = "springdoc.api-docs.enabled", havingValue = "true", matchIfMissing = true)
 public class SpringDocAutoConfiguration {
 
@@ -79,19 +82,41 @@ public class SpringDocAutoConfiguration {
         SpringDocProperties.InfoProperties infoProperties = properties.getInfo();
         Info info = convertInfo(infoProperties);
         openApi.info(info);
+
         // 扩展文档信息
         openApi.externalDocs(properties.getExternalDocs());
         openApi.tags(properties.getTags());
         openApi.paths(properties.getPaths());
         openApi.components(properties.getComponents());
-        Set<String> keySet = properties.getComponents().getSecuritySchemes().keySet();
-        List<SecurityRequirement> list = new ArrayList<>();
+
+        // 安全设置
+        Components components = openApi.getComponents();
+        if (components == null) {
+            components = new Components();
+            openApi.components(components);
+        }
+        components.addSecuritySchemes("apikey", securityScheme());
+
+        List<SecurityRequirement> securityRequirements = new ArrayList<>();
         SecurityRequirement securityRequirement = new SecurityRequirement();
-        keySet.forEach(securityRequirement::addList);
-        list.add(securityRequirement);
-        openApi.security(list);
+        securityRequirement.addList("apikey");
+        securityRequirements.add(securityRequirement);
+        openApi.security(securityRequirements);
+
+        // 服务器信息
+        openApi.servers(servers(properties.getGatewayUrl()));
 
         return openApi;
+    }
+
+    /**
+     * 安全方案
+     */
+    public SecurityScheme securityScheme() {
+        return new SecurityScheme().type(SecurityScheme.Type.APIKEY)
+            .name("Authorization")
+            .in(SecurityScheme.In.HEADER)
+            .scheme("Bearer");
     }
 
     private Info convertInfo(SpringDocProperties.InfoProperties infoProperties) {
@@ -141,5 +166,17 @@ public class SpringDocAutoConfiguration {
             oldPaths.forEach((k, v) -> newPaths.addPathItem(finalContextPath + k, v));
             openApi.setPaths(newPaths);
         };
+    }
+
+    /**
+     * 网关地址
+     *
+     * @param gatewayUrl 网关地址
+     * @return List
+     */
+    public List<Server> servers(String gatewayUrl) {
+        List<Server> serverList = new ArrayList<>();
+        serverList.add(new Server().url(gatewayUrl));
+        return serverList;
     }
 }

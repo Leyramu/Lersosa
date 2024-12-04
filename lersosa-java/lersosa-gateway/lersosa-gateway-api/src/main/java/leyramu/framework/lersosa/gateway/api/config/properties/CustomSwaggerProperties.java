@@ -21,96 +21,31 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package leyramu.framework.lersosa.common.doc.config.properties;
+package leyramu.framework.lersosa.gateway.api.config.properties;
 
-import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.ExternalDocumentation;
-import io.swagger.v3.oas.models.Paths;
-import io.swagger.v3.oas.models.info.Contact;
-import io.swagger.v3.oas.models.info.License;
-import io.swagger.v3.oas.models.tags.Tag;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * swagger 配置属性.
+ * 自定义gateway参数配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
 @Data
-@ConfigurationProperties(prefix = "springdoc")
-public class SpringDocProperties {
+@Configuration
+@RefreshScope
+@ConfigurationProperties(prefix = "springdoc.api-docs.ignore")
+public class CustomSwaggerProperties {
 
     /**
-     * 网关
+     * 接口文档排除列表.
      */
-    private String gatewayUrl;
-
-    /**
-     * 文档基本信息.
-     */
-    @NestedConfigurationProperty
-    private InfoProperties info = new InfoProperties();
-
-    /**
-     * 扩展文档地址.
-     */
-    @NestedConfigurationProperty
-    private ExternalDocumentation externalDocs;
-
-    /**
-     * 标签.
-     */
-    private List<Tag> tags = null;
-
-    /**
-     * 路径.
-     */
-    @NestedConfigurationProperty
-    private Paths paths = null;
-
-    /**
-     * 组件.
-     */
-    @NestedConfigurationProperty
-    private Components components = null;
-
-    /**
-     * 文档的基础属性信息.
-     */
-    @Data
-    public static class InfoProperties {
-
-        /**
-         * 标题.
-         */
-        private String title = null;
-
-        /**
-         * 描述.
-         */
-        private String description = null;
-
-        /**
-         * 联系人信息.
-         */
-        @NestedConfigurationProperty
-        private Contact contact = null;
-
-        /**
-         * 许可证.
-         */
-        @NestedConfigurationProperty
-        private License license = null;
-
-        /**
-         * 版本.
-         */
-        private String version = null;
-    }
+    private List<String> excludes = new ArrayList<>();
 }

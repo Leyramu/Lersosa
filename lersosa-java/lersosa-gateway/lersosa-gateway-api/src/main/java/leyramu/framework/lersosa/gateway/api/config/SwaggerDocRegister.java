@@ -12,6 +12,7 @@ import com.alibaba.nacos.client.naming.event.InstancesChangeEvent;
 import com.alibaba.nacos.common.notify.Event;
 import com.alibaba.nacos.common.notify.listener.Subscriber;
 import leyramu.framework.lersosa.common.core.utils.StringUtils;
+import leyramu.framework.lersosa.gateway.api.config.properties.CustomSwaggerProperties;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.properties.AbstractSwaggerUiConfigProperties;
 import org.springdoc.core.properties.SwaggerUiConfigProperties;
@@ -38,14 +39,14 @@ public class SwaggerDocRegister extends Subscriber<InstancesChangeEvent> {
     private final SwaggerUiConfigProperties swaggerUiConfigProperties;
 
     /**
+     * 排除路由
+     */
+    private final CustomSwaggerProperties customSwaggerProperties;
+
+    /**
      * 服务发现客户端
      */
     private final DiscoveryClient discoveryClient;
-
-    /**
-     * 排除路由
-     */
-    private final static String[] EXCLUDE_ROUTES = new String[]{"lersosa-gateway", "lersosa-service-auth", "lersosa-service-file", "lersosa-visual-monitor"};
 
     /**
      * 事件回调方法，处理InstancesChangeEvent事件
@@ -55,16 +56,17 @@ public class SwaggerDocRegister extends Subscriber<InstancesChangeEvent> {
     @Override
     public void onEvent(InstancesChangeEvent event) {
         Set<AbstractSwaggerUiConfigProperties.SwaggerUrl> swaggerUrlSet = discoveryClient.getServices()
-                .stream()
-                .flatMap(serviceId -> discoveryClient.getInstances(serviceId).stream())
-                .filter(instance -> !StringUtils.equalsAnyIgnoreCase(instance.getServiceId(), EXCLUDE_ROUTES))
-                .map(instance -> {
-                    AbstractSwaggerUiConfigProperties.SwaggerUrl swaggerUrl = new AbstractSwaggerUiConfigProperties.SwaggerUrl();
-                    swaggerUrl.setName(instance.getServiceId());
-                    swaggerUrl.setUrl(String.format("/%s/v3/api-docs", instance.getServiceId()));
-                    return swaggerUrl;
-                })
-                .collect(Collectors.toSet());
+            .stream()
+            .flatMap(serviceId -> discoveryClient.getInstances(serviceId).stream())
+            .filter(instance -> !StringUtils.equalsAnyIgnoreCase(instance.getServiceId(),
+                customSwaggerProperties.getExcludes().toArray(String[]::new)))
+            .map(instance -> {
+                AbstractSwaggerUiConfigProperties.SwaggerUrl swaggerUrl = new AbstractSwaggerUiConfigProperties.SwaggerUrl();
+                swaggerUrl.setName(instance.getServiceId());
+                swaggerUrl.setUrl(String.format("/%s/v3/api-docs", instance.getServiceId()));
+                return swaggerUrl;
+            })
+            .collect(Collectors.toSet());
 
         swaggerUiConfigProperties.setUrls(swaggerUrlSet);
     }

@@ -88,8 +88,7 @@ public class SysClientController extends BaseController {
      */
     @SaCheckPermission("system:client:query")
     @GetMapping("/{id}")
-    public R<SysClientVo> getInfo(@NotNull(message = "主键不能为空")
-                                  @PathVariable Long id) {
+    public R<SysClientVo> getInfo(@NotNull(message = "主键不能为空") @PathVariable Long id) {
         return R.ok(sysClientService.queryById(id));
     }
 

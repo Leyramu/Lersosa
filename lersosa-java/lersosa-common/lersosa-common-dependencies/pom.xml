@@ -212,6 +212,13 @@
                 <version>${springdoc.version}</version>
             </dependency>
 
+            <!--    SpringDoc Web Flux    -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
             <!--      Therapi Javadoc      -->
             <dependency>
                 <groupId>com.github.therapi</groupId>
