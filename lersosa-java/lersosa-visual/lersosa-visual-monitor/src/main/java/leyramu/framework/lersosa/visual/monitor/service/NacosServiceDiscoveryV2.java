@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Nacos 服务发现
@@ -66,8 +67,8 @@ public class NacosServiceDiscoveryV2 extends NacosServiceDiscovery {
     /**
      * 构造函数
      *
-     * @param nacosServiceManager       Nacos 服务管理器
-     * @param discoveryProperties       Nacos 发现属性
+     * @param nacosServiceManager            Nacos 服务管理器
+     * @param discoveryProperties            Nacos 发现属性
      * @param customNacosDiscoveryProperties 自定义 Nacos 服务发现属性
      */
     public NacosServiceDiscoveryV2(
@@ -111,7 +112,7 @@ public class NacosServiceDiscoveryV2 extends NacosServiceDiscovery {
      */
     @Override
     public List<String> getServices() throws NacosException {
-        List<String> group = customNacosDiscoveryProperties.getExtensionGroups();
+        List<String> group = new CopyOnWriteArrayList<>(customNacosDiscoveryProperties.getExtensionGroups());
         group.add(this.discoveryProperties.getGroup());
         ListView<String> allServices = null;
         for (String g : group) {

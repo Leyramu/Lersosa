@@ -57,25 +57,25 @@
 
     <!--      依赖      -->
     <dependencies>
-        <!-- 自定义负载均衡(多团队开发使用) -->
-        <!--        <dependency>-->
-        <!--            <groupId>leyramu.framework</groupId>-->
-        <!--            <artifactId>lersosa-common-loadbalancer</artifactId>-->
-        <!--        </dependency>-->
+        <!--      Lersosa Common Loadbalancer      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-loadbalancer</artifactId>
+        </dependency>
 
-        <!-- ELK 日志收集 -->
-        <!--        <dependency>-->
-        <!--            <groupId>leyramu.framework</groupId>-->
-        <!--            <artifactId>lersosa-common-logstash</artifactId>-->
-        <!--        </dependency>-->
+        <!--      Lersosa Common Logstash      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-logstash</artifactId>
+        </dependency>
 
-        <!-- skywalking 日志收集 -->
-        <!--        <dependency>-->
-        <!--            <groupId>leyramu.framework</groupId>-->
-        <!--            <artifactId>lersosa-common-skylog</artifactId>-->
-        <!--        </dependency>-->
+        <!--      Lersosa Common Skylog      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-skylog</artifactId>
+        </dependency>
 
-        <!-- prometheus 监控 -->
+        <!--      Lersosa Common Prometheus      -->
         <!--        <dependency>-->
         <!--            <groupId>leyramu.framework</groupId>-->
         <!--            <artifactId>lersosa-common-prometheus</artifactId>-->

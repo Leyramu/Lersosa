@@ -6,10 +6,10 @@ RUN mkdir -p /lersosa/visual/snailjob/logs
 
 WORKDIR /lersosa/visual/snailjob
 
-ENV JAVA_OPTS="-Xms512m -Xmx1024m"
+ENV JAVA_OPTS="-Xms512m -Xmx1024m" SERVER_PORT=8800 SNAILJOB_PORT=17888
 
-EXPOSE 8800
-EXPOSE 17888
+EXPOSE ${SERVER_PORT}
+EXPOSE ${SNAILJOB_PORT}
 
 ADD ./target/lersosa-visual-snailjob.jar ./app.jar
 

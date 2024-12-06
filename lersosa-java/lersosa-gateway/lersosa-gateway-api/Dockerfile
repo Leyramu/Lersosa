@@ -15,8 +15,7 @@ EXPOSE ${SERVER_PORT}
 ADD ./target/lersosa-gateway-api-encrypted.jar ./app.jar
 
 ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT} \
-            #-Dskywalking.agent.service_name=lersosa-gateway-api \
-            #-javaagent:/lersosa/skywalking/agent/skywalking-agent.jar \
-            -javaagent:app.jar="password=Zcx@223852//" \
+            -Dskywalking.agent.service_name=lersosa-gateway-api \
+            -javaagent:app.jar="password=Zcx@223852//,/lersosa/skywalking/agent/skywalking-agent.jar" \
             -XX:+HeapDumpOnOutOfMemoryError -XX:+UseZGC ${JAVA_OPTS} \
             -jar app.jar

@@ -22,7 +22,8 @@ services:
       discovery.type: single-node
       xpack.security.enabled: true
       ELASTIC_PASSWORD: Zcx@223852//
-      KIBANA_PASSWORD: Zcx@223852//
+      LOGSTASH_SYSTEM_PASSWORD: Zcx@223852//
+      KIBANA_SYSTEM_PASSWORD: Zcx@223852//
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
       ES_JAVA_LOCALE: zh_CN
     volumes:

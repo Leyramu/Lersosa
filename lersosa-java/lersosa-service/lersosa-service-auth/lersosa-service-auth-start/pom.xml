@@ -84,24 +84,6 @@
             <groupId>com.github.ulisesbocchio</groupId>
             <artifactId>jasypt-spring-boot-starter</artifactId>
         </dependency>
-
-        <!-- ELK 日志收集 -->
-        <!--        <dependency>-->
-        <!--            <groupId>leyramu.framework</groupId>-->
-        <!--            <artifactId>lersosa-common-logstash</artifactId>-->
-        <!--        </dependency>-->
-
-        <!-- skywalking 日志收集 -->
-        <!--        <dependency>-->
-        <!--            <groupId>leyramu.framework</groupId>-->
-        <!--            <artifactId>lersosa-common-skylog</artifactId>-->
-        <!--        </dependency>-->
-
-        <!-- prometheus 监控 -->
-        <!--        <dependency>-->
-        <!--            <groupId>leyramu.framework</groupId>-->
-        <!--            <artifactId>lersosa-common-prometheus</artifactId>-->
-        <!--        </dependency>-->
     </dependencies>
 
     <!--      构建      -->

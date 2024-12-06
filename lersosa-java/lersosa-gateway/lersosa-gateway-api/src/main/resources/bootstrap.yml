@@ -10,9 +10,11 @@ spring:
       username: ${NACOS-USERNAME}
       password: ${NACOS-PASSWORD}
       discovery:
-        group: ${NACOS-SERVICE-GROUP}
+        group: ${NACOS-GATEWAY-GROUP}
+        extension-groups:
+          - ${NACOS-SERVICE-GROUP}
         namespace: ${NACOS-NAMESPACE}
-        cluster-name: ${pom.parent.artifactId}
+        cluster-name: ${pom.artifactId}
       config:
         group: ${NACOS-GATEWAY-GROUP}
         namespace: ${NACOS-NAMESPACE}

@@ -96,6 +96,18 @@
             <artifactId>lersosa-common-i18n</artifactId>
         </dependency>
 
+        <!--      Lersosa Common Logstash      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-logstash</artifactId>
+        </dependency>
+
+        <!--      Lersosa Common Skylog      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-skylog</artifactId>
+        </dependency>
+
         <!--    Spring Cloud Bootstrap    -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -169,19 +181,7 @@
             <artifactId>jasypt-spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- ELK 日志收集 -->
-        <!--        <dependency>-->
-        <!--            <groupId>leyramu.framework</groupId>-->
-        <!--            <artifactId>lersosa-common-logstash</artifactId>-->
-        <!--        </dependency>-->
-
-        <!-- skywalking 日志收集 -->
-        <!--        <dependency>-->
-        <!--            <groupId>leyramu.framework</groupId>-->
-        <!--            <artifactId>lersosa-common-skylog</artifactId>-->
-        <!--        </dependency>-->
-
-        <!-- prometheus 监控 -->
+        <!--      Lersosa Common Prometheus      -->
         <!--        <dependency>-->
         <!--            <groupId>leyramu.framework</groupId>-->
         <!--            <artifactId>lersosa-common-prometheus</artifactId>-->

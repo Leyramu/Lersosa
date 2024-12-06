@@ -22,6 +22,8 @@
       <excludeFolder url="file://$MODULE_DIR$/mlruns" />
       <excludeFolder url="file://$MODULE_DIR$/docker/lersosa" />
       <excludeFolder url="file://$MODULE_DIR$/docker/nginx" />
+      <excludeFolder url="file://$MODULE_DIR$/.fastRequest" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/.cache" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

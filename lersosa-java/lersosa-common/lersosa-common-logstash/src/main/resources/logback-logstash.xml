@@ -30,7 +30,7 @@
     <!--输出到logstash的appender-->
     <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <!--可以访问的logstash日志收集端口-->
-        <destination>${logstash.address}</destination>
+        <destination>${LOGSTASH-ADDRESS}</destination>
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
             <customFields>{"spring.application.name":"${appName}"}</customFields>
         </encoder>

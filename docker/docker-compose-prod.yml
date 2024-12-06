@@ -24,6 +24,11 @@ services:
       - ./mysql/conf:/etc/mysql/conf.d
       - ./mysql/logs:/logs
       - ./mysql/data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h localhost -u root -pZcx@223852//" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     privileged: true
 
   lersosa-redis:
@@ -43,6 +48,11 @@ services:
       - ./redis/conf:/redis/config
       - ./redis/data/:/redis/data/
     command: "redis-server /redis/config/redis.conf"
+    healthcheck:
+      test: [ "CMD-SHELL", "redis-cli ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     privileged: true
 
   lersosa-minio:
@@ -87,7 +97,8 @@ services:
       discovery.type: single-node
       xpack.security.enabled: true
       ELASTIC_PASSWORD: Zcx@223852//
-      KIBANA_PASSWORD: Zcx@223852//
+      LOGSTASH_SYSTEM_PASSWORD: Zcx@223852//
+      KIBANA_SYSTEM_PASSWORD: Zcx@223852//
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
       ES_JAVA_LOCALE: zh_CN
     volumes:
@@ -95,6 +106,11 @@ services:
       - ./elk/elasticsearch/data:/usr/share/elasticsearch/data
       - ./elk/elasticsearch/logs:/usr/share/elasticsearch/logs
       - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep green" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   lersosa-rabbitmq:
     image: rabbitmq:4.0.4-management
@@ -138,7 +154,8 @@ services:
       - ./nginx/html:/usr/share/nginx/html
     privileged: true
     depends_on:
-      - lersosa-gateway
+      lersosa-gateway:
+        condition: service_healthy
     links:
       - lersosa-gateway
 
@@ -162,7 +179,8 @@ services:
     volumes:
       - ./elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
     depends_on:
-      - lersosa-elasticsearch
+      lersosa-elasticsearch:
+        condition: service_healthy
 
   lersosa-logstash:
     image: logstash:8.16.0
@@ -179,7 +197,8 @@ services:
       - ./elk/logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
       - ./elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
     depends_on:
-      - lersosa-elasticsearch
+      lersosa-elasticsearch:
+        condition: service_healthy
 
   lersosa-sky-oap:
     image: apache/skywalking-oap-server:10.1.0
@@ -200,6 +219,14 @@ services:
       SW_ES_USER: elastic
       SW_ES_PASSWORD: Zcx@223852//
       TZ: Asia/Shanghai
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -s http://localhost:12800/health/ready" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      lersosa-elasticsearch:
+        condition: service_healthy
 
   lersosa-sky-ui:
     image: apache/skywalking-ui:10.1.0
@@ -215,7 +242,8 @@ services:
       SW_OAP_ADDRESS: http://lersosa-sky-oap:12800
       TZ: Asia/Shanghai
     depends_on:
-      - lersosa-sky-oap
+      lersosa-sky-oap:
+        condition: service_healthy
 
   #####################################################################
   ###################                       管理模块                       ###################
@@ -239,8 +267,14 @@ services:
       JAVA_OPTS: "-Xms256m -Xmx512m"
     volumes:
       - ./lersosa/logs/:/root/nacos/logs
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -s http://localhost:8848/nacos/actuator/health | grep 'UP'" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     depends_on:
-      - lersosa-mysql
+      lersosa-mysql:
+        condition: service_healthy
 
   lersosa-sentinel:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-sentinel:3.0.0
@@ -258,8 +292,11 @@ services:
       JAVA_OPTS: "-Xms256m -Xmx512m"
     volumes:
       - ./lersosa/logs/:/lersosa/sentinel/visual/logs
-      - ./skywalking/agent/:/lersosa/skywalking/agent
-    restart: always
+      - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    depends_on:
+      lersosa-nacos:
+        condition: service_healthy
+    privileged: true
 
   lersosa-seata:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-seata:3.0.0
@@ -279,10 +316,11 @@ services:
       JAVA_OPTS: "-Xms256m -Xmx512m"
     volumes:
       - ./lersosa/logs/:/lersosa/visual/seata/logs
-      - ./skywalking/agent/:/lersosa/skywalking/agent
-    privileged: true
+      - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
     depends_on:
-      - lersosa-mysql
+      lersosa-nacos:
+        condition: service_healthy
+    privileged: true
 
   lersosa-snailjob:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-snailjob:3.0.0
@@ -302,7 +340,8 @@ services:
     volumes:
       - ./lersosa/logs/:/lersosa/visual/snailjob/logs
     depends_on:
-      - lersosa-mysql
+      lersosa-nacos:
+        condition: service_healthy
 
   lersosa-monitor:
     image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-monitor:3.0.0
@@ -320,10 +359,11 @@ services:
       JAVA_OPTS: "-Xms256m -Xmx512m"
     volumes:
       - ./lersosa/logs/:/lersosa/visual/monitor/logs
-      - ./skywalking/agent/:/lersosa/skywalking/agent
+      - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    depends_on:
+      lersosa-nacos:
+        condition: service_healthy
     privileged: true
-
-
 
   #####################################################################
   ###################                       网关模块                       ###################
@@ -346,6 +386,9 @@ services:
     volumes:
       - ./lersosa/logs/:/lersosa/gateway/api/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    depends_on:
+      lersosa-nacos:
+        condition: service_healthy
     privileged: true
 
   #####################################################################
@@ -369,6 +412,9 @@ services:
     volumes:
       - ./lersosa/logs/:/lersosa/service/auth/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    depends_on:
+      lersosa-nacos:
+        condition: service_healthy
     privileged: true
 
   lersosa-system:
@@ -388,6 +434,9 @@ services:
     volumes:
       - ./lersosa/logs/:/lersosa/service/system/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    depends_on:
+      lersosa-nacos:
+        condition: service_healthy
     privileged: true
 
   lersosa-gen:
@@ -407,6 +456,9 @@ services:
     volumes:
       - ./lersosa/logs/:/lersosa/service/gen/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    depends_on:
+      lersosa-nacos:
+        condition: service_healthy
     privileged: true
 
   lersosa-job:
@@ -426,6 +478,9 @@ services:
     volumes:
       - ./lersosa/logs/:/lersosa/service/job/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    depends_on:
+      lersosa-nacos:
+        condition: service_healthy
     privileged: true
 
   lersosa-resource:
@@ -445,6 +500,9 @@ services:
     volumes:
       - ./lersosa/logs/:/lersosa/service/resource/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    depends_on:
+      lersosa-nacos:
+        condition: service_healthy
     privileged: true
 
   lersosa-workflow:
@@ -464,6 +522,9 @@ services:
     volumes:
       - ./lersosa/logs/:/lersosa/service/workflow/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    depends_on:
+      lersosa-nacos:
+        condition: service_healthy
     privileged: true
 
 #####################################################################

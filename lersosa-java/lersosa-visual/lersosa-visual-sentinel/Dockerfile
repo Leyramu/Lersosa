@@ -7,15 +7,14 @@ RUN mkdir -p /lersosa/visual/sentinel/logs \
 
 WORKDIR /lersosa/visual/sentinel
 
-ENV JAVA_OPTS=""
+ENV SERVER_PORT=8718 JAVA_OPTS=""
 
-EXPOSE 8718
+EXPOSE ${SERVER_PORT}
 
 ADD ./target/lersosa-visual-sentinel-encrypted.jar ./app.jar
 
 ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom \
-            #-Dskywalking.agent.service_name=lersosa-visual-sentinel \
-            #-javaagent:/lersosa/skywalking/agent/skywalking-agent.jar \
-            -javaagent:app.jar="password=Zcx@223852//" \
+            -Dskywalking.agent.service_name=lersosa-visual-sentinel \
+            -javaagent:app.jar="password=Zcx@223852//,/lersosa/skywalking/agent/skywalking-agent.jar" \
             ${JAVA_OPTS} \
             -jar app.jar

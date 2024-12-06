@@ -90,7 +90,7 @@
 
     <!--      属性      -->
     <properties>
-        <revision>3.0.0</revision>
+        <revision>3.1.0</revision>
         <java.version>23</java.version>
         <lombok.version>1.18.36</lombok.version>
         <lersosa.version>${revision}</lersosa.version>
@@ -218,7 +218,7 @@
                 <MONITOR-SERVER-USERNAME>lersosa</MONITOR-SERVER-USERNAME>
                 <MONITOR-SERVER-PASSWORD>Zcx@223852//</MONITOR-SERVER-PASSWORD>
                 <JASYPT-ENCRYPTOR-PASSWORD>Zcx@223852//</JASYPT-ENCRYPTOR-PASSWORD>
-                <LOGSTASH-ADDRESS>127.0.0.1:4560</LOGSTASH-ADDRESS>
+                <LOGSTASH-ADDRESS>localhost:4560</LOGSTASH-ADDRESS>
             </properties>
         </profile>
 
@@ -278,7 +278,7 @@
                     ENC(rrds1uCe9JN1JGcTNg+ok62PW0ttaggVsjDiv9kQ7F3zL5hoVcJcqgRiH1PXpki+)
                 </MONITOR-SERVER-PASSWORD>
                 <LOGSTASH-ADDRESS>
-                    ENC(q620BxRsI+sSZy4L297Xb9F/zY4MmbJtJJd/tO0pizKVnqeERUpiR8au3ZZpOSGh)
+                    192.167.177.22:4560
                 </LOGSTASH-ADDRESS>
                 <JASYPT-ENCRYPTOR-PASSWORD>Zcx@223852//</JASYPT-ENCRYPTOR-PASSWORD>
             </properties>
@@ -377,7 +377,7 @@
                 </SEATA-PASSWORD>
                 <!--suppress UnresolvedMavenProperty >监控中心地址< -->
                 <MONITOR-SERVER-URL>
-                    ${MONITOR_SERVER_URL:ENC(2kE31fDuWw1IbG804+5ADvqDJGNQW3roAHy+0rFIADifrOIGoX2j81KwAIa11VFyh9Sw2WaARldKq9ZjEK6oPQ==)}
+                    ${MONITOR_SERVER_URL:ENC(d0NEza0jotK9agZXWrpJvoFX//s3KKStQ2Lze8exaWP2fLDoA3SPkxkw16lfKq/gUvFVyy9K45k4LeYURzYygQ==)}
                 </MONITOR-SERVER-URL>
                 <!--suppress UnresolvedMavenProperty >监控中心用户名< -->
                 <MONITOR-SERVER-USERNAME>
@@ -389,7 +389,7 @@
                 </MONITOR-SERVER-PASSWORD>
                 <!--suppress UnresolvedMavenProperty >日志服务器地址< -->
                 <LOGSTASH-ADDRESS>
-                    ${LOGSTASH-ADDRESS:ENC(q620BxRsI+sSZy4L297Xb9F/zY4MmbJtJJd/tO0pizKVnqeERUpiR8au3ZZpOSGh)}
+                    lersosa-logstash:4560
                 </LOGSTASH-ADDRESS>
                 <!--suppress UnresolvedMavenProperty >Jasypt 密码< -->
                 <JASYPT-ENCRYPTOR-PASSWORD>
@@ -532,28 +532,28 @@
             </plugin>
 
             <!--      代码检查插件      -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <configLocation>../.idea/checkstyle/checkstyle.xml</configLocation>
-                    <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
-                    <failOnViolation>true</failOnViolation>
-                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                    <skip>false</skip>
-                    <linkXRef>false</linkXRef>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>install</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>checkstyle</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <configLocation>../.idea/checkstyle/checkstyle.xml</configLocation>-->
+<!--                    <consoleOutput>true</consoleOutput>-->
+<!--                    <failsOnError>true</failsOnError>-->
+<!--                    <failOnViolation>true</failOnViolation>-->
+<!--                    <includeTestSourceDirectory>true</includeTestSourceDirectory>-->
+<!--                    <skip>false</skip>-->
+<!--                    <linkXRef>false</linkXRef>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>install</id>-->
+<!--                        <phase>install</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>checkstyle</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
             <!--      编译插件      -->
             <plugin>

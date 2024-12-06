@@ -21,9 +21,9 @@ logging:
   config: classpath:logback-spring.xml
   file:
     path: ./logs/seata
-#  extend:
-#    logstash-appender:
-#      destination: 127.0.0.1:4560
+  extend:
+    logstash-appender:
+      destination: @LOGSTASH-ADDRESS@
 #    kafka-appender:
 #      bootstrap-servers: 127.0.0.1:9092
 #      topic: logback_to_logstash

@@ -6,13 +6,13 @@ RUN mkdir -p /lersosa/visual/monitor/logs
 
 WORKDIR /lersosa/visual/monitor
 
-ENV JAVA_OPTS=""
+ENV SERVER_PORT=9120 JAVA_OPTS=""
 
-EXPOSE 9120
+EXPOSE ${SERVER_PORT}
 
 ADD ./target/lersosa-visual-monitor-encrypted.jar ./app.jar
 
-ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom \
+ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT} \
             -javaagent:app.jar="password=Zcx@223852//" \
             -XX:+HeapDumpOnOutOfMemoryError -XX:+UseZGC ${JAVA_OPTS} \
             -jar app.jar
