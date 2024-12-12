@@ -48,6 +48,7 @@
         <nacos.version>2.4.3</nacos.version>
         <lombok.version>1.18.36</lombok.version>
         <spring-boot.version>2.7.18</spring-boot.version>
+        <liquibase-core.version>4.29.2</liquibase-core.version>
         <spring-boot-admin.version>2.7.11</spring-boot-admin.version>
     </properties>
 
@@ -76,6 +77,12 @@
 
     <!--      依赖      -->
     <dependencies>
+        <!--      Lersosa Common SSL      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-ssl</artifactId>
+        </dependency>
+
         <!--    XueXiaowei Nacos Console UI    -->
         <dependency>
             <groupId>io.xuxiaowei.nacos</groupId>
@@ -132,17 +139,33 @@
             <optional>true</optional>
         </dependency>
 
+        <!--      Jasypt      -->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+        </dependency>
+
         <!--      Lombok      -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
+
+        <!--      Liquibase      -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase-core.version}</version>
+        </dependency>
     </dependencies>
 
-    <!--      构建插件      -->
+    <!--      构建      -->
     <build>
+        <!--      最终名称      -->
         <finalName>${project.artifactId}</finalName>
+
+        <!--      插件      -->
         <plugins>
             <!--      打包插件      -->
             <plugin>
@@ -158,22 +181,10 @@
                 </executions>
             </plugin>
 
-            <!--      混淆插件      -->
+            <!--      Docker 插件      -->
             <plugin>
-                <groupId>com.idea-aedi</groupId>
-                <artifactId>class-winter-maven-plugin</artifactId>
-                <configuration>
-                    <password>${encrypt.password}</password>
-                    <includePrefix>${groupId}</includePrefix>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>class-winter</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

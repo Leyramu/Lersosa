@@ -72,12 +72,6 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!--    Spring Cloud Bootstrap    -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
-
         <!--      Spring Cloud Alibaba Nacos Discovery      -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

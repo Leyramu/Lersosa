@@ -23,8 +23,10 @@
 
 package leyramu.framework.lersosa.gateway.api;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+import leyramu.framework.lersosa.common.ssl.annotation.EnableTlsConfig;
+import leyramu.framework.lersosa.common.ssl.core.CustomSpringApplication;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
@@ -39,6 +41,14 @@ import org.springframework.stereotype.Indexed;
  */
 @Slf4j
 @Indexed
+@EnableTlsConfig(
+    certPath = "nacos-client-cert.pem",
+    privateKey = "nacos-client-key.pem",
+    privateKeyPassword = "Zcx@223852//",
+    trustCert = "nacos-ca-cert.pem",
+    clientCertPath = "nacos.crt"
+)
+@EnableEncryptableProperties
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class LersosaGatewayApplication {
 
@@ -49,7 +59,7 @@ public class LersosaGatewayApplication {
      */
     public static void main(String[] args) {
         System.setProperty("csp.sentinel.app.type", "1");
-        SpringApplication application = new SpringApplication(LersosaGatewayApplication.class);
+        CustomSpringApplication application = new CustomSpringApplication(LersosaGatewayApplication.class);
         application.setApplicationStartup(new BufferingApplicationStartup(2048));
         application.run(args);
         log.info("""

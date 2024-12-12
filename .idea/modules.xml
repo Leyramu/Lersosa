@@ -4,6 +4,13 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Lersosa.iml" filepath="$PROJECT_DIR$/Lersosa.iml" />
       <module fileurl="file://$PROJECT_DIR$/lersosa-python/lersosa-python.iml" filepath="$PROJECT_DIR$/lersosa-python/lersosa-python.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lersosa-service-pulsar.iml" filepath="$PROJECT_DIR$/lersosa-service-pulsar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lersosa-service-pulsar-adapter.iml" filepath="$PROJECT_DIR$/lersosa-service-pulsar-adapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lersosa-service-pulsar-app.iml" filepath="$PROJECT_DIR$/lersosa-service-pulsar-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lersosa-service-pulsar-client.iml" filepath="$PROJECT_DIR$/lersosa-service-pulsar-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lersosa-service-pulsar-domain.iml" filepath="$PROJECT_DIR$/lersosa-service-pulsar-domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lersosa-service-pulsar-infrastructure.iml" filepath="$PROJECT_DIR$/lersosa-service-pulsar-infrastructure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lersosa-service-pulsar-start.iml" filepath="$PROJECT_DIR$/lersosa-service-pulsar-start.iml" />
       <module fileurl="file://$PROJECT_DIR$/lersosa-vite/lersosa-vite.iml" filepath="$PROJECT_DIR$/lersosa-vite/lersosa-vite.iml" />
       <module fileurl="file://$PROJECT_DIR$/lersosa-vite/lersosa-vite-admin/lersosa-vite-admin.iml" filepath="$PROJECT_DIR$/lersosa-vite/lersosa-vite-admin/lersosa-vite-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/lersosa-vite/lersosa-vite-user/lersosa-vite-user.iml" filepath="$PROJECT_DIR$/lersosa-vite/lersosa-vite-user/lersosa-vite-user.iml" />

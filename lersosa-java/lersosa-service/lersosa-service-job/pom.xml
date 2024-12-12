@@ -34,122 +34,18 @@
         <version>${revision}</version>
     </parent>
 
+    <!--      子模块      -->
+    <modules>
+        <module>lersosa-service-job-infrastructure</module>
+        <module>lersosa-service-job-start</module>
+    </modules>
+
+    <!--      打包方式      -->
+    <packaging>pom</packaging>
+
     <!--      模块描述      -->
     <description>任务调度模块</description>
 
     <!--      工件 ID      -->
     <artifactId>lersosa-service-job</artifactId>
-
-    <!--      依赖      -->
-    <dependencies>
-        <!--      Lersosa Common Nacos      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-nacos</artifactId>
-        </dependency>
-
-        <!--      Lersosa Common Log      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-log</artifactId>
-        </dependency>
-
-        <!--      Lersosa Common Dict      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-dict</artifactId>
-        </dependency>
-
-        <!--      Lersosa Common Web      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-web</artifactId>
-        </dependency>
-
-        <!--      Lersosa Common Dubbo      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-dubbo</artifactId>
-        </dependency>
-
-        <!--      Lersosa Common Mybatis      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-mybatis</artifactId>
-        </dependency>
-
-        <!--      Lersosa Common Job      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-job</artifactId>
-        </dependency>
-
-        <!--      Lersosa Common Tenant      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-tenant</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>leyramu.framework</groupId>
-                    <artifactId>lersosa-common-mybatis</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!--      Lersosa Common Security      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-security</artifactId>
-        </dependency>
-
-        <!--      Lersosa API System      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-api-system</artifactId>
-        </dependency>
-
-        <!--      Spring Context Indexed      -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-indexer</artifactId>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
-
-    <!--      构建插件      -->
-    <build>
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
-            <!--      打包插件      -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!--      混淆插件      -->
-            <plugin>
-                <groupId>com.idea-aedi</groupId>
-                <artifactId>class-winter-maven-plugin</artifactId>
-                <configuration>
-                    <password>${encrypt.password}</password>
-                    <includePrefix>${groupId}</includePrefix>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>class-winter</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>

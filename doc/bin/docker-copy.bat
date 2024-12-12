@@ -12,16 +12,12 @@ setlocal enabledelayedexpansion
 cd /d %~dp0/../..
 set rootDir=%cd%
 
-set "srcPattern1=!rootDir!\doc\deploy\lersosa"
-set "srcPattern2=!rootDir!\doc\deploy\nginx"
-set "destDir1=!rootDir!\docker\lersosa"
-set "destDir2=!rootDir!\docker\nginx"
+set "srcPattern1=!rootDir!\doc\deploy\nginx"
+set "destDir1=!rootDir!\docker\nginx"
 
 if not exist !destDir1! mkdir !destDir1!
-if not exist !destDir2! mkdir !destDir2!
 
 xcopy /s /e /y "!srcPattern1!" "!destDir1!"
-xcopy /s /e /y "!srcPattern2!" "!destDir2!"
 
 echo Done
 pause

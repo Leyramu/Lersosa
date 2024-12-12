@@ -102,6 +102,12 @@
             <artifactId>lersosa-common-mail</artifactId>
         </dependency>
 
+        <!--      Lersosa Common Seata      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-seata</artifactId>
+        </dependency>
+
         <!--      Lersosa Common Sms      -->
         <dependency>
             <groupId>leyramu.framework</groupId>

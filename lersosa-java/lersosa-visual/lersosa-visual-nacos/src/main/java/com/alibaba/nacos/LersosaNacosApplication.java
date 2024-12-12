@@ -23,11 +23,16 @@
 
 package com.alibaba.nacos;
 
-import org.springframework.boot.SpringApplication;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+import leyramu.framework.lersosa.common.ssl.annotation.EnableTlsConfig;
+import leyramu.framework.lersosa.common.ssl.core.CustomSpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Indexed;
+
+import static org.apache.commons.lang3.BooleanUtils.FALSE;
+import static org.apache.commons.lang3.BooleanUtils.TRUE;
 
 /**
  * Nacos 注册中心 启动类.
@@ -38,9 +43,17 @@ import org.springframework.stereotype.Indexed;
  * @since 2024/7/31
  */
 @Indexed
+@EnableTlsConfig(
+    type = "server",
+    certPath = "nacos-server-cert.pem",
+    privateKey = "nacos-server-key.pem",
+    privateKeyPassword = "Zcx@223852//",
+    trustCert = "nacos-ca-cert.pem"
+)
 @EnableScheduling
 @SpringBootApplication
 @ServletComponentScan
+@EnableEncryptableProperties
 public class LersosaNacosApplication {
 
     /**
@@ -49,13 +62,8 @@ public class LersosaNacosApplication {
      * @param args 命令行参数
      */
     public static void main(String[] args) {
-        // true 单机模式 false 为集群模式 集群模式需搭配 cluster.conf 使用 使用方法请查看文档
-        System.setProperty("nacos.standalone", "true");
-        System.setProperty("server.tomcat.accesslog.enabled", "false");
-        // 本地集群搭建使用 分别在所有 nacos 目录下创建 conf/cluster.conf 文件用于编写集群ip端口
-        // 注意 如果本地启动多个 nacos 此目录不能相同 例如 nacos1 nacos2 nacos3 对应三个nacos服务
-        // System.setProperty("nacos.home", "D:/nacos");
-        SpringApplication.run(LersosaNacosApplication.class, args);
+        System.setProperty("nacos.standalone", TRUE);
+        System.setProperty("server.tomcat.accesslog.enabled", FALSE);
+        CustomSpringApplication.run(LersosaNacosApplication.class, args);
     }
 }
-

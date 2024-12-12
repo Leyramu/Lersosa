@@ -24,6 +24,8 @@
 package leyramu.framework.lersosa.common.web.filter;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HtmlUtil;
 import jakarta.servlet.ReadListener;
@@ -37,6 +39,7 @@ import org.springframework.http.MediaType;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -47,6 +50,7 @@ import java.util.Map;
  * @since 2024/11/6
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
+
     /**
      * @param request 原始HttpServletRequest
      */
@@ -57,43 +61,47 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     @Override
     public String getParameter(String name) {
         String value = super.getParameter(name);
-        if (value != null) {
-            return HtmlUtil.cleanHtmlTag(value).trim();
+        if (value == null) {
+            return null;
         }
-        return null;
+        return HtmlUtil.cleanHtmlTag(value).trim();
     }
 
     @Override
     public Map<String, String[]> getParameterMap() {
         Map<String, String[]> valueMap = super.getParameterMap();
-        for (Map.Entry<String, String[]> entry : valueMap.entrySet()) {
+        if (MapUtil.isEmpty(valueMap)) {
+            return valueMap;
+        }
+
+        Map<String, String[]> map = new HashMap<>(valueMap.size());
+        map.putAll(valueMap);
+        for (Map.Entry<String, String[]> entry : map.entrySet()) {
             String[] values = entry.getValue();
             if (values != null) {
                 int length = values.length;
                 String[] escapseValues = new String[length];
                 for (int i = 0; i < length; i++) {
-                    // 防xss攻击和过滤前后空格
                     escapseValues[i] = HtmlUtil.cleanHtmlTag(values[i]).trim();
                 }
-                valueMap.put(entry.getKey(), escapseValues);
+                map.put(entry.getKey(), escapseValues);
             }
         }
-        return valueMap;
+        return map;
     }
 
     @Override
     public String[] getParameterValues(String name) {
         String[] values = super.getParameterValues(name);
-        if (values != null) {
-            int length = values.length;
-            String[] escapseValues = new String[length];
-            for (int i = 0; i < length; i++) {
-                // 防xss攻击和过滤前后空格
-                escapseValues[i] = HtmlUtil.cleanHtmlTag(values[i]).trim();
-            }
-            return escapseValues;
+        if (ArrayUtil.isEmpty(values)) {
+            return values;
         }
-        return null;
+        int length = values.length;
+        String[] escapseValues = new String[length];
+        for (int i = 0; i < length; i++) {
+            escapseValues[i] = HtmlUtil.cleanHtmlTag(values[i]).trim();
+        }
+        return escapseValues;
     }
 
     @Override

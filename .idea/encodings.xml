@@ -22,6 +22,9 @@
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-core/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-crypto/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-crypto/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-crypto/src/main/webapp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-dict/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-dict/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-dict/src/main/webapp" charset="UTF-8" />
@@ -43,6 +46,9 @@
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-grpc/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-grpc/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-grpc/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-i18n/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-i18n/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-i18n/src/main/webapp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-idempotent/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-idempotent/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-idempotent/src/main/webapp" charset="UTF-8" />
@@ -112,9 +118,15 @@
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-sse/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-sse/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-sse/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-ssl/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-ssl/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-ssl/src/main/webapp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-tenant/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-tenant/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-tenant/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-test/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-test/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-test/src/main/webapp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-translation/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-translation/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-common/lersosa-common-translation/src/main/webapp" charset="UTF-8" />
@@ -187,9 +199,24 @@
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-gen/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-gen/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-gen/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-grpc/lersosa-service-grpc-app/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-grpc/lersosa-service-grpc-app/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-grpc/lersosa-service-grpc-app/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-grpc/lersosa-service-grpc-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-grpc/lersosa-service-grpc-client/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-grpc/lersosa-service-grpc-client/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-grpc/lersosa-service-grpc-start/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-grpc/lersosa-service-grpc-start/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-grpc/lersosa-service-grpc-start/src/main/webapp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-grpc/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-grpc/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-grpc/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-job/lersosa-service-job-infrastructure/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-job/lersosa-service-job-infrastructure/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-job/lersosa-service-job-infrastructure/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-job/lersosa-service-job-start/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-job/lersosa-service-job-start/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-job/lersosa-service-job-start/src/main/webapp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-job/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-job/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-job/src/main/webapp" charset="UTF-8" />
@@ -214,6 +241,27 @@
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-openai/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-openai/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-openai/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-adapter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-adapter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-adapter/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-app/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-app/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-app/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-client/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-client/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-domain/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-domain/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-infrastructure/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-infrastructure/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-infrastructure/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-start/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-start/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/lersosa-service-pulsar-start/src/main/webapp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-pulsar/src/main/webapp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-resource/lersosa-service-resource-adapter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-resource/lersosa-service-resource-adapter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/lersosa-java/lersosa-service/lersosa-service-resource/lersosa-service-resource-adapter/src/main/webapp" charset="UTF-8" />

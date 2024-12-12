@@ -1,0 +1,38 @@
+${AnsiColor.BRIGHT_RED}    __
+${AnsiColor.BRIGHT_YELLOW}   / /___   __  __ _____ ____ _ ____ ___   __  __
+${AnsiColor.BRIGHT_GREEN}  / // _ \ / / / // ___// __ `// __ `__ \ / / / /
+${AnsiColor.BRIGHT_CYAN} / //  __// /_/ // /   / /_/ // / / / / // /_/ /
+${AnsiColor.BRIGHT_BLUE}/_/ \___/ \__, //_/    \__,_//_/ /_/ /_/ \__,_/
+${AnsiColor.MAGENTA}         /____/
+${AnsiColor.DEFAULT}      佛祖保佑       永不宕机      永无BUG
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+作者：Miraitowa_zcx
+GitHub：https://github.com/Leyramu/Lersosa
+
+版本：${lersosa-version}
+
+${AnsiColor.CYAN}端口：${server.port}，PID：${PID}，启动环境：${spring.profiles.active}
+
+${AnsiColor.BRIGHT_RED}操作系统：${os.name}-${os.version}-${os.arch}
+
+${AnsiColor.BRIGHT_YELLOW}Java 版本信息："${java.version}" ${java.version.date}
+${java.runtime.name} ${java.vendor.version:} (build ${java.vm.version})
+${java.vm.name} ${java.vendor.version:} (build ${java.runtime.version}，${java.vm.info})
+${AnsiColor.BRIGHT_YELLOW}Java 类版本号：${java.class.version}
+
+${AnsiColor.GREEN}Spring Boot版本：${spring-boot.version}
+${AnsiColor.BRIGHT_GREEN}Spring Cloud版本：${spring-cloud-version}
+${AnsiColor.YELLOW}Spring Cloud Alibaba版本：${spring-cloud-alibaba-version}
+
+${AnsiColor.BRIGHT_MAGENTA}时区：${user.timezone}，语言：${user.language}，国家：${user.country}，文件编码：${file.encoding}
+${AnsiColor.BLUE}JDK所在目录：${java.home}
+${AnsiColor.BRIGHT_CYAN}项目所在目录：${user.dir}
+${AnsiColor.DEFAULT}
+应用名称：${spring.application.name}
+
+Lersosa 平台正在启动中......

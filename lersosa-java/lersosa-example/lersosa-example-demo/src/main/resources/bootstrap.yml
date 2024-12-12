@@ -1,0 +1,25 @@
+spring:
+  cloud:
+    nacos:
+      server-addr: ${NACOS-SERVER-ADDRESS}
+      username: ${NACOS-USERNAME}
+      password: ${NACOS-PASSWORD}
+      discovery:
+        group: ${NACOS-EXAMPLE-GROUP}
+        namespace: ${NACOS-NAMESPACE}
+        cluster-name: ${pom.artifactId}
+      config:
+        group: ${NACOS-EXAMPLE-GROUP}
+        namespace: ${NACOS-NAMESPACE}
+        file-extension: yml
+        refresh-enabled: true
+        extension-configs:
+          - data-id: application-common.${spring.cloud.nacos.config.file-extension}
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: nacos:lersosa-visual-resource.${spring.cloud.nacos.config.file-extension}
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: datasource.${spring.cloud.nacos.config.file-extension}
+            group: DEFAULT_GROUP
+            refresh: true

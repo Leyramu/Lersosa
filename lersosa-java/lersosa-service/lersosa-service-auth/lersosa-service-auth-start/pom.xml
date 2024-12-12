@@ -79,23 +79,11 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- ELK 日志收集 -->
-        <!--        <dependency>-->
-        <!--            <groupId>leyramu.framework</groupId>-->
-        <!--            <artifactId>lersosa-common-logstash</artifactId>-->
-        <!--        </dependency>-->
-
-        <!-- skywalking 日志收集 -->
-        <!--        <dependency>-->
-        <!--            <groupId>leyramu.framework</groupId>-->
-        <!--            <artifactId>lersosa-common-skylog</artifactId>-->
-        <!--        </dependency>-->
-
-        <!-- prometheus 监控 -->
-        <!--        <dependency>-->
-        <!--            <groupId>leyramu.framework</groupId>-->
-        <!--            <artifactId>lersosa-common-prometheus</artifactId>-->
-        <!--        </dependency>-->
+        <!--      Jasypt      -->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 
     <!--      构建      -->
@@ -109,31 +97,18 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <!--      混淆插件      -->
             <plugin>
                 <groupId>com.idea-aedi</groupId>
                 <artifactId>class-winter-maven-plugin</artifactId>
-                <configuration>
-                    <password>${encrypt.password}</password>
-                    <includePrefix>${project.groupId}</includePrefix>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>class-winter</goal>
-                        </goals>
-                    </execution>
-                </executions>
+            </plugin>
+
+            <!--      Docker 插件      -->
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

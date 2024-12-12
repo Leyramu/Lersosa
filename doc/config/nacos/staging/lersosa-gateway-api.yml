@@ -1,0 +1,102 @@
+# 安全配置
+security:
+  # 不校验白名单
+  ignore:
+    whites:
+      - /auth/code
+      - /auth/logout
+      - /auth/login
+      - /auth/binding/*
+      - /auth/social/callback
+      - /auth/register
+      - /auth/tenant/list
+      - /resource/sms/code
+      - /resource/sse/close
+      - /*/v3/api-docs
+      - /*/error
+      - /csrf
+
+spring:
+  cloud:
+    # 网关配置
+    gateway:
+      # 打印请求日志(自定义)
+      requestLog: true
+      discovery:
+        locator:
+          lowerCaseServiceId: true
+          enabled: true
+      routes:
+        # 认证中心
+        - id: lersosa-service-auth
+          uri: lb://lersosa-service-auth
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+        # 代码生成
+        - id: lersosa-service-gen
+          uri: lb://lersosa-service-gen
+          predicates:
+            - Path=/tool/**
+          filters:
+            - StripPrefix=1
+        # 系统模块
+        - id: lersosa-service-system
+          uri: lb://lersosa-service-system
+          predicates:
+            - Path=/system/**,/monitor/**
+          filters:
+            - StripPrefix=1
+        # 资源服务
+        - id: lersosa-service-resource
+          uri: lb://lersosa-service-resource
+          predicates:
+            - Path=/resource/**
+          filters:
+            - StripPrefix=1
+        # workflow服务
+        - id: lersosa-service-workflow
+          uri: lb://lersosa-service-workflow
+          predicates:
+            - Path=/workflow/**
+          filters:
+            - StripPrefix=1
+        # 演示服务
+        - id: lersosa-service-demo
+          uri: lb://lersosa-service-demo
+          predicates:
+            - Path=/demo/**
+          filters:
+            - StripPrefix=1
+        # MQ演示服务
+        - id: lersosa-service-test-mq
+          uri: lb://lersosa-service-test-mq
+          predicates:
+            - Path=/test-mq/**
+          filters:
+            - StripPrefix=1
+        # Python 服务
+        - id: lersosa-service-python
+          uri: lb://lersosa-service-python
+          predicates:
+            - Path=/python/**
+          filters:
+            - StripPrefix=1
+
+    # sentinel 配置
+    sentinel:
+      filter:
+        enabled: false
+      # nacos配置持久化
+      datasource:
+        ds1:
+          nacos:
+            server-addr: ${spring.cloud.nacos.server-addr}
+            dataId: sentinel-${spring.application.name}.json
+            groupId: ${spring.cloud.nacos.config.group}
+            username: ${spring.cloud.nacos.username}
+            password: ${spring.cloud.nacos.password}
+            namespace: ${spring.profiles.active}
+            data-type: json
+            rule-type: gw-flow

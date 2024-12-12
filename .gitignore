@@ -4,6 +4,8 @@
 /.venv/
 /.idea/shelf/
 /.idea/workspace.xml
+/.idea/.cache/
+/.fastRequest/
 
 # 基于编辑器的 HTTP 客户端请求
 /.idea/httpRequests/
@@ -35,3 +37,7 @@
 
 # mlflow 运行环境
 /mlruns/
+
+# 证书文件
+/**/*.csr
+/**/*.srl

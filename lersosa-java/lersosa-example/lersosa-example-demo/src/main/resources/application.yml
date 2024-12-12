@@ -10,31 +10,6 @@ spring:
   profiles:
     # 环境配置
     active: @PROFILE-ACTIVE@
-  main:
-    lazy-initialization: true
-
---- # nacos 配置
-spring:
-  cloud:
-    nacos:
-      # nacos 服务地址
-      server-addr: @NACOS-SERVER-ADDRESS@
-      username: @NACOS-USERNAME@
-      password: @NACOS-PASSWORD@
-      discovery:
-        # 注册组
-        group: @NACOS-EXAMPLE-GROUP@
-        namespace: @NACOS-NAMESPACE@
-        cluster-name: @pom.artifactId@
-      config:
-        # 配置组
-        group: @NACOS-EXAMPLE-GROUP@
-        namespace: @NACOS-NAMESPACE@
-  config:
-    import:
-      - optional:nacos:application-common.yml
-      - optional:nacos:lersosa-visual-resource.yml
-      - optional:nacos:datasource.yml
 
 --- # 数据源设置 需在 system 数据源下 执行 test.sql 文件
 spring:

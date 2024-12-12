@@ -54,6 +54,12 @@
             <artifactId>lersosa-common-tenant</artifactId>
         </dependency>
 
+        <!--      Lersosa Common I18n      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-i18n</artifactId>
+        </dependency>
+
         <!--      Lersosa API Resource      -->
         <dependency>
             <groupId>leyramu.framework</groupId>

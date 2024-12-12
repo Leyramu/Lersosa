@@ -1,5 +1,23 @@
+lersosa-version: ${lersosa.version}
+spring-cloud-version: ${spring-cloud.version}
+spring-cloud-alibaba-version: ${spring-cloud-alibaba.version}
+
+jasypt:
+  encryptor:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    password: @JASYPT-ENCRYPTOR-PASSWORD@
+
 server:
-  port: 7091
+  port: ${SERVER-PORT:7091}
+  ssl:
+    enabled: @SSL-ENABLED@
+    key-store: classpath:scg-keystore.p12
+    key-alias: ${spring.application.name}
+    key-store-type: PKCS12
+    key-store-password: Zcx@223852//
+  http2:
+    enabled: @SSL-ENABLED@
+  shutdown: graceful
 
 spring:
   application:
@@ -12,17 +30,17 @@ logging:
   config: classpath:logback-spring.xml
   file:
     path: ./logs/seata
-#  extend:
-#    logstash-appender:
-#      destination: 127.0.0.1:4560
+  extend:
+    logstash-appender:
+      destination: @LOGSTASH-ADDRESS@
 #    kafka-appender:
 #      bootstrap-servers: 127.0.0.1:9092
 #      topic: logback_to_logstash
 
 console:
   user:
-    username: seata
-    password: seata
+    username: ${SEATA-USERNAME}
+    password: ${SEATA-PASSWORD}
 
 seata:
   config:

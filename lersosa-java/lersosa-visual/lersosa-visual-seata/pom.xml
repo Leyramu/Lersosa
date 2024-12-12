@@ -49,7 +49,7 @@
         <seata.version>1.7.1</seata.version>
         <lombok.version>1.18.36</lombok.version>
         <spring-boot.version>2.7.18</spring-boot.version>
-        <logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
+        <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
     </properties>
 
     <!--     Spring Cloud 依赖管理     -->
@@ -68,6 +68,12 @@
 
     <!--      依赖      -->
     <dependencies>
+        <!--      Lersosa Common SSL      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-ssl</artifactId>
+        </dependency>
+
         <!--      Spring Boot Web      -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -120,11 +126,20 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
+
+        <!--      Jasypt      -->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 
-    <!--      构建插件      -->
+    <!--      构建      -->
     <build>
+        <!--      最终名称      -->
         <finalName>${project.artifactId}</finalName>
+
+        <!--      插件      -->
         <plugins>
             <!--      打包插件      -->
             <plugin>
@@ -140,22 +155,10 @@
                 </executions>
             </plugin>
 
-            <!--      混淆插件      -->
+            <!--      Docker 插件      -->
             <plugin>
-                <groupId>com.idea-aedi</groupId>
-                <artifactId>class-winter-maven-plugin</artifactId>
-                <configuration>
-                    <password>${encrypt.password}</password>
-                    <includePrefix>${groupId}</includePrefix>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>class-winter</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

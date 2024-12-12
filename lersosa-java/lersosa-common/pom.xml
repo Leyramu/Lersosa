@@ -69,11 +69,14 @@
         <module>lersosa-common-sms</module>
         <module>lersosa-common-social</module>
         <module>lersosa-common-sse</module>
+        <module>lersosa-common-ssl</module>
         <module>lersosa-common-tenant</module>
         <module>lersosa-common-translation</module>
         <module>lersosa-common-web</module>
         <module>lersosa-common-websocket</module>
         <module>lersosa-common-grpc</module>
+        <module>lersosa-common-i18n</module>
+        <module>lersosa-common-test</module>
     </modules>
 
     <!--      打包方式      -->

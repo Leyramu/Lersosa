@@ -48,13 +48,6 @@
             <artifactId>lersosa-common-core</artifactId>
         </dependency>
 
-        <!--      Spring Boot Test      -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!--      Jasypt      -->
         <dependency>
             <groupId>com.github.ulisesbocchio</groupId>
@@ -65,6 +58,12 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!--      Junit      -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
         </dependency>
     </dependencies>
 </project>

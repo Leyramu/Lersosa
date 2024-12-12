@@ -90,19 +90,21 @@
 
     <!--      属性      -->
     <properties>
-        <revision>2.1.0</revision>
+        <revision>3.2.0</revision>
         <java.version>23</java.version>
         <lombok.version>1.18.36</lombok.version>
-        <encrypt.password>Zcx@223852//</encrypt.password>
+        <lersosa.version>${revision}</lersosa.version>
         <spring-ai.version>1.0.0-M1</spring-ai.version>
         <spring-boot.version>3.3.5</spring-boot.version>
         <spring-cloud.version>2023.0.3</spring-cloud.version>
+        <encrypt.password>Zcx@223852//</encrypt.password>
         <mapstruct-plus.version>1.4.5</mapstruct-plus.version>
         <therapi-javadoc.version>0.15.0</therapi-javadoc.version>
         <flatten-maven-plugin.version>1.3.0</flatten-maven-plugin.version>
         <docker-maven-plugin.version>0.45.1</docker-maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+        <spring-cloud-alibaba.version>2023.0.1.2</spring-cloud-alibaba.version>
         <mapstruct-plus.lombok.version>0.2.0</mapstruct-plus.lombok.version>
         <maven-compiler-plugin.verison>3.13.0</maven-compiler-plugin.verison>
         <maven-checkstyle-plugin.version>3.5.0</maven-checkstyle-plugin.version>
@@ -190,26 +192,97 @@
             <properties>
                 <PROFILE-ACTIVE>dev</PROFILE-ACTIVE>
                 <SSL-ENABLED>false</SSL-ENABLED>
+                <DOCKER-BUILD-DISABLE>true</DOCKER-BUILD-DISABLE>
+                <DOCKER-PUSH-DISABLE>true</DOCKER-PUSH-DISABLE>
+                <DOCKER-NAMESPACE>namespace</DOCKER-NAMESPACE>
+                <DOCKER-USERNAME>username</DOCKER-USERNAME>
+                <DOCKER-PASSWORD>password</DOCKER-PASSWORD>
+                <DOCKER-REGISTRY>registry</DOCKER-REGISTRY>
+                <DOCKER-FROM>bellsoft/liberica-openjdk-alpine:23.0.1-cds</DOCKER-FROM>
                 <NACOS-SERVER-ADDRESS>localhost:8848</NACOS-SERVER-ADDRESS>
                 <NACOS-USERNAME>nacos</NACOS-USERNAME>
                 <NACOS-PASSWORD>Zcx@223852//</NACOS-PASSWORD>
+                <DATASOURCE-PLATFORM>mysql</DATASOURCE-PLATFORM>
                 <DATASOURCE-USERNAME-NACOS>root</DATASOURCE-USERNAME-NACOS>
                 <DATASOURCE-PASSWORD-NACOS>Zcx@223852//</DATASOURCE-PASSWORD-NACOS>
                 <DATASOURCE-DRIVER-CLASS-NAME>com.mysql.cj.jdbc.Driver</DATASOURCE-DRIVER-CLASS-NAME>
-                <DATASOURCE-PLATFORM>mysql</DATASOURCE-PLATFORM>
-                <DATASOURCE-HOST>localhost</DATASOURCE-HOST>
-                <DATASOURCE-PORT>3307</DATASOURCE-PORT>
-                <DATASOURCE-DB-NACOS>lersosa-config</DATASOURCE-DB-NACOS>
-                <DATASOURCE-PARAM-NACOS>characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true&amp;useUnicode=true&amp;useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true</DATASOURCE-PARAM-NACOS>
-                <MONITOR-SERVER-URL>http://localhost:9120</MONITOR-SERVER-URL>
-                <MONITOR-SERVER-USERNAME>lersosa</MONITOR-SERVER-USERNAME>
-                <MONITOR-SERVER-PASSWORD>Zcx@223852//</MONITOR-SERVER-PASSWORD>
+                <DATASOURCE-URL-NACOS>jdbc:mysql://localhost:3307/lersosa-config?characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true&amp;useUnicode=true&amp;useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true</DATASOURCE-URL-NACOS>
+                <NACOS-DEFAULT-GROUP>DEFAULT_GROUP</NACOS-DEFAULT-GROUP>
                 <NACOS-GATEWAY-GROUP>GATEWAY_GROUP</NACOS-GATEWAY-GROUP>
                 <NACOS-SERVICE-GROUP>SERVICE_GROUP</NACOS-SERVICE-GROUP>
                 <NACOS-VISUAL-GROUP>VISUAL_GROUP</NACOS-VISUAL-GROUP>
                 <NACOS-EXAMPLE-GROUP>EXAMPLE_GROUP</NACOS-EXAMPLE-GROUP>
                 <NACOS-NAMESPACE>106fdced-d95e-46db-b9f4-0abdce58a18b</NACOS-NAMESPACE>
-                <logstash.address>127.0.0.1:4560</logstash.address>
+                <SEATA-USERNAME>seata</SEATA-USERNAME>
+                <SEATA-PASSWORD>Zcx@223852//</SEATA-PASSWORD>
+                <MONITOR-SERVER-URL>http://localhost:9120</MONITOR-SERVER-URL>
+                <MONITOR-SERVER-USERNAME>lersosa</MONITOR-SERVER-USERNAME>
+                <MONITOR-SERVER-PASSWORD>Zcx@223852//</MONITOR-SERVER-PASSWORD>
+                <JASYPT-ENCRYPTOR-PASSWORD>Zcx@223852//</JASYPT-ENCRYPTOR-PASSWORD>
+                <LOGSTASH-ADDRESS>localhost:4560</LOGSTASH-ADDRESS>
+            </properties>
+        </profile>
+
+        <!--    测试环境    -->
+        <profile>
+            <id>staging</id>
+            <properties>
+                <PROFILE-ACTIVE>staging</PROFILE-ACTIVE>
+                <SSL-ENABLED>false</SSL-ENABLED>
+                <DOCKER-BUILD-DISABLE>false</DOCKER-BUILD-DISABLE>
+                <DOCKER-PUSH-DISABLE>true</DOCKER-PUSH-DISABLE>
+                <DOCKER-NAMESPACE>namespace</DOCKER-NAMESPACE>
+                <DOCKER-USERNAME>username</DOCKER-USERNAME>
+                <DOCKER-PASSWORD>password</DOCKER-PASSWORD>
+                <DOCKER-REGISTRY>registry</DOCKER-REGISTRY>
+                <DOCKER-FROM>bellsoft/liberica-openjdk-alpine:23.0.1-cds</DOCKER-FROM>
+                <NACOS-SERVER-ADDRESS>
+                    ENC(H6qLFMq+tMIxYO2Yr/gifXKqQgmrXTBPMIL+nkVlkPoqOAlM+TokMaCvs8FQln0j)
+                </NACOS-SERVER-ADDRESS>
+                <NACOS-USERNAME>
+                    ENC(VP3usYtNi4cHVQ3oDfQH2m92pxep9HbsOCmI8GNWajOqnuJfMxoVQXbT2OGM+X1s)
+                </NACOS-USERNAME>
+                <NACOS-PASSWORD>
+                    ENC(rrds1uCe9JN1JGcTNg+ok62PW0ttaggVsjDiv9kQ7F3zL5hoVcJcqgRiH1PXpki+)
+                </NACOS-PASSWORD>
+                <DATASOURCE-USERNAME-NACOS>
+                    ENC(b79Tzr71k/z2iwN7jBpLa2wq3YR48TBENyMYfeEb67YGrPQAOoeSbGVKBmMZuEdh)
+                </DATASOURCE-USERNAME-NACOS>
+                <DATASOURCE-PASSWORD-NACOS>
+                    ENC(rrds1uCe9JN1JGcTNg+ok62PW0ttaggVsjDiv9kQ7F3zL5hoVcJcqgRiH1PXpki+)
+                </DATASOURCE-PASSWORD-NACOS>
+                <DATASOURCE-PLATFORM>mysql</DATASOURCE-PLATFORM>
+                <DATASOURCE-DRIVER-CLASS-NAME>com.mysql.cj.jdbc.Driver</DATASOURCE-DRIVER-CLASS-NAME>
+                <DATASOURCE-URL-NACOS>
+                    ENC(tyK7LtLm2XD+dA/5zkCRKH/ZXgl9L4EWaJx0oNiBuef6orMAOlI5+W68QKqXaBZvhAHc7Zao6q0iCieIxzufh7Pg1p+qSqnmGOp6RSJDi8s1qwl3pvtR0KPXwZef5QLGvQmNAXvoB76uGXPOdof6aaM5ugN69U8vJT/Zh6WOZl2TjUCVy9FQeHSfYCfw6cUnjATc+c6nQB50TjTyqNR6oLBFo453lax562zXBFQUuWDdbFQ7amYf+x6mCaVI2Pwp2/1tPRrr7dIjuvRbPauV5knkUD00RRQjvRVS2EP23hQD8vWjoRVRl37ZD+JpY+bW)
+                </DATASOURCE-URL-NACOS>
+                <NACOS-DEFAULT-GROUP>DEFAULT_GROUP</NACOS-DEFAULT-GROUP>
+                <NACOS-GATEWAY-GROUP>GATEWAY_GROUP</NACOS-GATEWAY-GROUP>
+                <NACOS-SERVICE-GROUP>SERVICE_GROUP</NACOS-SERVICE-GROUP>
+                <NACOS-VISUAL-GROUP>VISUAL_GROUP</NACOS-VISUAL-GROUP>
+                <NACOS-EXAMPLE-GROUP>EXAMPLE_GROUP</NACOS-EXAMPLE-GROUP>
+                <NACOS-NAMESPACE>
+                    ENC(LT/w8SoLGciqgL02gmdGn43IhM5cTDBzRoXZE9Tfr1Zyq/NLU9TXw7GTX28mpANcnQTdc2iT1eqe8nMN8v/EmDe6/Fl6Ya+MGf7nCfZ8YHA=)
+                </NACOS-NAMESPACE>
+                <SEATA-USERNAME>
+                    ENC(6AgrKT2DCanjQ5Z24KWFsh4gQFxlGvbiRWKMMO8heidP0qoPh31cdg3SWt0pfVUM)
+                </SEATA-USERNAME>
+                <SEATA-PASSWORD>
+                    ENC(rrds1uCe9JN1JGcTNg+ok62PW0ttaggVsjDiv9kQ7F3zL5hoVcJcqgRiH1PXpki+)
+                </SEATA-PASSWORD>
+                <MONITOR-SERVER-URL>
+                    ENC(UFuQ4u97LjqrVQKZFuJOCHCP9FnzhCrsg7QDx9K78PIc3r5WHbpXDXCH/YelXrB+CdH5gecxDyfvMgfFt/B1Pw==)
+                </MONITOR-SERVER-URL>
+                <MONITOR-SERVER-USERNAME>
+                    ENC(crqiDgmCZcsQYCDS+kCp698i7tjoDb5k2j4aJ1pNYgidY4rk0VJqoxEl2x766qaN)
+                </MONITOR-SERVER-USERNAME>
+                <MONITOR-SERVER-PASSWORD>
+                    ENC(rrds1uCe9JN1JGcTNg+ok62PW0ttaggVsjDiv9kQ7F3zL5hoVcJcqgRiH1PXpki+)
+                </MONITOR-SERVER-PASSWORD>
+                <LOGSTASH-ADDRESS>
+                    192.167.177.22:4560
+                </LOGSTASH-ADDRESS>
+                <JASYPT-ENCRYPTOR-PASSWORD>Zcx@223852//</JASYPT-ENCRYPTOR-PASSWORD>
             </properties>
         </profile>
 
@@ -219,12 +292,112 @@
             <properties>
                 <PROFILE-ACTIVE>prod</PROFILE-ACTIVE>
                 <SSL-ENABLED>false</SSL-ENABLED>
-                <nacos.server>127.0.0.1:8848</nacos.server>
-                <nacos.discovery.group>DEFAULT_GROUP</nacos.discovery.group>
-                <nacos.config.group>DEFAULT_GROUP</nacos.config.group>
-                <nacos.username>nacos</nacos.username>
-                <nacos.password>nacos</nacos.password>
-                <logstash.address>127.0.0.1:4560</logstash.address>
+                <DOCKER-BUILD-DISABLE>false</DOCKER-BUILD-DISABLE>
+                <DOCKER-PUSH-DISABLE>false</DOCKER-PUSH-DISABLE>
+                <!--suppress UnresolvedMavenProperty >Docker 命名空间< -->
+                <DOCKER-NAMESPACE>
+                    ${env.DOCKER_NAMESPACE}
+                </DOCKER-NAMESPACE>
+                <!--suppress UnresolvedMavenProperty >Docker 用户名< -->
+                <DOCKER-USERNAME>
+                    ${env.DOCKER_USERNAME}
+                </DOCKER-USERNAME>
+                <!--suppress UnresolvedMavenProperty >Docker 密码< -->
+                <DOCKER-PASSWORD>
+                    ${env.DOCKER_PASSWORD}
+                </DOCKER-PASSWORD>
+                <!--suppress UnresolvedMavenProperty >Docker 仓库地址< -->
+                <DOCKER-REGISTRY>
+                    ${env.DOCKER_REGISTRY}
+                </DOCKER-REGISTRY>
+                <!--suppress UnresolvedMavenProperty >Docker 基础镜像< -->
+                <DOCKER-FROM>
+                    bellsoft/liberica-openjdk-alpine:23.0.1-cds
+                </DOCKER-FROM>
+                <!--suppress UnresolvedMavenProperty >Nacos 服务器地址< -->
+                <NACOS-SERVER-ADDRESS>
+                    ${NACOS_SERVER_ADDRESS:ENC(umxMm68DFU6F5KtPOnJTQrB4NWP0bgsyQ2uU0eLoNwMxG0XAVP8lWLyqnxC31oGqdXaAOL13F0ZI9wAe1IC+sw==)}
+                </NACOS-SERVER-ADDRESS>
+                <!--suppress UnresolvedMavenProperty >Nacos 用户名< -->
+                <NACOS-USERNAME>
+                    ${NACOS_USERNAME:ENC(VP3usYtNi4cHVQ3oDfQH2m92pxep9HbsOCmI8GNWajOqnuJfMxoVQXbT2OGM+X1s)}
+                </NACOS-USERNAME>
+                <!--suppress UnresolvedMavenProperty >Nacos 密码< -->
+                <NACOS-PASSWORD>
+                    ${NACOS_PASSWORD:ENC(rrds1uCe9JN1JGcTNg+ok62PW0ttaggVsjDiv9kQ7F3zL5hoVcJcqgRiH1PXpki+)}
+                </NACOS-PASSWORD>
+                <!--suppress UnresolvedMavenProperty >Nacos 数据库用户名< -->
+                <DATASOURCE-USERNAME-NACOS>
+                    ${DATASOURCE_USERNAME_NACOS:ENC(b79Tzr71k/z2iwN7jBpLa2wq3YR48TBENyMYfeEb67YGrPQAOoeSbGVKBmMZuEdh)}
+                </DATASOURCE-USERNAME-NACOS>
+                <!--suppress UnresolvedMavenProperty >Nacos 数据库密码< -->
+                <DATASOURCE-PASSWORD-NACOS>
+                    ${DATASOURCE_PASSWORD_NACOS:ENC(rrds1uCe9JN1JGcTNg+ok62PW0ttaggVsjDiv9kQ7F3zL5hoVcJcqgRiH1PXpki+)}
+                </DATASOURCE-PASSWORD-NACOS>
+                <!--suppress UnresolvedMavenProperty >Nacos 数据库驱动< -->
+                <DATASOURCE-DRIVER-CLASS-NAME>
+                    ${DATASOURCE_DRIVER_CLASS_NAME:com.mysql.cj.jdbc.Driver}
+                </DATASOURCE-DRIVER-CLASS-NAME>
+                <!--suppress UnresolvedMavenProperty >Nacos 数据库平台< -->
+                <DATASOURCE-PLATFORM>
+                    ${DATASOURCE_PLATFORM:mysql}
+                </DATASOURCE-PLATFORM>
+                <!--suppress UnresolvedMavenProperty >Nacos 数据库地址< -->
+                <DATASOURCE-URL-NACOS>
+                    ${DATASOURCE_URL_NACOS:ENC(dGjk4chZkbS6uV3SDphb7z03ejKluRqLfY3q8hGiqKpOD8WFKQl24o/qHZPeTkmwfFxJAn3wYYCq+Kt5ZC1tOZeGXNAwyvuQFyJDw/AZEj4Zkdq0S5og2nxTC+QX3Zc1MDhzC07tfLm1QxPBB8KQ7NReXKuxCHlQ/0ROWwKwFHBuEZy4DgM0cWl4wspzMwmd/MRk+5HvvjLjMn8eUbeQwSTT/+Nf0PHrWqZBw2rCnxHFc7E48p0vJ5VWpeAC403YTjGIGcbvRnEfZW1hawzMTCDBB7Umq+OWgSEiAoDVABlzaA8aFy9uFcqHxrfSCFSa)}
+                </DATASOURCE-URL-NACOS>
+                <!--suppress UnresolvedMavenProperty >Nacos 默认命名空间< -->
+                <NACOS-DEFAULT-GROUP>
+                    ${NACOS_DEFAULT_GROUP:DEFAULT_GROUP}
+                </NACOS-DEFAULT-GROUP>
+                <!--suppress UnresolvedMavenProperty >Nacos 网关命名空间< -->
+                <NACOS-GATEWAY-GROUP>
+                    ${NACOS_GATEWAY_GROUP:GATEWAY_GROUP}
+                </NACOS-GATEWAY-GROUP>
+                <!--suppress UnresolvedMavenProperty >Nacos 服务命名空间< -->
+                <NACOS-SERVICE-GROUP>
+                    ${NACOS_SERVICE_GROUP:SERVICE_GROUP}
+                </NACOS-SERVICE-GROUP>
+                <!--suppress UnresolvedMavenProperty >Nacos 可视化命名空间< -->
+                <NACOS-VISUAL-GROUP>
+                    ${NACOS_VISUAL_GROUP:VISUAL_GROUP}
+                </NACOS-VISUAL-GROUP>
+                <!--suppress UnresolvedMavenProperty >Nacos 示例命名空间< -->
+                <NACOS-EXAMPLE-GROUP>
+                    ${NACOS_EXAMPLE_GROUP:EXAMPLE_GROUP}
+                </NACOS-EXAMPLE-GROUP>
+                <!--suppress UnresolvedMavenProperty >Nacos 命名空间< -->
+                <NACOS-NAMESPACE>
+                    ${NACOS_NAMESPACE:ENC(hLFRNyq4BsiI9uYlyldUeQ4dnB39yHmJ4IIrm7nQ1owt5Nu4VlBL7hPoGZWYzhvInO7tEQwDcKomzuIwX3DKtohvF2BSIZZ3XVzHVt8w1Pw=)}
+                </NACOS-NAMESPACE>
+                <!--suppress UnresolvedMavenProperty >Seata 数据库用户名< -->
+                <SEATA-USERNAME>
+                    ${SEATA_USERNAME:ENC(6AgrKT2DCanjQ5Z24KWFsh4gQFxlGvbiRWKMMO8heidP0qoPh31cdg3SWt0pfVUM)}
+                </SEATA-USERNAME>
+                <!--suppress UnresolvedMavenProperty >Seata 数据库密码< -->
+                <SEATA-PASSWORD>
+                    ${SEATA_PASSWORD:ENC(rrds1uCe9JN1JGcTNg+ok62PW0ttaggVsjDiv9kQ7F3zL5hoVcJcqgRiH1PXpki+)}
+                </SEATA-PASSWORD>
+                <!--suppress UnresolvedMavenProperty >监控中心地址< -->
+                <MONITOR-SERVER-URL>
+                    ${MONITOR_SERVER_URL:ENC(d0NEza0jotK9agZXWrpJvoFX//s3KKStQ2Lze8exaWP2fLDoA3SPkxkw16lfKq/gUvFVyy9K45k4LeYURzYygQ==)}
+                </MONITOR-SERVER-URL>
+                <!--suppress UnresolvedMavenProperty >监控中心用户名< -->
+                <MONITOR-SERVER-USERNAME>
+                    ${MONITOR_SERVER_USERNAME:ENC(crqiDgmCZcsQYCDS+kCp698i7tjoDb5k2j4aJ1pNYgidY4rk0VJqoxEl2x766qaN)}
+                </MONITOR-SERVER-USERNAME>
+                <!--suppress UnresolvedMavenProperty >监控中心密码< -->
+                <MONITOR-SERVER-PASSWORD>
+                    ${MONITOR_SERVER_PASSWORD:ENC(rrds1uCe9JN1JGcTNg+ok62PW0ttaggVsjDiv9kQ7F3zL5hoVcJcqgRiH1PXpki+)}
+                </MONITOR-SERVER-PASSWORD>
+                <!--suppress UnresolvedMavenProperty >日志服务器地址< -->
+                <LOGSTASH-ADDRESS>
+                    lersosa-logstash:4560
+                </LOGSTASH-ADDRESS>
+                <!--suppress UnresolvedMavenProperty >Jasypt 密码< -->
+                <JASYPT-ENCRYPTOR-PASSWORD>
+                    ${JASYPT-ENCRYPTOR-PASSWORD:Zcx@223852//}
+                </JASYPT-ENCRYPTOR-PASSWORD>
             </properties>
         </profile>
     </profiles>
@@ -274,6 +447,13 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring-boot.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <!--      混淆插件      -->
@@ -281,6 +461,72 @@
                     <groupId>com.idea-aedi</groupId>
                     <artifactId>class-winter-maven-plugin</artifactId>
                     <version>${class-winter-maven-plugin.version}</version>
+                    <configuration>
+                        <finalName>${project.build.finalName}</finalName>
+                        <password>${encrypt.password}</password>
+                        <includePrefix>${project.groupId}</includePrefix>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>class-winter</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!--      docker 插件      -->
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker-maven-plugin.version}</version>
+                    <configuration>
+                        <registry>${DOCKER-FROM}</registry>
+                        <authConfig>
+                            <push>
+                                <username>${DOCKER-USERNAME}</username>
+                                <password>${DOCKER-PASSWORD}</password>
+                            </push>
+                        </authConfig>
+                        <images>
+                            <image>
+                                <name>
+                                    ${DOCKER-REGISTRY}/${DOCKER-NAMESPACE}/${project.build.finalName}:${project.version}
+                                </name>
+                                <alias>${project.build.finalName}</alias>
+                                <build>
+                                    <from>${DOCKER-FROM}</from>
+                                    <tags>
+                                        <tag>${project.version}</tag>
+                                    </tags>
+                                    <dockerFile>${project.basedir}/Dockerfile</dockerFile>
+                                </build>
+                            </image>
+                        </images>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>build</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>build</goal>
+                            </goals>
+                            <configuration>
+                                <skip>${DOCKER-BUILD-DISABLE}</skip>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>push</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>push</goal>
+                            </goals>
+                            <configuration>
+                                <skip>${DOCKER-PUSH-DISABLE}</skip>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -293,28 +539,28 @@
             </plugin>
 
             <!--      代码检查插件      -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <configLocation>../.idea/checkstyle/checkstyle.xml</configLocation>
-                    <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
-                    <failOnViolation>true</failOnViolation>
-                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                    <skip>false</skip>
-                    <linkXRef>false</linkXRef>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>install</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>checkstyle</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
+            <!--                <configuration>-->
+            <!--                    <configLocation>../.idea/checkstyle/checkstyle.xml</configLocation>-->
+            <!--                    <consoleOutput>true</consoleOutput>-->
+            <!--                    <failsOnError>true</failsOnError>-->
+            <!--                    <failOnViolation>true</failOnViolation>-->
+            <!--                    <includeTestSourceDirectory>true</includeTestSourceDirectory>-->
+            <!--                    <skip>false</skip>-->
+            <!--                    <linkXRef>false</linkXRef>-->
+            <!--                </configuration>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>install</id>-->
+            <!--                        <phase>install</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>checkstyle</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
 
             <!--      编译插件      -->
             <plugin>
@@ -432,6 +678,9 @@
             <releases>
                 <enabled>true</enabled>
             </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
 
         <!--      Spring Milestones      -->

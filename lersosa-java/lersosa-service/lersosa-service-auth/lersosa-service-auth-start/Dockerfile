@@ -1,25 +1,29 @@
-# 贝尔实验室 Spring 官方推荐镜像 JDK下载地址 https://bell-sw.com/pages/downloads/
-FROM bellsoft/liberica-openjdk-debian:17.0.11-cds
-#FROM bellsoft/liberica-openjdk-debian:21.0.3-cds
-#FROM findepi/graalvm:java17-native
+FROM bellsoft/liberica-openjdk-debian:23.0.1-cds
 
 LABEL maintainer="Miraitowa_zcx"
 
-RUN mkdir -p /lersosa/auth/logs  \
-    /lersosa/auth/temp  \
+RUN mkdir -p /lersosa/service/auth/logs  \
+    /lersosa/service/auth/temp  \
     /lersosa/skywalking/agent
 
-WORKDIR /lersosa/auth
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    fontconfig \
+    fonts-dejavu \
+    && rm -rf /var/lib/apt/lists/*
 
-ENV SERVER_PORT=9210 LANG=C.UTF-8 LC_ALL=C.UTF-8 JAVA_OPTS=""
+RUN fc-cache -f -v
+
+WORKDIR /lersosa/service/auth
+
+ENV SERVER_PORT=9310 JAVA_OPTS=""
 
 EXPOSE ${SERVER_PORT}
 
-ADD ./target/lersosa-auth.jar ./app.jar
+ADD ./target/lersosa-service-auth-encrypted.jar ./app.jar
 
 ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT} \
-           #-Dskywalking.agent.service_name=lersosa-auth \
-           #-javaagent:/lersosa/skywalking/agent/skywalking-agent.jar \
-           -XX:+HeapDumpOnOutOfMemoryError -XX:+UseZGC ${JAVA_OPTS} \
-           -jar app.jar
+            -Dskywalking.agent.service_name=lersosa-service-auth \
+            -javaagent:app.jar="password=Zcx@223852//,/lersosa/skywalking/agent/skywalking-agent.jar" \
+            -XX:+HeapDumpOnOutOfMemoryError -XX:+UseZGC ${JAVA_OPTS} \
+            -jar app.jar
 

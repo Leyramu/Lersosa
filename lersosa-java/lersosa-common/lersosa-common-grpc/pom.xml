@@ -41,7 +41,7 @@
 
     <!--      属性      -->
     <properties>
-        <revision>2.1.0</revision>
+        <revision>3.2.0</revision>
         <java.version>23</java.version>
         <grpc.version>1.68.0</grpc.version>
         <tomcat.version>9.0.83</tomcat.version>

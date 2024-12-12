@@ -47,6 +47,11 @@ import java.util.List;
 public class SpringDocProperties {
 
     /**
+     * 网关
+     */
+    private String gatewayUrl;
+
+    /**
      * 文档基本信息.
      */
     @NestedConfigurationProperty

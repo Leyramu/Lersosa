@@ -23,9 +23,11 @@
 
 package leyramu.framework.lersosa.auth;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+import leyramu.framework.lersosa.common.ssl.annotation.EnableTlsConfig;
+import leyramu.framework.lersosa.common.ssl.core.CustomSpringApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
@@ -41,6 +43,14 @@ import org.springframework.stereotype.Indexed;
 @Slf4j
 @Indexed
 @EnableDubbo
+@EnableTlsConfig(
+    certPath = "nacos-client-cert.pem",
+    privateKey = "nacos-client-key.pem",
+    privateKeyPassword = "Zcx@223852//",
+    trustCert = "nacos-ca-cert.pem",
+    clientCertPath = "nacos.crt"
+)
+@EnableEncryptableProperties
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class LersosaAuthApplication {
 
@@ -50,7 +60,7 @@ public class LersosaAuthApplication {
      * @param args 命令行参数
      */
     public static void main(String[] args) {
-        SpringApplication application = new SpringApplication(LersosaAuthApplication.class);
+        CustomSpringApplication application = new CustomSpringApplication(LersosaAuthApplication.class);
         application.setApplicationStartup(new BufferingApplicationStartup(2048));
         application.run(args);
         log.info("""

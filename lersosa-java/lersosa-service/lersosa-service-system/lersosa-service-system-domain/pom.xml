@@ -72,6 +72,12 @@
             <artifactId>lersosa-common-translation</artifactId>
         </dependency>
 
+        <!--      Lersosa Common I18n      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-i18n</artifactId>
+        </dependency>
+
         <!--      Lersosa Common Log      -->
         <dependency>
             <groupId>leyramu.framework</groupId>

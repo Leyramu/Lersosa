@@ -84,12 +84,6 @@
             <artifactId>lersosa-common-log</artifactId>
         </dependency>
 
-        <!--      Lersosa Common LoadBalancer      -->
-        <dependency>
-            <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-loadbalancer</artifactId>
-        </dependency>
-
         <!--      Hutool Captcha      -->
         <dependency>
             <groupId>cn.hutool</groupId>

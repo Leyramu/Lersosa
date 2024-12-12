@@ -1,6 +1,20 @@
+jasypt:
+  encryptor:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    password: @JASYPT-ENCRYPTOR-PASSWORD@
+
 # Tomcat
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
+  ssl:
+    enabled: @SSL-ENABLED@
+    key-store: classpath:scg-keystore.p12
+    key-alias: ${spring.application.name}
+    key-store-type: PKCS12
+    key-store-password: Zcx@223852//
+  http2:
+    enabled: @SSL-ENABLED@
+  shutdown: graceful
   servlet:
     context-path: /
 
@@ -12,3 +26,32 @@ spring:
   profiles:
     # 环境配置
     active: @PROFILE-ACTIVE@
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 10000
+        response-timeout: 10000
+        ssl:
+          use-insecure-trust-manager: true
+
+---
+spring:
+  cloud:
+    nacos:
+      server-addr: @NACOS-SERVER-ADDRESS@
+      username: @NACOS-USERNAME@
+      password: @NACOS-PASSWORD@
+      discovery:
+        secure: @SSL-ENABLED@
+        namespace: @NACOS-NAMESPACE@
+        group: @NACOS-GATEWAY-GROUP@
+        extension-groups:
+          - @NACOS-SERVICE-GROUP@
+        cluster-name: ${spring.application.name}
+      config:
+        namespace: @NACOS-NAMESPACE@
+        file-extension: yml
+  config:
+    import:
+    - optional:nacos:application-common.${spring.cloud.nacos.config.file-extension}?group=@NACOS-DEFAULT-GROUP@
+    - optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}?group=@NACOS-GATEWAY-GROUP@

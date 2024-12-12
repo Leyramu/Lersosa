@@ -1,0 +1,194 @@
+version: '3.8'
+
+services:
+  #####################################################################
+  ###################                       基础组件                       ###################
+  #####################################################################
+
+  lersosa-elasticsearch:
+    image: elasticsearch:8.16.0
+    container_name: lersosa-elasticsearch-staging
+    build:
+      context: ./elk/elasticsearch
+    networks:
+      lersosa-network-staging:
+        aliases:
+          - lersosa-elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      cluster.name: elasticsearch
+      discovery.type: single-node
+      xpack.security.enabled: true
+      ELASTIC_PASSWORD: Zcx@223852//
+      LOGSTASH_SYSTEM_PASSWORD: Zcx@223852//
+      KIBANA_SYSTEM_PASSWORD: Zcx@223852//
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      ES_JAVA_LOCALE: zh_CN
+    volumes:
+      - ./elk/elasticsearch/plugins:/usr/share/elasticsearch/plugins
+      - ./elk/elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elk/elasticsearch/logs:/usr/share/elasticsearch/logs
+      - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+
+  lersosa-kibana:
+    image: kibana:8.16.0
+    container_name: lersosa-kibana-staging
+    build:
+      context: ./elk/kibana
+    networks:
+      lersosa-network-staging:
+        aliases:
+          - lersosa-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      I18N_LOCALE: zh-CN
+    volumes:
+      - ./elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+    depends_on:
+      - lersosa-elasticsearch
+
+  lersosa-logstash:
+    image: logstash:8.16.0
+    container_name: lersosa-logstash-staging
+    build:
+      context: ./elk/logstash
+    networks:
+      lersosa-network-staging:
+        aliases:
+          - lersosa-logstash
+    ports:
+      - "4560:4560"
+    volumes:
+      - ./elk/logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+    depends_on:
+      - lersosa-elasticsearch
+
+  lersosa-rabbitmq:
+    image: rabbitmq:4.0.4-management
+    container_name: lersosa-rabbitmq-staging
+    build:
+      context: ./rabbitmq
+    networks:
+      lersosa-network-staging:
+        aliases:
+          - lersosa-rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: lersosa
+      RABBITMQ_DEFAULT_PASS: Zcx@223852//
+    volumes:
+      - ./rabbitmq/log:/var/log/rabbitmq
+      - ./rabbitmq/data:/var/lib/rabbitmq
+
+  lersosa-zookeeper:
+    image: bitnami/zookeeper:3.8.4
+    container_name: lersosa-zookeeper-staging
+    networks:
+      lersosa-network-staging:
+        aliases:
+          - lersosa-zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      TZ: Asia/Shanghai
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+      ZOO_SERVER_ID: 1
+      ZOO_PORT_NUMBER: 2181
+      ZOO_ENABLE_ADMIN_SERVER: "no"
+      ZOO_ADMIN_SERVER_PORT_NUMBER: 8080
+
+  lersosa-kafka:
+    image: bitnami/kafka:3.9.0
+    container_name: lersosa-kafka-staging
+    build:
+      context: ./kafka
+    networks:
+      lersosa-network-staging:
+        aliases:
+          - lersosa-kafka
+    ports:
+      - "9092:9092"
+    environment:
+      TZ: Asia/Shanghai
+      KAFKA_BROKER_ID: 1
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://192.168.0.109:9092
+      KAFKA_CFG_ZOOKEEPER_CONNECT: lersosa-zookeeper:2181
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+    volumes:
+      - ./kafka/data:/bitnami/kafka/data
+    depends_on:
+      - lersosa-zookeeper
+
+  lersosa-kafka-manager:
+    image: sheepkiller/kafka-manager:latest
+    container_name: lersosa-kafka-manager-staging
+    ports:
+      - "19092:19092"
+    networks:
+      lersosa-network-staging:
+        aliases:
+          - lersosa-kafka-manager
+    environment:
+      ZK_HOSTS: lersosa-zookeeper:2181
+      APPLICATION_SECRET: letmein
+      KAFKA_MANAGER_USERNAME: lersosa
+      KAFKA_MANAGER_PASSWORD: Zcx@223852//
+      KM_ARGS: -Dhttp.port=19092
+    depends_on:
+      - lersosa-kafka
+
+  lersosa-sky-oap:
+    image: apache/skywalking-oap-server:10.1.0
+    container_name: lersosa-sky-oap-staging
+    networks:
+      lersosa-network-staging:
+        aliases:
+          - lersosa-sky-oap
+    ports:
+      - "11800:11800"
+      - "12800:12800"
+    environment:
+      JAVA_OPTS: -Xms1G -Xmx2G
+      SW_CORE_RECORD_DATA_TTL: 7
+      SW_CORE_METRICS_DATA_TTL: 7
+      SW_STORAGE: elasticsearch
+      SW_STORAGE_ES_CLUSTER_NODES: lersosa-elasticsearch:9200
+      SW_ES_USER: elastic
+      SW_ES_PASSWORD: Zcx@223852//
+      TZ: Asia/Shanghai
+
+  lersosa-sky-ui:
+    image: apache/skywalking-ui:10.1.0
+    container_name: lersosa-sky-ui-staging
+    networks:
+      lersosa-network-staging:
+        aliases:
+          - lersosa-sky-ui
+    ports:
+      - "18080:18080"
+    environment:
+      SW_SERVER_PORT: 18080
+      SW_OAP_ADDRESS: http://lersosa-sky-oap:12800
+      TZ: Asia/Shanghai
+    depends_on:
+      - lersosa-sky-oap
+
+#####################################################################
+###################                       环境网络                       ###################
+#####################################################################
+
+networks:
+  lersosa-network-staging:
+    name: lersosa-network-staging
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 178.17.0.0/16
+          gateway: 178.17.0.1
