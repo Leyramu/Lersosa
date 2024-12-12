@@ -44,7 +44,7 @@
 
     <!--      属性      -->
     <properties>
-        <revision>3.1.0</revision>
+        <revision>3.2.0</revision>
         <jedis.version>5.1.0</jedis.version>
         <batik.version>1.17</batik.version>
         <mica.version>2.7.6</mica.version>
@@ -59,9 +59,9 @@
         <snailjob.version>1.1.2</snailjob.version>
         <aws.crt.version>0.31.3</aws.crt.version>
         <lombok.version>1.18.36</lombok.version>
-        <fastjson.version>1.2.83</fastjson.version>
+        <fastjson.version>2.0.53</fastjson.version>
         <satoken.version>1.39.0</satoken.version>
-        <flowable.version>7.0.1</flowable.version>
+        <flowable.version>7.1.0</flowable.version>
         <mybatis.version>3.5.16</mybatis.version>
         <justauth.version>1.16.6</justauth.version>
         <redisson.version>3.37.0</redisson.version>
@@ -75,7 +75,7 @@
         <anyline.version>8.7.2-20241022</anyline.version>
         <mybatis-plus.version>3.5.8</mybatis-plus.version>
         <archunit-junit5.version>1.3.0</archunit-junit5.version>
-        <flowable-json.version>6.8.0</flowable-json.version>
+        <flowable-json.version>6.8.1</flowable-json.version>
         <bouncycastle.version>1.78.1</bouncycastle.version>
         <commons-lang.version>2.6</commons-lang.version>
         <elasticsearch.version>7.14.0</elasticsearch.version>

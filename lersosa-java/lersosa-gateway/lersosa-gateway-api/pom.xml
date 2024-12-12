@@ -48,6 +48,12 @@
             <artifactId>lersosa-common-nacos</artifactId>
         </dependency>
 
+        <!--      Lersosa Common SSL      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-ssl</artifactId>
+        </dependency>
+
         <!--      Lersosa Common Sentinel      -->
         <dependency>
             <groupId>leyramu.framework</groupId>
@@ -106,12 +112,6 @@
         <dependency>
             <groupId>leyramu.framework</groupId>
             <artifactId>lersosa-common-skylog</artifactId>
-        </dependency>
-
-        <!--    Spring Cloud Bootstrap    -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
 
         <!--      Spring Cloud Gateway      -->

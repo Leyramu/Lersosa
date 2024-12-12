@@ -66,6 +66,12 @@
             <artifactId>spring-context-indexer</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!--      Jasypt      -->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 
     <!--      构建      -->

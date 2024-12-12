@@ -75,6 +75,12 @@
             <artifactId>lersosa-common-skylog</artifactId>
         </dependency>
 
+        <!--      Lersosa Common SSL      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-ssl</artifactId>
+        </dependency>
+
         <!--      Lersosa Common Prometheus      -->
         <!--        <dependency>-->
         <!--            <groupId>leyramu.framework</groupId>-->

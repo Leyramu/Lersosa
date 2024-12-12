@@ -142,6 +142,7 @@
         <module name="lersosa-common-bus" />
         <module name="lersosa-common-oss" />
         <module name="lersosa-service-openai-adapter" />
+        <module name="lersosa-common-ssl" />
         <module name="lersosa-service-gen-client" />
         <module name="lersosa-service-resource-app" />
         <module name="lersosa-common-redis" />
@@ -231,6 +232,7 @@
       <module name="lersosa-common-social" options="-Xlint:-options -parameters" />
       <module name="lersosa-common-spring" options="" />
       <module name="lersosa-common-sse" options="-Xlint:-options -parameters" />
+      <module name="lersosa-common-ssl" options="-Xlint:-options -parameters" />
       <module name="lersosa-common-tenant" options="-Xlint:-options -parameters" />
       <module name="lersosa-common-test" options="-Xlint:-options -parameters" />
       <module name="lersosa-common-translation" options="-Xlint:-options -parameters" />

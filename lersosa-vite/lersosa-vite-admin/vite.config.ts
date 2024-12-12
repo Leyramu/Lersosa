@@ -44,6 +44,12 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
       host: '0.0.0.0',
       port: Number(env.VITE_APP_PORT),
       open: true,
+      // https: {
+      // key: fs.readFileSync(''),
+      // cert: fs.readFileSync(''),
+      // passphrase: '',
+      // ca: fs.readFileSync('')
+      // },
       proxy: {
         [env.VITE_APP_BASE_API]: {
           target: 'http://localhost:8080',

@@ -18,7 +18,7 @@ dubbo:
     username: ${spring.cloud.nacos.username}
     password: ${spring.cloud.nacos.password}
     parameters:
-      namespace: ${spring.profiles.active}
+      namespace: ${spring.cloud.nacos.discovery.namespace}
   metadata-report:
     address: redis://${spring.data.redis.host}:${spring.data.redis.port}
     group: DUBBO_GROUP
@@ -27,7 +27,7 @@ dubbo:
     # 集群开关
     cluster: false
     parameters:
-      namespace: ${spring.profiles.active}
+      namespace: ${spring.cloud.nacos.discovery.namespace}
       database: ${spring.data.redis.database}
       timeout: ${spring.data.redis.timeout}
       # 集群地址 cluster 为 true 生效

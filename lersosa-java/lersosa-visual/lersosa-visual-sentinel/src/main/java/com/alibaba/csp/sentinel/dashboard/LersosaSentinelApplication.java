@@ -25,14 +25,14 @@ package com.alibaba.csp.sentinel.dashboard;
 
 import com.alibaba.csp.sentinel.init.InitExecutor;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+import leyramu.framework.lersosa.common.ssl.annotation.EnableTlsConfig;
+import leyramu.framework.lersosa.common.ssl.core.CustomSpringApplication;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Indexed;
 
 /**
  * Sentinel 降级限流模块.
- * l
  *
  * @author Carpenter Lee
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
@@ -41,6 +41,13 @@ import org.springframework.stereotype.Indexed;
  */
 @Slf4j
 @Indexed
+@EnableTlsConfig(
+    certPath = "nacos-client-cert.pem",
+    privateKey = "nacos-client-key.pem",
+    privateKeyPassword = "Zcx@223852//",
+    trustCert = "nacos-ca-cert.pem",
+    clientCertPath = "nacos.crt"
+)
 @SpringBootApplication
 @EnableEncryptableProperties
 public class LersosaSentinelApplication {
@@ -52,7 +59,7 @@ public class LersosaSentinelApplication {
      */
     public static void main(String[] args) {
         triggerSentinelInit();
-        SpringApplication.run(LersosaSentinelApplication.class, args);
+        CustomSpringApplication.run(LersosaSentinelApplication.class, args);
         log.info("""
             Sentinel 模块 服务启动成功
              ___       _______   ________  ________  ________  ________  ________    \s

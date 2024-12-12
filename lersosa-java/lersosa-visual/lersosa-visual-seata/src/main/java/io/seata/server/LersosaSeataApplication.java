@@ -25,8 +25,9 @@ package io.seata.server;
 
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import io.seata.common.aot.NativeUtils;
+import leyramu.framework.lersosa.common.ssl.annotation.EnableTlsConfig;
+import leyramu.framework.lersosa.common.ssl.core.CustomSpringApplication;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Indexed;
 
@@ -40,6 +41,13 @@ import org.springframework.stereotype.Indexed;
  */
 @Slf4j
 @Indexed
+@EnableTlsConfig(
+    certPath = "nacos-client-cert.pem",
+    privateKey = "nacos-client-key.pem",
+    privateKeyPassword = "Zcx@223852//",
+    trustCert = "nacos-ca-cert.pem",
+    clientCertPath = "nacos.crt"
+)
 @EnableEncryptableProperties
 @SpringBootApplication(scanBasePackages = {"io.seata"})
 public class LersosaSeataApplication {
@@ -56,7 +64,18 @@ public class LersosaSeataApplication {
      */
     public static void main(String[] args) throws Throwable {
         try {
-            SpringApplication.run(LersosaSeataApplication.class, args);
+            CustomSpringApplication.run(LersosaSeataApplication.class, args);
+            log.info("""
+                Seata 模块 服务启动成功
+                 ___       _______   ________  ________  ________  ________  ________    \s
+                |\\  \\     |\\  ___ \\ |\\   __  \\|\\   ____\\|\\   __  \\|\\   ____\\|\\   __  \\   \s
+                \\ \\  \\    \\ \\   __/|\\ \\  \\|\\  \\ \\  \\___|\\ \\  \\|\\  \\ \\  \\___|\\ \\  \\|\\  \\  \s
+                 \\ \\  \\    \\ \\  \\_|/_\\ \\   _  _\\ \\_____  \\ \\  \\\\\\  \\ \\_____  \\ \\   __  \\ \s
+                  \\ \\  \\____\\ \\  \\_|\\ \\ \\  \\\\  \\\\|____|\\  \\ \\  \\\\\\  \\|____|\\  \\ \\  \\ \\  \\\s
+                   \\ \\_______\\ \\_______\\ \\__\\\\ _\\ ____\\_\\  \\ \\_______\\____\\_\\  \\ \\__\\ \\__\\
+                    \\|_______|\\|_______|\\|__|\\|__|\\_________\\|_______|\\_________\\|__|\\|__|
+                                                 \\|_________|        \\|_________|        \s
+                """);
         } catch (Throwable t) {
             if (ABANDONED_RUN_EXCEPTION_CLASS_NAME.equals(t.getClass().getName())) {
                 throw t;

@@ -23,14 +23,16 @@
 
 package leyramu.framework.lersosa.grpc;
 
+import leyramu.framework.lersosa.common.ssl.annotation.EnableTlsConfig;
+import leyramu.framework.lersosa.common.ssl.core.CustomSpringApplication;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 import org.springframework.stereotype.Indexed;
 
 /**
- * Grpc 服务模块 启动类.
+ * Grpc 服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -38,6 +40,13 @@ import org.springframework.stereotype.Indexed;
  */
 @Slf4j
 @Indexed
+@EnableTlsConfig(
+    certPath = "nacos-client-cert.pem",
+    privateKey = "nacos-client-key.pem",
+    privateKeyPassword = "Zcx@223852//",
+    trustCert = "nacos-ca-cert.pem",
+    clientCertPath = "nacos.crt"
+)
 @EnableDubbo
 @SpringBootApplication
 public class LersosaGrpcApplication {
@@ -48,7 +57,9 @@ public class LersosaGrpcApplication {
      * @param args 命令行参数
      */
     public static void main(String[] args) {
-        SpringApplication.run(LersosaGrpcApplication.class, args);
+        CustomSpringApplication application = new CustomSpringApplication(LersosaGrpcApplication.class);
+        application.setApplicationStartup(new BufferingApplicationStartup(2048));
+        application.run(args);
         log.info("""
             Grpc 模块 服务启动成功
              ___       _______   ________  ________  ________  ________  ________    \s

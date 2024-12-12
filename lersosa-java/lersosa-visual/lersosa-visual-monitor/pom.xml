@@ -48,10 +48,10 @@
             <artifactId>lersosa-common-nacos</artifactId>
         </dependency>
 
-        <!--    Spring Cloud Bootstrap    -->
+        <!--      Lersosa Common SSL      -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-ssl</artifactId>
         </dependency>
 
         <!--      Spring Boot Admin      -->

@@ -2,8 +2,22 @@ lersosa-version: ${lersosa.version}
 spring-cloud-version: ${spring-cloud.version}
 spring-cloud-alibaba-version: ${spring-cloud-alibaba.version}
 
+jasypt:
+  encryptor:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    password: @JASYPT-ENCRYPTOR-PASSWORD@
+
 server:
   port: ${SERVER-PORT:8800}
+  ssl:
+    enabled: @SSL-ENABLED@
+    key-store: classpath:scg-keystore.p12
+    key-alias: ${spring.application.name}
+    key-store-type: PKCS12
+    key-store-password: Zcx@223852//
+  http2:
+    enabled: @SSL-ENABLED@
+  shutdown: graceful
   servlet:
     context-path: /snail-job
 
@@ -41,3 +55,23 @@ management:
       show-details: ALWAYS
     logfile:
       external-file: ./logs/${spring.application.name}/console.log
+
+---
+spring:
+  cloud:
+    nacos:
+      server-addr: @NACOS-SERVER-ADDRESS@
+      username: @NACOS-USERNAME@
+      password: @NACOS-PASSWORD@
+      discovery:
+        secure: @SSL-ENABLED@
+        group: @NACOS-VISUAL-GROUP@
+        namespace: @NACOS-NAMESPACE@
+        cluster-name: ${spring.application.name}
+      config:
+        namespace: @NACOS-NAMESPACE@
+        file-extension: yml
+  config:
+    import:
+      - optional:nacos:datasource.${spring.cloud.nacos.config.file-extension}?group=@NACOS-DEFAULT-GROUP@
+      - optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}?group=@NACOS-VISUAL-GROUP@

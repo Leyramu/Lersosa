@@ -90,7 +90,7 @@
 
     <!--      属性      -->
     <properties>
-        <revision>3.1.0</revision>
+        <revision>3.2.0</revision>
         <java.version>23</java.version>
         <lombok.version>1.18.36</lombok.version>
         <lersosa.version>${revision}</lersosa.version>
@@ -192,6 +192,7 @@
             <properties>
                 <PROFILE-ACTIVE>dev</PROFILE-ACTIVE>
                 <SSL-ENABLED>false</SSL-ENABLED>
+                <DOCKER-BUILD-DISABLE>true</DOCKER-BUILD-DISABLE>
                 <DOCKER-PUSH-DISABLE>true</DOCKER-PUSH-DISABLE>
                 <DOCKER-NAMESPACE>namespace</DOCKER-NAMESPACE>
                 <DOCKER-USERNAME>username</DOCKER-USERNAME>
@@ -228,6 +229,7 @@
             <properties>
                 <PROFILE-ACTIVE>staging</PROFILE-ACTIVE>
                 <SSL-ENABLED>false</SSL-ENABLED>
+                <DOCKER-BUILD-DISABLE>false</DOCKER-BUILD-DISABLE>
                 <DOCKER-PUSH-DISABLE>true</DOCKER-PUSH-DISABLE>
                 <DOCKER-NAMESPACE>namespace</DOCKER-NAMESPACE>
                 <DOCKER-USERNAME>username</DOCKER-USERNAME>
@@ -290,6 +292,7 @@
             <properties>
                 <PROFILE-ACTIVE>prod</PROFILE-ACTIVE>
                 <SSL-ENABLED>false</SSL-ENABLED>
+                <DOCKER-BUILD-DISABLE>false</DOCKER-BUILD-DISABLE>
                 <DOCKER-PUSH-DISABLE>false</DOCKER-PUSH-DISABLE>
                 <!--suppress UnresolvedMavenProperty >Docker 命名空间< -->
                 <DOCKER-NAMESPACE>
@@ -459,6 +462,7 @@
                     <artifactId>class-winter-maven-plugin</artifactId>
                     <version>${class-winter-maven-plugin.version}</version>
                     <configuration>
+                        <finalName>${project.build.finalName}</finalName>
                         <password>${encrypt.password}</password>
                         <includePrefix>${project.groupId}</includePrefix>
                     </configuration>
@@ -508,6 +512,9 @@
                             <goals>
                                 <goal>build</goal>
                             </goals>
+                            <configuration>
+                                <skip>${DOCKER-BUILD-DISABLE}</skip>
+                            </configuration>
                         </execution>
                         <execution>
                             <id>push</id>
@@ -532,28 +539,28 @@
             </plugin>
 
             <!--      代码检查插件      -->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <configLocation>../.idea/checkstyle/checkstyle.xml</configLocation>-->
-<!--                    <consoleOutput>true</consoleOutput>-->
-<!--                    <failsOnError>true</failsOnError>-->
-<!--                    <failOnViolation>true</failOnViolation>-->
-<!--                    <includeTestSourceDirectory>true</includeTestSourceDirectory>-->
-<!--                    <skip>false</skip>-->
-<!--                    <linkXRef>false</linkXRef>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>install</id>-->
-<!--                        <phase>install</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>checkstyle</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
+            <!--                <configuration>-->
+            <!--                    <configLocation>../.idea/checkstyle/checkstyle.xml</configLocation>-->
+            <!--                    <consoleOutput>true</consoleOutput>-->
+            <!--                    <failsOnError>true</failsOnError>-->
+            <!--                    <failOnViolation>true</failOnViolation>-->
+            <!--                    <includeTestSourceDirectory>true</includeTestSourceDirectory>-->
+            <!--                    <skip>false</skip>-->
+            <!--                    <linkXRef>false</linkXRef>-->
+            <!--                </configuration>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>install</id>-->
+            <!--                        <phase>install</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>checkstyle</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
 
             <!--      编译插件      -->
             <plugin>
@@ -671,6 +678,9 @@
             <releases>
                 <enabled>true</enabled>
             </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
 
         <!--      Spring Milestones      -->

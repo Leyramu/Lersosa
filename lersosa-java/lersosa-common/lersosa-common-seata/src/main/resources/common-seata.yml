@@ -16,6 +16,7 @@ seata:
       application: lersosa-visual-seata
       server-addr: ${spring.cloud.nacos.server-addr}
       group: VISUAL_GROUP
+      secure: ${spring.cloud.nacos.discovery.secure}
       username: ${spring.cloud.nacos.username}
       password: ${spring.cloud.nacos.password}
       namespace: ${spring.cloud.nacos.discovery.namespace}

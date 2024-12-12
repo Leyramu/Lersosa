@@ -12,9 +12,31 @@ server:
   forward-headers-strategy: framework
   shutdown: graceful
 
-# =========================== spring 配置 ===========================
+# =========================== Spring 配置 ===========================
 spring:
   application:
     name: @pom.parent.artifactId@
   profiles:
     active: @PROFILE-ACTIVE@
+
+# ========================== Nacos 配置 ===========================
+---
+spring:
+  cloud:
+    nacos:
+      server-addr: @NACOS-SERVER-ADDRESS@
+      username: @NACOS-USERNAME@
+      password: @NACOS-PASSWORD@
+      discovery:
+        secure: @SSL-ENABLED@
+        namespace: @NACOS-NAMESPACE@
+        group: @NACOS-SERVICE-GROUP@
+        cluster-name: ${spring.application.name}
+      config:
+        namespace: @NACOS-NAMESPACE@
+        file-extension: yml
+  config:
+    import:
+      - optional:nacos:application-common.${spring.cloud.nacos.config.file-extension}?group=@NACOS-DEFAULT-GROUP@
+      - optional:nacos:datasource.${spring.cloud.nacos.config.file-extension}?group=@NACOS-DEFAULT-GROUP@
+      - optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}?group=@NACOS-SERVICE-GROUP@

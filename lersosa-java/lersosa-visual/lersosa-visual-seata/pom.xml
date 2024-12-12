@@ -49,7 +49,7 @@
         <seata.version>1.7.1</seata.version>
         <lombok.version>1.18.36</lombok.version>
         <spring-boot.version>2.7.18</spring-boot.version>
-        <logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
+        <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
     </properties>
 
     <!--     Spring Cloud 依赖管理     -->
@@ -68,6 +68,12 @@
 
     <!--      依赖      -->
     <dependencies>
+        <!--      Lersosa Common SSL      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-ssl</artifactId>
+        </dependency>
+
         <!--      Spring Boot Web      -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

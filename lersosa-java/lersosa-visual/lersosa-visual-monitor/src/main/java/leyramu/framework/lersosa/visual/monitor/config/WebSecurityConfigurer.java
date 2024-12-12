@@ -24,8 +24,13 @@
 package leyramu.framework.lersosa.visual.monitor.config;
 
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslContextBuilder;
+import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.reactive.ClientHttpConnector;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,6 +39,9 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import reactor.netty.http.client.HttpClient;
+
+import javax.net.ssl.SSLException;
 
 /**
  * admin 监控 安全配置.
@@ -58,6 +66,19 @@ public class WebSecurityConfigurer {
      */
     public WebSecurityConfigurer(AdminServerProperties adminServerProperties) {
         this.adminContextPath = adminServerProperties.getContextPath();
+    }
+
+    /**
+     * 自定义请求客户端（关闭ssl校验）.
+     *
+     * @return 请求客户端
+     * @throws SSLException ssl异常
+     */
+    @Bean
+    public ClientHttpConnector customHttpClient() throws SSLException {
+        SslContext context = SslContextBuilder.forClient().trustManager(InsecureTrustManagerFactory.INSTANCE).build();
+        HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(context));
+        return new ReactorClientHttpConnector(httpClient);
     }
 
     /**

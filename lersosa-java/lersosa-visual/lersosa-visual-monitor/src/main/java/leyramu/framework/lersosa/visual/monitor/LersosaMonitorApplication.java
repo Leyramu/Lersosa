@@ -23,8 +23,9 @@
 
 package leyramu.framework.lersosa.visual.monitor;
 
+import leyramu.framework.lersosa.common.ssl.annotation.EnableTlsConfig;
+import leyramu.framework.lersosa.common.ssl.core.CustomSpringApplication;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Indexed;
 
@@ -37,6 +38,13 @@ import org.springframework.stereotype.Indexed;
  */
 @Slf4j
 @Indexed
+@EnableTlsConfig(
+    certPath = "nacos-client-cert.pem",
+    privateKey = "nacos-client-key.pem",
+    privateKeyPassword = "Zcx@223852//",
+    trustCert = "nacos-ca-cert.pem",
+    clientCertPath = "nacos.crt"
+)
 @SpringBootApplication
 public class LersosaMonitorApplication {
 
@@ -46,7 +54,7 @@ public class LersosaMonitorApplication {
      * @param args 命令行参数
      */
     public static void main(String[] args) {
-        SpringApplication.run(LersosaMonitorApplication.class, args);
+        CustomSpringApplication.run(LersosaMonitorApplication.class, args);
         log.info("""
             监控中心模块 服务启动成功
              ___       _______   ________  ________  ________  ________  ________    \s

@@ -77,6 +77,12 @@
 
     <!--      依赖      -->
     <dependencies>
+        <!--      Lersosa Common SSL      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-ssl</artifactId>
+        </dependency>
+
         <!--    XueXiaowei Nacos Console UI    -->
         <dependency>
             <groupId>io.xuxiaowei.nacos</groupId>
