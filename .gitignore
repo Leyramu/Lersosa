@@ -20,6 +20,7 @@
 # vite 模块环境文件
 /lersosa-vite/**/node_modules/
 /lersosa-vite/**/dist/
+/lersosa-vite/lersosa-vite-user/.next/
 /lersosa-vite/**/package-lock.json
 
 # 编译生成的文件

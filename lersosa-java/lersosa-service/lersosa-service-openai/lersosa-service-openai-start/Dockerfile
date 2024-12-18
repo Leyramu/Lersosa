@@ -11,7 +11,7 @@ ENV SERVER_PORT=9206 JAVA_OPTS=""
 
 EXPOSE ${SERVER_PORT}
 
-ADD ./target/lersosa-service-openai-encrypted.jar ./app.jar
+ADD ./target/lersosa-service-openai.jar ./app.jar
 
 ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT} \
             -Dskywalking.agent.service_name=lersosa-system \

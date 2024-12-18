@@ -19,7 +19,7 @@ ENV SERVER_PORT=9310 JAVA_OPTS=""
 
 EXPOSE ${SERVER_PORT}
 
-ADD ./target/lersosa-service-auth-encrypted.jar ./app.jar
+ADD ./target/lersosa-service-auth.jar ./app.jar
 
 ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT} \
             -Dskywalking.agent.service_name=lersosa-service-auth \

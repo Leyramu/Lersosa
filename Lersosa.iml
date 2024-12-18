@@ -24,6 +24,7 @@
       <excludeFolder url="file://$MODULE_DIR$/docker/nginx" />
       <excludeFolder url="file://$MODULE_DIR$/.fastRequest" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/.cache" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

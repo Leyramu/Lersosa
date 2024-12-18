@@ -10,7 +10,7 @@ ENV SERVER_PORT=9120 JAVA_OPTS=""
 
 EXPOSE ${SERVER_PORT}
 
-ADD ./target/lersosa-visual-monitor-encrypted.jar ./app.jar
+ADD ./target/lersosa-visual-monitor.jar ./app.jar
 
 ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT} \
             -javaagent:app.jar="password=Zcx@223852//" \

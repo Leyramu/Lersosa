@@ -64,7 +64,6 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         scss: {
           javascriptEnabled: true,
           api: 'modern-compiler'
-          // additionalData: '@use "@/assets/styles/variables.module.scss" as *;'
         }
       },
       postcss: {

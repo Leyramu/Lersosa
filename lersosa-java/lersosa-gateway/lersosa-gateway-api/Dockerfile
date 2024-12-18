@@ -12,7 +12,7 @@ ENV SERVER_PORT=8080 JAVA_OPTS=""
 
 EXPOSE ${SERVER_PORT}
 
-ADD ./target/lersosa-gateway-api-encrypted.jar ./app.jar
+ADD ./target/lersosa-gateway-api.jar ./app.jar
 
 ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT} \
             -Dskywalking.agent.service_name=lersosa-gateway-api \
