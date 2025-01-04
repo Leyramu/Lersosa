@@ -1,0 +1,132 @@
+/*
+ * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+ *
+ * For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+ *
+ * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+ *
+ * By using this project, users acknowledge and agree to abide by these terms and conditions.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .mio-scroll {
+        &::-webkit-scrollbar {
+            /*滚动条整体样式*/
+            @apply w-[4px] bg-transparent transition-all duration-300 ease-in-out;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            /*滚动条里面小方块*/
+            @apply cursor-pointer rounded-lg duration-150;
+            background: rgba(var(--mio-text-default), 0.4);
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        &::-webkit-scrollbar-track {
+            /*滚动条里面轨道*/
+            @apply rounded-lg bg-black/5;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            /*滚动条整体样式*/
+            @apply w-1 bg-[#64d1e2];
+        }
+    }
+
+    .mio-tooltip {
+        @apply pointer-events-none absolute bottom-[-20px] min-w-20 rounded-[5px] bg-black/30 px-2 py-2 text-sm leading-none text-white opacity-0 shadow-[0_10px_10px_#0000001a] transition-all duration-300 ease-mio-tooltip before:absolute before:left-[calc(50%-6px)] before:top-[-6px] before:h-0 before:w-0 before:border-x-[6px] before:border-b-[6px] before:border-x-transparent before:border-b-black/30 before:transition-all before:duration-300 before:ease-mio-tooltip before:content-[''];
+    }
+
+    .transform-preserve-3d {
+        transform-style: preserve-3d;
+    }
+
+    .backface-hidden {
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+
+    .rotate-y-180 {
+        transform: rotateY(180deg);
+    }
+
+    .rotate-z-180 {
+        transform: rotateZ(180deg);
+    }
+
+    .mio-flip-active {
+        transform: scale(0.95) rotateZ(2deg) rotateY(180deg);
+    }
+
+    .mio-rotate-border {
+        @apply before:absolute before:h-[200%] before:w-[50%] before:animate-[mio-rotation_5000ms_infinite_linear] before:bg-[linear-gradient(90deg, transparent,#ff9966,#ff9966,#ff9966,#ff9966, transparent)] before:content-[''];
+    }
+
+    .mio-delay-1800 {
+        animation-delay: 1800ms;
+    }
+
+    .mio-delay-800 {
+        animation-delay: 800ms;
+    }
+
+    .mio-col-6 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 15%;
+        flex: 0 0 15%;
+        max-width: 15%;
+    }
+
+    .mio-col-5 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 18%;
+        flex: 0 0 18%;
+        max-width: 18%;
+    }
+
+    .mio-col-4 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 23.5%;
+        flex: 0 0 23.5%;
+        max-width: 23.5%;
+    }
+
+    .mio-col-3 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 32%;
+        flex: 0 0 32%;
+        max-width: 32%;
+    }
+
+    .mio-col-2 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 47%;
+        flex: 0 0 47%;
+        max-width: 47%;
+    }
+
+    .mio-col-2-full {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 49%;
+        flex: 0 0 49%;
+        max-width: 49%;
+    }
+}

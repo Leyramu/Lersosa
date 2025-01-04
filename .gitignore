@@ -21,11 +21,14 @@
 /lersosa-vite/**/node_modules/
 /lersosa-vite/**/dist/
 /lersosa-vite/**/package-lock.json
+/lersosa-vite/lersosa-vite-user/.next/
 
 # 编译生成的文件
 **/.flattened-pom.xml
 /lersosa-vite/lersosa-vite-admin/src/types/auto-imports.d.ts
 /lersosa-vite/lersosa-vite-admin/src/types/components.d.ts
+/lersosa-vite/lersosa-vite-user/public/sw.js
+/lersosa-vite/lersosa-vite-user/public/workbox-4754cb34.js
 
 # 日志文件
 /logs/
@@ -34,6 +37,7 @@
 
 # docker 环境文件
 /docker/**/
+/k8s/kuboard/kuboard-mariadb-data/
 
 # mlflow 运行环境
 /mlruns/

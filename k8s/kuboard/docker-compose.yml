@@ -1,0 +1,44 @@
+configs:
+  create_db_sql:
+    content: |
+      CREATE DATABASE kuboard DEFAULT CHARACTER SET = 'utf8mb4' DEFAULT COLLATE = 'utf8mb4_unicode_ci';
+      create user 'kuboard'@'%' identified by 'Zcx@223852//';
+      grant all privileges on kuboard.* to 'kuboard'@'%';
+      FLUSH PRIVILEGES;
+
+services:
+  db:
+    image: swr.cn-east-2.myhuaweicloud.com/kuboard/mariadb:11.3.2-jammy
+    environment:
+      MARIADB_ROOT_PASSWORD: Zcx@223852//
+      MYSQL_ROOT_PASSWORD: Zcx@223852//
+      TZ: Asia/Shanghai
+    volumes:
+      - ./kuboard-mariadb-data:/var/lib/mysql:Z
+    configs:
+      - source: create_db_sql
+        target: /docker-entrypoint-initdb.d/create_db.sql
+        mode: 0777
+    networks:
+      kuboard_v4_dev:
+        aliases:
+          - db
+  kuboard:
+    image: swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard:v4
+    environment:
+      - DB_DRIVER=org.mariadb.jdbc.Driver
+      - DB_URL=jdbc:mariadb://db:3306/kuboard?serverTimezone=Asia/Shanghai
+      - DB_USERNAME=kuboard
+      - DB_PASSWORD=Zcx@223852//
+    ports:
+      - '8000:80'
+    depends_on:
+      - db
+    networks:
+      kuboard_v4_dev:
+        aliases:
+          - kuboard
+
+networks:
+  kuboard_v4_dev:
+    driver: bridge

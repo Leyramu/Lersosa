@@ -10,7 +10,7 @@ ENV SERVER_PORT=9207 SERVER_GRPC_PORT=6001 JAVA_OPTS=""
 
 EXPOSE ${SERVER_PORT} ${SERVER_GRPC_PORT}
 
-ADD ./target/lersosa-service-grpc-encrypted.jar ./app.jar
+ADD ./target/lersosa-service-grpc.jar ./app.jar
 
 ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT} \
             -javaagent:app.jar="password=Zcx@223852//" \

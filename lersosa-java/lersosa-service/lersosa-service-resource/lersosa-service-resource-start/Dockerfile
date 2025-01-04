@@ -12,7 +12,7 @@ ENV SERVER_PORT=9204 JAVA_OPTS=""
 
 EXPOSE ${SERVER_PORT}
 
-ADD ./target/lersosa-service-resource-encrypted.jar ./app.jar
+ADD ./target/lersosa-service-resource.jar ./app.jar
 
 ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom -Dserver.port=${SERVER_PORT} \
             -Dskywalking.agent.service_name=lersosa-service-resource \

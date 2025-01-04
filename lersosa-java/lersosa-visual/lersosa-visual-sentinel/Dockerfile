@@ -11,7 +11,7 @@ ENV SERVER_PORT=8718 JAVA_OPTS=""
 
 EXPOSE ${SERVER_PORT}
 
-ADD ./target/lersosa-visual-sentinel-encrypted.jar ./app.jar
+ADD ./target/lersosa-visual-sentinel.jar ./app.jar
 
 ENTRYPOINT java -Djava.security.egd=file:/dev/./urandom \
             -Dskywalking.agent.service_name=lersosa-visual-sentinel \
