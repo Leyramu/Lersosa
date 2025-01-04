@@ -1,64 +1,68 @@
 {
   "name": "Lersosaの主页✨",
   "favicon": "/favicon.ico",
+  "domain": "",
   "keywords": "Lersosa,Leyramu,Miraitowa_zcx,Lersosaの主页",
   "description": "Lersosaの主页",
   "avatarConfig": {
+    "hidden": false,
     "src": "https://s2.loli.net/2024/06/19/8zlOyDUnGjXeHpi.webp",
     "size": 150,
     "round": "full",
-    "style": "glint",
     "hoverAnimate": "top",
-    "hidden": false,
+    "style": "glint",
     "aloneRight": false
+  },
+  "resources": {
+    "css": [],
+    "js": [],
+    "bodyHtml": ""
   },
   "bgConfig": {
     "bg": [
-      "https://cs.kasuie.cc/blog/video/firefly.mp4"
+      "https://s2.loli.net/2024/06/21/euQ48saP7UgMyDr.webp"
     ],
     "mbg": [
       "https://s2.loli.net/2024/06/21/59b6eRscAvQWHT1.webp"
     ],
-    "bgStyle": "sakura",
-    "blur": "sm",
+    "bgStyle": "snow",
+    "blur": "",
     "cardOpacity": 0.1,
-    "carouselGap": 5,
-    "transitionStyle": "default",
-    "transitionTime": 0.7,
     "carousel": true,
-    "autoAnimate": true
+    "carouselGap": 5,
+    "transitionTime": 0.7,
+    "transitionStyle": "default",
+    "autoAnimate": false
+  },
+  "layoutConfig": {
+    "gapSize": "lg",
+    "style": "",
+    "istTransition": true
   },
   "globalStyle": {
-    "primaryColor": "#0dbf56",
-    "theme": "switcher",
-    "fallback": "cursive,emoji",
     "fonts": [
       {
         "src": "https://cs.kasuie.cc/fonts/XiaolaiMonoSC-Regular.ttf",
         "name": "XiaolaiMonoSC"
       }
     ],
+    "fallback": "cursive,emoji",
+    "primaryColor": "#0dbf56",
+    "theme": "switcher",
     "weather": true
-  },
-  "layoutConfig": {
-    "gapSize": "lg",
-    "style": "horizontal",
-    "istTransition": true
   },
   "subTitle": "https://v1.hitokoto.cn?c=a&c=b&c=c",
   "subTitleConfig": {
-    "loading": "wave",
-    "typingGap": 10,
-    "style": "desc",
-    "desc": "Lersosa 主页",
-    "content": "Hello💫，这里是Lersosaの主页",
-    "gapDelay": 0.05,
-    "heart": true,
     "typing": true,
+    "loading": "wave",
     "loopTyping": true,
     "shadow": false,
     "typingCursor": true,
-    "showFrom": true
+    "showFrom": true,
+    "style": "desc",
+    "gapDelay": 0.05,
+    "content": "Hello💫，这里是Lersosaの主页",
+    "desc": "Lersosa 主页"
   },
   "links": [
     {
@@ -196,15 +200,15 @@
     }
   ],
   "sitesConfig": {
-    "cardStyle": "default",
-    "direction": "row",
-    "modalTitle": null,
-    "modalTips": "这里大多都是初学时开发的，算是练手的，技术力不高，看起来也很不好看，算是黑历史，但也算是一段记忆的载体了，所以我想把它保存在此。",
     "hidden": false,
+    "cardStyle": "",
     "hoverBlur": true,
     "hoverScale": true,
     "hoverFlip": true,
-    "modal": true
+    "direction": "row",
+    "modal": true,
+    "modalTips": "这里大多都是初学时开发的，算是练手的，技术力不高，看起来也很不好看，算是黑历史，但也算是一段记忆的载体了，所以我想把它保存在此。",
+    "modalTitle": ""
   },
   "socialConfig": {
     "autoAnimate": true,
@@ -212,68 +216,68 @@
     "ripple": true
   },
   "sliders": {
-    "title": "技能加点",
-    "color": "linear-gradient(to right, #ffafbd 0%, #c9ffbf 100%)",
-    "column": 4,
-    "hidden": false,
     "data": [
       {
         "title": "JavaScript/TypeScript",
-        "value": "70",
+        "value": 70,
         "icon": "qq"
       },
       {
         "title": "CSS/CSS3",
-        "value": "70",
+        "value": 70,
         "icon": "qq"
       },
       {
         "title": "React",
-        "value": "40",
+        "value": 40,
         "icon": "qq"
       },
       {
         "title": "Vue",
-        "value": "60",
+        "value": 60,
         "icon": "qq"
       },
       {
         "title": "Next.js",
-        "value": "50"
+        "value": 50
       },
       {
         "title": "Nuxt.js",
-        "value": "20"
+        "value": 20
       },
       {
         "title": "Three.js",
-        "value": "10"
+        "value": 10
       },
       {
         "title": "Node.js",
-        "value": "30"
+        "value": 30
       },
       {
         "title": "Electron",
-        "value": "5"
+        "value": 5
       },
       {
         "title": "Spring Boot",
-        "value": "40"
+        "value": 40
       },
       {
         "title": "Linux",
-        "value": "60"
+        "value": 60
       },
       {
         "title": "Mysql",
-        "value": "55"
+        "value": 55
       },
       {
         "title": "Docker",
-        "value": "45"
+        "value": 45
       }
-    ]
+    ],
+    "title": "技能加点",
+    "color": "linear-gradient(to right, #ffafbd 0%, #c9ffbf 100%)",
+    "hidden": false,
+    "column": 4
   },
   "footer": {
     "text": "© 2020 - 2024 By KASUIE",
@@ -281,11 +285,5 @@
     "ICP": "ICP备xxxxxxxx号",
     "direction": "col-reverse",
     "isExternal": true
-  },
-  "resources": {
-    "css": [],
-    "js": [],
-    "bodyHtml": null
-  },
-  "domain": ""
+  }
 }

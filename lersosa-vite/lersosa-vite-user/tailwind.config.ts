@@ -7,7 +7,7 @@
  */
 import type { Config } from 'tailwindcss';
 
-const { nextui } = require('@nextui-org/theme');
+import { nextui } from '@nextui-org/theme';
 
 const config: Config = {
     darkMode: ['class', '[data-theme="dark"]'],

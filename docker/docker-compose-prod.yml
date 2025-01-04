@@ -135,15 +135,34 @@ services:
   ###################                       界面模块                       ###################
   #####################################################################
 
-  lersosa-nginx:
+  lersosa-nginx-user:
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-nginx-user:3.0.0
+    container_name: lersosa-nginx-user-prod
+    build:
+      context: ./nginx
+    ports:
+      - "3000:3000"
+    environment:
+      - TZ=Asia/Shanghai
+      # Google Tag Manager
+      - GTMID=value
+      # Google Analytics
+      - GTAGID=value
+      # 百度统计
+      - BAIDUID=
+    volumes:
+      - /nginx/config:/lersosa-user/config
+      - /nginx/icons:/lersosa-user/public/icons
+
+  lersosa-nginx-admin:
     image: nginx:latest
-    container_name: lersosa-nginx-prod
+    container_name: lersosa-nginx-admin-prod
     build:
       context: ./nginx
     networks:
       lersosa-network-prod:
         aliases:
-          - lersosa-nginx
+          - lersosa-nginx-admin
     ports:
       - "80:80"
       - "443:443"

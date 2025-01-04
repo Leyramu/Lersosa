@@ -5,7 +5,7 @@ FROM base AS deps
 
 RUN apk add --no-cache libc6-compat
 
-WORKDIR /remio-home
+WORKDIR /lersosa-user
 
 COPY . .
 RUN set -eux; \
@@ -13,14 +13,14 @@ RUN set -eux; \
 
 FROM base AS builder
 
-WORKDIR /remio-home
+WORKDIR /lersosa-user
 
-COPY --from=deps /remio-home/ .
+COPY --from=deps /lersosa-user/ .
 
 RUN npm install -g pnpm && pnpm run build
 
 FROM base AS runner
-WORKDIR /remio-home
+WORKDIR /lersosa-user
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -28,11 +28,11 @@ RUN adduser --system --uid 1001 nextjs
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
-ENV CONFIG_DIR=/remio-home/config NODE_ENV=production IS_DOCKER=1 VERSION=${VERSION}
+ENV CONFIG_DIR=/lersosa-user/config NODE_ENV=production IS_DOCKER=1 VERSION=${VERSION}
 
-COPY --from=builder /remio-home/public ./public
-COPY --from=builder --chown=nextjs:nodejs /remio-home/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /remio-home/.next/static ./.next/static
+COPY --from=builder /lersosa-user/public ./public
+COPY --from=builder --chown=nextjs:nodejs /lersosa-user/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /lersosa-user/.next/static ./.next/static
 
 USER nextjs
 
