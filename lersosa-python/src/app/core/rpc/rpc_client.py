@@ -22,29 +22,56 @@
 
 import grpc
 
-from proto import Greeter_pb2
-from proto import Greeter_pb2_grpc
+from app.core.rpc import LoadProto
 
 
-class GreeterClient:
-    def __init__(self, host, port):
+class RpcClient:
+
+    def __init__(self, host, port, proto_dir):
         # 创建一个通道到服务器
         self.channel = grpc.insecure_channel(f'{host}:{port}')
-        # 创建一个 stub（客户端）
-        self.stub = Greeter_pb2_grpc.GreeterStub(self.channel)
+        self.proto_info_dict = self._load_proto(fr'{proto_dir}')
+
+    @staticmethod
+    def _load_proto(directory):
+        proto_files = LoadProto.scan_proto_files(directory)
+        proto_info_dict = LoadProto.load_proto_files(proto_files)
+        return proto_info_dict
 
     def call_method(self, method_name, request_params):
-        # 动态获取方法
-        method = getattr(self.stub, method_name, None)
-        if not method:
-            raise AttributeError(f"Method '{method_name}' not found in stub")
 
-        # 创建请求消息
-        request = Greeter_pb2.HelloRequest(name=request_params)
-        # 调用方法
-        response = method(request)
-        # 返回响应
-        return response
+        # 查找匹配的proto方法信息
+        for proto_name, proto_info in self.proto_info_dict.items():
+            method_info = next((m for m in proto_info['methods'] if m['method'] == method_name), None)
+            if method_info:
+                request_type = method_info['request']
+
+                # 动态导入对应的 _pb2 模块
+                pb2_module = __import__(f'proto.{proto_name}_pb2', fromlist=[request_type])
+                request_class = getattr(pb2_module, request_type)
+
+                # 动态获取方法
+                pb2_grpc_module = __import__(f'proto.{proto_name}_pb2_grpc', fromlist=[method_name])
+
+                # 动态获取 Stub 类
+                stub_class_name = proto_name.capitalize() + 'Stub'
+                stub_class = getattr(pb2_grpc_module, stub_class_name)
+
+                # 创建 Stub 实例
+                stub = stub_class(self.channel)
+
+                # 从 Stub 实例中获取具体的方法
+                method = getattr(stub, method_name)
+
+                # 动态创建请求对象
+                request = request_class(name=request_params)
+
+                # 调用方法
+                response = method(request)
+                return response
+
+        # 如果没有找到匹配的方法，抛出异常
+        raise ValueError(f"Method '{method_name}' not found in proto_info_dict")
 
     def close(self):
         # 关闭通道

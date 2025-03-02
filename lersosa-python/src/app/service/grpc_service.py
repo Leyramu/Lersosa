@@ -21,7 +21,7 @@
 
 
 from app.common.config import GrpcConfig
-from app.core.rpc import GreeterClient
+from app.core.rpc import RpcClient
 from app.domain.entity import GrpcEntity
 
 
@@ -30,6 +30,13 @@ class GrpcService:
     @staticmethod
     async def say_hello():
         return (GrpcEntity(
-            data=GreeterClient(GrpcConfig.GRPC_HOST, GrpcConfig.GRPC_PORT)
+            data=RpcClient(GrpcConfig.GRPC_HOST, GrpcConfig.GRPC_PORT, GrpcConfig.GRPC_PROTO_DIR)
             .call_method("SayHello", "！123456789"))
+                .to_json())
+
+    @staticmethod
+    async def matcher_pulsar_data(request: GrpcEntity):
+        return (GrpcEntity(
+            data=RpcClient(GrpcConfig.GRPC_HOST, GrpcConfig.GRPC_PORT, GrpcConfig.GRPC_PROTO_DIR)
+            .call_method("PulsarMatcher", request.data))
                 .to_json())

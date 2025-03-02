@@ -20,4 +20,5 @@
 #  By using this project, users acknowledge and agree to abide by these terms and conditions.
 
 
-from .greeter_client import GreeterClient
+from .load_proto import LoadProto
+from .rpc_client import RpcClient

@@ -24,5 +24,5 @@ import os
 
 
 class ModelConfig:
-    MODEL_PATH = os.getenv('MODEL_PATH', 'domain/yolo11n.pt')
+    MODEL_PATH = os.getenv('MODEL_PATH', 'model/yolo11n.pt')
     MODEL_SOURCES = os.getenv('MODEL_SOURCES', 'algo/data/raw/bus.jpg')

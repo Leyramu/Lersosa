@@ -22,3 +22,4 @@
 
 from .tset_service import TestService
 from .grpc_service import GrpcService
+from .pulsar_service import PulsarService
