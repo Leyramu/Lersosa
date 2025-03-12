@@ -32,47 +32,117 @@ class RpcClient:
         self.channel = grpc.insecure_channel(f'{host}:{port}')
         self.proto_info_dict = self._load_proto(fr'{proto_dir}')
 
+    def call_method(self, method_name, request_params):
+        # 查找匹配的proto方法信息
+        for proto_name, proto_info in self.proto_info_dict.items():
+            method_info = next((m for m in proto_info['methods'] if m['method'] == method_name), None)
+            if not method_info:
+                continue
+
+            request_type = method_info['request']
+
+            # 动态导入模块
+            pb2_module = __import__(f'proto.{proto_name}_pb2', fromlist=[request_type])
+            request_class = getattr(pb2_module, request_type)
+            pb2_grpc_module = __import__(f'proto.{proto_name}_pb2_grpc', fromlist=[method_name])
+            stub_class = getattr(pb2_grpc_module, proto_name.capitalize() + 'Stub')
+            stub = stub_class(self.channel)
+            method = getattr(stub, method_name)
+
+            # 动态创建请求对象
+            proto_fields = request_class.DESCRIPTOR.fields_by_name.keys()
+
+            # 智能参数处理
+            params_dict = self._normalize_params(request_params)
+            matched_key = self._find_matching_key(request_class, proto_fields, params_dict)
+
+            # 构造请求对象
+            if matched_key:
+                request = request_class(**{matched_key: params_dict[matched_key]})
+            else:
+                # 处理二进制数据兜底
+                if isinstance(request_params, (bytes, bytearray)):
+                    request = self._handle_bytes_data(request_class, proto_fields, request_params)
+                else:
+                    # 最终兜底策略
+                    fallback_field = next(iter(proto_fields), 'data')
+                    request = request_class(**{fallback_field: request_params})
+
+            return method(request)
+
+        raise ValueError(f"方法 '{method_name}' 未找到")
+
+    def close(self):
+        # 关闭通道
+        self.channel.close()
+
     @staticmethod
     def _load_proto(directory):
         proto_files = LoadProto.scan_proto_files(directory)
         proto_info_dict = LoadProto.load_proto_files(proto_files)
         return proto_info_dict
 
-    def call_method(self, method_name, request_params):
+    @staticmethod
+    def _normalize_params(params):
+        """参数标准化处理"""
+        if hasattr(params, '__dict__'):
+            return vars(params)
+        if isinstance(params, dict):
+            return params.copy()
+        return {'data': params}
 
-        # 查找匹配的proto方法信息
-        for proto_name, proto_info in self.proto_info_dict.items():
-            method_info = next((m for m in proto_info['methods'] if m['method'] == method_name), None)
-            if method_info:
-                request_type = method_info['request']
+    def _find_matching_key(self, request_class, proto_fields, params_dict):
+        """字段匹配逻辑复用"""
+        # 首轮精确匹配
+        matched_key = next((k for k in proto_fields if k in params_dict), None)
+        if matched_key:
+            return matched_key
 
-                # 动态导入对应的 _pb2 模块
-                pb2_module = __import__(f'proto.{proto_name}_pb2', fromlist=[request_type])
-                request_class = getattr(pb2_module, request_type)
+        # 次轮下划线格式匹配
+        snake_case_mapping = {self.to_snake_case(k): k for k in params_dict}
+        for proto_field in proto_fields:
+            if proto_field in snake_case_mapping:
+                return proto_field
 
-                # 动态获取方法
-                pb2_grpc_module = __import__(f'proto.{proto_name}_pb2_grpc', fromlist=[method_name])
+        # 第三轮值类型匹配
+        for proto_field in proto_fields:
+            field_descriptor = request_class.DESCRIPTOR.fields_by_name[proto_field]
+            expected_type = self._map_field_type(field_descriptor)
+            if any(isinstance(v, expected_type) for v in params_dict.values()):
+                return proto_field
 
-                # 动态获取 Stub 类
-                stub_class_name = proto_name.capitalize() + 'Stub'
-                stub_class = getattr(pb2_grpc_module, stub_class_name)
+        return None
 
-                # 创建 Stub 实例
-                stub = stub_class(self.channel)
+    @staticmethod
+    def _handle_bytes_data(request_class, proto_fields, data):
+        """处理二进制数据兜底策略"""
+        # 尝试常见二进制字段名
+        for field in ['data', 'content', 'bytes']:
+            if field in proto_fields:
+                return request_class(**{field: data})
 
-                # 从 Stub 实例中获取具体的方法
-                method = getattr(stub, method_name)
+        # 匹配第一个bytes类型字段
+        for field in proto_fields:
+            field_desc = request_class.DESCRIPTOR.fields_by_name[field]
+            if field_desc.type == field_desc.TYPE_BYTES:
+                return request_class(**{field: data})
 
-                # 动态创建请求对象
-                request = request_class(name=request_params)
+        # 最终强制使用第一个字段
+        fallback_field = next(iter(proto_fields), 'data')
+        return request_class(**{fallback_field: data})
 
-                # 调用方法
-                response = method(request)
-                return response
+    @staticmethod
+    def _map_field_type(field_descriptor):
+        """映射protobuf字段类型到Python类型"""
+        type_map = {
+            field_descriptor.TYPE_BYTES: (bytes, bytearray),
+            field_descriptor.TYPE_STRING: str,
+            field_descriptor.TYPE_INT64: int,
+            field_descriptor.TYPE_MESSAGE: dict
+        }
+        return type_map.get(field_descriptor.type, object)
 
-        # 如果没有找到匹配的方法，抛出异常
-        raise ValueError(f"Method '{method_name}' not found in proto_info_dict")
-
-    def close(self):
-        # 关闭通道
-        self.channel.close()
+    @staticmethod
+    def to_snake_case(name):
+        """将小驼峰转换为下划线命名"""
+        return ''.join(['_' + c.lower() if c.isupper() else c for c in name]).lstrip('_')

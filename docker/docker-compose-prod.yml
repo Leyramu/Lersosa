@@ -15,7 +15,7 @@ services:
         aliases:
           - lersosa-mysql
     ports:
-      - "3307:3306"
+      - "3306:3306"
     environment:
       TZ: Asia/Shanghai
       MYSQL_ROOT_PASSWORD: Zcx@223852//
@@ -107,7 +107,7 @@ services:
       - ./elk/elasticsearch/logs:/usr/share/elasticsearch/logs
       - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     healthcheck:
-      test: [ "CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep green" ]
+      test: [ "CMD-SHELL", "curl -u elastic:Zcx@223852// -s http://localhost:9200/_cluster/health | grep yellow" ]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -135,24 +135,24 @@ services:
   ###################                       界面模块                       ###################
   #####################################################################
 
-  lersosa-nginx-user:
-    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-nginx-user:3.0.0
-    container_name: lersosa-nginx-user-prod
-    build:
-      context: ./nginx
-    ports:
-      - "3000:3000"
-    environment:
-      - TZ=Asia/Shanghai
-      # Google Tag Manager
-      - GTMID=value
-      # Google Analytics
-      - GTAGID=value
-      # 百度统计
-      - BAIDUID=
-    volumes:
-      - /nginx/config:/lersosa-user/config
-      - /nginx/icons:/lersosa-user/public/icons
+#  lersosa-nginx-user:
+#    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-nginx-user:3.2.0
+#    container_name: lersosa-nginx-user-prod
+#    build:
+#      context: ./nginx
+#    ports:
+#      - "3000:3000"
+#    environment:
+#      - TZ=Asia/Shanghai
+#      # Google Tag Manager
+#      - GTMID=value
+#      # Google Analytics
+#      - GTAGID=value
+#      # 百度统计
+#      - BAIDUID=
+#    volumes:
+#      - /nginx/config:/lersosa-user/config
+#      - /nginx/icons:/lersosa-user/public/icons
 
   lersosa-nginx-admin:
     image: nginx:latest
@@ -269,7 +269,7 @@ services:
   #####################################################################
 
   lersosa-nacos:
-    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-nacos:3.0.0
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-nacos:3.2.0
     container_name: lersosa-nacos-prod
     build:
       context: ./lersosa
@@ -287,7 +287,7 @@ services:
     volumes:
       - ./lersosa/logs/:/root/nacos/logs
     healthcheck:
-      test: [ "CMD-SHELL", "curl -s http://localhost:8848/nacos/actuator/health | grep 'UP'" ]
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:8848/nacos/actuator/health | grep 'UP'" ]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -296,7 +296,7 @@ services:
         condition: service_healthy
 
   lersosa-sentinel:
-    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-sentinel:3.0.0
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-sentinel:3.2.0
     container_name: lersosa-sentinel-prod
     build:
       context: ./lersosa
@@ -318,7 +318,7 @@ services:
     privileged: true
 
   lersosa-seata:
-    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-seata:3.0.0
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-seata:3.2.0
     container_name: lersosa-seata-prod
     build:
       context: ./lersosa
@@ -342,7 +342,7 @@ services:
     privileged: true
 
   lersosa-snailjob:
-    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-snailjob:3.0.0
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-snailjob:3.2.0
     container_name: lersosa-snailjob-prod
     build:
       context: ./lersosa
@@ -363,7 +363,7 @@ services:
         condition: service_healthy
 
   lersosa-monitor:
-    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-monitor:3.0.0
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-visual-monitor:3.2.0
     container_name: lersosa-monitor-prod
     build:
       context: ./lersosa
@@ -389,7 +389,7 @@ services:
   #####################################################################
 
   lersosa-gateway:
-    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-gateway-api:3.0.0
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-gateway-api:3.2.0
     container_name: lersosa-gateway-prod
     build:
       context: ./lersosa
@@ -405,6 +405,11 @@ services:
     volumes:
       - ./lersosa/logs/:/lersosa/gateway/api/logs
       - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+    healthcheck:
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:8080/health/ready" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     depends_on:
       lersosa-nacos:
         condition: service_healthy
@@ -415,7 +420,7 @@ services:
   #####################################################################
 
   lersosa-auth:
-    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-auth:3.0.0
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-auth:3.2.0
     container_name: lersosa-auth-prod
     build:
       context: ./lersosa
@@ -437,7 +442,7 @@ services:
     privileged: true
 
   lersosa-system:
-    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-system:3.0.0
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-system:3.2.0
     container_name: lersosa-system-prod
     build:
       context: ./lersosa
@@ -459,7 +464,7 @@ services:
     privileged: true
 
   lersosa-gen:
-    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-gen:3.0.0
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-gen:3.2.0
     container_name: lersosa-gen-prod
     build:
       context: ./lersosa
@@ -481,7 +486,7 @@ services:
     privileged: true
 
   lersosa-job:
-    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-job:3.0.0
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-job:3.2.0
     container_name: lersosa-job-prod
     build:
       context: ./lersosa
@@ -503,7 +508,7 @@ services:
     privileged: true
 
   lersosa-resource:
-    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-resource:3.0.0
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-resource:3.2.0
     container_name: lersosa-resource-prod
     build:
       context: ./lersosa
@@ -525,7 +530,7 @@ services:
     privileged: true
 
   lersosa-workflow:
-    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-workflow:3.0.0
+    image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-workflow:3.2.0
     container_name: lersosa-workflow-prod
     build:
       context: ./lersosa
@@ -545,6 +550,26 @@ services:
       lersosa-nacos:
         condition: service_healthy
     privileged: true
+
+  lersosa-pulsar:
+      image: crpi-qn9wg7g2bv3rmafm.cn-hangzhou.personal.cr.aliyuncs.com/leyramu/lersosa-service-pulsar:3.2.0
+      container_name: lersosa-pulsar-prod
+      build:
+        context: ./lersosa
+      networks:
+        lersosa-network-prod:
+          aliases:
+            - lersosa-pulsar
+      environment:
+        TZ: Asia/Shanghai
+        JAVA_OPTS: "-Xms256m -Xmx1024m"
+      volumes:
+        - ./lersosa/logs/:/lersosa/service/pulsar/logs
+        - ./lersosa/skywalking/agent/:/lersosa/skywalking/agent
+      depends_on:
+        lersosa-nacos:
+          condition: service_healthy
+      privileged: true
 
 #####################################################################
 ###################                       环境网络                       ###################

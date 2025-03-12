@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2024-2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,13 +21,13 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package leyramu.framework.lersosa.grpc.service;
+package leyramu.framework.lersosa.grpc.greeter.service;
 
 import io.grpc.stub.StreamObserver;
-import leyramu.framework.lersosa.common.grpc.lib.GreeterGrpc;
-import leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass;
+import leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterGrpc;
+import leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass;
 import leyramu.framework.lersosa.grpc.api.GreeterService;
-import leyramu.framework.lersosa.grpc.command.GreeterSayHelloCmdExe;
+import leyramu.framework.lersosa.grpc.greeter.command.GreeterSayHelloCmdExe;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;

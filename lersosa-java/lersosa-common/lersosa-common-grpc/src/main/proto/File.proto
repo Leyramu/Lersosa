@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "leyramu.framework.lersosa.common.grpc.lib.file";
+
+service File {
+    rpc UploadFile (stream FileRequest) returns (FileReply) {}
+}
+
+message FileRequest {
+    FileChunk file_chunk = 1;
+}
+
+message FileChunk {
+    bytes data = 1;
+    string file_name = 2;
+    string mime_type = 3;
+}
+
+message FileReply {
+    int32 code = 1;
+    string message = 2;
+}

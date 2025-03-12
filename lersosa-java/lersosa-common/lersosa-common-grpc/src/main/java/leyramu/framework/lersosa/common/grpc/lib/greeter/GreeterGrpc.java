@@ -1,27 +1,4 @@
-/*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
- *
- * For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
- *
- * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
- *
- * By using this project, users acknowledge and agree to abide by these terms and conditions.
- */
-
-package leyramu.framework.lersosa.common.grpc.lib;
+package leyramu.framework.lersosa.common.grpc.lib.greeter;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 
@@ -38,29 +15,29 @@ public final class GreeterGrpc {
   public static final java.lang.String SERVICE_NAME = "Greeter";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloRequest,
-      leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloReply> getSayHelloMethod;
+  private static volatile io.grpc.MethodDescriptor<leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloRequest,
+      leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloReply> getSayHelloMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "SayHello",
-      requestType = leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloRequest.class,
-      responseType = leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloReply.class,
+      requestType = leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloRequest.class,
+      responseType = leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloReply.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloRequest,
-      leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloReply> getSayHelloMethod() {
-    io.grpc.MethodDescriptor<leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloRequest, leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloReply> getSayHelloMethod;
+  public static io.grpc.MethodDescriptor<leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloRequest,
+      leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloReply> getSayHelloMethod() {
+    io.grpc.MethodDescriptor<leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloRequest, leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloReply> getSayHelloMethod;
     if ((getSayHelloMethod = GreeterGrpc.getSayHelloMethod) == null) {
       synchronized (GreeterGrpc.class) {
         if ((getSayHelloMethod = GreeterGrpc.getSayHelloMethod) == null) {
           GreeterGrpc.getSayHelloMethod = getSayHelloMethod =
-              io.grpc.MethodDescriptor.<leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloRequest, leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloReply>newBuilder()
+              io.grpc.MethodDescriptor.<leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloRequest, leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloReply>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SayHello"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloRequest.getDefaultInstance()))
+                  leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloReply.getDefaultInstance()))
+                  leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloReply.getDefaultInstance()))
               .setSchemaDescriptor(new GreeterMethodDescriptorSupplier("SayHello"))
               .build();
         }
@@ -119,8 +96,8 @@ public final class GreeterGrpc {
 
     /**
      */
-    default void sayHello(leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloRequest request,
-        io.grpc.stub.StreamObserver<leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloReply> responseObserver) {
+    default void sayHello(leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloRequest request,
+        io.grpc.stub.StreamObserver<leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloReply> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSayHelloMethod(), responseObserver);
     }
   }
@@ -154,8 +131,8 @@ public final class GreeterGrpc {
 
     /**
      */
-    public void sayHello(leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloRequest request,
-        io.grpc.stub.StreamObserver<leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloReply> responseObserver) {
+    public void sayHello(leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloRequest request,
+        io.grpc.stub.StreamObserver<leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloReply> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getSayHelloMethod(), getCallOptions()), request, responseObserver);
     }
@@ -179,7 +156,7 @@ public final class GreeterGrpc {
 
     /**
      */
-    public leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloReply sayHello(leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloRequest request) {
+    public leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloReply sayHello(leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getSayHelloMethod(), getCallOptions(), request);
     }
@@ -203,8 +180,8 @@ public final class GreeterGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloReply> sayHello(
-        leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloReply> sayHello(
+        leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getSayHelloMethod(), getCallOptions()), request);
     }
@@ -230,8 +207,8 @@ public final class GreeterGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_SAY_HELLO:
-          serviceImpl.sayHello((leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloRequest) request,
-              (io.grpc.stub.StreamObserver<leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloReply>) responseObserver);
+          serviceImpl.sayHello((leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloRequest) request,
+              (io.grpc.stub.StreamObserver<leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloReply>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -255,8 +232,8 @@ public final class GreeterGrpc {
           getSayHelloMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloRequest,
-              leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.HelloReply>(
+              leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloRequest,
+              leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.HelloReply>(
                 service, METHODID_SAY_HELLO)))
         .build();
   }
@@ -267,7 +244,7 @@ public final class GreeterGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass.getDescriptor();
+      return leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass.getDescriptor();
     }
 
     @java.lang.Override

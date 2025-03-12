@@ -39,43 +39,58 @@ class LoadProto:
     @staticmethod
     def load_proto_files(proto_files: tuple[list[str], list[str]]):
         proto_info_dict = {}
+        method_pattern = re.compile(
+            r'rpc\s+(\w+)\s*\(\s*(stream\s+)?([\w.]+)\s*\)\s*returns\s*\(\s*(stream\s+)?([\w.]+)\s*\)',
+            re.MULTILINE
+        )
 
-        # 遍历每个proto文件路径
+        def clean_type(type_str):
+            """清洗类型字符串，移除包名前缀和stream修饰符"""
+            return type_str.split('.')[-1].replace('stream', '').strip()
+
         for proto_path, proto_name in zip(proto_files[0], proto_files[1]):
             try:
                 with open(proto_path, 'r') as file:
                     content = file.read()
-                    pattern = re.compile(
-                        r'rpc\s+(\w+)\s*\(([^)]+)\)\s*returns\s*\(([^)]+)\)',
-                        re.MULTILINE
+
+                    # 识别service定义块
+                    service_blocks = re.findall(
+                        r'service\s+\w+\s*{([^}]+)}',
+                        content,
+                        re.DOTALL
                     )
 
-                    # 处理当前文件内容
-                    file_methods = []
-                    file_requests = set()
-                    file_responses = set()
-                    for match in pattern.finditer(content):
-                        method_name = match.group(1)
-                        request_type = match.group(2).strip()
-                        response_type = match.group(3).strip()
+                    methods = []
+                    for block in service_blocks:
+                        for match in method_pattern.finditer(block):
+                            method_name = match.group(1)
+                            is_client_stream = bool(match.group(2))
+                            request_type = clean_type(match.group(3))
+                            is_server_stream = bool(match.group(4))
+                            response_type = clean_type(match.group(5))
 
-                        file_methods.append({
-                            'method': method_name,
-                            'request': request_type,
-                            'response': response_type
-                        })
-                        file_requests.add(request_type)
-                        file_responses.add(response_type)
+                            methods.append({
+                                'method': method_name,
+                                'request': request_type,
+                                'response': response_type,
+                                'stream_type': {
+                                    'client_stream': is_client_stream,
+                                    'server_stream': is_server_stream
+                                }
+                            })
 
                     proto_info_dict[proto_name] = {
-                        'methods': file_methods,
-                        'request_types': list(file_requests),
-                        'response_types': list(file_responses)
+                        'methods': methods,
+                        'message_types': list(set(
+                            [msg for msg in re.findall(
+                                r'message\s+(\w+)\s*{',
+                                content
+                            )]
+                        ))
                     }
 
-            except FileNotFoundError:
-                print(f"文件 {proto_path} 不存在")
             except Exception as e:
-                print(f"处理文件 {proto_path} 时发生错误: {str(e)}")
+                print(f"处理 {proto_path} 发生错误: {str(e)}")
+                continue
 
         return proto_info_dict

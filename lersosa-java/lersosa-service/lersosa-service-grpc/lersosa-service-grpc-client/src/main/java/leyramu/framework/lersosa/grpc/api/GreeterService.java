@@ -24,7 +24,7 @@
 package leyramu.framework.lersosa.grpc.api;
 
 import io.grpc.stub.StreamObserver;
-import leyramu.framework.lersosa.common.grpc.lib.GreeterOuterClass;
+import leyramu.framework.lersosa.common.grpc.lib.greeter.GreeterOuterClass;
 
 /**
  * GreeterService 业务层 接口.
