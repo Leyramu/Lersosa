@@ -42,7 +42,7 @@ import java.util.List;
  * 自定义 sentinel 配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @RequiredArgsConstructor
@@ -50,14 +50,26 @@ import java.util.List;
 @EnableConfigurationProperties({SentinelProperties.class, SentinelCustomProperties.class})
 public class SentinelCustomAutoConfiguration {
 
+    /**
+     * sentinel 配置.
+     */
     private final SentinelProperties properties;
 
+    /**
+     * sentinel 自定义配置.
+     */
     private final SentinelCustomProperties customProperties;
 
+    /**
+     * 服务发现客户端.
+     */
     private final DiscoveryClient discoveryClient;
 
+    /**
+     * 初始化 sentinel.
+     */
     @Bean
-    public void sentinelInit() {
+    public Object sentinelInit() {
         if (StringUtils.isNotBlank(customProperties.getServerName())) {
             List<ServiceInstance> instances = discoveryClient.getInstances(customProperties.getServerName());
             String serverList = StreamUtils.join(instances, instance ->
@@ -72,5 +84,6 @@ public class SentinelCustomAutoConfiguration {
         }
         // 手动初始化 sentinel
         InitExecutor.doInit();
+        return new Object();
     }
 }

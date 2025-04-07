@@ -24,7 +24,7 @@
 package leyramu.framework.lersosa.gateway.api.utils;
 
 import cn.hutool.core.util.ObjectUtil;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.core.utils.StringUtils;
 import leyramu.framework.lersosa.common.json.utils.JsonUtils;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
@@ -60,6 +60,9 @@ public class WebFluxUtils {
 
     /**
      * 获取原请求路径.
+     *
+     * @param exchange HTTP请求
+     * @return 原请求路径
      */
     public static String getOriginalRequestUrl(ServerWebExchange exchange) {
         ServerHttpRequest request = exchange.getRequest();
@@ -72,6 +75,7 @@ public class WebFluxUtils {
      * 是否是Json请求.
      *
      * @param exchange HTTP请求
+     * @return 是否是
      */
     public static boolean isJsonRequest(ServerWebExchange exchange) {
         String header = exchange.getRequest().getHeaders().getFirst(HttpHeaders.CONTENT_TYPE);
@@ -80,6 +84,9 @@ public class WebFluxUtils {
 
     /**
      * 读取request内的body.
+     *
+     * @param serverHttpRequest ServerHttpRequest
+     * @return body
      */
     public static String resolveBodyFromRequest(ServerHttpRequest serverHttpRequest) {
         // 获取请求体
@@ -107,8 +114,10 @@ public class WebFluxUtils {
         }
         DataBuffer buffer = (DataBuffer) obj;
         try (DataBuffer.ByteBufferIterator iterator = buffer.readableByteBuffers()) {
-            CharBuffer charBuffer = StandardCharsets.UTF_8.decode(iterator.next());
-            return charBuffer.toString();
+            StringBuilder sb = new StringBuilder();
+            iterator.forEachRemaining(e -> sb.append(StandardCharsets.UTF_8.decode(e)));
+            return sb.toString();
+
         }
     }
 
@@ -120,7 +129,7 @@ public class WebFluxUtils {
      * @return Mono<Void>
      */
     public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, Object value) {
-        return webFluxResponseWriter(response, HttpStatus.OK, value, R.FAIL);
+        return webFluxResponseWriter(response, HttpStatus.OK, value, Result.FAIL);
     }
 
     /**
@@ -161,7 +170,7 @@ public class WebFluxUtils {
     public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, String contentType, HttpStatus status, Object value, int code) {
         response.setStatusCode(status);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, contentType);
-        R<?> result = R.fail(code, value.toString());
+        Result<?> result = Result.fail(code, value.toString());
         DataBuffer dataBuffer = response.bufferFactory().wrap(Objects.requireNonNull(JsonUtils.toJsonString(result)).getBytes());
         return response.writeWith(Mono.just(dataBuffer));
     }

@@ -38,6 +38,11 @@ import org.springframework.data.redis.connection.RedisConfiguration;
 @AutoConfiguration(after = RedisConfiguration.class)
 public class RateLimiterConfig {
 
+    /**
+     * 限流切面.
+     *
+     * @return 限流切面
+     */
     @Bean
     public RateLimiterAspect rateLimiterAspect() {
         return new RateLimiterAspect();

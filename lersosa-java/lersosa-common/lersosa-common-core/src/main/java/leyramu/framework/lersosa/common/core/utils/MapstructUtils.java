@@ -43,6 +43,9 @@ import java.util.Map;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MapstructUtils {
 
+    /**
+     * Mapstruct 转换器.
+     */
     private final static Converter CONVERTER = SpringUtils.getBean(Converter.class);
 
     /**

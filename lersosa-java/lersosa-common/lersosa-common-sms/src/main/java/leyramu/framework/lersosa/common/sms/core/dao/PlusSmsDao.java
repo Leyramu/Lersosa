@@ -77,7 +77,6 @@ public class PlusSmsDao implements SmsDao {
      *
      * @param key 缓存键
      * @return 被删除的value
-     * @author :Wind
      */
     @Override
     public Object remove(String key) {

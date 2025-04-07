@@ -53,5 +53,8 @@ public enum DeviceType {
      */
     XCX("xcx");
 
+    /**
+     * 设备类型.
+     */
     private final String device;
 }

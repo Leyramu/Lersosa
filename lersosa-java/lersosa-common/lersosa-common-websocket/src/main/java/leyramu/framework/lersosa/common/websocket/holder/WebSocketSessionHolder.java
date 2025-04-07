@@ -25,6 +25,8 @@ package leyramu.framework.lersosa.common.websocket.holder;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.Map;
@@ -38,9 +40,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1.0.0
  * @since 2024/11/6
  */
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WebSocketSessionHolder {
 
+    /**
+     * 用户会话Map，用于存储当前所有在线用户的WebSocket会话.
+     */
     private static final Map<Long, WebSocketSession> USER_SESSION_MAP = new ConcurrentHashMap<>();
 
     /**
@@ -58,10 +64,13 @@ public class WebSocketSessionHolder {
      *
      * @param sessionKey 要移除的会话键
      */
-    @SuppressWarnings("all")
+
     public static void removeSession(Long sessionKey) {
-        if (USER_SESSION_MAP.containsKey(sessionKey)) {
-            USER_SESSION_MAP.remove(sessionKey);
+        WebSocketSession session = USER_SESSION_MAP.remove(sessionKey);
+        try {
+            session.close(CloseStatus.BAD_DATA);
+        } catch (Exception e) {
+            log.error("关闭会话失败", e);
         }
     }
 

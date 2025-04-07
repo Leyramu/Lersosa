@@ -41,6 +41,11 @@ import org.springframework.context.annotation.Bean;
 @EnableConfigurationProperties(SocialProperties.class)
 public class SocialAutoConfiguration {
 
+    /**
+     * 缓存.
+     *
+     * @return AuthStateCache
+     */
     @Bean
     public AuthStateCache authStateCache() {
         return new AuthRedisStateCache();

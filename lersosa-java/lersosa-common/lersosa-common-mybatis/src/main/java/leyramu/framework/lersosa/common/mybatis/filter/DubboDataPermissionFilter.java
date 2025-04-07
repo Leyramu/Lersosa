@@ -42,6 +42,14 @@ import java.util.Map;
 @Activate(group = {CommonConstants.CONSUMER})
 public class DubboDataPermissionFilter implements Filter {
 
+    /**
+     * dubbo 参数传递.
+     *
+     * @param invoker    请求
+     * @param invocation 调用
+     * @return Result
+     * @throws RpcException RPC 异常
+     */
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
         RpcServiceContext context = RpcContext.getServiceContext();

@@ -65,6 +65,11 @@ public class DefaultExcelListener<T> extends AnalysisEventListener<T> implements
      */
     private ExcelResult<T> excelResult;
 
+    /**
+     * 构造函数.
+     *
+     * @param isValidate 是否校验
+     */
     public DefaultExcelListener(boolean isValidate) {
         this.excelResult = new DefaultExcelResult<>();
         this.isValidate = isValidate;
@@ -101,12 +106,24 @@ public class DefaultExcelListener<T> extends AnalysisEventListener<T> implements
         throw new ExcelAnalysisException(errMsg);
     }
 
+    /**
+     * 处理表头.
+     *
+     * @param headMap    表头数据
+     * @param context    Excel 上下文
+     */
     @Override
     public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
         this.headMap = headMap;
         log.debug("解析到一条表头数据: {}", JsonUtils.toJsonString(headMap));
     }
 
+    /**
+     * 处理数据.
+     *
+     * @param data       数据
+     * @param context    Excel 上下文
+     */
     @Override
     public void invoke(T data, AnalysisContext context) {
         if (isValidate) {
@@ -115,11 +132,21 @@ public class DefaultExcelListener<T> extends AnalysisEventListener<T> implements
         excelResult.getList().add(data);
     }
 
+    /**
+     * 处理完成.
+     *
+     * @param context Excel 上下文
+     */
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
         log.debug("所有数据解析完成！");
     }
 
+    /**
+     * 获取导入回执.
+     *
+     * @return ExcelResult
+     */
     @Override
     public ExcelResult<T> getExcelResult() {
         return excelResult;

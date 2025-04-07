@@ -24,6 +24,7 @@
 package leyramu.framework.lersosa.common.dubbo.config;
 
 import leyramu.framework.lersosa.common.core.factory.YmlPropertySourceFactory;
+import leyramu.framework.lersosa.common.dubbo.handler.DubboExceptionHandler;
 import leyramu.framework.lersosa.common.dubbo.properties.DubboCustomProperties;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -49,5 +50,13 @@ public class DubboConfiguration {
     @Bean
     public BeanFactoryPostProcessor customBeanFactoryPostProcessor() {
         return new CustomBeanFactoryPostProcessor();
+    }
+
+    /**
+     * 异常处理器.
+     */
+    @Bean
+    public DubboExceptionHandler dubboExceptionHandler() {
+        return new DubboExceptionHandler();
     }
 }

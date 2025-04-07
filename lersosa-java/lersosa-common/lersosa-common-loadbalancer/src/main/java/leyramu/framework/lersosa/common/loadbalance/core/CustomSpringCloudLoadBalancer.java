@@ -52,16 +52,35 @@ import java.util.concurrent.ThreadLocalRandom;
 @AllArgsConstructor
 public class CustomSpringCloudLoadBalancer implements ReactorServiceInstanceLoadBalancer {
 
+    /**
+     * 服务名称.
+     */
     private final String serviceId;
 
+    /**
+     * 服务实例列表提供者.
+     */
     private final ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider;
 
+    /**
+     * 选择服务实例.
+     *
+     * @param request 请求
+     * @return 服务实例
+     */
     @Override
     public Mono<Response<ServiceInstance>> choose(Request request) {
         ServiceInstanceListSupplier supplier = serviceInstanceListSupplierProvider.getIfAvailable(NoopServiceInstanceListSupplier::new);
         return supplier.get(request).next().map(serviceInstances -> processInstanceResponse(supplier, serviceInstances));
     }
 
+    /**
+     * 处理服务实例响应.
+     *
+     * @param supplier           服务实例列表提供者
+     * @param serviceInstances   服务实例列表
+     * @return 服务实例响应
+     */
     private Response<ServiceInstance> processInstanceResponse(
         ServiceInstanceListSupplier supplier,
         List<ServiceInstance> serviceInstances) {
@@ -72,6 +91,12 @@ public class CustomSpringCloudLoadBalancer implements ReactorServiceInstanceLoad
         return serviceInstanceResponse;
     }
 
+    /**
+     * 获取服务实例响应.
+     *
+     * @param instances 服务实例列表
+     * @return 服务实例响应
+     */
     private Response<ServiceInstance> getInstanceResponse(List<ServiceInstance> instances) {
         if (instances.isEmpty()) {
             if (log.isWarnEnabled()) {

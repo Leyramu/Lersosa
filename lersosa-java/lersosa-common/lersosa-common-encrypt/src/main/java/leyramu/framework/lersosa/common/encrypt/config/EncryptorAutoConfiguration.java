@@ -50,18 +50,39 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnProperty(value = "mybatis-encryptor.enable", havingValue = "true")
 public class EncryptorAutoConfiguration {
 
+    /**
+     * 加解密配置.
+     */
     private final EncryptorProperties properties;
 
+    /**
+     * 加解密管理器.
+     *
+     * @param mybatisPlusProperties MyBatis Plus 配置
+     * @return EncryptorManager
+     */
     @Bean
     public EncryptorManager encryptorManager(MybatisPlusProperties mybatisPlusProperties) {
         return new EncryptorManager(mybatisPlusProperties.getTypeAliasesPackage());
     }
 
+    /**
+     * MyBatis Plus 加解密拦截器.
+     *
+     * @param encryptorManager 加解密管理器
+     * @return MybatisEncryptInterceptor
+     */
     @Bean
     public MybatisEncryptInterceptor mybatisEncryptInterceptor(EncryptorManager encryptorManager) {
         return new MybatisEncryptInterceptor(encryptorManager, properties);
     }
 
+    /**
+     * MyBatis Plus 加解密拦截器.
+     *
+     * @param encryptorManager 加解密管理器
+     * @return MybatisDecryptInterceptor
+     */
     @Bean
     public MybatisDecryptInterceptor mybatisDecryptInterceptor(EncryptorManager encryptorManager) {
         return new MybatisDecryptInterceptor(encryptorManager, properties);

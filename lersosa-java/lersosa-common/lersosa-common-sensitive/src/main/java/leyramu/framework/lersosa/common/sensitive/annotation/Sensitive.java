@@ -45,9 +45,19 @@ import java.lang.annotation.Target;
 @JacksonAnnotationsInside
 @JsonSerialize(using = SensitiveHandler.class)
 public @interface Sensitive {
+
+    /**
+     * 脱敏策略.
+     */
     SensitiveStrategy strategy();
 
+    /**
+     * 角色标识符.
+     */
     String roleKey() default "";
 
+    /**
+     * 权限标识符.
+     */
     String perms() default "";
 }

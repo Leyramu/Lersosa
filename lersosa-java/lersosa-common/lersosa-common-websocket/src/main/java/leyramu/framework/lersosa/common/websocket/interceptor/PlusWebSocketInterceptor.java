@@ -80,5 +80,4 @@ public class PlusWebSocketInterceptor implements HandshakeInterceptor {
     public void afterHandshake(@NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response, @NonNull WebSocketHandler wsHandler, Exception exception) {
         // 在这个方法中可以执行一些握手成功后的后续处理逻辑，比如记录日志或者其他操作
     }
-
 }

@@ -38,6 +38,9 @@ import lombok.extern.slf4j.Slf4j;
 @SuppressWarnings("all")
 public class RemoteMessageServiceStub implements RemoteMessageService {
 
+    /**
+     * 远程消息服务.
+     */
     private final RemoteMessageService remoteMessageService;
 
     /**

@@ -30,7 +30,7 @@ import cn.hutool.crypto.SecureUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import leyramu.framework.lersosa.common.core.constant.GlobalConstants;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.core.exception.ServiceException;
 import leyramu.framework.lersosa.common.core.utils.MessageUtils;
 import leyramu.framework.lersosa.common.core.utils.ServletUtils;
@@ -61,8 +61,17 @@ import java.util.StringJoiner;
 @Aspect
 public class RepeatSubmitAspect {
 
+    /**
+     * 缓存key.
+     */
     private static final ThreadLocal<String> KEY_CACHE = new ThreadLocal<>();
 
+    /**
+     * 拦截注解.
+     *
+     * @param point       切点
+     * @param repeatSubmit 注解
+     */
     @Before("@annotation(repeatSubmit)")
     public void doBefore(JoinPoint point, RepeatSubmit repeatSubmit) {
         // 如果注解不为0 则使用注解数值
@@ -107,10 +116,10 @@ public class RepeatSubmitAspect {
      */
     @AfterReturning(pointcut = "@annotation(ignoredRepeatSubmit)", returning = "jsonResult")
     public void doAfterReturning(JoinPoint ignoredJoinPoint, RepeatSubmit ignoredRepeatSubmit, Object jsonResult) {
-        if (jsonResult instanceof R<?> r) {
+        if (jsonResult instanceof Result<?> result) {
             try {
                 // 成功则不删除redis数据 保证在有效时间内无法重复提交
-                if (r.getCode() == R.SUCCESS) {
+                if (result.getCode() == Result.SUCCESS) {
                     return;
                 }
                 RedisUtils.deleteObject(KEY_CACHE.get());

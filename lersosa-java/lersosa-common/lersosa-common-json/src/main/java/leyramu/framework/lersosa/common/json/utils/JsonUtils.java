@@ -49,8 +49,16 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JsonUtils {
 
+    /**
+     * 对象映射器.
+     */
     private static final ObjectMapper OBJECT_MAPPER = SpringUtils.getBean(ObjectMapper.class);
 
+    /**
+     * 获取对象映射器.
+     *
+     * @return 对象映射器
+     */
     public static ObjectMapper getObjectMapper() {
         return OBJECT_MAPPER;
     }

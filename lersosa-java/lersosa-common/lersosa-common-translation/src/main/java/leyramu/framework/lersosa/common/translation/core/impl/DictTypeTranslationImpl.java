@@ -41,8 +41,18 @@ import lombok.AllArgsConstructor;
 @TranslationType(type = TransConstant.DICT_TYPE_TO_LABEL)
 public class DictTypeTranslationImpl implements TranslationInterface<String> {
 
+    /**
+     * 字典服务.
+     */
     private final DictService dictService;
 
+    /**
+     * 字典翻译.
+     *
+     * @param key   字典类型
+     * @param other 字典值
+     * @return 字典标签
+     */
     @Override
     public String translation(Object key, String other) {
         if (key instanceof String && StringUtils.isNotBlank(other)) {

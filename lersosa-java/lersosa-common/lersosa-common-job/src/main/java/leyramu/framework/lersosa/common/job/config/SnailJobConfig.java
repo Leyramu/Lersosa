@@ -60,11 +60,22 @@ import java.util.List;
 @EnableSnailJob
 public class SnailJobConfig {
 
+    /**
+     * 配置属性.
+     */
     private final SnailJobServerProperties properties;
 
+    /**
+     * 服务发现客户端.
+     */
     @SuppressWarnings("all")
     private final DiscoveryClient discoveryClient;
 
+    /**
+     * 监听 SnailClientStartingEvent 事件.
+     *
+     * @param ignoredEvent 事件
+     */
     @EventListener(SnailClientStartingEvent.class)
     public void onStarting(SnailClientStartingEvent ignoredEvent) {
         // 从 nacos 获取 server 服务连接
@@ -73,12 +84,18 @@ public class SnailJobConfig {
         registerLogging();
     }
 
+    /**
+     * 重新注册服务连接.
+     */
     @EventListener(SnailChannelReconnectEvent.class)
     public void onReconnect(SnailChannelReconnectEvent ignoredEvent) {
         // 连接中断 重新从 nacos 获取存活的服务连接(高可用配置)
         registerServer();
     }
 
+    /**
+     * 注册服务连接.
+     */
     private void registerServer() {
         String serverName = properties.getServerName();
         if (StringUtils.isNotBlank(serverName)) {
@@ -91,6 +108,9 @@ public class SnailJobConfig {
         }
     }
 
+    /**
+     * 注册日志监控配置.
+     */
     private void registerLogging() {
         LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
         SnailLogbackAppender<ILoggingEvent> ca = new SnailLogbackAppender<>();

@@ -47,6 +47,13 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
 
+    /**
+     * 异常处理.
+     *
+     * @param exchange ServerWebExchange
+     * @param ex       Throwable
+     * @return Mono<Void>
+     */
     @Override
     @NonNull
     public Mono<Void> handle(ServerWebExchange exchange, @NonNull Throwable ex) {

@@ -33,12 +33,17 @@ import org.springframework.web.servlet.LocaleResolver;
  * 国际化配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @AutoConfiguration(before = WebMvcAutoConfiguration.class)
 public class I18nConfig {
 
+    /**
+     * 创建国际化配置.
+     *
+     * @return {@link LocaleResolver}
+     */
     @Bean
     public LocaleResolver localeResolver() {
         return new I18nLocaleResolver();

@@ -39,9 +39,11 @@ import java.util.Objects;
  * @since 2024/11/6
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@SuppressWarnings(value = {"unchecked"})
 public class CacheUtils {
 
+    /**
+     * 缓存管理器.
+     */
     private static final CacheManager CACHE_MANAGER = SpringUtils.getBean(CacheManager.class);
 
     /**
@@ -50,6 +52,7 @@ public class CacheUtils {
      * @param cacheNames 缓存组名称
      * @param key        缓存key
      */
+    @SuppressWarnings("unchecked")
     public static <T> T get(String cacheNames, Object key) {
         Cache.ValueWrapper wrapper = Objects.requireNonNull(CACHE_MANAGER.getCache(cacheNames)).get(key);
         return wrapper != null ? (T) wrapper.get() : null;

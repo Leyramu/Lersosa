@@ -36,13 +36,18 @@ import org.springframework.context.annotation.Bean;
  * Filter配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @AutoConfiguration
 @EnableConfigurationProperties(XssProperties.class)
 public class FilterConfig {
 
+    /**
+     * xss过滤拦截器.
+     *
+     * @return 过滤器注册 Bean
+     */
     @Bean
     @ConditionalOnProperty(value = "xss.enabled", havingValue = "true")
     public FilterRegistrationBean<XssFilter> xssFilterRegistration() {

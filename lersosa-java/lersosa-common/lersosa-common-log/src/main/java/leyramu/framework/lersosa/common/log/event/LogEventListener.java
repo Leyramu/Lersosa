@@ -56,8 +56,15 @@ import java.util.Objects;
 @Slf4j
 public class LogEventListener {
 
+    /**
+     * 日志服务.
+     */
     @DubboReference
     private RemoteLogService remoteLogService;
+
+    /**
+     * 客户端服务.
+     */
     @DubboReference
     private RemoteClientService remoteClientService;
 
@@ -119,6 +126,12 @@ public class LogEventListener {
         remoteLogService.saveLogininfor(logininfor);
     }
 
+    /**
+     * 获取客户端操作系统.
+     *
+     * @param msg 信息
+     * @return 客户端操作系统
+     */
     private String getBlock(Object msg) {
         if (msg == null) {
             msg = "";

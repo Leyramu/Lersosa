@@ -94,12 +94,6 @@ public interface Constants {
     Integer CAPTCHA_EXPIRATION = 2;
 
     /**
-     * 令牌.
-     */
-    @SuppressWarnings("unused")
-    String TOKEN = "token";
-
-    /**
      * 顶级部门id.
      */
     Long TOP_PARENT_ID = 0L;

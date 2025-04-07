@@ -39,8 +39,16 @@ import leyramu.framework.lersosa.common.encrypt.utils.EncryptUtils;
  */
 public class RsaEncryptor extends AbstractEncryptor {
 
+    /**
+     * 加解密上下文.
+     */
     private final EncryptContext context;
 
+    /**
+     * 构造方法.
+     *
+     * @param context 加解密上下文
+     */
     public RsaEncryptor(EncryptContext context) {
         super(context);
         String privateKey = context.getPrivateKey();
@@ -53,6 +61,8 @@ public class RsaEncryptor extends AbstractEncryptor {
 
     /**
      * 获得当前算法.
+     *
+     * @return 算法类型
      */
     @Override
     public AlgorithmType algorithm() {

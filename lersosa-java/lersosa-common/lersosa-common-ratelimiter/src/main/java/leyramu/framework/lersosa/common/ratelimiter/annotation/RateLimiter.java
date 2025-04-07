@@ -31,13 +31,14 @@ import java.lang.annotation.*;
  * 限流注解.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface RateLimiter {
+
     /**
      * 限流key,支持使用Spring el表达式来动态获取方法上的参数值.
      */
@@ -62,4 +63,9 @@ public @interface RateLimiter {
      * 提示消息 支持国际化 格式为 {code}.
      */
     String message() default "{rate.limiter.message}";
+
+    /**
+     * 限流策略超时时间.
+     */
+    int timeout() default 86400;
 }

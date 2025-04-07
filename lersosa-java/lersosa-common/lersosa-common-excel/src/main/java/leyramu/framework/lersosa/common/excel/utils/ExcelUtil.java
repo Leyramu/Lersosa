@@ -39,6 +39,7 @@ import leyramu.framework.lersosa.common.core.utils.StringUtils;
 import leyramu.framework.lersosa.common.core.utils.file.FileUtils;
 import leyramu.framework.lersosa.common.excel.convert.ExcelBigNumberConvert;
 import leyramu.framework.lersosa.common.excel.core.*;
+import leyramu.framework.lersosa.common.excel.handler.DataWriteHandler;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -99,7 +100,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 导出excel.
+     * 导出excel
      *
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -117,7 +118,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 导出excel.
+     * 导出excel
      *
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -136,7 +137,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 导出excel.
+     * 导出excel
      *
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -155,7 +156,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 导出excel.
+     * 导出excel
      *
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -175,7 +176,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 导出excel.
+     * 导出excel
      *
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -187,7 +188,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 导出excel.
+     * 导出excel
      *
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -200,7 +201,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 导出excel.
+     * 导出excel
      *
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -208,16 +209,15 @@ public class ExcelUtil {
      * @param merge     是否合并单元格
      * @param os        输出流
      */
-    public static <T> void exportExcel(
-        List<T> list, String sheetName,
-        Class<T> clazz, boolean merge,
-        OutputStream os, List<DropDownOptions> options) {
+    public static <T> void exportExcel(List<T> list, String sheetName, Class<T> clazz, boolean merge,
+                                       OutputStream os, List<DropDownOptions> options) {
         ExcelWriterSheetBuilder builder = EasyExcel.write(os, clazz)
             .autoCloseStream(false)
             // 自动适配
             .registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
             // 大数值自动转换 防止失真
             .registerConverter(new ExcelBigNumberConvert())
+            .registerWriteHandler(new DataWriteHandler(clazz))
             .sheet(sheetName);
         if (merge) {
             // 合并处理器
@@ -249,7 +249,7 @@ public class ExcelUtil {
     }
 
     /**
-     * 单表多数据模板导出 模板格式为 {.属性}.
+     * 单表多数据模板导出 模板格式为 {.属性}
      *
      * @param templatePath 模板路径 resource 目录下的路径包括模板文件名
      *                     例如: excel/temp.xlsx
@@ -257,21 +257,23 @@ public class ExcelUtil {
      * @param data         模板需要的数据
      * @param os           输出流
      */
-    public static void exportTemplate(List<Object> data, String templatePath, OutputStream os) {
+    public static <T> void exportTemplate(List<T> data, String templatePath, OutputStream os) {
+        if (CollUtil.isEmpty(data)) {
+            throw new IllegalArgumentException("数据为空");
+        }
         ClassPathResource templateResource = new ClassPathResource(templatePath);
         ExcelWriter excelWriter = EasyExcel.write(os)
             .withTemplate(templateResource.getStream())
             .autoCloseStream(false)
             // 大数值自动转换 防止失真
             .registerConverter(new ExcelBigNumberConvert())
+            .registerWriteHandler(new DataWriteHandler(data.getFirst().getClass()))
             .build();
         WriteSheet writeSheet = EasyExcel.writerSheet().build();
-        if (CollUtil.isEmpty(data)) {
-            throw new IllegalArgumentException("数据为空");
-        }
+        FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
         // 单表多数据导出 模板格式为 {.属性}
-        for (Object d : data) {
-            excelWriter.fill(d, writeSheet);
+        for (T d : data) {
+            excelWriter.fill(d, fillConfig, writeSheet);
         }
         excelWriter.finish();
     }

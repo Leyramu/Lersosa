@@ -43,6 +43,14 @@ import java.util.Objects;
  */
 public class YmlPropertySourceFactory extends DefaultPropertySourceFactory {
 
+    /**
+     * 创建属性源.
+     *
+     * @param name   属性源名称
+     * @param resource 属性资源
+     * @return 属性源
+     * @throws IOException 如果发生I/O错误
+     */
     @Override
     @NonNull
     public PropertySource<?> createPropertySource(String name, EncodedResource resource) throws IOException {

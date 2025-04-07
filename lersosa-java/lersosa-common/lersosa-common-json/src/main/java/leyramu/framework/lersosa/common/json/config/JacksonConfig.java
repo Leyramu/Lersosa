@@ -51,6 +51,11 @@ import java.util.TimeZone;
 @AutoConfiguration(before = JacksonAutoConfiguration.class)
 public class JacksonConfig {
 
+    /**
+     * 配置序列化返回 JSON 处理.
+     *
+     * @return Jackson2ObjectMapperBuilderCustomizer
+     */
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer customizer() {
         return builder -> {

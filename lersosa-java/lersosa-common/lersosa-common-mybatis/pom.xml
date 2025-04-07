@@ -61,6 +61,12 @@
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
         </dependency>
 
+        <!--      Mybatis Plus JSQLParser      -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-jsqlparser</artifactId>
+        </dependency>
+
         <!--      P6Spy      -->
         <dependency>
             <groupId>p6spy</groupId>

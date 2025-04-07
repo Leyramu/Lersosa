@@ -37,12 +37,19 @@ import leyramu.framework.lersosa.common.encrypt.utils.EncryptUtils;
  */
 public class Base64Encryptor extends AbstractEncryptor {
 
+    /**
+     * 构造函数.
+     *
+     * @param context 加密上下文
+     */
     public Base64Encryptor(EncryptContext context) {
         super(context);
     }
 
     /**
      * 获得当前算法.
+     *
+     * @return 算法类型
      */
     @Override
     public AlgorithmType algorithm() {

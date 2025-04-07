@@ -55,6 +55,9 @@ import java.util.Map.Entry;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MailUtils {
 
+    /**
+     * 邮件发送实例.
+     */
     private static final MailAccount ACCOUNT = SpringUtils.getBean(MailAccount.class);
 
     /**

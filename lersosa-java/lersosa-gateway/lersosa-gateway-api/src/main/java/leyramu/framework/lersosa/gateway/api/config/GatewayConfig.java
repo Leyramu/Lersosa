@@ -38,6 +38,12 @@ import org.springframework.core.annotation.Order;
  */
 @Configuration
 public class GatewayConfig {
+
+    /**
+     * Sentinel 网关异常处理程序.
+     *
+     * @return Sentinel 降级处理程序
+     */
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SentinelFallbackHandler sentinelGatewayExceptionHandler() {

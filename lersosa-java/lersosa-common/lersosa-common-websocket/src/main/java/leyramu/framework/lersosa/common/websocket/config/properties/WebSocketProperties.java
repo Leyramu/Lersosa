@@ -37,6 +37,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class WebSocketProperties {
 
+    /**
+     * 是否启用.
+     */
     private Boolean enabled;
 
     /**

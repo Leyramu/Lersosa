@@ -37,11 +37,22 @@ import org.springframework.core.env.ConfigurableEnvironment;
  */
 public class ActuatorEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
+    /**
+     * 配置环境变量.
+     *
+     * @param environment 环境变量
+     * @param application 应用程序
+     */
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         System.setProperty("management.health.elasticsearch.enabled", "false");
     }
 
+    /**
+     * 获取优先级.
+     *
+     * @return 优先级
+     */
     @Override
     public int getOrder() {
         return Ordered.HIGHEST_PRECEDENCE;

@@ -47,8 +47,16 @@ import java.util.List;
 @AllArgsConstructor
 public class PlusTenantLineHandler implements TenantLineHandler {
 
+    /**
+     * 租户配置信息.
+     */
     private final TenantProperties tenantProperties;
 
+    /**
+     * 获取租户ID.
+     *
+     * @return 租户ID
+     */
     @Override
     public Expression getTenantId() {
         String tenantId = TenantHelper.getTenantId();
@@ -60,6 +68,12 @@ public class PlusTenantLineHandler implements TenantLineHandler {
         return new StringValue(tenantId);
     }
 
+    /**
+     * 根据表名判断是否忽略拼接多租户条件.
+     *
+     * @param tableName 表名
+     * @return 是否忽略
+     */
     @Override
     public boolean ignoreTable(String tableName) {
         String tenantId = TenantHelper.getTenantId();

@@ -36,11 +36,13 @@ import java.io.Serializable;
  * @version 1.0.0
  * @since 2024/11/6
  */
-
 @Data
 @NoArgsConstructor
 public class RoleDTO implements Serializable {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 

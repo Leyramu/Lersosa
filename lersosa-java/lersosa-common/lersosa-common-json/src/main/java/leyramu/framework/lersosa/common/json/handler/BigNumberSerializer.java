@@ -44,16 +44,34 @@ public class BigNumberSerializer extends NumberSerializer {
      * 提供实例.
      */
     public static final BigNumberSerializer INSTANCE = new BigNumberSerializer(Number.class);
+
     /**
      * 根据 JS Number.MAX_SAFE_INTEGER 与 Number.MIN_SAFE_INTEGER 得来.
      */
     private static final long MAX_SAFE_INTEGER = 9007199254740991L;
+
+    /**
+     * 根据 JS Number.MAX_SAFE_INTEGER 与 Number.MIN_SAFE_INTEGER 得来.
+     */
     private static final long MIN_SAFE_INTEGER = -9007199254740991L;
 
+    /**
+     * 构造函数.
+     *
+     * @param rawType 类型
+     */
     public BigNumberSerializer(Class<? extends Number> rawType) {
         super(rawType);
     }
 
+    /**
+     * 序列化.
+     *
+     * @param value    值
+     * @param gen      生成器
+     * @param provider 提供者
+     * @throws IOException IO 异常
+     */
     @Override
     public void serialize(Number value, JsonGenerator gen, SerializerProvider provider) throws IOException {
         // 超出范围 序列化位字符串

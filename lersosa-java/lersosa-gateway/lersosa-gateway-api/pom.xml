@@ -82,12 +82,6 @@
         <dependency>
             <groupId>leyramu.framework</groupId>
             <artifactId>lersosa-common-tenant</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>leyramu.framework</groupId>
-                    <artifactId>lersosa-common-mybatis</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!--      Lersosa Common Loadbalancer      -->
@@ -139,12 +133,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!--      Caffeine      -->
-        <dependency>
-            <groupId>com.github.ben-manes.caffeine</groupId>
-            <artifactId>caffeine</artifactId>
-        </dependency>
-
         <!--      Spring Cloud Alibaba Sentinel Gateway     -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -161,6 +149,18 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-loadbalancer</artifactId>
+        </dependency>
+
+        <!--    Spring Cloud Bootstrap    -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+
+        <!--      Caffeine      -->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
         </dependency>
 
         <!--      Hutool Http      -->

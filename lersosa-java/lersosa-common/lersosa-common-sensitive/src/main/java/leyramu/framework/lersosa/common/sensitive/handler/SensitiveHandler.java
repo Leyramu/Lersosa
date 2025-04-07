@@ -44,16 +44,35 @@ import java.util.Objects;
  * 数据脱敏json序列化工具.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @Slf4j
 public class SensitiveHandler extends JsonSerializer<String> implements ContextualSerializer {
 
+    /**
+     * 脱敏策略.
+     */
     private SensitiveStrategy strategy;
+
+    /**
+     * 脱敏角色key.
+     */
     private String roleKey;
+
+    /**
+     * 脱敏权限.
+     */
     private String perms;
 
+    /**
+     * 序列化.
+     *
+     * @param value       待序列化的值
+     * @param gen         Json 生成器
+     * @param serializers 序列化提供者
+     * @throws IOException IO 异常
+     */
     @Override
     public void serialize(String value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         try {
@@ -69,6 +88,14 @@ public class SensitiveHandler extends JsonSerializer<String> implements Contextu
         }
     }
 
+    /**
+     * 创建上下文序列化器.
+     *
+     * @param prov    序列化提供者
+     * @param property 属性
+     * @return Json 序列化器
+     * @throws JsonMappingException Json 映射异常
+     */
     @Override
     public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property) throws JsonMappingException {
         Sensitive annotation = property.getAnnotation(Sensitive.class);

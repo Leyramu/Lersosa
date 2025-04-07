@@ -38,39 +38,85 @@ import java.util.concurrent.Callable;
  */
 public class CaffeineCacheDecorator implements Cache {
 
+    /**
+     * Caffeine 缓存.
+     */
     private static final com.github.benmanes.caffeine.cache.Cache<Object, Object>
         CAFFEINE = SpringUtils.getBean("caffeine");
 
+    /**
+     * 缓存名称.
+     */
     private final String name;
+
+    /**
+     * Spring 缓存.
+     */
     private final Cache cache;
 
+    /**
+     * 构造函数.
+     *
+     * @param name  缓存名称
+     * @param cache Spring 缓存
+     */
     public CaffeineCacheDecorator(String name, Cache cache) {
         this.name = name;
         this.cache = cache;
     }
 
+    /**
+     * 获取缓存名称.
+     *
+     * @return 缓存名称
+     */
     @Override
     @NonNull
     public String getName() {
         return name;
     }
 
+    /**
+     * 获取原生缓存.
+     *
+     * @return 原生缓存
+     */
     @Override
     @NonNull
     public Object getNativeCache() {
         return cache.getNativeCache();
     }
 
+    /**
+     * 获取唯一键.
+     *
+     * @param key 键
+     * @return 唯一键
+     */
     public String getUniqueKey(Object key) {
         return name + ":" + key;
     }
 
+    /**
+     * 获取缓存值.
+     *
+     * @param key 键
+     * @return 缓存值
+     */
     @Override
     public ValueWrapper get(@NonNull Object key) {
         Object o = CAFFEINE.get(getUniqueKey(key), _ -> cache.get(key));
         return (ValueWrapper) o;
     }
 
+    /**
+     * 获取缓存值.
+     *
+     * @param key  键
+     * @param type 类型
+     * @param <T>  泛型
+     * @return 缓存值
+     */
     @SuppressWarnings("unchecked")
     @Override
     public <T> T get(@NonNull Object key, Class<T> type) {
@@ -78,23 +124,47 @@ public class CaffeineCacheDecorator implements Cache {
         return (T) o;
     }
 
+    /**
+     * 设置缓存值.
+     *
+     * @param key   键
+     * @param value 值
+     */
     @Override
     public void put(@NonNull Object key, Object value) {
         CAFFEINE.invalidate(getUniqueKey(key));
         cache.put(key, value);
     }
 
+    /**
+     * 设置缓存值.
+     *
+     * @param key   键
+     * @param value 值
+     * @return 值包装器
+     */
     @Override
     public ValueWrapper putIfAbsent(@NonNull Object key, Object value) {
         CAFFEINE.invalidate(getUniqueKey(key));
         return cache.putIfAbsent(key, value);
     }
 
+    /**
+     * 删除缓存值.
+     *
+     * @param key 键
+     */
     @Override
     public void evict(@NonNull Object key) {
         evictIfPresent(key);
     }
 
+    /**
+     * 删除缓存值.
+     *
+     * @param key 键
+     * @return 是否删除成功
+     */
     @Override
     public boolean evictIfPresent(@NonNull Object key) {
         boolean b = cache.evictIfPresent(key);
@@ -104,16 +174,32 @@ public class CaffeineCacheDecorator implements Cache {
         return b;
     }
 
+    /**
+     * 清空缓存.
+     */
     @Override
     public void clear() {
         cache.clear();
     }
 
+    /**
+     * 清空缓存.
+     *
+     * @return 是否成功
+     */
     @Override
     public boolean invalidate() {
         return cache.invalidate();
     }
 
+    /**
+     * 获取缓存值.
+     *
+     * @param key         键
+     * @param valueLoader 值加载器
+     * @param <T>         泛型
+     * @return 缓存值
+     */
     @SuppressWarnings("unchecked")
     @Override
     public <T> T get(@NonNull Object key, @NonNull Callable<T> valueLoader) {

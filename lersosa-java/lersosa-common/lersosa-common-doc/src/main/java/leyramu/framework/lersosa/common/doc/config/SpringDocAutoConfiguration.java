@@ -69,11 +69,23 @@ import java.util.Optional;
 @ConditionalOnProperty(name = "springdoc.api-docs.enabled", havingValue = "true", matchIfMissing = true)
 public class SpringDocAutoConfiguration {
 
+    /**
+     * 服务器信息.
+     */
     private final ServerProperties serverProperties;
 
+    /**
+     * 应用名称.
+     */
     @Value("${spring.application.name}")
     private String appName;
 
+    /**
+     * 构建 OpenAPI 对象.
+     *
+     * @param properties 文档配置
+     * @return OpenAPI 对象
+     */
     @Bean
     @ConditionalOnMissingBean(OpenAPI.class)
     public OpenAPI openApi(SpringDocProperties properties) {
@@ -110,7 +122,9 @@ public class SpringDocAutoConfiguration {
     }
 
     /**
-     * 安全方案
+     * 安全方案.
+     *
+     * @return 安全方案
      */
     public SecurityScheme securityScheme() {
         return new SecurityScheme().type(SecurityScheme.Type.APIKEY)
@@ -119,6 +133,12 @@ public class SpringDocAutoConfiguration {
             .scheme("Bearer");
     }
 
+    /**
+     * 文档基本信息.
+     *
+     * @param infoProperties 文档基本信息
+     * @return 文档基本信息
+     */
     private Info convertInfo(SpringDocProperties.InfoProperties infoProperties) {
         Info info = new Info();
         info.setTitle(infoProperties.getTitle());
@@ -131,6 +151,8 @@ public class SpringDocAutoConfiguration {
 
     /**
      * 自定义 openapi 处理器.
+     *
+     * @return openapi 处理器
      */
     @Bean
     public OpenAPIService openApiBuilder(
@@ -144,6 +166,8 @@ public class SpringDocAutoConfiguration {
 
     /**
      * 对已经生成好的 OpenApi 进行自定义操作.
+     *
+     * @return OpenApiCustomizer
      */
     @Bean
     public OpenApiCustomizer openApiCustomizer() {

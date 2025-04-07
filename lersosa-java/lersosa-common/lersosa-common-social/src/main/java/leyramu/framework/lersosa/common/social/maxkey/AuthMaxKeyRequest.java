@@ -40,26 +40,43 @@ import java.util.Objects;
  * MaxKey 认证.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 public class AuthMaxKeyRequest extends AuthDefaultRequest {
 
+    /**
+     * 设定 MaxKey 服务器地址.
+     */
     public static final String SERVER_URL = SpringUtils.getProperty("justauth.type.maxkey.server-url");
 
     /**
      * 设定归属域.
+     *
+     * @param config 配置信息
      */
     public AuthMaxKeyRequest(AuthConfig config) {
         super(config, AuthMaxKeySource.MAXKEY);
     }
 
+    /**
+     * 设定 MaxKey 服务器地址.
+     *
+     * @param config         配置信息
+     * @param authStateCache 缓存
+     */
     public AuthMaxKeyRequest(AuthConfig config, AuthStateCache authStateCache) {
         super(config, AuthMaxKeySource.MAXKEY, authStateCache);
     }
 
+    /**
+     * 获取 access token.
+     *
+     * @param authCallback 回调信息
+     * @return AuthToken
+     */
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         String body = doPostAuthorizationCode(authCallback.getCode());
         Dict object = JsonUtils.parseMap(body);
         // oauth/token 验证异常
@@ -79,8 +96,14 @@ public class AuthMaxKeyRequest extends AuthDefaultRequest {
             .build();
     }
 
+    /**
+     * 获取用户信息.
+     *
+     * @param authToken 认证信息
+     * @return AuthUser
+     */
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String body = doGetUserInfo(authToken);
         Dict object = JsonUtils.parseMap(body);
         // oauth/token 验证异常

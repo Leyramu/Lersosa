@@ -41,9 +41,19 @@ import org.apache.dubbo.config.annotation.DubboReference;
 @TranslationType(type = TransConstant.USER_ID_TO_NAME)
 public class UserNameTranslationImpl implements TranslationInterface<String> {
 
+    /**
+     * 远程用户服务.
+     */
     @DubboReference
     private RemoteUserService remoteUserService;
 
+    /**
+     * 翻译.
+     *
+     * @param key   键
+     * @param other 其他
+     * @return {@link String}
+     */
     @Override
     public String translation(Object key, String other) {
         return remoteUserService.selectUserNameById((Long) key);

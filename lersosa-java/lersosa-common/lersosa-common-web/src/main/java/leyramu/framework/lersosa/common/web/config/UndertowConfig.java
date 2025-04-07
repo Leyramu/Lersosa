@@ -24,6 +24,8 @@
 package leyramu.framework.lersosa.common.web.config;
 
 import io.undertow.server.DefaultByteBufferPool;
+import io.undertow.server.handlers.DisallowedMethodsHandler;
+import io.undertow.util.HttpString;
 import io.undertow.websockets.jsr.WebSocketDeploymentInfo;
 import leyramu.framework.lersosa.common.core.utils.SpringUtils;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -35,25 +37,46 @@ import org.springframework.core.task.VirtualThreadTaskExecutor;
  * Undertow 自定义配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @AutoConfiguration
 public class UndertowConfig implements WebServerFactoryCustomizer<UndertowServletWebServerFactory> {
 
+    /**
+     * 自定义 Undertow 配置.
+     *
+     * @param factory UndertowServletWebServerFactory
+     */
     @Override
     public void customize(UndertowServletWebServerFactory factory) {
         // 默认不直接分配内存 如果项目中使用了 websocket 建议直接分配
         factory.addDeploymentInfoCustomizers(deploymentInfo -> {
+            // 配置 WebSocket 部署信息，设置 WebSocket 使用的缓冲区池
             WebSocketDeploymentInfo webSocketDeploymentInfo = new WebSocketDeploymentInfo();
             webSocketDeploymentInfo.setBuffers(new DefaultByteBufferPool(true, 1024));
             deploymentInfo.addServletContextAttribute("io.undertow.websockets.jsr.WebSocketDeploymentInfo", webSocketDeploymentInfo);
-            // 使用虚拟线程
+
+            // 如果启用了虚拟线程，配置 Undertow 使用虚拟线程池
             if (SpringUtils.isVirtual()) {
+                // 创建虚拟线程池，线程池前缀为 "undertow-"
                 VirtualThreadTaskExecutor executor = new VirtualThreadTaskExecutor("undertow-");
+                // 设置虚拟线程池为执行器和异步执行器
                 deploymentInfo.setExecutor(executor);
                 deploymentInfo.setAsyncExecutor(executor);
             }
+
+            // 配置禁止某些不安全的 HTTP 方法（如 CONNECT、TRACE、TRACK）
+            deploymentInfo.addInitialHandlerChainWrapper(handler -> {
+                // 禁止三个方法 CONNECT/TRACE/TRACK 也是不安全的 避免爬虫骚扰
+                HttpString[] disallowedHttpMethods = {
+                    HttpString.tryFromString("CONNECT"),
+                    HttpString.tryFromString("TRACE"),
+                    HttpString.tryFromString("TRACK")
+                };
+                // 使用 DisallowedMethodsHandler 拦截并拒绝这些方法的请求
+                return new DisallowedMethodsHandler(handler, disallowedHttpMethods);
+            });
         });
     }
 }

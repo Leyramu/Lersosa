@@ -35,12 +35,17 @@ import org.springframework.context.annotation.Primary;
  * 短信配置类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @AutoConfiguration(after = {RedisConfiguration.class})
 public class SmsAutoConfiguration {
 
+    /**
+     * 短信持久层.
+     *
+     * @return SmsDao
+     */
     @Primary
     @Bean
     public SmsDao smsDao() {
@@ -49,6 +54,8 @@ public class SmsAutoConfiguration {
 
     /**
      * 异常处理器.
+     *
+     * @return SmsExceptionHandler
      */
     @Bean
     public SmsExceptionHandler smsExceptionHandler() {

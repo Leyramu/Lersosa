@@ -34,5 +34,10 @@ import com.alibaba.excel.read.listener.ReadListener;
  */
 public interface ExcelListener<T> extends ReadListener<T> {
 
+    /**
+     * 获取 ExcelResult.
+     *
+     * @return ExcelResult
+     */
     ExcelResult<T> getExcelResult();
 }

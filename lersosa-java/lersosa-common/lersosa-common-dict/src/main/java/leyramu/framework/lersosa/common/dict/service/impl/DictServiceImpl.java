@@ -35,6 +35,7 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -43,15 +44,21 @@ import java.util.stream.Collectors;
  * 字典服务服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @Service
 @RequiredArgsConstructor
 public class DictServiceImpl implements DictService {
 
+    /**
+     * 本地缓存.
+     */
     private final Cache<Object, Object> ceffeine;
 
+    /**
+     * 远程字典服务.
+     */
     @DubboReference
     private RemoteDictService remoteDictService;
 
@@ -101,9 +108,20 @@ public class DictServiceImpl implements DictService {
         }
     }
 
+    /**
+     * 获取字典下所有的字典值与标签
+     *
+     * @param dictType 字典类型
+     * @return dictValue为key，dictLabel为值组成的Map
+     */
     @Override
     public Map<String, String> getAllDictByDictType(String dictType) {
         List<RemoteDictDataVo> list = remoteDictService.selectDictDataByType(dictType);
-        return StreamUtils.toMap(list, RemoteDictDataVo::getDictValue, RemoteDictDataVo::getDictLabel);
+        // 保证顺序
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        for (RemoteDictDataVo vo : list) {
+            map.put(vo.getDictValue(), vo.getDictLabel());
+        }
+        return map;
     }
 }

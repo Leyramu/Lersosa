@@ -43,6 +43,9 @@ import java.io.Serial;
 @AllArgsConstructor
 public final class SseException extends RuntimeException {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -61,21 +64,41 @@ public final class SseException extends RuntimeException {
      */
     private String detailMessage;
 
+    /**
+     * 空构造方法，避免反序列化问题.
+     *
+     * @param message 错误提示
+     */
     @SuppressWarnings("unused")
     public SseException(String message) {
         this.message = message;
     }
 
+    /**
+     * 构造方法.
+     *
+     * @param message 错误提示
+     * @param code    错误码
+     */
     public SseException(String message, Integer code) {
         this.message = message;
         this.code = code;
     }
 
+    /**
+     * 错误信息.
+     * @return 错误信息
+     */
     @Override
     public String getMessage() {
         return message;
     }
 
+    /**
+     * 设置错误信息.
+     * @param message 错误信息
+     * @return this
+     */
     public SseException setMessage(String message) {
         this.message = message;
         return this;

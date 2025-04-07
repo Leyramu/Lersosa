@@ -37,6 +37,9 @@ import org.springframework.stereotype.Service;
 @Service("sdss")
 public class SysDataScopeService {
 
+    /**
+     * 远程调用数据权限服务.
+     */
     @DubboReference
     private RemoteDataScopeService remoteDataScopeService;
 

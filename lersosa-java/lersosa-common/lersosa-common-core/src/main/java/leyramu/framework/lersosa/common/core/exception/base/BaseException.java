@@ -45,6 +45,9 @@ import java.io.Serial;
 @AllArgsConstructor
 public class BaseException extends RuntimeException {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -68,26 +71,55 @@ public class BaseException extends RuntimeException {
      */
     private String defaultMessage;
 
+    /**
+     * 构造函数.
+     *
+     * @param module 模块
+     * @param code   编码
+     * @param args   参数
+     */
     @SuppressWarnings("unused")
     public BaseException(String module, String code, Object[] args) {
         this(module, code, args, null);
     }
 
+    /**
+     * 构造函数.
+     *
+     * @param module         模块
+     * @param defaultMessage 默认消息
+     */
     @SuppressWarnings("unused")
     public BaseException(String module, String defaultMessage) {
         this(module, null, null, defaultMessage);
     }
 
+    /**
+     * 构造函数.
+     *
+     * @param code 编码
+     * @param args 参数
+     */
     @SuppressWarnings("unused")
     public BaseException(String code, Object[] args) {
         this(null, code, args, null);
     }
 
+    /**
+     * 构造函数.
+     *
+     * @param defaultMessage 自定义消息
+     */
     @SuppressWarnings("unused")
     public BaseException(String defaultMessage) {
         this(null, null, null, defaultMessage);
     }
 
+    /**
+     * 获取消息.
+     *
+     * @return 消息
+     */
     @Override
     public String getMessage() {
         String message = null;

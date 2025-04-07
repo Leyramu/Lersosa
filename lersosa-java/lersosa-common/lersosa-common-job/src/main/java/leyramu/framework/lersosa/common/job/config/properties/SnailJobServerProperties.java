@@ -37,7 +37,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "snail-job.server")
 public class SnailJobServerProperties {
 
+    /**
+     * 服务器名称.
+     */
     private String serverName;
 
+    /**
+     * 服务器端口.
+     */
     private String port;
 }

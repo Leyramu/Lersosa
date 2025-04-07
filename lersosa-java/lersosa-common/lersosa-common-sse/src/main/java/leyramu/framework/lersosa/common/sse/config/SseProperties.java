@@ -37,6 +37,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("sse")
 public class SseProperties {
 
+    /**
+     * 是否启用.
+     */
     private Boolean enabled;
 
     /**

@@ -27,13 +27,17 @@ package leyramu.framework.lersosa.common.sensitive.core;
  * 脱敏服务.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 public interface SensitiveService {
 
     /**
      * 是否脱敏.
+     *
+     * @param roleKey 角色key
+     * @param perms   权限
+     * @return 是否脱敏
      */
     boolean isSensitive(String roleKey, String perms);
 }

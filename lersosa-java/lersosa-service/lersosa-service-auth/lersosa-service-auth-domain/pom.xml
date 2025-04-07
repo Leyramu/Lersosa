@@ -54,22 +54,28 @@
             <artifactId>lersosa-common-tenant</artifactId>
         </dependency>
 
-        <!--      Lersosa Common I18n      -->
+        <!--      Lersosa Common Social      -->
         <dependency>
             <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-common-i18n</artifactId>
+            <artifactId>lersosa-common-social</artifactId>
         </dependency>
 
-        <!--      Lersosa API Resource      -->
+        <!--      Lersosa Common Security      -->
         <dependency>
             <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-api-resource</artifactId>
+            <artifactId>lersosa-common-security</artifactId>
         </dependency>
 
-        <!--      Lersosa API System      -->
+        <!--      Lersosa Common Log      -->
         <dependency>
             <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-api-system</artifactId>
+            <artifactId>lersosa-common-log</artifactId>
+        </dependency>
+
+        <!--      Hutool Captcha      -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-captcha</artifactId>
         </dependency>
     </dependencies>
 </project>

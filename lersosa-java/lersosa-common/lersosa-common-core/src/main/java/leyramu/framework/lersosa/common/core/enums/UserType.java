@@ -48,8 +48,17 @@ public enum UserType {
      */
     APP_USER("app_user");
 
+    /**
+     * 用户类型.
+     */
     private final String userType;
 
+    /**
+     * 根据字符串获取枚举.
+     *
+     * @param str 字符串
+     * @return 枚举
+     */
     public static UserType getUserType(String str) {
         for (UserType value : values()) {
             if (StringUtils.contains(str, value.getUserType())) {

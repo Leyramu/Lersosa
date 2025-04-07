@@ -64,28 +64,38 @@ public class ExcelDownHandler implements SheetWriteHandler {
      * Excel表格中的列名英文.
      */
     private static final String EXCEL_COLUMN_NAME = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
     /**
      * 单选数据Sheet名.
      */
     private static final String OPTIONS_SHEET_NAME = "options";
+
     /**
      * 联动选择数据Sheet名的头.
      */
     private static final String LINKED_OPTIONS_SHEET_NAME = "linkedOptions";
+
     /**
      * 下拉可选项.
      */
     private final List<DropDownOptions> dropDownOptions;
     private final DictService dictService;
+
     /**
      * 当前单选进度.
      */
     private int currentOptionsColumnIndex;
+
     /**
      * 当前联动选择进度.
      */
     private int currentLinkedOptionsSheetIndex;
 
+    /**
+     * 构造方法.
+     *
+     * @param options 下拉选项
+     */
     public ExcelDownHandler(List<DropDownOptions> options) {
         this.dropDownOptions = options;
         this.currentOptionsColumnIndex = 0;

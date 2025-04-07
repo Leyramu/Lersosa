@@ -1,8 +1,4 @@
-jasypt:
-  encryptor:
-    algorithm: PBEWITHHMACSHA512ANDAES_256
-    password: @JASYPT-ENCRYPTOR-PASSWORD@
-
+# =========================== 服务器配置 ===========================
 server:
   port: ${SERVER-PORT:9310}
   ssl:
@@ -15,28 +11,31 @@ server:
     enabled: @SSL-ENABLED@
   shutdown: graceful
 
+# =========================== Spring 配置 ===========================
 spring:
   application:
+    # 应用名称
     name: @pom.parent.artifactId@
   profiles:
+    # 环境配置
     active: @PROFILE-ACTIVE@
 
----
-spring:
-  cloud:
-    nacos:
-      server-addr: @NACOS-SERVER-ADDRESS@
-      username: @NACOS-USERNAME@
-      password: @NACOS-PASSWORD@
-      discovery:
-        secure: @SSL-ENABLED@
-        namespace: @NACOS-NAMESPACE@
-        group: @NACOS-SERVICE-GROUP@
-        cluster-name: ${spring.application.name}
-      config:
-        namespace: @NACOS-NAMESPACE@
-        file-extension: yml
-  config:
-    import:
-    - optional:nacos:application-common.${spring.cloud.nacos.config.file-extension}?group=@NACOS-DEFAULT-GROUP@
-    - optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}?group=@NACOS-SERVICE-GROUP@
+#---
+#spring:
+#  cloud:
+#    nacos:
+#      server-addr: @NACOS-SERVER-ADDRESS@
+#      username: @NACOS-USERNAME@
+#      password: @NACOS-PASSWORD@
+#      discovery:
+#        secure: @SSL-ENABLED@
+#        namespace: @NACOS-NAMESPACE@
+#        group: @NACOS-SERVICE-GROUP@
+#        cluster-name: ${spring.application.name}
+#      config:
+#        namespace: @NACOS-NAMESPACE@
+#        file-extension: yml
+#  config:
+#    import:
+#    - optional:nacos:application-common.${spring.cloud.nacos.config.file-extension}?group=@NACOS-DEFAULT-GROUP@
+#    - optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}?group=@NACOS-SERVICE-GROUP@

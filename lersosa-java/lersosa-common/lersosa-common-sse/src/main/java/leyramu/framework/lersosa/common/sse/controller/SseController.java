@@ -24,7 +24,7 @@
 package leyramu.framework.lersosa.common.sse.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.satoken.utils.LoginHelper;
 import leyramu.framework.lersosa.common.sse.core.SseEmitterManager;
 import leyramu.framework.lersosa.common.sse.dto.SseMessageDto;
@@ -50,10 +50,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SseController implements DisposableBean {
 
+    /**
+     * SSE 发送器管理器.
+     */
     private final SseEmitterManager sseEmitterManager;
 
     /**
      * 建立 SSE 连接.
+     *
+     * @return SseEmitter
      */
     @GetMapping(value = "${sse.path}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter connect() {
@@ -64,13 +69,15 @@ public class SseController implements DisposableBean {
 
     /**
      * 关闭 SSE 连接.
+     *
+     * @return Result<Void>
      */
     @GetMapping(value = "${sse.path}/close")
-    public R<Void> close() {
+    public Result<Void> close() {
         String tokenValue = StpUtil.getTokenValue();
         Long userId = LoginHelper.getUserId();
         sseEmitterManager.disconnect(userId, tokenValue);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
@@ -78,25 +85,27 @@ public class SseController implements DisposableBean {
      *
      * @param userId 目标用户的 ID
      * @param msg    要发送的消息内容
+     * @return Result<Void>
      */
     @GetMapping(value = "${sse.path}/send")
-    public R<Void> send(Long userId, String msg) {
+    public Result<Void> send(Long userId, String msg) {
         SseMessageDto dto = new SseMessageDto();
         dto.setUserIds(List.of(userId));
         dto.setMessage(msg);
         sseEmitterManager.publishMessage(dto);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
      * 向所有用户发送消息.
      *
      * @param msg 要发送的消息内容
+     * @return Result<Void>
      */
     @GetMapping(value = "${sse.path}/sendAll")
-    public R<Void> send(String msg) {
+    public Result<Void> send(String msg) {
         sseEmitterManager.publishAll(msg);
-        return R.ok();
+        return Result.ok();
     }
 
     /**

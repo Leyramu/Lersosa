@@ -42,19 +42,50 @@ import java.util.Set;
  * 登录鉴权助手.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LoginHelper {
 
+    /**
+     * 登录用户信息.
+     */
     public static final String LOGIN_USER_KEY = "loginUser";
+
+    /**
+     * 租户ID.
+     */
     public static final String TENANT_KEY = "tenantId";
+
+    /**
+     * 用户ID.
+     */
     public static final String USER_KEY = "userId";
+
+    /**
+     * 用户名.
+     */
     public static final String USER_NAME_KEY = "userName";
+
+    /**
+     * 部门ID.
+     */
     public static final String DEPT_KEY = "deptId";
+
+    /**
+     * 部门名.
+     */
     public static final String DEPT_NAME_KEY = "deptName";
+
+    /**
+     * 部门类别编码.
+     */
     public static final String DEPT_CATEGORY_KEY = "deptCategory";
+
+    /**
+     * 客户端ID.
+     */
     public static final String CLIENT_KEY = "clientid";
 
     /**
@@ -79,23 +110,25 @@ public class LoginHelper {
     /**
      * 获取用户(多级缓存).
      */
-    public static LoginUser getLoginUser() {
+    @SuppressWarnings("unchecked cast")
+    public static <T extends LoginUser> T getLoginUser() {
         SaSession session = StpUtil.getTokenSession();
         if (ObjectUtil.isNull(session)) {
             return null;
         }
-        return (LoginUser) session.get(LOGIN_USER_KEY);
+        return (T) session.get(LOGIN_USER_KEY);
     }
 
     /**
      * 获取用户基于token.
      */
-    public static LoginUser getLoginUser(String token) {
+    @SuppressWarnings("unchecked cast")
+    public static <T extends LoginUser> T getLoginUser(String token) {
         SaSession session = StpUtil.getTokenSessionByToken(token);
         if (ObjectUtil.isNull(session)) {
             return null;
         }
-        return (LoginUser) session.get(LOGIN_USER_KEY);
+        return (T) session.get(LOGIN_USER_KEY);
     }
 
     /**
@@ -200,7 +233,11 @@ public class LoginHelper {
      * @return 结果
      */
     public static boolean isTenantAdmin() {
-        return Convert.toBool(isTenantAdmin(getLoginUser().getRolePermission()));
+        LoginUser loginUser = getLoginUser();
+        if (loginUser == null) {
+            return false;
+        }
+        return Convert.toBool(isTenantAdmin(loginUser.getRolePermission()));
     }
 
     /**

@@ -24,7 +24,7 @@
 package leyramu.framework.lersosa.common.dubbo.config;
 
 import leyramu.framework.lersosa.common.core.utils.StringUtils;
-import lombok.NonNull;
+import org.apache.dubbo.common.constants.CommonConstants;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -38,7 +38,7 @@ import java.net.InetAddress;
  * dubbo自定义IP注入(避免IP不正确问题).
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 public class CustomBeanFactoryPostProcessor implements BeanFactoryPostProcessor, Ordered {
@@ -60,8 +60,8 @@ public class CustomBeanFactoryPostProcessor implements BeanFactoryPostProcessor,
      * @throws BeansException 如果在处理过程中发生错误
      */
     @Override
-    public void postProcessBeanFactory(@NonNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        String property = System.getProperty("DUBBO_IP_TO_REGISTRY");
+        public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+        String property = System.getProperty(CommonConstants.DubboProperty.DUBBO_IP_TO_REGISTRY);
         if (StringUtils.isNotBlank(property)) {
             return;
         }
@@ -85,6 +85,6 @@ public class CustomBeanFactoryPostProcessor implements BeanFactoryPostProcessor,
             }
         }
         // 设置系统属性 DUBBO_IP_TO_REGISTRY 为获取到的 IP 地址
-        System.setProperty("DUBBO_IP_TO_REGISTRY", ip);
+        System.setProperty(CommonConstants.DubboProperty.DUBBO_IP_TO_REGISTRY, ip);
     }
 }

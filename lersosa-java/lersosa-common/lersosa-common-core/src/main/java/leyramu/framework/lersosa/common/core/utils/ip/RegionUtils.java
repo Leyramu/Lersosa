@@ -43,6 +43,9 @@ import java.io.File;
 @Slf4j
 public class RegionUtils {
 
+    /**
+     * 创建一个完全基于内存的查询对象.
+     */
     private static final Searcher SEARCHER;
 
     static {

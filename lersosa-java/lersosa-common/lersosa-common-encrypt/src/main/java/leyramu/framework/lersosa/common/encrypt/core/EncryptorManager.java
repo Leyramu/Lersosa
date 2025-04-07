@@ -26,6 +26,7 @@ package leyramu.framework.lersosa.common.encrypt.core;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReflectUtil;
+import leyramu.framework.lersosa.common.core.utils.ObjectUtils;
 import leyramu.framework.lersosa.common.core.utils.StringUtils;
 import leyramu.framework.lersosa.common.encrypt.annotation.EncryptField;
 import lombok.NoArgsConstructor;
@@ -82,10 +83,7 @@ public class EncryptorManager {
      * 获取类加密字段缓存.
      */
     public Set<Field> getFieldCache(Class<?> sourceClazz) {
-        if (ObjectUtil.isNotNull(fieldCache)) {
-            return fieldCache.get(sourceClazz);
-        }
-        return null;
+        return ObjectUtils.notNullGetter(fieldCache, f -> f.get(sourceClazz));
     }
 
     /**

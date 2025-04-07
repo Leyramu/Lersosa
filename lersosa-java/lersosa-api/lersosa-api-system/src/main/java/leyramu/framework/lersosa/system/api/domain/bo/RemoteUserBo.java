@@ -47,6 +47,9 @@ import java.util.Date;
 @NoArgsConstructor
 public class RemoteUserBo implements Serializable {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 

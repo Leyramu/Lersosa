@@ -27,7 +27,6 @@ import cn.dev33.satoken.dao.SaTokenDao;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
 import leyramu.framework.lersosa.common.core.utils.reflect.ReflectUtils;
-import leyramu.framework.lersosa.common.mybatis.config.MybatisPlusConfiguration;
 import leyramu.framework.lersosa.common.redis.config.RedisConfiguration;
 import leyramu.framework.lersosa.common.redis.config.properties.RedissonProperties;
 import leyramu.framework.lersosa.common.tenant.core.TenantSaTokenDao;
@@ -39,7 +38,7 @@ import org.redisson.config.ClusterServersConfig;
 import org.redisson.config.SingleServerConfig;
 import org.redisson.spring.starter.RedissonAutoConfigurationCustomizer;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
@@ -50,7 +49,7 @@ import org.springframework.context.annotation.Primary;
  * 租户配置类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @SuppressWarnings("all")
@@ -59,6 +58,28 @@ import org.springframework.context.annotation.Primary;
 @ConditionalOnProperty(value = "tenant.enable", havingValue = "true")
 public class TenantConfiguration {
 
+    /**
+     * 多租户配置.
+     */
+    @ConditionalOnClass(TenantLineInnerInterceptor.class)
+    @AutoConfiguration
+    static class MybatisPlusConfig {
+
+        /**
+         * 多租户插件
+         */
+        @Bean
+        public TenantLineInnerInterceptor tenantLineInnerInterceptor(TenantProperties tenantProperties) {
+            return new TenantLineInnerInterceptor(new PlusTenantLineHandler(tenantProperties));
+        }
+    }
+
+    /**
+     * 多租户redisson配置.
+     *
+     * @param redissonProperties redisson配置
+     * @return Redisson 自动配置定制器
+     */
     @Bean
     public RedissonAutoConfigurationCustomizer tenantRedissonCustomizer(RedissonProperties redissonProperties) {
         return config -> {
@@ -68,14 +89,12 @@ public class TenantConfiguration {
                 // 使用单机模式
                 // 设置多租户 redis key前缀
                 singleServerConfig.setNameMapper(nameMapper);
-                ReflectUtils.invokeSetter(config, "singleServerConfig", singleServerConfig);
             }
             ClusterServersConfig clusterServersConfig = ReflectUtils.invokeGetter(config, "clusterServersConfig");
             // 集群配置方式 参考下方注释
             if (ObjectUtil.isNotNull(clusterServersConfig)) {
                 // 设置多租户 redis key前缀
                 clusterServersConfig.setNameMapper(nameMapper);
-                ReflectUtils.invokeSetter(config, "clusterServersConfig", clusterServersConfig);
             }
         };
     }
@@ -96,18 +115,5 @@ public class TenantConfiguration {
     @Bean
     public SaTokenDao tenantSaTokenDao() {
         return new TenantSaTokenDao();
-    }
-
-    @ConditionalOnBean(MybatisPlusConfiguration.class)
-    @AutoConfiguration(after = {MybatisPlusConfiguration.class})
-    static class MybatisPlusConfig {
-
-        /**
-         * 多租户插件.
-         */
-        @Bean
-        public TenantLineInnerInterceptor tenantLineInnerInterceptor(TenantProperties tenantProperties) {
-            return new TenantLineInnerInterceptor(new PlusTenantLineHandler(tenantProperties));
-        }
     }
 }

@@ -35,9 +35,17 @@ import java.io.Serial;
 @SuppressWarnings("unused")
 public class FileNameLengthLimitExceededException extends FileException {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 构造函数.
+     *
+     * @param defaultFileNameLength 默认文件名长度
+     */
     public FileNameLengthLimitExceededException(int defaultFileNameLength) {
         super("upload.filename.exceed.length", new Object[]{defaultFileNameLength});
     }

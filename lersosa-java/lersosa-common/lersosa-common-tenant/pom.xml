@@ -54,11 +54,5 @@
             <groupId>leyramu.framework</groupId>
             <artifactId>lersosa-common-redis</artifactId>
         </dependency>
-
-        <!--      MyBatis Plus Extension      -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-extension</artifactId>
-        </dependency>
     </dependencies>
 </project>

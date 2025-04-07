@@ -44,6 +44,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class PlusSaTokenDao implements SaTokenDao {
 
+    /**
+     * 缓存.
+     */
     private static final Cache<String, Object> CAFFEINE = Caffeine.newBuilder()
         // 设置最后一次写入或访问后经过固定时间过期
         .expireAfterWrite(5, TimeUnit.SECONDS)

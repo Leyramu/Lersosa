@@ -35,17 +35,22 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 通用配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @AutoConfiguration
 public class ResourcesConfig implements WebMvcConfigurer {
 
+    /**
+     * 注册拦截器.
+     */
     @Override
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
-
     }
 
+    /**
+     * 注册静态资源映射.
+     */
     @Override
     public void addResourceHandlers(@NonNull ResourceHandlerRegistry registry) {
     }

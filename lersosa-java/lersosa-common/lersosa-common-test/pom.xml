@@ -86,7 +86,6 @@
             <artifactId>junit-platform-launcher</artifactId>
         </dependency>
 
-
         <!--      Mockito      -->
         <dependency>
             <groupId>org.mockito</groupId>

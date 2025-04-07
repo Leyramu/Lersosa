@@ -46,6 +46,8 @@ public class CacheConfiguration {
 
     /**
      * caffeine 本地缓存处理器.
+     *
+     * @return caffeine
      */
     @Bean
     public Cache<Object, Object> caffeine() {
@@ -61,6 +63,8 @@ public class CacheConfiguration {
 
     /**
      * 自定义缓存管理器 整合spring-cache.
+     *
+     * @return cacheManager
      */
     @Bean
     public CacheManager cacheManager() {

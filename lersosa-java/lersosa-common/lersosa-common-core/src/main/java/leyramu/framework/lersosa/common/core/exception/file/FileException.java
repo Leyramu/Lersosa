@@ -36,11 +36,19 @@ import java.io.Serial;
  */
 public class FileException extends BaseException {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 构造函数.
+     *
+     * @param code 错误码
+     * @param args 参数
+     */
     public FileException(String code, Object[] args) {
         super("file", code, args, null);
     }
-
 }

@@ -41,9 +41,19 @@ import org.apache.dubbo.config.annotation.DubboReference;
 @TranslationType(type = TransConstant.DEPT_ID_TO_NAME)
 public class DeptNameTranslationImpl implements TranslationInterface<String> {
 
+    /**
+     * 远程调用部门服务.
+     */
     @DubboReference
     private RemoteDeptService remoteDeptService;
 
+    /**
+     * 根据部门ID获取部门名称.
+     *
+     * @param key   部门ID
+     * @param other 其他参数
+     * @return 部门名称
+     */
     @Override
     public String translation(Object key, String other) {
         return remoteDeptService.selectDeptNameByIds(key.toString());

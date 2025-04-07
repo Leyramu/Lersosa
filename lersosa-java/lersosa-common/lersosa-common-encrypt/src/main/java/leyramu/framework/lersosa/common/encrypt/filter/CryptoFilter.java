@@ -52,10 +52,22 @@ import java.io.IOException;
 public class CryptoFilter implements Filter {
     private final ApiDecryptProperties properties;
 
+    /**
+     * 构造函数.
+     *
+     * @param properties API 解密属性
+     */
     public CryptoFilter(ApiDecryptProperties properties) {
         this.properties = properties;
     }
 
+    /**
+     * 过滤器.
+     *
+     * @param request  请求
+     * @param response 响应
+     * @param chain    过滤器链
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
@@ -108,6 +120,9 @@ public class CryptoFilter implements Filter {
 
     /**
      * 获取 ApiEncrypt 注解.
+     *
+     * @param servletRequest 请求
+     * @return ApiEncrypt 注解
      */
     private ApiEncrypt getApiEncryptAnnotation(HttpServletRequest servletRequest) {
         RequestMappingHandlerMapping handlerMapping = SpringUtils.getBean("requestMappingHandlerMapping", RequestMappingHandlerMapping.class);
@@ -129,6 +144,9 @@ public class CryptoFilter implements Filter {
         return null;
     }
 
+    /**
+     * 销毁.
+     */
     @Override
     public void destroy() {
         Filter.super.destroy();

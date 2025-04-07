@@ -26,59 +26,83 @@ package com.alibaba.csp.sentinel.adapter.gateway.sc.callback;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.InvalidMediaTypeException;
 import org.springframework.http.MediaType;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
 
-import static org.springframework.web.reactive.function.BodyInserters.fromObject;
+import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
-// https://github.com/alibaba/Sentinel/issues/3298
-// 临时解决 sentinel 限流插件 jdk17 报错问题
 
 /**
- * The default implementation of {@link BlockRequestHandler}.
- * Compatible with Spring WebFlux and Spring Cloud Gateway.
+ * {@link BlockRequestHandler} 的默认实现与 Spring WebFlux 和 Spring Cloud 网关兼容.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
+@SuppressWarnings("unused")
 public class DefaultBlockRequestHandler implements BlockRequestHandler {
 
+    /**
+     * 默认的错误消息前缀.
+     */
     private static final String DEFAULT_BLOCK_MSG_PREFIX = "Blocked by Sentinel: ";
 
+    /**
+     * 处理请求.
+     *
+     * @param exchange 交换机
+     * @param ex       错误信息
+     * @return 响应
+     */
     @Override
     public Mono<ServerResponse> handleRequest(ServerWebExchange exchange, Throwable ex) {
         if (acceptsHtml(exchange)) {
             return htmlErrorResponse(ex);
         }
-        // JSON result by default.
+        // 默认为 JSON 结果.
         return ServerResponse.status(HttpStatus.TOO_MANY_REQUESTS)
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .body(fromObject(buildErrorResult(ex)));
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(fromValue(buildErrorResult(ex)));
     }
 
+    /**
+     * 构建 HTML 错误结果.
+     *
+     * @param ex 错误信息
+     * @return HTML 错误结果
+     */
     private Mono<ServerResponse> htmlErrorResponse(Throwable ex) {
         return ServerResponse.status(HttpStatus.TOO_MANY_REQUESTS)
             .contentType(MediaType.TEXT_PLAIN)
-            .syncBody(DEFAULT_BLOCK_MSG_PREFIX + ex.getClass().getSimpleName());
+            .bodyValue(DEFAULT_BLOCK_MSG_PREFIX + ex.getClass().getSimpleName());
     }
 
+    /**
+     * 构建错误结果.
+     *
+     * @param ex 错误信息
+     * @return 错误结果
+     */
     private ErrorResult buildErrorResult(Throwable ex) {
         return new ErrorResult(HttpStatus.TOO_MANY_REQUESTS.value(),
             DEFAULT_BLOCK_MSG_PREFIX + ex.getClass().getSimpleName());
     }
 
     /**
-     * Reference from {@code DefaultErrorWebExceptionHandler} of Spring Boot.
+     * 引用自 Spring Boot 的 {@code DefaultErrorWebExceptionHandler}.
+     *
+     * @param exchange 交换机
+     * @return 是否接受 HTML
      */
     private boolean acceptsHtml(ServerWebExchange exchange) {
         try {
             List<MediaType> acceptedMediaTypes = exchange.getRequest().getHeaders().getAccept();
             acceptedMediaTypes.remove(MediaType.ALL);
-            MediaType.sortBySpecificityAndQuality(acceptedMediaTypes);
+            MimeTypeUtils.sortBySpecificity(acceptedMediaTypes);
             return acceptedMediaTypes.stream()
                 .anyMatch(MediaType.TEXT_HTML::isCompatibleWith);
         } catch (InvalidMediaTypeException ex) {
@@ -86,21 +110,12 @@ public class DefaultBlockRequestHandler implements BlockRequestHandler {
         }
     }
 
-    private static class ErrorResult {
-        private final int code;
-        private final String message;
-
-        ErrorResult(int code, String message) {
-            this.code = code;
-            this.message = message;
-        }
-
-        public int getCode() {
-            return code;
-        }
-
-        public String getMessage() {
-            return message;
-        }
+    /**
+     * 错误结果.
+     *
+     * @param code    错误码
+     * @param message 错误信息
+     */
+    private record ErrorResult(int code, String message) {
     }
 }

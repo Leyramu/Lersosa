@@ -54,8 +54,8 @@ public class I18nLocaleResolver implements LocaleResolver {
                         .setRegion(split[1])
                         .build();
                 } catch (IllegalArgumentException e) {
-                    // Handle invalid language or region
-                    throw new MissingResourceException("Invalid language or region", Locale.class.getName(), language);
+                    // 处理无效的语言或区域
+                    throw new MissingResourceException("语言或地区无效", Locale.class.getName(), language);
                 }
             }
         }

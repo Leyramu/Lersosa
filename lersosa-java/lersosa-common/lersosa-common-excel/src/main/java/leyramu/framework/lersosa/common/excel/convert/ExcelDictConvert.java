@@ -51,16 +51,33 @@ import java.lang.reflect.Field;
 @Slf4j
 public class ExcelDictConvert implements Converter<Object> {
 
+    /**
+     * 获取下一个转换器.
+     *
+     * @return 下一个转换器
+     */
     @Override
     public Class<Object> supportJavaTypeKey() {
         return Object.class;
     }
 
+    /**
+     * 获取下一个转换器.
+     * @return 下一个转换器
+     */
     @Override
     public CellDataTypeEnum supportExcelTypeKey() {
         return null;
     }
 
+    /**
+     * 字典数据格式化.
+     *
+     * @param cellData       单元格数据
+     * @param contentProperty 内容属性
+     * @param globalConfiguration 全局配置
+     * @return 格式化后的数据
+     */
     @Override
     public Object convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
         ExcelDictFormat anno = getAnnotation(contentProperty.getField());
@@ -75,6 +92,14 @@ public class ExcelDictConvert implements Converter<Object> {
         return Convert.convert(contentProperty.getField().getType(), value);
     }
 
+    /**
+     * 字典数据格式化.
+     *
+     * @param object         对象
+     * @param contentProperty 内容属性
+     * @param globalConfiguration 全局配置
+     * @return 格式化后的数据
+     */
     @Override
     public WriteCellData<String> convertToExcelData(Object object, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
         if (ObjectUtil.isNull(object)) {
@@ -92,6 +117,12 @@ public class ExcelDictConvert implements Converter<Object> {
         return new WriteCellData<>(label);
     }
 
+    /**
+     * 获取注解.
+     *
+     * @param field 字段
+     * @return 注解
+     */
     private ExcelDictFormat getAnnotation(Field field) {
         return AnnotationUtil.getAnnotation(field, ExcelDictFormat.class);
     }

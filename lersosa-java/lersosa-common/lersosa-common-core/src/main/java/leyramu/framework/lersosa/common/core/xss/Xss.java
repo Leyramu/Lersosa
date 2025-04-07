@@ -43,9 +43,18 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = {XssValidator.class})
 public @interface Xss {
 
+    /**
+     * 提示消息.
+     */
     String message() default "不允许任何脚本运行";
 
+    /**
+     * 集群.
+     */
     Class<?>[] groups() default {};
 
+    /**
+     * 负载.
+     */
     Class<? extends Payload>[] payload() default {};
 }

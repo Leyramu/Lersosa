@@ -35,6 +35,11 @@ import leyramu.framework.lersosa.common.encrypt.core.IEncryptor;
  */
 public abstract class AbstractEncryptor implements IEncryptor {
 
+    /**
+     * 构造函数.
+     *
+     * @param ignoredContext 配置上下文
+     */
     public AbstractEncryptor(EncryptContext ignoredContext) {
         // 用户配置校验与配置注入
     }

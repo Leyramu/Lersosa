@@ -41,6 +41,9 @@ import java.io.Serial;
 @NoArgsConstructor
 public class XcxLoginUser extends LoginUser {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 

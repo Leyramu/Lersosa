@@ -65,6 +65,9 @@ public class RedissonProperties {
      */
     private ClusterServersConfig clusterServersConfig;
 
+    /**
+     * 单机服务配置.
+     */
     @Data
     @NoArgsConstructor
     public static class SingleServerConfig {
@@ -98,9 +101,11 @@ public class RedissonProperties {
          * 发布和订阅连接池大小.
          */
         private int subscriptionConnectionPoolSize;
-
     }
 
+    /**
+     * 集群服务配置.
+     */
     @Data
     @NoArgsConstructor
     public static class ClusterServersConfig {

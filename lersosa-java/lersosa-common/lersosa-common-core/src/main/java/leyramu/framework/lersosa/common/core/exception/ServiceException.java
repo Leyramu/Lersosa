@@ -23,7 +23,10 @@
 
 package leyramu.framework.lersosa.common.core.exception;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 
@@ -40,6 +43,9 @@ import java.io.Serial;
 @AllArgsConstructor
 public final class ServiceException extends RuntimeException {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -58,20 +64,40 @@ public final class ServiceException extends RuntimeException {
      */
     private String detailMessage;
 
+    /**
+     * 空构造方法，避免反序列化问题.
+     */
     public ServiceException(String message) {
         this.message = message;
     }
 
+    /**
+     * 构造方法.
+     *
+     * @param message 错误提示
+     * @param code    错误码
+     */
     public ServiceException(String message, Integer code) {
         this.message = message;
         this.code = code;
     }
 
+    /**
+     * 获取错误信息.
+     *
+     * @return 错误信息
+     */
     @Override
     public String getMessage() {
         return message;
     }
 
+    /**
+     * 设置错误信息.
+     *
+     * @param message 错误信息
+     * @return ServiceException
+     */
     public ServiceException setMessage(String message) {
         this.message = message;
         return this;

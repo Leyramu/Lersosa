@@ -48,6 +48,11 @@ public class SseEmitterManager {
      */
     private final static String SSE_TOPIC = "global:sse";
 
+    /**
+     * 用户ID到SseEmitter的映射表.
+     *
+     * @see ConcurrentHashMap
+     */
     private final static Map<Long, Map<String, SseEmitter>> USER_TOKEN_EMITTERS = new ConcurrentHashMap<>();
 
     /**

@@ -41,6 +41,12 @@ import org.springframework.context.annotation.Bean;
 @EnableConfigurationProperties(MailProperties.class)
 public class MailConfiguration {
 
+    /**
+     * 邮件账户.
+     *
+     * @param mailProperties 邮件配置
+     * @return 邮件账户
+     */
     @Bean
     @ConditionalOnProperty(value = "mail.enabled", havingValue = "true")
     public MailAccount mailAccount(MailProperties mailProperties) {

@@ -39,11 +39,22 @@ import java.util.List;
  */
 public class TenantSaTokenDao extends PlusSaTokenDao {
 
+    /**
+     * 获取Value.
+     *
+     * @param key 键
+     * @return 值
+     */
     @Override
     public String get(String key) {
         return super.get(GlobalConstants.GLOBAL_REDIS_KEY + key);
     }
 
+    /**
+     * 写入Value，并设定存活时间 (单位: 秒).
+     *
+     * @param key 键
+     */
     @Override
     public void set(String key, String value, long timeout) {
         super.set(GlobalConstants.GLOBAL_REDIS_KEY + key, value, timeout);
@@ -51,6 +62,9 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
 
     /**
      * 修修改指定key-value键值对 (过期时间不变).
+     *
+     * @param key   键
+     * @param value 值
      */
     @Override
     public void update(String key, String value) {
@@ -64,6 +78,8 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
 
     /**
      * 删除Value.
+     *
+     * @param key 键
      */
     @Override
     public void delete(String key) {
@@ -72,6 +88,8 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
 
     /**
      * 获取Value的剩余存活时间 (单位: 秒).
+     *
+     * @param key 键
      */
     @Override
     public long getTimeout(String key) {
@@ -80,6 +98,9 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
 
     /**
      * 修改Value的剩余存活时间 (单位: 秒).
+     *
+     * @param key     键
+     * @param timeout 秒
      */
     @Override
     public void updateTimeout(String key, long timeout) {
@@ -101,6 +122,8 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
 
     /**
      * 获取Object，如无返空.
+     *
+     * @param key 键
      */
     @Override
     public Object getObject(String key) {
@@ -109,6 +132,10 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
 
     /**
      * 写入Object，并设定存活时间 (单位: 秒).
+     *
+     * @param key     键
+     * @param object  值
+     * @param timeout 秒
      */
     @Override
     public void setObject(String key, Object object, long timeout) {
@@ -117,6 +144,9 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
 
     /**
      * 更新Object (过期时间不变).
+     *
+     * @param key    键
+     * @param object 值
      */
     @Override
     public void updateObject(String key, Object object) {
@@ -130,6 +160,8 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
 
     /**
      * 删除Object.
+     *
+     * @param key 键
      */
     @Override
     public void deleteObject(String key) {
@@ -146,6 +178,9 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
 
     /**
      * 修改Object的剩余存活时间 (单位: 秒).
+     *
+     * @param key     键
+     * @param timeout 秒
      */
     @Override
     public void updateObjectTimeout(String key, long timeout) {
@@ -167,6 +202,13 @@ public class TenantSaTokenDao extends PlusSaTokenDao {
 
     /**
      * 搜索数据.
+     *
+     * @param prefix   前缀
+     * @param keyword  关键字
+     * @param start    开始
+     * @param size     条数
+     * @param sortType 排序类型
+     * @return 搜索结果
      */
     @Override
     public List<String> searchData(String prefix, String keyword, int start, int size, boolean sortType) {

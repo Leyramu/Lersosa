@@ -40,6 +40,7 @@ public interface RemoteMailService {
      * @param to      接收人
      * @param subject 标题
      * @param text    内容
+     * @throws ServiceException 邮件发送失败
      */
     @SuppressWarnings("unused")
     void send(String to, String subject, String text) throws ServiceException;

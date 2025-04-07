@@ -39,6 +39,14 @@ import java.util.List;
  */
 public class TranslationBeanSerializerModifier extends BeanSerializerModifier {
 
+    /**
+     * 修改序列化属性.
+     *
+     * @param config         配置
+     * @param beanDesc       bean 描述
+     * @param beanProperties bean 属性
+     * @return {@link List}<{@link BeanPropertyWriter}>
+     */
     @Override
     public List<BeanPropertyWriter> changeProperties(
         SerializationConfig config, BeanDescription beanDesc,

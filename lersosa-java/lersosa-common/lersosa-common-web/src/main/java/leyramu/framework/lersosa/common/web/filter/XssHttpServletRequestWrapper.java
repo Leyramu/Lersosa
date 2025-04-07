@@ -46,18 +46,26 @@ import java.util.Map;
  * XSS过滤处理.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
+     * 构造函数.
+     *
      * @param request 原始HttpServletRequest
      */
     public XssHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
     }
 
+    /**
+     * 获取所有参数名.
+     *
+     * @param name 参数名
+     * @return 参数名
+     */
     @Override
     public String getParameter(String name) {
         String value = super.getParameter(name);
@@ -67,6 +75,11 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         return HtmlUtil.cleanHtmlTag(value).trim();
     }
 
+    /**
+     * 获取所有参数名.
+     *
+     * @return 参数名
+     */
     @Override
     public Map<String, String[]> getParameterMap() {
         Map<String, String[]> valueMap = super.getParameterMap();
@@ -90,6 +103,12 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         return map;
     }
 
+    /**
+     * 获取单个参数名.
+     *
+     * @param name 参数名
+     * @return 参数名
+     */
     @Override
     public String[] getParameterValues(String name) {
         String[] values = super.getParameterValues(name);
@@ -104,6 +123,12 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         return escapseValues;
     }
 
+    /**
+     * 获取body体.
+     *
+     * @return body体
+     * @throws IOException IOException
+     */
     @Override
     public ServletInputStream getInputStream() throws IOException {
         // 非json类型，直接返回
@@ -122,25 +147,46 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         byte[] jsonBytes = json.getBytes(StandardCharsets.UTF_8);
         final ByteArrayInputStream bis = IoUtil.toStream(jsonBytes);
         return new ServletInputStream() {
+
+            /**
+             * 是否读取完成.
+             * @return 是否读取完成
+             */
             @Override
             public boolean isFinished() {
                 return true;
             }
 
+            /**
+             * 是否读取就绪.
+             * @return 是否读取就绪
+             */
             @Override
             public boolean isReady() {
                 return true;
             }
 
+            /**
+             * 获取长度.
+             * @return 获取长度
+             */
             @Override
             public int available() {
                 return jsonBytes.length;
             }
 
+            /**
+             * 设置读取监听器.
+             * @param readListener 读取监听器
+             */
             @Override
             public void setReadListener(ReadListener readListener) {
             }
 
+            /**
+             * 读取.
+             * @return 读取
+             */
             @Override
             public int read() {
                 return bis.read();
@@ -150,6 +196,8 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 是否是Json请求.
+     *
+     * @return 是否是
      */
     public boolean isJsonRequest() {
         String header = super.getHeader(HttpHeaders.CONTENT_TYPE);

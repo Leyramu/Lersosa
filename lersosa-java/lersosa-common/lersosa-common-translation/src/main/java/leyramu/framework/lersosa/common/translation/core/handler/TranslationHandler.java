@@ -56,8 +56,19 @@ public class TranslationHandler extends JsonSerializer<Object> implements Contex
      */
     public static final Map<String, TranslationInterface<?>> TRANSLATION_MAPPER = new ConcurrentHashMap<>();
 
+    /**
+     * 翻译注解.
+     */
     private Translation translation;
 
+    /**
+     * 序列化.
+     *
+     * @param value       值
+     * @param gen         生成器
+     * @param serializers 序列化器
+     * @throws IOException IO异常
+     */
     @Override
     public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         TranslationInterface<?> trans = TRANSLATION_MAPPER.get(translation.type());
@@ -78,6 +89,14 @@ public class TranslationHandler extends JsonSerializer<Object> implements Contex
         }
     }
 
+    /**
+     * 创建上下文.
+     *
+     * @param prov       提供器
+     * @param property   属性
+     * @return {@link JsonSerializer}
+     * @throws JsonMappingException Json映射异常
+     */
     @Override
     public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property) throws JsonMappingException {
         Translation translation = property.getAnnotation(Translation.class);

@@ -44,6 +44,13 @@ import org.springframework.core.env.Environment;
 @Configuration(proxyBeanMethods = false)
 public class CustomLoadBalanceClientConfiguration {
 
+    /**
+     * 自定义负载均衡客户端.
+     *
+     * @param environment               环境变量
+     * @param loadBalancerClientFactory 负载均衡客户端工厂
+     * @return 负载均衡客户端
+     */
     @Bean
     @ConditionalOnBean(LoadBalancerClientFactory.class)
     public ReactorLoadBalancer<ServiceInstance> customLoadBalancer(Environment environment,

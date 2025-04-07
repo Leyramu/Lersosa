@@ -28,6 +28,7 @@ import leyramu.framework.lersosa.common.core.constant.GlobalConstants;
 import leyramu.framework.lersosa.common.core.utils.StringUtils;
 import leyramu.framework.lersosa.common.redis.manager.PlusSpringCacheManager;
 import leyramu.framework.lersosa.common.tenant.helper.TenantHelper;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
 
@@ -39,11 +40,15 @@ import org.springframework.cache.Cache;
  * @since 2024/11/6
  */
 @Slf4j
+@NoArgsConstructor
 public class TenantSpringCacheManager extends PlusSpringCacheManager {
 
-    public TenantSpringCacheManager() {
-    }
-
+    /**
+     * 重写方法 支持多租户.
+     *
+     * @param name 缓存名称
+     * @return {@link Cache}
+     */
     @Override
     public Cache getCache(String name) {
         if (InterceptorIgnoreHelper.willIgnoreTenantLine("")) {

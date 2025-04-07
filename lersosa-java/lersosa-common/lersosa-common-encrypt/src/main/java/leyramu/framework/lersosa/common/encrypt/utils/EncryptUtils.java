@@ -49,6 +49,7 @@ public class EncryptUtils {
      * 公钥.
      */
     public static final String PUBLIC_KEY = "publicKey";
+
     /**
      * 私钥.
      */

@@ -1,9 +1,4 @@
-jasypt:
-  encryptor:
-    algorithm: PBEWITHHMACSHA512ANDAES_256
-    password: @JASYPT-ENCRYPTOR-PASSWORD@
-
-# Tomcat
+# =========================== 服务器配置 ===========================
 server:
   port: ${SERVER_PORT:8080}
   ssl:
@@ -18,7 +13,7 @@ server:
   servlet:
     context-path: /
 
-# Spring
+# =========================== Spring 配置 ===========================
 spring:
   application:
     # 应用名称
@@ -34,24 +29,24 @@ spring:
         ssl:
           use-insecure-trust-manager: true
 
----
-spring:
-  cloud:
-    nacos:
-      server-addr: @NACOS-SERVER-ADDRESS@
-      username: @NACOS-USERNAME@
-      password: @NACOS-PASSWORD@
-      discovery:
-        secure: @SSL-ENABLED@
-        namespace: @NACOS-NAMESPACE@
-        group: @NACOS-GATEWAY-GROUP@
-        extension-groups:
-          - @NACOS-SERVICE-GROUP@
-        cluster-name: ${spring.application.name}
-      config:
-        namespace: @NACOS-NAMESPACE@
-        file-extension: yml
-  config:
-    import:
-    - optional:nacos:application-common.${spring.cloud.nacos.config.file-extension}?group=@NACOS-DEFAULT-GROUP@
-    - optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}?group=@NACOS-GATEWAY-GROUP@
+#---
+#spring:
+#  cloud:
+#    nacos:
+#      server-addr: @NACOS-SERVER-ADDRESS@
+#      username: @NACOS-USERNAME@
+#      password: @NACOS-PASSWORD@
+#      discovery:
+#        secure: @SSL-ENABLED@
+#        namespace: @NACOS-NAMESPACE@
+#        group: @NACOS-GATEWAY-GROUP@
+#        extension-groups:
+#          - @NACOS-SERVICE-GROUP@
+#        cluster-name: ${spring.application.name}
+#      config:
+#        namespace: @NACOS-NAMESPACE@
+#        file-extension: yml
+#  config:
+#    import:
+#    - optional:nacos:application-common.${spring.cloud.nacos.config.file-extension}?group=@NACOS-DEFAULT-GROUP@
+#    - optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}?group=@NACOS-GATEWAY-GROUP@

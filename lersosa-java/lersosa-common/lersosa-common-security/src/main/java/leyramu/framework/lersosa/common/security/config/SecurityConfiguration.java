@@ -40,7 +40,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 权限安全配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @AutoConfiguration
@@ -48,6 +48,8 @@ public class SecurityConfiguration implements WebMvcConfigurer {
 
     /**
      * 注册sa-token的拦截器.
+     *
+     * @param registry 拦截器注册表
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -57,22 +59,26 @@ public class SecurityConfiguration implements WebMvcConfigurer {
 
     /**
      * 校验是否从网关转发.
+     *
+     * @return SaServletFilter
      */
     @Bean
     public SaServletFilter getSaServletFilter() {
         return new SaServletFilter()
             .addInclude("/**")
             .addExclude("/actuator", "/actuator/**")
-            .setAuth(obj -> {
+            .setAuth(_ -> {
                 if (SaManager.getConfig().getCheckSameToken()) {
                     SaSameUtil.checkCurrentRequestToken();
                 }
             })
-            .setError(_ -> SaResult.error("认证失败，无法访问系统资源").setCode(HttpStatus.UNAUTHORIZED));
+            .setError(e -> SaResult.error("认证失败，无法访问系统资源").setCode(HttpStatus.UNAUTHORIZED));
     }
 
     /**
      * 对 actuator 健康检查接口 做账号密码鉴权.
+     *
+     * @return SaServletFilter
      */
     @Bean
     public SaServletFilter actuatorFilter() {

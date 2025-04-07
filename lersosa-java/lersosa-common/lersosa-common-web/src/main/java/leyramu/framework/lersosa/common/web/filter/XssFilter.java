@@ -32,35 +32,35 @@ import leyramu.framework.lersosa.common.web.config.properties.XssProperties;
 import org.springframework.http.HttpMethod;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 防止XSS攻击的过滤器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 public class XssFilter implements Filter {
-    /**
-     * 排除链接.
-     */
-    public List<String> excludes = new ArrayList<>();
 
+    /**
+     * 初始化.
+     *
+     * @param filterConfig 过滤器配置
+     */
     @Override
     public void init(FilterConfig filterConfig) {
-        XssProperties properties = SpringUtils.getBean(XssProperties.class);
-        String appName = SpringUtils.getApplicationName();
-        String appPath = "/" + StringUtils.substring(appName, appName.indexOf("-") + 1);
-        List<String> excludeUrls = properties.getExcludeUrls()
-            .stream()
-            .filter(x -> StringUtils.startsWith(x, appPath))
-            .map(x -> x.replaceFirst(appPath, StringUtils.EMPTY))
-            .toList();
-        excludes.addAll(excludeUrls);
     }
 
+    /**
+     * 过滤.
+     *
+     * @param request  请求
+     * @param response 响应
+     * @param chain    过滤器链
+     * @throws IOException      IO异常
+     * @throws ServletException Servlet异常
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
         throws IOException, ServletException {
@@ -74,6 +74,13 @@ public class XssFilter implements Filter {
         chain.doFilter(xssRequest, response);
     }
 
+    /**
+     * 处理排除URL.
+     *
+     * @param request  请求
+     * @param ignoredResponse 响应
+     * @return 是否排除
+     */
     private boolean handleExcludeUrl(HttpServletRequest request, HttpServletResponse ignoredResponse) {
         String url = request.getServletPath();
         String method = request.getMethod();
@@ -81,9 +88,20 @@ public class XssFilter implements Filter {
         if (method == null || HttpMethod.GET.matches(method) || HttpMethod.DELETE.matches(method)) {
             return true;
         }
-        return StringUtils.matches(url, excludes);
+        // 每次都获取处理 支持nacos热更配置
+        XssProperties properties = SpringUtils.getBean(XssProperties.class);
+        String prefix = StringUtils.blankToDefault(request.getHeader("X-Forwarded-Prefix"), "");
+        // 从请求头获取gateway转发的服务前缀
+        List<String> excludeUrls = properties.getExcludeUrls().stream()
+            .filter(x -> StringUtils.startsWith(x, prefix))
+            .map(x -> x.replaceFirst(prefix, StringUtils.EMPTY))
+            .toList();
+        return StringUtils.matches(url, excludeUrls);
     }
 
+    /**
+     * 销毁.
+     */
     @Override
     public void destroy() {
         Filter.super.destroy();

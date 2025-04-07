@@ -37,6 +37,13 @@ import jakarta.validation.ConstraintValidatorContext;
  */
 public class XssValidator implements ConstraintValidator<Xss, String> {
 
+    /**
+     * 校验.
+     *
+     * @param value                      待校验的值
+     * @param constraintValidatorContext 上下文
+     * @return 校验结果
+     */
     @Override
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
         return !ReUtil.contains(HtmlUtil.RE_HTML_MARK, value);

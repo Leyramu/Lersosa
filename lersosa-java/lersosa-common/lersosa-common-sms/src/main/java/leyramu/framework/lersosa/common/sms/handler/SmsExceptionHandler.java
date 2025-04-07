@@ -25,7 +25,7 @@ package leyramu.framework.lersosa.common.sms.handler;
 
 import cn.hutool.http.HttpStatus;
 import jakarta.servlet.http.HttpServletRequest;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.dromara.sms4j.comm.exception.SmsBlendException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -44,11 +44,15 @@ public class SmsExceptionHandler {
 
     /**
      * sms异常.
+     *
+     * @param e       异常
+     * @param request 请求
+     * @return Result<Void>
      */
     @ExceptionHandler(SmsBlendException.class)
-    public R<Void> handleSmsBlendException(SmsBlendException e, HttpServletRequest request) {
+    public Result<Void> handleSmsBlendException(SmsBlendException e, HttpServletRequest request) {
         String requestUri = request.getRequestURI();
         log.error("请求地址'{}',发生sms短信异常.", requestUri, e);
-        return R.fail(HttpStatus.HTTP_INTERNAL_ERROR, "短信发送失败，请稍后再试...");
+        return Result.fail(HttpStatus.HTTP_INTERNAL_ERROR, "短信发送失败，请稍后再试...");
     }
 }

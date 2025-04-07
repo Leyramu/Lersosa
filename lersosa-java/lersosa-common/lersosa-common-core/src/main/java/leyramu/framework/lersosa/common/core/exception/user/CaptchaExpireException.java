@@ -34,9 +34,15 @@ import java.io.Serial;
  */
 public class CaptchaExpireException extends UserException {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 构造函数.
+     */
     public CaptchaExpireException() {
         super("user.jcaptcha.expire");
     }

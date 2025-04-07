@@ -39,6 +39,9 @@ import org.springframework.context.i18n.LocaleContextHolder;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MessageUtils {
 
+    /**
+     * 静态注入 MessageSource.
+     */
     private static final MessageSource MESSAGE_SOURCE = SpringUtils.getBean(MessageSource.class);
 
     /**

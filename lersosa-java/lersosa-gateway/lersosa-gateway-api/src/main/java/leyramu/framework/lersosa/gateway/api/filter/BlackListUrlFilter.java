@@ -42,10 +42,13 @@ import java.util.regex.Pattern;
  */
 @Component
 public class BlackListUrlFilter extends AbstractGatewayFilterFactory<BlackListUrlFilter.Config> {
-    public BlackListUrlFilter() {
-        super(Config.class);
-    }
 
+    /**
+     * 过滤器逻辑.
+     *
+     * @param config 配置
+     * @return {@link GatewayFilter}
+     */
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
@@ -59,16 +62,44 @@ public class BlackListUrlFilter extends AbstractGatewayFilterFactory<BlackListUr
         };
     }
 
+    /**
+     * 构造函数.
+     */
+    public BlackListUrlFilter() {
+        super(Config.class);
+    }
+
+    /**
+     * 配置.
+     */
     public static class Config {
+
+        /**
+         * 黑名单地址.
+         */
         @Getter
         private List<String> blacklistUrl;
 
+        /**
+         * 黑名单地址正则表达式.
+         */
         private final List<Pattern> blacklistUrlPattern = new ArrayList<>();
 
+        /**
+         * 匹配黑名单地址.
+         *
+         * @param url 请求地址
+         * @return 是否匹配
+         */
         public boolean matchBlacklist(String url) {
             return !blacklistUrlPattern.isEmpty() && blacklistUrlPattern.stream().anyMatch(p -> p.matcher(url).find());
         }
 
+        /**
+         * 设置黑名单地址.
+         *
+         * @param blacklistUrl 黑名单地址
+         */
         public void setBlacklistUrl(List<String> blacklistUrl) {
             this.blacklistUrl = blacklistUrl;
             this.blacklistUrlPattern.clear();

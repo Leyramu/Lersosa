@@ -55,11 +55,28 @@ import java.util.*;
 @Slf4j
 public class CellMergeStrategy extends AbstractMergeStrategy implements WorkbookWriteHandler {
 
+    /**
+     * 合并单元格.
+     */
     private final List<CellRangeAddress> cellList;
+
+    /**
+     * 是否有标题.
+     */
     @Getter
     private final boolean hasTitle;
+
+    /**
+     * 当前行下标.
+     */
     private int rowIndex;
 
+    /**
+     * 构造函数.
+     *
+     * @param list      数据列表
+     * @param hasTitle  是否有标题
+     */
     public CellMergeStrategy(List<?> list, boolean hasTitle) {
         this.hasTitle = hasTitle;
         // 行合并开始下标
@@ -67,6 +84,14 @@ public class CellMergeStrategy extends AbstractMergeStrategy implements Workbook
         this.cellList = handle(list, hasTitle);
     }
 
+    /**
+     * 处理合并单元格.
+     *
+     * @param sheet     sheet
+     * @param cell      cell
+     * @param head      head
+     * @param relativeRowIndex  relativeRowIndex
+     */
     @Override
     protected void merge(Sheet sheet, Cell cell, Head head, Integer relativeRowIndex) {
         //单元格写入了,遍历合并区域,如果该Cell在区域内,但非首行,则清空
@@ -81,6 +106,11 @@ public class CellMergeStrategy extends AbstractMergeStrategy implements Workbook
         }
     }
 
+    /**
+     * 处理合并单元格.
+     *
+     * @param context   context
+     */
     @Override
     public void afterWorkbookDispose(final WorkbookWriteHandlerContext context) {
         //当前表格写完后，统一写入
@@ -91,6 +121,13 @@ public class CellMergeStrategy extends AbstractMergeStrategy implements Workbook
         }
     }
 
+    /**
+     * 处理合并单元格.
+     *
+     * @param list      list
+     * @param hasTitle  hasTitle
+     * @return List<CellRangeAddress>
+     */
     @SneakyThrows
     private List<CellRangeAddress> handle(List<?> list, boolean hasTitle) {
         List<CellRangeAddress> cellList = new ArrayList<>();
@@ -154,6 +191,14 @@ public class CellMergeStrategy extends AbstractMergeStrategy implements Workbook
         return cellList;
     }
 
+    /**
+     * 是否合并.
+     *
+     * @param list      list
+     * @param i         i
+     * @param field     field
+     * @return boolean
+     */
     private boolean isMerge(List<?> list, int i, Field field) {
         boolean isMerge = true;
         CellMerge cm = field.getAnnotation(CellMerge.class);
@@ -172,13 +217,21 @@ public class CellMergeStrategy extends AbstractMergeStrategy implements Workbook
         return isMerge;
     }
 
+    /**
+     * 重复单元格.
+     */
     @Data
     @AllArgsConstructor
     static class RepeatCell {
 
+        /**
+         * 值.
+         */
         private Object value;
 
+        /**
+         * 当前位置.
+         */
         private int current;
-
     }
 }

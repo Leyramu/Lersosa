@@ -23,6 +23,8 @@
 
 package leyramu.framework.lersosa.common.tenant.helper;
 
+import cn.dev33.satoken.context.SaHolder;
+import cn.dev33.satoken.context.model.SaStorage;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ObjectUtil;
@@ -45,17 +47,26 @@ import java.util.function.Supplier;
  * 租户助手.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TenantHelper {
 
+    /**
+     * 租户动态key.
+     */
     private static final String DYNAMIC_TENANT_KEY = GlobalConstants.GLOBAL_REDIS_KEY + "dynamicTenant";
 
+    /**
+     * 租户动态key临时存储.
+     */
     private static final ThreadLocal<String> TEMP_DYNAMIC_TENANT = new ThreadLocal<>();
 
+    /**
+     * 租户重入栈.
+     */
     private static final ThreadLocal<Stack<Integer>> REENTRANT_IGNORE = ThreadLocal.withInitial(Stack::new);
 
     /**
@@ -65,7 +76,11 @@ public class TenantHelper {
         return Convert.toBool(SpringUtils.getProperty("tenant.enable"), false);
     }
 
-    @SuppressWarnings("all")
+    /**
+     * 获取忽略策略.
+     *
+     * @return 忽略策略
+     */
     private static IgnoreStrategy getIgnoreStrategy() {
         Object ignoreStrategyLocal = ReflectUtils.getStaticFieldValue(ReflectUtils.getField(InterceptorIgnoreHelper.class, "IGNORE_STRATEGY_LOCAL"));
         if (ignoreStrategyLocal instanceof ThreadLocal<?> IGNORE_STRATEGY_LOCAL) {
@@ -155,16 +170,19 @@ public class TenantHelper {
         }
         String cacheKey = DYNAMIC_TENANT_KEY + ":" + LoginHelper.getUserId();
         RedisUtils.setCacheObject(cacheKey, tenantId);
+        SaHolder.getStorage().set(cacheKey, tenantId);
     }
 
     /**
      * 获取动态租户(一直有效 需要手动清理).
+     *
+     * @return 动态租户
      */
     public static String getDynamic() {
         if (!isEnable()) {
             return null;
         }
-        if (LoginHelper.isLogin()) {
+        if (!LoginHelper.isLogin()) {
             return TEMP_DYNAMIC_TENANT.get();
         }
         // 如果线程内有值 优先返回
@@ -172,11 +190,23 @@ public class TenantHelper {
         if (StringUtils.isNotBlank(tenantId)) {
             return tenantId;
         }
+        SaStorage storage = SaHolder.getStorage();
         String cacheKey = DYNAMIC_TENANT_KEY + ":" + LoginHelper.getUserId();
+        tenantId = storage.getString(cacheKey);
+        // 如果为 -1 说明已经查过redis并且不存在值 则直接返回null
+        if (StringUtils.isNotBlank(tenantId)) {
+            return "-1".equals(tenantId) ? null : tenantId;
+        }
         tenantId = RedisUtils.getCacheObject(cacheKey);
+        storage.set(cacheKey, StringUtils.isBlank(tenantId) ? "-1" : tenantId);
         return tenantId;
     }
 
+    /**
+     * 设置动态租户(一直有效 需要手动清理).
+     *
+     * @param tenantId 租户id
+     */
     public static void setDynamic(String tenantId) {
         setDynamic(tenantId, false);
     }
@@ -195,6 +225,7 @@ public class TenantHelper {
         TEMP_DYNAMIC_TENANT.remove();
         String cacheKey = DYNAMIC_TENANT_KEY + ":" + LoginHelper.getUserId();
         RedisUtils.deleteObject(cacheKey);
+        SaHolder.getStorage().delete(cacheKey);
     }
 
     /**

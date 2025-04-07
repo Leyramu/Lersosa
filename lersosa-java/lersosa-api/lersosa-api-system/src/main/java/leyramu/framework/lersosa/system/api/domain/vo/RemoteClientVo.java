@@ -40,6 +40,9 @@ import java.util.List;
 @Data
 public class RemoteClientVo implements Serializable {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 

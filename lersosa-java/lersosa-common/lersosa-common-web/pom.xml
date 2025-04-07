@@ -79,6 +79,12 @@
             <optional>true</optional>
         </dependency>
 
+        <!--    Spring Cloud Bootstrap    -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+
         <!--      Mica Metrics      -->
         <dependency>
             <groupId>net.dreamlu</groupId>

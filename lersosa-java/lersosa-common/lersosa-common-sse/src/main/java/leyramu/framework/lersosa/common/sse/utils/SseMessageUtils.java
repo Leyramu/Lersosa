@@ -34,14 +34,29 @@ import lombok.extern.slf4j.Slf4j;
  * SSE工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SseMessageUtils {
 
-    private final static SseEmitterManager MANAGER = SpringUtils.getBean(SseEmitterManager.class);
+    /**
+     * 是否开启.
+     */
+    private final static Boolean SSE_ENABLE = SpringUtils.getProperty("sse.enabled", Boolean.class, true);
+
+    /**
+     * SseEmitterManager实例.
+     */
+    private static SseEmitterManager MANAGER;
+
+    // 静态块，在类加载时初始化SseEmitterManager实例
+    static {
+        if (isEnable() && MANAGER == null) {
+            MANAGER = SpringUtils.getBean(SseEmitterManager.class);
+        }
+    }
 
     /**
      * 向指定的WebSocket会话发送消息.
@@ -80,5 +95,12 @@ public class SseMessageUtils {
      */
     public static void publishAll(String message) {
         MANAGER.publishAll(message);
+    }
+
+    /**
+     * 是否开启
+     */
+    public static Boolean isEnable() {
+        return SSE_ENABLE;
     }
 }

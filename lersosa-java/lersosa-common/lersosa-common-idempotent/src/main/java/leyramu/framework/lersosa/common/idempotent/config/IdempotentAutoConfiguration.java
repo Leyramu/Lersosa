@@ -38,6 +38,11 @@ import org.springframework.context.annotation.Bean;
 @AutoConfiguration(after = RedisConfiguration.class)
 public class IdempotentAutoConfiguration {
 
+    /**
+     * 幂等功能配置.
+     *
+     * @return RepeatSubmitAspect
+     */
     @Bean
     public RepeatSubmitAspect repeatSubmitAspect() {
         return new RepeatSubmitAspect();

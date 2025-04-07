@@ -50,6 +50,9 @@ public class ThreadPoolConfig {
      */
     private final int core = Runtime.getRuntime().availableProcessors() + 1;
 
+    /**
+     * 定时任务线程池.
+     */
     private ScheduledExecutorService scheduledExecutorService;
 
     /**

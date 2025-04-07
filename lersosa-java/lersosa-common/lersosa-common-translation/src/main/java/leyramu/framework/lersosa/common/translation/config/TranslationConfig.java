@@ -41,7 +41,7 @@ import java.util.Map;
  * 翻译模块配置类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @Slf4j
@@ -49,10 +49,19 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class TranslationConfig {
 
+    /**
+     * 翻译实现类集合.
+     */
     private final List<TranslationInterface<?>> list;
 
+    /**
+     * 对象映射器.
+     */
     private final ObjectMapper objectMapper;
 
+    /**
+     * 初始化.
+     */
     @PostConstruct
     public void init() {
         Map<String, TranslationInterface<?>> map = new HashMap<>(list.size());

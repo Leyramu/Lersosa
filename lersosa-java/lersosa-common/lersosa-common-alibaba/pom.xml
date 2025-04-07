@@ -44,16 +44,16 @@
 
     <!--      属性      -->
     <properties>
-        <revision>3.2.0</revision>
-        <seata.version>1.7.1</seata.version>
+        <revision>4.0.0</revision>
+        <seata.version>2.3.0</seata.version>
         <scala.version>2.13.9</scala.version>
-        <dubbo.version>3.2.14</dubbo.version>
+        <dubbo.version>3.3.4</dubbo.version>
         <sentinel.version>1.8.8</sentinel.version>
         <guava.version>33.3.1-jre</guava.version>
-        <nacos.client.version>2.4.3</nacos.client.version>
+        <nacos.client.version>2.5.0</nacos.client.version>
         <logback-adapter.version>1.1.3</logback-adapter.version>
-        <dubbo.seata.filter.version>1.0.1</dubbo.seata.filter.version>
-        <spring-boot-admin.version>3.3.5</spring-boot-admin.version>
+        <dubbo-extensions.version>3.3.1</dubbo-extensions.version>
+        <spring-boot-admin.version>3.4.5</spring-boot-admin.version>
         <spring-cloud-alibaba.version>2023.0.1.2</spring-cloud-alibaba.version>
         <spring.context.support.version>1.0.11</spring.context.support.version>
     </properties>
@@ -226,8 +226,15 @@
 
             <!--      Alibaba Sentinel Spring Starter      -->
             <dependency>
-                <groupId>io.seata</groupId>
+                <groupId>org.apache.seata</groupId>
                 <artifactId>seata-spring-boot-starter</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+
+            <!--      Alibaba Seata All      -->
+            <dependency>
+                <groupId>org.apache.seata</groupId>
+                <artifactId>seata-all</artifactId>
                 <version>${seata.version}</version>
             </dependency>
 
@@ -254,16 +261,16 @@
 
             <!--      Alibaba Dubbo Metadata Report Redis      -->
             <dependency>
-                <groupId>org.apache.dubbo</groupId>
+                <groupId>org.apache.dubbo.extensions</groupId>
                 <artifactId>dubbo-metadata-report-redis</artifactId>
-                <version>${dubbo.version}</version>
+                <version>${dubbo-extensions.version}</version>
             </dependency>
 
             <!--      Alibaba Dubbo Seata Filter      -->
             <dependency>
                 <groupId>org.apache.dubbo.extensions</groupId>
                 <artifactId>dubbo-filter-seata</artifactId>
-                <version>${dubbo.seata.filter.version}</version>
+                <version>${dubbo-extensions.version}</version>
             </dependency>
 
             <!--      Nacos Logback Adapter      -->
@@ -292,14 +299,6 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-client</artifactId>
                 <version>${spring-boot-admin.version}</version>
-            </dependency>
-
-            <!--      TODO 易受攻击依赖修复      -->
-            <!--      Guava      -->
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
             </dependency>
 
             <!--      Scala      -->

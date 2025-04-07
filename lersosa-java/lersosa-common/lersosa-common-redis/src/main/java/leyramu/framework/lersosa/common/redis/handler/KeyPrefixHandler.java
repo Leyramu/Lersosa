@@ -35,8 +35,16 @@ import org.redisson.api.NameMapper;
  */
 public class KeyPrefixHandler implements NameMapper {
 
+    /**
+     * 前缀.
+     */
     private final String keyPrefix;
 
+    /**
+     * 构造方法.
+     *
+     * @param keyPrefix 前缀
+     */
     public KeyPrefixHandler(String keyPrefix) {
         //前缀为空 则返回空前缀
         this.keyPrefix = StringUtils.isBlank(keyPrefix) ? "" : keyPrefix + ":";
@@ -44,6 +52,9 @@ public class KeyPrefixHandler implements NameMapper {
 
     /**
      * 增加前缀.
+     *
+     * @param name 名称
+     * @return 增加前缀后的名称
      */
     @Override
     public String map(String name) {
@@ -58,6 +69,9 @@ public class KeyPrefixHandler implements NameMapper {
 
     /**
      * 去除前缀.
+     *
+     * @param name 名称
+     * @return 去除前缀后的名称
      */
     @Override
     public String unmap(String name) {

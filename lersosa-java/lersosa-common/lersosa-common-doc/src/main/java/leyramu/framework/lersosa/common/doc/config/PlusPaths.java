@@ -34,6 +34,9 @@ import io.swagger.v3.oas.models.Paths;
  */
 public class PlusPaths extends Paths {
 
+    /**
+     * 默认构造函数.
+     */
     public PlusPaths() {
         super();
     }

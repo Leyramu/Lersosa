@@ -68,7 +68,7 @@
 
         <!--      Apache Dubbo Metadata Report Redis      -->
         <dependency>
-            <groupId>org.apache.dubbo</groupId>
+            <groupId>org.apache.dubbo.extensions</groupId>
             <artifactId>dubbo-metadata-report-redis</artifactId>
             <exclusions>
                 <exclusion>

@@ -27,6 +27,7 @@ import leyramu.framework.lersosa.common.core.utils.SpringUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.redisson.api.*;
+import org.redisson.api.options.KeysScanOptions;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -41,17 +42,20 @@ import java.util.stream.Stream;
  * redis 工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@SuppressWarnings(value = {"unchecked", "rawtypes", "unused"})
+@SuppressWarnings("unused")
 public class RedisUtils {
 
+    /**
+     * redis 客户端.
+     */
     private static final RedissonClient CLIENT = SpringUtils.getBean(RedissonClient.class);
 
     /**
-     * 限流.
+     * 限流
      *
      * @param key          限流key
      * @param rateType     限流类型
@@ -60,8 +64,22 @@ public class RedisUtils {
      * @return -1 表示失败
      */
     public static long rateLimiter(String key, RateType rateType, int rate, int rateInterval) {
+        return rateLimiter(key, rateType, rate, rateInterval, 0);
+    }
+
+    /**
+     * 限流.
+     *
+     * @param key          限流key
+     * @param rateType     限流类型
+     * @param rate         速率
+     * @param rateInterval 速率间隔
+     * @param timeout      超时时间
+     * @return -1 表示失败
+     */
+    public static long rateLimiter(String key, RateType rateType, int rate, int rateInterval, int timeout) {
         RRateLimiter rateLimiter = CLIENT.getRateLimiter(key);
-        rateLimiter.setRate(rateType, rate, Duration.ofSeconds(rateInterval));
+        rateLimiter.trySetRate(rateType, rate, Duration.ofSeconds(rateInterval), Duration.ofSeconds(timeout));
         if (rateLimiter.tryAcquire()) {
             return rateLimiter.availablePermits();
         } else {
@@ -217,7 +235,7 @@ public class RedisUtils {
      * @return true=设置成功；false=设置失败
      */
     public static boolean expire(final String key, final Duration duration) {
-        RBucket rBucket = CLIENT.getBucket(key);
+        RBucket<Object> rBucket = CLIENT.getBucket(key);
         return rBucket.expire(duration);
     }
 
@@ -257,7 +275,7 @@ public class RedisUtils {
      *
      * @param collection 多个对象
      */
-    public static void deleteObject(final Collection collection) {
+    public static void deleteObject(final Collection<Object> collection) {
         RBatch batch = CLIENT.createBatch();
         collection.forEach(t -> batch.getBucket(t.toString()).deleteAsync());
         batch.execute();
@@ -537,11 +555,20 @@ public class RedisUtils {
      *
      * @param pattern 字符串前缀
      * @return 对象列表
+     * @see KeysScanOptions
      */
     public static Collection<String> keys(final String pattern) {
-        Stream<String> stream = CLIENT.getKeys().getKeysStream()
-            .filter(key -> key.matches(pattern.replace("*", ".*")));
-        return stream.collect(Collectors.toList());
+        return keys(KeysScanOptions.defaults().pattern(pattern).chunkSize(1000));
+    }
+
+    /**
+     * 通过扫描参数获取缓存的基本对象列表.
+     *
+     * @param keysScanOptions 扫描参数
+     */
+    public static Collection<String> keys(final KeysScanOptions keysScanOptions) {
+        Stream<String> keysStream = CLIENT.getKeys().getKeysStream(keysScanOptions);
+        return keysStream.collect(Collectors.toList());
     }
 
     /**

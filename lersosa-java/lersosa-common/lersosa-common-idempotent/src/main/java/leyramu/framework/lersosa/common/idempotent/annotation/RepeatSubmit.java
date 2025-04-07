@@ -44,6 +44,9 @@ public @interface RepeatSubmit {
      */
     int interval() default 5000;
 
+    /**
+     * 时间单位.
+     */
     TimeUnit timeUnit() default TimeUnit.MILLISECONDS;
 
     /**

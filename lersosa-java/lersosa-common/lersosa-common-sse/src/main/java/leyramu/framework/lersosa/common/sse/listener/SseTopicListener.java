@@ -42,6 +42,9 @@ import org.springframework.core.Ordered;
 @RequiredArgsConstructor
 public class SseTopicListener implements ApplicationRunner, Ordered {
 
+    /**
+     * SSE Emitter管理器.
+     */
     private final SseEmitterManager sseEmitterManager;
 
     /**
@@ -63,6 +66,11 @@ public class SseTopicListener implements ApplicationRunner, Ordered {
         log.info("初始化SSE主题订阅监听器成功");
     }
 
+    /**
+     * 获取监听器的优先级，默认为Ordered.HIGHEST_PRECEDENCE.
+     *
+     * @return 监听器的优先级
+     */
     @Override
     public int getOrder() {
         return -1;

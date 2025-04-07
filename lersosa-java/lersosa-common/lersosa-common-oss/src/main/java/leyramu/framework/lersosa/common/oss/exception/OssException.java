@@ -34,9 +34,17 @@ import java.io.Serial;
  */
 public class OssException extends RuntimeException {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 构造方法.
+     *
+     * @param msg 异常信息
+     */
     public OssException(String msg) {
         super(msg);
     }

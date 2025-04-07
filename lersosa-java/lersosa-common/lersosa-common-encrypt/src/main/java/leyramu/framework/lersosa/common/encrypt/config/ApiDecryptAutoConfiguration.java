@@ -44,6 +44,12 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnProperty(value = "api-decrypt.enabled", havingValue = "true")
 public class ApiDecryptAutoConfiguration {
 
+    /**
+     * 注册过滤器.
+     *
+     * @param properties 配置
+     * @return 过滤器注册
+     */
     @Bean
     public FilterRegistrationBean<CryptoFilter> cryptoFilterRegistration(ApiDecryptProperties properties) {
         FilterRegistrationBean<CryptoFilter> registration = new FilterRegistrationBean<>();

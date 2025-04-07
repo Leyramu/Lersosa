@@ -47,39 +47,45 @@ import static leyramu.framework.lersosa.common.social.topiam.AuthTopiamSource.TO
  * TopIAM 认证请求.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @Slf4j
 public class AuthTopIamRequest extends AuthDefaultRequest {
 
+    /**
+     * 设定 TopIAM 服务器地址.
+     */
     public static final String SERVER_URL = SpringUtils.getProperty("justauth.type.topiam.server-url");
 
     /**
      * 设定归属域.
+     *
+     * @param config 配置
      */
     @SuppressWarnings("unused")
     public AuthTopIamRequest(AuthConfig config) {
         super(config, TOPIAM);
     }
 
+    /**
+     * 设定 TopIAM 服务器地址.
+     *
+     * @param config         配置
+     * @param authStateCache 缓存
+     */
     public AuthTopIamRequest(AuthConfig config, AuthStateCache authStateCache) {
         super(config, TOPIAM, authStateCache);
     }
 
-    public static void checkResponse(Dict object) {
-        // oauth/token 验证异常
-        if (object.containsKey("error")) {
-            throw new AuthException(object.getStr("error_description"));
-        }
-        // user 验证异常
-        if (object.containsKey("message")) {
-            throw new AuthException(object.getStr("message"));
-        }
-    }
-
+    /**
+     * 获取 Token.
+     *
+     * @param authCallback 回调
+     * @return {@link AuthToken}
+     */
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         String body = doPostAuthorizationCode(authCallback.getCode());
         Dict object = JsonUtils.parseMap(body);
         checkResponse(Objects.requireNonNull(object));
@@ -92,8 +98,14 @@ public class AuthTopIamRequest extends AuthDefaultRequest {
             .build();
     }
 
+    /**
+     * 获取用户信息.
+     *
+     * @param authToken 认证 Token
+     * @return {@link AuthUser}
+     */
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String body = doGetUserInfo(authToken);
         Dict object = JsonUtils.parseMap(body);
         checkResponse(Objects.requireNonNull(object));
@@ -108,6 +120,12 @@ public class AuthTopIamRequest extends AuthDefaultRequest {
             .build();
     }
 
+    /**
+     * 获取用户信息.
+     *
+     * @param authToken 认证 Token
+     * @return {@link AuthUser}
+     */
     @Override
     protected String doGetUserInfo(AuthToken authToken) {
         return new HttpUtils(config.getHttpConfig()).get(source.userInfo(), null, new HttpHeader()
@@ -115,10 +133,32 @@ public class AuthTopIamRequest extends AuthDefaultRequest {
             .add("Authorization", "Bearer " + authToken.getAccessToken()), false).getBody();
     }
 
+    /**
+     * 获取授权地址.
+     *
+     * @param state 状态
+     * @return 授权地址
+     */
     @Override
     public String authorize(String state) {
         return UrlBuilder.fromBaseUrl(super.authorize(state))
             .queryParam("scope", StrUtil.join("%20", config.getScopes()))
             .build();
+    }
+
+    /**
+     * 验证响应.
+     *
+     * @param object 响应
+     */
+    public static void checkResponse(Dict object) {
+        // oauth/token 验证异常
+        if (object.containsKey("error")) {
+            throw new AuthException(object.getStr("error_description"));
+        }
+        // user 验证异常
+        if (object.containsKey("message")) {
+            throw new AuthException(object.getStr("message"));
+        }
     }
 }

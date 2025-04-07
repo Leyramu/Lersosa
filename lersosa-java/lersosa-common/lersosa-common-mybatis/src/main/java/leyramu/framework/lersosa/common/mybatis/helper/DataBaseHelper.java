@@ -48,6 +48,9 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DataBaseHelper {
 
+    /**
+     * 数据源.
+     */
     private static final DynamicRoutingDataSource DS = SpringUtils.getBean(DynamicRoutingDataSource.class);
 
     /**
@@ -64,22 +67,41 @@ public class DataBaseHelper {
         }
     }
 
+    /**
+     * 判断是否为MySql数据库.
+     */
     public static boolean isMySql() {
         return DataBaseType.MY_SQL == getDataBaseType();
     }
 
+    /**
+     * 判断是否为Oracle数据库.
+     */
     public static boolean isOracle() {
         return DataBaseType.ORACLE == getDataBaseType();
     }
 
+    /**
+     * 判断是否为PostgerSql数据库.
+     */
     public static boolean isPostgerSql() {
         return DataBaseType.POSTGRE_SQL == getDataBaseType();
     }
 
+    /**
+     * 判断是否为SqlServer数据库.
+     */
     public static boolean isSqlServer() {
         return DataBaseType.SQL_SERVER == getDataBaseType();
     }
 
+    /**
+     * 判断是否为SqlServer数据库.
+     *
+     * @param var1 var1
+     * @param var2 var2
+     * @return String
+     */
     public static String findInSet(Object var1, String var2) {
         DataBaseType dataBasyType = getDataBaseType();
         String var = Convert.toStr(var1);

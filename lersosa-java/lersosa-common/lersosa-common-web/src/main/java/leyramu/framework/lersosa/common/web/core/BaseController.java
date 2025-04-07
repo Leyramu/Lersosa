@@ -23,7 +23,7 @@
 
 package leyramu.framework.lersosa.common.web.core;
 
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 
 /**
  * web层通用数据处理.
@@ -40,8 +40,8 @@ public class BaseController {
      * @param rows 影响行数
      * @return 操作结果
      */
-    protected R<Void> toAjax(int rows) {
-        return rows > 0 ? R.ok() : R.fail();
+    protected Result<Void> toAjax(int rows) {
+        return rows > 0 ? Result.ok() : Result.fail();
     }
 
     /**
@@ -50,7 +50,7 @@ public class BaseController {
      * @param result 结果
      * @return 操作结果
      */
-    protected R<Void> toAjax(boolean result) {
-        return result ? R.ok() : R.fail();
+    protected Result<Void> toAjax(boolean result) {
+        return result ? Result.ok() : Result.fail();
     }
 }

@@ -42,10 +42,22 @@
 
     <!--      依赖      -->
     <dependencies>
-        <!--      Lersosa Service Auth Domain      -->
+        <!--      Lersosa Common I18n      -->
         <dependency>
             <groupId>leyramu.framework</groupId>
-            <artifactId>lersosa-service-auth-domain</artifactId>
+            <artifactId>lersosa-common-i18n</artifactId>
+        </dependency>
+
+        <!--      Lersosa API Resource      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-api-resource</artifactId>
+        </dependency>
+
+        <!--      Lersosa API System      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-api-system</artifactId>
         </dependency>
     </dependencies>
 </project>

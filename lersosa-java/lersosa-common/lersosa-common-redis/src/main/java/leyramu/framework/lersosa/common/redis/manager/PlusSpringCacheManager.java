@@ -24,6 +24,7 @@
 package leyramu.framework.lersosa.common.redis.manager;
 
 import leyramu.framework.lersosa.common.redis.utils.RedisUtils;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 import org.redisson.api.RMap;
@@ -34,6 +35,7 @@ import org.springframework.boot.convert.DurationStyle;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.transaction.TransactionAwareCacheDecorator;
+import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
 import java.util.Collection;
@@ -46,42 +48,82 @@ import java.util.concurrent.ConcurrentMap;
  * 重写 cacheName 处理方法 支持多参数.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
-@SuppressWarnings("unchecked")
+@NoArgsConstructor
 public class PlusSpringCacheManager implements CacheManager {
 
-    Map<String, CacheConfig> configMap = new ConcurrentHashMap<>();
-    ConcurrentMap<String, Cache> instanceMap = new ConcurrentHashMap<>();
+    /**
+     * 动态创建 catch.
+     */
     private boolean dynamic = true;
+
+    /**
+     * 允许 null 值.
+     */
     @Setter
     private boolean allowNullValues = true;
+
+    /**
+     * 事务感知.
+     */
     @Setter
     private boolean transactionAware = true;
 
     /**
-     * Creates CacheManager supplied by Redisson instance.
+     * 按 catch 名称映射的 catch 配置.
      */
-    public PlusSpringCacheManager() {
+    Map<String, CacheConfig> configMap = new ConcurrentHashMap<>();
+
+    /**
+     * 按 catch 名称映射的 catch 实例.
+     */
+    ConcurrentMap<String, Cache> instanceMap = new ConcurrentHashMap<>();
+
+    /**
+     * 定义 'fixed' 缓存名称.
+     *
+     * @param names 缓存数量
+     */
+    public void setCacheNames(Collection<String> names) {
+        if (names != null) {
+            for (String name : names) {
+                getCache(name);
+            }
+            dynamic = false;
+        } else {
+            dynamic = true;
+        }
     }
 
     /**
-     * Set cache config mapped by cache name.
+     * 设置由 catch 映射的缓存配置，名为.
      *
      * @param config object
      */
+    @SuppressWarnings("unchecked")
     public void setConfig(Map<String, ? extends CacheConfig> config) {
         this.configMap = (Map<String, CacheConfig>) config;
     }
 
+    /**
+     * 创建默认的 CacheConfig.
+     *
+     * @return CacheConfig
+     */
     protected CacheConfig createDefaultConfig() {
         return new CacheConfig();
     }
 
+    /**
+     * 获取缓存实例.
+     *
+     * @param name 缓存名称
+     * @return Cache
+     */
     @Override
-    @SuppressWarnings("all")
-    public Cache getCache(String name) {
+    public Cache getCache(@Nullable String name) {
         // 重写 cacheName 支持多参数
         String[] array = StringUtils.delimitedListToStringArray(name, "#");
         name = array[0];
@@ -117,6 +159,13 @@ public class PlusSpringCacheManager implements CacheManager {
         return createMapCache(name, config);
     }
 
+    /**
+     * 创建 Map 实例.
+     *
+     * @param name          缓存名称
+     * @param ignoredConfig 缓存配置
+     * @return Cache
+     */
     private Cache createMap(String name, CacheConfig ignoredConfig) {
         RMap<Object, Object> map = RedisUtils.getClient().getMap(name);
 
@@ -131,6 +180,13 @@ public class PlusSpringCacheManager implements CacheManager {
         return cache;
     }
 
+    /**
+     * 创建 MapCache 实例.
+     *
+     * @param name   缓存名称
+     * @param config 缓存配置
+     * @return Cache
+     */
     private Cache createMapCache(String name, CacheConfig config) {
         RMapCache<Object, Object> map = RedisUtils.getClient().getMapCache(name);
 
@@ -147,25 +203,14 @@ public class PlusSpringCacheManager implements CacheManager {
         return cache;
     }
 
+    /**
+     * 获取缓存名称集合.
+     *
+     * @return Collection
+     */
     @Override
     @NonNull
     public Collection<String> getCacheNames() {
         return Collections.unmodifiableSet(configMap.keySet());
-    }
-
-    /**
-     * Defines 'fixed' cache names.
-     *
-     * @param names of caches
-     */
-    public void setCacheNames(Collection<String> names) {
-        if (names != null) {
-            for (String name : names) {
-                getCache(name);
-            }
-            dynamic = false;
-        } else {
-            dynamic = true;
-        }
     }
 }

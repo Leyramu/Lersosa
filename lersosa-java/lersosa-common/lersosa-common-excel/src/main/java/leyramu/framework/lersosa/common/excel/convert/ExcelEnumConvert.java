@@ -50,16 +50,34 @@ import java.util.Map;
 @Slf4j
 public class ExcelEnumConvert implements Converter<Object> {
 
+    /**
+     * 获取支持的Java类型key.
+     *
+     * @return {@link Class}<{@link ?}>
+     */
     @Override
     public Class<Object> supportJavaTypeKey() {
         return Object.class;
     }
 
+    /**
+     * 获取支持的Excel类型key.
+     *
+     * @return {@link CellDataTypeEnum}
+     */
     @Override
     public CellDataTypeEnum supportExcelTypeKey() {
         return null;
     }
 
+    /**
+     * 将单元格内容转换为Java对象.
+     *
+     * @param cellData         单元格数据值
+     * @param contentProperty  内容属性
+     * @param globalConfiguration 全局配置
+     * @return Java对象
+     */
     @Override
     public Object convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
         cellData.checkEmpty();
@@ -84,6 +102,14 @@ public class ExcelEnumConvert implements Converter<Object> {
         return Convert.convert(contentProperty.getField().getType(), codeValue);
     }
 
+    /**
+     * 将Java对象转换为单元格内容.
+     *
+     * @param object             Java对象
+     * @param contentProperty  内容属性
+     * @param globalConfiguration 全局配置
+     * @return 单元格内容
+     */
     @Override
     public WriteCellData<String> convertToExcelData(Object object, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
         if (ObjectUtil.isNull(object)) {
@@ -94,6 +120,12 @@ public class ExcelEnumConvert implements Converter<Object> {
         return new WriteCellData<>(value);
     }
 
+    /**
+     * 获取枚举值映射.
+     *
+     * @param contentProperty 内容属性
+     * @return 枚举值映射
+     */
     private Map<Object, String> beforeConvert(ExcelContentProperty contentProperty) {
         ExcelEnumFormat anno = getAnnotation(contentProperty.getField());
         Map<Object, String> enumValueMap = new HashMap<>();
@@ -106,6 +138,12 @@ public class ExcelEnumConvert implements Converter<Object> {
         return enumValueMap;
     }
 
+    /**
+     * 获取注解.
+     *
+     * @param field 字段
+     * @return {@link ExcelEnumFormat}
+     */
     private ExcelEnumFormat getAnnotation(Field field) {
         return AnnotationUtil.getAnnotation(field, ExcelEnumFormat.class);
     }

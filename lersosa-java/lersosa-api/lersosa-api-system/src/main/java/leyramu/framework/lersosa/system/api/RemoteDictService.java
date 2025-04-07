@@ -24,6 +24,7 @@
 package leyramu.framework.lersosa.system.api;
 
 import leyramu.framework.lersosa.system.api.domain.vo.RemoteDictDataVo;
+import leyramu.framework.lersosa.system.api.domain.vo.RemoteDictTypeVo;
 
 import java.util.List;
 
@@ -35,6 +36,14 @@ import java.util.List;
  * @since 2024/11/6
  */
 public interface RemoteDictService {
+
+    /**
+     * 根据字典类型查询信息
+     *
+     * @param dictType 字典类型
+     * @return 字典类型
+     */
+    RemoteDictTypeVo selectDictTypeByType(String dictType);
 
     /**
      * 根据字典类型查询字典数据.

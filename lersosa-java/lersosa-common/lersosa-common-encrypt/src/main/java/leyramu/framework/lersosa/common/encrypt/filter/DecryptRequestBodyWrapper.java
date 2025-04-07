@@ -47,8 +47,19 @@ import java.nio.charset.StandardCharsets;
  */
 public class DecryptRequestBodyWrapper extends HttpServletRequestWrapper {
 
+    /**
+     * 请求体.
+     */
     private final byte[] body;
 
+    /**
+     * 构造方法.
+     *
+     * @param request    请求
+     * @param privateKey 私钥
+     * @param headerFlag 请求头标识
+     * @throws IOException IO异常
+     */
     public DecryptRequestBodyWrapper(HttpServletRequest request, String privateKey, String headerFlag) throws IOException {
         super(request);
         // 获取 AES 密码 采用 RSA 加密
@@ -64,55 +75,103 @@ public class DecryptRequestBodyWrapper extends HttpServletRequestWrapper {
         body = decryptBody.getBytes(StandardCharsets.UTF_8);
     }
 
+    /**
+     * 获取请求体.
+     *
+     * @return 请求体
+     */
     @Override
     public BufferedReader getReader() {
         return new BufferedReader(new InputStreamReader(getInputStream()));
     }
 
-
+    /**
+     * 获取请求体长度.
+     *
+     * @return 请求体长度
+     */
     @Override
     public int getContentLength() {
         return body.length;
     }
 
+    /**
+     * 获取请求体长度.
+     *
+     * @return 请求体长度
+     */
     @Override
     public long getContentLengthLong() {
         return body.length;
     }
 
+    /**
+     * 获取请求体类型.
+     *
+     * @return 请求体类型
+     */
     @Override
     public String getContentType() {
         return MediaType.APPLICATION_JSON_VALUE;
     }
 
-
+    /**
+     * 获取请求体.
+     *
+     * @return 请求体
+     */
     @Override
     public ServletInputStream getInputStream() {
         final ByteArrayInputStream bais = new ByteArrayInputStream(body);
         return new ServletInputStream() {
+
+            /**
+             * 读取请求体.
+             *
+             * @return 请求体
+             */
             @Override
             public int read() {
                 return bais.read();
             }
 
+            /**
+             * 获取请求体长度.
+             *
+             * @return 请求体长度
+             */
             @Override
             public int available() {
                 return body.length;
             }
 
+            /**
+             * 是否读取完毕.
+             *
+             * @return 是否读取完毕
+             */
             @Override
             public boolean isFinished() {
                 return false;
             }
 
+            /**
+             * 是否读取就绪.
+             *
+             * @return 是否读取就绪
+             */
             @Override
             public boolean isReady() {
                 return false;
             }
 
+            /**
+             * 设置读取监听器.
+             *
+             * @param readListener 读取监听器
+             */
             @Override
             public void setReadListener(ReadListener readListener) {
-
             }
         };
     }

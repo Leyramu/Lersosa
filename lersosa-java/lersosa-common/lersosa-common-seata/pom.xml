@@ -52,12 +52,6 @@
         <dependency>
             <groupId>org.apache.dubbo.extensions</groupId>
             <artifactId>dubbo-filter-seata</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.seata</groupId>
-                    <artifactId>seata-core</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!--      Spring Cloud Seata      -->
@@ -74,16 +68,16 @@
                     <artifactId>dubbo-filter-seata</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
+                    <groupId>io.seata</groupId>
+                    <artifactId>seata-spring-boot-starter</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
 
-        <!--      Guava      -->
+        <!--      Seata Spring Boot Starter      -->
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
+            <groupId>org.apache.seata</groupId>
+            <artifactId>seata-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 </project>

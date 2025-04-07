@@ -41,6 +41,9 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ValidatorUtils {
 
+    /**
+     * 获取 Validator 对象.
+     */
     private static final Validator VALID = SpringUtils.getBean(Validator.class);
 
     /**

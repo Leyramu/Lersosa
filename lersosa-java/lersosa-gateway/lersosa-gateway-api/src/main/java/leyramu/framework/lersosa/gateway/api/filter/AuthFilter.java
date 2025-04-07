@@ -52,6 +52,9 @@ public class AuthFilter {
 
     /**
      * 注册 Sa-Token 全局过滤器.
+     *
+     * @param ignoreWhite 忽略白名单配置
+     * @return Sa-Token全局过滤器
      */
     @Bean
     public SaReactorFilter getSaReactorFilter(IgnoreWhiteProperties ignoreWhite) {

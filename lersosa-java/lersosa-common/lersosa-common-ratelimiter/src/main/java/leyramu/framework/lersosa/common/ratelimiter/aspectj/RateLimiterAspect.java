@@ -75,18 +75,24 @@ public class RateLimiterAspect {
      */
     private final ParameterNameDiscoverer pnd = new DefaultParameterNameDiscoverer();
 
-
+    /**
+     * 限流注解.
+     *
+     * @param point       切点
+     * @param rateLimiter 限流注解
+     */
     @Before("@annotation(rateLimiter)")
     public void doBefore(JoinPoint point, RateLimiter rateLimiter) {
         int time = rateLimiter.time();
         int count = rateLimiter.count();
+        int timeout = rateLimiter.timeout();
         try {
             String combineKey = getCombineKey(rateLimiter, point);
             RateType rateType = RateType.OVERALL;
             if (rateLimiter.limitType() == LimitType.CLUSTER) {
                 rateType = RateType.PER_CLIENT;
             }
-            long number = RedisUtils.rateLimiter(combineKey, rateType, count, time);
+            long number = RedisUtils.rateLimiter(combineKey, rateType, count, time, timeout);
             if (number == -1) {
                 String message = rateLimiter.message();
                 if (StringUtils.startsWith(message, "{") && StringUtils.endsWith(message, "}")) {
@@ -104,6 +110,13 @@ public class RateLimiterAspect {
         }
     }
 
+    /**
+     * 组合redis的key.
+     *
+     * @param rateLimiter 限流注解
+     * @param point       切点
+     * @return redis的key
+     */
     @SuppressWarnings("all")
     private String getCombineKey(RateLimiter rateLimiter, JoinPoint point) {
         String key = rateLimiter.key();

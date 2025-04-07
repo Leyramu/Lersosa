@@ -36,20 +36,29 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum UserStatus {
+
     /**
      * 正常.
      */
     OK("0", "正常"),
+
     /**
      * 停用.
      */
     DISABLE("1", "停用"),
+
     /**
      * 删除.
      */
     DELETED("2", "删除");
 
+    /**
+     * 状态码.
+     */
     private final String code;
-    private final String info;
 
+    /**
+     * 状态信息.
+     */
+    private final String info;
 }

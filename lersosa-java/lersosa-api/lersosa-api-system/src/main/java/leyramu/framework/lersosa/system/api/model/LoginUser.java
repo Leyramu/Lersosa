@@ -42,6 +42,9 @@ import java.util.Set;
 @NoArgsConstructor
 public class LoginUser implements Serializable {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 

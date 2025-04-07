@@ -30,12 +30,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * sentinel自定义配置类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @Data
 @ConfigurationProperties(prefix = "spring.cloud.sentinel.transport")
 public class SentinelCustomProperties {
 
+    /**
+     * 服务名称.
+     */
     private String serverName;
 }

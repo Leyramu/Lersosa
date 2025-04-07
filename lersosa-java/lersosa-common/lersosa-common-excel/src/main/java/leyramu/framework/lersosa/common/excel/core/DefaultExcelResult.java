@@ -49,28 +49,52 @@ public class DefaultExcelResult<T> implements ExcelResult<T> {
      */
     private List<String> errorList;
 
+    /**
+     * 构造方法.
+     */
     public DefaultExcelResult() {
         this.list = new ArrayList<>();
         this.errorList = new ArrayList<>();
     }
 
+    /**
+     * 构造方法.
+     *
+     * @param list      数据对象list
+     * @param errorList 错误信息列表
+     */
     @SuppressWarnings("unused")
     public DefaultExcelResult(List<T> list, List<String> errorList) {
         this.list = list;
         this.errorList = errorList;
     }
 
+    /**
+     * 构造方法.
+     *
+     * @param excelResult excel返回对象
+     */
     @SuppressWarnings("unused")
     public DefaultExcelResult(ExcelResult<T> excelResult) {
         this.list = excelResult.getList();
         this.errorList = excelResult.getErrorList();
     }
 
+    /**
+     * 获取数据对象list.
+     *
+     * @return 数据对象list
+     */
     @Override
     public List<T> getList() {
         return list;
     }
 
+    /**
+     * 获取错误信息列表.
+     *
+     * @return 错误信息列表
+     */
     @Override
     public List<String> getErrorList() {
         return errorList;

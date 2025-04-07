@@ -31,6 +31,7 @@ package leyramu.framework.lersosa.common.log.enums;
  * @since 2024/11/6
  */
 public enum BusinessType {
+
     /**
      * 其它.
      */

@@ -32,7 +32,6 @@ import leyramu.framework.lersosa.common.core.utils.file.FileUtils;
 import leyramu.framework.lersosa.common.oss.constant.OssConstant;
 import leyramu.framework.lersosa.common.oss.entity.UploadResult;
 import leyramu.framework.lersosa.common.oss.enumd.AccessPolicyType;
-import leyramu.framework.lersosa.common.oss.enumd.PolicyType;
 import leyramu.framework.lersosa.common.oss.exception.OssException;
 import leyramu.framework.lersosa.common.oss.properties.OssProperties;
 import lombok.Getter;
@@ -41,13 +40,11 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.core.async.BlockingInputStreamAsyncRequestBody;
+import software.amazon.awssdk.http.nio.netty.NettyNioAsyncHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.S3Configuration;
-import software.amazon.awssdk.services.s3.crt.S3CrtHttpConfiguration;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
-import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
-import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.transfer.s3.S3TransferManager;
 import software.amazon.awssdk.transfer.s3.model.*;
@@ -59,12 +56,13 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.util.function.Consumer;
 
 /**
  * S3 存储协议 所有兼容S3协议的云厂商均支持.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 public class OssClient {
@@ -72,8 +70,7 @@ public class OssClient {
     /**
      * 服务商.
      * -- GETTER --
-     *  服务商
-
+     * 服务商
      */
     @Getter
     private final String configKey;
@@ -112,21 +109,17 @@ public class OssClient {
             StaticCredentialsProvider credentialsProvider = StaticCredentialsProvider.create(
                 AwsBasicCredentials.create(properties.getAccessKey(), properties.getSecretKey()));
 
-            //使用对象存储服务时要求明确配置访问样式（路径样式或虚拟托管样式）。需要启用路径样式访问
-            boolean isStyle = true;
+            // MinIO 使用 HTTPS 限制使用域名访问，站点填域名。需要启用路径样式访问
+            boolean isStyle = !StringUtils.containsAny(properties.getEndpoint(), OssConstant.CLOUD_SERVICE);
 
-            //创建AWS基于 CRT 的 S3 客户端
-            this.client = S3AsyncClient.crtBuilder()
+            // 创建AWS基于 Netty 的 S3 客户端
+            this.client = S3AsyncClient.builder()
                 .credentialsProvider(credentialsProvider)
                 .endpointOverride(URI.create(getEndpoint()))
                 .region(of())
-                .targetThroughputInGbps(20.0)
-                .minimumPartSizeInBytes(10 * 1025 * 1024L)
-                .checksumValidationEnabled(false)
                 .forcePathStyle(isStyle)
-                .httpConfiguration(S3CrtHttpConfiguration.builder()
-                    .connectionTimeout(Duration.ofSeconds(60)) // 设置连接超时
-                    .build())
+                .httpClient(NettyNioAsyncHttpClient.builder()
+                    .connectionTimeout(Duration.ofSeconds(60)).build())
                 .build();
 
             //AWS基于 CRT 的 S3 AsyncClient 实例用作 S3 传输管理器的底层客户端
@@ -144,122 +137,11 @@ public class OssClient {
                 .serviceConfiguration(config)
                 .build();
 
-            // 创建存储桶
-            createBucket();
         } catch (Exception e) {
             if (e instanceof OssException) {
                 throw e;
             }
             throw new OssException("配置错误! 请检查系统配置:[" + e.getMessage() + "]");
-        }
-    }
-
-    /**
-     * 生成 AWS S3 存储桶访问策略.
-     *
-     * @param bucketName 存储桶
-     * @param policyType 桶策略类型
-     * @return 符合 AWS S3 存储桶访问策略格式的字符串
-     */
-    private static String getPolicy(String bucketName, PolicyType policyType) {
-        String policy = switch (policyType) {
-            case WRITE -> """
-                {
-                  "Version": "2012-10-17",
-                  "Statement": []
-                }
-                """;
-            case READ_WRITE -> """
-                {
-                  "Version": "2012-10-17",
-                  "Statement": [
-                    {
-                      "Effect": "Allow",
-                      "Principal": "*",
-                      "Action": [
-                        "s3:GetBucketLocation",
-                        "s3:ListBucket",
-                        "s3:ListBucketMultipartUploads"
-                      ],
-                      "Resource": "arn:aws:s3:::bucketName"
-                    },
-                    {
-                      "Effect": "Allow",
-                      "Principal": "*",
-                      "Action": [
-                        "s3:AbortMultipartUpload",
-                        "s3:DeleteObject",
-                        "s3:GetObject",
-                        "s3:ListMultipartUploadParts",
-                        "s3:PutObject"
-                      ],
-                      "Resource": "arn:aws:s3:::bucketName/*"
-                    }
-                  ]
-                }
-                """;
-            case READ -> """
-                {
-                  "Version": "2012-10-17",
-                  "Statement": [
-                    {
-                      "Effect": "Allow",
-                      "Principal": "*",
-                      "Action": ["s3:GetBucketLocation"],
-                      "Resource": "arn:aws:s3:::bucketName"
-                    },
-                    {
-                      "Effect": "Deny",
-                      "Principal": "*",
-                      "Action": ["s3:ListBucket"],
-                      "Resource": "arn:aws:s3:::bucketName"
-                    },
-                    {
-                      "Effect": "Allow",
-                      "Principal": "*",
-                      "Action": "s3:GetObject",
-                      "Resource": "arn:aws:s3:::bucketName/*"
-                    }
-                  ]
-                }
-                """;
-        };
-        return policy.replaceAll("bucketName", bucketName);
-    }
-
-    /**
-     * 同步创建存储桶.
-     *
-     * @throws OssException 当创建存储桶时发生异常时抛出
-     */
-    public void createBucket() {
-        String bucketName = properties.getBucketName();
-        try {
-            // 尝试获取存储桶的信息
-            client.headBucket(
-                    x -> x.bucket(bucketName)
-                        .build())
-                .join();
-        } catch (Exception ex) {
-            if (ex.getCause() instanceof NoSuchBucketException) {
-                try {
-                    // 存储桶不存在，尝试创建存储桶
-                    client.createBucket(
-                            x -> x.bucket(bucketName))
-                        .join();
-
-                    // 设置存储桶的访问策略（Bucket Policy）
-                    client.putBucketPolicy(
-                            x -> x.bucket(bucketName)
-                                .policy(getPolicy(bucketName, getAccessPolicy().getPolicyType())))
-                        .join();
-                } catch (S3Exception e) {
-                    // 存储桶创建或策略设置失败
-                    throw new OssException("创建Bucket失败, 请核对配置信息:[" + e.getMessage() + "]");
-                }
-            } else {
-                throw new OssException("判断Bucket是否存在失败，请核对配置信息:[" + ex.getMessage() + "]");
-            }
         }
     }
 
@@ -385,7 +267,7 @@ public class OssClient {
      * @return 输出流中写入的字节数（长度）
      * @throws OssException 如果下载失败，抛出自定义异常
      */
-    public long download(String key, OutputStream out) {
+    public void download(String key, OutputStream out, Consumer<Long> consumer) {
         try {
             // 构建下载请求
             DownloadRequest<ResponseInputStream<GetObjectResponse>> downloadRequest = DownloadRequest.builder()
@@ -400,8 +282,11 @@ public class OssClient {
             // 使用 S3TransferManager 下载文件
             Download<ResponseInputStream<GetObjectResponse>> responseFuture = transferManager.download(downloadRequest);
             // 输出到流中
-            try (ResponseInputStream<GetObjectResponse> responseStream = responseFuture.completionFuture().join().result()) { // auto-closeable stream
-                return responseStream.transferTo(out); // 阻塞调用线程 blocks the calling thread
+            try (ResponseInputStream<GetObjectResponse> responseStream = responseFuture.completionFuture().join().result()) {
+                if (consumer != null) {
+                    consumer.accept(responseStream.response().contentLength());
+                }
+                responseStream.transferTo(out);
             }
         } catch (Exception e) {
             throw new OssException("文件下载失败，错误信息:[" + e.getMessage() + "]");

@@ -44,6 +44,15 @@ import java.util.concurrent.ThreadLocalRandom;
 @SuppressWarnings("unused")
 public class CustomDubboLoadBalancer extends AbstractLoadBalance {
 
+    /**
+     * 选择一个 Invoker.
+     *
+     * @param invokers   Invoker 列表
+     * @param url        URL
+     * @param invocation Invocation
+     * @param <T>        泛型
+     * @return Invoker
+     */
     @Override
     protected <T> Invoker<T> doSelect(List<Invoker<T>> invokers, URL url, Invocation invocation) {
         for (Invoker<T> invoker : invokers) {

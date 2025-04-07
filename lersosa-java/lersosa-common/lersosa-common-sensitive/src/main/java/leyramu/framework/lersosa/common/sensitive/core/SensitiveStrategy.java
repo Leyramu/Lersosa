@@ -32,7 +32,7 @@ import java.util.function.Function;
  * 脱敏策略.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @AllArgsConstructor
@@ -115,8 +115,16 @@ public enum SensitiveStrategy {
 
     //可自行添加其他脱敏策略
 
+    /**
+     * 脱敏器.
+     */
     private final Function<String, String> desensitizer;
 
+    /**
+     * 脱敏器.
+     *
+     * @return 脱敏器
+     */
     public Function<String, String> desensitizer() {
         return desensitizer;
     }

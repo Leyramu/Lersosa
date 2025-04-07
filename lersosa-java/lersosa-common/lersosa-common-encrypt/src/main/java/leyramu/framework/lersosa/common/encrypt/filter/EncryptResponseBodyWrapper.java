@@ -46,22 +46,48 @@ import java.nio.charset.StandardCharsets;
  */
 public class EncryptResponseBodyWrapper extends HttpServletResponseWrapper {
 
+    /**
+     * 字节数组输出流.
+     */
     private final ByteArrayOutputStream byteArrayOutputStream;
+
+    /**
+     * Servlet 输出流.
+     */
     private final ServletOutputStream servletOutputStream;
+
+    /**
+     * 打印流.
+     */
     private final PrintWriter printWriter;
 
-    public EncryptResponseBodyWrapper(HttpServletResponse response) throws IOException {
+    /**
+     * 构造方法.
+     *
+     * @param response response
+     */
+    public EncryptResponseBodyWrapper(HttpServletResponse response) {
         super(response);
         this.byteArrayOutputStream = new ByteArrayOutputStream();
         this.servletOutputStream = this.getOutputStream();
         this.printWriter = new PrintWriter(new OutputStreamWriter(byteArrayOutputStream));
     }
 
+    /**
+     * 获取打印流.
+     *
+     * @return 打印流
+     */
     @Override
     public PrintWriter getWriter() {
         return printWriter;
     }
 
+    /**
+     * 刷新缓冲区.
+     *
+     * @throws IOException IO异常
+     */
     @Override
     public void flushBuffer() throws IOException {
         if (servletOutputStream != null) {
@@ -72,17 +98,32 @@ public class EncryptResponseBodyWrapper extends HttpServletResponseWrapper {
         }
     }
 
+    /**
+     * 重置缓冲区.
+     */
     @Override
     public void reset() {
         byteArrayOutputStream.reset();
     }
 
+    /**
+     * 获取响应数据.
+     *
+     * @return 响应数据
+     * @throws IOException IO异常
+     */
     @SuppressWarnings("unused")
     public byte[] getResponseData() throws IOException {
         flushBuffer();
         return byteArrayOutputStream.toByteArray();
     }
 
+    /**
+     * 获取响应内容.
+     *
+     * @return 响应内容
+     * @throws IOException IO异常
+     */
     public String getContent() throws IOException {
         flushBuffer();
         return byteArrayOutputStream.toString();
@@ -118,29 +159,62 @@ public class EncryptResponseBodyWrapper extends HttpServletResponseWrapper {
         return EncryptUtils.encryptByAes(originalBody, aesPassword);
     }
 
+    /**
+     * 获取 Servlet 输出流.
+     *
+     * @return Servlet 输出流
+     */
     @Override
     public ServletOutputStream getOutputStream() {
         return new ServletOutputStream() {
+
+            /**
+             * 判断是否读取就绪.
+             *
+             * @return 是否读取就绪
+             */
             @Override
             public boolean isReady() {
                 return false;
             }
 
+            /**
+             * 设置读取监听器.
+             *
+             * @param writeListener 读取监听器
+             */
             @Override
             public void setWriteListener(WriteListener writeListener) {
-
             }
 
+            /**
+             * 写入.
+             *
+             * @param b 字节
+             */
             @Override
             public void write(int b) {
                 byteArrayOutputStream.write(b);
             }
 
+            /**
+             * 写入.
+             *
+             * @param b 字节数组
+             * @throws IOException IO异常
+             */
             @Override
             public void write(byte @NonNull [] b) throws IOException {
                 byteArrayOutputStream.write(b);
             }
 
+            /**
+             * 写入.
+             *
+             * @param b  字节数组
+             * @param off 偏移量
+             * @param len 长度
+             */
             @Override
             public void write(byte @NonNull [] b, int off, int len) {
                 byteArrayOutputStream.write(b, off, len);

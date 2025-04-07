@@ -29,7 +29,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.core.exception.ServiceException;
 import leyramu.framework.lersosa.common.core.exception.SseException;
 import leyramu.framework.lersosa.common.core.exception.base.BaseException;
@@ -54,7 +54,7 @@ import java.util.Objects;
  * 全局异常处理器.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 @Slf4j
@@ -63,88 +63,123 @@ public class GlobalExceptionHandler {
 
     /**
      * 请求方式不支持.
+     *
+     * @param e       异常
+     * @param request 请求
+     * @return 统一返回
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public R<Void> handleHttpRequestMethodNotSupported(
+    public Result<Void> handleHttpRequestMethodNotSupported(
         HttpRequestMethodNotSupportedException e,
         HttpServletRequest request) {
         String requestUri = request.getRequestURI();
         log.error("请求地址'{}',不支持'{}'请求", requestUri, e.getMethod());
-        return R.fail(HttpStatus.HTTP_BAD_METHOD, e.getMessage());
+        return Result.fail(HttpStatus.HTTP_BAD_METHOD, e.getMessage());
     }
 
     /**
      * 业务异常.
+     *
+     * @param e              异常
+     * @param ignoredRequest 请求
+     * @return 统一返回
      */
     @ExceptionHandler(ServiceException.class)
-    public R<Void> handleServiceException(ServiceException e, HttpServletRequest ignoredRequest) {
+    public Result<Void> handleServiceException(ServiceException e, HttpServletRequest ignoredRequest) {
         log.error(e.getMessage());
         Integer code = e.getCode();
-        return ObjectUtil.isNotNull(code) ? R.fail(code, e.getMessage()) : R.fail(e.getMessage());
+        return ObjectUtil.isNotNull(code) ? Result.fail(code, e.getMessage()) : Result.fail(e.getMessage());
     }
 
     /**
      * 认证失败.
+     *
+     * @param e       异常
+     * @param request 请求
+     * @return 字符串
      */
     @ResponseStatus(org.springframework.http.HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(SseException.class)
     public String handleNotLoginException(SseException e, HttpServletRequest request) {
         String requestUri = request.getRequestURI();
         log.error("请求地址'{}',认证失败'{}',无法访问系统资源", requestUri, e.getMessage());
-        return JsonUtils.toJsonString(R.fail(HttpStatus.HTTP_UNAUTHORIZED, "认证失败，无法访问系统资源"));
+        return JsonUtils.toJsonString(Result.fail(HttpStatus.HTTP_UNAUTHORIZED, "认证失败，无法访问系统资源"));
     }
 
     /**
      * servlet异常.
+     *
+     * @param e              异常
+     * @param request 请求
+     * @return 统一返回
      */
     @ExceptionHandler(ServletException.class)
-    public R<Void> handleServletException(ServletException e, HttpServletRequest request) {
+    public Result<Void> handleServletException(ServletException e, HttpServletRequest request) {
         String requestUri = request.getRequestURI();
         log.error("请求地址'{}',发生未知异常.", requestUri, e);
-        return R.fail(e.getMessage());
+        return Result.fail(e.getMessage());
     }
 
     /**
      * 业务异常.
+     *
+     * @param e              异常
+     * @param ignoredRequest 请求
+     * @return 统一返回
      */
     @ExceptionHandler(BaseException.class)
-    public R<Void> handleBaseException(BaseException e, HttpServletRequest ignoredRequest) {
+    public Result<Void> handleBaseException(BaseException e, HttpServletRequest ignoredRequest) {
         log.error(e.getMessage());
-        return R.fail(e.getMessage());
+        return Result.fail(e.getMessage());
     }
 
     /**
      * 请求路径中缺少必需的路径变量.
+     *
+     * @param e              异常
+     * @param request 请求
+     * @return 统一返回
      */
     @ExceptionHandler(MissingPathVariableException.class)
-    public R<Void> handleMissingPathVariableException(MissingPathVariableException e, HttpServletRequest request) {
+    public Result<Void> handleMissingPathVariableException(MissingPathVariableException e, HttpServletRequest request) {
         String requestUri = request.getRequestURI();
         log.error("请求路径中缺少必需的路径变量'{}',发生系统异常.", requestUri);
-        return R.fail(String.format("请求路径中缺少必需的路径变量[%s]", e.getVariableName()));
+        return Result.fail(String.format("请求路径中缺少必需的路径变量[%s]", e.getVariableName()));
     }
 
     /**
      * 请求参数类型不匹配.
+     *
+     * @param e              异常
+     * @param request 请求
+     * @return 统一返回
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public R<Void> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e, HttpServletRequest request) {
+    public Result<Void> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e, HttpServletRequest request) {
         String requestUri = request.getRequestURI();
         log.error("请求参数类型不匹配'{}',发生系统异常.", requestUri);
-        return R.fail(String.format("请求参数类型不匹配，参数[%s]要求类型为：'%s'，但输入值为：'%s'", e.getName(), Objects.requireNonNull(e.getRequiredType()).getName(), e.getValue()));
+        return Result.fail(String.format("请求参数类型不匹配，参数[%s]要求类型为：'%s'，但输入值为：'%s'", e.getName(), Objects.requireNonNull(e.getRequiredType()).getName(), e.getValue()));
     }
 
     /**
      * 找不到路由.
+     *
+     * @param e              异常
+     * @param request 请求
+     * @return 统一返回
      */
     @ExceptionHandler(NoHandlerFoundException.class)
-    public R<Void> handleNoHandlerFoundException(NoHandlerFoundException e, HttpServletRequest request) {
+    public Result<Void> handleNoHandlerFoundException(NoHandlerFoundException e, HttpServletRequest request) {
         String requestUri = request.getRequestURI();
         log.error("请求地址'{}'不存在.", requestUri);
-        return R.fail(HttpStatus.HTTP_NOT_FOUND, e.getMessage());
+        return Result.fail(HttpStatus.HTTP_NOT_FOUND, e.getMessage());
     }
 
     /**
      * 拦截未知的运行时异常.
+     *
+     * @param e              异常
+     * @param request 请求
      */
     @ResponseStatus(org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(IOException.class)
@@ -159,51 +194,68 @@ public class GlobalExceptionHandler {
 
     /**
      * 拦截未知的运行时异常.
+     *
+     * @param e              异常
+     * @param request 请求
+     * @return 统一返回
      */
     @ExceptionHandler(RuntimeException.class)
-    public R<Void> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
+    public Result<Void> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
         String requestUri = request.getRequestURI();
         log.error("请求地址'{}',发生未知异常.", requestUri, e);
-        return R.fail(e.getMessage());
+        return Result.fail(e.getMessage());
     }
 
     /**
      * 系统异常.
+     *
+     * @param e              异常
+     * @param request 请求
+     * @return 统一返回
      */
     @ExceptionHandler(Exception.class)
-    public R<Void> handleException(Exception e, HttpServletRequest request) {
+    public Result<Void> handleException(Exception e, HttpServletRequest request) {
         String requestUri = request.getRequestURI();
         log.error("请求地址'{}',发生系统异常.", requestUri, e);
-        return R.fail(e.getMessage());
+        return Result.fail(e.getMessage());
     }
 
     /**
      * 自定义验证异常.
+     *
+     * @param e              异常
+     * @return 统一返回
      */
     @ExceptionHandler(BindException.class)
-    public R<Void> handleBindException(BindException e) {
+    public Result<Void> handleBindException(BindException e) {
         log.error(e.getMessage());
         String message = StreamUtils.join(e.getAllErrors(), DefaultMessageSourceResolvable::getDefaultMessage, ", ");
-        return R.fail(message);
+        return Result.fail(message);
     }
 
     /**
      * 自定义验证异常.
+     *
+     * @param e              异常
+     * @return 统一返回
      */
     @ExceptionHandler(ConstraintViolationException.class)
-    public R<Void> constraintViolationException(ConstraintViolationException e) {
+    public Result<Void> constraintViolationException(ConstraintViolationException e) {
         log.error(e.getMessage());
         String message = StreamUtils.join(e.getConstraintViolations(), ConstraintViolation::getMessage, ", ");
-        return R.fail(message);
+        return Result.fail(message);
     }
 
     /**
      * 自定义验证异常.
+     *
+     * @param e              异常
+     * @return 统一返回
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public R<Void> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public Result<Void> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error(e.getMessage());
         String message = StreamUtils.join(e.getBindingResult().getAllErrors(), DefaultMessageSourceResolvable::getDefaultMessage, ", ");
-        return R.fail(message);
+        return Result.fail(message);
     }
 }

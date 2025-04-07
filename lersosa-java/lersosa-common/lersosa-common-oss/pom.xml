@@ -78,10 +78,10 @@
             </exclusions>
         </dependency>
 
-        <!--      AWS CRT      -->
+        <!--      AWS Netty NIO      -->
         <dependency>
-            <groupId>software.amazon.awssdk.crt</groupId>
-            <artifactId>aws-crt</artifactId>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>netty-nio-client</artifactId>
         </dependency>
 
         <!--      AWS Transfer Manager      -->

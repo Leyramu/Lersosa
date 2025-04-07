@@ -39,6 +39,12 @@ import org.springframework.context.annotation.Bean;
 @AutoConfiguration
 public class PrometheusConfiguration {
 
+    /**
+     * prometheus 配置.
+     *
+     * @param applicationName 应用名称
+     * @return MeterRegistryCustomizer
+     */
     @Bean
     public MeterRegistryCustomizer<MeterRegistry> configurer(@Value("${spring.application.name}") String applicationName) {
         return (registry) -> registry.config().commonTags("application", applicationName);

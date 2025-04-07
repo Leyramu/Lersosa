@@ -50,6 +50,14 @@ import org.springframework.web.socket.server.HandshakeInterceptor;
 @EnableWebSocket
 public class WebSocketConfig {
 
+    /**
+     * 配置WebSocket.
+     *
+     * @param handshakeInterceptor 握手拦截器
+     * @param webSocketHandler     WebSocket处理程序
+     * @param webSocketProperties  WebSocket属性
+     * @return WebSocketConfigurer
+     */
     @Bean
     public WebSocketConfigurer webSocketConfigurer(HandshakeInterceptor handshakeInterceptor,
                                                    WebSocketHandler webSocketHandler, WebSocketProperties webSocketProperties) {
@@ -71,16 +79,31 @@ public class WebSocketConfig {
             .setAllowedOrigins(webSocketProperties.getAllowedOrigins());
     }
 
+    /**
+     * 创建一个HandshakeInterceptor对象，用于拦截WebSocket握手请求.
+     *
+     * @return HandshakeInterceptor对象
+     */
     @Bean
     public HandshakeInterceptor handshakeInterceptor() {
         return new PlusWebSocketInterceptor();
     }
 
+    /**
+     * 创建一个WebSocket处理程序对象，用于处理WebSocket请求.
+     *
+     * @return WebSocketHandler对象
+     */
     @Bean
     public WebSocketHandler webSocketHandler() {
         return new PlusWebSocketHandler();
     }
 
+    /**
+     * 创建一个WebSocketTopicListener对象，用于监听WebSocket主题.
+     *
+     * @return WebSocketTopicListener对象
+     */
     @Bean
     public WebSocketTopicListener topicListener() {
         return new WebSocketTopicListener();

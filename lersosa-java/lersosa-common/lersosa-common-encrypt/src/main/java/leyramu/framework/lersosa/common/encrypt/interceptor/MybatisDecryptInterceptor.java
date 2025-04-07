@@ -58,9 +58,23 @@ import java.util.*;
 @AllArgsConstructor
 public class MybatisDecryptInterceptor implements Interceptor {
 
+    /**
+     * 加密器管理器.
+     */
     private final EncryptorManager encryptorManager;
+
+    /**
+     * 默认加密配置.
+     */
     private final EncryptorProperties defaultProperties;
 
+    /**
+     * 拦截器方法.
+     *
+     * @param invocation 拦截器
+     * @return 拦截结果
+     * @throws Throwable 拦截异常
+     */
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         // 获取执行mysql执行结果
@@ -132,13 +146,23 @@ public class MybatisDecryptInterceptor implements Interceptor {
         return this.encryptorManager.decrypt(value, encryptContext);
     }
 
+    /**
+     * 插件包装.
+     *
+     * @param target 待包装对象
+     * @return 包装后的对象
+     */
     @Override
     public Object plugin(Object target) {
         return Plugin.wrap(target, this);
     }
 
+    /**
+     * 设置属性.
+     *
+     * @param properties 属性
+     */
     @Override
     public void setProperties(Properties properties) {
-
     }
 }

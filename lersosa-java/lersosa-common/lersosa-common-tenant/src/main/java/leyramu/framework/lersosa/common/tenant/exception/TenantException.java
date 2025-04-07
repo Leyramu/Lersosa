@@ -36,9 +36,18 @@ import java.io.Serial;
  */
 public class TenantException extends BaseException {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 构造方法.
+     *
+     * @param code 异常代码
+     * @param args 异常参数
+     */
     public TenantException(String code, Object... args) {
         super("tenant", code, args, null);
     }

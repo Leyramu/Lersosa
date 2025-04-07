@@ -41,9 +41,17 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AddressUtils {
 
-    // 未知地址
+    /**
+     * 未知地址.
+     */
     public static final String UNKNOWN = "XX XX";
 
+    /**
+     * 根据IP地址获取地理位置.
+     *
+     * @param ip IP地址
+     * @return 地理位置
+     */
     public static String getRealAddressByIp(String ip) {
         if (StringUtils.isBlank(ip)) {
             return UNKNOWN;

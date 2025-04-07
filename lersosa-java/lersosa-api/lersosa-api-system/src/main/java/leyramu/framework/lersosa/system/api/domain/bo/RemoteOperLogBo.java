@@ -43,6 +43,9 @@ import java.util.Map;
 @NoArgsConstructor
 public class RemoteOperLogBo implements Serializable {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 

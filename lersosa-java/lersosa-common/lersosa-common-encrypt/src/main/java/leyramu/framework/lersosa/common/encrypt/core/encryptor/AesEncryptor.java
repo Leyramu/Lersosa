@@ -37,8 +37,16 @@ import leyramu.framework.lersosa.common.encrypt.utils.EncryptUtils;
  */
 public class AesEncryptor extends AbstractEncryptor {
 
+    /**
+     * 加解密上下文.
+     */
     private final EncryptContext context;
 
+    /**
+     * 构造函数.
+     *
+     * @param context 加解密上下文
+     */
     public AesEncryptor(EncryptContext context) {
         super(context);
         this.context = context;
@@ -46,6 +54,8 @@ public class AesEncryptor extends AbstractEncryptor {
 
     /**
      * 获得当前算法.
+     *
+     * @return 当前算法
      */
     @Override
     public AlgorithmType algorithm() {

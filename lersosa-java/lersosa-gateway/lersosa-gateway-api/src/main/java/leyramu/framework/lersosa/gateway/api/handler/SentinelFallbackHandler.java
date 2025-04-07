@@ -27,6 +27,7 @@ import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.GatewayCallbackManag
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import leyramu.framework.lersosa.gateway.api.utils.WebFluxUtils;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebExceptionHandler;
@@ -39,15 +40,31 @@ import reactor.core.publisher.Mono;
  * @version 1.0.0
  * @since 2024/11/6
  */
+@Slf4j
 public class SentinelFallbackHandler implements WebExceptionHandler {
+
+    /**
+     * 写出响应.
+     *
+     * @param ignoredResponse 响应
+     * @param exchange        交换机
+     * @return Mono<Void>
+     */
     private Mono<Void> writeResponse(ServerResponse ignoredResponse, ServerWebExchange exchange) {
         return WebFluxUtils.webFluxResponseWriter(exchange.getResponse(), "请求超过最大数，请稍候再试");
     }
 
+    /**
+     * 处理异常.
+     *
+     * @param exchange 交换机
+     * @param ex       异常
+     * @return Mono<Void>
+     */
     @Override
     @NonNull
     public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
-        ex.printStackTrace();
+        log.error("[网关限流异常处理]请求路径:{},异常信息:{}", exchange.getRequest().getPath(), ex.getMessage());
         if (exchange.getResponse().isCommitted()) {
             return Mono.error(ex);
         }
@@ -57,6 +74,13 @@ public class SentinelFallbackHandler implements WebExceptionHandler {
         return handleBlockedRequest(exchange, ex).flatMap(response -> writeResponse(response, exchange));
     }
 
+    /**
+     * 处理阻止请求.
+     *
+     * @param exchange  交换机
+     * @param throwable 异常
+     * @return Mono<ServerResponse>
+     */
     private Mono<ServerResponse> handleBlockedRequest(ServerWebExchange exchange, Throwable throwable) {
         return GatewayCallbackManager.getBlockHandler().handleRequest(exchange, throwable);
     }

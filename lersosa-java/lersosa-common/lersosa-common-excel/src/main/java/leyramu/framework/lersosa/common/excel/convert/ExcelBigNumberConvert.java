@@ -45,21 +45,47 @@ import java.math.BigDecimal;
 @Slf4j
 public class ExcelBigNumberConvert implements Converter<Long> {
 
+    /**
+     * 支持的Java类型.
+     *
+     * @return {@link Class}
+     */
     @Override
     public Class<Long> supportJavaTypeKey() {
         return Long.class;
     }
 
+    /**
+     * 支持的Excel类型.
+     *
+     * @return {@link CellDataTypeEnum}
+     */
     @Override
     public CellDataTypeEnum supportExcelTypeKey() {
         return CellDataTypeEnum.STRING;
     }
 
+    /**
+     * 转换为Java数据.
+     *
+     * @param cellData      单元格数据
+     * @param contentProperty 内容属性
+     * @param globalConfiguration 全局配置
+     * @return {@link Long}
+     */
     @Override
     public Long convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
         return Convert.toLong(cellData.getData());
     }
 
+    /**
+     * 转换为Excel数据.
+     *
+     * @param object        对象
+     * @param contentProperty 内容属性
+     * @param globalConfiguration 全局配置
+     * @return {@link WriteCellData}
+     */
     @Override
     public WriteCellData<Object> convertToExcelData(Long object, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
         if (ObjectUtil.isNotNull(object)) {

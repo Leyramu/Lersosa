@@ -175,6 +175,15 @@ public class OpenApiHandler extends OpenAPIService {
         }
     }
 
+    /**
+     * 构建标签.
+     *
+     * @param handlerMethod 处理器方法
+     * @param operation     操作
+     * @param openApi       开放 API
+     * @param locale        区域
+     * @return 操作
+     */
     @Override
     public Operation buildTags(HandlerMethod handlerMethod, Operation operation, OpenAPI openApi, Locale locale) {
 
@@ -257,6 +266,14 @@ public class OpenApiHandler extends OpenAPIService {
         return operation;
     }
 
+    /**
+     * 从方法构建标签.
+     *
+     * @param method    方法
+     * @param tags      标签
+     * @param tagsStr   标签字符串
+     * @param locale    区域
+     */
     private void buildTagsFromMethod(Method method, Set<Tag> tags, Set<String> tagsStr, Locale locale) {
         // method tags
         Set<Tags> tagsSet = AnnotatedElementUtils
@@ -271,6 +288,14 @@ public class OpenApiHandler extends OpenAPIService {
         }
     }
 
+    /**
+     * 从类构建标签.
+     *
+     * @param clazz     类
+     * @param tags      标签
+     * @param tagsStr   标签字符串
+     * @param locale    区域
+     */
     private void addTags(List<io.swagger.v3.oas.annotations.tags.Tag> sourceTags, Set<Tag> tags, Locale locale) {
         Optional<Set<Tag>> optionalTagSet = AnnotationsUtils
             .getTags(sourceTags.toArray(new io.swagger.v3.oas.annotations.tags.Tag[0]), true);

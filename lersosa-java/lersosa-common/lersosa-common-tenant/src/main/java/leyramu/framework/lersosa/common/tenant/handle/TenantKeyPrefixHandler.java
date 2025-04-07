@@ -37,10 +37,14 @@ import lombok.extern.slf4j.Slf4j;
  * @version 1.0.0
  * @since 2024/11/6
  */
-@SuppressWarnings("all")
 @Slf4j
 public class TenantKeyPrefixHandler extends KeyPrefixHandler {
 
+    /**
+     * 构造方法.
+     *
+     * @param keyPrefix 前缀
+     */
     public TenantKeyPrefixHandler(String keyPrefix) {
         super(keyPrefix);
     }
@@ -53,8 +57,13 @@ public class TenantKeyPrefixHandler extends KeyPrefixHandler {
         if (StringUtils.isBlank(name)) {
             return null;
         }
-        if (InterceptorIgnoreHelper.willIgnoreTenantLine("")) {
-            return super.map(name);
+        try {
+            if (InterceptorIgnoreHelper.willIgnoreTenantLine("")) {
+                return super.map(name);
+            }
+        } catch (NoClassDefFoundError ignore) {
+            // 有些服务不需要mp导致类不存在 忽略即可
+            return name;
         }
         if (StringUtils.contains(name, GlobalConstants.GLOBAL_REDIS_KEY)) {
             return super.map(name);
@@ -80,16 +89,21 @@ public class TenantKeyPrefixHandler extends KeyPrefixHandler {
         if (StringUtils.isBlank(unmap)) {
             return null;
         }
-        if (InterceptorIgnoreHelper.willIgnoreTenantLine("")) {
-            return super.unmap(name);
+        try {
+            if (InterceptorIgnoreHelper.willIgnoreTenantLine("")) {
+                return unmap;
+            }
+        } catch (NoClassDefFoundError ignore) {
+            // 有些服务不需要mp导致类不存在 忽略即可
+            return unmap;
         }
         if (StringUtils.contains(name, GlobalConstants.GLOBAL_REDIS_KEY)) {
-            return super.unmap(name);
+            return unmap;
         }
         String tenantId = TenantHelper.getTenantId();
         if (StringUtils.isBlank(tenantId)) {
             log.debug("无法获取有效的租户id -> Null");
-            return super.unmap(name);
+            return unmap;
         }
         if (StringUtils.startsWith(unmap, tenantId)) {
             // 如果存在则删除

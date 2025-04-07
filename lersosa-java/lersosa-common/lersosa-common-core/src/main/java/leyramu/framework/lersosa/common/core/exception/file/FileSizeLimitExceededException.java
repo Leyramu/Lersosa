@@ -35,9 +35,17 @@ import java.io.Serial;
 @SuppressWarnings("unused")
 public class FileSizeLimitExceededException extends FileException {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 构造函数.
+     *
+     * @param defaultMaxSize 默认最大大小
+     */
     public FileSizeLimitExceededException(long defaultMaxSize) {
         super("upload.exceed.maxSize", new Object[]{defaultMaxSize});
     }

@@ -33,13 +33,25 @@ import java.io.Serial;
  * @since 2024/11/6
  */
 public class CaptchaException extends UserException {
+
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 构造函数.
+     */
     public CaptchaException() {
         super("user.jcaptcha.error");
     }
 
+    /**
+     * 构造函数.
+     *
+     * @param msg 错误信息
+     */
     @SuppressWarnings("unused")
     public CaptchaException(String msg) {
         super(msg);

@@ -90,15 +90,15 @@
 
     <!--      属性      -->
     <properties>
-        <revision>3.2.0</revision>
+        <revision>4.0.0</revision>
         <java.version>23</java.version>
         <lombok.version>1.18.36</lombok.version>
         <lersosa.version>${revision}</lersosa.version>
         <spring-ai.version>1.0.0-M1</spring-ai.version>
-        <spring-boot.version>3.3.5</spring-boot.version>
-        <spring-cloud.version>2023.0.3</spring-cloud.version>
+        <spring-boot.version>3.4.4</spring-boot.version>
+        <spring-cloud.version>2024.0.0</spring-cloud.version>
         <encrypt.password>Zcx@223852//</encrypt.password>
-        <mapstruct-plus.version>1.4.5</mapstruct-plus.version>
+        <mapstruct-plus.version>1.4.6</mapstruct-plus.version>
         <therapi-javadoc.version>0.15.0</therapi-javadoc.version>
         <flatten-maven-plugin.version>1.3.0</flatten-maven-plugin.version>
         <docker-maven-plugin.version>0.45.1</docker-maven-plugin.version>
@@ -206,7 +206,7 @@
                 <DATASOURCE-USERNAME-NACOS>root</DATASOURCE-USERNAME-NACOS>
                 <DATASOURCE-PASSWORD-NACOS>Zcx@223852//</DATASOURCE-PASSWORD-NACOS>
                 <DATASOURCE-DRIVER-CLASS-NAME>com.mysql.cj.jdbc.Driver</DATASOURCE-DRIVER-CLASS-NAME>
-                <DATASOURCE-URL-NACOS>jdbc:mysql://localhost:3307/lersosa-config?characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true&amp;useUnicode=true&amp;useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true</DATASOURCE-URL-NACOS>
+                <DATASOURCE-URL-NACOS>jdbc:mysql://localhost:3306/lersosa-config?characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true&amp;useUnicode=true&amp;useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true</DATASOURCE-URL-NACOS>
                 <NACOS-DEFAULT-GROUP>DEFAULT_GROUP</NACOS-DEFAULT-GROUP>
                 <NACOS-GATEWAY-GROUP>GATEWAY_GROUP</NACOS-GATEWAY-GROUP>
                 <NACOS-SERVICE-GROUP>SERVICE_GROUP</NACOS-SERVICE-GROUP>
@@ -650,9 +650,6 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/webapp/</directory>
             </resource>
 
             <!--      添加需要包含的文件      -->

@@ -40,14 +40,26 @@ import me.zhyd.oauth.request.*;
  * 认证授权工具类.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/6
  */
 public class SocialUtils {
 
+    /**
+     * 缓存.
+     */
     private static final AuthRedisStateCache STATE_CACHE = SpringUtils.getBean(AuthRedisStateCache.class);
 
-    @SuppressWarnings("unchecked")
+    /**
+     * 登录认证.
+     *
+     * @param source           第三方登录类型
+     * @param code             授权码
+     * @param state            随机码
+     * @param socialProperties 社交配置
+     * @return AuthResponse<AuthUser>
+     * @throws AuthException AuthException
+     */
     public static AuthResponse<AuthUser> loginAuth(String source, String code, String state, SocialProperties socialProperties) throws AuthException {
         AuthRequest authRequest = getAuthRequest(source, socialProperties);
         AuthCallback callback = new AuthCallback();
@@ -56,6 +68,14 @@ public class SocialUtils {
         return authRequest.login(callback);
     }
 
+    /**
+     * 获取第三方登录请求.
+     *
+     * @param source           第三方登录类型
+     * @param socialProperties 社交配置
+     * @return AuthRequest
+     * @throws AuthException AuthException
+     */
     public static AuthRequest getAuthRequest(String source, SocialProperties socialProperties) throws AuthException {
         SocialLoginConfigProperties obj = socialProperties.getType().get(source);
         if (ObjectUtil.isNull(obj)) {
@@ -85,7 +105,7 @@ public class SocialUtils {
             case "microsoft" -> new AuthMicrosoftRequest(builder.build(), STATE_CACHE);
             case "renren" -> new AuthRenrenRequest(builder.build(), STATE_CACHE);
             case "stack_overflow" -> new AuthStackOverflowRequest(builder.build(), STATE_CACHE);
-            case "huawei" -> new AuthHuaweiRequest(builder.build(), STATE_CACHE);
+            case "huawei" -> new AuthHuaweiV3Request(builder.build(), STATE_CACHE);
             case "wechat_enterprise" -> new AuthWeChatEnterpriseQrcodeRequest(builder.build(), STATE_CACHE);
             case "gitlab" -> new AuthGitlabRequest(builder.build(), STATE_CACHE);
             case "wechat_mp" -> new AuthWeChatMpRequest(builder.build(), STATE_CACHE);

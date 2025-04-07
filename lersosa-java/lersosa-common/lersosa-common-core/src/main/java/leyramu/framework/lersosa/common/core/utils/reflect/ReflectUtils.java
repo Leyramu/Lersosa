@@ -40,8 +40,14 @@ import java.lang.reflect.Method;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ReflectUtils extends ReflectUtil {
 
+    /**
+     * Setter方法名前缀.
+     */
     private static final String SETTER_PREFIX = "set";
 
+    /**
+     * Getter方法名前缀.
+     */
     private static final String GETTER_PREFIX = "get";
 
     /**

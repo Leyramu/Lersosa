@@ -39,6 +39,9 @@ import java.io.Serializable;
 @Data
 public class RemoteSocialVo implements Serializable {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -106,7 +109,6 @@ public class RemoteSocialVo implements Serializable {
      * 授权的第三方头像地址.
      */
     private String avatar;
-
 
     /**
      * 平台的授权信息，部分平台可能没有.

@@ -46,6 +46,9 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = "classpath:common-satoken.yml", factory = YmlPropertySourceFactory.class)
 public class SaTokenConfiguration {
 
+    /**
+     * jwt模式.
+     */
     @Bean
     public StpLogic getStpLogicJwt() {
         return new StpLogicJwtForSimple();

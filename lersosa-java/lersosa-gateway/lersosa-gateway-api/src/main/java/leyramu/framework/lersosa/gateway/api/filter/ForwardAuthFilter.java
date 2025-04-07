@@ -42,6 +42,14 @@ import reactor.core.publisher.Mono;
  */
 @Component
 public class ForwardAuthFilter implements GlobalFilter, Ordered {
+
+    /**
+     * 过滤器.
+     *
+     * @param exchange 交换
+     * @param chain    链
+     * @return {@link Mono}<{@link Void}>
+     */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         // 未开启配置则直接跳过
@@ -58,6 +66,11 @@ public class ForwardAuthFilter implements GlobalFilter, Ordered {
         return chain.filter(newExchange);
     }
 
+    /**
+     * 获取顺序.
+     *
+     * @return int
+     */
     @Override
     public int getOrder() {
         return -100;

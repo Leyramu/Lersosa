@@ -25,12 +25,12 @@ package leyramu.framework.lersosa.gateway.api.filter;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ObjectUtil;
-import lombok.extern.slf4j.Slf4j;
 import leyramu.framework.lersosa.common.json.utils.JsonUtils;
 import leyramu.framework.lersosa.gateway.api.config.properties.ApiDecryptProperties;
 import leyramu.framework.lersosa.gateway.api.config.properties.CustomGatewayProperties;
 import leyramu.framework.lersosa.gateway.api.utils.WebFluxUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -49,14 +49,31 @@ import reactor.core.publisher.Mono;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class GlobalLogFilter implements GlobalFilter, Ordered {
 
+    /**
+     * 开始时间.
+     */
     private static final String START_TIME = "startTime";
-    @Autowired
-    private CustomGatewayProperties customGatewayProperties;
-    @Autowired
-    private ApiDecryptProperties apiDecryptProperties;
 
+    /**
+     * 自定义网关配置.
+     */
+    private final CustomGatewayProperties customGatewayProperties;
+
+    /**
+     * API解密配置.
+     */
+    private final ApiDecryptProperties apiDecryptProperties;
+
+    /**
+     * 过滤器.
+     *
+     * @param exchange 交换
+     * @param chain    链
+     * @return {@link Mono}<{@link Void}>
+     */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         if (!customGatewayProperties.getRequestLog()) {
@@ -95,6 +112,11 @@ public class GlobalLogFilter implements GlobalFilter, Ordered {
         }));
     }
 
+    /**
+     * 获取顺序.
+     *
+     * @return int
+     */
     @Override
     public int getOrder() {
         // 日志处理器在负载均衡器之后执行 负载均衡器会导致线程切换 无法获取上下文内容

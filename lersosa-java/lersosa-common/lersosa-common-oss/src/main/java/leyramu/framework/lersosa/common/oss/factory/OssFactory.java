@@ -49,7 +49,14 @@ import java.util.concurrent.locks.ReentrantLock;
 @Slf4j
 public class OssFactory {
 
+    /**
+     * 缓存客户端.
+     */
     private static final Map<String, OssClient> CLIENT_CACHE = new ConcurrentHashMap<>();
+
+    /**
+     * 锁.
+     */
     private static final ReentrantLock LOCK = new ReentrantLock();
 
     /**

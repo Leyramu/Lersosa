@@ -43,6 +43,9 @@ import java.util.List;
 @NoArgsConstructor
 public class TableDataInfo<T> implements Serializable {
 
+    /**
+     * 序列化.
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 

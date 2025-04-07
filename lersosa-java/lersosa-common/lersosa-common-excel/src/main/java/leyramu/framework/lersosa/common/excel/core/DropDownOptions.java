@@ -53,18 +53,22 @@ public class DropDownOptions {
      * 分隔符.
      */
     private static final String DELIMITER = "_";
+
     /**
      * 一级下拉所在列index，从0开始算.
      */
     private int index = 0;
+
     /**
      * 二级下拉所在的index，从0开始算，不能与一级相同.
      */
     private int nextIndex = 0;
+
     /**
      * 一级下拉所包含的数据.
      */
     private List<String> options = new ArrayList<>();
+
     /**
      * 二级下拉所包含的数据Map.
      */

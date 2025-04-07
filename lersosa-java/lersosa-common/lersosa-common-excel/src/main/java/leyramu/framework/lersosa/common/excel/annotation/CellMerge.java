@@ -38,7 +38,7 @@ import java.lang.annotation.*;
 public @interface CellMerge {
 
     /**
-     * col index.
+     * Col 索引.
      */
     int index() default -1;
 

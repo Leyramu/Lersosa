@@ -226,12 +226,17 @@ public class ServletUtils extends JakartaServletUtil {
         return StringUtils.equalsAnyIgnoreCase(ajax, "json", "xml");
     }
 
+    /**
+     * 获取客户端 IP 地址.
+     *
+     * @return 客户端 IP 地址
+     */
     public static String getClientIp() {
         return getClientIP(Objects.requireNonNull(getRequest()));
     }
 
     /**
-     * 内容编码.
+     * 对内容进行 URL 编码
      *
      * @param str 内容
      * @return 编码后的内容
@@ -241,7 +246,7 @@ public class ServletUtils extends JakartaServletUtil {
     }
 
     /**
-     * 内容解码.
+     * 对内容进行 URL 解码
      *
      * @param str 内容
      * @return 解码后的内容

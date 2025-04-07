@@ -38,8 +38,16 @@ import leyramu.framework.lersosa.common.encrypt.utils.EncryptUtils;
  */
 public class Sm2Encryptor extends AbstractEncryptor {
 
+    /**
+     * 加解密上下文.
+     */
     private final EncryptContext context;
 
+    /**
+     * 构造函数.
+     *
+     * @param context 加解密上下文
+     */
     public Sm2Encryptor(EncryptContext context) {
         super(context);
         String privateKey = context.getPrivateKey();
@@ -52,6 +60,8 @@ public class Sm2Encryptor extends AbstractEncryptor {
 
     /**
      * 获得当前算法.
+     *
+     * @return 算法类型
      */
     @Override
     public AlgorithmType algorithm() {

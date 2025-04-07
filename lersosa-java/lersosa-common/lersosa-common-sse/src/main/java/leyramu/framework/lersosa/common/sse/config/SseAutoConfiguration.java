@@ -43,16 +43,32 @@ import org.springframework.context.annotation.Bean;
 @EnableConfigurationProperties(SseProperties.class)
 public class SseAutoConfiguration {
 
+    /**
+     * 创建 SSE 发送管理器.
+     *
+     * @return SSE 发送管理器
+     */
     @Bean
     public SseEmitterManager sseEmitterManager() {
         return new SseEmitterManager();
     }
 
+    /**
+     * 创建 SSE 主题监听器.
+     *
+     * @return SSE 主题监听器
+     */
     @Bean
     public SseTopicListener sseTopicListener() {
         return new SseTopicListener(new SseEmitterManager());
     }
 
+    /**
+     * 创建 SSE 控制器.
+     *
+     * @param sseEmitterManager SSE 发送管理器
+     * @return SSE 控制器
+     */
     @Bean
     public SseController sseController(SseEmitterManager sseEmitterManager) {
         return new SseController(sseEmitterManager);

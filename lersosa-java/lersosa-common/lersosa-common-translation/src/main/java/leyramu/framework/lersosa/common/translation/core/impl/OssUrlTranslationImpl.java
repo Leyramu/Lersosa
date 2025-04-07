@@ -41,9 +41,19 @@ import org.apache.dubbo.config.annotation.DubboReference;
 @TranslationType(type = TransConstant.OSS_ID_TO_URL)
 public class OssUrlTranslationImpl implements TranslationInterface<String> {
 
+    /**
+     * 远程文件服务.
+     */
     @DubboReference(mock = "true")
     private RemoteFileService remoteFileService;
 
+    /**
+     * 翻译.
+     *
+     * @param key   键
+     * @param other 其他
+     * @return {@link String}
+     */
     @Override
     public String translation(Object key, String other) {
         return remoteFileService.selectUrlByIds(key.toString());

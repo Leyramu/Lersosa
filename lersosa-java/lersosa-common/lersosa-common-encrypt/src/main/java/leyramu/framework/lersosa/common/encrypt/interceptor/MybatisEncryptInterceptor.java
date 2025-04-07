@@ -61,14 +61,33 @@ import java.util.*;
 @AllArgsConstructor
 public class MybatisEncryptInterceptor implements Interceptor {
 
+    /**
+     * 加密器管理器.
+     */
     private final EncryptorManager encryptorManager;
+
+    /**
+     * 默认加密配置.
+     */
     private final EncryptorProperties defaultProperties;
 
+    /**
+     * 拦截器方法.
+     *
+     * @param invocation 拦截器
+     * @return 拦截器
+     */
     @Override
     public Object intercept(Invocation invocation) {
         return invocation;
     }
 
+    /**
+     * 拦截器方法.
+     *
+     * @param target 拦截器
+     * @return 拦截器
+     */
     @Override
     public Object plugin(Object target) {
         if (target instanceof ParameterHandler parameterHandler) {
@@ -141,7 +160,11 @@ public class MybatisEncryptInterceptor implements Interceptor {
         return this.encryptorManager.encrypt(value, encryptContext);
     }
 
-
+    /**
+     * 设置属性.
+     *
+     * @param properties 属性
+     */
     @Override
     public void setProperties(Properties properties) {
     }

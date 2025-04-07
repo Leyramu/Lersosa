@@ -23,7 +23,7 @@
 
 package leyramu.framework.lersosa.common.elasticsearch.config;
 
-import org.dromara.easyes.starter.register.EsMapperScan;
+import org.dromara.easyes.spring.annotation.EsMapperScan;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 

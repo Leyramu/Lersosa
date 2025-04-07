@@ -41,9 +41,19 @@ import org.apache.dubbo.config.annotation.DubboReference;
 @TranslationType(type = TransConstant.USER_ID_TO_NICKNAME)
 public class NicknameTranslationImpl implements TranslationInterface<String> {
 
+    /**
+     * 远程用户服务.
+     */
     @DubboReference
     private RemoteUserService remoteUserService;
 
+    /**
+     * 翻译用户昵称.
+     *
+     * @param key   用户ID
+     * @param other 其他参数
+     * @return 用户昵称
+     */
     @Override
     public String translation(Object key, String other) {
         if (key instanceof Long id) {
