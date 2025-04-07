@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,21 +21,25 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package leyramu.framework.lersosa.auth.domain.convert;
-
-import io.github.linpeilie.BaseMapper;
-import leyramu.framework.lersosa.auth.domain.vo.TenantListVo;
-import leyramu.framework.lersosa.system.api.domain.vo.RemoteTenantVo;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
+package leyramu.framework.lersosa.auth.model;
 
 /**
- * 租户vo转换器.
+ * 客户端值对象.
  *
+ * @param clientId      客户端ID
+ * @param clientKey     客户端密钥
+ * @param deviceType    设备类型
+ * @param grantType     授权类型
+ * @param activeTimeout 激活超时时间
+ * @param timeout       超时时间
+ * @param status        状态
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
- * @since 2024/11/6
+ * @since 2025/4/7
  */
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface TenantVoConvert extends BaseMapper<RemoteTenantVo, TenantListVo> {
+public record ClientV(
+    String clientId, String clientKey, String grantType,
+    String deviceType, Long activeTimeout, Long timeout,
+    String status
+) {
 }

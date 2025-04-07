@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,58 +21,36 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package leyramu.framework.lersosa.workflow.api;
+package leyramu.framework.lersosa.auth.dto.co;
 
-import leyramu.framework.lersosa.workflow.domain.WfNodeConfig;
-import leyramu.framework.lersosa.workflow.domain.vo.WfNodeConfigVo;
+import leyramu.framework.lersosa.i18n.dto.AbstractClientObject;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
- * 节点配置Service接口.
+ * 租户信息客户端对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
- * @since 2024/11/6
+ * @since 2025/4/2
  */
-public interface IWfNodeConfigService {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class TenantCo extends AbstractClientObject {
 
     /**
-     * 查询节点配置.
-     *
-     * @param id 主键
-     * @return 结果
+     * 租户开关.
      */
-    WfNodeConfigVo queryById(Long id);
+    private Boolean tenantEnabled;
 
     /**
-     * 保存节点配置.
-     *
-     * @param list 参数
+     * 租户对象列表.
      */
-    void saveOrUpdate(List<WfNodeConfig> list);
-
-    /**
-     * 批量删除节点配置信息.
-     *
-     * @param ids 主键
-     * @return 结果
-     */
-    Boolean deleteByIds(Collection<Long> ids);
-
-    /**
-     * 按照流程定义id删除.
-     *
-     * @param ids 流程定义id
-     */
-    void deleteByDefIds(Collection<String> ids);
-
-    /**
-     * 按照流程定义id查询.
-     *
-     * @param ids 流程定义id
-     * @return 结果
-     */
-    List<WfNodeConfigVo> selectByDefIds(Collection<String> ids);
+    private List<TenantV> voList;
 }

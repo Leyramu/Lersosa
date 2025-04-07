@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2024-2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,21 +21,30 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package leyramu.framework.lersosa.auth.service;
+package leyramu.framework.lersosa.auth.strategy.authentication;
 
 import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
-import leyramu.framework.lersosa.auth.api.IAuthStrategy;
-import leyramu.framework.lersosa.auth.domain.vo.LoginVo;
-import leyramu.framework.lersosa.auth.form.XcxLoginBody;
+import leyramu.framework.lersosa.auth.ability.AuthDomainService;
+import leyramu.framework.lersosa.auth.dto.co.LoginCo;
+import leyramu.framework.lersosa.auth.model.ClientV;
+import leyramu.framework.lersosa.auth.model.form.XcxLoginBody;
+import leyramu.framework.lersosa.auth.strategy.AuthStrategyI;
+import leyramu.framework.lersosa.common.core.exception.ServiceException;
 import leyramu.framework.lersosa.common.core.utils.ValidatorUtils;
 import leyramu.framework.lersosa.common.json.utils.JsonUtils;
 import leyramu.framework.lersosa.common.satoken.utils.LoginHelper;
 import leyramu.framework.lersosa.system.api.RemoteUserService;
-import leyramu.framework.lersosa.system.api.domain.vo.RemoteClientVo;
 import leyramu.framework.lersosa.system.api.model.XcxLoginUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.model.AuthCallback;
+import me.zhyd.oauth.model.AuthResponse;
+import me.zhyd.oauth.model.AuthToken;
+import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.request.AuthRequest;
+import me.zhyd.oauth.request.AuthWechatMiniProgramRequest;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Service;
 
@@ -49,19 +58,31 @@ import java.util.Objects;
  * @since 2024/11/6
  */
 @Slf4j
-@Service("xcx" + IAuthStrategy.BASE_NAME)
+@Service("xcx" + AuthStrategyI.BASE_NAME)
 @RequiredArgsConstructor
-public class XcxAuthStrategy implements IAuthStrategy {
+public class XcxAuthStrategyImpl implements AuthStrategyI {
 
+    /**
+     * 认证领域服务.
+     */
     @SuppressWarnings("unused")
-    private final SysLoginService loginService;
+    private final AuthDomainService authDomainService;
 
+    /**
+     * 远程用户服务.
+     */
     @DubboReference
     private RemoteUserService remoteUserService;
 
+    /**
+     * 登录.
+     *
+     * @param body    登录信息
+     * @param clientV 客户端信息
+     * @return {@link LoginCo}
+     */
     @Override
-    @SuppressWarnings("unused")
-    public LoginVo login(String body, RemoteClientVo client) {
+    public LoginCo login(String body, ClientV clientV) {
         XcxLoginBody loginBody = JsonUtils.parseObject(body, XcxLoginBody.class);
         ValidatorUtils.validate(loginBody);
         // xcxCode 为 小程序调用 wx.login 授权后获取
@@ -69,28 +90,42 @@ public class XcxAuthStrategy implements IAuthStrategy {
         // 多个小程序识别使用
         String appid = loginBody.getAppid();
 
-        // todo 以下自行实现
         // 校验 appid + appsrcret + xcxCode 调用登录凭证校验接口 获取 session_key 与 openid
-        String openid = "";
+        AuthRequest authRequest = new AuthWechatMiniProgramRequest(AuthConfig.builder()
+            .clientId(appid).clientSecret("自行填写密钥 可根据不同appid填入不同密钥")
+            .ignoreCheckRedirectUri(true).ignoreCheckState(true).build());
+        AuthCallback authCallback = new AuthCallback();
+        authCallback.setCode(xcxCode);
+        AuthResponse<AuthUser> resp = authRequest.login(authCallback);
+        String openid, unionId;
+        if (resp.ok()) {
+            AuthToken token = resp.getData().getToken();
+            openid = token.getOpenId();
+            // 微信小程序只有关联到微信开放平台下之后才能获取到 unionId，因此unionId不一定能返回。
+            unionId = token.getUnionId();
+        } else {
+            throw new ServiceException(resp.getMsg());
+        }
+        // todo getUserInfoByOpenid 方法内部查询逻辑需要自行根据业务实现
         XcxLoginUser loginUser = remoteUserService.getUserInfoByOpenid(openid);
-        loginUser.setClientKey(client.getClientKey());
-        loginUser.setDeviceType(client.getDeviceType());
+        loginUser.setClientKey(clientV.clientKey());
+        loginUser.setDeviceType(clientV.deviceType());
 
         SaLoginModel model = new SaLoginModel();
-        model.setDevice(client.getDeviceType());
+        model.setDevice(clientV.deviceType());
         // 自定义分配 不同用户体系 不同 token 授权时间 不设置默认走全局 yml 配置
         // 例如: 后台用户30分钟过期 app用户1天过期
-        model.setTimeout(client.getTimeout());
-        model.setActiveTimeout(client.getActiveTimeout());
-        model.setExtra(LoginHelper.CLIENT_KEY, client.getClientId());
+        model.setTimeout(clientV.timeout());
+        model.setActiveTimeout(clientV.activeTimeout());
+        model.setExtra(LoginHelper.CLIENT_KEY, clientV.clientId());
         // 生成token
         LoginHelper.login(loginUser, model);
 
-        LoginVo loginVo = new LoginVo();
-        loginVo.setAccessToken(StpUtil.getTokenValue());
-        loginVo.setExpireIn(StpUtil.getTokenTimeout());
-        loginVo.setClientId(client.getClientId());
-        loginVo.setOpenid(openid);
-        return loginVo;
+        LoginCo loginCo = new LoginCo();
+        loginCo.setAccessToken(StpUtil.getTokenValue());
+        loginCo.setExpireIn(StpUtil.getTokenTimeout());
+        loginCo.setClientId(clientV.clientId());
+        loginCo.setOpenid(openid);
+        return loginCo;
     }
 }

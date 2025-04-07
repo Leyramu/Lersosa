@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,66 +21,40 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package com.alibaba.csp.sentinel.dashboard.datasource.entity.rule;
+package org.dromara.easyes.starter.config;
 
-import com.alibaba.csp.sentinel.slots.block.Rule;
-
-import java.util.Date;
+import lombok.RequiredArgsConstructor;
+import org.dromara.easyes.core.config.GeneratorConfig;
+import org.dromara.easyes.core.toolkit.Generator;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Component;
 
 /**
- * 规则实体.
+ * 代码生成注册
  *
- * @author leyou
- * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 2.0.0
- * @since 2024/11/13
+ * @author MoJie
+ * @since 2.0
  */
-public interface RuleEntity {
+@Component
+@RequiredArgsConstructor
+@ConditionalOnProperty(value = "easy-es.enable", havingValue = "true")
+public class GeneratorConfiguration extends Generator {
 
     /**
-     * 获取规则ID.
+     * rest客户端.
+     */
+    private final RestHighLevelClient client;
+
+    /**
+     * 代码生成.
      *
-     * @return 规则ID
+     * @param config 配置
+     * @return Boolean
      */
-    Long getId();
-
-    /**
-     * 设置规则ID.
-     *
-     * @param id 规则ID
-     */
-    void setId(Long id);
-
-    /**
-     * 获取应用名称.
-     *
-     * @return 应用名称
-     */
-    String getApp();
-
-    /**
-     * 获取应用IP.
-     */
-    String getIp();
-
-    /**
-     * 获取应用端口.
-     *
-     * @return 应用端口
-     */
-    Integer getPort();
-
-    /**
-     * 获取创建时间.
-     *
-     * @return 创建时间
-     */
-    Date getGmtCreate();
-
-    /**
-     * 获取修改时间.
-     *
-     * @return 修改时间
-     */
-    Rule toRule();
+    @Override
+    public Boolean generate(GeneratorConfig config) {
+        super.generateEntity(config, this.client);
+        return Boolean.TRUE;
+    }
 }

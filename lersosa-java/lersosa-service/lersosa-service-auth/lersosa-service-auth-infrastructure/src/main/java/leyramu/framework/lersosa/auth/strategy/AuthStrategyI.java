@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2024-2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,29 +21,47 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package leyramu.framework.lersosa.auth.domain.vo;
+package leyramu.framework.lersosa.auth.strategy;
 
-import lombok.Data;
+import leyramu.framework.lersosa.auth.dto.co.LoginCo;
+import leyramu.framework.lersosa.auth.model.AuthA;
+import leyramu.framework.lersosa.auth.model.ClientV;
+import leyramu.framework.lersosa.common.core.exception.ServiceException;
+import leyramu.framework.lersosa.common.core.utils.SpringUtils;
 
 /**
- * 验证码信息.
+ * 授权策略.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
  * @since 2024/11/6
  */
-@Data
-public class CaptchaVo {
+public interface AuthStrategyI {
+
+    String BASE_NAME = "AuthStrategy";
 
     /**
-     * 是否开启验证码.
+     * 登录.
+     *
+     * @param authA 认证聚合
+     * @return 登录验证信息
      */
-    private Boolean captchaEnabled = true;
-
-    private String uuid;
+    static LoginCo login(AuthA authA) {
+        // 授权类型和客户端id
+        String beanName = authA.getLoginBody().getGrantType() + BASE_NAME;
+        if (!SpringUtils.containsBean(beanName)) {
+            throw new ServiceException("授权类型不正确!");
+        }
+        AuthStrategyI instance = SpringUtils.getBean(beanName);
+        return instance.login(authA.getBody(), authA.getClientV());
+    }
 
     /**
-     * 验证码图片.
+     * 登录.
+     *
+     * @param body    登录对象
+     * @param clientV 授权管理视图对象
+     * @return 登录验证信息
      */
-    private String img;
+    LoginCo login(String body, ClientV clientV);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,14 +21,26 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package leyramu.framework.lersosa.workflow.api;
+package leyramu.framework.lersosa.i18n.dto;
+
+import lombok.Data;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
- * 流程历史任务Service接口.
+ * 客户端对象.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
- * @since 2024/11/6
+ * @since 2025/4/1
  */
-public interface IActHiTaskinstService {
+@Data
+public abstract class AbstractClientObject implements Serializable {
+
+    /**
+     * 序列化.
+     */
+    @Serial
+    private static final long serialVersionUID = 1L;
 }

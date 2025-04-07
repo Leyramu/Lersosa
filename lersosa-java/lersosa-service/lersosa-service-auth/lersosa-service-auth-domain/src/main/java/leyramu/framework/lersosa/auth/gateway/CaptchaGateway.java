@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,48 +21,25 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package leyramu.framework.lersosa.auth.api;
+package leyramu.framework.lersosa.auth.gateway;
 
-import leyramu.framework.lersosa.auth.domain.vo.LoginVo;
-import leyramu.framework.lersosa.common.core.exception.ServiceException;
-import leyramu.framework.lersosa.common.core.utils.SpringUtils;
-import leyramu.framework.lersosa.system.api.domain.vo.RemoteClientVo;
+import java.time.Duration;
 
 /**
- * 授权策略.
+ * 验证码网关.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
- * @since 2024/11/6
+ * @since 2025/4/2
  */
-public interface IAuthStrategy {
-
-    String BASE_NAME = "AuthStrategy";
+public interface CaptchaGateway {
 
     /**
-     * 登录.
+     * 设置缓存对象.
      *
-     * @param body      登录对象
-     * @param client    授权管理视图对象
-     * @param grantType 授权类型
-     * @return 登录验证信息
+     * @param key      缓存键
+     * @param code     验证码
+     * @param duration 缓存时间
      */
-    static LoginVo login(String body, RemoteClientVo client, String grantType) {
-        // 授权类型和客户端id
-        String beanName = grantType + BASE_NAME;
-        if (!SpringUtils.containsBean(beanName)) {
-            throw new ServiceException("授权类型不正确!");
-        }
-        IAuthStrategy instance = SpringUtils.getBean(beanName);
-        return instance.login(body, client);
-    }
-
-    /**
-     * 登录.
-     *
-     * @param body   登录对象
-     * @param client 授权管理视图对象
-     * @return 登录验证信息
-     */
-    LoginVo login(String body, RemoteClientVo client);
+    void setCacheObject(String key, String code, Duration duration);
 }

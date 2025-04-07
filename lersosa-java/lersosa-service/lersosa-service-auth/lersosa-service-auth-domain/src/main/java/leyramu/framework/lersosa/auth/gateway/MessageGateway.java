@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,18 +21,21 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package com.alibaba.csp.sentinel.dashboard.auth;
-
-import org.springframework.web.servlet.HandlerInterceptor;
+package leyramu.framework.lersosa.auth.gateway;
 
 /**
- * 用于基于特权的授权的 Web 侦听器.
+ * 消息网关.
  *
- * @author lkxiaolou
- * @author wxq
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 2.0.0
- * @since 2024/11/12
+ * @version 1.0.0
+ * @since 2025/4/7
  */
-public interface AuthorizationInterceptor extends HandlerInterceptor {
+public interface MessageGateway {
+
+    /**
+     * 发送消息.
+     *
+     * @param userId 用户ID
+     */
+    void schedule(Long userId);
 }

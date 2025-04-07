@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,34 +21,22 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package leyramu.framework.lersosa.workflow.api;
-
-import leyramu.framework.lersosa.workflow.domain.ActHiProcinst;
-
-import java.util.List;
+package leyramu.framework.lersosa.auth.gateway;
 
 /**
- * 流程实例Service接口.
+ * 配置网关.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
- * @since 2024/11/6
+ * @since 2025/4/7
  */
-public interface IActHiProcinstService {
+public interface ConfigGateway {
 
     /**
-     * 按照业务id查询.
+     * 查询租户是否允许注册.
      *
-     * @param businessKeys 业务id
-     * @return 结果
+     * @param tenantId 租户ID
+     * @return Boolean
      */
-    List<ActHiProcinst> selectByBusinessKeyIn(List<String> businessKeys);
-
-    /**
-     * 按照业务id查询.
-     *
-     * @param businessKey 业务id
-     * @return 结果
-     */
-    ActHiProcinst selectByBusinessKey(String businessKey);
+    Boolean selectRegisterEnabled(String tenantId);
 }

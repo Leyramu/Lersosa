@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,18 +21,57 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package com.alibaba.csp.sentinel.dashboard.auth;
+package leyramu.framework.lersosa.auth.gateway;
 
-import javax.servlet.Filter;
+import leyramu.framework.lersosa.auth.model.SocialV;
+import leyramu.framework.lersosa.system.api.domain.bo.RemoteSocialBo;
+
+import java.util.List;
 
 /**
- * 用于身份验证的 Servlet 过滤器.
+ * 社交网关.
  *
- * @author cdfive
- * @author wxq
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 2.0.0
- * @since 2024/11/12
+ * @version 1.0.0
+ * @since 2025/4/7
  */
-public interface LoginAuthenticationFilter extends Filter {
+public interface SocialGateway {
+
+    /**
+     * 根据 authId 查询用户授权信息.
+     *
+     * @param authId 认证id
+     * @return 授权信息集合
+     */
+    List<SocialV> selectByAuthId(String authId);
+
+    /**
+     * 查询用户授权信息.
+     *
+     * @param params 查询参数
+     * @return 授权信息集合
+     */
+    List<SocialV> queryList(RemoteSocialBo params);
+
+    /**
+     * 插入用户授权信息.
+     *
+     * @param bo 授权信息
+     */
+    void insertByBo(RemoteSocialBo bo);
+
+    /**
+     * 更新用户授权信息.
+     *
+     * @param bo 授权信息
+     */
+    void updateByBo(RemoteSocialBo bo);
+
+    /**
+     * 删除用户授权信息.
+     *
+     * @param socialId 授权信息ID
+     * @return 是否删除成功
+     */
+    Boolean deleteWithValidById(Long socialId);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,37 +21,68 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package com.alibaba.csp.sentinel.dashboard.client;
+package leyramu.framework.lersosa.auth.model;
 
-import lombok.RequiredArgsConstructor;
+import lombok.Data;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
- * 命令失败异常.
+ * 认证聚合.
  *
- * @author Eric Zhao
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 2.0.0
- * @since 2024/11/12
+ * @version 1.0.0
+ * @since 2025/4/7
  */
-@RequiredArgsConstructor
-public class CommandFailedException extends RuntimeException {
+@Data
+public class AuthA implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 请求体.
+     */
+    private String body;
+
+    /**
+     * 登录请求体.
+     */
+    private LoginBody loginBody;
+
+    /**
+     * 租户信息实体.
+     */
+    private TenantE tenantE;
+
+    /**
+     * 客户端信息值对象.
+     */
+    private ClientV clientV;
+
+    /**
+     * 社交信息值对象.
+     */
+    private SocialV socialV;
 
     /**
      * 构造函数.
      *
-     * @param message 异常信息
+     * @param body 请求体
      */
-    public CommandFailedException(String message) {
-        super(message);
+    public AuthA(String body) {
+        this.body = body;
     }
 
     /**
-     * 重写填充堆栈跟踪方法，使其返回当前对象，以阻止堆栈跟踪的生成.
+     * 更新登录请求体和客户端信息值对象.
      *
-     * @return 当前对象
+     * @param loginBody 登录请求体
+     * @param clientV   客户端信息值对象
      */
-    @Override
-    public synchronized Throwable fillInStackTrace() {
-        return this;
+    public void updateLoginObject(LoginBody loginBody, ClientV clientV) {
+        this.loginBody = loginBody;
+        this.clientV = clientV;
     }
 }

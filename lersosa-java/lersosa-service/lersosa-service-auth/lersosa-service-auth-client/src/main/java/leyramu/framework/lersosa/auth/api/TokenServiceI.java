@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,29 +21,77 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package leyramu.framework.lersosa.auth.domain.vo;
+package leyramu.framework.lersosa.auth.api;
 
-import lombok.Data;
-
-import java.util.List;
+import jakarta.servlet.http.HttpServletRequest;
+import leyramu.framework.lersosa.auth.dto.TokenAuthBindingCmd;
+import leyramu.framework.lersosa.auth.dto.co.LoginCo;
+import leyramu.framework.lersosa.auth.dto.co.TenantCo;
+import leyramu.framework.lersosa.common.core.domain.Result;
 
 /**
- * 登录租户对象.
+ * 令牌业务层 接口
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
- * @since 2024/11/6
+ * @since 2025/4/1
  */
-@Data
-public class LoginTenantVo {
+public interface TokenServiceI {
 
     /**
-     * 租户开关.
+     * 登录.
+     *
+     * @param body 登录信息
+     * @return Result<LoginCo>
      */
-    private Boolean tenantEnabled;
+    Result<LoginCo> login(String body);
 
     /**
-     * 租户对象列表.
+     * 绑定.
+     *
+     * @param source 第三方平台标识
+     * @param cmd    登录命令
+     * @return Result<LoginCo>
      */
-    private List<TenantListVo> voList;
+    Result<String> authBinding(String source, TokenAuthBindingCmd cmd);
+
+    /**
+     * 第三方回调.
+     *
+     * @param body 回调信息
+     * @return Result<Void>
+     */
+    Result<Void> socialCallback(String body);
+
+    /**
+     * 解绑.
+     *
+     * @param socialId 第三方平台标识
+     * @return Result<Void>
+     */
+    Result<Void> unlockSocial(Long socialId);
+
+    /**
+     * 登出方法.
+     *
+     * @return 结果
+     */
+    Result<Void> logout();
+
+    /**
+     * 注册.
+     *
+     * @param body 注册信息
+     * @return 结果
+     */
+    Result<Void> register(String body);
+
+    /**
+     * 租户列表.
+     *
+     * @param request 请求
+     * @return 结果
+     * @throws Exception 异常
+     */
+    Result<TenantCo> tenantList(HttpServletRequest request) throws Exception;
 }
