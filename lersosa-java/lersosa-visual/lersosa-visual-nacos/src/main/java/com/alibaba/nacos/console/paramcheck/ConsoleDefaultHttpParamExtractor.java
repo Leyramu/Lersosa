@@ -41,6 +41,12 @@ import java.util.List;
  */
 public class ConsoleDefaultHttpParamExtractor extends AbstractHttpParamExtractor {
 
+    /**
+     * 提取参数.
+     *
+     * @param request 请求
+     * @return 参数信息列表
+     */
     @Override
     public List<ParamInfo> extractParam(HttpServletRequest request) {
         ParamInfo paramInfo = new ParamInfo();
@@ -51,6 +57,12 @@ public class ConsoleDefaultHttpParamExtractor extends AbstractHttpParamExtractor
         return paramInfos;
     }
 
+    /**
+     * 获取命名空间ID.
+     *
+     * @param request 请求
+     * @return 命名空间ID
+     */
     private String getAliasNamespaceId(HttpServletRequest request) {
         String namespaceId = request.getParameter("namespaceId");
         if (StringUtils.isBlank(namespaceId)) {
@@ -59,6 +71,12 @@ public class ConsoleDefaultHttpParamExtractor extends AbstractHttpParamExtractor
         return namespaceId;
     }
 
+    /**
+     * 获取命名空间显示名称.
+     *
+     * @param request 请求
+     * @return 命名空间显示名称
+     */
     private String getAliasNamespaceShowName(HttpServletRequest request) {
         return request.getParameter("namespaceName");
     }

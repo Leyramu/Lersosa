@@ -56,8 +56,14 @@ import static com.alibaba.nacos.common.utils.StringUtils.*;
 @ExtractorManager.Extractor(httpExtractor = ConsoleDefaultHttpParamExtractor.class)
 public class ServerStateController {
 
+    /**
+     * 公告文件.
+     */
     private static final String ANNOUNCEMENT_FILE = "announcement.conf";
 
+    /**
+     * 引导文件.
+     */
     private static final String GUIDE_FILE = "console-guide.conf";
 
     /**
@@ -74,6 +80,12 @@ public class ServerStateController {
         return ResponseEntity.ok().body(serverState);
     }
 
+    /**
+     * 获取公告.
+     *
+     * @param language 语言
+     * @return 公告
+     */
     @GetMapping("/announcement")
     public RestResult<String> getAnnouncement(
         @RequestParam(required = false, name = "language", defaultValue = "zh-CN") String language) {
@@ -89,6 +101,11 @@ public class ServerStateController {
         return RestResultUtils.success(announcement);
     }
 
+    /**
+     * 获取引导信息.
+     *
+     * @return 引导信息
+     */
     @GetMapping("/guide")
     public RestResult<String> getConsoleUiGuide() {
         File guideFile = new File(EnvUtil.getConfPath(), GUIDE_FILE);

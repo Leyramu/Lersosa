@@ -62,13 +62,31 @@ import java.util.regex.Pattern;
 @ExtractorManager.Extractor(httpExtractor = ConsoleDefaultHttpParamExtractor.class)
 public class NamespaceControllerV2 {
 
+    /**
+     * 命名空间 ID 最大长度.
+     */
     private static final int NAMESPACE_ID_MAX_LENGTH = 128;
+
+    /**
+     * 命名空间操作服务.
+     */
     private final NamespaceOperationService namespaceOperationService;
+
+    /**
+     * 命名空间 ID 检查正则表达式.
+     */
     private final Pattern namespaceIdCheckPattern = Pattern.compile("^[\\w-]+");
+
+    /**
+     * 命名空间名称检查正则表达式.
+     */
     private final Pattern namespaceNameCheckPattern = Pattern.compile("^[^@#$%^&*]+$");
+
+    /**
+     * 命名空间持久化服务.
+     */
     @SuppressWarnings("all")
     private final NamespacePersistService namespacePersistService;
-
 
     /**
      * 获取命名空间列表.

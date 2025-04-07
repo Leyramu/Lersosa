@@ -1,0 +1,26 @@
+# ========================== Jasypt 配置 ===========================
+jasypt:
+  encryptor:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    password: ${JASYPT-ENCRYPTOR-PASSWORD}
+
+# ========================== Nacos 配置 ===========================
+spring:
+  cloud:
+    nacos:
+      server-addr: ${NACOS-SERVER-ADDRESS}
+      username: ${NACOS-USERNAME}
+      password: ${NACOS-PASSWORD}
+      discovery:
+        group: ${NACOS-VISUAL-GROUP}
+        namespace: ${NACOS-NAMESPACE}
+        cluster-name: ${spring.application.name}
+      config:
+        group: ${NACOS-VISUAL-GROUP}
+        namespace: ${NACOS-NAMESPACE}
+        file-extension: yml
+        refresh-enabled: true
+        extension-configs:
+          - data-id: datasource.${spring.cloud.nacos.config.file-extension}
+            group: ${NACOS-DEFAULT-GROUP}
+            refresh: true

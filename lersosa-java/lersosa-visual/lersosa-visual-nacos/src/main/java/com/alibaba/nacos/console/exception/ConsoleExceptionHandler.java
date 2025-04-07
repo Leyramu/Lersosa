@@ -49,23 +49,49 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 @SuppressWarnings("all")
 public class ConsoleExceptionHandler {
+
+    /**
+     * 处理权限异常.
+     *
+     * @param e 异常
+     * @return 响应实体
+     */
     @ExceptionHandler(AccessException.class)
     private ResponseEntity<String> handleAccessException(AccessException e) {
         log.error("got exception. {}", e.getErrMsg());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getErrMsg());
     }
 
+    /**
+     * 处理非法参数异常.
+     *
+     * @param e 异常
+     * @return 响应实体
+     */
     @ExceptionHandler(IllegalArgumentException.class)
     private ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionUtil.getAllExceptionMsg(e));
     }
 
+    /**
+     * 处理运行时异常.
+     *
+     * @param e 异常
+     * @return 响应实体
+     */
     @ExceptionHandler(NacosRuntimeException.class)
     private ResponseEntity<String> handleNacosRuntimeException(NacosRuntimeException e) {
         log.error("got exception. {}", e.getMessage());
         return ResponseEntity.status(e.getErrCode()).body(ExceptionUtil.getAllExceptionMsg(e));
     }
 
+    /**
+     * 处理其他异常.
+     *
+     * @param request 请求
+     * @param e       异常
+     * @return 响应实体
+     */
     @ExceptionHandler(Exception.class)
     private ResponseEntity<Object> handleException(HttpServletRequest request, Exception e) {
         String uri = request.getRequestURI();

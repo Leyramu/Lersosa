@@ -1,3 +1,4 @@
+seata-version: ${seata.version}
 lersosa-version: ${lersosa.version}
 spring-cloud-version: ${spring-cloud.version}
 spring-cloud-alibaba-version: ${spring-cloud-alibaba.version}

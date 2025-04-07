@@ -42,9 +42,25 @@ import java.util.Base64;
 @AllArgsConstructor
 public class ActuatorAuthFilter implements Filter {
 
+    /**
+     * 用户名.
+     */
     private final String username;
+
+    /**
+     * 密码.
+     */
     private final String password;
 
+    /**
+     * 过滤器方法.
+     *
+     * @param servletRequest  请求
+     * @param servletResponse 响应
+     * @param filterChain     过滤器链
+     * @throws IOException      IO异常
+     * @throws ServletException Servlet异常
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -80,10 +96,18 @@ public class ActuatorAuthFilter implements Filter {
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * 初始化方法.
+     *
+     * @param filterConfig 过滤器配置
+     */
     @Override
     public void init(FilterConfig filterConfig) {
     }
 
+    /**
+     * 销毁方法.
+     */
     @Override
     public void destroy() {
         Filter.super.destroy();

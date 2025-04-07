@@ -41,7 +41,7 @@ import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Nacos 服务发现
+ * Nacos 服务发现.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 1.0.0
@@ -50,22 +50,22 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class NacosServiceDiscoveryV2 extends NacosServiceDiscovery {
 
     /**
-     * Nacos 服务管理器
+     * Nacos 服务管理器.
      */
     private final NacosServiceManager nacosServiceManager;
 
     /**
-     * Nacos 发现属性
+     * Nacos 发现属性.
      */
     private final NacosDiscoveryProperties discoveryProperties;
 
     /**
-     * 自定义服务发现属性
+     * 自定义服务发现属性.
      */
     private final CustomNacosDiscoveryProperties customNacosDiscoveryProperties;
 
     /**
-     * 构造函数
+     * 构造函数.
      *
      * @param nacosServiceManager            Nacos 服务管理器
      * @param discoveryProperties            Nacos 发现属性
@@ -83,7 +83,7 @@ public class NacosServiceDiscoveryV2 extends NacosServiceDiscovery {
     }
 
     /**
-     * 获取服务实例列表
+     * 获取服务实例列表.
      *
      * @param serviceId 服务ID
      * @return 服务实例列表
@@ -105,7 +105,7 @@ public class NacosServiceDiscoveryV2 extends NacosServiceDiscovery {
     }
 
     /**
-     * 获取所有服务
+     * 获取所有服务.
      *
      * @return 所有服务
      * @throws NacosException Nacos异常
@@ -127,7 +127,7 @@ public class NacosServiceDiscoveryV2 extends NacosServiceDiscovery {
     }
 
     /**
-     * 将 Nacos Instance 列表转换成 ServiceInstance 列表
+     * 将 Nacos Instance 列表转换成 ServiceInstance 列表.
      *
      * @param instances Nacos Instance 列表
      * @param serviceId 服务ID
@@ -147,7 +147,7 @@ public class NacosServiceDiscoveryV2 extends NacosServiceDiscovery {
     }
 
     /**
-     * 将 Nacos Instance 转换成 ServiceInstance
+     * 将 Nacos Instance 转换成 ServiceInstance.
      *
      * @param instance  Nacos Instance
      * @param serviceId 服务ID
@@ -183,7 +183,7 @@ public class NacosServiceDiscoveryV2 extends NacosServiceDiscovery {
     }
 
     /**
-     * 获取 NamingService
+     * 获取 NamingService.
      *
      * @return NamingService
      */

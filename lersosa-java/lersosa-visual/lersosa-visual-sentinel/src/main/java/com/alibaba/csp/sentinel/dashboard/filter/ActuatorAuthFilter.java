@@ -23,6 +23,8 @@
 
 package com.alibaba.csp.sentinel.dashboard.filter;
 
+import lombok.RequiredArgsConstructor;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,16 +40,28 @@ import java.util.Base64;
  * @version 2.0.0
  * @since 2024/11/13
  */
+@RequiredArgsConstructor
 public class ActuatorAuthFilter implements Filter {
 
+    /**
+     * 用户名.
+     */
     private final String username;
+
+    /**
+     * 密码.
+     */
     private final String password;
 
-    public ActuatorAuthFilter(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
+    /**
+     * 过滤器方法.
+     *
+     * @param servletRequest  请求
+     * @param servletResponse 响应
+     * @param filterChain     过滤器链
+     * @throws IOException       IO异常
+     * @throws ServletException Servlet异常
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -83,10 +97,18 @@ public class ActuatorAuthFilter implements Filter {
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * 初始化方法.
+     *
+     * @param filterConfig 过滤器配置
+     */
     @Override
     public void init(FilterConfig filterConfig) {
     }
 
+    /**
+     * 销毁方法.
+     */
     @Override
     public void destroy() {
         Filter.super.destroy();

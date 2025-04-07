@@ -46,22 +46,82 @@
     <properties>
         <java.version>17</java.version>
         <jedis.version>3.8.0</jedis.version>
-        <seata.version>1.7.1</seata.version>
+        <seata.version>2.3.0</seata.version>
+        <mysql.version>8.0.33</mysql.version>
         <lombok.version>1.18.36</lombok.version>
+        <snakeyaml.version>2.0</snakeyaml.version>
         <spring-boot.version>2.7.18</spring-boot.version>
+        <kafka-clients.version>3.6.1</kafka-clients.version>
+        <tomcat-embed.version>9.0.98</tomcat-embed.version>
+        <jackson-mapper.version>1.9.13</jackson-mapper.version>
+        <spring-framework.version>5.3.39</spring-framework.version>
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
     </properties>
 
     <!--     Spring Cloud 依赖管理     -->
     <dependencyManagement>
         <dependencies>
-            <!-- SpringBoot 依赖配置 -->
+            <!--     Spring Framework Bom     -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring-framework.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--     Spring Boot Dependencies     -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.kafka</groupId>
+                        <artifactId>kafka-clients</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.tomcat.embed</groupId>
+                        <artifactId>tomcat-embed-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.tomcat.embed</groupId>
+                        <artifactId>tomcat-embed-websocket</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.tomcat.embed</groupId>
+                        <artifactId>tomcat-embed-el</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-framework-bom</artifactId>
+                    </exclusion>
+                </exclusions>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!--      Seata Dependencies      -->
+            <dependency>
+                <groupId>org.apache.seata</groupId>
+                <artifactId>seata-dependencies</artifactId>
+                <version>${seata.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--    Yaml      -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml.version}</version>
+            </dependency>
+
+            <!--      Tomcat Embed      -->
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>${tomcat-embed.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -74,14 +134,30 @@
             <artifactId>lersosa-common-ssl</artifactId>
         </dependency>
 
-        <!--      Spring Boot Web      -->
+        <!--      Spring Boot Starter Web      -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <exclusions>
                 <exclusion>
-                    <artifactId>*</artifactId>
+                    <artifactId>log4j-to-slf4j</artifactId>
                     <groupId>org.apache.logging.log4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                    <artifactId>tomcat-embed-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                    <artifactId>tomcat-embed-websocket</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                    <artifactId>tomcat-embed-el</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -93,17 +169,141 @@
             <optional>true</optional>
         </dependency>
 
-        <!--     Seata Server      -->
+        <!--      Tomcat Embed Core      -->
         <dependency>
-            <groupId>io.seata</groupId>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+        </dependency>
+
+        <!--      Tomcat Embed El      -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-el</artifactId>
+        </dependency>
+
+        <!--      Tomcat Embed Websocket      -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-websocket</artifactId>
+        </dependency>
+
+        <!--      Yaml      -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+        </dependency>
+
+        <!--      Seata Server      -->
+        <dependency>
+            <groupId>org.apache.seata</groupId>
             <artifactId>seata-server</artifactId>
+            <version>${seata.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/seata-server-${seata.version}.jar</systemPath>
+        </dependency>
+
+        <!--      Seata Spring Autoconfigure Server      -->
+        <dependency>
+            <groupId>org.apache.seata</groupId>
+            <artifactId>seata-spring-autoconfigure-server</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
+
+        <!--      Seata Core      -->
+        <dependency>
+            <groupId>org.apache.seata</groupId>
+            <artifactId>seata-core</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
+
+        <!--      Seata Config All      -->
+        <dependency>
+            <groupId>org.apache.seata</groupId>
+            <artifactId>seata-config-all</artifactId>
             <version>${seata.version}</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>slf4j-reload4j</artifactId>
-                    <groupId>org.slf4j</groupId>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!--      Seata Discovery All      -->
+        <dependency>
+            <groupId>org.apache.seata</groupId>
+            <artifactId>seata-discovery-all</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
+
+        <!--      Seata Serializer All      -->
+        <dependency>
+            <groupId>org.apache.seata</groupId>
+            <artifactId>seata-serializer-all</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
+
+        <!--      Seata Compressor All      -->
+        <dependency>
+            <groupId>org.apache.seata</groupId>
+            <artifactId>seata-compressor-all</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
+
+        <!--      Seata Metrics All      -->
+        <dependency>
+            <groupId>org.apache.seata</groupId>
+            <artifactId>seata-metrics-all</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.seata</groupId>
+            <artifactId>seata-console</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
+
+        <!--      Alibaba Druid      -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+
+        <!--      Apache Commons Dbcp2     -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+        </dependency>
+
+        <!--      HikariCP      -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+        </dependency>
+
+        <!--      MySQL Connector Java      -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+
+        <!--      PostgreSQL Connector Java      -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
+        <!--      JCommander      -->
+        <dependency>
+            <groupId>com.beust</groupId>
+            <artifactId>jcommander</artifactId>
+        </dependency>
+
+        <!--      Google Guava      -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
 
         <!--      Jedis      -->
@@ -113,11 +313,79 @@
             <version>${jedis.version}</version>
         </dependency>
 
-        <!--     Logstah Logback      -->
+        <!--      Fastjson      -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
+        <!--      Logback Classic      -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+
+        <!--      Logback Core      -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+
+        <!--      Logstash Logback Encoder      -->
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
             <version>${logstash-logback-encoder.version}</version>
+        </dependency>
+
+        <!--      Logback Kafka Appender      -->
+        <dependency>
+            <groupId>com.github.danielwegener</groupId>
+            <artifactId>logback-kafka-appender</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.kafka</groupId>
+                    <artifactId>kafka-clients</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--      Kafka Clients      -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>${kafka-clients.version}</version>
+        </dependency>
+
+        <!--      JRAFT      -->
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>jraft-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.alipay.sofa</groupId>
+                    <artifactId>bolt</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--      BOLT      -->
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>bolt</artifactId>
+        </dependency>
+
+        <!--      JANINO      -->
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+        </dependency>
+
+        <!--      JACKSON      -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${jackson-mapper.version}</version>
         </dependency>
 
         <!--      Lombok      -->
@@ -153,6 +421,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
 
             <!--      Docker 插件      -->

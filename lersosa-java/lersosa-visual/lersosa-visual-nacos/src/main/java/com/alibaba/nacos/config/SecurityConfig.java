@@ -38,11 +38,23 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SecurityConfig {
 
+    /**
+     * 用户名.
+     */
     @Value("${spring.boot.admin.client.username}")
     private String username;
+
+    /**
+     * 密码.
+     */
     @Value("${spring.boot.admin.client.password}")
     private String password;
 
+    /**
+     * 过滤器注册.
+     *
+     * @return 过滤器注册
+     */
     @Bean
     public FilterRegistrationBean<ActuatorAuthFilter> actuatorFilterRegistrationBean() {
         FilterRegistrationBean<ActuatorAuthFilter> registrationBean = new FilterRegistrationBean<>();

@@ -50,6 +50,7 @@
         <sentinel.version>1.8.8</sentinel.version>
         <lombok.version>1.18.36</lombok.version>
         <spring-boot.version>2.7.18</spring-boot.version>
+        <spring-cloud.version>2021.0.7</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
         <logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
     </properties>
@@ -62,6 +63,24 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--    Spring Cloud Dependencies    -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--    Spring Cloud Alibaba Dependencies    -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -81,12 +100,6 @@
         <dependency>
             <groupId>leyramu.framework</groupId>
             <artifactId>lersosa-common-nacos</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.alibaba.cloud</groupId>
-                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!--      Lersosa Common SSL      -->
@@ -95,11 +108,14 @@
             <artifactId>lersosa-common-ssl</artifactId>
         </dependency>
 
-        <!--      Spring Cloud Alibaba Nacos      -->
+        <!--      Sentinel Dashboard      -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <version>${spring-cloud-alibaba.version}</version>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-dashboard</artifactId>
+            <version>${sentinel.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/sentinel-dashboard-${sentinel.version}.jar
+            </systemPath>
         </dependency>
 
         <!--      Sentinel Core      -->
@@ -254,6 +270,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
 
             <!--      混淆插件      -->

@@ -23,10 +23,12 @@
 
 package leyramu.framework.lersosa.visual.snailjob;
 
+import com.aizuda.snailjob.server.SnailJobServerApplication;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import leyramu.framework.lersosa.common.ssl.annotation.EnableTlsConfig;
 import leyramu.framework.lersosa.common.ssl.core.CustomSpringApplication;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Indexed;
 
@@ -57,7 +59,7 @@ public class LersosaSnailJobApplication {
      * @param args 命令行参数
      */
     public static void main(String[] args) {
-        CustomSpringApplication.run(com.aizuda.snailjob.server.SnailJobServerApplication.class, args);
+        CustomSpringApplication.run(SnailJobServerApplication.class, args);
         log.info("""
             SnailJob 模块 服务启动成功
              ___       _______   ________  ________  ________  ________  ________    \s

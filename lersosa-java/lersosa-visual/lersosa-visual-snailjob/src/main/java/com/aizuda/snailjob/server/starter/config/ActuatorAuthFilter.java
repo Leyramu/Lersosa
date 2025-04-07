@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2024-2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -26,28 +26,42 @@ package com.aizuda.snailjob.server.starter.config;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 /**
- * Actuator 权限认证过滤器.
+ * Actuator 认证过滤器.
  *
+ * @author Sentinel
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/13
  */
+@RequiredArgsConstructor
 public class ActuatorAuthFilter implements Filter {
 
+    /**
+     * 用户名.
+     */
     private final String username;
+
+    /**
+     * 密码.
+     */
     private final String password;
 
-    public ActuatorAuthFilter(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
+    /**
+     * 过滤器方法.
+     *
+     * @param servletRequest  请求
+     * @param servletResponse 响应
+     * @param filterChain     过滤器链
+     * @throws IOException       IO异常
+     * @throws ServletException Servlet异常
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
@@ -83,11 +97,20 @@ public class ActuatorAuthFilter implements Filter {
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * 初始化方法.
+     *
+     * @param filterConfig 过滤器配置
+     */
     @Override
     public void init(FilterConfig filterConfig) {
     }
 
+    /**
+     * 销毁方法.
+     */
     @Override
     public void destroy() {
+        Filter.super.destroy();
     }
 }

@@ -42,14 +42,28 @@ import java.io.IOException;
  */
 public class XssFilter extends OncePerRequestFilter {
 
+    /**
+     * Content-Security-Policy 头部.
+     */
     private static final String CONTENT_SECURITY_POLICY_HEADER = "Content-Security-Policy";
 
+    /**
+     * Content-Security-Policy 头部值.
+     */
     private static final String CONTENT_SECURITY_POLICY = "script-src 'self'";
 
+    /**
+     * 过滤器执行方法.
+     *
+     * @param request     请求对象
+     * @param response    响应对象
+     * @param filterChain 过滤器链
+     * @throws ServletException Servlet异常
+     * @throws IOException      IO异常
+     */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
-
         response.setHeader(CONTENT_SECURITY_POLICY_HEADER, CONTENT_SECURITY_POLICY);
         filterChain.doFilter(request, response);
     }

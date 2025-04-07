@@ -1,12 +1,9 @@
+# =========================== 项目配置 ===========================
 lersosa-version: ${lersosa.version}
 spring-cloud-version: ${spring-cloud.version}
 spring-cloud-alibaba-version: ${spring-cloud-alibaba.version}
 
-jasypt:
-  encryptor:
-    algorithm: PBEWITHHMACSHA512ANDAES_256
-    password: @JASYPT-ENCRYPTOR-PASSWORD@
-
+# =========================== 服务器配置 ===========================
 server:
   port: ${SERVER-PORT:8800}
   ssl:
@@ -21,15 +18,19 @@ server:
   servlet:
     context-path: /snail-job
 
+# =========================== Spring 配置 ===========================
 spring:
   application:
+    # 应用名称
     name: @pom.artifactId@
   profiles:
+    # 环境配置
     active: @PROFILE-ACTIVE@
   web:
     resources:
       static-locations: classpath:admin/
 
+# =========================== MyBatis 配置 ===========================
 mybatis-plus:
   typeAliasesPackage: com.aizuda.snailjob.template.datasource.persistence.po
   global-config:
@@ -42,9 +43,11 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: true
 
+# =========================== 日志配置 ===========================
 logging:
   config: classpath:logback-plus.xml
 
+# =========================== 监控配置 ===========================
 management:
   endpoints:
     web:
@@ -56,22 +59,22 @@ management:
     logfile:
       external-file: ./logs/${spring.application.name}/console.log
 
----
-spring:
-  cloud:
-    nacos:
-      server-addr: @NACOS-SERVER-ADDRESS@
-      username: @NACOS-USERNAME@
-      password: @NACOS-PASSWORD@
-      discovery:
-        secure: @SSL-ENABLED@
-        group: @NACOS-VISUAL-GROUP@
-        namespace: @NACOS-NAMESPACE@
-        cluster-name: ${spring.application.name}
-      config:
-        namespace: @NACOS-NAMESPACE@
-        file-extension: yml
-  config:
-    import:
-      - optional:nacos:datasource.${spring.cloud.nacos.config.file-extension}?group=@NACOS-DEFAULT-GROUP@
-      - optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}?group=@NACOS-VISUAL-GROUP@
+#---
+#spring:
+#  cloud:
+#    nacos:
+#      server-addr: @NACOS-SERVER-ADDRESS@
+#      username: @NACOS-USERNAME@
+#      password: @NACOS-PASSWORD@
+#      discovery:
+#        secure: @SSL-ENABLED@
+#        group: @NACOS-VISUAL-GROUP@
+#        namespace: @NACOS-NAMESPACE@
+#        cluster-name: ${spring.application.name}
+#      config:
+#        namespace: @NACOS-NAMESPACE@
+#        file-extension: yml
+#  config:
+#    import:
+#      - optional:nacos:datasource.${spring.cloud.nacos.config.file-extension}?group=@NACOS-DEFAULT-GROUP@
+#      - optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}?group=@NACOS-VISUAL-GROUP@

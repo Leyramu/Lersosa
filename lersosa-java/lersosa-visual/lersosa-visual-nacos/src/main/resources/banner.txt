@@ -39,7 +39,7 @@ Nacos 正在启动中......
 
          ,--.
        ,--.'|
-   ,--,:  : |                                           Nacos ${application.version}
+   ,--,:  : |                                           Nacos   v${nacos-version}
 ,`--.'`|  ' :                       ,---.               Running in ${nacos.mode} mode, ${nacos.function.mode} function modules
 |   :  :  | |                      '   ,'\   .--.--.    Port: ${server.port}
 :   |   \ | :  ,--.--.     ,---.  /   /   | /  /    '   Pid: ${pid}

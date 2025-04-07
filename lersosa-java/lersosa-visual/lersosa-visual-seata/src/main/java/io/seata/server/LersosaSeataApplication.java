@@ -24,7 +24,6 @@
 package io.seata.server;
 
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
-import io.seata.common.aot.NativeUtils;
 import leyramu.framework.lersosa.common.ssl.annotation.EnableTlsConfig;
 import leyramu.framework.lersosa.common.ssl.core.CustomSpringApplication;
 import lombok.extern.slf4j.Slf4j;
@@ -49,42 +48,26 @@ import org.springframework.stereotype.Indexed;
     clientCertPath = "nacos.crt"
 )
 @EnableEncryptableProperties
-@SpringBootApplication(scanBasePackages = {"io.seata"})
+@SpringBootApplication(scanBasePackages = {"org.apache.seata"})
 public class LersosaSeataApplication {
-
-    /**
-     * 启动异常类名.
-     */
-    private static final String ABANDONED_RUN_EXCEPTION_CLASS_NAME = "org.springframework.boot.SpringApplication$AbandonedRunException";
 
     /**
      * 启动 Seata 分布式事务服务 模块.
      *
      * @param args 命令行参数
      */
-    public static void main(String[] args) throws Throwable {
-        try {
-            CustomSpringApplication.run(LersosaSeataApplication.class, args);
-            log.info("""
-                Seata 模块 服务启动成功
-                 ___       _______   ________  ________  ________  ________  ________    \s
-                |\\  \\     |\\  ___ \\ |\\   __  \\|\\   ____\\|\\   __  \\|\\   ____\\|\\   __  \\   \s
-                \\ \\  \\    \\ \\   __/|\\ \\  \\|\\  \\ \\  \\___|\\ \\  \\|\\  \\ \\  \\___|\\ \\  \\|\\  \\  \s
-                 \\ \\  \\    \\ \\  \\_|/_\\ \\   _  _\\ \\_____  \\ \\  \\\\\\  \\ \\_____  \\ \\   __  \\ \s
-                  \\ \\  \\____\\ \\  \\_|\\ \\ \\  \\\\  \\\\|____|\\  \\ \\  \\\\\\  \\|____|\\  \\ \\  \\ \\  \\\s
-                   \\ \\_______\\ \\_______\\ \\__\\\\ _\\ ____\\_\\  \\ \\_______\\____\\_\\  \\ \\__\\ \\__\\
-                    \\|_______|\\|_______|\\|__|\\|__|\\_________\\|_______|\\_________\\|__|\\|__|
-                                                 \\|_________|        \\|_________|        \s
-                """);
-        } catch (Throwable t) {
-            if (ABANDONED_RUN_EXCEPTION_CLASS_NAME.equals(t.getClass().getName())) {
-                throw t;
-            }
-            if (NativeUtils.inNativeImage()) {
-                log.error("Failed to start Seata server.", t);
-                Thread.sleep(20000);
-            }
-            throw t;
-        }
+    public static void main(String[] args) {
+        CustomSpringApplication.run(LersosaSeataApplication.class, args);
+        log.info("""
+            Seata 模块 服务启动成功
+             ___       _______   ________  ________  ________  ________  ________    \s
+            |\\  \\     |\\  ___ \\ |\\   __  \\|\\   ____\\|\\   __  \\|\\   ____\\|\\   __  \\   \s
+            \\ \\  \\    \\ \\   __/|\\ \\  \\|\\  \\ \\  \\___|\\ \\  \\|\\  \\ \\  \\___|\\ \\  \\|\\  \\  \s
+             \\ \\  \\    \\ \\  \\_|/_\\ \\   _  _\\ \\_____  \\ \\  \\\\\\  \\ \\_____  \\ \\   __  \\ \s
+              \\ \\  \\____\\ \\  \\_|\\ \\ \\  \\\\  \\\\|____|\\  \\ \\  \\\\\\  \\|____|\\  \\ \\  \\ \\  \\\s
+               \\ \\_______\\ \\_______\\ \\__\\\\ _\\ ____\\_\\  \\ \\_______\\____\\_\\  \\ \\__\\ \\__\\
+                \\|_______|\\|_______|\\|__|\\|__|\\_________\\|_______|\\_________\\|__|\\|__|
+                                             \\|_________|        \\|_________|        \s
+            """);
     }
 }

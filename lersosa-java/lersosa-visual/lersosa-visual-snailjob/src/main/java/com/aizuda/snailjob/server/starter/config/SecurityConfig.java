@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2024-2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,17 +32,29 @@ import org.springframework.context.annotation.Configuration;
  * 权限安全配置.
  *
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
- * @version 1.0.0
+ * @version 2.0.0
  * @since 2024/11/13
  */
 @Configuration
 public class SecurityConfig {
 
+    /**
+     * 用户名.
+     */
     @Value("${spring.cloud.nacos.discovery.metadata.username}")
     private String username;
+
+    /**
+     * 密码.
+     */
     @Value("${spring.cloud.nacos.discovery.metadata.userpassword}")
     private String password;
 
+    /**
+     * 注册过滤器.
+     *
+     * @return 过滤器注册
+     */
     @Bean
     public FilterRegistrationBean<ActuatorAuthFilter> actuatorFilterRegistrationBean() {
         FilterRegistrationBean<ActuatorAuthFilter> registrationBean = new FilterRegistrationBean<>();

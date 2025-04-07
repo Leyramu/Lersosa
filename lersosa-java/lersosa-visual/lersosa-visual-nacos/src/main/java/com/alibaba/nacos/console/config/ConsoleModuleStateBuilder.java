@@ -37,10 +37,21 @@ import com.alibaba.nacos.sys.utils.ApplicationUtils;
  */
 public class ConsoleModuleStateBuilder implements ModuleStateBuilder {
 
+    /**
+     * 控制台模块名称.
+     */
     public static final String CONSOLE_MODULE = "console";
 
+    /**
+     * 控制台模块状态名称.
+     */
     private static final String CONSOLE_UI_ENABLED = "console_ui_enabled";
 
+    /**
+     * 构建控制台模块状态.
+     *
+     * @return 控制台模块状态
+     */
     @Override
     public ModuleState build() {
         ModuleState result = new ModuleState(CONSOLE_MODULE);

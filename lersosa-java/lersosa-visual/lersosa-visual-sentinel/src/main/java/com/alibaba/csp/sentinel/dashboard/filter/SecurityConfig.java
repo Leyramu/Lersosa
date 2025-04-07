@@ -38,11 +38,23 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SecurityConfig {
 
+    /**
+     * 用户名.
+     */
     @Value("${spring.cloud.nacos.discovery.metadata.username}")
     private String username;
+
+    /**
+     * 密码.
+     */
     @Value("${spring.cloud.nacos.discovery.metadata.userpassword}")
     private String password;
 
+    /**
+     * 注册过滤器.
+     *
+     * @return 过滤器注册
+     */
     @Bean
     public FilterRegistrationBean<ActuatorAuthFilter> actuatorFilterRegistrationBean() {
         FilterRegistrationBean<ActuatorAuthFilter> registrationBean = new FilterRegistrationBean<>();

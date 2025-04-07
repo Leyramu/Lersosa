@@ -55,8 +55,14 @@ import java.time.ZoneId;
 @PropertySource("/application.properties")
 public class ConsoleConfig {
 
+    /**
+     * 控制台方法缓存.
+     */
     private final ControllerMethodsCache methodsCache;
 
+    /**
+     * 控制台是否启用.
+     */
     @Getter
     @Value("${nacos.console.ui.enabled:true}")
     private boolean consoleUiEnabled;
@@ -72,6 +78,11 @@ public class ConsoleConfig {
         methodsCache.initClassMethod("com.alibaba.nacos.console.controller");
     }
 
+    /**
+     * 跨域配置.
+     *
+     * @return 跨域过滤器
+     */
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
@@ -85,11 +96,21 @@ public class ConsoleConfig {
         return new CorsFilter(source);
     }
 
+    /**
+     * XSS 过滤器.
+     *
+     * @return XSS 过滤器
+     */
     @Bean
     public XssFilter xssFilter() {
         return new XssFilter();
     }
 
+    /**
+     * 时间格式化.
+     *
+     * @return 时间格式化
+     */
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jacksonObjectMapperCustomization() {
         return jacksonObjectMapperBuilder -> jacksonObjectMapperBuilder.timeZone(ZoneId.systemDefault().toString());

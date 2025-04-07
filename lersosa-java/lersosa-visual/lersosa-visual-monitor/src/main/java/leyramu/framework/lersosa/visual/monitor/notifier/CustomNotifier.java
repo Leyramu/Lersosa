@@ -66,7 +66,7 @@ public class CustomNotifier extends AbstractEventNotifier {
     protected Mono<Void> doNotify(@NonNull InstanceEvent event, @NonNull Instance instance) {
         return Mono.fromRunnable(() -> {
             if (event instanceof InstanceStatusChangedEvent) {
-                String registName = instance.getRegistration().getName();
+                String registerName = instance.getRegistration().getName();
                 String instanceId = event.getInstance().getValue();
                 String status = ((InstanceStatusChangedEvent) event).getStatusInfo().getStatus();
                 String serviceUrl = instance.getRegistration().getServiceUrl();
@@ -80,7 +80,7 @@ public class CustomNotifier extends AbstractEventNotifier {
                     default -> "未知状态";
                 };
                 log.info("Instance Status Change: 状态名称【{}】, 注册名称【{}】, 实例ID【{}】, 状态【{}】, 服务URL【{}】",
-                    statusName, registName, instanceId, status, serviceUrl);
+                    statusName, registerName, instanceId, status, serviceUrl);
             }
         });
     }

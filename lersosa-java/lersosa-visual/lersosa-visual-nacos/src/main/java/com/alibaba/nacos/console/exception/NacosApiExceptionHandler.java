@@ -62,24 +62,49 @@ import java.io.IOException;
 @SuppressWarnings("all")
 @ControllerAdvice(annotations = {NacosApi.class})
 public class NacosApiExceptionHandler {
+
+    /**
+     * 处理 Nacos API 相关的异常.
+     *
+     * @param e Nacos API 相关的异常
+     * @return 处理后的异常信息
+     */
     @ExceptionHandler(NacosApiException.class)
     public ResponseEntity<Result<String>> handleNacosApiException(NacosApiException e) {
         log.error("got exception. {} {}", e.getErrAbstract(), e.getErrMsg());
         return ResponseEntity.status(e.getErrCode()).body(new Result<>(e.getDetailErrCode(), e.getErrAbstract(), e.getErrMsg()));
     }
 
+    /**
+     * 处理 NacosException 相关的异常.
+     *
+     * @param e NacosException 相关的异常
+     * @return 处理后的异常信息
+     */
     @ExceptionHandler(NacosException.class)
     public ResponseEntity<Result<String>> handleNacosException(NacosException e) {
         log.error("got exception. {}", e.getErrMsg());
         return ResponseEntity.status(e.getErrCode()).body(Result.failure(ErrorCode.SERVER_ERROR, e.getErrMsg()));
     }
 
+    /**
+     * 处理 NacosRuntimeException 相关的异常.
+     *
+     * @param e NacosRuntimeException 相关的异常
+     * @return 处理后的异常信息
+     */
     @ExceptionHandler(NacosRuntimeException.class)
     public ResponseEntity<Result<String>> handleNacosRuntimeException(NacosRuntimeException e) {
         log.error("got exception. {} {}", e.getMessage(), ExceptionUtil.getAllExceptionMsg(e));
         return ResponseEntity.status(e.getErrCode()).body(Result.failure(ErrorCode.SERVER_ERROR, e.getMessage()));
     }
 
+    /**
+     * 处理 HttpMessageNotReadableException 相关的异常.
+     *
+     * @param e HttpMessageNotReadableException 相关的异常
+     * @return 处理后的异常信息
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public Result<String> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
@@ -87,6 +112,12 @@ public class NacosApiExceptionHandler {
         return Result.failure(ErrorCode.PARAMETER_MISSING, e.getMessage());
     }
 
+    /**
+     * 处理 HttpMessageConversionException 相关的异常.
+     *
+     * @param e HttpMessageConversionException 相关的异常
+     * @return 处理后的异常信息
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageConversionException.class)
     public Result<String> handleHttpMessageConversionException(HttpMessageConversionException e) {
@@ -94,6 +125,12 @@ public class NacosApiExceptionHandler {
         return Result.failure(ErrorCode.PARAMETER_VALIDATE_ERROR, e.getMessage());
     }
 
+    /**
+     * 处理 NumberFormatException 相关的异常.
+     *
+     * @param e NumberFormatException 相关的异常
+     * @return 处理后的异常信息
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NumberFormatException.class)
     public Result<String> handleNumberFormatException(NumberFormatException e) {
@@ -101,6 +138,12 @@ public class NacosApiExceptionHandler {
         return Result.failure(ErrorCode.PARAMETER_VALIDATE_ERROR, e.getMessage());
     }
 
+    /**
+     * 处理 IllegalArgumentException 相关的异常.
+     *
+     * @param e IllegalArgumentException 相关的异常
+     * @return 处理后的异常信息
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     public Result<String> handleIllegalArgumentException(IllegalArgumentException e) {
@@ -108,6 +151,12 @@ public class NacosApiExceptionHandler {
         return Result.failure(ErrorCode.PARAMETER_VALIDATE_ERROR, e.getMessage());
     }
 
+    /**
+     * 处理 MissingServletRequestParameterException 相关的异常.
+     *
+     * @param e MissingServletRequestParameterException 相关的异常
+     * @return 处理后的异常信息
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public Result<String> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
@@ -115,6 +164,12 @@ public class NacosApiExceptionHandler {
         return Result.failure(ErrorCode.PARAMETER_MISSING, e.getMessage());
     }
 
+    /**
+     * 处理 HttpMediaTypeException 相关的异常.
+     *
+     * @param e HttpMediaTypeException 相关的异常
+     * @return 处理后的异常信息
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMediaTypeException.class)
     public Result<String> handleHttpMediaTypeException(HttpMediaTypeException e) {
@@ -122,6 +177,12 @@ public class NacosApiExceptionHandler {
         return Result.failure(ErrorCode.MEDIA_TYPE_ERROR, e.getMessage());
     }
 
+    /**
+     * 处理 AccessException 相关的异常.
+     *
+     * @param e AccessException 相关的异常
+     * @return 处理后的异常信息
+     */
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(AccessException.class)
     public Result<String> handleAccessException(AccessException e) {
@@ -129,6 +190,12 @@ public class NacosApiExceptionHandler {
         return Result.failure(ErrorCode.ACCESS_DENIED, e.getErrMsg());
     }
 
+    /**
+     * 处理 DataAccessException 相关的异常.
+     *
+     * @param e DataAccessException 相关的异常
+     * @return 处理后的异常信息
+     */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = {DataAccessException.class, ServletException.class, IOException.class})
     public Result<String> handleDataAccessException(Exception e) {
@@ -136,6 +203,12 @@ public class NacosApiExceptionHandler {
         return Result.failure(ErrorCode.DATA_ACCESS_ERROR, e.getMessage());
     }
 
+    /**
+     * 处理其他异常.
+     *
+     * @param e 其他异常
+     * @return 处理后的异常信息
+     */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public Result<String> handleOtherException(Exception e) {
