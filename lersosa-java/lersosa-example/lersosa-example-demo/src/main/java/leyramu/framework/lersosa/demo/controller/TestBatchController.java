@@ -24,7 +24,7 @@
 package leyramu.framework.lersosa.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.web.core.BaseController;
 import leyramu.framework.lersosa.demo.domain.TestDemo;
 import leyramu.framework.lersosa.demo.mapper.TestDemoMapper;
@@ -59,7 +59,7 @@ public class TestBatchController extends BaseController {
      */
     @PostMapping("/add")
 //    @DS("slave")
-    public R<Void> add() {
+    public Result<Void> add() {
         List<TestDemo> list = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
             TestDemo testDemo = new TestDemo();
@@ -76,7 +76,7 @@ public class TestBatchController extends BaseController {
      */
     @PostMapping("/addOrUpdate")
 //    @DS("slave")
-    public R<Void> addOrUpdate() {
+    public Result<Void> addOrUpdate() {
         List<TestDemo> list = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
             TestDemo testDemo = new TestDemo();
@@ -102,7 +102,7 @@ public class TestBatchController extends BaseController {
      */
     @DeleteMapping()
 //    @DS("slave")
-    public R<Void> remove() {
+    public Result<Void> remove() {
         return toAjax(testDemoMapper.delete(new LambdaQueryWrapper<TestDemo>()
             .eq(TestDemo::getOrderNum, -1L)));
     }

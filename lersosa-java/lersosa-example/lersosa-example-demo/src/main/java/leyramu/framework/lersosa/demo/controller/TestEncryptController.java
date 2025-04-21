@@ -23,7 +23,7 @@
 
 package leyramu.framework.lersosa.demo.controller;
 
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.demo.domain.TestDemoEncrypt;
 import leyramu.framework.lersosa.demo.mapper.TestDemoEncryptMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +61,7 @@ public class TestEncryptController {
      * @param value 测试value
      */
     @GetMapping()
-    public R<Map<String, TestDemoEncrypt>> test(String key, String value) {
+    public Result<Map<String, TestDemoEncrypt>> test(String key, String value) {
         if (!encryptEnable) {
             throw new RuntimeException("加密功能未开启!");
         }
@@ -73,6 +73,6 @@ public class TestEncryptController {
         map.put("加密", demo);
         TestDemoEncrypt testDemo = mapper.selectById(demo.getId());
         map.put("解密", testDemo);
-        return R.ok(map);
+        return Result.ok(map);
     }
 }

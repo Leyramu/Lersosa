@@ -25,7 +25,7 @@ package leyramu.framework.lersosa.demo.controller;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.core.utils.MessageUtils;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
@@ -53,24 +53,24 @@ public class TestI18nController {
      * @param code 国际化code
      */
     @GetMapping()
-    public R<Void> get(String code) {
-        return R.ok(MessageUtils.message(code));
+    public Result<Void> get(String code) {
+        return Result.ok(MessageUtils.message(code));
     }
 
     /**
      * Validator 校验国际化.
      */
     @GetMapping("/test1")
-    public R<Void> test1(@NotBlank(message = "{not.null}") String str) {
-        return R.ok(str);
+    public Result<Void> test1(@NotBlank(message = "{not.null}") String str) {
+        return Result.ok(str);
     }
 
     /**
      * Bean 校验国际化.
      */
     @GetMapping("/test2")
-    public R<TestI18nBo> test2(@Validated TestI18nBo bo) {
-        return R.ok(bo);
+    public Result<TestI18nBo> test2(@Validated TestI18nBo bo) {
+        return Result.ok(bo);
     }
 
     @Data

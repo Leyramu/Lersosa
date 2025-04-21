@@ -23,7 +23,7 @@
 
 package leyramu.framework.lersosa.demo.controller;
 
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +48,7 @@ public class Swagger3DemoController {
      * @param file 文件
      */
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public R<String> upload(@RequestPart("file") MultipartFile file) {
-        return R.ok("操作成功", file.getOriginalFilename());
+    public Result<String> upload(@RequestPart("file") MultipartFile file) {
+        return Result.ok("操作成功", file.getOriginalFilename());
     }
 }

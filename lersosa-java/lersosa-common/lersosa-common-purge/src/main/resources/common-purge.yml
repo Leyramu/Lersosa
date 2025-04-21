@@ -1,0 +1,6 @@
+# =========================== Nginx 配置 ===========================
+nginx:
+  cache:
+    enable: true
+    purge-addr: http://lersosa-nginx
+    api-key: eYanLeNIndooKMVo5hMUIayru/v0g1xkLxyspQ8hMfq9mz8WgyfFMse4VC/wvQK7

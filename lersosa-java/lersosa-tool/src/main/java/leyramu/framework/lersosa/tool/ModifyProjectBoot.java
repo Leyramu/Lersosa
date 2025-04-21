@@ -105,7 +105,7 @@ public class ModifyProjectBoot {
 
     private static int count = 0;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         // 修改projectName、packageName、groupId、artifactId
         String projectPath = System.getProperty("user.dir");
@@ -158,7 +158,7 @@ public class ModifyProjectBoot {
         });
     }
 
-    private static void createDirOrFile(String path) {
+    private static void createDirOrFile(String path) throws IOException {
         int index = path.lastIndexOf(File.separator);
         String dir = path.substring(0, index);
         String fileName = path.substring(index + 1);
@@ -172,12 +172,12 @@ public class ModifyProjectBoot {
     }
 
     private static byte[] getJavaFileAsByte(String path) throws IOException {
-        String str = FileUtils.getStr(Paths.get(path));
+        String str = FileUtils.getStr(String.valueOf(Paths.get(path)));
         return str.replaceAll("leyramu.framework.lersosa", NEW_PACKAGE_NAME).getBytes(StandardCharsets.UTF_8);
     }
 
     private static byte[] getPomFileAsByte(String path) throws IOException {
-        String str = FileUtils.getStr(Paths.get(path));
+        String str = FileUtils.getStr(String.valueOf(Paths.get(path)));
         return str.replaceAll("leyramu.framework.lersosa", NEW_GROUP_ID)
             .replaceAll("lersosa-", NEW_MODULE_NAME + "-")
             .replace("Lersosa", NEW_PROJECT_NAME)
@@ -185,7 +185,7 @@ public class ModifyProjectBoot {
     }
 
     private static byte[] getXmlFileAsByte(String path) throws IOException {
-        String str = FileUtils.getStr(Paths.get(path));
+        String str = FileUtils.getStr(String.valueOf(Paths.get(path)));
         return str.replaceAll("leyramu.framework.lersosa", NEW_PACKAGE_NAME).getBytes(StandardCharsets.UTF_8);
     }
 

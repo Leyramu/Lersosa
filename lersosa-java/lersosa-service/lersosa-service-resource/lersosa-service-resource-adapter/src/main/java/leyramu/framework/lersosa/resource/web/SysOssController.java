@@ -27,7 +27,7 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.util.ObjectUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotEmpty;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.core.validate.QueryGroup;
 import leyramu.framework.lersosa.common.log.annotation.Log;
 import leyramu.framework.lersosa.common.log.enums.BusinessType;
@@ -79,9 +79,9 @@ public class SysOssController extends BaseController {
      */
     @SaCheckPermission("system:oss:list")
     @GetMapping("/listByIds/{ossIds}")
-    public R<List<SysOssVo>> listByIds(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ossIds) {
+    public Result<List<SysOssVo>> listByIds(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ossIds) {
         List<SysOssVo> list = iSysOssService.listByIds(Arrays.asList(ossIds));
-        return R.ok(list);
+        return Result.ok(list);
     }
 
     /**
@@ -92,16 +92,16 @@ public class SysOssController extends BaseController {
     @SaCheckPermission("system:oss:upload")
     @Log(title = "OSS对象存储", businessType = BusinessType.INSERT)
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public R<SysOssUploadVo> upload(@RequestPart("file") MultipartFile file) {
+    public Result<SysOssUploadVo> upload(@RequestPart("file") MultipartFile file) {
         if (ObjectUtil.isNull(file)) {
-            return R.fail("上传文件不能为空");
+            return Result.fail("上传文件不能为空");
         }
         SysOssVo oss = iSysOssService.upload(file);
         SysOssUploadVo uploadVo = new SysOssUploadVo();
         uploadVo.setUrl(oss.getUrl());
         uploadVo.setFileName(oss.getOriginalName());
         uploadVo.setOssId(oss.getOssId().toString());
-        return R.ok(uploadVo);
+        return Result.ok(uploadVo);
     }
 
     /**
@@ -123,7 +123,7 @@ public class SysOssController extends BaseController {
     @SaCheckPermission("system:oss:remove")
     @Log(title = "OSS对象存储", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ossIds}")
-    public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ossIds) {
+    public Result<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ossIds) {
         return toAjax(iSysOssService.deleteWithValidByIds(Arrays.asList(ossIds), true));
     }
 }

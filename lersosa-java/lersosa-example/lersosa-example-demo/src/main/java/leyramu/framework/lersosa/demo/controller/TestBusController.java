@@ -23,7 +23,7 @@
 
 package leyramu.framework.lersosa.demo.controller;
 
-import leyramu.framework.lersosa.workflow.api.domain.event.ProcessEvent;
+import leyramu.framework.lersosa.workflow.api.event.ProcessEvent;
 import leyramu.framework.lersosa.workflow.api.domain.event.ProcessTaskEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Copyright (c) 2023-2025 Leyramu Group. All rights reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,31 +21,55 @@
  * By using this project, users acknowledge and agree to abide by these terms and conditions.
  */
 
-package com.alibaba.csp.sentinel.dashboard.domain.vo.gateway.api;
+package leyramu.framework.lersosa.common.grpc.aspect;
 
-import lombok.Data;
-
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.stereotype.Component;
 
 /**
- * 添加网关 API 的 Value 对象.
+ * 远程调用日志切面.
  *
- * @author cdfive
  * @author <a href="mailto:2038322151@qq.com">Miraitowa_zcx</a>
  * @version 2.0.0
- * @since 2024/11/13
+ * @since 2025/3/14
  */
-@Data
-public class AddApiReqVo {
+@Slf4j
+@Aspect
+@Component
+public class LoggingAspect {
 
-    private String app;
+    /**
+     * 切面方法.
+     *
+     * @param joinPoint 切点
+     * @return Object
+     * @throws Throwable 异常
+     */
+    @Around("@annotation(leyramu.framework.lersosa.common.grpc.annotation.GrpcLog)")
+    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        String methodName = signature.getMethod().getName();
 
-    private String ip;
+        try {
+            log.info("[PLUS]远程请求 => gRPC 远程调用开始：{}", methodName);
+            long start = System.currentTimeMillis();
 
-    private Integer port;
+            Object result = joinPoint.proceed();
 
-    private String apiName;
-
-    private List<ApiPredicateItemVo> predicateItems;
+            log.info("[PLUS]远程请求 => gRPC 远程调用结束：{}，耗时：{}ms",
+                methodName,
+                System.currentTimeMillis() - start);
+            return result;
+        } catch (Throwable ex) {
+            log.error("[PLUS]远程请求 => gRPC 远程调用异常：{}，异常信息：{}",
+                methodName,
+                ex.getMessage(),
+                ex);
+            throw ex;
+        }
+    }
 }
-

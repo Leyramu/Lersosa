@@ -27,7 +27,7 @@ import cn.hutool.core.util.RandomUtil;
 import jakarta.validation.constraints.NotBlank;
 import leyramu.framework.lersosa.common.core.constant.Constants;
 import leyramu.framework.lersosa.common.core.constant.GlobalConstants;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.mail.config.properties.MailProperties;
 import leyramu.framework.lersosa.common.mail.utils.MailUtils;
 import leyramu.framework.lersosa.common.ratelimiter.annotation.RateLimiter;
@@ -65,9 +65,9 @@ public class SysEmailController extends BaseController {
      */
     @RateLimiter(key = "#email", count = 1)
     @GetMapping("/code")
-    public R<Void> emailCode(@NotBlank(message = "{user.email.not.blank}") String email) {
+    public Result<Void> emailCode(@NotBlank(message = "{user.email.not.blank}") String email) {
         if (!mailProperties.getEnabled()) {
-            return R.fail("当前系统没有开启邮箱功能！");
+            return Result.fail("当前系统没有开启邮箱功能！");
         }
         String key = GlobalConstants.CAPTCHA_CODE_KEY + email;
         String code = RandomUtil.randomNumbers(4);
@@ -76,8 +76,8 @@ public class SysEmailController extends BaseController {
             MailUtils.sendText(email, "登录验证码", "您本次验证码为：" + code + "，有效性为" + Constants.CAPTCHA_EXPIRATION + "分钟，请尽快填写。");
         } catch (Exception e) {
             log.error("验证码短信发送异常 => {}", e.getMessage());
-            return R.fail(e.getMessage());
+            return Result.fail(e.getMessage());
         }
-        return R.ok();
+        return Result.ok();
     }
 }

@@ -29,8 +29,8 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ObjectUtil;
+import leyramu.framework.lersosa.common.core.constant.SystemConstants;
 import leyramu.framework.lersosa.common.core.constant.TenantConstants;
-import leyramu.framework.lersosa.common.core.constant.UserConstants;
 import leyramu.framework.lersosa.common.core.enums.UserType;
 import leyramu.framework.lersosa.system.api.model.LoginUser;
 import lombok.AccessLevel;
@@ -202,7 +202,7 @@ public class LoginHelper {
      * @return 结果
      */
     public static boolean isSuperAdmin(Long userId) {
-        return UserConstants.SUPER_ADMIN_ID.equals(userId);
+        return SystemConstants.SUPER_ADMIN_ID.equals(userId);
     }
 
     /**

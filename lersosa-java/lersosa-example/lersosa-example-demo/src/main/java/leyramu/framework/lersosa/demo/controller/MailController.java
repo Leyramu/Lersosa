@@ -23,7 +23,7 @@
 
 package leyramu.framework.lersosa.demo.controller;
 
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.mail.utils.MailUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -55,9 +55,9 @@ public class MailController {
      * @param text    内容
      */
     @GetMapping("/sendSimpleMessage")
-    public R<Void> sendSimpleMessage(String to, String subject, String text) {
+    public Result<Void> sendSimpleMessage(String to, String subject, String text) {
         MailUtils.sendText(to, subject, text);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
@@ -69,8 +69,8 @@ public class MailController {
      * @param filePath 附件路径
      */
     @GetMapping("/sendMessageWithAttachment")
-    public R<Void> sendMessageWithAttachment(String to, String subject, String text, String filePath) {
+    public Result<Void> sendMessageWithAttachment(String to, String subject, String text, String filePath) {
         MailUtils.sendText(to, subject, text, new File(filePath));
-        return R.ok();
+        return Result.ok();
     }
 }

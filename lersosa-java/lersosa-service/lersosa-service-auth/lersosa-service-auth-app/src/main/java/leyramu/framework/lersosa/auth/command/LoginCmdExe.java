@@ -28,7 +28,7 @@ import leyramu.framework.lersosa.auth.ability.AuthDomainService;
 import leyramu.framework.lersosa.auth.dto.co.LoginCo;
 import leyramu.framework.lersosa.auth.model.AuthA;
 import leyramu.framework.lersosa.auth.strategy.AuthStrategyI;
-import leyramu.framework.lersosa.common.core.constant.UserConstants;
+import leyramu.framework.lersosa.common.core.constant.SystemConstants;
 import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.core.utils.MessageUtils;
 import leyramu.framework.lersosa.common.core.utils.StringUtils;
@@ -76,7 +76,7 @@ public class LoginCmdExe {
         if (ObjectUtil.isNull(authA.getClientV()) || !StringUtils.contains(authA.getClientV().grantType(), grantType)) {
             log.info("客户端id: {} 认证类型：{} 异常!.", clientId, grantType);
             return Result.fail(MessageUtils.message("auth.grant.type.error"));
-        } else if (!UserConstants.NORMAL.equals(authA.getClientV().status())) {
+        } else if (!SystemConstants.NORMAL.equals(authA.getClientV().status())) {
             return Result.fail(MessageUtils.message("auth.grant.type.blocked"));
         }
         // 校验租户

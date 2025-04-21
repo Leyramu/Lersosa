@@ -26,7 +26,7 @@ package leyramu.framework.lersosa.resource.web;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.core.validate.AddGroup;
 import leyramu.framework.lersosa.common.core.validate.EditGroup;
 import leyramu.framework.lersosa.common.core.validate.QueryGroup;
@@ -75,8 +75,8 @@ public class SysOssConfigController extends BaseController {
      */
     @SaCheckPermission("system:ossConfig:list")
     @GetMapping("/{ossConfigId}")
-    public R<SysOssConfigVo> getInfo(@NotNull(message = "主键不能为空") @PathVariable("ossConfigId") Long ossConfigId) {
-        return R.ok(iSysOssConfigService.queryById(ossConfigId));
+    public Result<SysOssConfigVo> getInfo(@NotNull(message = "主键不能为空") @PathVariable("ossConfigId") Long ossConfigId) {
+        return Result.ok(iSysOssConfigService.queryById(ossConfigId));
     }
 
     /**
@@ -85,7 +85,7 @@ public class SysOssConfigController extends BaseController {
     @SaCheckPermission("system:ossConfig:add")
     @Log(title = "对象存储配置", businessType = BusinessType.INSERT)
     @PostMapping()
-    public R<Void> add(@Validated(AddGroup.class) @RequestBody SysOssConfigBo bo) {
+    public Result<Void> add(@Validated(AddGroup.class) @RequestBody SysOssConfigBo bo) {
         return toAjax(iSysOssConfigService.insertByBo(bo));
     }
 
@@ -95,7 +95,7 @@ public class SysOssConfigController extends BaseController {
     @SaCheckPermission("system:ossConfig:edit")
     @Log(title = "对象存储配置", businessType = BusinessType.UPDATE)
     @PutMapping()
-    public R<Void> edit(@Validated(EditGroup.class) @RequestBody SysOssConfigBo bo) {
+    public Result<Void> edit(@Validated(EditGroup.class) @RequestBody SysOssConfigBo bo) {
         return toAjax(iSysOssConfigService.updateByBo(bo));
     }
 
@@ -107,7 +107,7 @@ public class SysOssConfigController extends BaseController {
     @SaCheckPermission("system:ossConfig:remove")
     @Log(title = "对象存储配置", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ossConfigIds}")
-    public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ossConfigIds) {
+    public Result<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ossConfigIds) {
         return toAjax(iSysOssConfigService.deleteWithValidByIds(Arrays.asList(ossConfigIds), true));
     }
 
@@ -117,7 +117,7 @@ public class SysOssConfigController extends BaseController {
     @SaCheckPermission("system:ossConfig:edit")
     @Log(title = "对象存储状态修改", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
-    public R<Void> changeStatus(@RequestBody SysOssConfigBo bo) {
+    public Result<Void> changeStatus(@RequestBody SysOssConfigBo bo) {
         return toAjax(iSysOssConfigService.updateOssConfigStatus(bo));
     }
 }

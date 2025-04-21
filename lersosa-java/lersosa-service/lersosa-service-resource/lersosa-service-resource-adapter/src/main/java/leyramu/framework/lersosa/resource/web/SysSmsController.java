@@ -27,7 +27,7 @@ import cn.hutool.core.util.RandomUtil;
 import jakarta.validation.constraints.NotBlank;
 import leyramu.framework.lersosa.common.core.constant.Constants;
 import leyramu.framework.lersosa.common.core.constant.GlobalConstants;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.ratelimiter.annotation.RateLimiter;
 import leyramu.framework.lersosa.common.redis.utils.RedisUtils;
 import leyramu.framework.lersosa.common.web.core.BaseController;
@@ -65,7 +65,7 @@ public class SysSmsController extends BaseController {
      */
     @RateLimiter(key = "#phonenumber", count = 1)
     @GetMapping("/code")
-    public R<Void> smsCaptcha(@NotBlank(message = "{user.phonenumber.not.blank}") String phonenumber) {
+    public Result<Void> smsCaptcha(@NotBlank(message = "{user.phonenumber.not.blank}") String phonenumber) {
         String key = GlobalConstants.CAPTCHA_CODE_KEY + phonenumber;
         String code = RandomUtil.randomNumbers(4);
         RedisUtils.setCacheObject(key, code, Duration.ofMinutes(Constants.CAPTCHA_EXPIRATION));
@@ -77,8 +77,8 @@ public class SysSmsController extends BaseController {
         SmsResponse smsResponse = smsBlend.sendMessage(phonenumber, templateId, map);
         if (!smsResponse.isSuccess()) {
             log.error("验证码短信发送异常 => {}", smsResponse);
-            return R.fail(smsResponse.getData().toString());
+            return Result.fail(smsResponse.getData().toString());
         }
-        return R.ok();
+        return Result.ok();
     }
 }

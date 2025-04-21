@@ -23,7 +23,7 @@
 
 package leyramu.framework.lersosa.demo.controller;
 
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.demo.domain.Document;
 import leyramu.framework.lersosa.demo.esmapper.DocumentMapper;
 import lombok.RequiredArgsConstructor;
@@ -84,7 +84,7 @@ public class EsCrudController {
      * 更新.
      */
     @PutMapping("/update")
-    public R<Void> update(@RequestBody Document document) {
+    public Result<Void> update(@RequestBody Document document) {
         // 测试更新 更新有两种情况 分别演示如下:
         // case1: 已知id, 根据id更新 (为了演示方便,此id是从上一步查询中复制过来的,实际业务可以自行查询)
         documentMapper.updateById(document);
@@ -98,7 +98,7 @@ public class EsCrudController {
                 document2.setContent(document.getContent());
                 documentMapper.update(document2, wrapper);
 */
-        return R.ok();
+        return Result.ok();
     }
 
     /**
@@ -107,8 +107,8 @@ public class EsCrudController {
      * @param id 主键
      */
     @DeleteMapping("/delete/{id}")
-    public R<Integer> delete(@PathVariable String id) {
+    public Result<Integer> delete(@PathVariable String id) {
         // 测试删除数据 删除有两种情况:根据id删或根据条件删
-        return R.ok(documentMapper.deleteById(id));
+        return Result.ok(documentMapper.deleteById(id));
     }
 }

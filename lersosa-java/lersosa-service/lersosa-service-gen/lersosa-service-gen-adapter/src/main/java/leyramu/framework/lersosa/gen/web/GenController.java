@@ -27,7 +27,7 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.io.IoUtil;
 import jakarta.servlet.http.HttpServletResponse;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.log.annotation.Log;
 import leyramu.framework.lersosa.common.log.enums.BusinessType;
 import leyramu.framework.lersosa.common.mybatis.core.page.PageQuery;
@@ -77,7 +77,7 @@ public class GenController extends BaseController {
      */
     @SaCheckPermission("tool:gen:query")
     @GetMapping(value = "/{tableId}")
-    public R<Map<String, Object>> getInfo(@PathVariable Long tableId) {
+    public Result<Map<String, Object>> getInfo(@PathVariable Long tableId) {
         GenTable table = genTableService.selectGenTableById(tableId);
         List<GenTable> tables = genTableService.selectGenTableAll();
         List<GenTableColumn> list = genTableService.selectGenTableColumnListByTableId(tableId);
@@ -85,7 +85,7 @@ public class GenController extends BaseController {
         map.put("info", table);
         map.put("rows", list);
         map.put("tables", tables);
-        return R.ok(map);
+        return Result.ok(map);
     }
 
     /**
@@ -120,12 +120,12 @@ public class GenController extends BaseController {
     @SaCheckPermission("tool:gen:import")
     @Log(title = "代码生成", businessType = BusinessType.IMPORT)
     @PostMapping("/importTable")
-    public R<Void> importTableSave(String tables, String dataName) {
+    public Result<Void> importTableSave(String tables, String dataName) {
         String[] tableNames = Convert.toStrArray(tables);
         // 查询表信息
         List<GenTable> tableList = genTableService.selectDbTableListByNames(tableNames, dataName);
         genTableService.importGenTable(tableList, dataName);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
@@ -134,10 +134,10 @@ public class GenController extends BaseController {
     @SaCheckPermission("tool:gen:edit")
     @Log(title = "代码生成", businessType = BusinessType.UPDATE)
     @PutMapping
-    public R<Void> editSave(@Validated @RequestBody GenTable genTable) {
+    public Result<Void> editSave(@Validated @RequestBody GenTable genTable) {
         genTableService.validateEdit(genTable);
         genTableService.updateGenTable(genTable);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
@@ -148,9 +148,9 @@ public class GenController extends BaseController {
     @SaCheckPermission("tool:gen:remove")
     @Log(title = "代码生成", businessType = BusinessType.DELETE)
     @DeleteMapping("/{tableIds}")
-    public R<Void> remove(@PathVariable Long[] tableIds) {
+    public Result<Void> remove(@PathVariable Long[] tableIds) {
         genTableService.deleteGenTableByIds(tableIds);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
@@ -160,9 +160,9 @@ public class GenController extends BaseController {
      */
     @SaCheckPermission("tool:gen:preview")
     @GetMapping("/preview/{tableId}")
-    public R<Map<String, String>> preview(@PathVariable("tableId") Long tableId) {
+    public Result<Map<String, String>> preview(@PathVariable("tableId") Long tableId) {
         Map<String, String> dataMap = genTableService.previewCode(tableId);
-        return R.ok(dataMap);
+        return Result.ok(dataMap);
     }
 
     /**
@@ -186,9 +186,9 @@ public class GenController extends BaseController {
     @SaCheckPermission("tool:gen:code")
     @Log(title = "代码生成", businessType = BusinessType.GENCODE)
     @GetMapping("/genCode/{tableId}")
-    public R<Void> genCode(@PathVariable("tableId") Long tableId) {
+    public Result<Void> genCode(@PathVariable("tableId") Long tableId) {
         genTableService.generatorCode(tableId);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
@@ -199,9 +199,9 @@ public class GenController extends BaseController {
     @SaCheckPermission("tool:gen:edit")
     @Log(title = "代码生成", businessType = BusinessType.UPDATE)
     @GetMapping("/synchDb/{tableId}")
-    public R<Void> synchDb(@PathVariable("tableId") Long tableId) {
+    public Result<Void> synchDb(@PathVariable("tableId") Long tableId) {
         genTableService.synchDb(tableId);
-        return R.ok();
+        return Result.ok();
     }
 
     /**
@@ -236,7 +236,7 @@ public class GenController extends BaseController {
      */
     @SaCheckPermission("tool:gen:list")
     @GetMapping(value = "/getDataNames")
-    public R<Object> getCurrentDataSourceNameList() {
-        return R.ok(DataBaseHelper.getDataSourceNameList());
+    public Result<Object> getCurrentDataSourceNameList() {
+        return Result.ok(DataBaseHelper.getDataSourceNameList());
     }
 }

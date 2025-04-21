@@ -23,7 +23,7 @@
 
 package leyramu.framework.lersosa.demo.controller;
 
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.sensitive.annotation.Sensitive;
 import leyramu.framework.lersosa.common.sensitive.core.SensitiveService;
 import leyramu.framework.lersosa.common.sensitive.core.SensitiveStrategy;
@@ -49,14 +49,14 @@ public class TestSensitiveController extends BaseController {
      * 测试数据脱敏.
      */
     @GetMapping("/test")
-    public R<TestSensitive> test() {
+    public Result<TestSensitive> test() {
         TestSensitive testSensitive = new TestSensitive();
         testSensitive.setIdCard("210397198608215431");
         testSensitive.setPhone("17640125371");
         testSensitive.setAddress("北京市朝阳区某某四合院1203室");
         testSensitive.setEmail("17640125371@163.com");
         testSensitive.setBankCard("6226456952351452853");
-        return R.ok(testSensitive);
+        return Result.ok(testSensitive);
     }
 
     @Data

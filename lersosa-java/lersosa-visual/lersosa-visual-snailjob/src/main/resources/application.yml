@@ -5,7 +5,7 @@ spring-cloud-alibaba-version: ${spring-cloud-alibaba.version}
 
 # =========================== 服务器配置 ===========================
 server:
-  port: ${SERVER-PORT:8800}
+  port: ${SERVER_PORT:8800}
   ssl:
     enabled: @SSL-ENABLED@
     key-store: classpath:scg-keystore.p12

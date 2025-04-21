@@ -1,0 +1,48 @@
+databaseName: lersosa-cloud
+
+dataSources:
+  ds_0:
+    url: jdbc:mysql://lersosa-mysql:3306/lersosa-cloud?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
+    username: root
+    password: Zcx@223852//
+
+rules:
+  - !SHARDING
+    tables:
+      pulsar_mark:
+        actualDataNodes: ds_0.pulsar_mark_${0..3}
+        tableStrategy:
+          standard:
+            shardingColumn: id
+            shardingAlgorithmName: pulsar_mark_inline
+      pulsar_find:
+        actualDataNodes: ds_0.pulsar_find_${0..3}
+        tableStrategy:
+          standard:
+            shardingColumn: id
+            shardingAlgorithmName: pulsar_find_inline
+      sys_oss:
+        actualDataNodes: ds_0.sys_oss_${0..3}
+        tableStrategy:
+          standard:
+            shardingColumn: oss_id
+            shardingAlgorithmName: sys_oss_inline
+    shardingAlgorithms:
+      pulsar_mark_inline:
+        type: INLINE
+        props:
+          algorithm-expression: pulsar_mark_${((id ^ (id >> 32)) & 0x7FFFFFFF) % 4}
+      pulsar_find_inline:
+        type: INLINE
+        props:
+          algorithm-expression: pulsar_find_${((id ^ (id >> 32)) & 0x7FFFFFFF) % 4}
+      sys_oss_inline:
+        type: INLINE
+        props:
+          algorithm-expression: sys_oss_${((oss_id ^ (oss_id >> 32)) & 0x7FFFFFFF) % 4}
+  - !BROADCAST
+    tables:
+      - sys_tenant
+      - pulsar_recorder
+      - undo_log
+

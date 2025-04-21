@@ -1,103 +1,124 @@
 version: '3.8'
 
 services:
-    #####################################################################
-    ###################                       基础组件                       ###################
-    #####################################################################
+  #####################################################################
+  ###################                       基础组件                       ###################
+  #####################################################################
 
-    lersosa-mysql:
-        image: mysql:latest
-        container_name: lersosa-mysql-dev
-        build:
-            context: ./mysql
-        networks:
-            lersosa-network-dev:
-                aliases:
-                    - lersosa-mysql
-        ports:
-            - "3307:3306"
-        environment:
-            TZ: Asia/Shanghai
-            MYSQL_ROOT_PASSWORD: Zcx@223852//
-            MYSQL_DATABASE: lersosa-cloud
-        volumes:
-            - ./mysql/conf:/etc/mysql/conf.d
-            - ./mysql/logs:/logs
-            - ./mysql/data:/var/lib/mysql
-        privileged: true
+  lersosa-mysql:
+    image: mysql:9.2.0
+    container_name: lersosa-mysql-dev
+    build:
+      context: ./mysql
+    networks:
+      lersosa-network-dev:
+        aliases:
+          - lersosa-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: Zcx@223852//
+      MYSQL_DATABASE: lersosa-cloud
+    volumes:
+      - ./mysql/conf:/etc/mysql/conf.d
+      - ./mysql/logs:/logs
+      - ./mysql/data:/var/lib/mysql
+    privileged: true
 
-    lersosa-redis:
-        image: redis:latest
-        container_name: lersosa-redis-dev
-        build:
-            context: ./redis
-        networks:
-            lersosa-network-dev:
-                aliases:
-                    - lersosa-redis
-        ports:
-            - "6379:6379"
-        environment:
-            TZ: Asia/Shanghai
-        volumes:
-            - ./redis/conf:/redis/config
-            - ./redis/data/:/redis/data/
-        command: "redis-server /redis/config/redis.conf"
-        privileged: true
+  lersosa-redis:
+    image: redis:7.4.2
+    container_name: lersosa-redis-dev
+    build:
+      context: ./redis
+    networks:
+      lersosa-network-dev:
+        aliases:
+          - lersosa-redis
+    ports:
+      - "6379:6379"
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./redis/conf:/redis/config
+      - ./redis/data/:/redis/data/
+    command: "redis-server /redis/config/redis.conf"
+    privileged: true
 
-    lersosa-minio:
-        image: minio/minio:latest
-        container_name: lersosa-minio-dev
-        build:
-            context: ./minio
-        networks:
-            lersosa-network-dev:
-                aliases:
-                    - lersosa-minio
-        ports:
-            - "9000:9000"
-            - "9001:9001"
-        environment:
-            TZ: Asia/Shanghai
-            MINIO_ROOT_USER: lersosa
-            MINIO_ROOT_PASSWORD: Zcx@223852//
-            MINIO_COMPRESS: "off"
-            MINIO_COMPRESS_EXTENSIONS: ""
-            MINIO_COMPRESS_MIME_TYPES: ""
-        volumes:
-            - ./minio/data:/data
-            - ./minio/config:/root/.minio/
-        command: server --address ':9000' --console-address ':9001' /data
-        privileged: true
+  lersosa-minio:
+    image: minio/minio:RELEASE.2025-03-12T18-04-18Z
+    container_name: lersosa-minio-dev
+    build:
+      context: ./minio
+    networks:
+      lersosa-network-dev:
+        aliases:
+          - lersosa-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      TZ: Asia/Shanghai
+      MINIO_ROOT_USER: lersosa
+      MINIO_ROOT_PASSWORD: Zcx@223852//
+      MINIO_COMPRESS: "off"
+      MINIO_COMPRESS_EXTENSIONS: ""
+      MINIO_COMPRESS_MIME_TYPES: ""
+    volumes:
+      - ./minio/data:/data
+      - ./minio/config:/root/.minio/
+    command: server --address ':9000' --console-address ':9001' /data
+    privileged: true
 
-    lersosa-rabbitmq:
-        image: rabbitmq:4.0.4-management
-        container_name: lersosa-rabbitmq-dev
-        build:
-            context: ./rabbitmq
-        networks:
-            lersosa-network-dev:
-                aliases:
-                    - lersosa-rabbitmq
-        ports:
-            - "15672:15672"
-            - "5672:5672"
-        environment:
-            RABBITMQ_DEFAULT_USER: lersosa
-            RABBITMQ_DEFAULT_PASS: Zcx@223852//
-        volumes:
-            - ./rabbitmq/log:/var/log/rabbitmq
-            - ./rabbitmq/data:/var/lib/rabbitmq
+  lersosa-rabbitmq:
+    image: rabbitmq:4.0.7-management
+    container_name: lersosa-rabbitmq-dev
+    build:
+      context: ./rabbitmq
+    networks:
+      lersosa-network-dev:
+        aliases:
+          - lersosa-rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: lersosa
+      RABBITMQ_DEFAULT_PASS: Zcx@223852//
+    volumes:
+      - ./rabbitmq/log:/var/log/rabbitmq
+      - ./rabbitmq/data:/var/lib/rabbitmq
+
+  lersosa-sharding:
+    image: apache/shardingsphere-proxy:5.5.2
+    container_name: lersosa-sharding-dev
+    build: ./sharding
+    networks:
+      lersosa-network-dev:
+        aliases:
+          - lersosa-sharding
+    ports:
+      - "3307:3307"
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./sharding/conf/:/opt/shardingsphere-proxy/conf/
+      - ./sharding/ext-lib:/opt/shardingsphere-proxy/ext-lib/
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h localhost -u root -pZcx@223852//" ]
+    depends_on:
+      lersosa-mysql:
+        condition: service_healthy
 
 #####################################################################
 ###################                       环境网络                       ###################
 #####################################################################
 
 networks:
-    lersosa-network-dev:
-        name: lersosa-network-dev
-        driver: bridge
-        ipam:
-            config:
-                -   subnet: 174.17.0.0/16
-                    gateway: 174.17.0.1
+  lersosa-network-dev:
+    name: lersosa-network-dev
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 174.17.0.0/16
+          gateway: 174.17.0.1

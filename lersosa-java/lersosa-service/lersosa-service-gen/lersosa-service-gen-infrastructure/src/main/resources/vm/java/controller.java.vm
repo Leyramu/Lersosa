@@ -2,6 +2,7 @@ package ${packageName}.controller;
 
 import java.util.List;
 
+import leyramu.framework.lersosa.common.core.domain.Result;
 import lombok.RequiredArgsConstructor;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.*;
@@ -12,7 +13,6 @@ import annotation.leyramu.framework.lersosa.common.idempotent.RepeatSubmit;
 import leyramu.framework.lersosa.common.log.annotation.Log;
 import leyramu.framework.lersosa.common.web.core.BaseController;
 import leyramu.framework.lersosa.common.mybatis.core.page.PageQuery;
-import leyramu.framework.lersosa.common.core.domain.R;
 import leyramu.framework.lersosa.common.core.validate.AddGroup;
 import leyramu.framework.lersosa.common.core.validate.EditGroup;
 import leyramu.framework.lersosa.common.log.enums.BusinessType;
@@ -50,9 +50,9 @@ public class ${ClassName}Controller extends BaseController {
         return ${className}Service.queryPageList(bo, pageQuery);
     }
     #elseif($table.tree)
-        public R<List<${ClassName}Vo>> list(${ClassName}Bo bo) {
+        public Result<List<${ClassName}Vo>> list(${ClassName}Bo bo) {
             List<${ClassName}Vo> list = ${className}Service.queryList(bo);
-            return R.ok(list);
+            return Result.ok(list);
         }
     #end
 
@@ -74,9 +74,9 @@ public class ${ClassName}Controller extends BaseController {
      */
     @SaCheckPermission("${permissionPrefix}:query")
     @GetMapping("/{${pkColumn.javaField}}")
-    public R<${ClassName}Vo> getInfo(@NotNull(message = "主键不能为空")
+    public Result<${ClassName}Vo> getInfo(@NotNull(message = "主键不能为空")
                                      @PathVariable ${pkColumn.javaType} ${pkColumn.javaField}) {
-        return R.ok(${className}Service.queryById(${pkColumn.javaField}));
+        return Result.ok(${className}Service.queryById(${pkColumn.javaField}));
     }
 
     /**
@@ -86,7 +86,7 @@ public class ${ClassName}Controller extends BaseController {
     @Log(title = "${functionName}", businessType = BusinessType.INSERT)
     @RepeatSubmit()
     @PostMapping()
-    public R<Void> add(@Validated(AddGroup.class) @RequestBody ${ClassName}Bo bo) {
+    public Result<Void> add(@Validated(AddGroup.class) @RequestBody ${ClassName}Bo bo) {
         return toAjax(${className}Service.insertByBo(bo));
     }
 
@@ -97,7 +97,7 @@ public class ${ClassName}Controller extends BaseController {
     @Log(title = "${functionName}", businessType = BusinessType.UPDATE)
     @RepeatSubmit()
     @PutMapping()
-    public R<Void> edit(@Validated(EditGroup.class) @RequestBody ${ClassName}Bo bo) {
+    public Result<Void> edit(@Validated(EditGroup.class) @RequestBody ${ClassName}Bo bo) {
         return toAjax(${className}Service.updateByBo(bo));
     }
 
@@ -109,7 +109,7 @@ public class ${ClassName}Controller extends BaseController {
     @SaCheckPermission("${permissionPrefix}:remove")
     @Log(title = "${functionName}", businessType = BusinessType.DELETE)
     @DeleteMapping("/{${pkColumn.javaField}s}")
-    public R<Void> remove(@NotEmpty(message = "主键不能为空")
+    public Result<Void> remove(@NotEmpty(message = "主键不能为空")
                           @PathVariable ${pkColumn.javaType}[] ${pkColumn.javaField}s) {
         return toAjax(${className}Service.deleteWithValidByIds(List.of(${pkColumn.javaField}s), true));
     }

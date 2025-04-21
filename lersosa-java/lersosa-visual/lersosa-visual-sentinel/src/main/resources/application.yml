@@ -9,7 +9,7 @@ jasypt:
 
 # Tomcat
 server:
-  port: ${SERVER-PORT:8718}
+  port: ${SERVER_PORT:8718}
   ssl:
     enabled: @SSL-ENABLED@
     key-store: classpath:scg-keystore.p12

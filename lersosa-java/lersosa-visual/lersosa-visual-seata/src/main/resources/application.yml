@@ -9,7 +9,7 @@ jasypt:
     password: @JASYPT-ENCRYPTOR-PASSWORD@
 
 server:
-  port: ${SERVER-PORT:7091}
+  port: ${SERVER_PORT:7091}
   ssl:
     enabled: @SSL-ENABLED@
     key-store: classpath:scg-keystore.p12

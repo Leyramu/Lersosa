@@ -27,7 +27,7 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.core.validate.AddGroup;
 import leyramu.framework.lersosa.common.core.validate.EditGroup;
 import leyramu.framework.lersosa.common.excel.utils.ExcelUtil;
@@ -65,9 +65,9 @@ public class TestTreeController extends BaseController {
      */
     @SaCheckPermission("demo:tree:list")
     @GetMapping("/list")
-    public R<List<TestTreeVo>> list(TestTreeBo bo) {
+    public Result<List<TestTreeVo>> list(TestTreeBo bo) {
         List<TestTreeVo> list = iTestTreeService.queryList(bo);
-        return R.ok(list);
+        return Result.ok(list);
     }
 
     /**
@@ -88,8 +88,8 @@ public class TestTreeController extends BaseController {
      */
     @SaCheckPermission("demo:tree:query")
     @GetMapping("/{id}")
-    public R<TestTreeVo> getInfo(@NotNull(message = "主键不能为空") @PathVariable("id") Long id) {
-        return R.ok(iTestTreeService.queryById(id));
+    public Result<TestTreeVo> getInfo(@NotNull(message = "主键不能为空") @PathVariable("id") Long id) {
+        return Result.ok(iTestTreeService.queryById(id));
     }
 
     /**
@@ -99,7 +99,7 @@ public class TestTreeController extends BaseController {
     @Log(title = "测试树表", businessType = BusinessType.INSERT)
     @RepeatSubmit
     @PostMapping()
-    public R<Void> add(@Validated(AddGroup.class) @RequestBody TestTreeBo bo) {
+    public Result<Void> add(@Validated(AddGroup.class) @RequestBody TestTreeBo bo) {
         return toAjax(iTestTreeService.insertByBo(bo));
     }
 
@@ -110,7 +110,7 @@ public class TestTreeController extends BaseController {
     @Log(title = "测试树表", businessType = BusinessType.UPDATE)
     @RepeatSubmit
     @PutMapping()
-    public R<Void> edit(@Validated(EditGroup.class) @RequestBody TestTreeBo bo) {
+    public Result<Void> edit(@Validated(EditGroup.class) @RequestBody TestTreeBo bo) {
         return toAjax(iTestTreeService.updateByBo(bo));
     }
 
@@ -122,7 +122,7 @@ public class TestTreeController extends BaseController {
     @SaCheckPermission("demo:tree:remove")
     @Log(title = "测试树表", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
-    public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ids) {
+    public Result<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ids) {
         return toAjax(iTestTreeService.deleteWithValidByIds(Arrays.asList(ids), true));
     }
 }

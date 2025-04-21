@@ -25,7 +25,7 @@ package leyramu.framework.lersosa.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.demo.domain.ShardingOrder;
 import leyramu.framework.lersosa.demo.mapper.ShardingOrderMapper;
 import lombok.RequiredArgsConstructor;
@@ -48,24 +48,24 @@ public class TestShardingController {
     private final ShardingOrderMapper torderMapper;
 
     @GetMapping("/page")
-    public R<Page<ShardingOrder>> page() {
+    public Result<Page<ShardingOrder>> page() {
         Page<ShardingOrder> page = new Page<>();
         page.setCurrent(3L);
         LambdaQueryWrapper<ShardingOrder> lqw = new LambdaQueryWrapper<>();
         lqw.orderByAsc(ShardingOrder::getOrderId);
         torderMapper.selectPage(page, lqw);
-        return R.ok(page);
+        return Result.ok(page);
     }
 
     @GetMapping("/insert")
-    public R<Void> insert() {
+    public Result<Void> insert() {
         for (Long i = 1L; i <= 100L; i++) {
             ShardingOrder torder = new ShardingOrder();
             torder.setUserId(i);
             torder.setTotalMoney(100 + Integer.parseInt(i + ""));
             torderMapper.insert(torder);
         }
-        return R.ok("分库分表数据批量插入成功！");
+        return Result.ok("分库分表数据批量插入成功！");
 
     }
 }

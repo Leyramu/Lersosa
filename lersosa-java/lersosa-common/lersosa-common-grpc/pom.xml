@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!--
-  ~ Copyright (c) 2024 Leyramu Group. All rights reserved.
+  ~ Copyright (c) 2023-2025 Leyramu Group. All rights reserved.
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
   ~ You may obtain a copy of the License at
@@ -27,29 +27,27 @@
     <!--      模块版本号      -->
     <modelVersion>4.0.0</modelVersion>
 
-    <!--      组织 ID      -->
-    <groupId>leyramu.framework</groupId>
-
-    <!--      工件 ID      -->
-    <artifactId>lersosa-common-grpc</artifactId>
-
-    <!--      版本号      -->
-    <version>${revision}</version>
+    <!--      父工程      -->
+    <parent>
+        <groupId>leyramu.framework</groupId>
+        <artifactId>lersosa-common</artifactId>
+        <version>${revision}</version>
+    </parent>
 
     <!--      模块描述      -->
     <description>微服务框架通用 gRPC 模块</description>
 
+    <!--      工件 ID      -->
+    <artifactId>lersosa-common-grpc</artifactId>
+
     <!--      属性      -->
     <properties>
-        <revision>4.0.0</revision>
-        <java.version>23</java.version>
         <grpc.version>1.68.0</grpc.version>
         <tomcat.version>9.0.83</tomcat.version>
         <protobuf.version>4.27.2</protobuf.version>
         <os.detected.version>1.7.1</os.detected.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <protobuf.maven.plugin.version>0.6.1</protobuf.maven.plugin.version>
-        <maven-compiler-plugin.verison>3.13.0</maven-compiler-plugin.verison>
         <grpc-spring-boot-starter.version>3.0.0.RELEASE</grpc-spring-boot-starter.version>
     </properties>
 
@@ -121,6 +119,12 @@
 
     <!--      依赖      -->
     <dependencies>
+        <!--      Lersosa Common Core      -->
+        <dependency>
+            <groupId>leyramu.framework</groupId>
+            <artifactId>lersosa-common-core</artifactId>
+        </dependency>
+
         <!--       Grpc All       -->
         <dependency>
             <groupId>io.grpc</groupId>

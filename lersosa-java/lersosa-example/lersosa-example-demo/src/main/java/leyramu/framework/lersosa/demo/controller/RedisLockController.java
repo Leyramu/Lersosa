@@ -27,7 +27,7 @@ import com.baomidou.lock.LockInfo;
 import com.baomidou.lock.LockTemplate;
 import com.baomidou.lock.annotation.Lock4j;
 import com.baomidou.lock.executor.RedissonLockExecutor;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,7 +57,7 @@ public class RedisLockController {
      */
     @Lock4j(keys = {"#key"})
     @GetMapping("/testLock4j")
-    public R<String> testLock4j(String key, String value) {
+    public Result<String> testLock4j(String key, String value) {
         System.out.println("start:" + key + ",time:" + LocalTime.now());
         try {
             Thread.sleep(10000);
@@ -65,14 +65,14 @@ public class RedisLockController {
             e.printStackTrace();
         }
         System.out.println("end :" + key + ",time:" + LocalTime.now());
-        return R.ok("操作成功", value);
+        return Result.ok("操作成功", value);
     }
 
     /**
      * 测试lock4j 工具.
      */
     @GetMapping("/testLock4jLockTemplate")
-    public R<String> testLock4jLockTemplate(String key, String value) {
+    public Result<String> testLock4jLockTemplate(String key, String value) {
         final LockInfo lockInfo = lockTemplate.lock(key, 30000L, 5000L, RedissonLockExecutor.class);
         if (null == lockInfo) {
             throw new RuntimeException("业务处理中,请稍后再试");
@@ -90,6 +90,6 @@ public class RedisLockController {
             lockTemplate.releaseLock(lockInfo);
         }
         //结束
-        return R.ok("操作成功", value);
+        return Result.ok("操作成功", value);
     }
 }

@@ -30,8 +30,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
-import static leyramu.framework.lersosa.common.core.constant.UserConstants.*;
-
 /**
  * 用户注册对象.
  *
@@ -48,14 +46,14 @@ public class RegisterBody extends LoginBody {
      * 用户名.
      */
     @NotBlank(message = "{user.username.not.blank}")
-    @Length(min = USERNAME_MIN_LENGTH, max = USERNAME_MAX_LENGTH, message = "{user.username.length.valid}")
+    @Length(min = 2, max = 20, message = "{user.username.length.valid}")
     private String username;
 
     /**
      * 用户密码.
      */
     @NotBlank(message = "{user.password.not.blank}")
-    @Length(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH, message = "{user.password.length.valid}")
+    @Length(min = 5, max = 20, message = "{user.password.length.valid}")
     private String password;
 
     /**

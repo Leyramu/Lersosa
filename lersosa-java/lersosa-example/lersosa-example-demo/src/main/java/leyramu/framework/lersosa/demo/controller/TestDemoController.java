@@ -28,7 +28,7 @@ import cn.hutool.core.bean.BeanUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.core.utils.ValidatorUtils;
 import leyramu.framework.lersosa.common.core.validate.AddGroup;
 import leyramu.framework.lersosa.common.core.validate.EditGroup;
@@ -97,12 +97,12 @@ public class TestDemoController extends BaseController {
     @Log(title = "测试单表", businessType = BusinessType.IMPORT)
     @SaCheckPermission("demo:demo:import")
     @PostMapping(value = "/importData", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public R<Void> importData(@RequestPart("file") MultipartFile file) throws Exception {
+    public Result<Void> importData(@RequestPart("file") MultipartFile file) throws Exception {
         ExcelResult<TestDemoImportVo> excelResult = ExcelUtil.importExcel(file.getInputStream(), TestDemoImportVo.class, true);
         List<TestDemoImportVo> volist = excelResult.getList();
         List<TestDemo> list = BeanUtil.copyToList(volist, TestDemo.class);
         iTestDemoService.saveBatch(list);
-        return R.ok(excelResult.getAnalysis());
+        return Result.ok(excelResult.getAnalysis());
     }
 
     /**
@@ -127,8 +127,8 @@ public class TestDemoController extends BaseController {
      */
     @SaCheckPermission("demo:demo:query")
     @GetMapping("/{id}")
-    public R<TestDemoVo> getInfo(@NotNull(message = "主键不能为空") @PathVariable("id") Long id) {
-        return R.ok(iTestDemoService.queryById(id));
+    public Result<TestDemoVo> getInfo(@NotNull(message = "主键不能为空") @PathVariable("id") Long id) {
+        return Result.ok(iTestDemoService.queryById(id));
     }
 
     /**
@@ -138,7 +138,7 @@ public class TestDemoController extends BaseController {
     @Log(title = "测试单表", businessType = BusinessType.INSERT)
     @RepeatSubmit(interval = 2, timeUnit = TimeUnit.SECONDS)
     @PostMapping()
-    public R<Void> add(@RequestBody TestDemoBo bo) {
+    public Result<Void> add(@RequestBody TestDemoBo bo) {
         // 使用校验工具对标 @Validated(AddGroup.class) 注解
         // 用于在非 Controller 的地方校验对象
         ValidatorUtils.validate(bo, AddGroup.class);
@@ -152,7 +152,7 @@ public class TestDemoController extends BaseController {
     @Log(title = "测试单表", businessType = BusinessType.UPDATE)
     @RepeatSubmit
     @PutMapping()
-    public R<Void> edit(@Validated(EditGroup.class) @RequestBody TestDemoBo bo) {
+    public Result<Void> edit(@Validated(EditGroup.class) @RequestBody TestDemoBo bo) {
         return toAjax(iTestDemoService.updateByBo(bo));
     }
 
@@ -164,7 +164,7 @@ public class TestDemoController extends BaseController {
     @SaCheckPermission("demo:demo:remove")
     @Log(title = "测试单表", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
-    public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ids) {
+    public Result<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable Long[] ids) {
         return toAjax(iTestDemoService.deleteWithValidByIds(Arrays.asList(ids), true));
     }
 }

@@ -24,7 +24,7 @@
 package leyramu.framework.lersosa.demo.controller;
 
 import leyramu.framework.lersosa.common.core.constant.CacheNames;
-import leyramu.framework.lersosa.common.core.domain.R;
+import leyramu.framework.lersosa.common.core.domain.Result;
 import leyramu.framework.lersosa.common.redis.utils.RedisUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -55,8 +55,8 @@ public class RedisCacheController {
      */
     @Cacheable(cacheNames = "demo:cache#60s#10m#20", key = "#key", condition = "#key != null")
     @GetMapping("/test1")
-    public R<String> test1(String key, String value) {
-        return R.ok("操作成功", value);
+    public Result<String> test1(String key, String value) {
+        return Result.ok("操作成功", value);
     }
 
     /**
@@ -65,8 +65,8 @@ public class RedisCacheController {
      */
     @CachePut(cacheNames = CacheNames.DEMO_CACHE, key = "#key", condition = "#key != null")
     @GetMapping("/test2")
-    public R<String> test2(String key, String value) {
-        return R.ok("操作成功", value);
+    public Result<String> test2(String key, String value) {
+        return Result.ok("操作成功", value);
     }
 
     /**
@@ -74,15 +74,15 @@ public class RedisCacheController {
      */
     @CacheEvict(cacheNames = CacheNames.DEMO_CACHE, key = "#key", condition = "#key != null")
     @GetMapping("/test3")
-    public R<String> test3(String key, String value) {
-        return R.ok("操作成功", value);
+    public Result<String> test3(String key, String value) {
+        return Result.ok("操作成功", value);
     }
 
     /**
      * 测试设置过期时间.
      */
     @GetMapping("/test6")
-    public R<Boolean> test6(String key, String value) {
+    public Result<Boolean> test6(String key, String value) {
         RedisUtils.setCacheObject(key, value);
         boolean flag = RedisUtils.expire(key, Duration.ofSeconds(10));
         System.out.println("***********" + flag);
@@ -92,6 +92,6 @@ public class RedisCacheController {
             e.printStackTrace();
         }
         Object obj = RedisUtils.getCacheObject(key);
-        return R.ok(value.equals(obj));
+        return Result.ok(value.equals(obj));
     }
 }
