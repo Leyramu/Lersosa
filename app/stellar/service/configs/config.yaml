@@ -1,0 +1,40 @@
+server:
+  grpc:
+    addr: 0.0.0.0:9102
+    timeout: 1s
+    tls_enable: true
+    cert_file: "D:/CodesProject/Go/Lersosa/app/stellar/service/certs/lersosa-stellar-server-cert.pem"
+    key_file: "D:/CodesProject/Go/Lersosa/app/stellar/service/certs/lersosa-stellar-server-key.pem"
+    ca_file: "D:/CodesProject/Go/Lersosa/app/stellar/service/certs/lersosa-ca-cert.pem"
+data:
+  database:
+    driver: postgres
+    source: >
+      host=postgresql.leyramu.top 
+      port=5432 
+      user=postgres 
+      dbname=lersosa-cloud
+      sslmode=verify-full
+      sslcert=D:/CodesProject/Go/Lersosa/app/stellar/service/certs/lersosa-postgresql-client-cert.pem
+      sslkey=D:/CodesProject/Go/Lersosa/app/stellar/service/certs/lersosa-postgresql-client-key.pem
+      sslrootcert=D:/CodesProject/Go/Lersosa/app/stellar/service/certs/lersosa-ca-cert.pem
+  redis:
+    addr: redis.leyramu.top:6380
+    password: Zcx@223852//
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+    tls_enable: true
+    cert_file: "D:/CodesProject/Go/Lersosa/app/stellar/service/certs/lersosa-redis-client-cert.pem"
+    key_file: "D:/CodesProject/Go/Lersosa/app/stellar/service/certs/lersosa-redis-client-key.pem"
+    ca_file: "D:/CodesProject/Go/Lersosa/app/stellar/service/certs/lersosa-ca-cert.pem"
+  elasticsearch:
+    addr:
+      - https://elasticsearch.leyramu.top:9200
+    username: elastic
+    password: Zcx@223852//
+    cloud_id: ""
+    api_key: ""
+    tls_enable: true
+    cert_file: "D:/CodesProject/Go/Lersosa/app/stellar/service/certs/lersosa-elasticsearch-client-cert.pem"
+    key_file: "D:/CodesProject/Go/Lersosa/app/stellar/service/certs/lersosa-elasticsearch-client-key.pem"
+    ca_file: "D:/CodesProject/Go/Lersosa/app/stellar/service/certs/lersosa-ca-cert.pem"

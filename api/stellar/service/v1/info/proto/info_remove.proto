@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package api.stellar.service.v1.info.proto;
+
+option go_package = "api/stellar/service/v1/info;info";
+
+// 星体信息删除请求
+message InfoRemoveRequest {
+  // 星体信息
+  message Info {
+    string info_id = 1;
+    int32 version = 2;
+  }
+
+  repeated Info infos = 1;
+}
+
+// 星体信息删除响应
+message InfoRemoveReply {}

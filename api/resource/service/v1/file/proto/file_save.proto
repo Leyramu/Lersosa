@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package api.resource.service.v1.file.proto;
+
+option go_package = "api/resource/service/v1/file;file";
+
+// 保存文件请求
+message FileSaveRequest {
+  string file_name = 2;
+  string file_suffix = 3;
+  string original_name = 4;
+  string url = 5;
+  string ext1 = 6;
+  int64 create_dept = 7;
+  int64 create_by = 8;
+  string service = 9;
+  int32 version = 10;
+}
+
+// 保存文件响应
+message FileSaveReply {}

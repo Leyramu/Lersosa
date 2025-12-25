@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package api.resource.service.v1.ossconfig.proto;
+
+option go_package = "api/resource/service/v1/ossconfig;ossconfig";
+
+// 删除资源配置请求
+message OssConfigRemoveRequest {
+  // 资源配置
+  message OssConfig {
+    string oss_config_id = 1;
+    int32 version = 2;
+  }
+
+  repeated OssConfig oss_configs = 1;
+}
+
+// 删除资源配置响应
+message OssConfigRemoveReply {}

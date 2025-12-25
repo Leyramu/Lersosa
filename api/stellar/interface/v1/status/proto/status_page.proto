@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package api.stellar.interface.v1.status.proto;
+
+option go_package = "api/stellar/interface/v1/status;status";
+
+// 获取星体状态分页请求
+message StatusPageRequest {
+  int64 page_num = 1;
+  int64 page_size = 2;
+  int32 flag = 3;
+  int32 check = 4;
+  int64 create_by = 5;
+  int64 update_by = 6;
+}
+
+// 获取星体状态分页响应
+message StatusPageReply {
+  // 星体状态
+  message Status {
+    string status_id = 1;
+    string file_url = 2;
+    double score = 3;
+    int32 flag = 4;
+    int32 check = 5;
+    int64 create_by = 6;
+    string create_time = 7;
+    int64 update_by = 8;
+    string update_time = 9;
+    string remark = 10;
+    int32 version = 11;
+  }
+
+  int32 code = 1;
+  string msg = 2;
+  repeated Status rows = 3;
+  int64 total = 4;
+}

@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package api.stellar.interface.v1.info.proto;
+
+option go_package = "api/stellar/interface/v1/info;info";
+
+// 获取星体信息分页请求
+message InfoPageRequest {
+  int64 page_num = 1;
+  int64 page_size = 2;
+  double period = 3;
+  double dispersion_measure = 4;
+  double ra_deg = 5;
+  double dec_deg = 6;
+  double galactic_longitude = 7;
+  double galactic_latitude = 8;
+  string survey_name = 9;
+  int32 flag = 10;
+  int32 check = 11;
+}
+
+// 获取星体信息分页响应
+message InfoPageReply {
+  // 星体信息信息
+  message Info {
+    string info_id = 1;
+    string file_url = 2;
+    string name = 3;
+    double period = 4;
+    double dispersion_measure = 5;
+    double ra_deg = 6;
+    double dec_deg = 7;
+    double galactic_longitude = 8;
+    double galactic_latitude = 9;
+    string survey_name = 10;
+    int64 create_by = 11;
+    string create_time = 12;
+    int64 update_by = 13;
+    string update_time = 14;
+    string remark = 15;
+    int32 version = 16;
+  }
+
+  int32 code = 1;
+  string msg = 2;
+  repeated Info rows = 3;
+  int64 total = 4;
+}

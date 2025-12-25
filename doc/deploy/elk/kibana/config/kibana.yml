@@ -1,0 +1,25 @@
+server.host: "0.0.0.0"
+server.shutdownTimeout: "5s"
+
+elasticsearch.hosts: [ "https://lersosa-elasticsearch:9200" ]
+elasticsearch.serviceAccountToken: "AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS10b2tlbjo5U01tal9POFNlNmRDYWVTU3I5Z0Nn"
+
+monitoring.ui.container.elasticsearch.enabled: true
+xpack.screenshotting.browser.chromium.disableSandbox: true
+
+xpack.encryptedSavedObjects.encryptionKey: 9e288865db27c682165058e4142e357f
+xpack.reporting.encryptionKey: 3dbf3edb92a7b6f8b6ffe64d9e8d3442
+xpack.security.encryptionKey: 3feb523ffd8c1745b5a56aed777cfdf7
+
+# 启用安全
+server.ssl.enabled: true
+server.ssl.clientAuthentication: optional
+server.ssl.key: /usr/share/kibana/config/lersosa-kibana-server-key.pem
+server.ssl.certificate: /usr/share/kibana/config/lersosa-kibana-server-cert.pem
+server.ssl.certificateAuthorities: [ "/usr/share/kibana/config/lersosa-ca-cert.pem" ]
+
+elasticsearch.ssl.verificationMode: certificate
+elasticsearch.ssl.alwaysPresentCertificate: true
+elasticsearch.ssl.key: /usr/share/kibana/config/lersosa-kibana-client-key.pem
+elasticsearch.ssl.certificate: /usr/share/kibana/config/lersosa-kibana-client-cert.pem
+elasticsearch.ssl.certificateAuthorities: [ "/usr/share/kibana/config/lersosa-ca-cert.pem" ]

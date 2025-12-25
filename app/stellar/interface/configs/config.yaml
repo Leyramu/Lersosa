@@ -1,0 +1,36 @@
+server:
+  http:
+    addr: 0.0.0.0:8002
+    timeout: 1s
+    tls_enable: true
+    cert_file: "D:/CodesProject/Go/Lersosa/app/stellar/interface/certs/lersosa-stellar-server-cert.pem"
+    key_file: "D:/CodesProject/Go/Lersosa/app/stellar/interface/certs/lersosa-stellar-server-key.pem"
+    ca_file: "D:/CodesProject/Go/Lersosa/app/stellar/interface/certs/lersosa-ca-cert.pem"
+  grpc:
+    addr: 0.0.0.0:9002
+    timeout: 1s
+    tls_enable: true
+    cert_file: "D:/CodesProject/Go/Lersosa/app/stellar/interface/certs/lersosa-stellar-server-cert.pem"
+    key_file: "D:/CodesProject/Go/Lersosa/app/stellar/interface/certs/lersosa-stellar-server-key.pem"
+    ca_file: "D:/CodesProject/Go/Lersosa/app/stellar/interface/certs/lersosa-ca-cert.pem"
+client:
+  grpc:
+    addr:
+      - stellar.leyramu.top:9102
+    timeout: 1s
+    tls_enable: true
+    cert_file: "D:/CodesProject/Go/Lersosa/app/stellar/interface/certs/lersosa-stellar-client-cert.pem"
+    key_file: "D:/CodesProject/Go/Lersosa/app/stellar/interface/certs/lersosa-stellar-client-key.pem"
+    ca_file: "D:/CodesProject/Go/Lersosa/app/stellar/interface/certs/lersosa-ca-cert.pem"
+data:
+  elasticsearch:
+    addr:
+      - https://elasticsearch.leyramu.top:9200
+    username: elastic
+    password: Zcx@223852//
+    cloud_id: ""
+    api_key: ""
+    tls_enable: true
+    cert_file: "D:/CodesProject/Go/Lersosa/app/stellar/interface/certs/lersosa-elasticsearch-client-cert.pem"
+    key_file: "D:/CodesProject/Go/Lersosa/app/stellar/interface/certs/lersosa-elasticsearch-client-key.pem"
+    ca_file: "D:/CodesProject/Go/Lersosa/app/stellar/interface/certs/lersosa-ca-cert.pem"

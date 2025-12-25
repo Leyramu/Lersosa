@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package api.stellar.interface.v1.info.proto;
+
+import "google/api/annotations.proto";
+
+import "stellar/interface/v1/info/proto/info_save.proto";
+import "stellar/interface/v1/info/proto/info_modify.proto";
+import "stellar/interface/v1/info/proto/info_remove.proto";
+import "stellar/interface/v1/info/proto/info_get.proto";
+import "stellar/interface/v1/info/proto/info_page.proto";
+
+option go_package = "api/stellar/interface/v1/info;info";
+
+service Info {
+  // 新增星体信息
+  rpc SaveInfo(InfoSaveRequest) returns (InfoSaveReply) {
+    option (google.api.http) = {
+      post: "/stellar/v1/info"
+      body: "*"
+    };
+  }
+
+  // 修改星体信息
+  rpc ModifyInfo(InfoModifyRequest) returns (InfoModifyReply) {
+    option (google.api.http) = {
+      put: "/stellar/v1/info"
+      body: "*"
+    };
+  }
+
+  // 删除星体信息
+  rpc RemoveInfo(InfoRemoveRequest) returns (InfoRemoveReply) {
+    option (google.api.http) = {
+      delete: "/stellar/v1/info"
+    };
+  }
+
+  // 获取星体信息
+  rpc GetInfo(InfoGetRequest) returns (InfoGetReply) {
+    option (google.api.http) = {
+      get: "/stellar/v1/info/{info_id}"
+    };
+  }
+
+  // 分页查询星体信息列表
+  rpc PageInfo(InfoPageRequest) returns (InfoPageReply) {
+    option (google.api.http) = {
+      get: "/stellar/v1/info"
+    };
+  }
+}

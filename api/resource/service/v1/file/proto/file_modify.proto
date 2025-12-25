@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package api.resource.service.v1.file.proto;
+
+option go_package = "api/resource/service/v1/file;file";
+
+// 修改文件请求
+message FileModifyRequest {
+  string oss_id = 1;
+  string original_name = 2;
+  string ext1 = 4;
+  int64 update_by = 5;
+  string service = 6;
+  int32 version = 7;
+}
+
+// 修改文件响应
+message FileModifyReply {}

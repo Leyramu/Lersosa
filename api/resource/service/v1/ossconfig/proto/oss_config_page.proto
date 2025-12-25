@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package api.resource.service.v1.ossconfig.proto;
+
+option go_package = "api/resource/service/v1/ossconfig;ossconfig";
+
+// 获取资源配置分页请求
+message OssConfigPageRequest {
+  int64 page_num = 1;
+  int64 page_size = 2;
+  string config_key = 3;
+  string bucket_name = 4;
+  string status = 5;
+}
+
+// 获取资源配置分页响应
+message OssConfigPageReply {
+  // 资源配置
+  message OssConfig {
+    string oss_config_id = 1;
+    string config_key = 2;
+    string access_key = 3;
+    string secret_key = 4;
+    string  bucket_name = 5;
+    string prefix = 6;
+    string endpoint = 7;
+    string domain = 8;
+    string is_https = 9;
+    string region = 10;
+    string access_policy = 11;
+    string status = 12;
+    string ext1 = 13;
+    int64 create_dept = 14;
+    int64 create_by = 15;
+    int64 create_time = 16;
+    int64 update_by = 17;
+    int64 update_time = 18;
+    string remark = 19;
+    int32 version = 20;
+  }
+
+  repeated OssConfig rows = 1;
+}

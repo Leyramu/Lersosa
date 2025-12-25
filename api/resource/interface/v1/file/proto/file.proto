@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package api.resource.interface.v1.file.proto;
+
+import "google/api/annotations.proto";
+
+import "resource/interface/v1/file/proto/file_save.proto";
+import "resource/interface/v1/file/proto/file_modify.proto";
+import "resource/interface/v1/file/proto/file_remove.proto";
+import "resource/interface/v1/file/proto/file_get.proto";
+import "resource/interface/v1/file/proto/file_page.proto";
+import "resource/interface/v1/file/proto/file_upload.proto";
+
+option go_package = "api/resource/interface/v1/file;file";
+
+// 文件服务
+service File {
+  // 新增文件
+  rpc SaveFile(FileSaveRequest) returns (FileSaveReply) {
+    option (google.api.http) = {
+      post: "/resource/v1/file"
+      body: "*"
+    };
+  }
+
+  // 修改文件
+  rpc ModifyFile(FileModifyRequest) returns (FileModifyReply) {
+    option (google.api.http) = {
+      put: "/resource/v1/file"
+      body: "*"
+    };
+  }
+
+  // 删除文件
+  rpc RemoveFile(FileRemoveRequest) returns (FileRemoveReply) {
+    option (google.api.http) = {
+      delete: "/resource/v1/file"
+    };
+  }
+
+  // 获取文件
+  rpc GetFile(FileGetRequest) returns (FileGetReply) {
+    option (google.api.http) = {
+      get: "/resource/v1/file/{oss_id}"
+    };
+  }
+
+  // 分页查询文件列表
+  rpc PageFile(FilePageRequest) returns (FilePageReply) {
+    option (google.api.http) = {
+      get: "/resource/v1/file"
+    };
+  }
+
+  // 上传文件
+  rpc UploadFile(stream FileUploadRequest) returns (FileUploadReply) {}
+}

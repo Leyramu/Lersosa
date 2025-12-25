@@ -1,0 +1,16 @@
+network.host: 0.0.0.0
+
+# 启用安全功能
+xpack.security.http.ssl:
+  enabled: true
+  client_authentication: required
+  certificate: /usr/share/elasticsearch/config/lersosa-elasticsearch-server-cert.pem
+  key: /usr/share/elasticsearch/config/lersosa-elasticsearch-server-key.pem
+  certificate_authorities: [ "/usr/share/elasticsearch/config/lersosa-ca-cert.pem" ]
+
+xpack.security.transport.ssl:
+  enabled: true
+  verification_mode: certificate
+  certificate: /usr/share/elasticsearch/config/lersosa-elasticsearch-server-cert.pem
+  key: /usr/share/elasticsearch/config/lersosa-elasticsearch-server-key.pem
+  certificate_authorities: [ "/usr/share/elasticsearch/config/lersosa-ca-cert.pem" ]

@@ -1,0 +1,24 @@
+server:
+  http:
+    addr: 0.0.0.0:8003
+    timeout: 1s
+    tls_enable: true
+    cert_file: "D:/CodesProject/Go/Lersosa/app/resource/interface/certs/lersosa-resource-server-cert.pem"
+    key_file: "D:/CodesProject/Go/Lersosa/app/resource/interface/certs/lersosa-resource-server-key.pem"
+    ca_file: "D:/CodesProject/Go/Lersosa/app/resource/interface/certs/lersosa-ca-cert.pem"
+  grpc:
+    addr: 0.0.0.0:9003
+    timeout: 1s
+    tls_enable: true
+    cert_file: "D:/CodesProject/Go/Lersosa/app/resource/interface/certs/lersosa-resource-server-cert.pem"
+    key_file: "D:/CodesProject/Go/Lersosa/app/resource/interface/certs/lersosa-resource-server-key.pem"
+    ca_file: "D:/CodesProject/Go/Lersosa/app/resource/interface/certs/lersosa-ca-cert.pem"
+client:
+  grpc:
+    addr:
+      - resource.leyramu.top:9103
+    timeout: 1s
+    tls_enable: true
+    cert_file: "D:/CodesProject/Go/Lersosa/app/resource/interface/certs/lersosa-resource-client-cert.pem"
+    key_file: "D:/CodesProject/Go/Lersosa/app/resource/interface/certs/lersosa-resource-client-key.pem"
+    ca_file: "D:/CodesProject/Go/Lersosa/app/resource/interface/certs/lersosa-ca-cert.pem"

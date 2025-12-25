@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package api.stellar.service.v1.info.proto;
+
+import "stellar/service/v1/info/proto/info_save.proto";
+import "stellar/service/v1/info/proto/info_modify.proto";
+import "stellar/service/v1/info/proto/info_remove.proto";
+import "stellar/service/v1/info/proto/info_get.proto";
+import "stellar/service/v1/info/proto/info_page.proto";
+import "stellar/service/v1/info/proto/info_list.proto";
+
+option go_package = "api/stellar/service/v1/info;info";
+
+service Info {
+  // 新增星体信息
+  rpc SaveInfo(InfoSaveRequest) returns (InfoSaveReply) {}
+
+  // 修改星体信息
+  rpc ModifyInfo(InfoModifyRequest) returns (InfoModifyReply) {}
+
+  // 删除星体信息
+  rpc RemoveInfo(InfoRemoveRequest) returns (InfoRemoveReply) {}
+
+  // 获取星体信息
+  rpc GetInfo(InfoGetRequest) returns (InfoGetReply) {}
+
+  // 分页查询星体信息列表
+  rpc PageInfo(InfoPageRequest) returns (InfoPageReply) {}
+
+  // 获取星体信息列表
+  rpc ListInfo(InfoListRequest) returns (InfoListReply) {}
+}

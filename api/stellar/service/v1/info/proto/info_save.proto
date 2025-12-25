@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package api.stellar.service.v1.info.proto;
+
+option go_package = "api/stellar/service/v1/info;info";
+
+// 添加星体信息请求
+message InfoSaveRequest {
+  string name = 1;
+  string file_url = 2;
+  double period = 3;
+  double dispersion_measure = 4;
+  double ra_deg = 5;
+  double dec_deg = 6;
+  double galactic_longitude = 7;
+  double galactic_latitude = 8;
+  string survey_name = 9;
+  int64 create_by = 10;
+  string remark = 11;
+}
+
+// 添加星体信息响应
+message InfoSaveReply {}

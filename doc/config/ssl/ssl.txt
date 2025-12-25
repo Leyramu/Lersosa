@@ -1,0 +1,185 @@
+/*
+ * Copyright (c) 2024 Leyramu Group. All rights reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * This project (Lersosa), including its source code, documentation, and any associated materials, is the intellectual property of Leyramu. No part of this software may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the copyright owner, Miraitowa_zcx, except in the case of brief quotations embodied in critical reviews and certain other noncommercial uses permitted by copyright law.
+ *
+ * For inquiries related to licensing or usage outside the scope of this notice, please contact the copyright holder at 2038322151@qq.com.
+ *
+ * The author disclaims all warranties, express or implied, including but not limited to the warranties of merchantability and fitness for a particular purpose. Under no circumstances shall the author be liable for any special, incidental, indirect, or consequential damages arising from the use of this software.
+ *
+ * By using this project, users acknowledge and agree to abide by these terms and conditions.
+ */
+
+
+---开始---lersosa---开始---
+
+生成CA私钥：openssl genrsa -aes256 -out ca/lersosa-ca-key.pem 2048
+
+创建自签名的CA证书：openssl req -x509 -new -nodes -key ca/lersosa-ca-key.pem -sha256 -days 3650 -out ca/lersosa-ca-cert.pem -subj "/C=CN/ST=Shandong/L=Jinan/O=Leyramu/OU=Lersosa/CN=Lersosa Root CA"
+
+生成服务器私钥：openssl genrsa -aes256 -out server/lersosa-server-key.pem 2048
+
+生成服务器证书签名请求：openssl req -new -key server/lersosa-server-key.pem -out server/lersosa-server.csr -subj "/C=CN/ST=Shandong/L=Jinan/O=Leyramu/OU=Lersosa/CN=localhost" -addext "subjectAltName = DNS:localhost,IP:127.0.0.1,IP:::1"
+
+签署服务器证书：openssl x509 -req -in server/lersosa-server.csr -CA ca/lersosa-ca-cert.pem -CAkey ca/lersosa-ca-key.pem -CAcreateserial -out server/lersosa-server-cert.pem -days 3650 -sha256
+
+生成客户端私钥：openssl genrsa -aes256 -out client/lersosa-client-key.pem 2048
+
+生成客户端证书签名请求：openssl req -new -key client/lersosa-client-key.pem -out client/lersosa-client.csr -subj "/C=CN/ST=Shandong/L=Jinan/O=Leyramu/OU=Lersosa/CN=localhost" -addext "subjectAltName = DNS:localhost,IP:127.0.0.1,IP:::1"
+
+签署客户端证书：openssl x509 -req -in client/lersosa-client.csr -CA ca/lersosa-ca-cert.pem -CAkey ca/lersosa-ca-key.pem -CAcreateserial -out client/lersosa-client-cert.pem -days 3650 -sha256
+
+---结束---lersosa---结束---
+
+
+
+---开始---ca---开始---
+
+生成CA私钥：openssl genrsa -aes256 -out ca/lersosa-ca-key.pem 4096
+
+创建自签名的CA证书：openssl req -x509 -new -nodes -key ca/lersosa-ca-key.pem -sha256 -days 3650 -out ca/lersosa-ca-cert.pem -config ca/lersosa-ca.conf
+
+导入证书新信任库：keytool -importcert -file ca/lersosa-ca-cert.pem -alias "lersosa-ca" -keystore ca/lersosa-ca-truststore.p12 -storetype PKCS12 -storepass "Zcx@223852//" -noprompt
+
+---结束---ca---结束---
+
+
+---开始---stellar---开始---
+
+生成服务器私钥：openssl genrsa -out server/stellar/lersosa-stellar-server-key.pem 2048
+
+生成服务器证书签名请求：openssl req -new -key server/stellar/lersosa-stellar-server-key.pem -out server/stellar/lersosa-stellar-server.csr -config server/stellar/lersosa-stellar-server.conf
+
+签署服务器证书：openssl x509 -req -in server/stellar/lersosa-stellar-server.csr -CA ca/lersosa-ca-cert.pem -CAkey ca/lersosa-ca-key.pem -CAcreateserial -out server/stellar/lersosa-stellar-server-cert.pem -days 3650 -sha256 -extfile server/stellar/lersosa-stellar-server.conf -extensions v3_stellar_server
+
+转换证书格式：openssl pkcs12 -export -in server/stellar/lersosa-stellar-server-cert.pem -inkey server/stellar/lersosa-stellar-server-key.pem -out server/stellar/lersosa-stellar-server-keystore.p12 -name "stellar" -password "pass:Zcx@223852//";
+
+生成客户端私钥：openssl genrsa -out client/stellar/lersosa-stellar-client-key.pem 2048
+
+生成客户端证书签名请求：openssl req -new -key client/stellar/lersosa-stellar-client-key.pem -out client/stellar/lersosa-stellar-client.csr -config client/stellar/lersosa-stellar-client.conf
+
+签署客户端证书：openssl x509 -req -in client/stellar/lersosa-stellar-client.csr -CA ca/lersosa-ca-cert.pem -CAkey ca/lersosa-ca-key.pem -CAcreateserial -out client/stellar/lersosa-stellar-client-cert.pem -days 3650 -sha256 -extfile client/stellar/lersosa-stellar-client.conf -extensions v3_stellar_client
+
+转换证书格式：openssl pkcs12 -export -in client/stellar/lersosa-stellar-client-cert.pem -inkey client/stellar/lersosa-stellar-client-key.pem -out client/stellar/lersosa-stellar-client-keystore.p12 -name "stellar_system" -password "pass:Zcx@223852//";
+
+---结束---stellar---结束---
+
+
+---开始---resource---开始---
+
+生成服务器私钥：openssl genrsa -out server/resource/lersosa-resource-server-key.pem 2048
+
+生成服务器证书签名请求：openssl req -new -key server/resource/lersosa-resource-server-key.pem -out server/resource/lersosa-resource-server.csr -config server/resource/lersosa-resource-server.conf
+
+签署服务器证书：openssl x509 -req -in server/resource/lersosa-resource-server.csr -CA ca/lersosa-ca-cert.pem -CAkey ca/lersosa-ca-key.pem -CAcreateserial -out server/resource/lersosa-resource-server-cert.pem -days 3650 -sha256 -extfile server/resource/lersosa-resource-server.conf -extensions v3_resource_server
+
+转换证书格式：openssl pkcs12 -export -in server/resource/lersosa-resource-server-cert.pem -inkey server/resource/lersosa-resource-server-key.pem -out server/resource/lersosa-resource-server-keystore.p12 -name "resource" -password "pass:Zcx@223852//";
+
+生成客户端私钥：openssl genrsa -out client/resource/lersosa-resource-client-key.pem 2048
+
+生成客户端证书签名请求：openssl req -new -key client/resource/lersosa-resource-client-key.pem -out client/resource/lersosa-resource-client.csr -config client/resource/lersosa-resource-client.conf
+
+签署客户端证书：openssl x509 -req -in client/resource/lersosa-resource-client.csr -CA ca/lersosa-ca-cert.pem -CAkey ca/lersosa-ca-key.pem -CAcreateserial -out client/resource/lersosa-resource-client-cert.pem -days 3650 -sha256 -extfile client/resource/lersosa-resource-client.conf -extensions v3_resource_client
+
+转换证书格式：openssl pkcs12 -export -in client/resource/lersosa-resource-client-cert.pem -inkey client/resource/lersosa-resource-client-key.pem -out client/resource/lersosa-resource-client-keystore.p12 -name "resource_system" -password "pass:Zcx@223852//";
+
+---结束---resource---结束---
+
+
+
+---开始---postgresql---开始---
+
+生成服务器私钥：openssl genrsa -out server/postgresql/lersosa-postgresql-server-key.pem 2048
+
+生成服务器证书签名请求：openssl req -new -key server/postgresql/lersosa-postgresql-server-key.pem -out server/postgresql/lersosa-postgresql-server.csr -config server/postgresql/lersosa-postgresql-server.conf
+
+签署服务器证书：openssl x509 -req -in server/postgresql/lersosa-postgresql-server.csr -CA ca/lersosa-ca-cert.pem -CAkey ca/lersosa-ca-key.pem -CAcreateserial -out server/postgresql/lersosa-postgresql-server-cert.pem -days 3650 -sha256 -extfile server/postgresql/lersosa-postgresql-server.conf -extensions v3_postgresql_server
+
+转换证书格式：openssl pkcs12 -export -in server/postgresql/lersosa-postgresql-server-cert.pem -inkey server/postgresql/lersosa-postgresql-server-key.pem -out server/postgresql/lersosa-postgresql-server-keystore.p12 -name "postgresql" -password "pass:Zcx@223852//";
+
+生成客户端私钥：openssl genrsa -out client/postgresql/lersosa-postgresql-client-key.pem 2048
+
+生成客户端证书签名请求：openssl req -new -key client/postgresql/lersosa-postgresql-client-key.pem -out client/postgresql/lersosa-postgresql-client.csr -config client/postgresql/lersosa-postgresql-client.conf
+
+签署客户端证书：openssl x509 -req -in client/postgresql/lersosa-postgresql-client.csr -CA ca/lersosa-ca-cert.pem -CAkey ca/lersosa-ca-key.pem -CAcreateserial -out client/postgresql/lersosa-postgresql-client-cert.pem -days 3650 -sha256 -extfile client/postgresql/lersosa-postgresql-client.conf -extensions v3_postgresql_client
+
+转换证书格式：openssl pkcs12 -export -in client/postgresql/lersosa-postgresql-client-cert.pem -inkey client/postgresql/lersosa-postgresql-client-key.pem -out client/postgresql/lersosa-postgresql-client-keystore.p12 -name "postgresql_client" -password "pass:Zcx@223852//";
+
+---结束---postgresql---结束---
+
+
+
+---开始---redis---开始---
+
+生成服务器私钥：openssl genrsa -out server/redis/lersosa-redis-server-key.pem 2048
+
+生成服务器证书签名请求：openssl req -new -key server/redis/lersosa-redis-server-key.pem -out server/redis/lersosa-redis-server.csr -config server/redis/lersosa-redis-server.conf
+
+签署服务器证书：openssl x509 -req -in server/redis/lersosa-redis-server.csr -CA ca/lersosa-ca-cert.pem -CAkey ca/lersosa-ca-key.pem -CAcreateserial -out server/redis/lersosa-redis-server-cert.pem -days 3650 -sha256 -extfile server/redis/lersosa-redis-server.conf -extensions v3_redis_server
+
+转换证书格式：openssl pkcs12 -export -in server/redis/lersosa-redis-server-cert.pem -inkey server/redis/lersosa-redis-server-key.pem -out server/redis/lersosa-redis-server-keystore.p12 -name "redis" -password "pass:Zcx@223852//";
+
+生成客户端私钥：openssl genrsa -out client/redis/lersosa-redis-client-key.pem 2048
+
+生成客户端证书签名请求：openssl req -new -key client/redis/lersosa-redis-client-key.pem -out client/redis/lersosa-redis-client.csr -config client/redis/lersosa-redis-client.conf
+
+签署客户端证书：openssl x509 -req -in client/redis/lersosa-redis-client.csr -CA ca/lersosa-ca-cert.pem -CAkey ca/lersosa-ca-key.pem -CAcreateserial -out client/redis/lersosa-redis-client-cert.pem -days 3650 -sha256 -extfile client/redis/lersosa-redis-client.conf -extensions v3_redis_client
+
+转换证书格式：openssl pkcs12 -export -in client/redis/lersosa-redis-client-cert.pem -inkey client/redis/lersosa-redis-client-key.pem -out client/redis/lersosa-redis-client-keystore.p12 -name "redis_client" -password "pass:Zcx@223852//";
+
+---结束---redis---结束---
+
+
+
+---开始---elasticsearch---开始---
+
+生成服务器私钥：openssl genrsa -out server/elasticsearch/lersosa-elasticsearch-server-key.pem 2048
+
+生成服务器证书签名请求：openssl req -new -key server/elasticsearch/lersosa-elasticsearch-server-key.pem -out server/elasticsearch/lersosa-elasticsearch-server.csr -config server/elasticsearch/lersosa-elasticsearch-server.conf
+
+签署服务器证书：openssl x509 -req -in server/elasticsearch/lersosa-elasticsearch-server.csr -CA ca/lersosa-ca-cert.pem -CAkey ca/lersosa-ca-key.pem -CAcreateserial -out server/elasticsearch/lersosa-elasticsearch-server-cert.pem -days 3650 -sha256 -extfile server/elasticsearch/lersosa-elasticsearch-server.conf -extensions v3_elasticsearch_server
+
+转换证书格式：openssl pkcs12 -export -in server/elasticsearch/lersosa-elasticsearch-server-cert.pem -inkey server/elasticsearch/lersosa-elasticsearch-server-key.pem -out server/elasticsearch/lersosa-elasticsearch-server-keystore.p12 -name "elasticsearch" -password "pass:Zcx@223852//";
+
+生成客户端私钥：openssl genrsa -out client/elasticsearch/lersosa-elasticsearch-client-key.pem 2048
+
+生成客户端证书签名请求：openssl req -new -key client/elasticsearch/lersosa-elasticsearch-client-key.pem -out client/elasticsearch/lersosa-elasticsearch-client.csr -config client/elasticsearch/lersosa-elasticsearch-client.conf
+
+签署客户端证书：openssl x509 -req -in client/elasticsearch/lersosa-elasticsearch-client.csr -CA ca/lersosa-ca-cert.pem -CAkey ca/lersosa-ca-key.pem -CAcreateserial -out client/elasticsearch/lersosa-elasticsearch-client-cert.pem -days 3650 -sha256 -extfile client/elasticsearch/lersosa-elasticsearch-client.conf -extensions v3_elasticsearch_client
+
+转换证书格式：openssl pkcs12 -export -in client/elasticsearch/lersosa-elasticsearch-client-cert.pem -inkey client/elasticsearch/lersosa-elasticsearch-client-key.pem -out client/elasticsearch/lersosa-elasticsearch-client-keystore.p12 -name "elasticsearch_client" -password "pass:Zcx@223852//";
+
+---结束---elasticsearch---结束---
+
+
+
+---开始---kibana ---开始---
+
+生成服务器私钥：openssl genrsa -out server/kibana/lersosa-kibana-server-key.pem 2048
+
+生成服务器证书签名请求：openssl req -new -key server/kibana/lersosa-kibana-server-key.pem -out server/kibana/lersosa-kibana-server.csr -config server/kibana/lersosa-kibana-server.conf
+
+签署服务器证书：openssl x509 -req -in server/kibana/lersosa-kibana-server.csr -CA ca/lersosa-ca-cert.pem -CAkey ca/lersosa-ca-key.pem -CAcreateserial -out server/kibana/lersosa-kibana-server-cert.pem -days 3650 -sha256 -extfile server/kibana/lersosa-kibana-server.conf -extensions v3_kibana_server
+
+转换证书格式：openssl pkcs12 -export -in server/kibana/lersosa-kibana-server-cert.pem -inkey server/kibana/lersosa-kibana-server-key.pem -out server/kibana/lersosa-kibana-server-keystore.p12 -name "kibana" -password "pass:Zcx@223852//";
+
+生成客户端私钥：openssl genrsa -out client/kibana/lersosa-kibana-client-key.pem 2048
+
+生成客户端证书签名请求：openssl req -new -key client/kibana/lersosa-kibana-client-key.pem -out client/kibana/lersosa-kibana-client.csr -config client/kibana/lersosa-kibana-client.conf
+
+签署客户端证书：openssl x509 -req -in client/kibana/lersosa-kibana-client.csr -CA ca/lersosa-ca-cert.pem -CAkey ca/lersosa-ca-key.pem -CAcreateserial -out client/kibana/lersosa-kibana-client-cert.pem -days 3650 -sha256 -extfile client/kibana/lersosa-kibana-client.conf -extensions v3_kibana_client
+
+转换证书格式：openssl pkcs12 -export -in client/kibana/lersosa-kibana-client-cert.pem -inkey client/kibana/lersosa-kibana-client-key.pem -out client/kibana/lersosa-kibana-client-keystore.p12 -name "kibana_system" -password "pass:Zcx@223852//";
+
+---结束---kibana---结束---

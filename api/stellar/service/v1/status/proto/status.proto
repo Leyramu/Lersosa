@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package api.stellar.service.v1.status.proto;
+
+import "stellar/service/v1/status/proto/status_save.proto";
+import "stellar/service/v1/status/proto/status_modify.proto";
+import "stellar/service/v1/status/proto/status_remove.proto";
+import "stellar/service/v1/status/proto/status_get.proto";
+import "stellar/service/v1/status/proto/status_page.proto";
+import "stellar/service/v1/status/proto/status_list.proto";
+
+option go_package = "api/stellar/service/v1/status;status";
+
+service Status {
+  // 新增星体状态
+  rpc SaveStatus(StatusSaveRequest) returns (StatusSaveReply) {}
+
+  // 修改星体状态
+  rpc ModifyStatus(StatusModifyRequest) returns (StatusModifyReply) {}
+
+  // 删除星体状态
+  rpc RemoveStatus(StatusRemoveRequest) returns (StatusRemoveReply) {}
+
+  // 获取星体状态
+  rpc GetStatus(StatusGetRequest) returns (StatusGetReply) {}
+
+  // 分页查询星体状态列表
+  rpc PageStatus(StatusPageRequest) returns (StatusPageReply) {}
+
+  // 获取星体状态列表
+  rpc ListStatus(StatusListRequest) returns (StatusListReply) {}
+}

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package api.stellar.service.v1.status.proto;
+
+option go_package = "api/stellar/service/v1/status;status";
+
+// 获取星体状态请求
+message StatusGetRequest {
+  string status_id = 1;
+}
+
+// 获取星体状态响应
+message StatusGetReply {
+  string status_id = 1;
+  string file_url = 2;
+  double score = 3;
+  int32 flag = 4;
+  int32 check = 5;
+  int64 create_by = 6;
+  string create_time = 7;
+  int64 update_by = 8;
+  string update_time = 9;
+  string remark = 10;
+  int32 version = 11;
+}

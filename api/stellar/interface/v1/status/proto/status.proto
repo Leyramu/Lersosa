@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package api.stellar.interface.v1.status.proto;
+
+import "google/api/annotations.proto";
+
+import "stellar/interface/v1/status/proto/status_save.proto";
+import "stellar/interface/v1/status/proto/status_modify.proto";
+import "stellar/interface/v1/status/proto/status_remove.proto";
+import "stellar/interface/v1/status/proto/status_get.proto";
+import "stellar/interface/v1/status/proto/status_page.proto";
+
+option go_package = "api/stellar/interface/v1/status;status";
+
+service Status {
+  // 新增星体状态
+  rpc SaveStatus(StatusSaveRequest) returns (StatusSaveReply) {
+    option (google.api.http) = {
+      post: "/stellar/v1/status"
+      body: "*"
+    };
+  }
+
+  // 修改星体状态
+  rpc ModifyStatus(StatusModifyRequest) returns (StatusModifyReply) {
+    option (google.api.http) = {
+      put: "/stellar/v1/status"
+      body: "*"
+    };
+  }
+
+  // 删除星体状态
+  rpc RemoveStatus(StatusRemoveRequest) returns (StatusRemoveReply) {
+    option (google.api.http) = {
+      delete: "/stellar/v1/status"
+    };
+  }
+
+  // 获取星体状态
+  rpc GetStatus(StatusGetRequest) returns (StatusGetReply) {
+    option (google.api.http) = {
+      get: "/stellar/v1/status/{status_id}"
+    };
+  }
+
+  // 分页查询星体状态列表
+  rpc PageStatus(StatusPageRequest) returns (StatusPageReply) {
+    option (google.api.http) = {
+      get: "/stellar/v1/status"
+    };
+  }
+}

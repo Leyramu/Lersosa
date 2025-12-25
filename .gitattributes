@@ -1,0 +1,14 @@
+# Enforce LF for all text files
+* text=auto eol=lf
+
+# Explicitly set for code files
+*.go text eol=lf
+*.proto text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.sh text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary

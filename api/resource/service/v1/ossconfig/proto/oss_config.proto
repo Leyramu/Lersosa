@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package api.resource.service.v1.ossconfig.proto;
+
+import "resource/service/v1/ossconfig/proto/oss_config_save.proto";
+import "resource/service/v1/ossconfig/proto/oss_config_modify.proto";
+import "resource/service/v1/ossconfig/proto/oss_config_remove.proto";
+import "resource/service/v1/ossconfig/proto/oss_config_get.proto";
+import "resource/service/v1/ossconfig/proto/oss_config_page.proto";
+import "resource/service/v1/ossconfig/proto/oss_config_get_default.proto";
+
+option go_package = "api/resource/service/v1/ossconfig;ossconfig";
+
+// 资源配置服务
+service OssConfig {
+  // 新增资源配置
+  rpc SaveOssConfig(OssConfigSaveRequest) returns (OssConfigSaveReply) {}
+
+  // 修改资源配置
+  rpc ModifyOssConfig(OssConfigModifyRequest) returns (OssConfigModifyReply) {}
+
+  // 删除资源配置
+  rpc RemoveOssConfig(OssConfigRemoveRequest) returns (OssConfigRemoveReply) {}
+
+  // 获取资源配置
+  rpc GetOssConfig(OssConfigGetRequest) returns (OssConfigGetReply) {}
+
+  // 分页查询资源配置列表
+  rpc PageOssConfig(OssConfigPageRequest) returns (OssConfigPageReply) {}
+
+  // 获取默认资源配置
+  rpc GetDefaultOssConfig(OssConfigGetDefaultRequest) returns (OssConfigGetDefaultReply) {}
+}

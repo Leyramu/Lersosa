@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package kratos.api;
+
+option go_package = "lersosa/app/stellar/service/internal/conf;conf";
+
+import "google/protobuf/duration.proto";
+
+message Bootstrap {
+  Server server = 1;
+  Data data = 2;
+}
+
+message Server {
+  message GRPC {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+    bool tls_enable = 4;
+    string cert_file = 5;
+    string key_file = 6;
+    string ca_file = 7;
+  }
+  GRPC grpc = 1;
+}
+
+message Data {
+  message Database {
+    string driver = 1;
+    string source = 2;
+  }
+  message Redis {
+    string network = 1;
+    string addr = 2;
+    string password = 3;
+    google.protobuf.Duration read_timeout = 4;
+    google.protobuf.Duration write_timeout = 5;
+    bool tls_enable = 6;
+    string cert_file = 7;
+    string key_file = 8;
+    string ca_file = 9;
+  }
+  message ElasticSearch {
+    string network = 1;
+    repeated string addr = 2;
+    string username = 3;
+    string password = 4;
+    string api_key = 5;
+    string cloud_id = 6;
+    bool tls_enable = 7;
+    string cert_file = 8;
+    string key_file = 9;
+    string ca_file = 10;
+  }
+  Database database = 1;
+  Redis redis = 2;
+  ElasticSearch elasticsearch = 3;
+}

@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package api.resource.interface.v1.ossconfig.proto;
+
+option go_package = "api/resource/interface/v1/ossconfig;ossconfig";
+
+// 保存资源配置请求
+message OssConfigSaveRequest {
+  string config_key = 1;
+  string access_key = 2;
+  string secret_key = 3;
+  string  bucket_name = 4;
+  string prefix = 5;
+  string endpoint = 6;
+  string domain = 7;
+  string is_https = 8;
+  string region = 9;
+  string access_policy = 10;
+  string status = 11;
+  string ext1 = 12;
+  int64 create_dept = 13;
+  int64 create_by = 14;
+  string remark = 15;
+}
+
+// 保存资源配置响应
+message OssConfigSaveReply {
+  // 数据
+  message Data {}
+
+  int32 code = 1;
+  string msg = 2;
+  Data data = 3;
+}

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package api.resource.interface.v1.file.proto;
+
+option go_package = "api/resource/interface/v1/file;file";
+
+// 上传文件请求
+message FileUploadRequest {
+  // 上传文件信息
+  message FileUploadInfo {
+    string file_name = 1;
+    string file_suffix = 2;
+    string content_type = 3;
+    int64 file_size = 4;
+  }
+
+  // 上传文件数据
+  message FileUploadData {
+    bytes chunk_data = 1;
+    bool is_last = 2;
+  }
+
+  // 上传数据
+  oneof data {
+    FileUploadInfo info = 1;
+    FileUploadData chunk = 2;
+  }
+}
+
+// 上传文件响应
+message FileUploadReply {
+  string original_name = 1;
+  string file_name = 2;
+  string file_suffix = 3;
+  string url = 4;
+  string service = 5;
+}

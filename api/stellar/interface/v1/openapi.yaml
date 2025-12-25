@@ -1,0 +1,642 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+  title: ""
+  version: 0.0.1
+paths:
+  /stellar/v1/info:
+    get:
+      tags:
+        - Info
+      description: 分页查询星体信息列表
+      operationId: Info_PageInfo
+      parameters:
+        - name: pageNum
+          in: query
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            type: string
+        - name: period
+          in: query
+          schema:
+            type: number
+            format: double
+        - name: dispersionMeasure
+          in: query
+          schema:
+            type: number
+            format: double
+        - name: raDeg
+          in: query
+          schema:
+            type: number
+            format: double
+        - name: decDeg
+          in: query
+          schema:
+            type: number
+            format: double
+        - name: galacticLongitude
+          in: query
+          schema:
+            type: number
+            format: double
+        - name: galacticLatitude
+          in: query
+          schema:
+            type: number
+            format: double
+        - name: surveyName
+          in: query
+          schema:
+            type: string
+        - name: flag
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: check
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.stellar.interface.v1.info.proto.InfoPageReply'
+    put:
+      tags:
+        - Info
+      description: 修改星体信息
+      operationId: Info_ModifyInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.stellar.interface.v1.info.proto.InfoModifyRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.stellar.interface.v1.info.proto.InfoModifyReply'
+    post:
+      tags:
+        - Info
+      description: 新增星体信息
+      operationId: Info_SaveInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.stellar.interface.v1.info.proto.InfoSaveRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.stellar.interface.v1.info.proto.InfoSaveReply'
+    delete:
+      tags:
+        - Info
+      description: 删除星体信息
+      operationId: Info_RemoveInfo
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.stellar.interface.v1.info.proto.InfoRemoveReply'
+  /stellar/v1/info/{infoId}:
+    get:
+      tags:
+        - Info
+      description: 获取星体信息
+      operationId: Info_GetInfo
+      parameters:
+        - name: infoId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.stellar.interface.v1.info.proto.InfoGetReply'
+  /stellar/v1/status:
+    get:
+      tags:
+        - Status
+      description: 分页查询星体状态列表
+      operationId: Status_PageStatus
+      parameters:
+        - name: pageNum
+          in: query
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          schema:
+            type: string
+        - name: flag
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: check
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: createBy
+          in: query
+          schema:
+            type: string
+        - name: updateBy
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.stellar.interface.v1.status.proto.StatusPageReply'
+    put:
+      tags:
+        - Status
+      description: 修改星体状态
+      operationId: Status_ModifyStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.stellar.interface.v1.status.proto.StatusModifyRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.stellar.interface.v1.status.proto.StatusModifyReply'
+    post:
+      tags:
+        - Status
+      description: 新增星体状态
+      operationId: Status_SaveStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/api.stellar.interface.v1.status.proto.StatusSaveRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.stellar.interface.v1.status.proto.StatusSaveReply'
+    delete:
+      tags:
+        - Status
+      description: 删除星体状态
+      operationId: Status_RemoveStatus
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.stellar.interface.v1.status.proto.StatusRemoveReply'
+  /stellar/v1/status/{statusId}:
+    get:
+      tags:
+        - Status
+      description: 获取星体状态
+      operationId: Status_GetStatus
+      parameters:
+        - name: statusId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.stellar.interface.v1.status.proto.StatusGetReply'
+components:
+  schemas:
+    api.stellar.interface.v1.info.proto.InfoGetReply:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/api.stellar.interface.v1.info.proto.InfoGetReply_Info'
+      description: 获取星体信息响应
+    api.stellar.interface.v1.info.proto.InfoGetReply_Info:
+      type: object
+      properties:
+        infoId:
+          type: string
+        fileUrl:
+          type: string
+        name:
+          type: string
+        period:
+          type: number
+          format: double
+        dispersionMeasure:
+          type: number
+          format: double
+        raDeg:
+          type: number
+          format: double
+        decDeg:
+          type: number
+          format: double
+        galacticLongitude:
+          type: number
+          format: double
+        galacticLatitude:
+          type: number
+          format: double
+        surveyName:
+          type: string
+        createBy:
+          type: string
+        createTime:
+          type: string
+        updateBy:
+          type: string
+        updateTime:
+          type: string
+        remark:
+          type: string
+        version:
+          type: integer
+          format: int32
+      description: 星体信息
+    api.stellar.interface.v1.info.proto.InfoModifyReply:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/api.stellar.interface.v1.info.proto.InfoModifyReply_Data'
+      description: 星体信息修改响应
+    api.stellar.interface.v1.info.proto.InfoModifyReply_Data:
+      type: object
+      properties: { }
+      description: 数据
+    api.stellar.interface.v1.info.proto.InfoModifyRequest:
+      type: object
+      properties:
+        infoId:
+          type: string
+        name:
+          type: string
+        period:
+          type: number
+          format: double
+        dispersionMeasure:
+          type: number
+          format: double
+        raDeg:
+          type: number
+          format: double
+        decDeg:
+          type: number
+          format: double
+        galacticLongitude:
+          type: number
+          format: double
+        galacticLatitude:
+          type: number
+          format: double
+        surveyName:
+          type: string
+        updateBy:
+          type: string
+        remark:
+          type: string
+        version:
+          type: integer
+          format: int32
+      description: 星体信息修改请求
+    api.stellar.interface.v1.info.proto.InfoPageReply:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        msg:
+          type: string
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.stellar.interface.v1.info.proto.InfoPageReply_Info'
+        total:
+          type: string
+      description: 获取星体信息分页响应
+    api.stellar.interface.v1.info.proto.InfoPageReply_Info:
+      type: object
+      properties:
+        infoId:
+          type: string
+        fileUrl:
+          type: string
+        name:
+          type: string
+        period:
+          type: number
+          format: double
+        dispersionMeasure:
+          type: number
+          format: double
+        raDeg:
+          type: number
+          format: double
+        decDeg:
+          type: number
+          format: double
+        galacticLongitude:
+          type: number
+          format: double
+        galacticLatitude:
+          type: number
+          format: double
+        surveyName:
+          type: string
+        createBy:
+          type: string
+        createTime:
+          type: string
+        updateBy:
+          type: string
+        updateTime:
+          type: string
+        remark:
+          type: string
+        version:
+          type: integer
+          format: int32
+      description: 星体信息信息
+    api.stellar.interface.v1.info.proto.InfoRemoveReply:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/api.stellar.interface.v1.info.proto.InfoRemoveReply_Data'
+      description: 星体信息删除响应
+    api.stellar.interface.v1.info.proto.InfoRemoveReply_Data:
+      type: object
+      properties: { }
+      description: 数据
+    api.stellar.interface.v1.info.proto.InfoSaveReply:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/api.stellar.interface.v1.info.proto.InfoSaveReply_Data'
+      description: 添加星体信息响应
+    api.stellar.interface.v1.info.proto.InfoSaveReply_Data:
+      type: object
+      properties: { }
+      description: 数据
+    api.stellar.interface.v1.info.proto.InfoSaveRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        period:
+          type: number
+          format: double
+        dispersionMeasure:
+          type: number
+          format: double
+        raDeg:
+          type: number
+          format: double
+        decDeg:
+          type: number
+          format: double
+        galacticLongitude:
+          type: number
+          format: double
+        galacticLatitude:
+          type: number
+          format: double
+        surveyName:
+          type: string
+        createBy:
+          type: string
+        remark:
+          type: string
+      description: 添加星体信息请求
+    api.stellar.interface.v1.status.proto.StatusGetReply:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/api.stellar.interface.v1.status.proto.StatusGetReply_Status'
+      description: 获取星体状态响应
+    api.stellar.interface.v1.status.proto.StatusGetReply_Status:
+      type: object
+      properties:
+        statusId:
+          type: string
+        fileUrl:
+          type: string
+        score:
+          type: number
+          format: double
+        flag:
+          type: integer
+          format: int32
+        check:
+          type: integer
+          format: int32
+        createBy:
+          type: string
+        createTime:
+          type: string
+        updateBy:
+          type: string
+        updateTime:
+          type: string
+        remark:
+          type: string
+        version:
+          type: integer
+          format: int32
+      description: 星体状态
+    api.stellar.interface.v1.status.proto.StatusModifyReply:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/api.stellar.interface.v1.status.proto.StatusModifyReply_Data'
+      description: 星体状态修改响应
+    api.stellar.interface.v1.status.proto.StatusModifyReply_Data:
+      type: object
+      properties: { }
+      description: 数据
+    api.stellar.interface.v1.status.proto.StatusModifyRequest:
+      type: object
+      properties:
+        statusId:
+          type: string
+        flag:
+          type: integer
+          format: int32
+        check:
+          type: integer
+          format: int32
+        updateBy:
+          type: string
+        remark:
+          type: string
+        version:
+          type: integer
+          format: int32
+      description: 星体状态修改请求
+    api.stellar.interface.v1.status.proto.StatusPageReply:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        msg:
+          type: string
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/api.stellar.interface.v1.status.proto.StatusPageReply_Status'
+        total:
+          type: string
+      description: 获取星体状态分页响应
+    api.stellar.interface.v1.status.proto.StatusPageReply_Status:
+      type: object
+      properties:
+        statusId:
+          type: string
+        fileUrl:
+          type: string
+        score:
+          type: number
+          format: double
+        flag:
+          type: integer
+          format: int32
+        check:
+          type: integer
+          format: int32
+        createBy:
+          type: string
+        createTime:
+          type: string
+        updateBy:
+          type: string
+        updateTime:
+          type: string
+        remark:
+          type: string
+        version:
+          type: integer
+          format: int32
+      description: 星体状态
+    api.stellar.interface.v1.status.proto.StatusRemoveReply:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/api.stellar.interface.v1.status.proto.StatusRemoveReply_Data'
+      description: 星体状态删除响应
+    api.stellar.interface.v1.status.proto.StatusRemoveReply_Data:
+      type: object
+      properties: { }
+      description: 数据
+    api.stellar.interface.v1.status.proto.StatusSaveReply:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/api.stellar.interface.v1.status.proto.StatusSaveReply_Data'
+      description: 添加星体状态响应
+    api.stellar.interface.v1.status.proto.StatusSaveReply_Data:
+      type: object
+      properties: { }
+      description: 数据
+    api.stellar.interface.v1.status.proto.StatusSaveRequest:
+      type: object
+      properties:
+        score:
+          type: number
+          format: double
+        flag:
+          type: integer
+          format: int32
+        check:
+          type: integer
+          format: int32
+        createBy:
+          type: string
+        remark:
+          type: string
+      description: 添加星体状态请求
+tags:
+  - name: Info
+  - name: Status

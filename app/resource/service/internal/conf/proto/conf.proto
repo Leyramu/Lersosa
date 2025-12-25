@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package kratos.api;
+
+option go_package = "lersosa/app/resource/service/internal/conf;conf";
+
+import "google/protobuf/duration.proto";
+
+message Bootstrap {
+  Server server = 1;
+  Data data = 2;
+}
+
+message Server {
+  message GRPC {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+    bool tls_enable = 4;
+    string cert_file = 5;
+    string key_file = 6;
+    string ca_file = 7;
+  }
+  GRPC grpc = 1;
+}
+
+message Data {
+  message Database {
+    string driver = 1;
+    string source = 2;
+  }
+  message Redis {
+    string network = 1;
+    string addr = 2;
+    string password = 3;
+    google.protobuf.Duration read_timeout = 4;
+    google.protobuf.Duration write_timeout = 5;
+    bool tls_enable = 6;
+    string cert_file = 7;
+    string key_file = 8;
+    string ca_file = 9;
+  }
+  Database database = 1;
+  Redis redis = 2;
+}
