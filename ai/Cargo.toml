@@ -1,0 +1,26 @@
+[workspace]
+members = [
+    "crates/lersosa-core",
+    "crates/lersosa-serving",
+    "crates/lersosa-crawler",
+    "apps/inference-server",
+    "apps/web-crawler",
+]
+
+[package]
+name = "lersosa"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = ["ndarray"]
+ndarray = ["lersosa-core/ndarray"]
+wgpu = ["lersosa-core/wgpu"]
+vulkan = ["lersosa-core/vulkan"]
+cuda = ["lersosa-core/cuda"]
+tch = ["lersosa-core/tch"]
+
+[dependencies]
+lersosa-core = { path = "crates/lersosa-core" }
+serde = { version = "1.0", features = ["derive"] }
+toml = "1.0.7"

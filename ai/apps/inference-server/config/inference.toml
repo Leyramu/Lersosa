@@ -1,0 +1,17 @@
+backend = "ndarray"
+
+[network]
+http_addr = "127.0.0.1:8080"
+grpc_addr = "127.0.0.1:50051"
+
+[model]
+artifact_dir = "artifacts/transformer"
+
+[limits]
+max_batch_size = 8
+max_tokens_per_request = 512
+max_payload_bytes = 65536
+
+[logging]
+filter = "inference_server=info,lersosa_serving=info"
+

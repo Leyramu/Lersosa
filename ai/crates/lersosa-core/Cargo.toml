@@ -1,0 +1,25 @@
+[package]
+name = "lersosa-core"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = ["ndarray", "burn/tui"]
+ndarray = ["burn/ndarray"]
+wgpu = ["burn/wgpu"]
+vulkan = ["burn/vulkan"]
+cuda = ["burn/cuda"]
+tch = ["burn/tch"]
+
+[dependencies]
+automod = "1.0"
+burn = { version = "0.21.0-pre.2", default-features = false, features = [
+    "std",
+    "dispatch",
+    "fusion",
+    "train",
+    "metrics"
+] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "webp", "bmp"] }

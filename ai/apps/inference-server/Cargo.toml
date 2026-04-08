@@ -1,0 +1,19 @@
+[package]
+name = "inference-server"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = ["ndarray"]
+ndarray = ["lersosa-serving/ndarray"]
+wgpu = ["lersosa-serving/wgpu"]
+vulkan = ["lersosa-serving/vulkan"]
+cuda = ["lersosa-serving/cuda"]
+tch = ["lersosa-serving/tch"]
+
+[dependencies]
+axum = "0.8"
+lersosa-serving = { path = "../../crates/lersosa-serving", default-features = false }
+tokio = { version = "1.48", features = ["macros", "rt-multi-thread", "net"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }

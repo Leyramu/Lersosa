@@ -1,0 +1,157 @@
+syntax = "proto3";
+
+package lersosa.inference.v1;
+
+service InferenceService {
+  rpc Health (HealthRequest) returns (HealthResponse);
+  rpc Infer (InferRequest) returns (InferResponse);
+  rpc InferBatch (InferBatchRequest) returns (InferBatchResponse);
+  rpc Generate (GenerateRequest) returns (GenerateResponse);
+  rpc GenerateBatch (GenerateBatchRequest) returns (GenerateBatchResponse);
+  rpc Chat (ChatRequest) returns (ChatResponse);
+  rpc ChatStream (ChatRequest) returns (stream ChatStreamResponse);
+  rpc Reload (ReloadRequest) returns (ReloadResponse);
+}
+
+message HealthRequest {}
+
+message HealthResponse {
+  string status = 1;
+  string backend = 2;
+}
+
+message InferRequest {
+  repeated int64 tokens = 1;
+}
+
+message InferResponse {
+  int64 next_token_id = 1;
+  repeated uint64 logits_shape = 2;
+  string backend = 3;
+}
+
+message InferBatchRequest {
+  repeated InferRequest items = 1;
+}
+
+message InferBatchResponse {
+  repeated InferResponse results = 1;
+}
+
+message GenerateRequest {
+  repeated int64 prompt_tokens = 1;
+  uint32 max_new_tokens = 2;
+  int64 stop_token_id = 3;
+  bool has_stop_token_id = 4;
+}
+
+message GenerateResponse {
+  repeated int64 prompt_tokens = 1;
+  repeated int64 generated_tokens = 2;
+  repeated uint64 logits_shape = 3;
+  int64 next_token_id = 4;
+  string stop_reason = 5;
+  string backend = 6;
+}
+
+message GenerateBatchRequest {
+  repeated GenerateRequest items = 1;
+}
+
+message GenerateBatchResponse {
+  repeated GenerateResponse results = 1;
+}
+
+enum ChatRole {
+  CHAT_ROLE_UNSPECIFIED = 0;
+  CHAT_ROLE_SYSTEM = 1;
+  CHAT_ROLE_USER = 2;
+  CHAT_ROLE_ASSISTANT = 3;
+}
+
+message ChatMessage {
+  ChatRole role = 1;
+  string content = 2;
+}
+
+message ChatToolDefinition {
+  string name = 1;
+  string description = 2;
+  string parameters_json = 3;
+}
+
+message ChatToolChoice {
+  oneof choice {
+    bool auto = 1;
+    bool none = 2;
+    bool required = 3;
+    string named = 4;
+  }
+}
+
+message ChatRequest {
+  string system = 1;
+  repeated ChatMessage messages = 2;
+  repeated ChatToolDefinition tools = 3;
+  ChatToolChoice tool_choice = 4;
+  uint32 max_new_tokens = 5;
+  int64 stop_token_id = 6;
+  bool has_stop_token_id = 7;
+}
+
+message ChatTokenizerMetadata {
+  int64 pad_token_id = 1;
+  int64 bos_token_id = 2;
+  int64 eos_token_id = 3;
+  int64 unk_token_id = 4;
+  int64 system_token_id = 5;
+  int64 user_token_id = 6;
+  int64 assistant_token_id = 7;
+  int64 tool_token_id = 8;
+  int64 tool_choice_token_id = 9;
+  int64 end_of_tools_token_id = 10;
+  int64 end_of_turn_token_id = 11;
+  int64 byte_offset = 12;
+}
+
+message ToolCall {
+  string name = 1;
+  string arguments_json = 2;
+  string raw = 3;
+}
+
+message ChatResponse {
+  string prompt = 1;
+  string reply = 2;
+  ToolCall tool_call = 3;
+  repeated int64 prompt_tokens = 4;
+  repeated int64 generated_tokens = 5;
+  string stop_reason = 6;
+  string backend = 7;
+  ChatTokenizerMetadata tokenizer = 8;
+}
+
+message ChatStreamResponse {
+  string event = 1;
+  string delta = 2;
+  string stop_reason = 3;
+  bool done = 4;
+  string backend = 5;
+  int64 token_id = 6;
+  bool has_token_id = 7;
+  ToolCall tool_call = 8;
+}
+
+message ReloadRequest {
+  string backend = 1;
+  uint32 max_batch_size = 2;
+  uint32 max_tokens_per_request = 3;
+  uint64 max_payload_bytes = 4;
+  string artifact_dir = 5;
+}
+
+message ReloadResponse {
+  string status = 1;
+  string backend = 2;
+  string artifact_dir = 3;
+}
