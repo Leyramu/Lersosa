@@ -1,0 +1,14 @@
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "I want to build an intelligent fire detection system."
+    }
+  ],
+  "execute": true,
+  "async_mode": true,
+  "run_id": "demo-fire-run-async",
+  "max_source_pages": 3,
+  "max_images": 50
+}
+

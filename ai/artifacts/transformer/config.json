@@ -1,0 +1,26 @@
+{
+  "model": {
+    "vocab_size": 5000,
+    "max_seq_length": 16,
+    "d_model": 64,
+    "d_ff": 256,
+    "n_heads": 4,
+    "n_layers": 2
+  },
+  "optimizer": {
+    "weight_decay": null,
+    "grad_clipping": null,
+    "beta_1": 0.9,
+    "beta_2": 0.999,
+    "epsilon": 0.00001,
+    "amsgrad": false
+  },
+  "pad_token_id": 0,
+  "num_epochs": 2,
+  "batch_size": 32,
+  "num_workers": 2,
+  "seed": 42,
+  "learning_rate": 0.001,
+  "train_size": 1024,
+  "valid_size": 256
+}

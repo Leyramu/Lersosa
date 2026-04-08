@@ -1,0 +1,13 @@
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": "I want to build an intelligent fire detection system."
+    }
+  ],
+  "execute": true,
+  "run_id": "demo-fire-run",
+  "max_source_pages": 3,
+  "max_images": 50
+}
+

@@ -1,0 +1,29 @@
+{
+  "prior_request": {
+    "system": null,
+    "messages": [
+      {
+        "role": "user",
+        "content": "a"
+      }
+    ],
+    "tools": [
+      {
+        "name": "w",
+        "description": null,
+        "parameters_json": "{}"
+      }
+    ],
+    "tool_choice": null,
+    "max_new_tokens": 8,
+    "stop_token_id": null
+  },
+  "tool_output": "s",
+  "tool_call": {
+    "name": "w",
+    "arguments_json": "{}",
+    "raw": "{\"name\":\"w\",\"arguments\":{}}"
+  },
+  "max_new_tokens": 8,
+  "stop_token_id": null
+}

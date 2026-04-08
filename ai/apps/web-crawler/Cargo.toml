@@ -1,0 +1,11 @@
+[package]
+name = "web-crawler"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+lersosa-crawler = { path = "../../crates/lersosa-crawler" }
+tokio = { version = "1.48", features = ["macros", "rt-multi-thread"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+

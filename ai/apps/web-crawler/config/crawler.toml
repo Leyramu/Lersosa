@@ -1,0 +1,21 @@
+seed_urls = ["https://cn.bing.com"]
+#user_agent = "LersosaCrawler/1.0 (+https://example.com/bot)"
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0"
+max_pages = 30
+max_depth = 2
+request_timeout_secs = 15
+# Delay before each page request. Set 0 to disable.
+request_delay_ms = 200
+# Minimum interval between two requests to the same host. Set 0 to disable.
+per_host_request_delay_ms = 500
+respect_robots = true
+# Empty means no allowlist restriction (all paths allowed unless blocked).
+allowed_path_prefixes = []
+# Example: ["/admin", "/private"]
+blocked_path_prefixes = []
+
+[mongo]
+uri = ""
+database = "lersosa"
+collection = "crawled_pages"
+
