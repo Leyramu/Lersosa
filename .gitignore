@@ -43,7 +43,6 @@ bin/
 /doc/config/ssl/**/*.conf
 /doc/config/ssl/ca/*-key.pem
 
-/ui/
 /doc/db/
 /tmp/
 /docker/
