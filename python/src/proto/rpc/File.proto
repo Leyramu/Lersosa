@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+service File {
+    rpc UploadFile (stream FileRequest) returns (FileReply) {}
+}
+
+message FileChunk {
+    bytes data = 1;
+    string file_name = 2;
+    string mime_type = 3;
+}
+
+message FileDataReply {
+    int64 oss_id = 1;
+    string name = 2;
+    string url = 3;
+    string original_name = 4;
+    string file_suffix = 5;
+}
+
+message FileRequest {
+    FileChunk file_chunk = 1;
+}
+
+message FileReply {
+    int32 code = 1;
+    string message = 2;
+    repeated FileDataReply data = 3;
+}
